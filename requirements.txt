@@ -1,0 +1,4 @@
+nose
+nosegae
+nose-pathmunge
+yuicompressor

@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% import '/macros/component.html' as component %}
+
+{%- block content -%}
+
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Asset</th>
+      <th>Amounts</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for asset in assets|dictsort(by='value') %}
+    <tr>
+      <td>{{ assets_dict.get(asset.0, {}).get('type') }}</td>
+      <td>{{ assets_dict.get(asset.0, {}).get('label') }} -- {{ asset.0 }}</td>
+      <td class="num">{{ '%.8f' % asset.1 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  $(document).ready(function() {
+    $('table').tablesorter();
+  });
+</script>
+
+{%- endblock -%}

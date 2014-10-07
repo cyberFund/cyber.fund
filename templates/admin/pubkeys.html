@@ -1,0 +1,111 @@
+{% extends "admin/base.html" %}
+{% import '/macros/component.html' as component %}
+
+{%- block content -%}
+<h2>Add account</h2>
+<form method="POST" action="/admin/accounts/put" class="form-horizontal" role="form">
+  <div class="row">
+    <div class="form-group col-md-2"><input type="text" name="pubkey" placeholder="Public Key" value="{{ addr.1 }}" required class="form-control"></div>
+    <div class="form-group col-md-2"><input type="password" name="privkey" placeholder="Private Key" value="{{ addr.0 }}" class="form-control"></div>
+    <div class="form-group col-md-3"><input type="text" name="tags" placeholder="Tags" id="tags" style="width: 100%;"></div>
+    <div class="form-group col-md-3"><input type="submit" class="btn btn-primary" value="Add account"></div>
+  </div>
+</form>
+
+<h2>Batch processing</h2>
+ <br>
+
+<div class="row">
+  <div class="col-md-4">
+    <button class="btn btn-primary" onclick="importSpreadsheet('/admin/accounts/import', '/admin/accounts');">Import Spreadsheet</button>
+  </div>
+  <div class="col-md-4">
+    <div id="google-drive-progress-bar" class="progress progress-striped active hidden">
+      <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <form method="POST" role="form" action="/admin/transactions/flush">
+      <button type="submit" class="btn btn-danger">Flush transactions and accounts</button>
+    </form>
+  </div>
+
+</div>
+
+<h2>All accounts</h2>
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Label</th>
+      <th>Addr</th>
+      <th>User</th>
+      <th>Balances</th>
+      <th>Tags</th>
+    </tr>
+  </thead>
+    <tbody>
+    {% for pubkey in pub_keys %}
+    <tr>
+      <td>
+        {%- if not loop.first and pub_keys[loop.index0 - 1].type == pubkey.type -%}
+        {%- else -%}
+          {%- if pubkey.type -%}
+            {{ component.tag('type', pubkey.tag('type'), hash_color, invert_color) }}
+          {%- else -%}
+            None
+          {%- endif -%}
+        {%- endif -%}
+      </td>
+      <td>
+        {%- if not loop.first and pub_keys[loop.index0 - 1].label == pubkey.label -%}
+        {%- else -%}
+          {%- if pubkey.label -%}
+            {{ component.tag('label', pubkey.tag('label'), hash_color, invert_color) }}
+          {%- else -%}
+            None
+          {%- endif -%}
+        {%- endif -%}
+      </td>
+      <td>{{ pubkey.key.id()|string() }}</td>
+      <td>
+        {%- if pubkey.user -%}
+          {{ component.tag('user', pubkey.tag('user'), hash_color, invert_color) }}
+        {%- endif -%}
+      </td>
+      <td>
+        {%- for balance in pubkey.balances|sort -%}
+          <button type="button" style="margin-right: 1px; margin-top: 1px;" class="btn btn-{% if balance.value < 0 %}danger{% elif balance.value == 0 %}info{% else %}success{% endif %} btn-xs">{{ balance.value }} {{ balance.asset }}</button>
+        {%- endfor -%}
+      </td>
+      <td>
+        {%- for tag in pubkey.tags|sort(attribute='prop') -%}
+          {%- if tag.prop not in ['type', 'label', 'user'] -%}
+            {{ component.tag(tag.prop, tag.value, hash_color, invert_color, color='prop', display_prop=True) }}
+          {%- endif -%}
+        {%- endfor -%}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<script type="text/javascript" src="/js/picker.js"></script>
+
+<script src="/js/select2.js"></script>
+<script>
+  $('#tags').select2({
+    multiple: true,
+    placeholder: 'Select some tags...',
+    minimumInputLength: 0,
+    tags: {{ tags|safe }}
+  });
+
+  $(document).ready(function() {
+    $('table').tablesorter();
+  });
+
+</script>
+
+{%- endblock -%}

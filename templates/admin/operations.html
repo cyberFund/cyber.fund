@@ -1,0 +1,58 @@
+{% extends "admin/base.html" %}
+{% import '/macros/component.html' as component %}
+
+{%- block content -%}
+
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Asset</th>
+      <th>In Progress</th>
+      <th>Pending</th>
+      <th>Canceled</th>
+      <th>Finished</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for operation, states in operations.iteritems() %}
+      {% for asset, assets in states.iteritems() %}
+        <tr>
+          <td class="operation">{{ operation }}</td>
+          <td>{{ asset }}</td>
+          <td class="num">{%- if '%.8f' % assets.get('in_progress', 0) != '0.00000000' -%}{{ '%.8f' % assets.get('in_progress', 0) }}{%- endif -%}</td>
+          <td class="num">{%- if '%.8f' % assets.get('pending', 0) != '0.00000000' -%}{{ '%.8f' % assets.get('pending', 0) }}{%- endif -%}</td>
+          <td class="num">{%- if '%.8f' % assets.get('canceled', 0) != '0.00000000' -%}{{ '%.8f' % assets.get('canceled', 0) }}{%- endif -%}</td>
+          <td class="num">{%- if '%.8f' % assets.get('finished', 0) != '0.00000000' -%}{{ '%.8f' % assets.get('finished', 0) }}{%- endif -%}</td>
+        </tr>
+      {% endfor %}
+    {% endfor %}
+  </tbody>
+</table>
+
+<script>
+  function readability() {
+    var prev;
+    $('.operation').each(function(index) {
+      if ($(this).text() == prev) {
+        $(this).css('visibility', 'hidden');
+      } else {
+        $(this).css('visibility', 'visible');
+      }
+      prev = $(this).text();
+    });
+  }
+
+  $(document).ready(function() {
+    $('table').tablesorter();
+    readability();
+  });
+
+  $('th').click(function() {
+    setTimeout(function() {
+      readability();
+    }, 50);
+  });
+</script>
+
+{%- endblock -%}

@@ -1,0 +1,33 @@
+.mining-order-button {
+  background-color: #60DF62;
+  color: white !important;
+}
+.mining-order-button:hover {
+  color: green !important;
+}
+.mining-price {
+  color: red !important;
+}
+
+.inactive :hover {
+  background-color: transparent !important;
+  color: grey !important;
+}
+.inactive a {
+  color: grey !important;
+  cursor: default;
+}
+.current :hover {
+  background-color: transparent !important;
+  color: dodgerblue !important;
+}
+.current a {
+  color: dodgerblue !important;
+  cursor: default;
+}
+.done :hover {
+  color: limegreen !important;
+}
+.done a {
+  color: limegreen !important;
+}

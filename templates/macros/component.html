@@ -1,0 +1,7 @@
+{%- macro tag(prop, value, hash_color, invert_color, color='value', display_prop=False) -%}
+  <a href="?tags={{ prop }}:{{ value }}" class="nounderline">
+    <button title="{{ prop }}:{{ value }}" type="button" class="btn btn-default btn-xs" style="-webkit-text-stroke-width: 0.5px; color: {{ invert_color(hash_color(value if color == 'value' else prop)) }}; background-color: #{{ hash_color(value if color == 'value' else prop) }};">
+      {%- if display_prop -%}{{ prop }}:{%- endif -%}{%- if value -%}{{ value|truncate(21, killwords=True) }}{%- endif -%}
+    </button>
+  </a>
+{%- endmacro -%}

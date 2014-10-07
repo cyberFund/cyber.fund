@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{%- block content -%}
+
+<div class="row">
+  <div class="col-md-6 text-center">
+    <div id="qrcode"></div>
+    <p>To pay with bitcoin please send to:
+      <strong>
+        <span id="address">{{ address }}</span>
+      </strong>
+    </p>
+  </div>
+  <div class="col-md-6">
+    <p>Pending transfers:</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Hash</th>
+          <th>Amount</th>
+          <th>Confirmations</th>
+        </tr>
+      </thead>
+      <tbody id="txs">
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+{%- endblock -%}
+
+{%- block js -%}
+<script src="/static/jquery.qrcode.min.js"></script>
+<script>
+$('#qrcode').qrcode('bitcoin:{{ address }}');
+
+function sumInputs(obj) {
+  var l = obj.length;
+  var inputs = 0;
+  for (var i = 0; i < l; i++) {
+    inputs = inputs + obj[i].prev_out.value;
+  }
+  return inputs;
+}
+
+function sumOut(obj, addr) {
+  var l = obj.length;
+  var out = 0;
+  for (var i = 0; i < l; i++) {
+    if (obj[i].addr == addr) {
+      out = out + obj[i].value;
+    }
+  }
+  return out;
+}
+
+function populatePendingTxs(addr, currentHeight) {
+  $.ajax({
+    url: 'http://www.corsproxy.com/blockchain.info/address/' + addr +
+         '?format=json&limit=10',
+    dataType: 'json',
+    success: function(data) {
+      var l = data.txs.length;
+      var result = [];
+      for (var i = 0; i < l; i++) {
+        var hash = data.txs[i].hash;
+        var amount = 0;
+        amount = sumOut(data.txs[i].out, addr) / 100000000;
+        var confirmations = 0;
+        if ('block_height' in data.txs[i]) {
+          confirmations = currentHeight - data.txs[i].block_height + 1;
+        }
+        result.push('<tr><td><a href="https://blockchain.info/tx/' + hash +
+                    '" target="_blank">' + hash.substring(0, 6) +
+                    '</a></td><td>' + amount +
+                    '</td><td>' + confirmations + '</td></tr>');
+      }
+      $('#txs').html(result.join(''));
+    },
+    error: function(err) {
+      console.log(err);
+    }
+  });
+}
+
+function updateTxs(addr) {
+  $.ajax({
+    url: 'http://www.corsproxy.com/blockchain.info/latestblock?cors=true',
+    dataType: 'json',
+    success: function(data) {
+      populatePendingTxs(addr, data.height);
+    },
+    error: function() {}
+  });
+}
+
+var address = $('#address').html();
+
+updateTxs(address);
+
+window.setInterval(function() {
+  updateTxs(address);
+}, 10000);
+
+$('body').on('click', '#txs-update', function(event) {
+  updateTxs(address);
+});
+</script>
+{%- endblock -%}

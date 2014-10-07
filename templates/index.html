@@ -1,0 +1,438 @@
+{% extends "base.html" %}
+
+{%- block content -%}
+<script src="js/jquery.countdown.js"></script>
+<style>
+.container {min-height: 0;}
+a:hover {text-decoration: none;}
+
+@media all and (max-width: 990px) {
+  #innovations {
+    height: 820px !important;
+  }
+
+  #community {
+    height: 1200px !important;
+  }
+
+  #social {
+    height: 980px !important;
+  }
+}
+img.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto
+  }
+.avatar-frame{}
+.avatar-frame,.avatar-frame img{
+  width: 150px;
+  height: 150px;
+  -webkit-border-radius: 180px; /* Saf3+, Chrome */
+  border-radius: 180px; /* Opera 10.5, IE 9 */
+  }
+.avatar-text {
+  margin-left: 20px;
+}
+
+.human-name {
+  margin: 0;
+}
+
+.human-title {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+</style>
+
+</div>
+
+<div style="background-image: url('/images/planet.jpg'); height: 650px; background-size: cover;">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h1 class="text-center" style="color:white; ; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+    cyber <span style="color:yellow">•</span> Fund
+  </h1>
+  <br>
+  <h3 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+    does for intelligence what Bitcoin is doing for money
+  </h3>
+  <br>
+  <h2 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+    <span id="invested-amount">0</span> bitcoins
+  </h2>
+  <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 1px 0px 7px rgba(0, 0, 0, 1);">
+    already invested
+  </h4>
+  <br>
+  <div class="col-md-offset-5 col-md-2 text-center" width="300px">
+    <h3 class="text-center" style="color:white; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+      <a href="/invest" class="nounderline">
+        <button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top:10px">Invest first</button>
+      </a>
+    </h3>
+    <br>
+    <br>
+  <h3>
+    <div id="getting-started" style="color:white; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+    </div>
+      <script type="text/javascript">
+        $('#getting-started').countdown('2014/11/20', function(event) {
+        $(this).html(event.strftime('%D days %H:%M:%S left'));
+        });
+      </script>
+  </h3>
+  </div>
+</div>
+
+<div id="whatis" class="container">
+  <br>
+  <br>
+  <br>
+  <h1 class="text-center">What is cyber <span style="color:red; position:relative; top:3px;">•</span> Fund?</h1>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <div class="row text-center">
+    <div class="col-md-4">
+      <a href="#revoproducts"><i style="color:green" class="fa fa-link fa-5x"></i></a>
+      <h3>Revolutionary products</h3>
+    </div>
+    <div class="col-md-4">
+      <a href="#community"><i style="color:yellow" class="fa fa-users fa-5x"></i></a>
+      <h3>Awesome community</h3>
+    </div>
+    <div class="col-md-4">
+      <a href="#innovations"><i style="color:blue" class="fa fa-line-chart fa-5x"></i></a>
+      <h3>Disruptive innovations</h3>
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h3 class="text-center">First distributed investment & development fund</h3>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+</div>
+
+<div id="revoproducts" style="background-image: url('/images/network.jpg'); height: 350px; background-size: cover;">
+  <br>
+  <br>
+  <br>
+  <h1 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">Revolutionary Products</h1>
+  <br>
+  <br>
+  <br>
+  <h2 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">Invented to boost Bitcoin & cryptoassets</h2>
+
+</div>
+
+
+  <!-- start Products -->
+  <div id="products" class="container">
+  <br>
+
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <h2>cyber <span style="color:yellow; position:relative; top:3px;">•</span> Wallet</h2>
+      <br>
+      <p>Manage any cryptoassets in one place with your friends</p>
+      <br>
+      <a href="/wallet" class="nounderline">
+        <button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top:10px">Manage</button>
+      </a>
+    </div>
+    <div class="col-md-4 text-center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <h2>cyber <span style="color:green; position:relative; top:3px;">•</span> Pie</h2>
+      <br>
+      <p>The most intelligent investment portfolio in one click</p>
+      <br>
+      <a href="https://trello.com/b/WKOtb0lN/cyber-pie" class="nounderline">
+        <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px">Explore</button>
+      </a>
+    </div>
+    <div class="col-md-4 text-center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <h2>cyber <span style="color:blue; position:relative; top:3px;">•</span> Inceptor</h2>
+      <br>
+      <p>Crowdfunding platform for inventors of 3 millennium</p>
+      <br>
+      <a href="" class="nounderline">
+        <button type="button" class="btn btn-default btn-lg btn-block" style="margin-top:10px">Soon</button>
+      </a>
+    </div>
+</div>
+  <!-- end Products -->
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  <!-- Dream idea -->
+</div>
+<div id="community" style="background-image: url('/images/innovations.jpg'); height: 480px; background-size: cover;">
+  <br>
+  <br>
+    <h1 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+      Awesome Community
+    </h1>
+  <br>
+  <br>
+  <a href="http://forum.cyber.fund"><img src="/images/cyber_forum_logo.png" height="200px" width="200px" class="centered"></a>
+  <br>
+  <h2 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+    One place where crypto professionals meet
+  </h2>
+
+</div>
+
+  <div id="how" class="container">
+  <div class="row">
+    <div class="col-md-4 text-center">
+      <br>
+      <h2>Distributed Development</h2>
+      <br>
+      <p>Open source development is trustless and efficient way to build ingenious anything</p>
+      <br>
+    </div>
+    <div class="col-md-4 text-center">
+      <br>
+      <h2>Distributed Investments</h2>
+      <br>
+      <p>Be certain about your investments with automated collaborative consensus</p>
+      <br>
+    </div>
+    <div class="col-md-4 text-center">
+      <br>
+      <h2>Distributed Marketing</h2>
+      <br>
+      <p>New generation open digital marketing allow to program people easier than ever</p>
+      <br>
+    </div>
+  </div>
+      <div class="row">
+      <div class="col-md-offset-1 col-md-2 text-center">
+        <a href="http://forum.cyber.fund/users/21xhipster/">
+          <div class="avatar-frame"><img src="http://www.gravatar.com/avatar/8e9bc3afe792e883d8fe9cd7f9de9176?s=200"></div>
+        </a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://forum.cyber.fund/users/creat0r">
+          <div class="avatar-frame"><img src="https://s.gravatar.com/avatar/5092dc6e1b1ed484b6db802076a297da?s=200"></div>
+        </a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://forum.cyber.fund/users/sadovnychyi">
+          <div class="avatar-frame"><img src="http://www.gravatar.com/avatar/c64c420648367c4731d652862fb53d0d?s=200"></div>
+        </a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://forum.cyber.fund/users/cybermonetarist">
+          <div class="avatar-frame"><img src="http://www.gravatar.com/avatar/8abb163b149a6ab73770dce2cb6d52e7?s=200"></div>
+        </a>
+      </div>
+      <div class="col-md-2 text-center">
+        <a href="http://forum.cyber.fund/users/prof1983">
+          <div class="avatar-frame"><img src="/images/yaroslav_loginov.png"></div>
+        </a>
+      </div>
+    </div>
+    <br>
+    <br>
+  <div class="row">
+    <div class="col-md-offset-5 col-md-2">
+      <a href="http://forum.cyber.fund" class="nounderline">
+          <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px">Join community</button>
+      </a>
+    </div>
+  </div>
+<br>
+<br>
+<br>
+
+  <!-- End: Dream idea -->
+
+</div>
+<div id="innovations" style="background-image: url('/images/ai.jpg'); height: 400px; background-size: cover;">
+  <br>
+  <br>
+<h1 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">Disruptive Innovations</h1>
+  <br>
+  <br>
+  <div class="text-center">
+    <div class="col-md-4" style="margin-top:10px">
+      <img src="/images/brain.png" height="120">
+      <h3 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+        Global Brain Concept
+      <h3>
+    </div>
+    <div class="col-md-4" style="margin-top:10px">
+      <img src="/images/framework.png" height="120">
+      <h3 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+        Cybernetic Business Framework
+      <h3>
+    </div>
+    <div class="col-md-4" style="margin-top:10px">
+      <img src="/images/kubic.png" height="120">
+      <h3 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+        Proof-of-Origin
+      <h3>
+    </div>
+    <br>
+  </div>
+  <br>
+</div>
+
+  <div id="about" class="container">
+  <br>
+  <div style="float: left; width: 69%;">
+    <h1 class="text-center">
+      What the hell is going on?
+    </h1>
+    <br>
+    <br>
+    <p>Bitcoin, blockchain and cryptocurrency technology will have tremendous impact on the world economy and personally you. We have gathered all knowledges about what happens in cryptocurrency industry in the opensource and free book: New generation cybernetic economic system. Enjoy and help to improve.<p>
+    <br>
+    <br>
+    <div class="row">
+      <div class="text-center col-md-3">
+          <a href="http://paper.cyber.fund" class="nounderline">
+           <button type="button" class="btn btn-success btn-lg btn-block" style="margin-top:10px">Web</button>
+          </a>
+      </div>
+      <div class="text-center col-md-3">
+          <a href="https://bookmate.com/starodubcev/xofPQRlD" class="nounderline">
+           <button type="button" class="btn btn-info btn-lg btn-block" style="margin-top:10px">Bookmate</button>
+          </a>
+      </div>
+      <div class="text-center col-md-3">
+          <a href="http://www.amazon.com/New-generation-cybernetic-economic-system-ebook/dp/B00NVMU5AY" class="nounderline">
+           <button type="button" class="btn btn-info btn-lg btn-block" style="margin-top:10px">Kindle</button>
+          </a>
+      </div>
+      <div class="text-center col-md-3">
+          <a href="https://www.gitbook.io/book/21xhipster/cyberfund" class="nounderline">
+           <button type="button" class="btn btn-info btn-lg btn-block" style="margin-top:10px">Gitbook</button>
+          </a>
+      </div>
+    </div>
+    <br>
+   </div>
+    <div style="float: right; width: 29;">
+    <h3 class="text-right"> Resources</h3>
+    <div class="text-right">
+    <p> To look to the future:<br/><a href="https://docs.google.com/drawings/d/1GWM7Rf4xUo9sKotDCXwxJgRTfFOocbYhFN4PC-JjIPY/edit?usp=sharing" target="_blank">cyber•Fund Roadmap</a><p>
+    <p> To understand core products:<br/><a href="https://docs.google.com/drawings/d/12JjClSbZmgieDryOqqpxXaB4hkwPft7JDjjRl7-Qaqk/edit?usp=sharing" target="_blank">cyber•Fund Value model</a><p>
+    <p> Terms of Genesis Sale Rase:<br/><a href="http://paper.cyber.fund/genesis_sale_race.html" target="_blank">cyber•Fund GSR</a><p>
+    <p> cyber•Fund development specifications:<br/><a href="/images/development_acceleration_program.png" target="_blank">Development acceleration program</a><p>
+    <p> Inspirers appreciation:<br/><a href="/images/Airdrop.png" target="_blank">cyber•Fund Airdrop</a><p>
+    <p> <a href="https://bitcointalk.org/index.php?topic=789798" target="_blank">Bitcointalk</a><p>
+    <br>
+    </div>
+    </div>
+  </div class="clear">
+
+
+</div>
+<div id="social" style="background-image: url('/images/spaces.jpg'); height: 500px; background-size: cover;">
+  <br>
+  <br>
+  <br>
+<h1 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">Follow us</h1>
+  <br>
+  <br>
+  <br>
+  <div class="text-center">
+    <div class="col-md-offset-1 col-md-2" style="margin-top:10px">
+      <a href="https://www.facebook.com/cyberfund" style="underline:none;">
+        <img src="/images/facebook.png">
+        <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+          For people
+        </h4>
+      </a>
+    </div>
+    <div class="col-md-2" style="margin-top:10px">
+      <a href="https://twitter.com/cyberfundio" style="underline:none;">
+        <img src="/images/twitter.png">
+        <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+          For marketers
+        </h4>
+      </a>
+    </div>
+
+    <div class="col-md-2" style="margin-top:10px">
+      <a href="https://plus.google.com/+CyberfundIo" style="underline:none;">
+        <img src="/images/gplus.png">
+        <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+          For entrepreneurs
+        </h4>
+      </a>
+    </div>
+    <div class="col-md-2" style="margin-top:10px">
+      <a href="https://angel.co/cyber-fund" style="underline:none;">
+        <img src="/images/angellist.png">
+        <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+          For investors
+        </h4>
+      </a>
+    </div>
+    <div class="col-md-2" style="margin-top:10px">
+      <a href="https://github.com/organizations/cyberFund" style="underline:none;">
+        <img src="/images/github.png">
+        <h4 class="text-center" style="color:white; -webkit-text-stroke-width: 1px; text-shadow: 3px 0px 7px rgba(0, 0, 0, 1);">
+          For developers
+        </h4>
+      </a>
+    </div>
+  </div>
+</div>
+
+{%- endblock -%}
+
+{%- block js -%}
+
+<script>
+
+function tokenizer(s) {
+  return s.split(/,?\s+/);
+}
+
+$(document).ready(function() {
+  var addrs = ['1EzwoHtiXB4iFwedPr49iywjZn2nnekhoj',
+               '3MrGWx7ZPBt7UgttQ6yWvnEYgy1qTeB8J1',
+               '3FoLttdpV3UwU24z45hJu7vQe6kz9N2sQd',
+               '37xZcHcNsCtfCbqgzuuQzUftdE19M1XdD4',
+               '3AcnnYGnucHPWrRLj9h4DzydBivvgq1KU1']
+  for (var i = 0; i < addrs.length; i++) {
+    $.get('https://blockchain.info/q/addressbalance/' + addrs[i] + '?confirmations=1', function(data) {$('#invested-amount').html(parseFloat($('#invested-amount').html()) + parseInt(data) * 0.00000001);})
+  }
+});
+
+</script>
+
+{%- endblock -%}

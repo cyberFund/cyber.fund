@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{%- block content -%}
+
+<form role="form" method="post">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" class="form-control" name="name" placeholder="Enter your name" value="{{ user_model.name }}">
+  </div>
+
+  <div class="form-group">
+    <label for="role">Role</label>
+    <input type="text" class="form-control" name="role" placeholder="Enter your role" value="{{ user_model.role }}">
+  </div>
+
+  <button type="submit" class="btn btn-default">Save</button>
+</form>
+
+{%- endblock -%}

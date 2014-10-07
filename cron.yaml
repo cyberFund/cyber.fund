@@ -1,0 +1,6 @@
+cron:
+
+- description: Daily exception report
+  url: /_ereporter?sender=ereporter@cyberfundio.appspotmail.com&to=development@cyberfund.io&versions=all
+  schedule: every day 10:00
+  timezone: Asia/Bangkok

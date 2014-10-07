@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+ 
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Single-Column Responsive Email Template</title>
+ 
+  <style>
+    @media only screen and (min-device-width: 541px) {
+      .content {
+        width: 640px !important;
+      }
+    }
+  </style>
+</head>
+ 
+<body>
+ 
+<!--[if (gte mso 9)|(IE)]>
+  <table width="540" align="center" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+      <td>
+<![endif]-->
+ 
+  <table class="content" align="center" cellpadding="0" cellspacing="0" border="0" style="width: 100%;">
+    <tr style="width: 50%;">
+      <td><h2 style="font-weight: normal;"><small>К оплате</small></h2></td>
+      <td><h2>{{ products.get(product, {}).get('price') }}</h2></td>
+    </tr>
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Плательщик</small></h2></td>
+      <td><h2>{{ order.name }} <small>{{ order.email }}</small></h2></td>
+    </tr>
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Можно оплатить</small></h2></td>
+      <td><h2><span class="label label-success">до 30 апреля 2014</span></h2></td>
+    </tr>
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Где</small></h2></td>
+      <td><h2><small>В любом отделении банка или через Ваш интернет-банк</small></h2></td>
+    </tr>
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>Получатель</small></h4></td>
+      <td><h4>ООО "Максимум" <small> ОГРН 1147746046744, КПП 772501001, адрес: 115162, г. Москва, ул. Шухова, 5</small></h4></td>
+    </tr>
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>ИНН</small></h4></td>
+      <td><h4>7725816335</h4></td>
+    </tr>
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>Расчетный счет</small></h4></td>
+      <td><h4>40702810600010002989</h4></td>
+    </tr>
+
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>Банк получателя</small></h4></td>
+      <td><h4>БАНК-Т (ОАО) Г.МОСКВА <small>К/счет 30101810700000000436</small></h4></td>
+    </tr>
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>БИК</small></h4></td>
+      <td><h4>044579436</h4></td>
+    </tr>
+    <tr>
+      <td><h4 style="font-weight: normal;"><small>Назначение платежа:</small></h4></td>
+      <td>
+        <h4>Оплата в соответствии со счетом № {{ order.key.id() }}. В т.ч. НДС {{ products.get(product, {}).get('price_nds') }}</h4>
+      </td>
+    </tr>
+
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Наименование</small></h2></td>
+      <td><h2>{{ products.get(product, {}).get('title') }}</h2></td>
+    </tr>
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Количество майнеров</small></h2></td>
+      <td><h2>1</h2></td>
+    </tr>
+    <tr>
+      <td><h2 style="font-weight: normal;"><small>Срок поставки</small></h2></td>
+      <td><h2>до 30 мая 2014</h2></td>
+    </tr>
+
+    
+  </table>
+ 
+<!--[if (gte mso 9)|(IE)]>
+      </td>
+    </tr>
+</table>
+<![endif]-->
+ 
+</body>
+</html>

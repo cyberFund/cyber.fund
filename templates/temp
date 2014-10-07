@@ -1,0 +1,50 @@
+Login block
+          <ul class="nav navbar-nav navbar-right">
+            {%- block navright -%}
+              <li><a href="/invest">Invest</a></li>
+              {%- if user -%}
+                <li><a href="/profile"><span class="user-picture" style="background-image: url({{ user_model.picture }});"></span><span class="user-name">{{ user_model.name }}</span></a></li>
+                <!-- <li><a href="#" title="Settings"><i class="fa fa-wrench fa-fw"></i></a></li> -->
+              {%- else -%}
+                <li class="dropdown" id="menuLogin">
+                  <a href="/login">Enter</a>
+                  <!-- <a class="dropdown-toggle" href="#" data-toggle="dropdown">Вход</a> -->
+                  <!-- <div class="dropdown-menu" style="width: 300px;"> -->
+                  <!--   <a id="google-login"><i class="fa fa-google-plus-square fa-5x fa-fw"></i></a> -->
+                  <!--   <a id="facebook-login"><i class="fa fa-facebook fa-5x fa-fw"></i></a> -->
+                  <!--   <a id="twitter-login"><i class="fa fa-twitter fa-5x fa-fw fa-spin"></i></a> -->
+                  <!-- </div> -->
+                </li>
+              {%- endif -%}
+              {%- if is_current_user_admin -%}
+                <li><a href="/admin" title="Admin"><i class="fa fa-globe fa-fw"></i></a></li>
+              {%- endif -%}
+            {%- endblock -%}
+          </ul>
+
+Header
+              <header class="navbar navbar-static-top bs-docs-nav navbar-fixed-top" id="top" role="banner" style="background-color: white;">
+      <div class="container">
+        <div class="navbar-header">
+          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar" style="background-color: #563d7c;"></span>
+            <span class="icon-bar" style="background-color: #563d7c;"></span>
+            <span class="icon-bar" style="background-color: #563d7c;"></span>
+          </button>
+          {%- block logo -%}<a href="/" class="navbar-brand">cyber <span style="color: red;">•</span> Fund</a>{%- endblock -%}
+        </div>
+        <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation" align="center">
+          <ul class="nav navbar-nav">
+            {%- block nav -%}
+              <li><a href="/#about">Why</a></li>
+              <li><a href="/#innovations">What</a></li>
+              <li><a href="/#team">Who</a></li>
+              <li><a href="/#community">Community</a></li>
+              <li><a href="/#products">Products</a></li>
+              <li><a href="/#social">Social</a></li>
+            {%- endblock -%}
+          </ul>
+        </nav>
+      </div>
+    </header>

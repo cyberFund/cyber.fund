@@ -1,0 +1,52 @@
+{% import '/macros/component.html' as component %}
+
+{% for tx in txs %}
+  <tr class="{{ {'in_progress': 'warning', 'pending': 'warning', 'canceled': 'danger', 'finished': 'success'}.get(tx.state) }}" {% if loop.first %}data-cursor="{{ cursor }}" data-next-cursor="{{ next_curs }}"{% endif %}>
+    <td>
+      <!-- TXID -->
+      <small style="color: grey" title="{{ tx.key }}">{{ tx.key.id() }}</small><br>
+      {{ component.tag('operation-type', tx.tag('operation-type'), hash_color, invert_color) }}
+    </td>
+    <td>
+      <!-- Source Account -->
+      {{ component.tag('src-user', tx.tag('src-user'), hash_color, invert_color) }}
+      <br>
+      {{ component.tag('src-label', tx.tag('src-label'), hash_color, invert_color) }}
+      {{ component.tag('src-type', tx.tag('src-type'), hash_color, invert_color) }}
+      <br>
+      {{ component.tag('src', tx.tag('src'), hash_color, invert_color) }}
+    </td>
+    <td>
+      <!-- Destination Account -->
+      {{ component.tag('dest-user', tx.tag('dest-user'), hash_color, invert_color) }}
+      <br>
+      {{ component.tag('dest-label', tx.tag('dest-label'), hash_color, invert_color) }}
+      {{ component.tag('dest-type', tx.tag('dest-type'), hash_color, invert_color) }}
+      <br>
+      {{ component.tag('dest', tx.tag('dest'), hash_color, invert_color) }}
+    </td>
+    <td style="text-align: right;">
+      <span class="amount">{{ '%.8f' % tx.amount|abs }}</span>
+    </td>
+    <td>
+      {{ component.tag('asset', tx.asset, hash_color, invert_color) }}
+    </td>
+    <td>
+      {%- if tx.state == 'pending' -%}
+        {{ tx.state }}
+        <a href="/admin/transactions/rollback?key={{ tx.key.urlsafe() }}" title="Click to roll back this tx"><span class="glyphicon glyphicon-circle-arrow-left"></span></a>
+        <a href="/admin/transactions/process?key={{ tx.key.urlsafe() }}" title="Click to process this tx"><span class="glyphicon glyphicon-circle-arrow-right"></span></a>
+      {%- else -%}
+        {{ tx.state }}
+      {%- endif -%}
+    </td>
+    <td>
+      {%- for tag in tx.tags|sort(attribute='prop') -%}
+        {%- if tag.prop not in ['operation-type', 'src', 'dest', 'asset', 'src-user', 'src-label', 'src-type', 'dest-user', 'dest-label', 'dest-type', 'display', 'import-type'] -%}
+          {{ component.tag(tag.prop, tag.value, hash_color, invert_color, color='prop', display_prop=True) }}
+        {%- endif -%}
+      {%- endfor -%}
+    </td>
+    <td><small>{{ tx.created.strftime('%Y%m%d <br> %H:%M:%S')|safe }}</small></td>
+  </tr>
+{% endfor %}

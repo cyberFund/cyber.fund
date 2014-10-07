@@ -1,0 +1,46 @@
+{
+  "folders":
+  [
+    {
+      "follow_symlinks": true,
+      "path": "."
+    },
+  ],
+
+  "settings":
+  {
+    "tab_size": 2,
+    "translate_tabs_to_spaces": true,
+    "rulers": [80],
+
+    "draw_white_space": "all",
+    "ensure_newline_at_eof_on_save": true,
+    "find_selected_text": true,
+    "font_size": 12,
+    "highlight_line": true,
+    "open_files_in_new_window": false,
+    "scroll_past_end": true,
+    "shift_tab_unindent": true,
+    "trim_trailing_white_space_on_save": true
+
+  },
+
+  "build_systems":
+  [
+    {
+      "name": "Run Tests",
+      "cmd": ["cd $project_path; /usr/local/bin/nosetests"],
+      "shell": true
+    },
+    {
+      "name": "App Engine Deploy",
+      "cmd": ["cd $project_path; python _build.py; /usr/local/bin/nosetests --config=setup.cfg --verbosity=0 > test/test_result.txt 2>&1; cat test/test_result.txt | grep 'FAILED' && cat test/test_result.txt || /usr/local/google_appengine/appcfg.py --oauth2 update ."],
+      "shell": true
+    },
+    {
+      "name": "App Engine Rollback",
+      "cmd": ["cd $project_path; /usr/local/google_appengine/appcfg.py --oauth2 rollback . && /usr/local/google_appengine/appcfg.py --oauth2 backends . rollback api"],
+      "shell": true
+    }
+  ]
+}

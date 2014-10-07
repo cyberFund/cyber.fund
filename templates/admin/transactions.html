@@ -1,0 +1,147 @@
+{% extends "admin/base.html" %}
+
+{%- block content -%}
+<form method="POST" action="/admin/transactions/put" role="form">
+  <div class="row">
+    <div class="col-md-3"><h2>Add transaction</h2></div>
+    <div class="col-md-3" style="margin-top: 20px"><input type="text" name="txid" placeholder="Tx ID or blank" class="form-control"></div>
+    <div class="form-group col-md-3" style="margin-top: 20px"><input type="text" name="created" placeholder="05/17/2011 0:00:00" value="{{ datetime.datetime.now().strftime('%m/%d/%Y %H:%M:%S') }}" class="form-control"></div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="form-group col-md-4"><input type="text" id="src" name="src" placeholder="Source PubKey" style="width: 100%;"></div>
+    <div class="form-group col-md-4"><input type="text" id="dest" name="dest" placeholder="Destination PubKey" style="width: 100%;"></div>
+    <div class="form-group col-md-2"><input type="number" name="amount" placeholder="Amount, decimal" min="0.00000001" step="0.00000001" class="form-control">
+    </div>
+    <div class="form-group col-md-2"><input type="text" name="asset" placeholder="Asset" id="asset" style="width: 100%;"></div>
+  </div>
+  <div class="row">
+    <div class="form-group col-md-6"><input type="text" name="tags" placeholder="Tags" id="tags" style="width: 100%;"></div>
+
+    <div class="form-group col-md-4">
+      <div class="checkbox">
+        <label><input name="safe" value="true" type="checkbox"> Safe?</label>
+      </div>
+      <div class="checkbox">
+        <label><input name="pending" value="true" type="checkbox"> Pending?</label>
+      </div>
+    </div>
+    <div class="form-group"><input type="submit" class="btn btn-primary" value="Transfer"></div>
+  </div>
+</form>
+
+
+<h2>Batch processing</h2>
+
+<div class="row">
+  <div class="col-md-3">
+    <button class="btn btn-primary" onclick="importSpreadsheet('/admin/transactions/import', '/admin/transactions');">Import Spreadsheet</button>
+    <div id="google-drive-progress-bar" class="progress progress-striped active hidden">
+      <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
+    <form method="POST" role="form">
+      <button type="submit" class="btn btn-info">Execute unupplied transactions</button>
+    </form>
+  </div>
+
+  <div class="col-md-3">
+    <form method="POST" role="form" action="/admin/transactions/index">
+      <button type="submit" class="btn btn-warning">Flush & populate search index</button>
+      <a href="http://107.178.220.198:9200/_plugin/HQ/" class="nounderline"><button class="btn btn-info">ElasticHQ</button></a>
+    </form>
+  </div>
+
+  <div class="col-md-3">
+    <form method="POST" role="form" action="/admin/transactions/flush">
+      <button type="submit" class="btn btn-danger">Flush transactions and accounts</button>
+    </form>
+  </div>
+</div>
+
+<h2>All transactions (<span id="unapplied" onclick="update_unapplied_count();">Loading unapplied count...</span>) [<span id="pie" onclick="update_pie_rate();">Loading current PIE rate...</span>]</h2>
+<table class="table table-condensed table-hover">
+  <thead>
+    <tr>
+      <th>TXID & Type</th>
+      <th style="width: 20%;">From</th>
+      <th style="width: 20%;">To</th>
+      <th>Amount</th>
+      <th>Asset</th>
+      <th>State</th>
+      <th>Tags</th>
+      <th>Created</th>
+    </tr>
+  </thead>
+  <tbody id="pagination-append">
+    {% include "/admin/transactions-ajax.html" %}
+  </tbody>
+</table>
+<div id="page-loader" class="progress progress-striped active" style="display: none">
+  <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+</div>
+
+<script type="text/javascript" src="/js/picker.js"></script>
+
+<script src="/js/select2.js"></script>
+<script>
+
+  $.getScript('/js/utils.js', function() {
+    $.getScript('/js/pagination.js', function() {
+      initPagination();
+    });
+  });
+
+  function update_unapplied_count() {
+    $.getJSON('/admin/transactions/json/unapplied', function(unapplied) {
+      var count = unapplied.count;
+      if (count == 99) {
+        count = '99+';
+      }
+      $('#unapplied').text(count + ' unapplied');
+      $('#unapplied').fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+    });
+  }
+  update_unapplied_count();
+
+  function update_pie_rate() {
+    $.getJSON('/admin/transactions/json/pie', function(pie) {
+      var rate = pie.rate;
+      $('#pie').text('PIE: ' + rate);
+      $('#pie').fadeTo('slow', 0.5).fadeTo('slow', 1.0);
+    });
+  }
+  update_pie_rate();
+
+  $.getJSON('/admin/transactions/json/tags', function(tags) {
+    $('#tags').select2({
+      multiple: true,
+      placeholder: 'Select some tags...',
+      minimumInputLength: 0,
+      tags: tags
+    });
+  });
+
+  $.getJSON('/admin/transactions/json/assets', function(assets) {
+    $('#asset').select2({
+      data: assets
+    });
+  });
+
+  $.getJSON('/admin/transactions/json/accounts', function(accounts) {
+    $('#src').select2({
+      data: accounts
+    });
+    $('#dest').select2({
+      data: accounts
+    });
+  });
+
+  $(document).ready(function() {
+    $('table').tablesorter();
+  });
+</script>
+
+{%- endblock -%}

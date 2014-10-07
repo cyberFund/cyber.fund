@@ -1,0 +1,31 @@
+indexes:
+
+- kind: PubKey
+  properties:
+  - name: t.p
+  - name: t.v
+
+- kind: PubKey
+  properties:
+  - name: t.p
+  - name: t.v
+  - name: u
+
+- kind: Tx
+  properties:
+  - name: g.p
+  - name: g.v
+  - name: c
+    direction: desc
+
+- kind: Tx
+  properties:
+  - name: g.p
+  - name: g.v
+  - name: u
+
+- kind: Tx
+  properties:
+  - name: o
+  - name: s
+  - name: c

@@ -1,0 +1,16 @@
+node_modules
+dist
+.tmp
+.sass-cache
+app/bower_components
+Thumbs.db
+Desktop.ini
+*.py[co]
+.coverage
+.tox
+*.mo
+.mr.developer.cfg
+.DS_Store
+/test/test_result.txt
+*.sublime-workspace
+_temp.py
