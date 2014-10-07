@@ -155,9 +155,12 @@ class Base(webapp2.RequestHandler):
       '_js': self._js,
     })
     if gae_mini_profiler:
-      j.environment.globals.update({
-        'profiler_includes': gae_mini_profiler.templatetags.profiler_includes
-      })
+      profiler_includes = gae_mini_profiler.templatetags.profiler_includes
+    else:
+      profiler_includes = lambda: ''
+    j.environment.globals.update({
+      'profiler_includes': profiler_includes
+    })
     return j
 
   @webapp2.cached_property
