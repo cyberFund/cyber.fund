@@ -179,6 +179,8 @@ class Base(webapp2.RequestHandler):
       'page': {},
       'version': '1.1.2'
     }
+    if self.session.get('subscription'):
+      universal_variable['user']['email'] = self.session.get('subscription')
     if len(path_info) > 1:
       universal_variable['page']['type'] = path_info[1].title() or 'Main'
     if len(http_host) > 1:
