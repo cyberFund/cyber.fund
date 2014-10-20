@@ -3,7 +3,7 @@ from google.appengine.ext import testbed
 from google.appengine.datastore import datastore_stub_util
 import model
 import admin
-import _secret
+import _temp
 
 
 class TestAdmin(unittest.TestCase):

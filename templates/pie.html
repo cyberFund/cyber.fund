@@ -216,16 +216,18 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
     <div class="form-inline">
-      <div class="input-group-lg">
-        <input type="text" class="form-control" placeholder="Your email"></input>
-        <br>
-        <br>
-      </div>
-
-      <div class="col-md-4"></div>
-        <div class="col-md-4">
-            <button class="btn btn-success btn-lg btn-block" type="button">Subscribe</button>
+      <form action="/pie/subscribe" method="post">
+        <div class="input-group-lg">
+          <input name="email" type="email" class="form-control" placeholder="Your email"></input>
+          <br>
+          <br>
         </div>
+
+        <div class="col-md-4"></div>
+          <div class="col-md-4">
+              <input class="btn btn-success btn-lg btn-block" type="submit" value="Subscribe">
+          </div>
+        </form>
         <div class="col-md-4"></div>
       </div>
     <br>

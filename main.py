@@ -6,11 +6,22 @@ import webapp2
 import constants
 from appengine_config import DEBUG
 from webapp2 import Route as route
-from google.appengine.ext import ereporter
+from google.appengine.ext import ereporter, ndb
+import handler
+import model
 
 ereporter.register_logger()
 
 logging.getLogger().setLevel(logging.DEBUG)
+
+
+class Subscribe(handler.Base):
+  def post(self):
+    email = self.request.get('email')
+    if email:
+      e = model.Email(key=ndb.Key(model.Email, email))
+      e.put()
+    return self.redirect('/pie')
 
 
 main_routes = [
@@ -27,7 +38,10 @@ main_routes = [
   route(r'/invest', 'handler.Static', defaults={'template': 'invest.html'}),
   route(r'/wiki', 'handler.Static', defaults={'template': 'wiki.html'}),
   route(r'/wallet', 'handler.Static', defaults={'template': 'wallet.html'}),
+
   route(r'/pie', 'handler.Static', defaults={'template': 'pie.html'}),
+  route(r'/pie/subscribe', Subscribe),
+
   route(r'/colored', 'handler.Static', defaults={'template': 'colored.html'}),
   route(r'/colored-invest', 'handler.Static', defaults={'template': 'colored-invest.html'}),
   route(r'/next', 'handler.Static', defaults={'template': 'next.html'}),
