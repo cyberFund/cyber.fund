@@ -218,7 +218,7 @@
     <div class="form-inline">
       <form action="/pie/subscribe" method="post">
         <div class="input-group-lg">
-          <input name="email" type="email" class="form-control" placeholder="Your email"></input>
+          <input name="email" type="email" class="form-control" placeholder="{% if session.get('subscription') %}{{ session.get('subscription') }}{% else %}Your email{% endif %}"></input>
           <br>
           <br>
         </div>
