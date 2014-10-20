@@ -21,6 +21,7 @@ class Subscribe(handler.Base):
     if email:
       e = model.Email(key=ndb.Key(model.Email, email))
       e.put()
+      self.session['subscription'] = email
     return self.redirect('/pie')
 
 

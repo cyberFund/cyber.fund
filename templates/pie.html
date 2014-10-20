@@ -225,7 +225,7 @@
 
         <div class="col-md-4"></div>
           <div class="col-md-4">
-              <input class="btn btn-success btn-lg btn-block" type="submit" value="Subscribe">
+              <input class="btn btn-success btn-lg btn-block" type="submit" {% if session.get('subscription') %}disabled="disabled"{% endif %} value="Subscribe">
           </div>
         </form>
         <div class="col-md-4"></div>
