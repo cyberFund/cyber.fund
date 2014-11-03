@@ -350,5 +350,39 @@
       <h5 class="whitesmall">Deliver marketing efforts with digital property right into customers brains</h5>
     </div>
   </div>
+  <div class="text-center-container">
+  <br>
+  <br>
+  <h1 class="text-center">Interested in cyber <span style="color:yellow; position:relative; top:3px;">•</span> Wallet?</h1>
+  <br>
+  <br>
+  <br>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <div class="form-inline">
+      <form action="/wallet/subscribe" method="post">
+        <div class="input-group-lg">
+          <input name="email" type="email" class="form-control" placeholder="{% if session.get('subscription') %}{{ session.get('subscription') }}{% else %}Your email{% endif %}"></input>
+          <br>
+          <br>
+        </div>
+
+        <div class="col-md-4"></div>
+          <div class="col-md-4">
+              <input class="btn btn-success btn-lg btn-block" type="submit" {% if session.get('subscription') %}disabled="disabled"{% endif %} value="Subscribe">
+          </div>
+        </form>
+        <div class="col-md-4"></div>
+      </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h4 class="text-center">We're never spam you<h4>
+    </div>
+  </div>
+<br>
+<br>
+</div>
 
 {%- endblock -%}
