@@ -6,11 +6,23 @@ import webapp2
 import constants
 from appengine_config import DEBUG
 from webapp2 import Route as route
-from google.appengine.ext import ereporter
+from google.appengine.ext import ereporter, ndb
+import handler
+import model
 
 ereporter.register_logger()
 
 logging.getLogger().setLevel(logging.DEBUG)
+
+
+class Subscribe(handler.Base):
+  def post(self):
+    email = self.request.get('email')
+    if email:
+      e = model.Email(key=ndb.Key(model.Email, email))
+      e.put()
+      self.session['subscription'] = email
+    return self.redirect('/pie')
 
 
 main_routes = [
@@ -26,8 +38,19 @@ main_routes = [
   route(r'/invest', 'handler.Static', defaults={'template': 'invest.html'}),
   route(r'/wiki', 'handler.Static', defaults={'template': 'wiki.html'}),
   route(r'/wallet', 'handler.Static', defaults={'template': 'wallet.html'}),
+
   route(r'/pie', 'handler.Static', defaults={'template': 'pie.html'}),
   route(r'/transparency', 'handler.Static', defaults={'template': 'transparency.html'}),
+  route(r'/pie/subscribe', Subscribe),
+
+  route(r'/colored', 'handler.Static', defaults={'template': 'colored.html'}),
+  route(r'/colored-invest', 'handler.Static', defaults={'template': 'colored-invest.html'}),
+  route(r'/next', 'handler.Static', defaults={'template': 'next.html'}),
+  route(r'/next-invest', 'handler.Static', defaults={'template': 'next-invest.html'}),
+  route(r'/bitsharesx', 'handler.Static', defaults={'template': 'bitsharesx.html'}),
+  route(r'/bitsharesx-invest', 'handler.Static', defaults={'template': 'bitsharesx-invest.html'}),
+  route(r'/counterparty', 'handler.Static', defaults={'template': 'counterparty.html'}),
+  route(r'/counterparty-invest', 'handler.Static', defaults={'template': 'counterparty-invest.html'}),
   route(r'/search-results', 'handler.Static', defaults={'template': 'search-results.html'}),
   route(r'/4press', 'handler.Static', defaults={'template': '4press.html'}),
   route(r'/4business', 'handler.Static', defaults={'template': '4business.html'}),

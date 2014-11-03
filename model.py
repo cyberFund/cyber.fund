@@ -610,6 +610,10 @@ class PubKey(ndb.Model):
       self.balances.append(Balance(asset=asset, value=value))
 
 
+class Email(ndb.Model):
+  pass
+
+
 class User(User):
   name = ndb.StringProperty(indexed=False)
   birthday = ndb.DateProperty(indexed=False)
