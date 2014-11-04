@@ -22,7 +22,7 @@ class Subscribe(handler.Base):
       e = model.Email(key=ndb.Key(model.Email, email))
       e.put()
       self.session['subscription'] = email
-    return self.redirect('/pie')
+    return self.redirect('/')
 
 
 main_routes = [
@@ -41,7 +41,7 @@ main_routes = [
 
   route(r'/pie', 'handler.Static', defaults={'template': 'pie.html'}),
   route(r'/transparency', 'handler.Static', defaults={'template': 'transparency.html'}),
-  route(r'/pie/subscribe', Subscribe),
+  route(r'/subscribe', Subscribe),
 
   route(r'/colored', 'handler.Static', defaults={'template': 'colored.html'}),
   route(r'/colored-invest', 'handler.Static', defaults={'template': 'colored-invest.html'}),
