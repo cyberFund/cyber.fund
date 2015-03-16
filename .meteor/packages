@@ -9,3 +9,4 @@ autopublish
 insecure
 http
 iron:router
+percolatestudio:segment.io@=1.1.1_1
