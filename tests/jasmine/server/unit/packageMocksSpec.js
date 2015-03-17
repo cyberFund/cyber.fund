@@ -7014,7 +7014,7 @@ var packageMetadata = {
                 },
                 "version": {
                   "type": "constant",
-                  "value": "ea55e043e2cdf5712438a17c13c2c54a6ac1cad5"
+                  "value": "c0739f847392f0ae0df03c5525e871979eb8c938"
                 },
                 "PUBLIC_SETTINGS": {
                   "type": "undefined"
@@ -7138,7 +7138,7 @@ var packageMetadata = {
             },
             "connections": {
               "type": "constant",
-              "value": 0
+              "value": 7
             },
             "timeout": {
               "type": "constant",
@@ -7249,7 +7249,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/underscore.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/underscore.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7266,7 +7266,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/underscore.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/underscore.js.map"
                 }
               }
             },
@@ -7275,7 +7275,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/meteor.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/meteor.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7292,7 +7292,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/meteor.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/meteor.js.map"
                 }
               }
             },
@@ -7301,7 +7301,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/json.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/json.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7318,7 +7318,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/json.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/json.js.map"
                 }
               }
             },
@@ -7327,7 +7327,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/base64.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/base64.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7344,7 +7344,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/base64.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/base64.js.map"
                 }
               }
             },
@@ -7353,7 +7353,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ejson.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ejson.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7370,7 +7370,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ejson.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ejson.js.map"
                 }
               }
             },
@@ -7379,7 +7379,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/logging.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/logging.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7396,7 +7396,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/logging.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/logging.js.map"
                 }
               }
             },
@@ -7405,7 +7405,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reload.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reload.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7422,7 +7422,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reload.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reload.js.map"
                 }
               }
             },
@@ -7431,7 +7431,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/tracker.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/tracker.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7448,7 +7448,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/tracker.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/tracker.js.map"
                 }
               }
             },
@@ -7457,7 +7457,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/random.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/random.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7474,7 +7474,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/random.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/random.js.map"
                 }
               }
             },
@@ -7483,7 +7483,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/retry.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/retry.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7500,7 +7500,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/retry.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/retry.js.map"
                 }
               }
             },
@@ -7509,7 +7509,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/check.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/check.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7526,7 +7526,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/check.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/check.js.map"
                 }
               }
             },
@@ -7535,7 +7535,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/id-map.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/id-map.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7552,7 +7552,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/id-map.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/id-map.js.map"
                 }
               }
             },
@@ -7561,7 +7561,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ordered-dict.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ordered-dict.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7578,7 +7578,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ordered-dict.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ordered-dict.js.map"
                 }
               }
             },
@@ -7587,7 +7587,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/geojson-utils.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/geojson-utils.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7604,7 +7604,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/geojson-utils.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/geojson-utils.js.map"
                 }
               }
             },
@@ -7613,7 +7613,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/minimongo.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/minimongo.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7630,7 +7630,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/minimongo.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/minimongo.js.map"
                 }
               }
             },
@@ -7639,7 +7639,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ddp.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ddp.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7656,7 +7656,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ddp.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ddp.js.map"
                 }
               }
             },
@@ -7665,7 +7665,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/follower-livedata.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/follower-livedata.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7682,7 +7682,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/follower-livedata.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/follower-livedata.js.map"
                 }
               }
             },
@@ -7691,7 +7691,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/application-configuration.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/application-configuration.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7708,7 +7708,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/application-configuration.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/application-configuration.js.map"
                 }
               }
             },
@@ -7717,7 +7717,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/mongo.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/mongo.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7734,7 +7734,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/mongo.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/mongo.js.map"
                 }
               }
             },
@@ -7743,7 +7743,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/autoupdate.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/autoupdate.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7760,7 +7760,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/autoupdate.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/autoupdate.js.map"
                 }
               }
             },
@@ -7769,7 +7769,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/meteor-platform.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/meteor-platform.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7786,7 +7786,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/meteor-platform.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/meteor-platform.js.map"
                 }
               }
             },
@@ -7795,7 +7795,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/url.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/url.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7812,7 +7812,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/url.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/url.js.map"
                 }
               }
             },
@@ -7821,7 +7821,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/http.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/http.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7838,7 +7838,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/http.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/http.js.map"
                 }
               }
             },
@@ -7847,7 +7847,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/deps.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/deps.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7864,7 +7864,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/deps.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/deps.js.map"
                 }
               }
             },
@@ -7873,7 +7873,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/jquery.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/jquery.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7890,7 +7890,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/jquery.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/jquery.js.map"
                 }
               }
             },
@@ -7899,7 +7899,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/htmljs.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/htmljs.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7916,7 +7916,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/htmljs.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/htmljs.js.map"
                 }
               }
             },
@@ -7925,7 +7925,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/observe-sequence.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/observe-sequence.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7942,7 +7942,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/observe-sequence.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/observe-sequence.js.map"
                 }
               }
             },
@@ -7951,7 +7951,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reactive-var.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reactive-var.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7968,7 +7968,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reactive-var.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reactive-var.js.map"
                 }
               }
             },
@@ -7977,7 +7977,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/blaze.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/blaze.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -7994,7 +7994,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/blaze.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/blaze.js.map"
                 }
               }
             },
@@ -8003,7 +8003,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ui.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ui.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8020,7 +8020,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/ui.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ui.js.map"
                 }
               }
             },
@@ -8029,7 +8029,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/templating.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/templating.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8046,7 +8046,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/templating.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/templating.js.map"
                 }
               }
             },
@@ -8055,7 +8055,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_core.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_core.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8072,7 +8072,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_core.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_core.js.map"
                 }
               }
             },
@@ -8081,7 +8081,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_dynamic-template.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_dynamic-template.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8098,7 +8098,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_dynamic-template.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_dynamic-template.js.map"
                 }
               }
             },
@@ -8107,7 +8107,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_layout.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_layout.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8124,7 +8124,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_layout.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_layout.js.map"
                 }
               }
             },
@@ -8133,7 +8133,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_url.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_url.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8150,7 +8150,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_url.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_url.js.map"
                 }
               }
             },
@@ -8159,7 +8159,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_middleware-stack.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_middleware-stack.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8176,7 +8176,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_middleware-stack.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_middleware-stack.js.map"
                 }
               }
             },
@@ -8185,7 +8185,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_location.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_location.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8202,7 +8202,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_location.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_location.js.map"
                 }
               }
             },
@@ -8211,7 +8211,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reactive-dict.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reactive-dict.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8228,7 +8228,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/reactive-dict.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/reactive-dict.js.map"
                 }
               }
             },
@@ -8237,7 +8237,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_controller.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_controller.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8254,7 +8254,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_controller.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_controller.js.map"
                 }
               }
             },
@@ -8263,7 +8263,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_router.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_router.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8280,7 +8280,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/iron_router.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/iron_router.js.map"
                 }
               }
             },
@@ -8289,7 +8289,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/percolatestudio_segment.io.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/percolatestudio_segment.io.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8306,7 +8306,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/percolatestudio_segment.io.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/percolatestudio_segment.io.js.map"
                 }
               }
             },
@@ -8315,7 +8315,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/coffeescript.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/coffeescript.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8332,7 +8332,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/coffeescript.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/coffeescript.js.map"
                 }
               }
             },
@@ -8341,7 +8341,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_chai.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_chai.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8358,7 +8358,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_chai.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_chai.js.map"
                 }
               }
             },
@@ -8367,7 +8367,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_loglevel.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_loglevel.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8384,7 +8384,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_loglevel.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/practicalmeteor_loglevel.js.map"
                 }
               }
             },
@@ -8393,7 +8393,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_core.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_core.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8410,7 +8410,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_core.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_core.js.map"
                 }
               }
             },
@@ -8419,7 +8419,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_shim.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_shim.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8436,7 +8436,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_shim.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_shim.js.map"
                 }
               }
             },
@@ -8445,7 +8445,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8462,20 +8462,20 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/sanjo_jasmine.js.map"
                 }
               }
             },
-            "/packages/webapp.js": {
+            "/packages/ecwyne_polymer-elements.js": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/webapp.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ecwyne_polymer-elements.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
-                  "value": "/packages/e1be090051b82f046484dccc2de7d747e50c7328.map"
+                  "value": "/packages/a4e556a223def6ee660fe71ca79555499dd68835.map"
                 },
                 "type": {
                   "type": "constant",
@@ -8483,12 +8483,38 @@ var packageMetadata = {
                 }
               }
             },
-            "/packages/e1be090051b82f046484dccc2de7d747e50c7328.map": {
+            "/packages/a4e556a223def6ee660fe71ca79555499dd68835.map": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/webapp.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ecwyne_polymer-elements.js.map"
+                }
+              }
+            },
+            "/packages/ecwyne_polymer.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ecwyne_polymer.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/d618fe3044e86a8732b53cdb724c1b2b7df2d14a.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/d618fe3044e86a8732b53cdb724c1b2b7df2d14a.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/ecwyne_polymer.js.map"
                 }
               }
             },
@@ -8497,7 +8523,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/session.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/session.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8514,20 +8540,20 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/session.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/session.js.map"
                 }
               }
             },
-            "/packages/livedata.js": {
+            "/packages/lai_collection-extensions.js": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/livedata.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/lai_collection-extensions.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
-                  "value": "/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map"
+                  "value": "/packages/05f46dd1b13004b8570eac5e9f57da75db0a2e46.map"
                 },
                 "type": {
                   "type": "constant",
@@ -8535,12 +8561,38 @@ var packageMetadata = {
                 }
               }
             },
-            "/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map": {
+            "/packages/05f46dd1b13004b8570eac5e9f57da75db0a2e46.map": {
               "type": "object",
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/livedata.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/lai_collection-extensions.js.map"
+                }
+              }
+            },
+            "/packages/dburles_mongo-collection-instances.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/dburles_mongo-collection-instances.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/d5ad01381e3d2dc4928658b836a4e039b045e36f.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/d5ad01381e3d2dc4928658b836a4e039b045e36f.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/dburles_mongo-collection-instances.js.map"
                 }
               }
             },
@@ -8549,7 +8601,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/spacebars.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/spacebars.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8566,7 +8618,163 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/spacebars.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/spacebars.js.map"
+                }
+              }
+            },
+            "/packages/gwendall_session-json.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/gwendall_session-json.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/c50a8e38f20e14af58c2733d2b57581539b06a47.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/c50a8e38f20e14af58c2733d2b57581539b06a47.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/gwendall_session-json.js.map"
+                }
+              }
+            },
+            "/packages/aldeed_template-extension.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/aldeed_template-extension.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/e21d2f3f76cf4d629c394319bdb4c45f79da30f1.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/e21d2f3f76cf4d629c394319bdb4c45f79da30f1.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/aldeed_template-extension.js.map"
+                }
+              }
+            },
+            "/packages/babrahams_editable-json.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/babrahams_editable-json.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/1047754ffc6951042e6ae766224ac96170c70dc1.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/1047754ffc6951042e6ae766224ac96170c70dc1.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/babrahams_editable-json.js.map"
+                }
+              }
+            },
+            "/packages/msavin_mongol.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/msavin_mongol.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/e0071f0fce3b80c78f89bb9ec3ec17c1a74d9bc9.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/e0071f0fce3b80c78f89bb9ec3ec17c1a74d9bc9.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/msavin_mongol.js.map"
+                }
+              }
+            },
+            "/packages/webapp.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/webapp.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/e1be090051b82f046484dccc2de7d747e50c7328.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/e1be090051b82f046484dccc2de7d747e50c7328.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/webapp.js.map"
+                }
+              }
+            },
+            "/packages/livedata.js": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/livedata.js"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "js"
+                }
+              }
+            },
+            "/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/livedata.js.map"
                 }
               }
             },
@@ -8575,7 +8783,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/launch-screen.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/launch-screen.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8592,7 +8800,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/launch-screen.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/launch-screen.js.map"
                 }
               }
             },
@@ -8601,7 +8809,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/global-imports.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/global-imports.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8617,7 +8825,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/MarketData/client/template.templates.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/MarketData/client/template.templates.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8633,7 +8841,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/template.index.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/template.index.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8649,7 +8857,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/MarketData/lib/collection.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/MarketData/lib/collection.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8665,7 +8873,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/MarketData/client/helpers.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/MarketData/client/helpers.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8681,7 +8889,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/MarketData/client/subscribe.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/MarketData/client/subscribe.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8697,7 +8905,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/app/index.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/app/index.js"
                 },
                 "sourceMapUrl": {
                   "type": "undefined"
@@ -8713,7 +8921,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_test-proxy.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_test-proxy.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8730,7 +8938,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_test-proxy.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_test-proxy.js.map"
                 }
               }
             },
@@ -8739,7 +8947,7 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_node-soft-mirror.js"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_node-soft-mirror.js"
                 },
                 "sourceMapUrl": {
                   "type": "constant",
@@ -8756,7 +8964,49 @@ var packageMetadata = {
               "members": {
                 "absolutePath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund/.meteor/local/build/programs/web.browser/packages/velocity_node-soft-mirror.js.map"
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/velocity_node-soft-mirror.js.map"
+                }
+              }
+            },
+            "/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css"
+                },
+                "sourceMapUrl": {
+                  "type": "constant",
+                  "value": "/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.map"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "css"
+                }
+              }
+            },
+            "/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.map": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css.map"
+                }
+              }
+            },
+            "/packages/msavin_mongol/client/style/Liberation.ttf": {
+              "type": "object",
+              "members": {
+                "absolutePath": {
+                  "type": "constant",
+                  "value": "/Users/xhipster/Github/cyber.fund/.meteor/local/build/programs/web.browser/packages/msavin_mongol/client/style/Liberation.ttf"
+                },
+                "sourceMapUrl": {
+                  "type": "undefined"
+                },
+                "type": {
+                  "type": "constant",
+                  "value": "asset"
                 }
               }
             },
@@ -8765,7 +9015,7 @@ var packageMetadata = {
               "members": {
                 "content": {
                   "type": "constant",
-                  "value": "{\"manifest\":[{\"path\":\"packages/underscore.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/underscore.js?0a80a8623e1b40b5df5a05582f288ddd586eaa18\",\"sourceMap\":\"packages/underscore.js.map\",\"sourceMapUrl\":\"/packages/0a80a8623e1b40b5df5a05582f288ddd586eaa18.map\",\"size\":150686,\"hash\":\"0a80a8623e1b40b5df5a05582f288ddd586eaa18\"},{\"path\":\"packages/meteor.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor.js?81e2f06cff198adaa81b3bc09fc4f3728b7370ec\",\"sourceMap\":\"packages/meteor.js.map\",\"sourceMapUrl\":\"/packages/81e2f06cff198adaa81b3bc09fc4f3728b7370ec.map\",\"size\":109437,\"hash\":\"81e2f06cff198adaa81b3bc09fc4f3728b7370ec\"},{\"path\":\"packages/json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/json.js?e22856eae714c681199eabc5c0710b904b125554\",\"sourceMap\":\"packages/json.js.map\",\"sourceMapUrl\":\"/packages/e22856eae714c681199eabc5c0710b904b125554.map\",\"size\":58343,\"hash\":\"e22856eae714c681199eabc5c0710b904b125554\"},{\"path\":\"packages/base64.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/base64.js?1a63019243b73298e2964e6d4680f25bca657726\",\"sourceMap\":\"packages/base64.js.map\",\"sourceMapUrl\":\"/packages/1a63019243b73298e2964e6d4680f25bca657726.map\",\"size\":15685,\"hash\":\"1a63019243b73298e2964e6d4680f25bca657726\"},{\"path\":\"packages/ejson.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ejson.js?71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\",\"sourceMap\":\"packages/ejson.js.map\",\"sourceMapUrl\":\"/packages/71047b64b5196348bdbe5fd5eea9ac97a5a9eb14.map\",\"size\":81471,\"hash\":\"71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\"},{\"path\":\"packages/logging.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/logging.js?07e201b648f16be8435a4f666156995eeda0c750\",\"sourceMap\":\"packages/logging.js.map\",\"sourceMapUrl\":\"/packages/07e201b648f16be8435a4f666156995eeda0c750.map\",\"size\":27996,\"hash\":\"07e201b648f16be8435a4f666156995eeda0c750\"},{\"path\":\"packages/reload.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reload.js?da8974b7231dd8c0caccb5f322dcf97329d486d1\",\"sourceMap\":\"packages/reload.js.map\",\"sourceMapUrl\":\"/packages/da8974b7231dd8c0caccb5f322dcf97329d486d1.map\",\"size\":25926,\"hash\":\"da8974b7231dd8c0caccb5f322dcf97329d486d1\"},{\"path\":\"packages/tracker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/tracker.js?517c8fe8ed6408951a30941e64a5383a7174bcfa\",\"sourceMap\":\"packages/tracker.js.map\",\"sourceMapUrl\":\"/packages/517c8fe8ed6408951a30941e64a5383a7174bcfa.map\",\"size\":68185,\"hash\":\"517c8fe8ed6408951a30941e64a5383a7174bcfa\"},{\"path\":\"packages/random.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/random.js?fe7b46080c91ce482acf6fc326afbc5b176f0502\",\"sourceMap\":\"packages/random.js.map\",\"sourceMapUrl\":\"/packages/fe7b46080c91ce482acf6fc326afbc5b176f0502.map\",\"size\":24099,\"hash\":\"fe7b46080c91ce482acf6fc326afbc5b176f0502\"},{\"path\":\"packages/retry.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/retry.js?1f1dd2c35d300110fdaba51ce4473583bc3bf031\",\"sourceMap\":\"packages/retry.js.map\",\"sourceMapUrl\":\"/packages/1f1dd2c35d300110fdaba51ce4473583bc3bf031.map\",\"size\":7245,\"hash\":\"1f1dd2c35d300110fdaba51ce4473583bc3bf031\"},{\"path\":\"packages/check.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/check.js?ac81167b8513b85b926c167bba423981b0c4cf9c\",\"sourceMap\":\"packages/check.js.map\",\"sourceMapUrl\":\"/packages/ac81167b8513b85b926c167bba423981b0c4cf9c.map\",\"size\":35647,\"hash\":\"ac81167b8513b85b926c167bba423981b0c4cf9c\"},{\"path\":\"packages/id-map.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/id-map.js?9ea6eaae8d74693ce2505a858d9a5e60cf191298\",\"sourceMap\":\"packages/id-map.js.map\",\"sourceMapUrl\":\"/packages/9ea6eaae8d74693ce2505a858d9a5e60cf191298.map\",\"size\":8584,\"hash\":\"9ea6eaae8d74693ce2505a858d9a5e60cf191298\"},{\"path\":\"packages/ordered-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ordered-dict.js?bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\",\"sourceMap\":\"packages/ordered-dict.js.map\",\"sourceMapUrl\":\"/packages/bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37.map\",\"size\":20395,\"hash\":\"bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\"},{\"path\":\"packages/geojson-utils.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/geojson-utils.js?81b79d5cf96d00b4b7a28987debcffb665c17526\",\"sourceMap\":\"packages/geojson-utils.js.map\",\"sourceMapUrl\":\"/packages/81b79d5cf96d00b4b7a28987debcffb665c17526.map\",\"size\":48339,\"hash\":\"81b79d5cf96d00b4b7a28987debcffb665c17526\"},{\"path\":\"packages/minimongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/minimongo.js?e8806aa7782b729b2517ebc0cd10b321667f1427\",\"sourceMap\":\"packages/minimongo.js.map\",\"sourceMapUrl\":\"/packages/e8806aa7782b729b2517ebc0cd10b321667f1427.map\",\"size\":455881,\"hash\":\"e8806aa7782b729b2517ebc0cd10b321667f1427\"},{\"path\":\"packages/ddp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ddp.js?41b62dcceb3ce0de6ca79c6aed088cccde6a44d8\",\"sourceMap\":\"packages/ddp.js.map\",\"sourceMapUrl\":\"/packages/41b62dcceb3ce0de6ca79c6aed088cccde6a44d8.map\",\"size\":617153,\"hash\":\"41b62dcceb3ce0de6ca79c6aed088cccde6a44d8\"},{\"path\":\"packages/follower-livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/follower-livedata.js?74156c6baa89da861fc4ddb58ef158eac71e58e0\",\"sourceMap\":\"packages/follower-livedata.js.map\",\"sourceMapUrl\":\"/packages/74156c6baa89da861fc4ddb58ef158eac71e58e0.map\",\"size\":1490,\"hash\":\"74156c6baa89da861fc4ddb58ef158eac71e58e0\"},{\"path\":\"packages/application-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/application-configuration.js?dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\",\"sourceMap\":\"packages/application-configuration.js.map\",\"sourceMapUrl\":\"/packages/dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f.map\",\"size\":1485,\"hash\":\"dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\"},{\"path\":\"packages/mongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mongo.js?052f30e968644b2b39a96605ffee73a7684ff37b\",\"sourceMap\":\"packages/mongo.js.map\",\"sourceMapUrl\":\"/packages/052f30e968644b2b39a96605ffee73a7684ff37b.map\",\"size\":147662,\"hash\":\"052f30e968644b2b39a96605ffee73a7684ff37b\"},{\"path\":\"packages/autoupdate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/autoupdate.js?9a5ea03bf057815385bf569c7acc2c285c005491\",\"sourceMap\":\"packages/autoupdate.js.map\",\"sourceMapUrl\":\"/packages/9a5ea03bf057815385bf569c7acc2c285c005491.map\",\"size\":17152,\"hash\":\"9a5ea03bf057815385bf569c7acc2c285c005491\"},{\"path\":\"packages/meteor-platform.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor-platform.js?499a2f8522e25820b1153c69a92751ccaae507b3\",\"sourceMap\":\"packages/meteor-platform.js.map\",\"sourceMapUrl\":\"/packages/499a2f8522e25820b1153c69a92751ccaae507b3.map\",\"size\":1384,\"hash\":\"499a2f8522e25820b1153c69a92751ccaae507b3\"},{\"path\":\"packages/url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/url.js?2312d739008b2ffa52f13c77c5d6fc59c9e17d56\",\"sourceMap\":\"packages/url.js.map\",\"sourceMapUrl\":\"/packages/2312d739008b2ffa52f13c77c5d6fc59c9e17d56.map\",\"size\":6642,\"hash\":\"2312d739008b2ffa52f13c77c5d6fc59c9e17d56\"},{\"path\":\"packages/http.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/http.js?9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\",\"sourceMap\":\"packages/http.js.map\",\"sourceMapUrl\":\"/packages/9c5d152169ba9a5a57b6b8ec28e64bbd0d308077.map\",\"size\":37036,\"hash\":\"9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\"},{\"path\":\"packages/deps.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/deps.js?504589e1e9585dec8f9f6094e5a87b22de3783a1\",\"sourceMap\":\"packages/deps.js.map\",\"sourceMapUrl\":\"/packages/504589e1e9585dec8f9f6094e5a87b22de3783a1.map\",\"size\":1442,\"hash\":\"504589e1e9585dec8f9f6094e5a87b22de3783a1\"},{\"path\":\"packages/jquery.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/jquery.js?dd8bac56f8fd3666d433d2285ae01e52597cc51a\",\"sourceMap\":\"packages/jquery.js.map\",\"sourceMapUrl\":\"/packages/dd8bac56f8fd3666d433d2285ae01e52597cc51a.map\",\"size\":1296513,\"hash\":\"dd8bac56f8fd3666d433d2285ae01e52597cc51a\"},{\"path\":\"packages/htmljs.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/htmljs.js?567eb96d5d22631c03d6aca6afa4c42f0d1295f2\",\"sourceMap\":\"packages/htmljs.js.map\",\"sourceMapUrl\":\"/packages/567eb96d5d22631c03d6aca6afa4c42f0d1295f2.map\",\"size\":60161,\"hash\":\"567eb96d5d22631c03d6aca6afa4c42f0d1295f2\"},{\"path\":\"packages/observe-sequence.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/observe-sequence.js?2fd807ea171ead273b9e6458607cb226012d9240\",\"sourceMap\":\"packages/observe-sequence.js.map\",\"sourceMapUrl\":\"/packages/2fd807ea171ead273b9e6458607cb226012d9240.map\",\"size\":30271,\"hash\":\"2fd807ea171ead273b9e6458607cb226012d9240\"},{\"path\":\"packages/reactive-var.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-var.js?20335b7b37165980ddd9f23943b2e5b00aae1cc2\",\"sourceMap\":\"packages/reactive-var.js.map\",\"sourceMapUrl\":\"/packages/20335b7b37165980ddd9f23943b2e5b00aae1cc2.map\",\"size\":13963,\"hash\":\"20335b7b37165980ddd9f23943b2e5b00aae1cc2\"},{\"path\":\"packages/blaze.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/blaze.js?efa68f65e67544b5a05509804bf97e2c91ce75eb\",\"sourceMap\":\"packages/blaze.js.map\",\"sourceMapUrl\":\"/packages/efa68f65e67544b5a05509804bf97e2c91ce75eb.map\",\"size\":391530,\"hash\":\"efa68f65e67544b5a05509804bf97e2c91ce75eb\"},{\"path\":\"packages/ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ui.js?5a663333fd30f8fd913f110e0ef779e84f67c4b8\",\"sourceMap\":\"packages/ui.js.map\",\"sourceMapUrl\":\"/packages/5a663333fd30f8fd913f110e0ef779e84f67c4b8.map\",\"size\":1529,\"hash\":\"5a663333fd30f8fd913f110e0ef779e84f67c4b8\"},{\"path\":\"packages/templating.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/templating.js?599ba307216da826d8b335332ebcc9a497a369a0\",\"sourceMap\":\"packages/templating.js.map\",\"sourceMapUrl\":\"/packages/599ba307216da826d8b335332ebcc9a497a369a0.map\",\"size\":11910,\"hash\":\"599ba307216da826d8b335332ebcc9a497a369a0\"},{\"path\":\"packages/iron_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_core.js?d966a1f70c94792fd94c8a155bdbef9bec5e0047\",\"sourceMap\":\"packages/iron_core.js.map\",\"sourceMapUrl\":\"/packages/d966a1f70c94792fd94c8a155bdbef9bec5e0047.map\",\"size\":32915,\"hash\":\"d966a1f70c94792fd94c8a155bdbef9bec5e0047\"},{\"path\":\"packages/iron_dynamic-template.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_dynamic-template.js?d425554c9847e4a80567f8ca55719cd6ae3f2722\",\"sourceMap\":\"packages/iron_dynamic-template.js.map\",\"sourceMapUrl\":\"/packages/d425554c9847e4a80567f8ca55719cd6ae3f2722.map\",\"size\":86389,\"hash\":\"d425554c9847e4a80567f8ca55719cd6ae3f2722\"},{\"path\":\"packages/iron_layout.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_layout.js?4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062\",\"sourceMap\":\"packages/iron_layout.js.map\",\"sourceMapUrl\":\"/packages/4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062.map\",\"size\":62058,\"hash\":\"4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062\"},{\"path\":\"packages/iron_url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_url.js?6979e41649a22dcf609df30fc533e36037c7ae58\",\"sourceMap\":\"packages/iron_url.js.map\",\"sourceMapUrl\":\"/packages/6979e41649a22dcf609df30fc533e36037c7ae58.map\",\"size\":69302,\"hash\":\"6979e41649a22dcf609df30fc533e36037c7ae58\"},{\"path\":\"packages/iron_middleware-stack.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_middleware-stack.js?0e0f6983a838a6516556b08e62894f89720e2c44\",\"sourceMap\":\"packages/iron_middleware-stack.js.map\",\"sourceMapUrl\":\"/packages/0e0f6983a838a6516556b08e62894f89720e2c44.map\",\"size\":47239,\"hash\":\"0e0f6983a838a6516556b08e62894f89720e2c44\"},{\"path\":\"packages/iron_location.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_location.js?ca4f0f6672edbfb6cafab6e5c024208d9364eac9\",\"sourceMap\":\"packages/iron_location.js.map\",\"sourceMapUrl\":\"/packages/ca4f0f6672edbfb6cafab6e5c024208d9364eac9.map\",\"size\":52275,\"hash\":\"ca4f0f6672edbfb6cafab6e5c024208d9364eac9\"},{\"path\":\"packages/reactive-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-dict.js?6b25309b1f0dcf775b44984324878d6f8ad1abc2\",\"sourceMap\":\"packages/reactive-dict.js.map\",\"sourceMapUrl\":\"/packages/6b25309b1f0dcf775b44984324878d6f8ad1abc2.map\",\"size\":19802,\"hash\":\"6b25309b1f0dcf775b44984324878d6f8ad1abc2\"},{\"path\":\"packages/iron_controller.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_controller.js?b02790701804563eafedb2e68c602154983ade06\",\"sourceMap\":\"packages/iron_controller.js.map\",\"sourceMapUrl\":\"/packages/b02790701804563eafedb2e68c602154983ade06.map\",\"size\":41091,\"hash\":\"b02790701804563eafedb2e68c602154983ade06\"},{\"path\":\"packages/iron_router.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_router.js?a427868585af16bb88b7c9996b2449aebb8dbf51\",\"sourceMap\":\"packages/iron_router.js.map\",\"sourceMapUrl\":\"/packages/a427868585af16bb88b7c9996b2449aebb8dbf51.map\",\"size\":216733,\"hash\":\"a427868585af16bb88b7c9996b2449aebb8dbf51\"},{\"path\":\"packages/percolatestudio_segment.io.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/percolatestudio_segment.io.js?596cb9efc26bdeccc908a0b52f5c76c55f11af18\",\"sourceMap\":\"packages/percolatestudio_segment.io.js.map\",\"sourceMapUrl\":\"/packages/596cb9efc26bdeccc908a0b52f5c76c55f11af18.map\",\"size\":8715,\"hash\":\"596cb9efc26bdeccc908a0b52f5c76c55f11af18\"},{\"path\":\"packages/coffeescript.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/coffeescript.js?969f68786bbc68e6cad299e74922a53af3d1404b\",\"sourceMap\":\"packages/coffeescript.js.map\",\"sourceMapUrl\":\"/packages/969f68786bbc68e6cad299e74922a53af3d1404b.map\",\"size\":1294,\"hash\":\"969f68786bbc68e6cad299e74922a53af3d1404b\"},{\"path\":\"packages/practicalmeteor_chai.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/practicalmeteor_chai.js?7fbbbec9a13f4adf082b394c5ddd7230d84afc48\",\"sourceMap\":\"packages/practicalmeteor_chai.js.map\",\"sourceMapUrl\":\"/packages/7fbbbec9a13f4adf082b394c5ddd7230d84afc48.map\",\"size\":570118,\"hash\":\"7fbbbec9a13f4adf082b394c5ddd7230d84afc48\"},{\"path\":\"packages/practicalmeteor_loglevel.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/practicalmeteor_loglevel.js?9185331dfa11fd235edfbef93838d4ca3244d638\",\"sourceMap\":\"packages/practicalmeteor_loglevel.js.map\",\"sourceMapUrl\":\"/packages/9185331dfa11fd235edfbef93838d4ca3244d638.map\",\"size\":28719,\"hash\":\"9185331dfa11fd235edfbef93838d4ca3244d638\"},{\"path\":\"packages/velocity_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_core.js?cecf2443254038195518d507d5fe0ecdc5dce435\",\"sourceMap\":\"packages/velocity_core.js.map\",\"sourceMapUrl\":\"/packages/cecf2443254038195518d507d5fe0ecdc5dce435.map\",\"size\":12238,\"hash\":\"cecf2443254038195518d507d5fe0ecdc5dce435\"},{\"path\":\"packages/velocity_shim.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_shim.js?14363d085a412115605c41536e4f2867425b89d5\",\"sourceMap\":\"packages/velocity_shim.js.map\",\"sourceMapUrl\":\"/packages/14363d085a412115605c41536e4f2867425b89d5.map\",\"size\":2905,\"hash\":\"14363d085a412115605c41536e4f2867425b89d5\"},{\"path\":\"packages/sanjo_jasmine.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sanjo_jasmine.js?5100ed3399ec95abdd514e07757c0b5d1e307a9f\",\"sourceMap\":\"packages/sanjo_jasmine.js.map\",\"sourceMapUrl\":\"/packages/5100ed3399ec95abdd514e07757c0b5d1e307a9f.map\",\"size\":537745,\"hash\":\"5100ed3399ec95abdd514e07757c0b5d1e307a9f\"},{\"path\":\"packages/webapp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/webapp.js?e1be090051b82f046484dccc2de7d747e50c7328\",\"sourceMap\":\"packages/webapp.js.map\",\"sourceMapUrl\":\"/packages/e1be090051b82f046484dccc2de7d747e50c7328.map\",\"size\":3106,\"hash\":\"e1be090051b82f046484dccc2de7d747e50c7328\"},{\"path\":\"packages/session.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/session.js?e436deefadc999c21b6fd16e8e1ecce55c3c3a55\",\"sourceMap\":\"packages/session.js.map\",\"sourceMapUrl\":\"/packages/e436deefadc999c21b6fd16e8e1ecce55c3c3a55.map\",\"size\":6497,\"hash\":\"e436deefadc999c21b6fd16e8e1ecce55c3c3a55\"},{\"path\":\"packages/livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/livedata.js?718526445deb4d9baacb6d92c551adea1d36c1e1\",\"sourceMap\":\"packages/livedata.js.map\",\"sourceMapUrl\":\"/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map\",\"size\":1413,\"hash\":\"718526445deb4d9baacb6d92c551adea1d36c1e1\"},{\"path\":\"packages/spacebars.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/spacebars.js?7f53771c84a2eafac2b561c9796dda0d8af8e7f5\",\"sourceMap\":\"packages/spacebars.js.map\",\"sourceMapUrl\":\"/packages/7f53771c84a2eafac2b561c9796dda0d8af8e7f5.map\",\"size\":42206,\"hash\":\"7f53771c84a2eafac2b561c9796dda0d8af8e7f5\"},{\"path\":\"packages/launch-screen.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/launch-screen.js?13e1092ebecdb7208762500188f1dc2dea5603e9\",\"sourceMap\":\"packages/launch-screen.js.map\",\"sourceMapUrl\":\"/packages/13e1092ebecdb7208762500188f1dc2dea5603e9.map\",\"size\":9707,\"hash\":\"13e1092ebecdb7208762500188f1dc2dea5603e9\"},{\"path\":\"packages/global-imports.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/global-imports.js?4fe93082f8d094e3cceebfebbcdfcfed21e2d4f4\",\"size\":937,\"hash\":\"4fe93082f8d094e3cceebfebbcdfcfed21e2d4f4\"},{\"path\":\"app/MarketData/client/template.templates.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/template.templates.js?5ee3bdb6cf8157c37f12c11afab95791bf7ce2f6\",\"size\":717,\"hash\":\"5ee3bdb6cf8157c37f12c11afab95791bf7ce2f6\"},{\"path\":\"app/template.index.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/template.index.js?1a72ef59e762860ba690816edf3436085dacb0f4\",\"size\":249,\"hash\":\"1a72ef59e762860ba690816edf3436085dacb0f4\"},{\"path\":\"app/MarketData/lib/collection.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/lib/collection.js?cf8cc04eb7dc058113ec0ba2993b150f74bbdbe3\",\"size\":70,\"hash\":\"cf8cc04eb7dc058113ec0ba2993b150f74bbdbe3\"},{\"path\":\"app/MarketData/client/helpers.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/helpers.js?9001c1857287de5998e72fe87f8c467001563c70\",\"size\":124,\"hash\":\"9001c1857287de5998e72fe87f8c467001563c70\"},{\"path\":\"app/MarketData/client/subscribe.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/subscribe.js?efe291e9a5b9ae96d53f6e52566ef8a4abb5ac05\",\"size\":51,\"hash\":\"efe291e9a5b9ae96d53f6e52566ef8a4abb5ac05\"},{\"path\":\"app/index.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/index.js?e8ae200d1592565cb622ed92cdfa75e7beafeced\",\"size\":76,\"hash\":\"e8ae200d1592565cb622ed92cdfa75e7beafeced\"},{\"path\":\"packages/velocity_test-proxy.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_test-proxy.js?4b041a7016775526ee866c25d5fb1d1039ef28c1\",\"sourceMap\":\"packages/velocity_test-proxy.js.map\",\"sourceMapUrl\":\"/packages/4b041a7016775526ee866c25d5fb1d1039ef28c1.map\",\"size\":1304,\"hash\":\"4b041a7016775526ee866c25d5fb1d1039ef28c1\"},{\"path\":\"packages/velocity_node-soft-mirror.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_node-soft-mirror.js?acf27a727fa9aa2f29f237ade3b2046fb9890e36\",\"sourceMap\":\"packages/velocity_node-soft-mirror.js.map\",\"sourceMapUrl\":\"/packages/acf27a727fa9aa2f29f237ade3b2046fb9890e36.map\",\"size\":11067,\"hash\":\"acf27a727fa9aa2f29f237ade3b2046fb9890e36\"},{\"path\":\"head.html\",\"where\":\"internal\",\"type\":\"head\",\"hash\":\"69a08e0897d69af9aeb39da48d812af54833bd17\"}],\"version\":\"ea55e043e2cdf5712438a17c13c2c54a6ac1cad5\"}"
+                  "value": "{\"manifest\":[{\"path\":\"packages/underscore.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/underscore.js?0a80a8623e1b40b5df5a05582f288ddd586eaa18\",\"sourceMap\":\"packages/underscore.js.map\",\"sourceMapUrl\":\"/packages/0a80a8623e1b40b5df5a05582f288ddd586eaa18.map\",\"size\":150686,\"hash\":\"0a80a8623e1b40b5df5a05582f288ddd586eaa18\"},{\"path\":\"packages/meteor.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor.js?81e2f06cff198adaa81b3bc09fc4f3728b7370ec\",\"sourceMap\":\"packages/meteor.js.map\",\"sourceMapUrl\":\"/packages/81e2f06cff198adaa81b3bc09fc4f3728b7370ec.map\",\"size\":109437,\"hash\":\"81e2f06cff198adaa81b3bc09fc4f3728b7370ec\"},{\"path\":\"packages/json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/json.js?e22856eae714c681199eabc5c0710b904b125554\",\"sourceMap\":\"packages/json.js.map\",\"sourceMapUrl\":\"/packages/e22856eae714c681199eabc5c0710b904b125554.map\",\"size\":58343,\"hash\":\"e22856eae714c681199eabc5c0710b904b125554\"},{\"path\":\"packages/base64.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/base64.js?1a63019243b73298e2964e6d4680f25bca657726\",\"sourceMap\":\"packages/base64.js.map\",\"sourceMapUrl\":\"/packages/1a63019243b73298e2964e6d4680f25bca657726.map\",\"size\":15685,\"hash\":\"1a63019243b73298e2964e6d4680f25bca657726\"},{\"path\":\"packages/ejson.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ejson.js?71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\",\"sourceMap\":\"packages/ejson.js.map\",\"sourceMapUrl\":\"/packages/71047b64b5196348bdbe5fd5eea9ac97a5a9eb14.map\",\"size\":81471,\"hash\":\"71047b64b5196348bdbe5fd5eea9ac97a5a9eb14\"},{\"path\":\"packages/logging.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/logging.js?07e201b648f16be8435a4f666156995eeda0c750\",\"sourceMap\":\"packages/logging.js.map\",\"sourceMapUrl\":\"/packages/07e201b648f16be8435a4f666156995eeda0c750.map\",\"size\":27996,\"hash\":\"07e201b648f16be8435a4f666156995eeda0c750\"},{\"path\":\"packages/reload.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reload.js?da8974b7231dd8c0caccb5f322dcf97329d486d1\",\"sourceMap\":\"packages/reload.js.map\",\"sourceMapUrl\":\"/packages/da8974b7231dd8c0caccb5f322dcf97329d486d1.map\",\"size\":25926,\"hash\":\"da8974b7231dd8c0caccb5f322dcf97329d486d1\"},{\"path\":\"packages/tracker.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/tracker.js?517c8fe8ed6408951a30941e64a5383a7174bcfa\",\"sourceMap\":\"packages/tracker.js.map\",\"sourceMapUrl\":\"/packages/517c8fe8ed6408951a30941e64a5383a7174bcfa.map\",\"size\":68185,\"hash\":\"517c8fe8ed6408951a30941e64a5383a7174bcfa\"},{\"path\":\"packages/random.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/random.js?fe7b46080c91ce482acf6fc326afbc5b176f0502\",\"sourceMap\":\"packages/random.js.map\",\"sourceMapUrl\":\"/packages/fe7b46080c91ce482acf6fc326afbc5b176f0502.map\",\"size\":24099,\"hash\":\"fe7b46080c91ce482acf6fc326afbc5b176f0502\"},{\"path\":\"packages/retry.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/retry.js?1f1dd2c35d300110fdaba51ce4473583bc3bf031\",\"sourceMap\":\"packages/retry.js.map\",\"sourceMapUrl\":\"/packages/1f1dd2c35d300110fdaba51ce4473583bc3bf031.map\",\"size\":7245,\"hash\":\"1f1dd2c35d300110fdaba51ce4473583bc3bf031\"},{\"path\":\"packages/check.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/check.js?ac81167b8513b85b926c167bba423981b0c4cf9c\",\"sourceMap\":\"packages/check.js.map\",\"sourceMapUrl\":\"/packages/ac81167b8513b85b926c167bba423981b0c4cf9c.map\",\"size\":35647,\"hash\":\"ac81167b8513b85b926c167bba423981b0c4cf9c\"},{\"path\":\"packages/id-map.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/id-map.js?9ea6eaae8d74693ce2505a858d9a5e60cf191298\",\"sourceMap\":\"packages/id-map.js.map\",\"sourceMapUrl\":\"/packages/9ea6eaae8d74693ce2505a858d9a5e60cf191298.map\",\"size\":8584,\"hash\":\"9ea6eaae8d74693ce2505a858d9a5e60cf191298\"},{\"path\":\"packages/ordered-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ordered-dict.js?bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\",\"sourceMap\":\"packages/ordered-dict.js.map\",\"sourceMapUrl\":\"/packages/bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37.map\",\"size\":20395,\"hash\":\"bf8af2f26c8d96bf8b2e6b407d3ed69f23c2cd37\"},{\"path\":\"packages/geojson-utils.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/geojson-utils.js?81b79d5cf96d00b4b7a28987debcffb665c17526\",\"sourceMap\":\"packages/geojson-utils.js.map\",\"sourceMapUrl\":\"/packages/81b79d5cf96d00b4b7a28987debcffb665c17526.map\",\"size\":48339,\"hash\":\"81b79d5cf96d00b4b7a28987debcffb665c17526\"},{\"path\":\"packages/minimongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/minimongo.js?e8806aa7782b729b2517ebc0cd10b321667f1427\",\"sourceMap\":\"packages/minimongo.js.map\",\"sourceMapUrl\":\"/packages/e8806aa7782b729b2517ebc0cd10b321667f1427.map\",\"size\":455881,\"hash\":\"e8806aa7782b729b2517ebc0cd10b321667f1427\"},{\"path\":\"packages/ddp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ddp.js?41b62dcceb3ce0de6ca79c6aed088cccde6a44d8\",\"sourceMap\":\"packages/ddp.js.map\",\"sourceMapUrl\":\"/packages/41b62dcceb3ce0de6ca79c6aed088cccde6a44d8.map\",\"size\":617153,\"hash\":\"41b62dcceb3ce0de6ca79c6aed088cccde6a44d8\"},{\"path\":\"packages/follower-livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/follower-livedata.js?74156c6baa89da861fc4ddb58ef158eac71e58e0\",\"sourceMap\":\"packages/follower-livedata.js.map\",\"sourceMapUrl\":\"/packages/74156c6baa89da861fc4ddb58ef158eac71e58e0.map\",\"size\":1490,\"hash\":\"74156c6baa89da861fc4ddb58ef158eac71e58e0\"},{\"path\":\"packages/application-configuration.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/application-configuration.js?dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\",\"sourceMap\":\"packages/application-configuration.js.map\",\"sourceMapUrl\":\"/packages/dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f.map\",\"size\":1485,\"hash\":\"dcbf1f0774460fccf098a4c9e8fad4c3a0f2952f\"},{\"path\":\"packages/mongo.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/mongo.js?052f30e968644b2b39a96605ffee73a7684ff37b\",\"sourceMap\":\"packages/mongo.js.map\",\"sourceMapUrl\":\"/packages/052f30e968644b2b39a96605ffee73a7684ff37b.map\",\"size\":147662,\"hash\":\"052f30e968644b2b39a96605ffee73a7684ff37b\"},{\"path\":\"packages/autoupdate.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/autoupdate.js?9a5ea03bf057815385bf569c7acc2c285c005491\",\"sourceMap\":\"packages/autoupdate.js.map\",\"sourceMapUrl\":\"/packages/9a5ea03bf057815385bf569c7acc2c285c005491.map\",\"size\":17152,\"hash\":\"9a5ea03bf057815385bf569c7acc2c285c005491\"},{\"path\":\"packages/meteor-platform.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/meteor-platform.js?499a2f8522e25820b1153c69a92751ccaae507b3\",\"sourceMap\":\"packages/meteor-platform.js.map\",\"sourceMapUrl\":\"/packages/499a2f8522e25820b1153c69a92751ccaae507b3.map\",\"size\":1384,\"hash\":\"499a2f8522e25820b1153c69a92751ccaae507b3\"},{\"path\":\"packages/url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/url.js?2312d739008b2ffa52f13c77c5d6fc59c9e17d56\",\"sourceMap\":\"packages/url.js.map\",\"sourceMapUrl\":\"/packages/2312d739008b2ffa52f13c77c5d6fc59c9e17d56.map\",\"size\":6642,\"hash\":\"2312d739008b2ffa52f13c77c5d6fc59c9e17d56\"},{\"path\":\"packages/http.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/http.js?9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\",\"sourceMap\":\"packages/http.js.map\",\"sourceMapUrl\":\"/packages/9c5d152169ba9a5a57b6b8ec28e64bbd0d308077.map\",\"size\":37036,\"hash\":\"9c5d152169ba9a5a57b6b8ec28e64bbd0d308077\"},{\"path\":\"packages/deps.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/deps.js?504589e1e9585dec8f9f6094e5a87b22de3783a1\",\"sourceMap\":\"packages/deps.js.map\",\"sourceMapUrl\":\"/packages/504589e1e9585dec8f9f6094e5a87b22de3783a1.map\",\"size\":1442,\"hash\":\"504589e1e9585dec8f9f6094e5a87b22de3783a1\"},{\"path\":\"packages/jquery.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/jquery.js?dd8bac56f8fd3666d433d2285ae01e52597cc51a\",\"sourceMap\":\"packages/jquery.js.map\",\"sourceMapUrl\":\"/packages/dd8bac56f8fd3666d433d2285ae01e52597cc51a.map\",\"size\":1296513,\"hash\":\"dd8bac56f8fd3666d433d2285ae01e52597cc51a\"},{\"path\":\"packages/htmljs.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/htmljs.js?567eb96d5d22631c03d6aca6afa4c42f0d1295f2\",\"sourceMap\":\"packages/htmljs.js.map\",\"sourceMapUrl\":\"/packages/567eb96d5d22631c03d6aca6afa4c42f0d1295f2.map\",\"size\":60161,\"hash\":\"567eb96d5d22631c03d6aca6afa4c42f0d1295f2\"},{\"path\":\"packages/observe-sequence.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/observe-sequence.js?2fd807ea171ead273b9e6458607cb226012d9240\",\"sourceMap\":\"packages/observe-sequence.js.map\",\"sourceMapUrl\":\"/packages/2fd807ea171ead273b9e6458607cb226012d9240.map\",\"size\":30271,\"hash\":\"2fd807ea171ead273b9e6458607cb226012d9240\"},{\"path\":\"packages/reactive-var.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-var.js?20335b7b37165980ddd9f23943b2e5b00aae1cc2\",\"sourceMap\":\"packages/reactive-var.js.map\",\"sourceMapUrl\":\"/packages/20335b7b37165980ddd9f23943b2e5b00aae1cc2.map\",\"size\":13963,\"hash\":\"20335b7b37165980ddd9f23943b2e5b00aae1cc2\"},{\"path\":\"packages/blaze.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/blaze.js?efa68f65e67544b5a05509804bf97e2c91ce75eb\",\"sourceMap\":\"packages/blaze.js.map\",\"sourceMapUrl\":\"/packages/efa68f65e67544b5a05509804bf97e2c91ce75eb.map\",\"size\":391530,\"hash\":\"efa68f65e67544b5a05509804bf97e2c91ce75eb\"},{\"path\":\"packages/ui.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ui.js?5a663333fd30f8fd913f110e0ef779e84f67c4b8\",\"sourceMap\":\"packages/ui.js.map\",\"sourceMapUrl\":\"/packages/5a663333fd30f8fd913f110e0ef779e84f67c4b8.map\",\"size\":1529,\"hash\":\"5a663333fd30f8fd913f110e0ef779e84f67c4b8\"},{\"path\":\"packages/templating.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/templating.js?599ba307216da826d8b335332ebcc9a497a369a0\",\"sourceMap\":\"packages/templating.js.map\",\"sourceMapUrl\":\"/packages/599ba307216da826d8b335332ebcc9a497a369a0.map\",\"size\":11910,\"hash\":\"599ba307216da826d8b335332ebcc9a497a369a0\"},{\"path\":\"packages/iron_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_core.js?d966a1f70c94792fd94c8a155bdbef9bec5e0047\",\"sourceMap\":\"packages/iron_core.js.map\",\"sourceMapUrl\":\"/packages/d966a1f70c94792fd94c8a155bdbef9bec5e0047.map\",\"size\":32915,\"hash\":\"d966a1f70c94792fd94c8a155bdbef9bec5e0047\"},{\"path\":\"packages/iron_dynamic-template.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_dynamic-template.js?d425554c9847e4a80567f8ca55719cd6ae3f2722\",\"sourceMap\":\"packages/iron_dynamic-template.js.map\",\"sourceMapUrl\":\"/packages/d425554c9847e4a80567f8ca55719cd6ae3f2722.map\",\"size\":86389,\"hash\":\"d425554c9847e4a80567f8ca55719cd6ae3f2722\"},{\"path\":\"packages/iron_layout.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_layout.js?4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062\",\"sourceMap\":\"packages/iron_layout.js.map\",\"sourceMapUrl\":\"/packages/4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062.map\",\"size\":62058,\"hash\":\"4e65c46acdaf0ce6a8b1a479d7b9d0b5c0902062\"},{\"path\":\"packages/iron_url.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_url.js?6979e41649a22dcf609df30fc533e36037c7ae58\",\"sourceMap\":\"packages/iron_url.js.map\",\"sourceMapUrl\":\"/packages/6979e41649a22dcf609df30fc533e36037c7ae58.map\",\"size\":69302,\"hash\":\"6979e41649a22dcf609df30fc533e36037c7ae58\"},{\"path\":\"packages/iron_middleware-stack.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_middleware-stack.js?0e0f6983a838a6516556b08e62894f89720e2c44\",\"sourceMap\":\"packages/iron_middleware-stack.js.map\",\"sourceMapUrl\":\"/packages/0e0f6983a838a6516556b08e62894f89720e2c44.map\",\"size\":47239,\"hash\":\"0e0f6983a838a6516556b08e62894f89720e2c44\"},{\"path\":\"packages/iron_location.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_location.js?ca4f0f6672edbfb6cafab6e5c024208d9364eac9\",\"sourceMap\":\"packages/iron_location.js.map\",\"sourceMapUrl\":\"/packages/ca4f0f6672edbfb6cafab6e5c024208d9364eac9.map\",\"size\":52275,\"hash\":\"ca4f0f6672edbfb6cafab6e5c024208d9364eac9\"},{\"path\":\"packages/reactive-dict.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/reactive-dict.js?6b25309b1f0dcf775b44984324878d6f8ad1abc2\",\"sourceMap\":\"packages/reactive-dict.js.map\",\"sourceMapUrl\":\"/packages/6b25309b1f0dcf775b44984324878d6f8ad1abc2.map\",\"size\":19802,\"hash\":\"6b25309b1f0dcf775b44984324878d6f8ad1abc2\"},{\"path\":\"packages/iron_controller.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_controller.js?b02790701804563eafedb2e68c602154983ade06\",\"sourceMap\":\"packages/iron_controller.js.map\",\"sourceMapUrl\":\"/packages/b02790701804563eafedb2e68c602154983ade06.map\",\"size\":41091,\"hash\":\"b02790701804563eafedb2e68c602154983ade06\"},{\"path\":\"packages/iron_router.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/iron_router.js?a427868585af16bb88b7c9996b2449aebb8dbf51\",\"sourceMap\":\"packages/iron_router.js.map\",\"sourceMapUrl\":\"/packages/a427868585af16bb88b7c9996b2449aebb8dbf51.map\",\"size\":216733,\"hash\":\"a427868585af16bb88b7c9996b2449aebb8dbf51\"},{\"path\":\"packages/percolatestudio_segment.io.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/percolatestudio_segment.io.js?596cb9efc26bdeccc908a0b52f5c76c55f11af18\",\"sourceMap\":\"packages/percolatestudio_segment.io.js.map\",\"sourceMapUrl\":\"/packages/596cb9efc26bdeccc908a0b52f5c76c55f11af18.map\",\"size\":8715,\"hash\":\"596cb9efc26bdeccc908a0b52f5c76c55f11af18\"},{\"path\":\"packages/coffeescript.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/coffeescript.js?969f68786bbc68e6cad299e74922a53af3d1404b\",\"sourceMap\":\"packages/coffeescript.js.map\",\"sourceMapUrl\":\"/packages/969f68786bbc68e6cad299e74922a53af3d1404b.map\",\"size\":1294,\"hash\":\"969f68786bbc68e6cad299e74922a53af3d1404b\"},{\"path\":\"packages/practicalmeteor_chai.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/practicalmeteor_chai.js?7fbbbec9a13f4adf082b394c5ddd7230d84afc48\",\"sourceMap\":\"packages/practicalmeteor_chai.js.map\",\"sourceMapUrl\":\"/packages/7fbbbec9a13f4adf082b394c5ddd7230d84afc48.map\",\"size\":570118,\"hash\":\"7fbbbec9a13f4adf082b394c5ddd7230d84afc48\"},{\"path\":\"packages/practicalmeteor_loglevel.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/practicalmeteor_loglevel.js?9185331dfa11fd235edfbef93838d4ca3244d638\",\"sourceMap\":\"packages/practicalmeteor_loglevel.js.map\",\"sourceMapUrl\":\"/packages/9185331dfa11fd235edfbef93838d4ca3244d638.map\",\"size\":28719,\"hash\":\"9185331dfa11fd235edfbef93838d4ca3244d638\"},{\"path\":\"packages/velocity_core.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_core.js?cecf2443254038195518d507d5fe0ecdc5dce435\",\"sourceMap\":\"packages/velocity_core.js.map\",\"sourceMapUrl\":\"/packages/cecf2443254038195518d507d5fe0ecdc5dce435.map\",\"size\":12238,\"hash\":\"cecf2443254038195518d507d5fe0ecdc5dce435\"},{\"path\":\"packages/velocity_shim.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_shim.js?14363d085a412115605c41536e4f2867425b89d5\",\"sourceMap\":\"packages/velocity_shim.js.map\",\"sourceMapUrl\":\"/packages/14363d085a412115605c41536e4f2867425b89d5.map\",\"size\":2905,\"hash\":\"14363d085a412115605c41536e4f2867425b89d5\"},{\"path\":\"packages/sanjo_jasmine.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/sanjo_jasmine.js?5100ed3399ec95abdd514e07757c0b5d1e307a9f\",\"sourceMap\":\"packages/sanjo_jasmine.js.map\",\"sourceMapUrl\":\"/packages/5100ed3399ec95abdd514e07757c0b5d1e307a9f.map\",\"size\":537745,\"hash\":\"5100ed3399ec95abdd514e07757c0b5d1e307a9f\"},{\"path\":\"packages/ecwyne_polymer-elements.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ecwyne_polymer-elements.js?a4e556a223def6ee660fe71ca79555499dd68835\",\"sourceMap\":\"packages/ecwyne_polymer-elements.js.map\",\"sourceMapUrl\":\"/packages/a4e556a223def6ee660fe71ca79555499dd68835.map\",\"size\":68981,\"hash\":\"a4e556a223def6ee660fe71ca79555499dd68835\"},{\"path\":\"packages/ecwyne_polymer.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/ecwyne_polymer.js?d618fe3044e86a8732b53cdb724c1b2b7df2d14a\",\"sourceMap\":\"packages/ecwyne_polymer.js.map\",\"sourceMapUrl\":\"/packages/d618fe3044e86a8732b53cdb724c1b2b7df2d14a.map\",\"size\":1478,\"hash\":\"d618fe3044e86a8732b53cdb724c1b2b7df2d14a\"},{\"path\":\"packages/session.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/session.js?e436deefadc999c21b6fd16e8e1ecce55c3c3a55\",\"sourceMap\":\"packages/session.js.map\",\"sourceMapUrl\":\"/packages/e436deefadc999c21b6fd16e8e1ecce55c3c3a55.map\",\"size\":6497,\"hash\":\"e436deefadc999c21b6fd16e8e1ecce55c3c3a55\"},{\"path\":\"packages/lai_collection-extensions.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/lai_collection-extensions.js?05f46dd1b13004b8570eac5e9f57da75db0a2e46\",\"sourceMap\":\"packages/lai_collection-extensions.js.map\",\"sourceMapUrl\":\"/packages/05f46dd1b13004b8570eac5e9f57da75db0a2e46.map\",\"size\":12618,\"hash\":\"05f46dd1b13004b8570eac5e9f57da75db0a2e46\"},{\"path\":\"packages/dburles_mongo-collection-instances.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/dburles_mongo-collection-instances.js?d5ad01381e3d2dc4928658b836a4e039b045e36f\",\"sourceMap\":\"packages/dburles_mongo-collection-instances.js.map\",\"sourceMapUrl\":\"/packages/d5ad01381e3d2dc4928658b836a4e039b045e36f.map\",\"size\":5444,\"hash\":\"d5ad01381e3d2dc4928658b836a4e039b045e36f\"},{\"path\":\"packages/spacebars.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/spacebars.js?7f53771c84a2eafac2b561c9796dda0d8af8e7f5\",\"sourceMap\":\"packages/spacebars.js.map\",\"sourceMapUrl\":\"/packages/7f53771c84a2eafac2b561c9796dda0d8af8e7f5.map\",\"size\":42206,\"hash\":\"7f53771c84a2eafac2b561c9796dda0d8af8e7f5\"},{\"path\":\"packages/gwendall_session-json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/gwendall_session-json.js?c50a8e38f20e14af58c2733d2b57581539b06a47\",\"sourceMap\":\"packages/gwendall_session-json.js.map\",\"sourceMapUrl\":\"/packages/c50a8e38f20e14af58c2733d2b57581539b06a47.map\",\"size\":11518,\"hash\":\"c50a8e38f20e14af58c2733d2b57581539b06a47\"},{\"path\":\"packages/aldeed_template-extension.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/aldeed_template-extension.js?e21d2f3f76cf4d629c394319bdb4c45f79da30f1\",\"sourceMap\":\"packages/aldeed_template-extension.js.map\",\"sourceMapUrl\":\"/packages/e21d2f3f76cf4d629c394319bdb4c45f79da30f1.map\",\"size\":47437,\"hash\":\"e21d2f3f76cf4d629c394319bdb4c45f79da30f1\"},{\"path\":\"packages/babrahams_editable-json.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/babrahams_editable-json.js?1047754ffc6951042e6ae766224ac96170c70dc1\",\"sourceMap\":\"packages/babrahams_editable-json.js.map\",\"sourceMapUrl\":\"/packages/1047754ffc6951042e6ae766224ac96170c70dc1.map\",\"size\":101805,\"hash\":\"1047754ffc6951042e6ae766224ac96170c70dc1\"},{\"path\":\"packages/msavin_mongol.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/msavin_mongol.js?e0071f0fce3b80c78f89bb9ec3ec17c1a74d9bc9\",\"sourceMap\":\"packages/msavin_mongol.js.map\",\"sourceMapUrl\":\"/packages/e0071f0fce3b80c78f89bb9ec3ec17c1a74d9bc9.map\",\"size\":194883,\"hash\":\"e0071f0fce3b80c78f89bb9ec3ec17c1a74d9bc9\"},{\"path\":\"packages/webapp.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/webapp.js?e1be090051b82f046484dccc2de7d747e50c7328\",\"sourceMap\":\"packages/webapp.js.map\",\"sourceMapUrl\":\"/packages/e1be090051b82f046484dccc2de7d747e50c7328.map\",\"size\":3106,\"hash\":\"e1be090051b82f046484dccc2de7d747e50c7328\"},{\"path\":\"packages/livedata.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/livedata.js?718526445deb4d9baacb6d92c551adea1d36c1e1\",\"sourceMap\":\"packages/livedata.js.map\",\"sourceMapUrl\":\"/packages/718526445deb4d9baacb6d92c551adea1d36c1e1.map\",\"size\":1413,\"hash\":\"718526445deb4d9baacb6d92c551adea1d36c1e1\"},{\"path\":\"packages/launch-screen.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/launch-screen.js?13e1092ebecdb7208762500188f1dc2dea5603e9\",\"sourceMap\":\"packages/launch-screen.js.map\",\"sourceMapUrl\":\"/packages/13e1092ebecdb7208762500188f1dc2dea5603e9.map\",\"size\":9707,\"hash\":\"13e1092ebecdb7208762500188f1dc2dea5603e9\"},{\"path\":\"packages/global-imports.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/global-imports.js?4fe93082f8d094e3cceebfebbcdfcfed21e2d4f4\",\"size\":937,\"hash\":\"4fe93082f8d094e3cceebfebbcdfcfed21e2d4f4\"},{\"path\":\"app/MarketData/client/template.templates.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/template.templates.js?5ee3bdb6cf8157c37f12c11afab95791bf7ce2f6\",\"size\":717,\"hash\":\"5ee3bdb6cf8157c37f12c11afab95791bf7ce2f6\"},{\"path\":\"app/template.index.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/template.index.js?1a72ef59e762860ba690816edf3436085dacb0f4\",\"size\":249,\"hash\":\"1a72ef59e762860ba690816edf3436085dacb0f4\"},{\"path\":\"app/MarketData/lib/collection.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/lib/collection.js?cf8cc04eb7dc058113ec0ba2993b150f74bbdbe3\",\"size\":70,\"hash\":\"cf8cc04eb7dc058113ec0ba2993b150f74bbdbe3\"},{\"path\":\"app/MarketData/client/helpers.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/helpers.js?9001c1857287de5998e72fe87f8c467001563c70\",\"size\":124,\"hash\":\"9001c1857287de5998e72fe87f8c467001563c70\"},{\"path\":\"app/MarketData/client/subscribe.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/MarketData/client/subscribe.js?efe291e9a5b9ae96d53f6e52566ef8a4abb5ac05\",\"size\":51,\"hash\":\"efe291e9a5b9ae96d53f6e52566ef8a4abb5ac05\"},{\"path\":\"app/index.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/index.js?e8ae200d1592565cb622ed92cdfa75e7beafeced\",\"size\":76,\"hash\":\"e8ae200d1592565cb622ed92cdfa75e7beafeced\"},{\"path\":\"packages/velocity_test-proxy.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_test-proxy.js?4b041a7016775526ee866c25d5fb1d1039ef28c1\",\"sourceMap\":\"packages/velocity_test-proxy.js.map\",\"sourceMapUrl\":\"/packages/4b041a7016775526ee866c25d5fb1d1039ef28c1.map\",\"size\":1304,\"hash\":\"4b041a7016775526ee866c25d5fb1d1039ef28c1\"},{\"path\":\"packages/velocity_node-soft-mirror.js\",\"where\":\"client\",\"type\":\"js\",\"cacheable\":true,\"url\":\"/packages/velocity_node-soft-mirror.js?acf27a727fa9aa2f29f237ade3b2046fb9890e36\",\"sourceMap\":\"packages/velocity_node-soft-mirror.js.map\",\"sourceMapUrl\":\"/packages/acf27a727fa9aa2f29f237ade3b2046fb9890e36.map\",\"size\":11067,\"hash\":\"acf27a727fa9aa2f29f237ade3b2046fb9890e36\"},{\"path\":\"2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css\",\"where\":\"client\",\"type\":\"css\",\"cacheable\":true,\"url\":\"/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css\",\"sourceMap\":\"2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.css.map\",\"sourceMapUrl\":\"/2d68c3eb3ca7c14f826517bdca1773d73fc30dd5.map\",\"size\":11752,\"hash\":\"2d68c3eb3ca7c14f826517bdca1773d73fc30dd5\"},{\"path\":\"packages/msavin_mongol/client/style/Liberation.ttf\",\"where\":\"client\",\"type\":\"asset\",\"cacheable\":false,\"url\":\"/packages/msavin_mongol/client/style/Liberation.ttf\",\"size\":61144,\"hash\":\"f882269241d0d3a0a3161dae5611e0abfa24958c\"},{\"path\":\"head.html\",\"where\":\"internal\",\"type\":\"head\",\"hash\":\"2b17e067b6a9c226b91e5217f376567c45625277\"}],\"version\":\"c0739f847392f0ae0df03c5525e871979eb8c938\"}"
                 },
                 "type": {
                   "type": "constant",
@@ -9347,6 +9597,12 @@ var packageMetadata = {
                 }
               }
             },
+            "get": {
+              "type": "function"
+            },
+            "getAll": {
+              "type": "function"
+            },
             "prototype": {
               "type": "object",
               "members": {
@@ -9393,11 +9649,11 @@ var packageMetadata = {
       "members": {
         "autoupdateVersion": {
           "type": "constant",
-          "value": "cGmApdhDK7LYcN5bQ"
+          "value": "PL4qAsPcgH39CWjKg"
         },
         "autoupdateVersionRefreshable": {
           "type": "constant",
-          "value": "9c579acaeb72ecbf0a5adb9ea2f145e907f8a1ed"
+          "value": "f28418c1b0ef936b1176be74b4223924d214ace2"
         },
         "autoupdateVersionCordova": {
           "type": "constant",
@@ -10620,88 +10876,11 @@ var packageMetadata = {
                 },
                 "appPath": {
                   "type": "constant",
-                  "value": "/home/vagrant/cyberfund"
+                  "value": "/Users/xhipster/Github/cyber.fund"
                 },
                 "pid": {
                   "type": "constant",
-                  "value": 2674
-                },
-                "fout": {
-                  "type": "constant",
-                  "value": 26
-                },
-                "child": {
-                  "type": "object",
-                  "members": {
-                    "domain": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "signalCode": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "exitCode": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "pid": {
-                      "type": "constant",
-                      "value": 2674
-                    },
-                    "stdin": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "stdout": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "stderr": {
-                      "type": "null",
-                      "value": null
-                    },
-                    "stdio": {
-                      "type": "array"
-                    },
-                    "spawn": {
-                      "type": "function"
-                    },
-                    "kill": {
-                      "type": "function"
-                    },
-                    "ref": {
-                      "type": "function"
-                    },
-                    "unref": {
-                      "type": "function"
-                    },
-                    "setMaxListeners": {
-                      "type": "function"
-                    },
-                    "emit": {
-                      "type": "function"
-                    },
-                    "addListener": {
-                      "type": "function",
-                      "refID": 17
-                    },
-                    "on": {
-                      "ref": 17
-                    },
-                    "once": {
-                      "type": "function"
-                    },
-                    "removeListener": {
-                      "type": "function"
-                    },
-                    "removeAllListeners": {
-                      "type": "function"
-                    },
-                    "listeners": {
-                      "type": "function"
-                    }
-                  }
+                  "value": 7079
                 },
                 "getTaskName": {
                   "type": "function"
@@ -10771,6 +10950,12 @@ var packageMetadata = {
       }
     }
   },
+  "ecwyne:polymer-elements": {},
+  "ecwyne:polymer": {},
+  "lai:collection-extensions": {},
+  "dburles:mongo-collection-instances": {},
+  "babrahams:editable-json": {},
+  "msavin:mongol": {},
   "session": {},
   "livedata": {
     "DDP": {
