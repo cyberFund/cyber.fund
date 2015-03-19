@@ -9,7 +9,7 @@ http
 iron:router
 percolatestudio:segment.io@=1.1.1_1
 sanjo:jasmine
-ecwyne:polymer-elements
-ecwyne:polymer
 msavin:mongol
 appcache
+differential:vulcanize
+less
