@@ -56,7 +56,7 @@ Meteor.startup(function() {
 			processedData = proccessFetchedData(result.data);
 
 			console.log("Inserting", processedData.length, "documents...");
-			MarketData.batchInsert(processedData, function(error, result) {
+			MarketData.rawCollection().insert(processedData, function(error, result) {
 
 				if (error) {
 
