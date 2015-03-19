@@ -1,0 +1,36 @@
+<template name="home">
+	<h1 style="text-align: center">Coming soon!</h1>
+
+	{{> marketData}}
+</template>
+
+<template name="marketData">
+	<table>
+		<tr>
+			<th>Icon</th>
+			<th>System</th>
+			<th>Rating</th>
+			<th>Supply</th>
+			<th>Trade volume</th>
+			<th>Bitcoins cap</th>
+			<th>Change</th>
+			<th>USD cap</th>
+			<th>Change</th>
+			<th>Chart</th>
+		</tr>
+		{{#each systems}}
+			<tr>
+				<td>[{{symbol}} icon]</td>
+				<td>{{name}}</td>
+				<td alt="not ready">[stars]</td>
+				<td alt="not ready">[Currently {{metrics.availableSupply}}]</td>
+				<td alt="not ready">Too damn high</td>
+				<td>{{metrics.marketCap.btc}} BTC</td>
+				<td alt="not ready">[change]</td>
+				<td>${{metrics.marketCap.usd}}</td>
+				<td alt="not ready">[change]</td>
+				<td alt="not ready">[nice chart]</td>
+			</tr>
+		{{/each}}
+	</table>
+</template>
