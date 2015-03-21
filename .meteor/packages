@@ -9,6 +9,7 @@ http
 iron:router
 percolatestudio:segment.io@=1.1.1_1
 sanjo:jasmine
+velocity:html-reporter
 msavin:mongol
 appcache
 differential:vulcanize
