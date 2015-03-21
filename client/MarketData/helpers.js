@@ -1,9 +1,13 @@
-Template.marketData.onCreated(function() {
-	this.subscribe("current-data");
-});
+Meteor.startup(function() {
 
-Template.marketData.helpers({
-	systems: function() {
-		return MarketData.find({});
-	}
+	Template.marketData.onCreated(function() {
+		this.subscribe("current-data");
+	});
+
+	Template.marketData.helpers({
+		systems: function() {
+			return MarketData.find({});
+		}
+	});
+
 });

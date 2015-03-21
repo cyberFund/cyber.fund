@@ -1,12 +1,16 @@
-Router.route( "/api/timestamp/:timestamp", { where: "server" })
-	.get(function() {
+Meteor.startup(function() {
 
-		this.response.writeHead( 200, { "Content-Type": "application/json" });
+	Router.route( "/api/timestamp/:timestamp", { where: "server" })
+		.get(function() {
 
-		var data = MarketData.findOne({
-			timestamp: +this.params.timestamp
+			this.response.writeHead( 200, { "Content-Type": "application/json" });
+
+			var data = MarketData.findOne({
+				timestamp: +this.params.timestamp
+			});
+
+			this.response.end( JSON.stringify( data ));
+
 		});
 
-		this.response.end( JSON.stringify( data ));
-
-	});
+});

@@ -1,3 +1,7 @@
-Router.route("/", function() {
-	this.render("home");
+Meteor.startup(function() {
+
+	Router.route("/", function() {
+		this.render("home");
+	});
+
 });
