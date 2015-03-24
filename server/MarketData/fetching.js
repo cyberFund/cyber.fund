@@ -1,82 +1,103 @@
-Meteor.startup(function() {
+this.fetching = {
 
-	var ORIGINAL_API_URL = "http://coinmarketcap.northpole.ro/api/v5/all.json";
-	var ORIGINAL_API_NAME = "CoinMarketCap";
-	var ORIGINAL_API_FETCH_INTERVAL = 5 * 60 * 1000;
+	fetchData: function(url, options, callback) {
 
+		HTTP.get(url, options, function(error, result) {
 
-	var fetchData = function( callback ) {
+			if (error) {
 
-		HTTP.get( ORIGINAL_API_URL, {
-			timeout: ORIGINAL_API_FETCH_INTERVAL
-		}, callback );
+				callback(error);
 
-	};
+			} else if (!result.data) {
 
-	var proccessFetchedData = function(data) {
+				callback(new Error("Cannot parse new data!"));
 
-		var timestamp = data.timestamp;
-		var systems = data.markets;
+			} else {
 
-		var processedData = systems.map(function(system) {
-			return {
-				name: system.name,
-				symbol: system.symbol,
-				timestamp: timestamp,
-				source: ORIGINAL_API_NAME,
-				metrics: {
-					marketCap: system.marketCap,
-					price: system.price,
-					availableSupply: system.availableSupply,
-					availableSupplyNumber: system.availableSupplyNumber,
-					volume24: system.volume24,
-					change1h: system.change1h,
-					change7h: system.change7h,
-					change7d: system.change7d,
-				},
-			};
+				callback(error, result.data);
+
+			}
+
 		});
 
-		return processedData;
+	},
 
-	};
+	processData: function(data, source, callback) {
 
-	var saveFetchedData = function(error, result) {
+		var systems, processedData;
 
-		var processedData;
+		if (!source) {
 
-		if (error) {
-
-			console.error("Cannot fetch original API data!", error);
+			callback(new Error("Cannot process data without a source!"));
 
 		} else {
 
-			console.log("Fetched", ORIGINAL_API_NAME ,"at:", result.data.timestamp);
-
-			processedData = proccessFetchedData(result.data);
-
-			console.log("Inserting", processedData.length, "documents...");
-			MarketData.rawCollection().insert(processedData, function(error, result) {
-
-				if (error) {
-
-					console.error("Cannot insert new data!", error);
-
-				} else {
-
-					console.log("Done!");
-
-				}
-
+			systems = data.markets;
+			processedData = systems.map(function(system) {
+				var metrics = _.omit(system, "position", "name", "symbol", "timestamp");
+				return {
+					name: system.name,
+					symbol: system.symbol,
+					timestamp: system.timestamp,
+					source: source,
+					metrics: metrics,
+				};
 			});
+
+			callback(null, processedData);
 
 		}
 
+	},
+
+	saveData: function(data, callback) {
+		MarketData.rawCollection().insert(data, function(error, result) {
+			if (error) {
+				callback(error);
+			} else {
+				callback(null, true);
+			}
+		});
+	},
+
+};
+
+Meteor.startup(function() {
+
+	var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
+	var sourceName = "CoinMarketCap";
+	var fetchInterval = 5 * 60 * 1000;
+	var fetchOptions = { timeout: fetchInterval };
+
+	fetch = function() {
+
+		console.log("Fetching data from " + sourceName + "...");
+		fetching.fetchData(sourceUrl, fetchOptions, function(error, result) {
+			if (error) {
+				console.error("Error while fetching:", error);
+				return;
+			}
+
+			fetching.processData(result, sourceName, function(error, result) {
+				if (error) {
+					console.error("Error while processing:", error);
+					return;
+				}
+
+				fetching.saveData(result, function(error, result) {
+					if (error) {
+						console.error("Error while saving:", error);
+						return;
+					}
+
+					console.log("Saved!");
+				});
+			});
+		});
+
 	};
 
-	Meteor.setInterval(function() {
-		fetchData( saveFetchedData );
-	}, ORIGINAL_API_FETCH_INTERVAL );
+	Meteor.setInterval(fetch, fetchInterval);
+	fetch();
 
-	fetchData( saveFetchedData );
 });
