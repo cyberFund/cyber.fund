@@ -2,7 +2,7 @@ describe("fetching", function() {
 
 	describe("fetchData", function() {
 
-		it("should call HTTP.get with the same url and options", function() {
+		it("should call HTTP.get with correct url and options", function() {
 
 			var url = "fake url";
 			var options = { foo: "bar" };
@@ -175,7 +175,7 @@ describe("fetching", function() {
 
 	describe("saveData", function() {
 
-		it("inserts provided data into MarketData", function(done) {
+		it("should insert provided data into MarketData", function(done) {
 
 			var fakeData = [
 				{
