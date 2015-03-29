@@ -13,11 +13,7 @@ this.publications = {
 
 		return MarketData.find(
 			{ timestamp: this.getLatestTimestamp() },
-			{
-				sort: { timestamp: -1 },
-				limit: 10,
-				offset: 0,
-			}
+			{ sort: { timestamp: -1 } }
 		);
 
 	},

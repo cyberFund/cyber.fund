@@ -18,11 +18,7 @@ Jasmine.onTest(function() {
 						timestamp: 12345,
 					});
 
-					expect(options).toEqual({
-						sort: { timestamp: -1 },
-						limit: 10,
-						offset: 0,
-					});
+					expect(options).toEqual({ sort: { timestamp: -1 } });
 
 					return { fake: "cursor" };
 

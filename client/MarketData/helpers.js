@@ -22,7 +22,7 @@ Meteor.startup(function() {
 			return {
 				collection: MarketData,
 				showFilter: false,
-				rowsPerPage: Number.MAX_VALUE,
+				rowsPerPage: 10,
 				showNavigation: "never",
 				fields: [
 					{
