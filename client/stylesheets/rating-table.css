@@ -1,0 +1,8 @@
+.reactive-table {
+	border-spacing: 10px;
+	border-collapse: separate;
+}
+
+.reactive-table th {
+	min-width: 100px;
+}

@@ -5,32 +5,22 @@
 </template>
 
 <template name="marketData">
-	<table>
-		<tr>
-			<th>Icon</th>
-			<th>System</th>
-			<th>Rating</th>
-			<th>Supply</th>
-			<th>Trade volume</th>
-			<th>Bitcoins cap</th>
-			<th>Change</th>
-			<th>USD cap</th>
-			<th>Change</th>
-			<th>Chart</th>
-		</tr>
-		{{#each systems}}
-			<tr>
-				<td>[{{symbol}} icon]</td>
-				<td>{{name}}</td>
-				<td alt="not ready">[stars]</td>
-				<td alt="not ready">[Currently {{metrics.availableSupply}}]</td>
-				<td alt="not ready">Too damn high</td>
-				<td>{{metrics.marketCap.btc}} BTC</td>
-				<td alt="not ready">[change]</td>
-				<td>${{metrics.marketCap.usd}}</td>
-				<td alt="not ready">[change]</td>
-				<td alt="not ready">[nice chart]</td>
-			</tr>
-		{{/each}}
-	</table>
+	{{> reactiveTable settings=tableSettings}}
 </template>
+
+<template name="systemIcon">
+	<core-image
+		style="width: 50px; height: 50px"
+		sizing="contain"
+		preload
+		placeholder="http://placekitten.com/g/50/50"
+		src="/icons/{{name}}-{{symbol}}.png"
+	></core-image>
+</template>
+
+<template name="systemRating">Rating</template>
+<template name="systemSupplyChange">{{formatNumber metrics.availableSupplyNumber}}</template>
+<template name="systemTradeVolume">{{formatNumber metrics.volume24.btc}}</template>
+<template name="systemMarketCapBtc">{{formatNumber metrics.marketCap.btc}}</template>
+<template name="systemMarketCapUsd">{{formatNumber metrics.marketCap.usd}}</template>
+<template name="systemCapChangeChart">Chart</template>
