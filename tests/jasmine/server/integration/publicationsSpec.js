@@ -3,34 +3,20 @@ Jasmine.onTest(function() {
 
 		describe("current-data", function() {
 
-			beforeEach(function() {
-
-
-			});
-
 			it("should work nicely", function() {
 
-				spyOn(MarketData, "findOne").and.returnValue({ timestamp: 12345 });
+				MarketData.remove({});
+				MarketData.insert({ timestamp: 100, source: "foo", name: "bar" });
+				MarketData.insert({ timestamp: 100, source: "foo", name: "qux" });
+				MarketData.insert({ timestamp: 200, source: "foo", name: "bar" });
+				MarketData.insert({ timestamp: 200, source: "foo", name: "qux" });
 
-				spyOn(MarketData, "find").and.callFake(function(query, options) {
+				result = publications.getCurrentDataCursor().fetch();
 
-					expect(query).toEqual({
-						timestamp: 12345,
-					});
+				expect(result[0]).toEqual({ _id: jasmine.any(String), timestamp: 200, source: "foo", name: "bar" });
+				expect(result[1]).toEqual({ _id: jasmine.any(String), timestamp: 200, source: "foo", name: "qux" });
 
-					expect(options).toEqual({
-						sort: { timestamp: -1 },
-						limit: 10,
-						offset: 0,
-					});
-
-					return { fake: "cursor" };
-
-				});
-
-				result = publications.getCurrentDataCursor();
-
-				expect(result).toEqual({ fake: "cursor" });
+				expect(result.length).toBe(2);
 
 			});
 
