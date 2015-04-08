@@ -1,10 +1,9 @@
 Jasmine.onTest(function() {
 	describe("fetching", function() {
 
-		it("should fetch, process and save correct data", function(done) {
+		it("should be able to fetch CoinMarketCap correctly", function(done) {
 
 			var fakeUrl = "fake url";
-			var fakeSource = "fake source name";
 			var fakeOptions = { foo: "bar" };
 			var callback = function() {};
 
@@ -35,7 +34,7 @@ Jasmine.onTest(function() {
 					name: "Fakecoin",
 					symbol: "FCK",
 					timestamp: 12345,
-					source: fakeSource,
+					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { foo: "bar" },
 					},
@@ -44,7 +43,7 @@ Jasmine.onTest(function() {
 					name: "Bestcoin",
 					symbol: "YAY",
 					timestamp: 12345,
-					source: fakeSource,
+					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { qux: "baz" },
 					},
@@ -63,17 +62,17 @@ Jasmine.onTest(function() {
 				};
 			});
 
-			fetching.fetchData(fakeUrl, fakeOptions, function(error, result) {
+			fetching.get(fakeUrl, fakeOptions, function(error, result) {
+				expect(error).toBe(null);
 
-				fetching.processData(result, fakeSource, function(error, result) {
-
+				fetching.coinMarketCap.processData(result, function(error, result) {
+					expect(error).toBe(null);
 					expect(result).toEqual(expectedOutput);
-					fetching.saveData(result, function(error, result) {
 
+					fetching.saveToDb(result, function(error, result) {
 						expect(error).toBe(null);
 						expect(result).toBe(true);
 						done();
-
 					});
 
 				});
