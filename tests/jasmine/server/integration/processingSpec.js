@@ -61,5 +61,33 @@ Jasmine.onTest(function() {
 
 		});
 
+		describe("getMedianValue", function() {
+
+			beforeEach(function() {
+
+				MarketData.remove({});
+				MarketData.insert({ timestamp: 100, source: "foo", name: "Bitcoin",
+					symbol: "BTC", metrics: { foo: 100 } });
+				MarketData.insert({ timestamp: 200, source: "foo", name: "Bitcoin",
+					symbol: "BTC", metrics: { foo: 200 } });
+				MarketData.insert({ timestamp: 300, source: "foo", name: "Bitcoin",
+					symbol: "BTC", metrics: { foo: 300 } });
+				MarketData.insert({ timestamp: 400, source: "foo", name: "Bitcoin",
+					symbol: "BTC", metrics: { foo: 400 } });
+				MarketData.insert({ timestamp: 500, source: "foo", name: "Bitcoin",
+					symbol: "BTC", metrics: { foo: 500 } });
+
+			});
+
+			it("should get median value for metrics.foo", function() {
+				result = processing.getMedianValue("foo", {
+					name: "Bitcoin",
+					symbol: "BTC",
+				}, "metrics.foo", 300);
+				expect(result).toBe(400);
+			});
+
+		});
+
 	});
 });

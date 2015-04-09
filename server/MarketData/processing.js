@@ -45,4 +45,38 @@ this.processing = {
 
 	},
 
+	getMedianValue: function(source, system, fieldName, since) {
+		var count = MarketData.find({
+			name: system.name,
+			symbol: system.symbol,
+			source: source,
+			timestamp: { $gte: since },
+		}).count();
+
+		var fieldNameEnabled = {};
+		fieldNameEnabled[fieldName] = 1;
+
+		var medianDocument = MarketData.findOne({
+			name: system.name,
+			symbol: system.symbol,
+			source: source,
+			timestamp: { $gte: since },
+		}, {
+			sort: fieldNameEnabled,
+			skip: Math.floor(count / 2),
+		});
+
+		var deref = function(obj, dotNotationString) {
+			var i = 0;
+			var parts = dotNotationString.split(".");
+			while (obj && i < parts.length) {
+				obj = obj[parts[i]];
+				i += 1;
+			}
+			return obj;
+		};
+
+		return medianDocument ? deref(medianDocument, fieldName) : null;
+	},
+
 };
