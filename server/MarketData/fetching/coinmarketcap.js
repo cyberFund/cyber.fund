@@ -5,16 +5,38 @@ this.fetching.coinMarketCap = {};
 
 this.fetching.coinMarketCap.processData = function(data, callback) {
 	var systems = data.markets;
-	var processedData = systems.map(function(system) {
-		var metrics = _.omit(system, "position", "name", "symbol", "timestamp");
-		return {
-			name: system.name,
-			symbol: system.symbol,
-			timestamp: system.timestamp,
+	var fetchedTimestamp = data.timestamp;
+
+	var dayAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+		moment.unix(fetchedTimestamp).subtract(1, "days"));
+
+	var weekAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+		moment.unix(fetchedTimestamp).subtract(1, "weeks"));
+
+	var monthAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+		moment.unix(fetchedTimestamp).subtract(1, "months"));
+
+	var processedData = systems.map(function(rawSystem) {
+		var processedSystem = {
+			name: rawSystem.name,
+			symbol: rawSystem.symbol,
 			source: "CoinMarketCap",
-			metrics: metrics,
+			timestamp: rawSystem.timestamp,
+			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp"),
 		};
+
+		processedSystem.metrics.tradeVolumeMedianDeviation = {
+			day: processing.getMedianValue("CoinMarketCap",
+				rawSystem, "metrics.volume24.btc", dayAgoTimestamp),
+			week: processing.getMedianValue("CoinMarketCap",
+				rawSystem, "metrics.volume24.btc", weekAgoTimestamp),
+			month: processing.getMedianValue("CoinMarketCap",
+				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
+		};
+
+		return processedSystem;
 	});
+
 	callback(null, processedData);
 };
 

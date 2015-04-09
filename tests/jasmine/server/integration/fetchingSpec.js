@@ -37,6 +37,7 @@ Jasmine.onTest(function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { foo: "bar" },
+						tradeVolumeMedianDeviation: jasmine.any(Object),
 					},
 				},
 				{
@@ -46,6 +47,7 @@ Jasmine.onTest(function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { qux: "baz" },
+						tradeVolumeMedianDeviation: jasmine.any(Object),
 					},
 				},
 			];

@@ -32,6 +32,7 @@ describe("fetching.coinMarketCap", function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { foo: "bar" },
+						tradeVolumeMedianDeviation: jasmine.any(Object),
 					},
 				},
 				{
@@ -41,6 +42,7 @@ describe("fetching.coinMarketCap", function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { qux: "baz" },
+						tradeVolumeMedianDeviation: jasmine.any(Object),
 					},
 				},
 			];
@@ -50,6 +52,14 @@ describe("fetching.coinMarketCap", function() {
 				expect(output).toEqual(expectedOutput);
 				done();
 			};
+
+			spyOn(MarketData, "find").and.callFake(function() {
+				return {
+					count: function() {
+						return 5;
+					},
+				};
+			});
 
 			fetching.coinMarketCap.processData(fakeData, callback);
 
