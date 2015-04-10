@@ -1,16 +1,24 @@
 this.processing = {
 
-	getNearestTimestamp: function(source, nearestTo) {
-
-		var query, nearestAfter, nearestBefore;
+	getNearestDocument: function(source, nearestTo, system, fields) {
+		var nearestAfter, nearestBefore, nearest;
 
 		var getWithQuery = function(query) {
 
 			var result;
-			var options = { fields: { timestamp: 1 } };
+			var options = {};
+
+			if (fields) {
+				options.fields = fields;
+			}
 
 			if (source) {
 				query.source = source;
+			}
+
+			if (system) {
+				query.name = system.name;
+				query.symbol = system.symbol;
 			}
 
 			if ("timestamp" in query && "$gte" in query.timestamp) {
@@ -20,7 +28,7 @@ this.processing = {
 			}
 
 			result = MarketData.findOne(query, options);
-			return result ? result.timestamp : null;
+			return result ? result : null;
 
 		};
 
@@ -30,7 +38,12 @@ this.processing = {
 			nearestAfter = getWithQuery({ timestamp: { $gte: nearestTo } });
 
 			if (nearestAfter && nearestBefore) {
-				return Math.max(nearestBefore, nearestAfter);
+				if ((nearestTo - nearestBefore.timestamp) >
+					(nearestAfter.timestamp - nearestTo)) {
+					return nearestAfter;
+				} else {
+					return nearestBefore;
+				}
 			} else if (nearestAfter) {
 				return nearestAfter;
 			} else {
@@ -42,7 +55,11 @@ this.processing = {
 			return getWithQuery({});
 
 		}
+	},
 
+	getNearestTimestamp: function(source, nearestTo) {
+		var result = this.getNearestDocument(source, nearestTo, null, { timestamp: 1 });
+		return result ? result.timestamp : null;
 	},
 
 	getMedianValue: function(source, system, fieldName, since) {
