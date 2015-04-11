@@ -34,17 +34,15 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
 		};
 
-		processedSystem.metrics.tradeVolumeMedianDeviation = {
-			day: tradeVolumeMedians.day ?
-				(processedSystem.metrics.volume24.btc - tradeVolumeMedians.day) :
-				0,
-			week: tradeVolumeMedians.week ?
-				(processedSystem.metrics.volume24.btc - tradeVolumeMedians.week) :
-				0,
-			month: tradeVolumeMedians.month ?
-				(processedSystem.metrics.volume24.btc - tradeVolumeMedians.month) :
-				0,
-		};
+		processedSystem.metrics.tradeVolumeMedianDeviation = {};
+		["day", "week", "month"].forEach(function(time) {
+			if (tradeVolumeMedians[time]) {
+				processedSystem.metrics.tradeVolumeMedianDeviation[time] =
+					parseFloat((processedSystem.metrics.volume24.btc - tradeVolumeMedians.day).toFixed(7));
+			} else {
+				processedSystem.metrics.tradeVolumeMedianDeviation[time] = 0;
+			}
+		});
 
 		var supplyBefore = {
 			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
@@ -55,17 +53,16 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 				rawSystem, "metrics.availableSupplyNumber"),
 		};
 
-		processedSystem.metrics.supplyChange = {
-			day: supplyBefore.day ?
-				processedSystem.metrics.availableSupplyNumber - supplyBefore.day :
-				0,
-			week: supplyBefore.week ?
-				processedSystem.metrics.availableSupplyNumber - supplyBefore.week :
-				0,
-			month: supplyBefore.month ?
-				processedSystem.metrics.availableSupplyNumber - supplyBefore.month :
-				0,
-		};
+		processedSystem.metrics.supplyChange = {};
+		["day", "week", "month"].forEach(function(time) {
+			if (tradeVolumeMedians[time]) {
+				processedSystem.metrics.supplyChange[time] =
+					parseFloat((processedSystem.metrics.availableSupplyNumber -
+						supplyBefore.day).toFixed(7));
+			} else {
+				processedSystem.metrics.supplyChange[time] = 0;
+			}
+		});
 
 		var capBefore = {
 			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
@@ -77,7 +74,6 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		};
 
 		processedSystem.metrics.capChange = {};
-
 		["day", "week", "month"].forEach(function(time) {
 			if (capBefore[time]) {
 				processedSystem.metrics.capChange[time] = {
