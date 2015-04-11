@@ -1,15 +1,25 @@
 this.processing = {
 
-	getNearestDocument: function(source, nearestTo, system, fields) {
-		var nearestAfter, nearestBefore, nearest;
+	_deref: function(obj, dotNotationString) {
+		var i = 0;
+		var parts = dotNotationString.split(".");
+		while (obj && i < parts.length) {
+			obj = obj[parts[i]];
+			i += 1;
+		}
+		return obj;
+	},
 
+	getNearestDocument: function(source, nearestTo, system, field) {
 		var getWithQuery = function(query) {
 
 			var result;
 			var options = {};
 
-			if (fields) {
-				options.fields = fields;
+			if (field) {
+				options.fields = {};
+				options.fields[field] = 1;
+				options.fields.timestamp = 1;
 			}
 
 			if (source) {
@@ -32,34 +42,51 @@ this.processing = {
 
 		};
 
-		if (typeof nearestTo === "number" && (nearestTo % 1) === 0) {
+		var getLatest = function() {
+			return getWithQuery({});
+		};
 
-			nearestBefore = getWithQuery({ timestamp: { $lt: nearestTo } });
-			nearestAfter = getWithQuery({ timestamp: { $gte: nearestTo } });
+		var withNearestTimestamp = function(one, two, nearestTo) {
+			if (Math.abs(nearestTo - one.timestamp) <
+				Math.abs(nearestTo - two.timestamp)) {
+				return one;
+			} else {
+				return two;
+			}
+		};
+
+		var getNearest = function() {
+			var nearestBefore = getWithQuery({ timestamp: { $lt: nearestTo } });
+			var nearestAfter = getWithQuery({ timestamp: { $gte: nearestTo } });
 
 			if (nearestAfter && nearestBefore) {
-				if ((nearestTo - nearestBefore.timestamp) >
-					(nearestAfter.timestamp - nearestTo)) {
-					return nearestAfter;
-				} else {
-					return nearestBefore;
-				}
-			} else if (nearestAfter) {
-				return nearestAfter;
+				return withNearestTimestamp(nearestAfter, nearestBefore, nearestTo);
 			} else {
-				return nearestBefore;
+				return nearestAfter ? nearestAfter : nearestBefore;
 			}
+		};
 
+		var isInt = function(obj) {
+			return typeof obj === "number" && (obj % 1) === 0;
+		};
+
+		var resultDocument;
+
+		if (isInt(nearestTo)) {
+			resultDocument = getNearest();
 		} else {
+			resultDocument = getLatest();
+		}
 
-			return getWithQuery({});
-
+		if (resultDocument && field) {
+			return this._deref(resultDocument, field);
+		} else {
+			return resultDocument;
 		}
 	},
 
 	getNearestTimestamp: function(source, nearestTo) {
-		var result = this.getNearestDocument(source, nearestTo, null, { timestamp: 1 });
-		return result ? result.timestamp : null;
+		return this.getNearestDocument(source, nearestTo, null, "timestamp");
 	},
 
 	getMedianValue: function(source, system, fieldName, since) {
@@ -83,17 +110,7 @@ this.processing = {
 			skip: Math.floor(count / 2),
 		});
 
-		var deref = function(obj, dotNotationString) {
-			var i = 0;
-			var parts = dotNotationString.split(".");
-			while (obj && i < parts.length) {
-				obj = obj[parts[i]];
-				i += 1;
-			}
-			return obj;
-		};
-
-		return medianDocument ? deref(medianDocument, fieldName) : null;
+		return medianDocument ? this._deref(medianDocument, fieldName) : null;
 	},
 
 };

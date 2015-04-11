@@ -96,16 +96,16 @@ Jasmine.onTest(function() {
 					name: "Bestcoin", symbol: "YAY", metrics: { foo: 400 } });
 			});
 
-			it("should get the nearest document of given system and source, only given fields", function() {
+			it("should get the nearest document of given system and source, only given field", function() {
 				result = processing.getNearestDocument("foo", 290, { name: "Bestcoin", symbol: "YAY" },
-					{ "metrics.foo": 1 });
-				expect(result).toEqual({ _id: jasmine.any(String), metrics: { foo: 200 } });
+					"metrics.foo");
+				expect(result).toEqual(200);
 			});
 
-			it("should get the latest document of given system and source, only given fields", function() {
+			it("should get the latest document of given system and source, only given field", function() {
 				result = processing.getNearestDocument("foo", null, { name: "Bestcoin", symbol: "YAY" },
-					{ "metrics.foo": 1 });
-				expect(result).toEqual({ _id: jasmine.any(String), metrics: { foo: 400 } });
+					"metrics.foo");
+				expect(result).toEqual(400);
 			});
 
 		});
