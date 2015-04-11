@@ -113,4 +113,16 @@ this.processing = {
 		return medianDocument ? this._deref(medianDocument, fieldName) : null;
 	},
 
+	_postprocessors: [],
+
+	addPostprocessor: function(postprocessor) {
+		this._postprocessors.push(postprocessor);
+	},
+
+	doPostprocessing: function(source, data) {
+		this._postprocessors.forEach(function(postprocessor) {
+			postprocessor(source, data);
+		});
+	},
+
 };

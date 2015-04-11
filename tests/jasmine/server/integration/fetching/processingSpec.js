@@ -198,5 +198,33 @@ Jasmine.onTest(function() {
 
 		});
 
+		describe("addPostprocessor and doPostprocessing", function() {
+
+			it("should work nicely", function() {
+				var fakeData = { fake: "data" };
+
+				var proc1 = jasmine.createSpy();
+				var proc2 = jasmine.createSpy();
+
+				processing.addPostprocessor(proc1);
+				processing.addPostprocessor(proc2);
+
+				processing.doPostprocessing("foo", fakeData);
+
+				expect(proc1.calls.count()).toBe(1);
+				expect(proc1).toHaveBeenCalledWith("foo", fakeData);
+				expect(proc2.calls.count()).toBe(1);
+				expect(proc2).toHaveBeenCalledWith("foo", fakeData);
+
+				processing.doPostprocessing("bar", fakeData);
+
+				expect(proc1.calls.count()).toBe(2);
+				expect(proc1.calls.mostRecent().args[0]).toBe("bar", fakeData);
+				expect(proc2.calls.count()).toBe(2);
+				expect(proc2.calls.mostRecent().args[0]).toBe("bar", fakeData);
+			});
+
+		});
+
 	});
 });
