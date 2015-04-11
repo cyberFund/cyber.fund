@@ -61,6 +61,42 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 				0,
 		};
 
+		var capBefore = {
+			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
+				rawSystem, "metrics.marketCap"),
+			week: processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
+				rawSystem, "metrics.marketCap"),
+			month: processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
+				rawSystem, "metrics.marketCap"),
+		};
+
+		processedSystem.metrics.capChange = {
+			day: {
+				btc: capBefore.day ?
+					processedSystem.metrics.marketCap.btc - capBefore.day.btc :
+					0,
+				usd: capBefore.day ?
+					processedSystem.metrics.marketCap.usd - capBefore.day.usd :
+					0,
+			},
+			week: {
+				btc: capBefore.week ?
+					processedSystem.metrics.marketCap.btc - capBefore.week.btc :
+					0,
+				usd: capBefore.week ?
+					processedSystem.metrics.marketCap.usd - capBefore.week.usd :
+					0,
+			},
+			month: {
+				btc: capBefore.month ?
+					processedSystem.metrics.marketCap.btc - capBefore.month.btc :
+					0,
+				usd: capBefore.month ?
+					processedSystem.metrics.marketCap.usd - capBefore.month.usd :
+					0,
+			},
+		};
+
 		return processedSystem;
 	});
 

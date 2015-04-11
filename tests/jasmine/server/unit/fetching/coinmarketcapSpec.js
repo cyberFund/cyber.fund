@@ -42,6 +42,11 @@ describe("fetching.coinMarketCap", function() {
 							week: 0,
 							month: 0,
 						},
+						capChange: {
+							day: jasmine.any(Object),
+							week: jasmine.any(Object),
+							month: jasmine.any(Object),
+						},
 					},
 				},
 				{
@@ -60,6 +65,11 @@ describe("fetching.coinMarketCap", function() {
 							day: 0,
 							week: 0,
 							month: 0,
+						},
+						capChange: {
+							day: jasmine.any(Object),
+							week: jasmine.any(Object),
+							month: jasmine.any(Object),
 						},
 					},
 				},

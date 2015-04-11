@@ -47,6 +47,11 @@ Jasmine.onTest(function() {
 							week: jasmine.any(Number),
 							month: jasmine.any(Number),
 						},
+						capChange: {
+							day: jasmine.any(Object),
+							week: jasmine.any(Object),
+							month: jasmine.any(Object),
+						},
 					},
 				},
 				{
@@ -65,6 +70,11 @@ Jasmine.onTest(function() {
 							day: jasmine.any(Number),
 							week: jasmine.any(Number),
 							month: jasmine.any(Number),
+						},
+						capChange: {
+							day: jasmine.any(Object),
+							week: jasmine.any(Object),
+							month: jasmine.any(Object),
 						},
 					},
 				},
