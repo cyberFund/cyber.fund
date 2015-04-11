@@ -6,7 +6,7 @@ describe("processing", function() {
 
 			spyOn(MarketData, "findOne").and.returnValue({ timestamp: 100 });
 
-			result = processing.getNearestTimestamp();
+			var result = processing.getNearestTimestamp();
 			expect(result).toBe(100);
 
 		});
