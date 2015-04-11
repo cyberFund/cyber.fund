@@ -33,6 +33,11 @@ describe("fetching.coinMarketCap", function() {
 					metrics: {
 						marketCap: { foo: "bar" },
 						tradeVolumeMedianDeviation: jasmine.any(Object),
+						supplyChange: {
+							day: 0,
+							week: 0,
+							month: 0,
+						},
 					},
 				},
 				{
@@ -43,6 +48,11 @@ describe("fetching.coinMarketCap", function() {
 					metrics: {
 						marketCap: { qux: "baz" },
 						tradeVolumeMedianDeviation: jasmine.any(Object),
+						supplyChange: {
+							day: 0,
+							week: 0,
+							month: 0,
+						},
 					},
 				},
 			];

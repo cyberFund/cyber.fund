@@ -38,6 +38,11 @@ Jasmine.onTest(function() {
 					metrics: {
 						marketCap: { foo: "bar" },
 						tradeVolumeMedianDeviation: jasmine.any(Object),
+						supplyChange: {
+							day: jasmine.any(Number),
+							week: jasmine.any(Number),
+							month: jasmine.any(Number),
+						},
 					},
 				},
 				{
@@ -48,6 +53,11 @@ Jasmine.onTest(function() {
 					metrics: {
 						marketCap: { qux: "baz" },
 						tradeVolumeMedianDeviation: jasmine.any(Object),
+						supplyChange: {
+							day: jasmine.any(Number),
+							week: jasmine.any(Number),
+							month: jasmine.any(Number),
+						},
 					},
 				},
 			];

@@ -34,6 +34,27 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
 		};
 
+		var supplyBefore = {
+			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
+				rawSystem, "metrics.availableSupplyNumber"),
+			week: processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
+				rawSystem, "metrics.availableSupplyNumber"),
+			month: processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
+				rawSystem, "metrics.availableSupplyNumber"),
+		};
+
+		processedSystem.metrics.supplyChange = {
+			day: supplyBefore.day ?
+				processedSystem.metrics.availableSupplyNumber - supplyBefore.day :
+				0,
+			week: supplyBefore.week ?
+				processedSystem.metrics.availableSupplyNumber - supplyBefore.week :
+				0,
+			month: supplyBefore.month ?
+				processedSystem.metrics.availableSupplyNumber - supplyBefore.month :
+				0,
+		};
+
 		return processedSystem;
 	});
 
