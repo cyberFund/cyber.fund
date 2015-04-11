@@ -25,13 +25,19 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp"),
 		};
 
-		processedSystem.metrics.tradeVolumeMedianDeviation = {
+		var tradeVolumeMedianDeviation = {
 			day: processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", dayAgoTimestamp),
 			week: processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", weekAgoTimestamp),
 			month: processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
+		};
+
+		processedSystem.metrics.tradeVolumeMedianDeviation = {
+			day: tradeVolumeMedianDeviation.day ? tradeVolumeMedianDeviation.day : 0,
+			week: tradeVolumeMedianDeviation.week ? tradeVolumeMedianDeviation.week : 0,
+			month: tradeVolumeMedianDeviation.month ? tradeVolumeMedianDeviation.month : 0,
 		};
 
 		var supplyBefore = {

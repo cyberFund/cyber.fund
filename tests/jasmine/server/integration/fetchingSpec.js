@@ -37,7 +37,11 @@ Jasmine.onTest(function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { foo: "bar" },
-						tradeVolumeMedianDeviation: jasmine.any(Object),
+						tradeVolumeMedianDeviation: {
+							day: jasmine.any(Number),
+							week: jasmine.any(Number),
+							month: jasmine.any(Number),
+						},
 						supplyChange: {
 							day: jasmine.any(Number),
 							week: jasmine.any(Number),
@@ -52,7 +56,11 @@ Jasmine.onTest(function() {
 					source: "CoinMarketCap",
 					metrics: {
 						marketCap: { qux: "baz" },
-						tradeVolumeMedianDeviation: jasmine.any(Object),
+						tradeVolumeMedianDeviation: {
+							day: jasmine.any(Number),
+							week: jasmine.any(Number),
+							month: jasmine.any(Number),
+						},
 						supplyChange: {
 							day: jasmine.any(Number),
 							week: jasmine.any(Number),
