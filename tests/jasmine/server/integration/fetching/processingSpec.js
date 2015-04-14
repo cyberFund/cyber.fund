@@ -200,6 +200,10 @@ Jasmine.onTest(function() {
 
 		describe("addPostprocessor and doPostprocessing", function() {
 
+			beforeEach(function() {
+				processing._postprocessors = [];
+			});
+
 			it("should work nicely", function() {
 				var fakeData = { fake: "data" };
 
