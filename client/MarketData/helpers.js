@@ -1,9 +1,5 @@
 Meteor.startup(function() {
 
-	Template.marketData.onCreated(function() {
-		this.subscribe("current-data");
-	});
-
 	var parseNumber = function(stringOrNumber) {
 		var asFloat = parseFloat(stringOrNumber);
 		var asInt = isNaN(asFloat) ? 0 : Math.round(asFloat);
@@ -20,7 +16,7 @@ Meteor.startup(function() {
 
 		tableSettings: function() {
 			return {
-				collection: MarketData,
+				collection: "current-data",
 				showFilter: false,
 				rowsPerPage: 10,
 				showNavigation: "never",
