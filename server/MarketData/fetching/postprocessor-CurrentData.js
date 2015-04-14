@@ -1,6 +1,10 @@
 Meteor.startup(function() {
 
 	processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+		if (source !== "CoinMarketCap") {
+			return;
+		}
+
 		data.forEach(function(newSystemData) {
 			CurrentData.upsert({
 				name: newSystemData.name,
