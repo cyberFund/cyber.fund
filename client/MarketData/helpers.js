@@ -26,13 +26,13 @@ Meteor.startup(function() {
 					},
 					{
 						fieldId: "supply",
-						key: "supply",
+						key: "supplyChange.week",
 						label: "Supply",
 						tmpl: Template.systemSupplyChange,
 					},
 					{
 						fieldId: "volume",
-						key: "tradeVolume",
+						key: "tradeVolumeMedianDeviation.month",
 						label: "Trade volume",
 						tmpl: Template.systemTradeVolume,
 					},
