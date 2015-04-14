@@ -97,24 +97,25 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 Meteor.startup(function() {
 	var fetch = function() {
 		console.log("Fetching data from CoinMarketCap...");
-		fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, result) {
+		fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
 				console.error("Error while fetching:", error);
 				return;
 			}
 
-			fetching.coinMarketCap.processData(result, function(error, result) {
+			fetching.coinMarketCap.processData(getResult, function(error, processResult) {
 				if (error) {
 					console.error("Error while processing:", error);
 					return;
 				}
 
-				fetching.saveToDb(result, function(error, result) {
+				fetching.saveToDb(processResult, function(error, saveResult) {
 					if (error) {
 						console.error("Error while saving:", error);
 						return;
 					}
 
+					processing.doPostprocessing("CoinMarketCap", processResult);
 					console.log("Saved!");
 				});
 			});
