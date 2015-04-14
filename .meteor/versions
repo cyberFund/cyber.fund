@@ -44,6 +44,7 @@ meteor-platform@1.2.2
 minifiers@1.1.4
 minimongo@1.0.7
 mobile-status-bar@1.0.3
+momentjs:moment@2.10.2
 mongo@1.1.0
 msavin:mongol@1.0.2
 observe-sequence@1.0.5
