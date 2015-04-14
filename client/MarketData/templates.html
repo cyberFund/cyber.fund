@@ -18,9 +18,11 @@
 	></core-image>
 </template>
 
-<template name="systemRating">Rating</template>
-<template name="systemSupplyChange">{{formatNumber metrics.availableSupplyNumber}}</template>
-<template name="systemTradeVolume">{{formatNumber metrics.volume24.btc}}</template>
-<template name="systemMarketCapBtc">{{formatNumber metrics.marketCap.btc}}</template>
-<template name="systemMarketCapUsd">{{formatNumber metrics.marketCap.usd}}</template>
+<template name="systemRating">{{rating}}</template>
+<template name="systemSupplyChange">{{percents supplyChange.week supply}}%</template>
+<template name="systemTradeVolume">Compared to median {{tradeVolumeMedianDeviation.month}} BTC</template>
+<template name="systemMarketCapBtc">{{formatNumber cap.btc}}</template>
+<template name="systemMarketCapChangeBtc">{{formatNumber capChange.week.btc}}</template>
+<template name="systemMarketCapUsd">{{formatNumber cap.usd}}</template>
+<template name="systemMarketCapChangeUsd">{{formatNumber capChange.week.usd}}</template>
 <template name="systemCapChangeChart">Chart</template>

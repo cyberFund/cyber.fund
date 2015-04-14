@@ -1,19 +1,5 @@
 Meteor.startup(function() {
-
-	var parseNumber = function(stringOrNumber) {
-		var asFloat = parseFloat(stringOrNumber);
-		var asInt = isNaN(asFloat) ? 0 : Math.round(asFloat);
-		return asInt;
-	};
-
-	var formatNumber = function(stringOrNumber) {
-		var formatted = parseNumber(stringOrNumber).toString()
-			.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-		return formatted;
-	};
-
 	Template.marketData.helpers({
-
 		tableSettings: function() {
 			return {
 				collection: "current-data",
@@ -40,43 +26,40 @@ Meteor.startup(function() {
 					},
 					{
 						fieldId: "supply",
-						key: "metrics.availableSupplyNumber",
+						key: "supply",
 						label: "Supply",
 						sort: -1,
 						tmpl: Template.systemSupplyChange,
 					},
 					{
 						fieldId: "volume",
-						key: "metrics.volume24.btc",
+						key: "tradeVolume",
 						label: "Trade volume",
 						tmpl: Template.systemTradeVolume,
-						fn: parseNumber,
 					},
 					{
 						fieldId: "btc-cap",
-						key: "metrics.marketCap.btc",
+						key: "cap.btc",
 						label: "Bitcoins cap",
 						tmpl: Template.systemMarketCapBtc,
-						fn: parseNumber,
 					},
 					{
 						fieldId: "btc-cap-change",
-						key: "metrics.marketCapChange.7d.btc",
+						key: "capChange.week.btc",
 						label: "Bitcoins cap change",
-						fn: parseNumber,
+						tmpl: Template.systemMarketCapChangeBtc,
 					},
 					{
 						fieldId: "usd-cap",
-						key: "metrics.marketCap.usd",
+						key: "cap.usd",
 						label: "USD cap",
 						tmpl: Template.systemMarketCapUsd,
-						fn: parseNumber,
 					},
 					{
 						fieldId: "usp-cap-change",
-						key: "metrics.marketCapChange.7d.usd",
+						key: "capChange.week.usd",
 						label: "USD cap change",
-						fn: parseNumber,
+						tmpl: Template.systemMarketCapChangeUsd,
 					},
 					{
 						fieldId: "chart",
@@ -87,7 +70,5 @@ Meteor.startup(function() {
 				],
 			};
 		},
-
 	});
-
 });

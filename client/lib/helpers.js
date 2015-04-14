@@ -16,4 +16,8 @@ Meteor.startup(function() {
 		return formatNumber(stringOrNumber);
 	});
 
+	Template.registerHelper("percents", function(part, whole) {
+		return whole ? parseFloat((part / whole * 100).toFixed(3)) : 0;
+	});
+
 });
