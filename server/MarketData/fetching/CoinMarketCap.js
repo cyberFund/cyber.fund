@@ -77,8 +77,8 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		["day", "week", "month"].forEach(function(time) {
 			if (capBefore[time]) {
 				processedSystem.metrics.capChange[time] = {
-					btc: parseFloat((processedSystem.metrics.marketCap.btc - capBefore[time].btc).toFixed(7)),
-					usd: parseFloat((processedSystem.metrics.marketCap.usd - capBefore[time].usd).toFixed(7)),
+					btc: parseFloat((processedSystem.metrics.marketCap.btc - capBefore[time].btc).toFixed(7)) || 0,
+					usd: parseFloat((processedSystem.metrics.marketCap.usd - capBefore[time].usd).toFixed(7)) || 0,
 				};
 			} else {
 				processedSystem.metrics.capChange[time] = {
