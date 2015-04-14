@@ -209,19 +209,23 @@ Jasmine.onTest(function() {
 				processing.addPostprocessor(proc1);
 				processing.addPostprocessor(proc2);
 
-				processing.doPostprocessing("foo", fakeData);
+				processing.doPostprocessing("foo", 12345, fakeData);
 
 				expect(proc1.calls.count()).toBe(1);
-				expect(proc1).toHaveBeenCalledWith("foo", fakeData);
+				expect(proc1).toHaveBeenCalledWith("foo", 12345, fakeData);
 				expect(proc2.calls.count()).toBe(1);
-				expect(proc2).toHaveBeenCalledWith("foo", fakeData);
+				expect(proc2).toHaveBeenCalledWith("foo", 12345, fakeData);
 
-				processing.doPostprocessing("bar", fakeData);
+				processing.doPostprocessing("bar", 12345, fakeData);
 
 				expect(proc1.calls.count()).toBe(2);
-				expect(proc1.calls.mostRecent().args[0]).toBe("bar", fakeData);
+				expect(proc1.calls.mostRecent().args[0]).toBe("bar");
+				expect(proc1.calls.mostRecent().args[1]).toBe(12345);
+				expect(proc1.calls.mostRecent().args[2]).toBe(fakeData);
 				expect(proc2.calls.count()).toBe(2);
-				expect(proc2.calls.mostRecent().args[0]).toBe("bar", fakeData);
+				expect(proc2.calls.mostRecent().args[0]).toBe("bar");
+				expect(proc2.calls.mostRecent().args[1]).toBe(12345);
+				expect(proc2.calls.mostRecent().args[2]).toBe(fakeData);
 			});
 
 		});

@@ -119,9 +119,9 @@ this.processing = {
 		this._postprocessors.push(postprocessor);
 	},
 
-	doPostprocessing: function(source, data) {
+	doPostprocessing: function(source, timestamp, data) {
 		this._postprocessors.forEach(function(postprocessor) {
-			postprocessor(source, data);
+			postprocessor(source, timestamp, data);
 		});
 	},
 
