@@ -10,6 +10,8 @@ Meteor.startup(function() {
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
 			}, {
+				name: newSystemData.name,
+				symbol: newSystemData.symbol,
 				lastUpdateTimestamp: newSystemData.timestamp,
 				supply: newSystemData.metrics.availableSupplyNumber,
 				supplyChange: newSystemData.metrics.supplyChange,
