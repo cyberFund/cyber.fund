@@ -16,4 +16,15 @@ Meteor.startup(function() {
 		dropDups: true,
 	});
 
+	CurrentData._ensureIndex({ name: 1, symbol: 1 });
+
+	CurrentData._ensureIndex({
+		name: 1,
+		symbol: 1,
+	}, {
+		unique: true,
+		sparse: true,
+		dropDups: true,
+	});
+
 });

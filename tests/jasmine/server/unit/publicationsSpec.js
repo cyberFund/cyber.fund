@@ -1,34 +1,10 @@
 describe("publications", function() {
 
-	describe("getLatestTimestamp", function() {
-
-		it("should get the last timestamp using MarketData.findOne", function() {
-
-			spyOn(MarketData, "findOne").and.callFake(function(query, options) {
-
-				expect(query).toEqual({});
-				expect(options).toEqual({
-					sort: { timestamp: -1 },
-					fields: { timestamp: 1 },
-				});
-
-				return { timestamp: 12345 };
-
-			});
-
-			result = publications.getLatestTimestamp();
-
-			expect(result).toBe(12345);
-
-		});
-
-	});
-
 	describe("getCurrentDataCursor", function() {
 
 		beforeEach(function() {
 
-			spyOn(publications, "getLatestTimestamp").and.returnValue(12345);
+			spyOn(processing, "getNearestTimestamp").and.returnValue(12345);
 
 		});
 

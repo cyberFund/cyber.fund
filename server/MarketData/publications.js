@@ -1,14 +1,5 @@
 this.publications = {
 
-	getLatestTimestamp: function() {
-
-		return MarketData.findOne({}, {
-			sort: { timestamp: -1 },
-			fields: { timestamp: 1 },
-		}).timestamp;
-
-	},
-
 	getCurrentDataCursor: function(options) {
 
 		return MarketData.find(
