@@ -28,7 +28,6 @@ Meteor.startup(function() {
 						fieldId: "supply",
 						key: "supply",
 						label: "Supply",
-						sort: -1,
 						tmpl: Template.systemSupplyChange,
 					},
 					{
@@ -40,6 +39,7 @@ Meteor.startup(function() {
 					{
 						fieldId: "btc-cap",
 						key: "cap.btc",
+						sort: -1,
 						label: "Bitcoins cap",
 						tmpl: Template.systemMarketCapBtc,
 					},
