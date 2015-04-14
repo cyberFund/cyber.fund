@@ -1,19 +1,20 @@
 Meteor.startup(function() {
 
-	var parseNumber = function(stringOrNumber) {
+	var parseNumber = function(stringOrNumber, places) {
 		var asFloat = parseFloat(stringOrNumber);
-		var asInt = isNaN(asFloat) ? 0 : Math.round(asFloat);
-		return asInt;
+		places = places === undefined ? 0 : places;
+		var rounded = isNaN(asFloat) ? 0 : parseFloat(asFloat.toFixed(places));
+		return rounded;
 	};
 
-	var formatNumber = function(stringOrNumber) {
-		var formatted = parseNumber(stringOrNumber).toString()
+	var formatNumber = function(stringOrNumber, places) {
+		var formatted = parseNumber(stringOrNumber, places).toString()
 			.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 		return formatted;
 	};
 
-	Template.registerHelper("formatNumber", function(stringOrNumber) {
-		return formatNumber(stringOrNumber);
+	Template.registerHelper("formatNumber", function(stringOrNumber, places) {
+		return formatNumber(stringOrNumber, places);
 	});
 
 	Template.registerHelper("percents", function(part, whole) {

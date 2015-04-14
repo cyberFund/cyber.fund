@@ -20,7 +20,7 @@
 
 <template name="systemRating">{{rating}}</template>
 <template name="systemSupplyChange">{{percents supplyChange.week supply}}%</template>
-<template name="systemTradeVolume">Compared to median {{tradeVolumeMedianDeviation.month}} BTC</template>
+<template name="systemTradeVolume">Compared to median {{formatNumber tradeVolumeMedianDeviation.month 2}} BTC</template>
 <template name="systemMarketCapBtc">{{formatNumber cap.btc}}</template>
 <template name="systemMarketCapChangeBtc">{{formatNumber capChange.week.btc}}</template>
 <template name="systemMarketCapUsd">{{formatNumber cap.usd}}</template>
