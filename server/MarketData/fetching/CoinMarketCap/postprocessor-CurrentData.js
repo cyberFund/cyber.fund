@@ -9,7 +9,7 @@ Meteor.startup(function() {
 			CurrentData.upsert({
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
-			}, {
+			}, { $set: {
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
 				lastUpdateTimestamp: newSystemData.timestamp,
@@ -26,7 +26,7 @@ Meteor.startup(function() {
 					btc: parseFloat(newSystemData.metrics.price.btc) || 0,
 					usd: parseFloat(newSystemData.metrics.price.usd) || 0,
 				},
-			});
+			}});
 		});
 	}));
 
