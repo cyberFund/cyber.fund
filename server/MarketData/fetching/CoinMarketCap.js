@@ -38,7 +38,7 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		["day", "week", "month"].forEach(function(time) {
 			if (tradeVolumeMedians[time]) {
 				processedSystem.metrics.tradeVolumeMedianDeviation[time] =
-					parseFloat((processedSystem.metrics.volume24.btc - tradeVolumeMedians.day).toFixed(7)) || 0;
+					parseFloat((processedSystem.metrics.volume24.btc - tradeVolumeMedians.day).toFixed(8)) || 0;
 			} else {
 				processedSystem.metrics.tradeVolumeMedianDeviation[time] = 0;
 			}
@@ -58,7 +58,7 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 			if (tradeVolumeMedians[time]) {
 				processedSystem.metrics.supplyChange[time] =
 					parseFloat((processedSystem.metrics.availableSupplyNumber -
-						supplyBefore.day).toFixed(7)) || 0;
+						supplyBefore.day).toFixed(8)) || 0;
 			} else {
 				processedSystem.metrics.supplyChange[time] = 0;
 			}
@@ -77,8 +77,8 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		["day", "week", "month"].forEach(function(time) {
 			if (capBefore[time]) {
 				processedSystem.metrics.capChange[time] = {
-					btc: parseFloat((processedSystem.metrics.marketCap.btc - capBefore[time].btc).toFixed(7)) || 0,
-					usd: parseFloat((processedSystem.metrics.marketCap.usd - capBefore[time].usd).toFixed(7)) || 0,
+					btc: parseFloat((processedSystem.metrics.marketCap.btc - capBefore[time].btc).toFixed(8)) || 0,
+					usd: parseFloat((processedSystem.metrics.marketCap.usd - capBefore[time].usd).toFixed(8)) || 0,
 				};
 			} else {
 				processedSystem.metrics.capChange[time] = {
