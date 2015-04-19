@@ -13,6 +13,5 @@ velocity:html-reporter
 msavin:mongol
 appcache
 differential:vulcanize
-less
 aslagle:reactive-table
 momentjs:moment
