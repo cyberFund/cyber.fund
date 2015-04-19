@@ -2,7 +2,7 @@ this.fetching = {};
 
 this.fetching.get = function(url, options, callback) {
 	HTTP.get(url, options, function(error, result) {
-		var parsedData;
+		var parsedData, errorMessage;
 
 		try {
 			parsedData = result.data || JSON.parse(result.content);
@@ -11,7 +11,12 @@ this.fetching.get = function(url, options, callback) {
 		if (error) {
 			callback(error);
 		} else if (!parsedData) {
-			callback(new Error("Cannot parse new data! Content (first 100 symbols): " + result.content.substring(0, 100)));
+			errorMessage = "Cannot parse new data!";
+			if (result.content) {
+				errorMessage += " Content (first 100 symbols): " +
+					result.content.substring(0, 100);
+			}
+			callback(new Error(errorMessage));
 		} else {
 			callback(null, parsedData);
 		}
