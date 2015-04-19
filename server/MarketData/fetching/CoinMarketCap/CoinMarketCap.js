@@ -8,13 +8,13 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 	var fetchedTimestamp = data.timestamp;
 
 	var dayAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
-		moment.unix(fetchedTimestamp).subtract(1, "days"));
+		moment.unix(fetchedTimestamp).subtract(1, "days").unix());
 
 	var weekAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
-		moment.unix(fetchedTimestamp).subtract(1, "weeks"));
+		moment.unix(fetchedTimestamp).subtract(1, "weeks").unix());
 
 	var monthAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
-		moment.unix(fetchedTimestamp).subtract(1, "months"));
+		moment.unix(fetchedTimestamp).subtract(1, "months").unix());
 
 	var processedData = systems.map(function(rawSystem) {
 		var processedSystem = {
