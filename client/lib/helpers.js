@@ -21,4 +21,8 @@ Meteor.startup(function() {
 		return whole ? parseFloat((part / whole * 100).toFixed(3)) : 0;
 	});
 
+	Template.registerHelper("lowercase", function(str) {
+		return str.toLowerCase();
+	});
+
 });
