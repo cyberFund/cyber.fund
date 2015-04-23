@@ -170,6 +170,102 @@ Jasmine.onTest(function() {
 
 		});
 
+		describe("getAllNearest", function() {
+
+			beforeEach(function() {
+
+				MarketData.remove({});
+
+				MarketData.insert({
+					timestamp: 200,
+					source: "foo",
+					name: "2",
+					symbol: "2",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+				MarketData.insert({
+					timestamp: 200,
+					source: "foo",
+					name: "3",
+					symbol: "3",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+				MarketData.insert({
+					timestamp: 200,
+					source: "foo",
+					name: "4",
+					symbol: "4",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+				MarketData.insert({
+					timestamp: 200,
+					source: "foo",
+					name: "5",
+					symbol: "5",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+				MarketData.insert({
+					timestamp: 200,
+					source: "bar",
+					name: "6",
+					symbol: "6",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+
+				MarketData.insert({
+					timestamp: 400,
+					source: "foo",
+					name: "7",
+					symbol: "7",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+				MarketData.insert({
+					timestamp: 400,
+					source: "foo",
+					name: "8",
+					symbol: "8",
+					metrics: { marketCap: { btc: "123", usd: "123", rub: "123" } },
+				});
+
+			});
+
+			it("should return a db cursor", function() {
+				var result = processing.getAllNearest();
+				expect(result.fetch).toEqual(jasmine.any(Function));
+			});
+
+			it("should return latest documents of specified source when no timestamp", function() {
+				var result = processing.getAllNearest("foo");
+				expect(result.fetch()).toBeDefined();
+				expect(result.fetch().length).toBe(2);
+			});
+
+			it("should return closest documents of specified source", function() {
+				var result = processing.getAllNearest("foo", 210);
+				expect(result.fetch().length).toBe(4);
+			});
+
+			it("should return closest field values of specified source", function() {
+				var result = processing.getAllNearest("foo", 210, [
+					"metrics.marketCap.btc",
+					"metrics.marketCap.usd",
+				]);
+				expect(result.fetch().length).toBe(4);
+				result.fetch().forEach(function(doc) {
+					expect(doc).toEqual({
+						_id: jasmine.any(String),
+						metrics: {
+							marketCap: {
+								btc: jasmine.any(String),
+								usd: jasmine.any(String),
+							}
+						}
+					});
+				});
+			});
+
+		});
+
 		describe("getMedianValue", function() {
 
 			beforeEach(function() {

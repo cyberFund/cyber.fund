@@ -89,6 +89,27 @@ this.processing = {
 		return this.getNearestDocument(source, nearestTo, null, "timestamp");
 	},
 
+	getAllNearest: function(source, nearestTo, fields) {
+		var processedFields;
+		if (Array.isArray(fields)) {
+			processedFields = {};
+			fields.forEach(function(field) {
+				processedFields[field] = 1;
+			});
+		} else {
+			processedFields = fields;
+		}
+
+		var timestamp = this.getNearestTimestamp(source, nearestTo);
+		if (timestamp) {
+			return MarketData.find({ timestamp: timestamp, source: source }, {
+				fields: processedFields,
+			});
+		} else {
+			return null;
+		}
+	},
+
 	getMedianValue: function(source, system, fieldName, since) {
 		var count = MarketData.find({
 			name: system.name,
