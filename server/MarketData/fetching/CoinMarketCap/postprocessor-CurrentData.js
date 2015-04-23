@@ -5,32 +5,30 @@ Meteor.startup(function() {
 			return;
 		}
 
-		var monthAgoTimestamp = moment.unix(timestamp).subtract(1, "months").unix();
-
 		var capHistory = {};
-		var capHistoryRaw = MarketData.find({
-			timestamp: { $gt: monthAgoTimestamp },
-			source: "CoinMarketCap",
-		}, {
-			sort: { timestamp: 1 },
-			fields: {
-				timestamp: 1,
-				name: 1,
-				symbol: 1,
-				"metrics.marketCap.btc": 1,
-				"metrics.marketCap.usd": 1,
-			}
-		}).fetch();
-		console.log("capHistoryRaw size:", capHistoryRaw.length);
 
-		capHistoryRaw.forEach(function(rawCap) {
-			var id = rawCap.name + "/" + rawCap.symbol;
-			capHistory[id] = capHistory[id] || [];
-			capHistory[id].push({
-				timestamp: rawCap.timestamp,
-				cap: rawCap.metrics.marketCap,
+		var monthTimestamps = [];
+		var i, curTimestamp;
+		// From 0 to 30 days ago - meaning getting today's data too.
+		for (i = 0; i <= 30; i += 1) {
+			curTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+				moment.unix(timestamp).subtract(i, "days").unix());
+
+			processing.getAllNearest("CoinMarketCap", curTimestamp, [
+				"timestamp",
+				"name",
+				"symbol",
+				"metrics.marketCap.btc",
+				"metrics.marketCap.usd",
+			]).fetch().forEach(function(doc) {
+				var id = doc.name + "/" + doc.symbol;
+				capHistory[id] = capHistory[id] || [];
+				capHistory[id].push({
+					timestamp: doc.timestamp,
+					cap: doc.metrics.marketCap,
+				});
 			});
-		});
+		}
 
 		data.forEach(function(newSystemData) {
 			CurrentData.upsert({
