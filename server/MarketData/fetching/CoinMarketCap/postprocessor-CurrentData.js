@@ -31,28 +31,42 @@ Meteor.startup(function() {
 		}
 
 		data.forEach(function(newSystemData) {
-			CurrentData.upsert({
-				name: newSystemData.name,
-				symbol: newSystemData.symbol,
-			}, { $set: {
+			var metrics = newSystemData.metrics;
+
+			var fieldsToUpdate = {
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
 				lastUpdateTimestamp: newSystemData.timestamp,
-				supply: newSystemData.metrics.availableSupplyNumber,
-				supplyChange: newSystemData.metrics.supplyChange,
-				tradeVolume: parseFloat(newSystemData.metrics.volume24.btc) || 0,
-				tradeVolumeMedianDeviation: newSystemData.metrics.tradeVolumeMedianDeviation,
+				supply: metrics.availableSupplyNumber,
+				supplyChange: metrics.supplyChange,
+				tradeVolume: parseFloat(metrics.volume24.btc) || 0,
+				tradeVolumeMedianDeviation: metrics.tradeVolumeMedianDeviation,
 				cap: {
-					btc: parseFloat(newSystemData.metrics.marketCap.btc) || 0,
-					usd: parseFloat(newSystemData.metrics.marketCap.usd) || 0,
+					btc: parseFloat(metrics.marketCap.btc) || 0,
+					usd: parseFloat(metrics.marketCap.usd) || 0,
 				},
-				capChange: newSystemData.metrics.capChange,
+				capChange: metrics.capChange,
 				price: {
-					btc: parseFloat(newSystemData.metrics.price.btc) || 0,
-					usd: parseFloat(newSystemData.metrics.price.usd) || 0,
+					btc: parseFloat(metrics.price.btc) || 0,
+					usd: parseFloat(metrics.price.usd) || 0,
 				},
 				capHistory: capHistory[newSystemData.name + "/" + newSystemData.symbol],
-			}});
+			};
+
+			fieldsToUpdate.capChangePercents = {};
+			["day", "week", "month"].forEach(function(time) {
+				fieldsToUpdate.capChangePercents[time] = {
+					btc: parseFloat((metrics.capChange[time].btc * 100 /
+						(fieldsToUpdate.cap.btc - metrics.capChange[time].btc)).toFixed(8)),
+					usd: parseFloat((metrics.capChange[time].usd * 100 /
+						(fieldsToUpdate.cap.usd - metrics.capChange[time].usd)).toFixed(8)),
+				};
+			});
+
+			CurrentData.upsert({
+				name: newSystemData.name,
+				symbol: newSystemData.symbol,
+			}, { $set: fieldsToUpdate });
 		});
 	}));
 
