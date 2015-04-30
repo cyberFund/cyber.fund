@@ -10,7 +10,6 @@ Meteor.startup(function() {
 				documentCount: data.length,
 			},
 		});
-		console.log(analytics);
 	});
 
 });
