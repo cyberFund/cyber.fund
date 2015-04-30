@@ -10,3 +10,6 @@ insecure
 polymer
 mquandalle:bower
 differential:vulcanize
+http
+momentjs:moment
+percolatestudio:segment.io@=1.1.1_1
