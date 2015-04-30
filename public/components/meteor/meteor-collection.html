@@ -1,0 +1,23 @@
+<!--
+
+Example:
+
+	<meteor-collection name="players" ref="{{collection}}"></meteor-collection>
+
+@homepage https://github.com/atoy40/meteor-polymer-music/blob/master/public/components/meteor-collection.html
+-->
+<polymer-element name="meteor-collection">
+	<script>
+		Polymer('meteor-collection', {
+			publish: {
+				name: null,
+				ref: null,
+			},
+			nameChanged: function() {
+				if (this.name) {
+					this.ref = new Mongo.Collection(this.name);
+				}
+			},
+		});
+	</script>
+</polymer-element>

@@ -1,0 +1,22 @@
+<!--
+
+Example:
+
+	<meteor-status status="{{status}}"></meteor-status>
+
+@homepage https://github.com/atoy40/meteor-polymer-music/blob/master/public/components/meteor-status.html
+-->
+<polymer-element name="meteor-status">
+	<script>
+		Polymer('meteor-status', {
+			publish: {
+				status: null,
+			},
+			ready: function() {
+				this.computation = Tracker.autorun(function() {
+					this.status = Meteor.status();
+				}.bind(this));
+			}
+		});
+	</script>
+</polymer-element>

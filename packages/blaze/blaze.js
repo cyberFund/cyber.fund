@@ -1,0 +1,5 @@
+Blaze = {
+	Template: {
+		registerHelper: function () {}
+	}
+};

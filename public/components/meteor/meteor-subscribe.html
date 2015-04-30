@@ -1,0 +1,48 @@
+<!--
+
+Example:
+
+	<meteor-subscribe name="players"></meteor-subscribe>
+
+@homepage https://github.com/atoy40/meteor-polymer-music/blob/master/public/components/meteor-collection.html
+-->
+<polymer-element name="meteor-subscribe">
+	<script>
+		Polymer('meteor-subscribe', {
+			publish: {
+				handle: null,
+				name: '',
+				args: [],
+				isready: false
+			},
+			observe: {
+				'name args': 'resub'
+			},
+			resub: function() {
+				this.stop();
+
+				if (this.name) {
+					var callargs = this.args.slice(0);
+					callargs.unshift(this.name);
+
+					this.handle = Meteor.subscribe.apply(null, callargs);
+					this.computation = Tracker.autorun(function() {
+						this.isready = this.handle.ready();
+					}.bind(this));
+				}
+			},
+			stop: function() {
+				if (this.handle) {
+					this.handle.stop();
+					this.handle = null;
+				}
+				if (this.computation) {
+					this.computation.stop();
+					this.computation = null;
+				}
+			},
+			ready: function() {
+			}
+		});
+	</script>
+</polymer-element>

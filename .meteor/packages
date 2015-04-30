@@ -5,14 +5,8 @@
 # but you can also edit it by hand.
 
 meteor-platform
-http
-iron:router
-percolatestudio:segment.io@=1.1.1_1
-sanjo:jasmine
-velocity:html-reporter
-msavin:mongol
-appcache
+autopublish
+insecure
+polymer
+mquandalle:bower
 differential:vulcanize
-aslagle:reactive-table
-momentjs:moment
-stylus

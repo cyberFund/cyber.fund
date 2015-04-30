@@ -1,1 +1,3 @@
-{"directory":"public/bower_components/"}
+{
+  "directory": "public/components"
+}
