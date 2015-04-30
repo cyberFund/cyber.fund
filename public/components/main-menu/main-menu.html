@@ -1,0 +1,22 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="/components/core-toolbar/core-toolbar.html">
+<link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="/components/paper-tabs/paper-tabs.html">
+
+<polymer-element name="main-menu" noscript>
+	<template>
+		<core-toolbar class="medium-tall">
+			<paper-icon-button icon="menu" role="button" tabindex="0" aria-label="menu"></paper-icon-button>
+			<div flex horizontal center-justified layout>cyber • Fund</div>
+			<paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"></paper-icon-button>
+			<paper-icon-button icon="more-vert" role="button" tabindex="0" aria-label="more-vert"></paper-icon-button>
+			<div class="bottom fit" horizontal layout>
+				<paper-tabs selected="0" flex role="tablist" horizontal center layout>
+					<paper-tab role="tab" inline flex center-center horizontal layout class="core-selected" active="">Rating</paper-tab>
+					<paper-tab role="tab" inline flex center-center horizontal layout class="">Portfolio</paper-tab>
+					<paper-tab role="tab" inline flex center-center horizontal layout class="">Trends</paper-tab>
+				</paper-tabs>
+			</div>
+		</core-toolbar>
+	</template>
+</polymer-element>
