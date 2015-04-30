@@ -1,7 +1,7 @@
 {
-  "name": "meteor-polymer",
-  "version": "0.0.0",
-  "license": "MIT",
+  "name": "cyberFund",
+  "version": "0.1.0",
+  "homepage": "http://cyber.fund",
   "private": true,
   "dependencies": {
     "webcomponentsjs": "~0.5.5",
