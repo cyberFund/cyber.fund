@@ -25,6 +25,8 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp"),
 		};
 
+		processedSystem.metrics.volume24.btc = parseFloat(processedSystem.metrics.volume24.btc) || 0;
+
 		var tradeVolumeMedians = {
 			day: processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", dayAgoTimestamp),
