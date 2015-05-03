@@ -7,6 +7,7 @@
 <link rel="import" href="../meteor/meteor-collection.html">
 <link rel="import" href="../meteor/meteor-subscribe.html">
 <link rel="import" href="../meteor/meteor-query.html">
+<link rel="import" href="../cf-readable-supply/cf-readable-supply.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -24,9 +25,9 @@
 			<template>
 				<paper-item id="{{model._id}}">
 					<div flex layout horizontal>
-						<span flex four>{{model.name}}</span>
+						<span flex two>{{model.name}}</span>
 						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
-						<b flex>{{model.supply}} {{model.symbol}}</b>
+						<cf-readable-supply value="{{model.supplyChangePercents.week}}" flex></cf-readable-supply>
 					</div>
 				</paper-item>
 			</template>

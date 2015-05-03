@@ -53,6 +53,12 @@ Meteor.startup(function() {
 				capHistory: capHistory[newSystemData.name + "/" + newSystemData.symbol],
 			};
 
+			fieldsToUpdate.supplyChangePercents = {};
+			["day", "week", "month"].forEach(function(time) {
+				fieldsToUpdate.supplyChangePercents[time] =
+					parseFloat((fieldsToUpdate.supplyChange[time] * 100 /
+						(fieldsToUpdate.supply - fieldsToUpdate.supplyChange[time])).toFixed(8));
+			});
 			fieldsToUpdate.capChangePercents = {};
 			["day", "week", "month"].forEach(function(time) {
 				fieldsToUpdate.capChangePercents[time] = {
