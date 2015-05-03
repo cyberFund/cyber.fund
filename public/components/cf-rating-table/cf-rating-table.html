@@ -11,12 +11,6 @@
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
-		<style>
-			:host {
-				height: 100%;
-			}
-		</style>
-
 		<meteor-collection name="CurrentData" ref="{{collection}}"></meteor-collection>
 		<meteor-subscribe name="current-data"></meteor-subscribe>
 		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
@@ -24,7 +18,7 @@
 		<core-list data="{{current}}" id="list" flex>
 			<template>
 				<paper-item id="{{model._id}}">
-					<div flex layout horizontal>
+					<div flex horizontal layout>
 						<span flex two>{{model.name}}</span>
 						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
 						<cf-readable-supply value="{{model.supplyChangePercents.week}}" flex></cf-readable-supply>
