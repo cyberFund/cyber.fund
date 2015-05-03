@@ -1,3 +1,5 @@
 Meteor.startup(function() {
-	// ReactiveTable.publish("current-data", CurrentData);
+	Meteor.publish("current-data", function() {
+		return CurrentData.find({}, { sort: { "cap.btc": -1 } });
+	});
 });

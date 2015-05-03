@@ -8,6 +8,8 @@
     "polymer": "Polymer/polymer#~0.5.5",
     "core-toolbar": "Polymer/core-toolbar#~0.5.5",
     "paper-icon-button": "Polymer/paper-icon-button#~0.5.5",
-    "paper-tabs": "Polymer/paper-tabs#~0.5.5"
+    "paper-tabs": "Polymer/paper-tabs#~0.5.5",
+    "core-list": "Polymer/core-list#~0.5.5",
+    "paper-item": "Polymer/paper-item#~0.5.5"
   }
 }

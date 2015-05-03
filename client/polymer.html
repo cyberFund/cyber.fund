@@ -10,5 +10,13 @@
 </head>
 
 <body>
+	<script>
+		// Meteor doesn't support attrs on <body> because of potential conflicts on concatenation.
+		// Let's set them manually.
+		["fullbleed", "vertical", "layout"].forEach(function(attr) {
+			document.body.setAttribute(attr, "");
+		});
+	</script>
 	<cf-main-menu></cf-main-menu>
+	<cf-rating-table flex></cf-rating-table>
 </body>

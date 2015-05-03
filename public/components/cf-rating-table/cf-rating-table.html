@@ -1,0 +1,37 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../core-selector/core-selector.html">
+<link rel="import" href="../core-list/core-list.html">
+<link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../meteor/meteor-collection.html">
+<link rel="import" href="../meteor/meteor-subscribe.html">
+<link rel="import" href="../meteor/meteor-query.html">
+
+<polymer-element name="cf-rating-table" vertical layout>
+	<template>
+		<style>
+			:host {
+				height: 100%;
+			}
+		</style>
+
+		<meteor-collection name="CurrentData" ref="{{collection}}"></meteor-collection>
+		<meteor-subscribe name="current-data"></meteor-subscribe>
+		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
+
+		<core-list data="{{current}}" id="list" flex>
+			<template>
+				<paper-item id="{{model._id}}">
+					<div flex layout horizontal>
+						<span flex>{{model.name}}</span>
+						<b>{{model.supply}} {{model.symbol}}</b>
+					</div>
+				</paper-item>
+			</template>
+		</core-list>
+	</template>
+
+	<script>
+		Polymer('cf-rating-table');
+	</script>
+</polymer-element>
