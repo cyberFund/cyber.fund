@@ -15,6 +15,12 @@
 		<meteor-subscribe name="current-data"></meteor-subscribe>
 		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
 
+		<div horizontal layout style="padding: 0.9em 1em">
+			<b flex two>System</b>
+			<b flex>Rating</b>
+			<b flex>Supply</b>
+		</div>
+
 		<core-list data="{{current}}" id="list" flex>
 			<template>
 				<paper-item id="{{model._id}}">
