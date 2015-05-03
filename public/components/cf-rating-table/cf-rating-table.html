@@ -2,6 +2,7 @@
 <link rel="import" href="../core-selector/core-selector.html">
 <link rel="import" href="../core-list/core-list.html">
 <link rel="import" href="../paper-item/paper-item.html">
+<link rel="import" href="../star-rate/star-rate.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../meteor/meteor-collection.html">
 <link rel="import" href="../meteor/meteor-subscribe.html">
@@ -23,8 +24,9 @@
 			<template>
 				<paper-item id="{{model._id}}">
 					<div flex layout horizontal>
-						<span flex>{{model.name}}</span>
-						<b>{{model.supply}} {{model.symbol}}</b>
+						<span flex four>{{model.name}}</span>
+						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
+						<b flex>{{model.supply}} {{model.symbol}}</b>
 					</div>
 				</paper-item>
 			</template>

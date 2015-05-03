@@ -10,6 +10,12 @@
     "paper-icon-button": "Polymer/paper-icon-button#~0.5.5",
     "paper-tabs": "Polymer/paper-tabs#~0.5.5",
     "core-list": "Polymer/core-list#~0.5.5",
-    "paper-item": "Polymer/paper-item#~0.5.5"
+    "paper-item": "Polymer/paper-item#~0.5.5",
+    "star-rate": "Mortega5/star-rate"
+  },
+  "resolutions": {
+    "polymer": "~0.5.5",
+    "webcomponentsjs": "~0.5.5",
+    "core-component-page": "^0.5"
   }
 }
