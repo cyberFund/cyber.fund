@@ -37,7 +37,7 @@ Meteor.startup(function() {
 					}
 
 					processing.doPostprocessing("cyberFund", processResult[0].timestamp, processResult);
-					console.log("Saved!");
+					console.log("Data from cyberFund saved!");
 				});
 			});
 		});

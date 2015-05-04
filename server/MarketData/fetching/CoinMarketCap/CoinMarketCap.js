@@ -118,7 +118,7 @@ Meteor.startup(function() {
 					}
 
 					processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
-					console.log("Saved!");
+					console.log("Data from CoinMarketCap saved!");
 				});
 			});
 		});
