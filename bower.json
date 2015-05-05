@@ -11,7 +11,8 @@
     "paper-tabs": "Polymer/paper-tabs#~0.5.5",
     "core-list": "Polymer/core-list#~0.5.5",
     "paper-item": "Polymer/paper-item#~0.5.5",
-    "star-rate": "Mortega5/star-rate"
+    "star-rate": "Mortega5/star-rate",
+    "core-tooltip": "Polymer/core-tooltip#~0.5.5"
   },
   "resolutions": {
     "polymer": "~0.5.5",

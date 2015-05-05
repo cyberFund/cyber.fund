@@ -27,7 +27,12 @@
 					<div flex horizontal layout>
 						<span flex two>{{model.name}}</span>
 						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
-						<cf-readable-supply value="{{model.supplyChangePercents.week}}" flex></cf-readable-supply>
+						<cf-readable-supply
+							percents="{{model.supplyChangePercents.week}}"
+							change="{{model.supplyChange.week}}"
+							absolute="{{model.supply}}"
+							flex
+						></cf-readable-supply>
 					</div>
 				</paper-item>
 			</template>
