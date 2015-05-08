@@ -4,36 +4,30 @@
 <polymer-element name="cf-readable-trade-volume" attributes="deviation absolute">
 	<template>
 		<core-tooltip position="top" horizontal layout>
-			<div flex>{{text}}</div>
+			<div flex>{{deviation | round(2) | deviationToText(absolute)}}</div>
 			<div tip>
 				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Trade volume (24h): <b>{{absolute}}</b> BTC</div>
-					<div>Median deviation: <b>{{deviation}}</b> BTC</div>
+					<div>Trade volume (24h): <b>{{absolute | round(2)}}</b> BTC</div>
+					<div>Median deviation: <b>{{deviation | round(2)}}</b> BTC</div>
 				</div>
 			</div>
 		</core-tooltip>
 	</template>
 
 	<script>
-		deviationToText = function(deviation, absolute) {
-			if (!absolute) {
-				return "Normal";
-			}
-			if (Math.abs(deviation / absolute) < 0.05) {
-				return "Normal";
-			}
-			if (deviation > 0) {
-				return "High";
-			}
-			return "Low";
-		};
 
 		Polymer("cf-readable-trade-volume", {
-			ready: function() {
-				this.text = deviationToText(this.deviation, this.absolute);
-			},
-			deviationChanged: function(oldDeviation, newDeviation) {
-				this.text = deviationToText(newDeviation, this.absolute);
+			deviationToText: function(deviation, absolute) {
+				if (!absolute) {
+					return "Normal";
+				}
+				if (Math.abs(deviation / absolute) < 0.05) {
+					return "Normal";
+				}
+				if (deviation > 0) {
+					return "High";
+				}
+				return "Low";
 			},
 		});
 	</script>

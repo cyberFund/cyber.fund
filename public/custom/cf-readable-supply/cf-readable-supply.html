@@ -4,33 +4,27 @@
 <polymer-element name="cf-readable-supply" attributes="percents change absolute">
 	<template>
 		<core-tooltip position="top" horizontal layout>
-			<div flex>{{text}}</div>
+			<div flex>{{percents | round(2) | percentsToText}}</div>
 			<div tip>
 				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Current supply: <b>{{absolute}}</b></div>
-					<div>Absolute change: <b>{{change}}</b></div>
+					<div>Current supply: <b>{{absolute | round(2)}}</b></div>
+					<div>Absolute change: <b>{{change | round(2)}}</b></div>
 				</div>
 			</div>
 		</core-tooltip>
 	</template>
 
 	<script>
-		percentsToText = function(percents) {
-			if (percents < 0) {
-				return "Deflation " + (-percents) + "%";
-			} else if (percents > 0) {
-				return "Inflation " + percents + "%";
-			} else {
-				return "Stable";
-			}
-		};
 
 		Polymer("cf-readable-supply", {
-			ready: function() {
-				this.text = percentsToText(parseFloat((this.percents || 0).toFixed(2)));
-			},
-			percentsChanged: function(oldPercents, newPercents) {
-				this.text = percentsToText(parseFloat((newPercents || 0).toFixed(2)));
+			percentsToText: function(percents) {
+				if (percents < 0) {
+					return "Deflation " + (-percents) + "%";
+				} else if (percents > 0) {
+					return "Inflation " + percents + "%";
+				} else {
+					return "Stable";
+				}
 			},
 		});
 	</script>
