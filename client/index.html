@@ -12,7 +12,7 @@
 	<link rel="import" href="/custom/cf-main-menu/cf-main-menu.html">
 	<link rel="import" href="/custom/cf-rating-table/cf-rating-table.html">
 	<link rel="import" href="/components/polymer-filters/polymer-filters.html">
-	<link rel="import" href="/components/core-pages/core-pages.html">
+	<link rel="import" href="/components/core-animated-pages/core-animated-pages.html">
 </head>
 
 <body>
@@ -25,9 +25,15 @@
 		document.body.setAttribute("is", "auto-binding");
 	</script>
 	<cf-main-menu selected="{{selectedTab}}"></cf-main-menu>
-	<core-pages selected="{{selectedTab}}" flex vertical layout>
-		<cf-rating-table flex></cf-rating-table>
-		<div flex>Hello, Portfolio!</div>
-		<div flex>Hello, Trends!</div>
+	<core-animated-pages selected="{{selectedTab}}" flex vertical layout transitions="cross-fade">
+		<section flex vertical layout>
+			<cf-rating-table flex cross-fade></cf-rating-table>
+		</section>
+		<section flex horizontal center center-justified layout>
+			<span cross-fade style="font-size: 3em;">Hello, Portfolio!</span>
+		</section>
+		<section flex horizontal center center-justified layout>
+			<span cross-fade style="font-size: 3em;">Hello, Trends!</span>
+		</section>
 	</core-pages>
 </body>
