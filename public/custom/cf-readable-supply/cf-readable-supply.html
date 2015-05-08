@@ -1,5 +1,5 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../core-tooltip/core-tooltip.html">
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-tooltip/core-tooltip.html">
 
 <polymer-element name="cf-readable-supply" attributes="percents change absolute">
 	<template>
@@ -27,10 +27,10 @@
 
 		Polymer("cf-readable-supply", {
 			ready: function() {
-				this.text = percentsToText(this.percents);
+				this.text = percentsToText(parseFloat((this.percents || 0).toFixed(2)));
 			},
 			percentsChanged: function(oldPercents, newPercents) {
-				this.text = percentsToText(newPercents);
+				this.text = percentsToText(parseFloat((newPercents || 0).toFixed(2)));
 			},
 		});
 	</script>

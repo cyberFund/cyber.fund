@@ -1,14 +1,14 @@
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../core-selector/core-selector.html">
-<link rel="import" href="../core-list/core-list.html">
-<link rel="import" href="../paper-item/paper-item.html">
-<link rel="import" href="../star-rate/star-rate.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../meteor/meteor-collection.html">
-<link rel="import" href="../meteor/meteor-subscribe.html">
-<link rel="import" href="../meteor/meteor-query.html">
-<link rel="import" href="../cf-readable-supply/cf-readable-supply.html">
-<link rel="import" href="../cf-readable-trade-volume/cf-readable-trade-volume.html">
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-selector/core-selector.html">
+<link rel="import" href="/components/core-list/core-list.html">
+<link rel="import" href="/components/paper-item/paper-item.html">
+<link rel="import" href="/components/star-rate/star-rate.html">
+<link rel="import" href="/components/paper-button/paper-button.html">
+<link rel="import" href="/components/meteor/meteor-collection.html">
+<link rel="import" href="/components/meteor/meteor-subscribe.html">
+<link rel="import" href="/components/meteor/meteor-query.html">
+<link rel="import" href="/custom/cf-readable-supply/cf-readable-supply.html">
+<link rel="import" href="/custom/cf-readable-trade-volume/cf-readable-trade-volume.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -21,6 +21,8 @@
 			<b flex>Rating</b>
 			<b flex>Supply</b>
 			<b flex>Trade Volume</b>
+			<b flex>Bitcoin Cap</b>
+			<b flex>USD Cap</b>
 		</div>
 
 		<core-list data="{{current}}" id="list" flex>
@@ -40,6 +42,8 @@
 							absolute="{{model.tradeVolume}}"
 							flex
 						></cf-readable-trade-volume>
+						<span flex>{{model.cap.btc}} BTC</span>
+						<span flex>${{model.cap.usd}}</span>
 					</div>
 				</paper-item>
 			</template>
