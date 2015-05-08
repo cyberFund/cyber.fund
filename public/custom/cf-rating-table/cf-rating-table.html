@@ -19,8 +19,8 @@
 		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
 
 		<div horizontal layout style="padding: 0.9em 1em">
-			<b flex></b>
-			<b flex two>System</b>
+			<b style="width: 50px;"><!-- System logo --></b>
+			<b flex>System</b>
 			<b flex>Rating</b>
 			<b flex>Supply</b>
 			<b flex>Trade Volume</b>
@@ -34,14 +34,14 @@
 			<template>
 				<paper-item id="{{model._id}}">
 					<div flex horizontal center layout>
-						<span flex>
+						<span style="width: 50px;">
 							<core-image
 								style="width: 30px; height: 30px"
 								sizing="contain"
 								src="http://cyber.fund/logos/{{(model.name ? model.name : '') | lowercase}}.png"
 							></core-image>
 						</span>
-						<span flex two>{{model.name}}</span>
+						<span flex style="font-size: 1.2em;">{{model.name}}</span>
 						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
 						<cf-readable-supply
 							percents="{{model.supplyChangePercents.week}}"
