@@ -8,6 +8,7 @@
 <link rel="import" href="../meteor/meteor-subscribe.html">
 <link rel="import" href="../meteor/meteor-query.html">
 <link rel="import" href="../cf-readable-supply/cf-readable-supply.html">
+<link rel="import" href="../cf-readable-trade-volume/cf-readable-trade-volume.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -19,6 +20,7 @@
 			<b flex two>System</b>
 			<b flex>Rating</b>
 			<b flex>Supply</b>
+			<b flex>Trade Volume</b>
 		</div>
 
 		<core-list data="{{current}}" id="list" flex>
@@ -33,6 +35,11 @@
 							absolute="{{model.supply}}"
 							flex
 						></cf-readable-supply>
+						<cf-readable-trade-volume
+							deviation="{{model.tradeVolumeMedianDeviation.week}}"
+							absolute="{{model.tradeVolume}}"
+							flex
+						></cf-readable-trade-volume>
 					</div>
 				</paper-item>
 			</template>
