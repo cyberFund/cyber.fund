@@ -1,6 +1,7 @@
 <link rel="import" href="/components/polymer/polymer.html">
 <link rel="import" href="/components/core-selector/core-selector.html">
 <link rel="import" href="/components/core-list/core-list.html">
+<link rel="import" href="/components/core-image/core-image.html">
 <link rel="import" href="/components/paper-item/paper-item.html">
 <link rel="import" href="/components/star-rate/star-rate.html">
 <link rel="import" href="/components/paper-button/paper-button.html">
@@ -18,6 +19,7 @@
 		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
 
 		<div horizontal layout style="padding: 0.9em 1em">
+			<b flex></b>
 			<b flex two>System</b>
 			<b flex>Rating</b>
 			<b flex>Supply</b>
@@ -31,7 +33,14 @@
 		<core-list data="{{current}}" id="list" flex>
 			<template>
 				<paper-item id="{{model._id}}">
-					<div flex horizontal layout>
+					<div flex horizontal center layout>
+						<span flex>
+							<core-image
+								style="width: 30px; height: 30px"
+								sizing="contain"
+								src="http://cyber.fund/logos/{{(model.name ? model.name : '') | lowercase}}.png"
+							></core-image>
+						</span>
 						<span flex two>{{model.name}}</span>
 						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
 						<cf-readable-supply
