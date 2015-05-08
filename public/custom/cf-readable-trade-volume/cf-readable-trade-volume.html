@@ -7,8 +7,8 @@
 			<div flex>{{deviation | round(2) | deviationToText(absolute)}}</div>
 			<div tip>
 				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Trade volume (24h): <b>{{absolute | round(2)}}</b> BTC</div>
-					<div>Median deviation: <b>{{deviation | round(2)}}</b> BTC</div>
+					<div>Trade volume (24h): <b>{{absolute | round(2) | readableNumbers}}</b> BTC</div>
+					<div>Median deviation: <b>{{deviation | round(2) | readableNumbers}}</b> BTC</div>
 				</div>
 			</div>
 		</core-tooltip>

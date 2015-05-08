@@ -54,13 +54,13 @@
 							absolute="{{model.tradeVolume}}"
 							flex
 						></cf-readable-trade-volume>
-						<span flex>{{model.cap.btc | round(2)}} BTC</span>
+						<span flex>{{model.cap.btc | round(2) | readableNumbers}} BTC</span>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.btc}}"
 							change="{{model.capChange.week.btc}}"
 							flex
 						></cf-colorful-percents>
-						<span flex>${{model.cap.usd | round(2)}}</span>
+						<span flex>${{model.cap.usd | round(2) | readableNumbers}}</span>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.usd}}"
 							change="{{model.capChange.week.usd}}"

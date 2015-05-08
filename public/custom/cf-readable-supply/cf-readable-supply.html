@@ -7,8 +7,8 @@
 			<div flex>{{percents | round(2) | percentsToText}}</div>
 			<div tip>
 				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Current supply: <b>{{absolute | round(2)}}</b></div>
-					<div>Absolute change: <b>{{change | round(2)}}</b></div>
+					<div>Current supply: <b>{{absolute | round(2) | readableNumbers}}</b></div>
+					<div>Absolute change: <b>{{change | round(2) | readableNumbers}}</b></div>
 				</div>
 			</div>
 		</core-tooltip>
