@@ -12,6 +12,7 @@
 	<link rel="import" href="/custom/cf-main-menu/cf-main-menu.html">
 	<link rel="import" href="/custom/cf-rating-table/cf-rating-table.html">
 	<link rel="import" href="/components/polymer-filters/polymer-filters.html">
+	<link rel="import" href="/components/core-pages/core-pages.html">
 </head>
 
 <body>
@@ -21,7 +22,12 @@
 		["fullbleed", "fit", "vertical", "layout"].forEach(function(attr) {
 			document.body.setAttribute(attr, "");
 		});
+		document.body.setAttribute("is", "auto-binding");
 	</script>
-	<cf-main-menu></cf-main-menu>
-	<cf-rating-table flex></cf-rating-table>
+	<cf-main-menu selected="{{selectedTab}}"></cf-main-menu>
+	<core-pages selected="{{selectedTab}}" flex vertical layout>
+		<cf-rating-table flex></cf-rating-table>
+		<div flex>Hello, Portfolio!</div>
+		<div flex>Hello, Trends!</div>
+	</core-pages>
 </body>
