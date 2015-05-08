@@ -12,7 +12,8 @@
     "core-list": "Polymer/core-list#~0.5.5",
     "paper-item": "Polymer/paper-item#~0.5.5",
     "star-rate": "Mortega5/star-rate",
-    "core-tooltip": "Polymer/core-tooltip#~0.5.5"
+    "core-tooltip": "Polymer/core-tooltip#~0.5.5",
+    "polymer-filters": "addyosmani/polymer-filters#~0.2.1"
   },
   "resolutions": {
     "polymer": "~0.5.5",

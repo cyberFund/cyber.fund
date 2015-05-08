@@ -1,0 +1,37 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-tooltip/core-tooltip.html">
+
+<polymer-element name="cf-colorful-percents" attributes="percents change">
+	<template>
+		<core-tooltip position="top" horizontal layout>
+			<style>
+				.up { color: green; }
+				.down { color: red; }
+			</style>
+			<div flex class="{{direction}}">{{percents | round(2) | percentsToText}}</div>
+			<div tip>
+				<div style="line-height: 1.5em; font-size: 1.3em">
+					<div>Real change: <b>{{change | round(2)}}</b></div>
+				</div>
+			</div>
+		</core-tooltip>
+	</template>
+
+	<script>
+		Polymer("cf-colorful-percents", {
+			direction: "down",
+			percentsToText: function(percents) {
+				if (percents < 0) {
+					this.direction = "down";
+					return "↓ " + (-percents) + "%";
+				} else if (percents > 0) {
+					this.direction = "up";
+					return "↑ " + percents + "%";
+				} else {
+					this.direction = "up";
+					return "= 0%";
+				}
+			},
+		});
+	</script>
+</polymer-element>

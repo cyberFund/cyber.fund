@@ -9,6 +9,7 @@
 <link rel="import" href="/components/meteor/meteor-query.html">
 <link rel="import" href="/custom/cf-readable-supply/cf-readable-supply.html">
 <link rel="import" href="/custom/cf-readable-trade-volume/cf-readable-trade-volume.html">
+<link rel="import" href="/custom/cf-colorful-percents/cf-colorful-percents.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -22,7 +23,9 @@
 			<b flex>Supply</b>
 			<b flex>Trade Volume</b>
 			<b flex>Bitcoin Cap</b>
+			<b flex>Change</b>
 			<b flex>USD Cap</b>
+			<b flex>Change</b>
 		</div>
 
 		<core-list data="{{current}}" id="list" flex>
@@ -43,7 +46,17 @@
 							flex
 						></cf-readable-trade-volume>
 						<span flex>{{model.cap.btc}} BTC</span>
+						<cf-colorful-percents
+							percents="{{model.capChangePercents.week.btc}}"
+							change="{{model.capChange.week.btc}}"
+							flex
+						></cf-colorful-percents>
 						<span flex>${{model.cap.usd}}</span>
+						<cf-colorful-percents
+							percents="{{model.capChangePercents.week.usd}}"
+							change="{{model.capChange.week.usd}}"
+							flex
+						></cf-colorful-percents>
 					</div>
 				</paper-item>
 			</template>
