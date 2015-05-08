@@ -25,10 +25,6 @@
 			}
 		};
 
-		composeTooltipText = function(absolute, change) {
-			return "Current supply: " + absolute + ", absolute change: " + change;
-		};
-
 		Polymer("cf-readable-supply", {
 			ready: function() {
 				this.text = percentsToText(this.percents);
