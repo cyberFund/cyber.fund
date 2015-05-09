@@ -4,3 +4,5 @@
 
 - `export SEGMENT_KEY="12345"`
 - `meteor`
+
+ In lieu of a formal styleguide, take care to maintain the existing coding style.
