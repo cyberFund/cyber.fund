@@ -22,12 +22,12 @@
 			<b style="width: 50px;"><!-- System logo --></b>
 			<b flex>System</b>
 			<b flex>Rating</b>
-			<b flex>Supply</b>
-			<b flex>Trade Volume</b>
-			<b flex>Bitcoin Cap</b>
-			<b flex>Change</b>
-			<b flex>USD Cap</b>
-			<b flex>Change</b>
+			<b flex style="text-align: center;">Supply</b>
+			<b flex style="text-align: center;">Trade Volume</b>
+			<b flex style="text-align: right;">Bitcoin Cap</b>
+			<b flex style="text-align: right;">Change</b>
+			<b flex style="text-align: right;">USD Cap</b>
+			<b flex style="text-align: right;">Change</b>
 		</div>
 
 		<core-list data="{{current}}" id="list" flex>
@@ -48,23 +48,33 @@
 							change="{{model.supplyChange.week}}"
 							absolute="{{model.supply}}"
 							flex
+							style="text-align: center;"
 						></cf-readable-supply>
 						<cf-readable-trade-volume
 							deviation="{{model.tradeVolumeMedianDeviation.week}}"
 							absolute="{{model.tradeVolume}}"
 							flex
+							style="text-align: center;"
 						></cf-readable-trade-volume>
-						<span flex>{{model.cap.btc | round(2) | readableNumbers}} BTC</span>
+						<span
+							flex
+							style="text-align: right;"
+						>{{model.cap.btc | round | readableNumbers}} BTC</span>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.btc}}"
 							change="{{model.capChange.week.btc}}"
 							flex
+							style="text-align: right;"
 						></cf-colorful-percents>
-						<span flex>${{model.cap.usd | round(2) | readableNumbers}}</span>
+						<span
+							flex
+							style="font-size: 1.2em; text-align: right;"
+						>${{model.cap.usd | round | readableNumbers}}</span>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.usd}}"
 							change="{{model.capChange.week.usd}}"
 							flex
+							style="font-size: 1.2em; text-align: right;"
 						></cf-colorful-percents>
 					</div>
 				</paper-item>
