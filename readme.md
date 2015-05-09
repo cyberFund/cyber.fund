@@ -2,5 +2,5 @@
 
 # How to launch the app
 
-- `bower install`
+- `export SEGMENT_KEY="12345"`
 - `meteor`
