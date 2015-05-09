@@ -15,7 +15,8 @@
     "core-tooltip": "Polymer/core-tooltip#~0.5.5",
     "polymer-filters": "addyosmani/polymer-filters#~0.2.1",
     "core-image": "Polymer/core-image#~0.5.5",
-    "core-animated-pages": "Polymer/core-animated-pages#~0.5.6"
+    "core-animated-pages": "Polymer/core-animated-pages#~0.5.6",
+    "core-drawer-panel": "Polymer/core-drawer-panel#~0.5.6"
   },
   "resolutions": {
     "polymer": "~0.5.5",
