@@ -3,7 +3,7 @@
 <link rel="import" href="/components/core-list/core-list.html">
 <link rel="import" href="/components/core-image/core-image.html">
 <link rel="import" href="/components/paper-item/paper-item.html">
-<link rel="import" href="/components/star-rate/star-rate.html">
+<link rel="import" href="/components/cf-star-rating/cf-star-rating.html">
 <link rel="import" href="/components/paper-button/paper-button.html">
 <link rel="import" href="/components/cf-meteor-components/meteor-collection.html">
 <link rel="import" href="/components/cf-meteor-components/meteor-subscribe.html">
@@ -42,7 +42,11 @@
 							></core-image>
 						</span>
 						<span flex style="font-size: 1.2em;">{{model.name}}</span>
-						<star-rate value="{{model.rating}}" readOnly flex></star-rate>
+						<cf-star-rating
+							value="{{model.rating}}"
+							flex
+							style="font-size: 1.2em;"
+						></cf-star-rating>
 						<cf-readable-supply
 							percents="{{model.supplyChangePercents.week}}"
 							change="{{model.supplyChange.week}}"

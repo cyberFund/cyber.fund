@@ -12,7 +12,7 @@
     "paper-tabs": "Polymer/paper-tabs#~0.5.5",
     "core-list": "Polymer/core-list#~0.5.5",
     "paper-item": "Polymer/paper-item#~0.5.5",
-    "star-rate": "Mortega5/star-rate",
+    "cf-star-rating": "cyberFund/cf-star-rating#~0.2.1",
     "core-tooltip": "Polymer/core-tooltip#~0.5.5",
     "polymer-filters": "addyosmani/polymer-filters#~0.2.1",
     "core-image": "Polymer/core-image#~0.5.5",
