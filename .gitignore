@@ -2,8 +2,7 @@ node_modules
 dist
 .tmp
 .sass-cache
-public/components/*
-!public/components/cf-*
+public/components
 Thumbs.db
 Desktop.ini
 *.py[co]
