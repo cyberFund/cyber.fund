@@ -16,7 +16,12 @@
 	<template>
 		<meteor-collection name="CurrentData" ref="{{collection}}"></meteor-collection>
 		<meteor-subscribe name="current-data"></meteor-subscribe>
-		<meteor-query collection="{{collection}}" options="{{options}}" data="{{current}}"></meteor-query>
+		<meteor-query
+			collection="{{collection}}"
+			query="{{query}}"
+			options="{{options}}"
+			data="{{current}}"
+		></meteor-query>
 
 		<div horizontal layout style="padding: 0.9em 1em">
 			<b style="width: 50px;"><!-- System logo --></b>
@@ -87,6 +92,13 @@
 	</template>
 
 	<script>
-		Polymer('cf-rating-table');
+		Polymer('cf-rating-table', {
+			options: {
+				sort: {
+					rating: -1,
+					"cap.btc": -1,
+				}
+			}
+		});
 	</script>
 </polymer-element>
