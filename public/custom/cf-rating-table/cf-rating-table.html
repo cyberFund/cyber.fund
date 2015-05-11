@@ -93,6 +93,9 @@
 
 	<script>
 		Polymer('cf-rating-table', {
+			query: {
+				"cap.btc": { $gt: 0 },
+			},
 			options: {
 				sort: {
 					rating: -1,
