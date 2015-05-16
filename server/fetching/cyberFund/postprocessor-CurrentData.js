@@ -11,6 +11,7 @@ Meteor.startup(function() {
 			updatedData.name = newSystemData.name;
 			updatedData.symbol = newSystemData.symbol;
 			updatedData.lastUpdateTimestamp = newSystemData.timestamp;
+			updatedData.rating = updatedData.rating || 0;
 
 			CurrentData.upsert({
 				name: newSystemData.name,
