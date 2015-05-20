@@ -3,15 +3,17 @@
 
 <polymer-element name="cf-readable-trade-volume" attributes="deviation absolute">
 	<template>
-		<core-tooltip position="top" horizontal layout>
-			<div flex>{{deviation | round(2) | deviationToText(absolute)}}</div>
-			<div tip>
-				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Trade volume (24h): <b>{{absolute | round(2) | readableNumbers}}</b> BTC</div>
-					<div>Median deviation: <b>{{deviation | round(2) | readableNumbers}}</b> BTC</div>
+		<div flex>
+			<core-tooltip position="left">
+				<span>{{deviation | round(2) | deviationToText(absolute)}}</span>
+				<div tip>
+					<div style="line-height: 1.5em; font-size: 1.3em">
+						<div>Trade volume (24h): <b>{{absolute | round(2) | readableNumbers}}</b> BTC</div>
+						<div>Median deviation: <b>{{deviation | round(2) | readableNumbers}}</b> BTC</div>
+					</div>
 				</div>
-			</div>
-		</core-tooltip>
+			</core-tooltip>
+		</div>
 	</template>
 
 	<script>

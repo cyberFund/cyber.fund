@@ -3,18 +3,20 @@
 
 <polymer-element name="cf-colorful-percents" attributes="percents change">
 	<template>
-		<core-tooltip position="top" horizontal layout>
-			<style>
-				.up { color: green; }
-				.down { color: red; }
-			</style>
-			<div flex class="{{direction}}">{{percents | round(2) | percentsToText | readableNumbers}}</div>
-			<div tip>
-				<div style="line-height: 1.5em; font-size: 1.3em">
-					<div>Real change: <b>{{change | round(2) | readableNumbers}}</b></div>
+		<div flex>
+			<core-tooltip position="left">
+				<style>
+					.up { color: green; }
+					.down { color: red; }
+				</style>
+				<span class="{{direction}}">{{percents | round(2) | percentsToText | readableNumbers}}</span>
+				<div tip>
+					<div style="line-height: 1.5em; font-size: 1.3em">
+						<div>Real change: <b>{{change | round(2) | readableNumbers}}</b></div>
+					</div>
 				</div>
-			</div>
-		</core-tooltip>
+			</core-tooltip>
+		</div>
 	</template>
 
 	<script>
