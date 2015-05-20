@@ -57,10 +57,10 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 
 		processedSystem.metrics.supplyChange = {};
 		["day", "week", "month"].forEach(function(time) {
-			if (tradeVolumeMedians[time]) {
+			if (supplyBefore[time]) {
 				processedSystem.metrics.supplyChange[time] =
 					parseFloat((processedSystem.metrics.availableSupplyNumber -
-						supplyBefore.day).toFixed(8)) || 0;
+						supplyBefore[time]).toFixed(8)) || 0;
 			} else {
 				processedSystem.metrics.supplyChange[time] = 0;
 			}
