@@ -18,7 +18,9 @@
     "core-image": "Polymer/core-image#~0.5.5",
     "core-animated-pages": "Polymer/core-animated-pages#~0.5.6",
     "core-drawer-panel": "Polymer/core-drawer-panel#~0.5.6",
-    "cf-meteor-components": "cyberFund/cf-meteor-components#~0.1.0"
+    "cf-meteor-components": "cyberFund/cf-meteor-components#~0.1.0",
+    "app-router": "erikringsmuth/app-router#~2.6.1",
+    "pushstate-anchor": "erikringsmuth/pushstate-anchor#~0.3.0"
   },
   "resolutions": {
     "polymer": "~0.5.5",

@@ -5,7 +5,6 @@
 <link rel="import" href="/components/paper-item/paper-item.html">
 <link rel="import" href="/components/cf-star-rating/cf-star-rating.html">
 <link rel="import" href="/components/paper-button/paper-button.html">
-<link rel="import" href="/components/cf-meteor-components/meteor-collection.html">
 <link rel="import" href="/components/cf-meteor-components/meteor-subscribe.html">
 <link rel="import" href="/components/cf-meteor-components/meteor-query.html">
 <link rel="import" href="/custom/cf-readable-supply/cf-readable-supply.html">
@@ -14,7 +13,6 @@
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
-		<meteor-collection name="CurrentData" ref="{{collection}}"></meteor-collection>
 		<meteor-subscribe name="current-data"></meteor-subscribe>
 		<meteor-query
 			collection="{{collection}}"
@@ -92,7 +90,12 @@
 	</template>
 
 	<script>
+		if (!window.CurrentData) {
+			CurrentData = new Mongo.Collection("CurrentData");
+		}
+
 		Polymer('cf-rating-table', {
+			collection: CurrentData,
 			query: {
 				"cap.btc": { $gt: 0 },
 			},

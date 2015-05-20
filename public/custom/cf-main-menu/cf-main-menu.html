@@ -3,18 +3,50 @@
 <link rel="import" href="/components/core-icons/core-icons.html">
 <link rel="import" href="/components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="/components/paper-tabs/paper-tabs.html">
+<link rel="import" href="/components/pushstate-anchor/pushstate-anchor.html">
 
 <polymer-element name="cf-main-menu" attributes="selected">
 	<template>
+		<style>
+			paper-tab /deep/ a {
+				text-decoration: none;
+				color: inherit;
+			}
+		</style>
+
 		<core-toolbar class="medium-tall">
 			<paper-icon-button id="switchDrawer" icon="menu" role="button" tabindex="0" aria-label="menu"></paper-icon-button>
 			<div flex horizontal center-justified layout>cyber • Fund</div>
 			<paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"></paper-icon-button>
 			<div class="bottom fit">
-				<paper-tabs selected="{{selected}}" selectedindex="0">
-					<paper-tab active>Rating</paper-tab>
-					<paper-tab>My Portfolio</paper-tab>
-					<paper-tab>Radar</paper-tab>
+				<paper-tabs selected="{{selected}}" link>
+					<paper-tab>
+						<a
+							href="/"
+							is="pushstate-anchor"
+							flex center-justified center horizontal layout
+						>
+							<span>Rating</span>
+						</a>
+					</paper-tab>
+					<paper-tab>
+						<a
+							href="/portfolio"
+							is="pushstate-anchor"
+							flex center-justified center horizontal layout
+						>
+							<span>My Portfolio</span>
+						</a>
+					</paper-tab>
+					<paper-tab>
+						<a
+							href="/radar"
+							is="pushstate-anchor"
+							flex center-justified center horizontal layout
+						>
+							<span>Radar</span>
+						</a>
+					</paper-tab>
 				</paper-tabs>
 			</div>
 		</core-toolbar>
@@ -22,6 +54,7 @@
 
 	<script>
 		Polymer("cf-main-menu", {
+			selected: 0,
 			ready: function() {
 				this.$.switchDrawer.addEventListener('click', this.triggerDrawerToggle);
 			},

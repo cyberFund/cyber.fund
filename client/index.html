@@ -10,11 +10,11 @@
 
 	<link rel="import" href="/components/polymer/polymer.html">
 	<link rel="import" href="/components/polymer-filters/polymer-filters.html">
+	<link rel="import" href="/components/app-router/app-router.html">
 	<link rel="import" href="/components/core-animated-pages/core-animated-pages.html">
 	<link rel="import" href="/components/core-animated-pages/transitions/slide-from-right.html">
 	<link rel="import" href="/components/core-drawer-panel/core-drawer-panel.html">
 	<link rel="import" href="/custom/cf-main-menu/cf-main-menu.html">
-	<link rel="import" href="/custom/cf-rating-table/cf-rating-table.html">
 	<link rel="import" href="/custom/cf-settings/cf-settings.html">
 </head>
 
@@ -25,17 +25,11 @@
 		</div>
 		<div main fullbleed fit flex vertical layout>
 			<cf-main-menu selected="0"></cf-main-menu>
-			<core-animated-pages selected="0" flex vertical layout transitions="slide-from-right">
-				<section flex vertical layout>
-					<cf-rating-table flex></cf-rating-table>
-				</section>
-				<section flex horizontal center center-justified layout>
-					<span style="font-size: 3em;">Hello, Portfolio!</span>
-				</section>
-				<section flex horizontal center center-justified layout>
-					<span style="font-size: 3em;">Hello, Trends!</span>
-				</section>
-			</core-pages>
+			<app-router flex vertical layout style="position: relative">
+				<app-route path="/" import="/pages/rating-page.html"></app-route>
+				<app-route path="/portfolio" import="/pages/portfolio-page.html"></app-route>
+				<app-route path="/radar" import="/pages/radar-page.html"></app-route>
+			</app-router>
 		</div>
 	</core-drawer-panel>
 </body>
