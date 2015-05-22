@@ -28,7 +28,9 @@ this.fetching.getCollection = function() {
 };
 
 this.fetching.saveToDb = function(data, callback) {
-	this.getCollection().rawCollection().insert(data, function(error, result) {
+	this.getCollection().rawCollection().insert(data, {
+		w: 1,
+	}, function(error, result) {
 		if (error) {
 			callback(error);
 		} else {
