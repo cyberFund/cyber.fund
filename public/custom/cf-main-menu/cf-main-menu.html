@@ -8,6 +8,10 @@
 <polymer-element name="cf-main-menu" attributes="selected">
 	<template>
 		<style>
+			core-toolbar {
+				background-color: white;
+			}
+
 			paper-tab /deep/ a {
 				text-decoration: none;
 				color: inherit;
@@ -18,7 +22,7 @@
 		<core-toolbar class="medium-tall">
 			<paper-icon-button id="switchDrawer" icon="menu" role="button" tabindex="0" aria-label="menu"></paper-icon-button>
 			<div flex horizontal center-justified layout>cyber &nbsp<span style="color: red">•</span>&nbsp Fund</div>
-			<!-- <paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"></paper-icon-button> -->
+			<paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"></paper-icon-button>
 			<div class="bottom fit">
 				<paper-tabs selected="{{selected}}" link>
 					<paper-tab>
