@@ -1,0 +1,17 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-tooltip/core-tooltip.html">
+
+<polymer-element name="cf-cap-usd" attributes="usd-cap usd-price" noscript>
+	<template>
+		<div flex>
+			<core-tooltip position="left">
+					<span>{{usd-cap}}</span>
+					<div tip>
+						<div style="line-height: 1.5em; font-size: 1.3em">
+							<div>Bitcoin price: <b>{{usd-price}}</b></div>
+						</div>
+					</div>
+			</core-tooltip>
+		</div>
+	</template>
+</polymer-element>
