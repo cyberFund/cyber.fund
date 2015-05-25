@@ -24,6 +24,8 @@
 			href="/custom/cf-colorful-percents/cf-colorful-percents.html">
 <link rel="import"
 			href="/custom/cf-cap-usd/cf-cap-usd.html">
+			<link rel="import"
+						href="/custom/cf-cap-btc/cf-cap-btc.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -77,10 +79,13 @@
 							flex
 							style="text-align: center;"
 						></cf-readable-trade-volume>
-						<span
+						<cf-cap-btc
+							capBtc="{{model.cap.btc}}"
+							priceBtc="{{model.price.btc}}"
+							tokenName="{{model.name}}"
 							flex
-							style="font-size: 1.2em; text-align: right;"
-						>${{model.cap.btc | round | readableNumbers}}</span>
+							style="text-align: right;"
+						></cf-cap-btc>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.btc}}"
 							change="{{model.capChange.week.btc}}"
@@ -88,8 +93,9 @@
 							style="text-align: right;"
 						></cf-colorful-percents>
 						<cf-cap-usd
-							usd-cap="{{model.cap.usd}}"
-							usd-price="{{model.price.usd}}"
+							capUsd="{{model.cap.usd}}"
+							priceUsd="{{model.price.usd}}"
+							tokenName="{{model.name}}"
 							flex
 							style="text-align: right;"
 						></cf-cap-usd>
