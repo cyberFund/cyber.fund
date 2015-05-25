@@ -24,10 +24,10 @@
 			href="/custom/cf-colorful-percents/cf-colorful-percents.html">
 <link rel="import"
 			href="/custom/cf-cap-usd/cf-cap-usd.html">
-			<link rel="import"
-						href="/custom/cf-cap-btc/cf-cap-btc.html">
+<link rel="import"
+			href="/custom/cf-cap-btc/cf-cap-btc.html">
 
-<polymer-element name="cf-rating-table" vertical layout>
+<polymer-element name="cf-rating-table" vertical layout style="width:90%; margin:auto; margin-top:5px;">
 	<template>
 		<meteor-subscribe name="current-data"></meteor-subscribe>
 		<meteor-query
@@ -40,15 +40,14 @@
 		<div horizontal layout style="padding: 0.9em 1em">
 			<b style="width: 50px;"><!-- System logo --></b>
 			<b flex>System</b>
-			<b flex>Rating</b>
+			<b flex style="text-align: center;">↓ Rating</b>
 			<b flex style="text-align: center;">Token</b>
 			<b flex style="text-align: center;">Trade</b>
 			<b flex style="text-align: right;">Cap in Ƀ</b>
-			<b flex style="text-align: right;">Change</b>
+			<b flex style="text-align: right;">7d Change</b>
 			<b flex style="text-align: right;">Cap in $</b>
-			<b flex style="text-align: right;">Change</b>
+			<b flex style="text-align: right;">7d Change</b>
 		</div>
-
 		<core-list data="{{current}}" id="list" flex>
 			<template>
 				<paper-item id="{{model._id}}">
@@ -64,7 +63,7 @@
 						<cf-star-rating
 							value="{{model.rating}}"
 							flex
-							style="font-size: 1.2em;"
+							style="font-size: 1.2em; text-align: center;"
 						></cf-star-rating>
 						<cf-readable-supply
 							percents="{{model.supplyChangePercents.week}}"
