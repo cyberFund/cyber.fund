@@ -1,0 +1,24 @@
+<link rel="import" href="/components/polymer/polymer.html">
+<link rel="import" href="/components/core-tooltip/core-tooltip.html">
+
+<polymer-element name="cf-cap-btc" attributes="capBtc priceBtc tokenName">
+	<template>
+		<div flex>
+			<core-tooltip position="left">
+					<span style="font-size: 1.2em; text-align: right;">
+						Ƀ {{capBtc | round | readableNumbers}}
+					</span>
+					<div tip>
+						<div style="line-height: 1.5em; font-size: 1.3em">
+							<div>Price per 1 {{tokenName}} :
+								<b>Ƀ {{priceBtc}}</b>
+							</div>
+						</div>
+					</div>
+			</core-tooltip>
+		</div>
+	</template>
+	<script>
+		Polymer();
+	</script>
+</polymer-element>
