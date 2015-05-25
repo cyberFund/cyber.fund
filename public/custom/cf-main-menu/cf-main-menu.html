@@ -21,7 +21,12 @@
 
 		<core-toolbar class="medium-tall">
 			<paper-icon-button id="switchDrawer" icon="menu" role="button" tabindex="0" aria-label="menu"></paper-icon-button>
-			<div flex horizontal center-justified layout>cyber &nbsp<span style="color: red">•</span>&nbsp Fund</div>
+			<div flex horizontal center-justified layout
+				style="font-size: 1.5em;">
+				cyber &nbsp
+				<span style="color: red; font-size: 1.1em;">•</span>
+				&nbsp Fund
+			</div>
 			<paper-icon-button icon="search" role="button" tabindex="0" aria-label="search"></paper-icon-button>
 			<div class="bottom fit">
 				<paper-tabs selected="{{selected}}" link>
@@ -31,7 +36,7 @@
 							is="pushstate-anchor"
 							flex center-justified center horizontal layout
 						>
-							<span>Rating</span>
+							<span style="font-size: 1.65em;">Rating</span>
 						</a>
 					</paper-tab>
 					<paper-tab>
@@ -40,7 +45,7 @@
 							is="pushstate-anchor"
 							flex center-justified center horizontal layout
 						>
-							<span>My Portfolio</span>
+							<span style="font-size: 1.65em;">My Portfolio</span>
 						</a>
 					</paper-tab>
 					<paper-tab>
@@ -49,7 +54,7 @@
 							is="pushstate-anchor"
 							flex center-justified center horizontal layout
 						>
-							<span>Radar</span>
+							<span style="font-size: 1.65em;">Radar</span>
 						</a>
 					</paper-tab>
 				</paper-tabs>
