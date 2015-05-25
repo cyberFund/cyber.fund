@@ -1,15 +1,31 @@
-<link rel="import" href="/components/polymer/polymer.html">
-<link rel="import" href="/components/core-selector/core-selector.html">
-<link rel="import" href="/components/core-list/core-list.html">
-<link rel="import" href="/components/core-image/core-image.html">
-<link rel="import" href="/components/paper-item/paper-item.html">
-<link rel="import" href="/components/cf-star-rating/cf-star-rating.html">
-<link rel="import" href="/components/paper-button/paper-button.html">
-<link rel="import" href="/components/cf-meteor-components/meteor-subscribe.html">
-<link rel="import" href="/components/cf-meteor-components/meteor-query.html">
-<link rel="import" href="/custom/cf-readable-supply/cf-readable-supply.html">
-<link rel="import" href="/custom/cf-readable-trade-volume/cf-readable-trade-volume.html">
-<link rel="import" href="/custom/cf-colorful-percents/cf-colorful-percents.html">
+<link rel="import"
+			href="/components/polymer/polymer.html">
+<link rel="import"
+			href="/components/core-selector/core-selector.html">
+<link rel="import"
+			href="/components/core-list/core-list.html">
+<link rel="import"
+			href="/components/core-image/core-image.html">
+<link rel="import"
+			href="/components/paper-item/paper-item.html">
+<link rel="import"
+			href="/components/cf-star-rating/cf-star-rating.html">
+<link rel="import"
+			href="/components/paper-button/paper-button.html">
+<link rel="import"
+			href="/components/cf-meteor-components/meteor-subscribe.html">
+<link rel="import"
+			href="/components/cf-meteor-components/meteor-query.html">
+<link rel="import"
+			href="/custom/cf-readable-supply/cf-readable-supply.html">
+<link rel="import"
+			href="/custom/cf-readable-trade-volume/cf-readable-trade-volume.html">
+<link rel="import"
+			href="/custom/cf-colorful-percents/cf-colorful-percents.html">
+<link rel="import"
+			href="/custom/cf-cap-usd/cf-cap-usd.html">
+			<link rel="import"
+						href="/custom/cf-cap-btc/cf-cap-btc.html">
 
 <polymer-element name="cf-rating-table" vertical layout>
 	<template>
@@ -63,20 +79,26 @@
 							flex
 							style="text-align: center;"
 						></cf-readable-trade-volume>
-						<span
+						<cf-cap-btc
+							capBtc="{{model.cap.btc}}"
+							priceBtc="{{model.price.btc}}"
+							tokenName="{{model.name}}"
 							flex
 							style="text-align: right;"
-						>{{model.cap.btc | round | readableNumbers}} BTC</span>
+						></cf-cap-btc>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.btc}}"
 							change="{{model.capChange.week.btc}}"
 							flex
 							style="text-align: right;"
 						></cf-colorful-percents>
-						<span
+						<cf-cap-usd
+							capUsd="{{model.cap.usd}}"
+							priceUsd="{{model.price.usd}}"
+							tokenName="{{model.name}}"
 							flex
-							style="font-size: 1.2em; text-align: right;"
-						>${{model.cap.usd | round | readableNumbers}}</span>
+							style="text-align: right;"
+						></cf-cap-usd>
 						<cf-colorful-percents
 							percents="{{model.capChangePercents.week.usd}}"
 							change="{{model.capChange.week.usd}}"
