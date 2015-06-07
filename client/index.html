@@ -1,34 +1,40 @@
 <head>
 	<title>cyber•Fund</title>
+	<meta charset="utf-8">
+	<meta
+		name="apple-mobile-web-app-capable"
+		content="yes">
+	<meta
+		name="apple-mobile-web-app-title"
+		content="yes">
 
-	<meta name="apple-mobile-web-app-capable" content="yes"/>
-	<meta name="apple-mobile-web-app-title" content="">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
-
-	<link href="//fonts.googleapis.com/css?family=RobotoDraft:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet" type="text/css">
-
-	<link rel="import" href="/components/polymer/polymer.html">
-	<link rel="import" href="/components/polymer-filters/polymer-filters.html">
-	<link rel="import" href="/components/app-router/app-router.html">
-	<link rel="import" href="/components/core-animated-pages/core-animated-pages.html">
-	<link rel="import" href="/components/core-animated-pages/transitions/slide-from-right.html">
-	<link rel="import" href="/components/core-drawer-panel/core-drawer-panel.html">
-	<link rel="import" href="/custom/cf-main-menu/cf-main-menu.html">
-	<link rel="import" href="/custom/cf-settings/cf-settings.html">
+	<meta
+		name="viewport"
+		content=
+			"width=device-width,
+			initial-scale=1,
+			minimum-scale=1,
+			maximum-scale=1">
 </head>
 
 <body>
 	<core-drawer-panel forceNarrow>
-		<div drawer>
-			<cf-settings></cf-settings>
-		</div>
+		<cf-settings drawer></cf-settings>
 		<div main fullbleed fit flex vertical layout>
 			<cf-main-menu selected="0"></cf-main-menu>
 			<app-router flex vertical layout style="position: relative">
-				<app-route path="/" import="/pages/rating-page.html"></app-route>
-				<app-route path="/portfolio" import="/pages/portfolio-page.html"></app-route>
-				<app-route path="/radar" import="/pages/radar-page.html"></app-route>
+				<app-route
+					path="/"
+					import="/pages/rating-page.html">
+				</app-route>
+				<app-route
+					path="/portfolio"
+					import="/pages/portfolio-page.html">
+				</app-route>
+				<app-route
+					path="/radar"
+					import="/pages/radar-page.html">
+				</app-route>
 			</app-router>
 		</div>
 	</core-drawer-panel>
