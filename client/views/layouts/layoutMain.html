@@ -1,0 +1,18 @@
+<!-- originally created for cyber.fund project-->
+<template name="layoutMain">
+
+    {{> navbar}}
+    <div class="container">
+        <div class="row">
+            <div class="s12 m12">
+                {{> yield}}
+            </div>
+        </div>
+    </div>
+
+
+    {{> footer}}
+
+    <div class="hiddendiv common"></div>
+    <div style="left: 0px;" class="drag-target"></div>
+</template>
