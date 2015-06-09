@@ -1,10 +1,11 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
+  <div class="navbar-fixed">
     <nav class="white" role="navigation">
         <div class="nav-wrapper container">
             <a href="/" class="waves-effect brand-logo center">cyber &nbsp;<span
                     style="color: red; font-size: 1.1em;">•</span>&nbsp;Fund</a>
-            <ul class=" hide-on-med-and-down">
+            <ul class="hide-on-med-and-down">
                 {{> navbarItem path="/" text="Rating"}}
                 {{> navbarItem path="/portfolio" text="Portfolio"}}
                 {{> navbarItem path="/radar" text="Radar"}}
@@ -14,11 +15,14 @@
                 {{> navbarItem path="/portfolio" text="Portfolio"}}
                 {{> navbarItem path="/radar" text="Radar"}}
             </ul>
+            <ul class="right hide-on-med-and-down">
+                {{> btcPrice}}
+            </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i
                     class="mdi-navigation-menu"></i></a>
         </div>
-        <div class="right">hi</div>
     </nav>
+  </div>
 </template>
 
 <template name="navbarItem">

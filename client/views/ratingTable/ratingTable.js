@@ -3,7 +3,7 @@ Template['ratingTable'].onCreated = function () {
 };
 
 Template['ratingTable'].rendered = function () {
-  
+
 };
 
 Session.setDefault("ratingSorter", {
@@ -72,7 +72,7 @@ Template['ratingTable'].helpers({
 
 Template['ratingTable'].events({
   'click .bar': function (e, t) {
-    
+
   }
 });
 

@@ -80,3 +80,14 @@ a.tooltip:hover span{
 	background:#333 url(cssttp/css-tooltip-gradient-bg.png) repeat-x 0 0;
 }
 .callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
