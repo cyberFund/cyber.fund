@@ -77,10 +77,10 @@ a.tooltip span {
 a.tooltip:hover span{
 	display:inline; position:absolute;
 	border:2px solid #FFF;  color:#EEE;
-	background:#333 url(cssttp/css-tooltip-gradient-bg.png) repeat-x 0 0;
+	background:#333;
 }
 .callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
-}
+
 
 body {
 	display: flex;
