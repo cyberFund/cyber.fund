@@ -81,6 +81,27 @@ a.tooltip:hover span{
 }
 .callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
 
+.with-tooltip {
+	position: relative;
+}
+.with-tooltip .tooltip {
+	display: none;
+}
+
+.with-tooltip:hover .tooltip {
+	position: absolute;
+	display: block;
+	right: 100%;
+	bottom: 0;
+	margin-bottom: -20%;
+	border-radius: 6px;
+	border: white 2px solid;
+	padding: 6px;
+	width: 200px;
+	line-height: 1.35em;
+	font-size: 1.2em;
+	z-index: 40;
+}
 
 body {
 	display: flex;
