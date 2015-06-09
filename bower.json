@@ -3,5 +3,7 @@
   "version": "0.5.1",
   "homepage": "http://cyber.fund",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "materialize": "~0.96.1"
+  }
 }

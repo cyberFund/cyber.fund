@@ -27,7 +27,7 @@ Template['btcPrice'].helpers({
   'keys': function () {
     //console.log(MarketData);
     var r = CF.MarketData.btcPriceaLatestDoc();
-    return (_.keys(_.omit( (r && r.metrics) ? r.metrics.price : {}), ['btc']));
+    return _.keys( (r && r.metrics) ? r.metrics.price : {});
   },
   currency: function(){
     return currency.get();

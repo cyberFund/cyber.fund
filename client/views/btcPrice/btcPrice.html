@@ -7,9 +7,9 @@
 
   <ul id='dropdown1' class='dropdown-content'>
       {{#each keys}}
-
-          <li><a class="key-select" href="#" data-value="{{this}}">{{this}}</a></li>
-
+          {{#if neq this 'btc'}}
+            <li><a class="key-select" href="#" data-value="{{this}}">{{this}}</a></li>
+          {{/if}}
       {{/each}}
   </ul>
             </span>

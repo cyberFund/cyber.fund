@@ -1,0 +1,94 @@
+<!-- originally created for cyber.fund project-->
+<template name="ratingTable">
+    <table>
+        <thead>
+        <th>System</th>
+        <th>↓ Rating</th>
+        <th>Token</th>
+        <th>Trade</th>
+        <th>Cap in Ƀ</th>
+        <th>7d Change</th>
+        <th>Cap in $</th>
+        <th>7d Change</th>
+        </thead>
+        <tbody>
+        {{#each rows}}
+            <tr>
+                <td><span style="width: 50px;">
+							{{> hitryImage img_name=img_name}}
+						</span>
+                    <span style="font-size: 1.2em;">{{name}}</span></td>
+                <td>{{rating}}<!--todo: cf-star-rating--></td>
+                <td>{{percentsToText supplyChangePercents.week}}<!-- todo : tooltip--></td>
+                <td>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}</td>
+                <td>Ƀ {{capToText cap.btc}}</td>
+                <td class="{{percentsToClass capChangePercents.week.btc}}">{{percentsToText2 capChangePercents.week.btc}}</td>
+                <td>$ {{capToText cap.usd}}</td>
+                <td class="{{percentsToClass capChangePercents.week.usd}}">{{percentsToText2 capChangePercents.week.usd}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</template>
+
+<template name="hitryImage">
+    <img src="http://cyber.fund/logos/{{img_name}}.png"
+         style="width: 30px; height: 30px" class="hidden"/>
+</template>
+<!--
+
+
+	<div tip>
+					<div style="line-height: 1.5em; font-size: 1.3em">
+						<div>Trade volume (24h): <b>{{absolute | round(2) | readableNumbers}}</b> BTC</div>
+						<div>Median deviation: <b>{{deviation | round(2) | readableNumbers}}</b> BTC</div>
+					</div>
+				</div>
+4th: 		deviation="{{model.tradeVolumeMedianDeviation.week}}"
+							absolute="{{model.tradeVolume}}"
+
+
+3rd: 		change="{{model.supplyChange.week}}"
+							absolute="{{model.supply}}"
+<div style="line-height: 1.5em; font-size: 1.3em"> ---- toolTIP!!!!!!!!
+						<div>Current supply: <b>{{absolute | round(2) | readableNumbers}}</b></div>
+						<div>Absolute change: <b>{{change | round(2) | readableNumbers}}</b></div>
+					</div>
+
+
+rating here.
+	<template>
+		<style>
+			[value="1"] {
+				color: #000000;
+			}
+			[value="2"] {
+				color: #FF1744;
+			}
+			[value="3"] {
+				color: #FF9100;
+			}
+			[value="4"] {
+				color: #FFEA00;
+			}
+			[value="5"] {
+				color: #00E676;
+			}
+		</style>
+
+		<template repeat="{{i in starsArray}}">
+			<span value="{{value}}">✪</span>
+		</template>
+	</template>
+
+	<script>
+		var parseValue = function() {
+			// Just create an array of length `value` to iterate over.
+			this.starsArray = new Array(parseFloat(this.value) || 0);
+		};
+		Polymer("cf-star-rating", {
+			ready: parseValue,
+			valueChanged: parseValue,
+		});
+	</script>
+-->
