@@ -12,3 +12,7 @@ percolatestudio:segment.io@=1.1.1_1
 iron:router
 zimme:active-route
 sacha:spin
+reactive-var
+amplify
+cyberfund-base
+cyberfund-marketdata

@@ -56,3 +56,7 @@ p {
 footer.page-footer {
 	margin: 0;
 }
+
+#nav-mobile li {
+	display: block
+}

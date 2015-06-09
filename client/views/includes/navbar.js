@@ -10,6 +10,9 @@ Template['navbar'].helpers({
 
 Template['navbar'].events({
   'click #nav-mobile a': function (e, t) {
-    $('#sidenav-overlay').trigger('click');
+    Meteor.setTimeout(function triggerClick(){
+      $('#sidenav-overlay').trigger('click');
+    }, 280)
+
   }
 });
