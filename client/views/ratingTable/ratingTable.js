@@ -22,9 +22,9 @@ Template['ratingTable'].helpers({
   },
   percentsToText: function (percents) {
     if (percents < 0) {
-      return "Deflation " + (-percents) + "%";
+      return "Deflation " + (-percents).toFixed(4) + "%";
     } else if (percents > 0) {
-      return "Inflation " + percents + "%";
+      return "Inflation " + percents.toFixed(4) + "%";
     } else {
       return "Stable";
     }
