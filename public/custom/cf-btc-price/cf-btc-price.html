@@ -1,0 +1,52 @@
+<link rel="import"
+      href="/components/polymer/polymer.html">
+<link rel="import"
+      href="/components/cf-meteor-components/meteor-subscribe.html">
+<link rel="import"
+      href="/components/cf-meteor-components/meteor-query.html">
+
+<polymer-element name="cf-btc-price" attributes="currency">
+    <template>
+        <meteor-subscribe name="fresh-price"></meteor-subscribe>
+        <meteor-query
+                collection="{{collection}}"
+                query="{{query}}"
+                options="{{options}}"
+                data=""
+                ></meteor-query>
+        <div>hello</div>
+        <div>{{currency}}</div>
+        <core-item>{{r}}</core-item>
+    </template>
+
+    <script>
+        if (!window.MarketData) {
+            MarketData = new Mongo.Collection("MarketData");
+        }
+        var r;
+        Meteor.autorun(function(){
+            var t = MarketData.find({
+                symbol: 'BTC', 'metrics.price': {$exists: true}
+            },  {
+                sort: {
+                    timestamp: -1
+                },
+                limit: 1
+            }).fetch();
+            if (t && t[0]) r = t[0].metrics;
+        });
+        Polymer('cf-btc-price', {
+            collection: MarketData,
+            query: {
+                symbol: 'BTC', 'metrics.price': {$exists: true}
+            },
+            options: {
+                sort: {
+                    timestamp: -1
+                },
+                limit: 1
+            },
+            r: "n"
+        });
+    </script>
+</polymer-element>

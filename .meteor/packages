@@ -5,9 +5,14 @@
 # but you can also edit it by hand.
 
 meteor-platform
-polymer
 mquandalle:bower
-differential:vulcanize
 http
 momentjs:moment
 percolatestudio:segment.io@=1.1.1_1
+iron:router
+zimme:active-route
+sacha:spin
+reactive-var
+amplify
+cyberfund-base
+cyberfund-marketdata

@@ -14,3 +14,4 @@ Desktop.ini
 /test/test_result.txt
 *.sublime-workspace
 _temp.py
+.idea/

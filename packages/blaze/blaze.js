@@ -1,5 +1,0 @@
-Blaze = {
-	Template: {
-		registerHelper: function () {}
-	}
-};

@@ -1,0 +1,19 @@
+<!-- originally created for cyber.fund project-->
+<template name="btcPrice">
+    <div>
+        <span>{{price}}
+            <a class='dropdown-button btn white teal-text'
+               data-activates='dropdown1'>{{currency}}</a>
+
+  <ul id='dropdown1' class='dropdown-content'>
+      {{#each keys}}
+
+          <li><a class="key-select" href="#" data-value="{{this}}">{{this}}</a></li>
+
+      {{/each}}
+  </ul>
+            </span>
+        <span> per 1 BTC</span>
+
+    </div>
+</template>
