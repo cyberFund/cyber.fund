@@ -13,18 +13,87 @@
         </thead>
         <tbody>
         {{#each rows}}
-            <tr>
+            <tr style="vertical-align: middle">
                 <td><span style="width: 50px;">
-							{{> hitryImage img_name=img_name}}
-						</span>
-                    <span style="font-size: 1.2em;">{{name}}</span></td>
+                    {{> hitryImage img_name=img_name}}
+                </span>
+                    <span style="font-size: 1.2em;">{{name}}</span>
+                </td>
+
                 <td>{{rating}}<!--todo: cf-star-rating--></td>
-                <td>{{percentsToText supplyChangePercents.week}}<!-- todo : tooltip--></td>
-                <td>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}</td>
-                <td>Ƀ {{capToText cap.btc}}</td>
-                <td class="{{percentsToClass capChangePercents.week.btc}}">{{percentsToText2 capChangePercents.week.btc}}</td>
-                <td>$ {{capToText cap.usd}}</td>
-                <td class="{{percentsToClass capChangePercents.week.usd}}">{{percentsToText2 capChangePercents.week.usd}}</td>
+
+                <td>{{# withTooltip}}
+                    {{percentsToText supplyChangePercents.week}}
+                    {{#tooltip}}
+                        <div>Current supply:
+                            <b>{{readableN supply 2}}</b>
+                        </div>
+                        <div>Absolute change:
+                            <b>{{readableN supplyChange.week 2}}</b>
+                        </div>
+                    {{/tooltip}}
+                {{/withTooltip}}</td>
+
+                <td>{{# withTooltip}}
+                    <span>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}
+                    </span>
+
+                    {{#tooltip}}
+                        <div>Trade volume (24h):
+                            <b>{{readableN tradeVolume 2}}</b>
+                            BTC
+                        </div>
+                        <div>Median deviation:
+                            <b>{{readableN tradeVolumeMedianDeviation.week 2}}</b>
+                            BTC
+                        </div>
+                    {{/tooltip}}
+                {{/withTooltip}}</td>
+
+                <td>{{# withTooltip}}
+                    Ƀ {{readableN cap.btc 0}}
+                    {{#if price.btc}}
+                        {{#tooltip}}
+                            <div>Price per 1 {{name}} :<br/>
+                                <b>Ƀ {{price.btc}}</b>
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td>{{# withTooltip}}
+                    <span class="{{percentsToClass capChangePercents.week.btc}}">
+                        {{percentsToText2 capChangePercents.week.btc}}</span>
+                    {{#if capChange.week.btc}}
+                        {{#tooltip}}
+                            <div>Real change:
+                                <b>{{readableN capChange.week.btc 2}}</b>
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td>{{# withTooltip}}
+                    <span>$ {{readableN cap.usd 0}}</span>
+                    {{#if price.btc}}
+                        {{#tooltip}}
+                            <div>Price per 1 {{name}} :<br/>
+                                <b>$ {{price.usd}}</b>
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td>{{#withTooltip}}
+                    <span class="{{percentsToClass capChangePercents.week.usd}}">
+                        {{percentsToText2 capChangePercents.week.usd}}</span>
+
+                    {{#tooltip}}
+                        <div>Real change:
+                            <b>{{readableN capChange.week.usd 2}}</b>
+                        </div>
+                    {{/tooltip}}
+                {{/withTooltip}}</td>
             </tr>
         {{/each}}
         </tbody>
@@ -34,6 +103,18 @@
 <template name="hitryImage">
     <img src="http://cyber.fund/logos/{{img_name}}.png"
          style="width: 30px; height: 30px" class="hidden"/>
+</template>
+
+<template name="withTooltip">
+    <div class="with-tooltip">
+        {{> UI.contentBlock}}
+    </div>
+</template>
+
+<template name="tooltip">
+    <div class="tooltip z-depth-1 black white-text">
+        {{> UI.contentBlock}}
+    </div>
 </template>
 <!--
 

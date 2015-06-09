@@ -73,6 +73,11 @@ var helpers = {
       input = input.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
     }
     return input;
+  },
+  readableN: function(input, roundTo){ //roundTo - how many digits after dot
+    var ret = parseFloat(input);
+    if (isNaN(ret)) return "";
+    return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
   }
 };
 
