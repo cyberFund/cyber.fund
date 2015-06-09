@@ -60,3 +60,7 @@ footer.page-footer {
 #nav-mobile li {
 	display: block
 }
+
+.hidden {
+	display: none;
+}
