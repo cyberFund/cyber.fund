@@ -25,6 +25,9 @@ Template['ratingTable'].helpers({
   'img_name': function () {
     return (this.name ? this.name : '').toString().toLowerCase();
   },
+  _name: function(){ //see "ALIASES"
+    return this.cyberName || this.name;
+  },
   percentsToText: function (percents) {
     if (percents < 0) {
       return "Deflation " + (-percents).toFixed(2) + "%";

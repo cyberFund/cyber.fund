@@ -1,6 +1,5 @@
 Meteor.startup(function() {
-
-	processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+	CF.processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
 		if (source !== "CoinMarketCap") {
 			return;
 		}
@@ -11,10 +10,10 @@ Meteor.startup(function() {
 		var i, curTimestamp;
 		// From 0 to 30 days ago - meaning getting today's data too.
 		for (i = 0; i <= 30; i += 1) {
-			curTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+			curTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 				moment.unix(timestamp).subtract(i, "days").unix());
 
-			processing.getAllNearest("CoinMarketCap", curTimestamp, [
+			CF.processing.getAllNearest("CoinMarketCap", curTimestamp, [
 				"timestamp",
 				"name",
 				"symbol",

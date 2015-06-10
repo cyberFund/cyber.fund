@@ -1,4 +1,4 @@
-this.processing = {
+CF.processing = {
 
 	_deref: function(obj, dotNotationString) {
 		var i = 0;
