@@ -1,13 +1,13 @@
 <!-- originally created for cyber.fund project-->
 <template name="ratingTable">
-    <table class="responsive-table hoverable" align="center">
+    <table class="hoverable" align="center">
         <thead>
         <th class="center">System</th>
         <th class="center">↓ Rating</th>
-        <th class="center">Token</th>
-        <th class="center">Trade</th>
-        <th class="center">Cap in Ƀ</th>
-        <th class="center">7d Change</th>
+        <th class="center hide-on-small-and-down">Token</th>
+        <th class="center hide-on-small-and-down">Trade</th>
+        <th class="center hide-on-med-and-down" >Cap in Ƀ</th>
+        <th class="center hide-on-med-and-down">7d Change</th>
         <th class="center">Cap in $</th>
         <th class="center">7d Change</th>
         </thead>
@@ -22,7 +22,7 @@
 
                 <td class="center-align">{{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
 
-                <td>{{# withTooltip}}
+                <td class="hide-on-small-and-down">{{# withTooltip}}
                     {{percentsToText supplyChangePercents.week}}
                     {{#tooltip}}
                         <div>Current supply:
@@ -34,7 +34,7 @@
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td class="center-align">{{# withTooltip}}
+                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
                     <span>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}
                     </span>
 
@@ -50,7 +50,7 @@
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td class="right-align">{{# withTooltip}}
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
                     Ƀ {{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
@@ -61,7 +61,7 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td class="right-align">{{# withTooltip}}
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
                     <span class="{{percentsToClass capChangePercents.week.btc}}">
                         {{percentsToText2 capChangePercents.week.btc}}</span>
                     {{#if capChange.week.btc}}
