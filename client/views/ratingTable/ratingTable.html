@@ -14,22 +14,22 @@
         <tbody>
         {{#each rows}}
             <tr style="vertical-align: middle">
-                <td class="left-align enlarge">
+                <td class="left-align">
                     {{> hitryImage img_name=img_name}}
 
-                    <span style="vertical-align: middle; font-size: 1.2em;">&nbsp;{{name}}</span>
+                    <span class="enlarge">&nbsp;{{name}}</span>
                 </td>
 
                 <td class="center-align">{{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
 
-                <td class="hide-on-small-and-down">{{# withTooltip}}
-                    {{percentsToText supplyChangePercents.week}}
+                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
+                    <span>{{percentsToText supplyChangePercents.week}}</span>
                     {{#tooltip}}
                         <div>Current supply:
-                            <b>{{readableN supply 2}}</b>
+                            <b>{{readableN supply 0}}</b>
                         </div>
                         <div>Absolute change:
-                            <b>{{readableN supplyChange.week 2}}</b>
+                            <b>{{readableN supplyChange.week 0}}</b>
                         </div>
                     {{/tooltip}}
                 {{/withTooltip}}</td>
@@ -54,7 +54,7 @@
                     Ƀ {{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}} :<br/>
+                            <div>Price per 1 {{name}}:<br/>
                                 <b>Ƀ {{price.btc}}</b>
                             </div>
                         {{/tooltip}}
@@ -73,11 +73,11 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td class="right-align enlarge">{{# withTooltip}}
-                    <span>$ {{readableN cap.usd 0}}</span>
+                <td class="right-align">{{# withTooltip}}
+                    <span class="enlarge">$ {{readableN cap.usd 0}}</span>
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}} :<br/>
+                            <div>Price per 1 {{name}}:<br/>
                                 <b>$ {{price.usd}}</b>
                             </div>
                         {{/tooltip}}
