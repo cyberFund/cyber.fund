@@ -1,6 +1,6 @@
 
 Meteor.publish("current-data", function(limit) {
-	return CurrentData.find({"cap.btc": { $gt: 0 }}, { sort: { rating: -1, "cap.btc": -1  }, limit: limit });
+	return CurrentData.find({"cap.btc": { $gt: 0 }}, { sort: { "rating": -1, "cap.btc": -1  }, limit: limit });
 });
 Meteor.methods({
 	'currentDataCount': function () {
