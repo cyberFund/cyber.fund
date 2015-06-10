@@ -1,10 +1,11 @@
 
 Meteor.publish("current-data", function(limit) {
-	return CurrentData.find({rating: {$gt: 0}}, { sort: { "cap.btc": -1  }, limit: limit });
+	return CurrentData.find({"cap.btc": { $gt: 0 }}, { sort: { rating: -1, "cap.btc": -1  }, limit: limit });
 });
-
-Meteor.publish("current-data-one", function() {
-	return CurrentData.find({"cap.btc": { $gt: 0 }}, { sort: { "cap.btc": -1 } });
+Meteor.methods({
+	'currentDataCount': function () {
+		return CurrentData.find({"cap.btc": {$gt: 0}}).count();
+	}
 });
 
 

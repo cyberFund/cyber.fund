@@ -1,5 +1,27 @@
 <template name="loading">
-    {{> spinner}}
+    {{> spinnerMaterialize}}
     <h2 class="center-align">Calculating stuff</h2>
     <p class="center-align"><img src="/images/r2d2.jpg" alt="R2-D2" width="300px" height="300px"></p>
+    <div style="margin: 0 auto">
+        <h1>Calculating stuff</h1>
+        <img src="/images/r2d2.jpg" alt="R2-D2">
+    </div>
+</template>
+
+<template name="spinnerMaterialize">
+    <div style="position: absolute; top: 50%; left: 50%; margin-left: -33px; margin-top: -33px;">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-red-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>

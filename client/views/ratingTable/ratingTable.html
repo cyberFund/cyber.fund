@@ -1,40 +1,41 @@
 <!-- originally created for cyber.fund project-->
 <template name="ratingTable">
-    <table style="width:85%" align="center" class="hoverable">
+    <table class="hoverable" align="center">
         <thead>
-        <th>System</th>
-        <th>↓ Rating</th>
-        <th>Token</th>
-        <th>Trade</th>
-        <th>Cap in Ƀ</th>
-        <th>7d Change</th>
-        <th>Cap in $</th>
-        <th>7d Change</th>
+        <th class="center">System</th>
+        <th class="center">↓ Rating</th>
+        <th class="center hide-on-small-and-down">Token</th>
+        <th class="center hide-on-small-and-down">Trade</th>
+        <th class="center hide-on-med-and-down">Cap in Ƀ</th>
+        <th class="center hide-on-med-and-down">7d Change</th>
+        <th class="center">Cap in $</th>
+        <th class="center">7d Change</th>
         </thead>
         <tbody>
         {{#each rows}}
             <tr style="vertical-align: middle">
-                <td><span style="width: 50px;">
+                <td class="left-align">
                     {{> hitryImage img_name=img_name}}
-                </span>
-                    <span style="font-size: 1.2em;">{{name}}</span>
+
+                    <span class="enlarge">&nbsp;{{name}}</span>
                 </td>
 
-                <td>{{rating}}<!--todo: cf-star-rating--></td>
+                <td class="center-align">
+                        {{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
 
-                <td>{{# withTooltip}}
-                    {{percentsToText supplyChangePercents.week}}
+                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
+                    <span>{{percentsToText supplyChangePercents.week}}</span>
                     {{#tooltip}}
                         <div>Current supply:
-                            <b>{{readableN supply 2}}</b>
+                            <b>{{readableN supply 0}}</b>
                         </div>
                         <div>Absolute change:
-                            <b>{{readableN supplyChange.week 2}}</b>
+                            <b>{{readableN supplyChange.week 0}}</b>
                         </div>
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
                     <span>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}
                     </span>
 
@@ -50,18 +51,18 @@
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
                     Ƀ {{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}} :<br/>
+                            <div>Price per 1 {{name}}:<br/>
                                 <b>Ƀ {{price.btc}}</b>
                             </div>
                         {{/tooltip}}
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
                     <span class="{{percentsToClass capChangePercents.week.btc}}">
                         {{percentsToText2 capChangePercents.week.btc}}</span>
                     {{#if capChange.week.btc}}
@@ -73,18 +74,18 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
-                    <span>$ {{readableN cap.usd 0}}</span>
+                <td class="right-align">{{# withTooltip}}
+                    <span class="enlarge">$ {{readableN cap.usd 0}}</span>
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}} :<br/>
+                            <div>Price per 1 {{name}}:<br/>
                                 <b>$ {{price.usd}}</b>
                             </div>
                         {{/tooltip}}
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{#withTooltip}}
+                <td class="right-align">{{#withTooltip}}
                     <span class="{{percentsToClass capChangePercents.week.usd}}">
                         {{percentsToText2 capChangePercents.week.usd}}</span>
 
@@ -98,11 +99,20 @@
         {{/each}}
         </tbody>
     </table>
+    {{#if hasMore}}
+        <div class="center">
+            <a class="waves-effect waves-light btn show-more">
+                <i class="mdi-navigation-expand-more left"></i>
+                <i class="mdi-navigation-expand-more right"></i>
+                show more crap</a>
+        </div>
+    {{/if}}
 </template>
 
 <template name="hitryImage">
     <img src="http://cyber.fund/logos/{{img_name}}.png"
-         style="width: 30px; height: 30px" class="hidden"/>
+         style="width: 30px; height: 30px;vertical-align:middle "
+         class="hidden"/>
 </template>
 
 <template name="withTooltip">

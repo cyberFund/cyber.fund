@@ -95,15 +95,15 @@ a.tooltip:hover span{
 .with-tooltip:hover .tooltip {
 	position: absolute;
 	display: block;
-	right: 100%;
+	text-align: left;
+	right: 80%;
 	bottom: 0;
-	margin-bottom: -20%;
 	border-radius: 6px;
 	border: white 2px solid;
 	padding: 6px;
 	width: 200px;
-	line-height: 1.35em;
-	font-size: 1.2em;
+	line-height: 1rem;
+	font-size: 0.8rem;
 	z-index: 40;
 }
 
@@ -113,6 +113,16 @@ body {
 	flex-direction: column;
 }
 
+.enlarge {
+	font-size: 136%;
+}
+
 main {
 	flex: 1 0 auto;
+}
+
+.w90 {
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
 }

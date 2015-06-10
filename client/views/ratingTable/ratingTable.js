@@ -1,5 +1,9 @@
+Meteor.autorun(function () {
+  Meteor.subscribe("current-data", Session.get("curDataLimit"));
+});
+
 Template['ratingTable'].onCreated = function () {
-  Session.set('tableReadyToRender', null);
+
 };
 
 Template['ratingTable'].rendered = function () {
@@ -13,18 +17,16 @@ Session.setDefault("ratingSorter", {
 
 Template['ratingTable'].helpers({
   'rows': function () {
-    return Session.get("tableReadyToRender") ?
-    CurrentData.find({"cap.btc": {$gt: 0}}, {sort: Session.get("ratingSorter")}) :
-      [];
+    return CurrentData.find({"cap.btc": {$gt: 0}}, {sort: Session.get("ratingSorter")});
   },
   'img_name': function () {
     return (this.name ? this.name : '').toString().toLowerCase();
   },
   percentsToText: function (percents) {
     if (percents < 0) {
-      return "Deflation " + (-percents).toFixed(4) + "%";
+      return "Deflation " + (-percents).toFixed(2) + "%";
     } else if (percents > 0) {
-      return "Inflation " + percents.toFixed(4) + "%";
+      return "Inflation " + percents.toFixed(2) + "%";
     } else {
       return "Stable";
     }
@@ -58,26 +60,31 @@ Template['ratingTable'].helpers({
   percentsToClass: function (percents) {
     return (percents < 0) ? "red-text" : "green-text";
   },
-  capUsdToText: function(cap){
+  capUsdToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
-  capToText: function(cap){
+  capToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
+  hasMore: function () {
+    return Session.get('curDataLimit') < Session.get("curDataCount");
+  }
 });
 
 Template['ratingTable'].events({
-  'click .bar': function (e, t) {
-
+  'click .show-more': function (e, t) {
+    if (Session.get('curDataLimit') < Session.get("curDataCount")) {
+      Session.set('curDataLimit', Session.get('curDataLimit') + 100)
+    }
   }
 });
 
 
-Template['hitryImage'].rendered = function (){
+Template['hitryImage'].rendered = function () {
   var $image = this.$('img');
 
   $image.on('load', function () {

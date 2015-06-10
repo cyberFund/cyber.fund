@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
   <div class="navbar-fixed">
-    <nav class="white" role="navigation">
+    <nav class="white" role="navigation" style="width: 90%; margin-left: 5%">
         <div class="nav-wrapper container">
             <a href="/" class="waves-effect brand-logo center">
               cyber&nbsp;
@@ -32,5 +32,6 @@
 </template>
 
 <template name="navbarItem">
-    <li class="waves-effect {{isActivePath path=path}}"><a href="{{path}}">{{text}}</a></li>
+    <li class="waves-effect {{isActivePath path=path}}"><a
+            href="{{path}}">{{text}}</a></li>
 </template>
