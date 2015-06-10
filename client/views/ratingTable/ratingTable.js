@@ -1,5 +1,5 @@
 Meteor.autorun(function () {
-  Meteor.subscribe("current-data", Session.get("curDataLimit"));
+  Meteor.subscribe("current-data", Session.get("curDataMinRating"));
 });
 
 Template['ratingTable'].onCreated = function () {
@@ -71,15 +71,13 @@ Template['ratingTable'].helpers({
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
   hasMore: function () {
-    return Session.get('curDataLimit') < Session.get("curDataCount");
+    return Session.get('curDataMinRating') > 1 ;
   }
 });
 
 Template['ratingTable'].events({
   'click .show-more': function (e, t) {
-    if (Session.get('curDataLimit') < Session.get("curDataCount")) {
-      Session.set('curDataLimit', Session.get('curDataLimit') + 100)
-    }
+    Session.set('curDataMinRating', 1)
   }
 });
 
