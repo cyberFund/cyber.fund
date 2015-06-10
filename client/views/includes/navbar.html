@@ -21,8 +21,11 @@
                 {{> navbarItem path="/radar" text="Radar"}}
             </ul>
             <ul class="right hide-on-med-and-down">
-                {{> navbarItem path="https://medium.com/cyber-blog" text="Blog"}}
-                {{> navbarItem path="http://cybertalks.org/" text="Community"}}
+                <li>{{> btcPriceSimple class="black-text"}}</li>
+                <li class="waves-effect">
+                    <a href="https://medium.com/cyber-blog" target="_blank">Blog</a></li>
+                <li class="waves-effect">
+                    <a href="http://cybertalks.org/" target="_blank">Community</a></li>
             </ul>
             <a href="#" data-activates="nav-mobile" class="button-collapse"><i
                     class="mdi-navigation-menu"></i></a>
