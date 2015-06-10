@@ -1,6 +1,9 @@
-Meteor.autorun(function () {
-  Meteor.subscribe("current-data", Session.get("curDataMinRating"));
+Session.setDefault('curDataSelector', {rating: 5});
+
+Deps.autorun(function() {
+  Meteor.subscribe("current-data", Session.get('curDataSelector'));
 });
+
 
 Template['ratingTable'].onCreated = function () {
 
@@ -71,13 +74,41 @@ Template['ratingTable'].helpers({
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
   hasMore: function () {
-    return Session.get('curDataMinRating') > 1 ;
+    var sel = Session.get("curDataSelector")
+
+    return sel.rating  > 1 ;
+  },
+  evenMore: function (){
+    var sel = Session.get("curDataSelector")
+    return (sel.rating < 2) &&
+      (!sel.limit ||
+      (Session.get('curDataCount') > sel.limit ));
   }
 });
 
 Template['ratingTable'].events({
   'click .show-more': function (e, t) {
-    Session.set('curDataMinRating', 1)
+    var sel = Session.get("curDataSelector");
+    var rating =  sel.rating;
+    if (rating == 2) {
+      sel.rating = 1;
+
+      Session.set('curDataSelector', sel);
+      console.log(Session.get('curDataSelector'));
+      return;
+    }
+    if (rating == 1) {
+      var count =  CurrentData.find().count();
+      var newLimit = count + 200;
+      sel.rating = 0;
+      sel.limit = newLimit;
+      Session.set('curDataSelector', sel);
+      return;
+    }
+    if (rating == 0) {
+      sel.limit += 200;
+      Session.set('curDataSelector', sel);
+    }
   }
 });
 
