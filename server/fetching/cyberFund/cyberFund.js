@@ -1,5 +1,5 @@
-var sourceUrl = "http://cyber.fund/data.json";
-var fetchInterval = 30 * 60 * 1000 *100;
+var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/master/chaingear.json";
+var fetchInterval = 30 * 60 * 1000;
 
 CF.fetching.cyberFund = {};
 

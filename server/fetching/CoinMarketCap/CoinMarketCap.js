@@ -1,5 +1,5 @@
 var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
-var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000 * 100;
+var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000;
 
 CF.fetching.coinMarketCap = {};
 
