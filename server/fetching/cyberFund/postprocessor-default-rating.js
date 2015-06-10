@@ -1,6 +1,6 @@
 Meteor.startup(function() {
 
-	processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+	CF.processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
 		if (source !== "cyberFund") {
 			return;
 		}

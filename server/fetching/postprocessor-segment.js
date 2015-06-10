@@ -1,6 +1,6 @@
 Meteor.startup(function() {
 
-	processing.addPostprocessor(function(source, timestamp, data) {
+	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		analytics.track({
 			userId: "server",
 			event: "Fetched Data",
