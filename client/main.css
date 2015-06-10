@@ -1,3 +1,124 @@
 html {
 	font-family: "RobotoDraft", sans-serif;
 }
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+nav ul a,
+nav .brand-logo {
+	color: #444;
+}
+
+p {
+	line-height: 2rem;
+}
+
+.button-collapse {
+	color: #26a69a;
+}
+
+.parallax-container {
+	min-height: 380px;
+	line-height: 0;
+	height: auto;
+	color: rgba(255,255,255,.9);
+}
+.parallax-container .section {
+	width: 100%;
+}
+
+@media only screen and (max-width : 992px) {
+	.parallax-container .section {
+		position: absolute;
+		top: 40%;
+	}
+	#index-banner .section {
+		top: 10%;
+	}
+}
+
+@media only screen and (max-width : 600px) {
+	#index-banner .section {
+		top: 0;
+	}
+}
+
+
+.icon-block {
+	padding: 0 15px;
+}
+
+footer.page-footer {
+	margin: 0;
+}
+
+#nav-mobile li {
+	display: block
+}
+
+.hidden {
+	display: none;
+}
+
+
+a.tooltip {outline:none; }
+a.tooltip strong {line-height:30px;}
+a.tooltip:hover {text-decoration:none;}
+a.tooltip span {
+	z-index:10;display:none; padding:14px 20px;
+	margin-top:60px; margin-left:-160px;
+	width:300px; line-height:16px;
+}
+a.tooltip:hover span{
+	display:inline; position:absolute;
+	border:2px solid #FFF;  color:#EEE;
+	background:#333;
+}
+.callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
+
+.with-tooltip {
+	position: relative;
+}
+.with-tooltip .tooltip {
+	display: none;
+}
+
+.with-tooltip:hover .tooltip {
+	position: absolute;
+	display: block;
+	text-align: left;
+	right: 80%;
+	bottom: 0;
+	border-radius: 6px;
+	border: white 2px solid;
+	padding: 6px;
+	width: 200px;
+	line-height: 1rem;
+	font-size: 0.8rem;
+	z-index: 40;
+}
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+.enlarge {
+	font-size: 136%;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.w90 {
+	width: 90%;
+	margin: 0 auto;
+	position: relative;
+}

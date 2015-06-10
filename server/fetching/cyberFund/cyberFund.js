@@ -1,5 +1,5 @@
 var sourceUrl = "http://cyber.fund/data.json";
-var fetchInterval = 30 * 60 * 1000;
+var fetchInterval = 30 * 60 * 1000 *100;
 
 this.fetching.cyberFund = {};
 

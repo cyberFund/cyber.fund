@@ -4,26 +4,6 @@
   "homepage": "http://cyber.fund",
   "private": true,
   "dependencies": {
-    "webcomponentsjs": "~0.5.5",
-    "polymer": "Polymer/polymer#~0.5.5",
-    "core-toolbar": "Polymer/core-toolbar#~0.5.5",
-    "core-icons": "Polymer/core-icons#~0.5.6",
-    "paper-icon-button": "Polymer/paper-icon-button#~0.5.5",
-    "paper-tabs": "Polymer/paper-tabs#~0.5.5",
-    "core-list": "Polymer/core-list#~0.5.5",
-    "paper-item": "Polymer/paper-item#~0.5.5",
-    "cf-star-rating": "cyberFund/cf-star-rating#~0.2.1",
-    "core-tooltip": "Polymer/core-tooltip#~0.5.5",
-    "polymer-filters": "addyosmani/polymer-filters#~0.2.1",
-    "core-image": "Polymer/core-image#~0.5.5",
-    "core-animated-pages": "Polymer/core-animated-pages#~0.5.6",
-    "core-drawer-panel": "Polymer/core-drawer-panel#~0.5.6",
-    "cf-meteor-components": "cyberFund/cf-meteor-components#~0.1.0",
-    "app-router": "erikringsmuth/app-router#~2.6.1",
-    "pushstate-anchor": "erikringsmuth/pushstate-anchor#~0.3.0"
-  },
-  "resolutions": {
-    "polymer": "~0.5.5",
-    "webcomponentsjs": "~0.5.5"
+    "materialize": "~0.96.1"
   }
 }

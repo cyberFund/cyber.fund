@@ -1,0 +1,40 @@
+<!-- originally created for cyber.fund project-->
+<template name="navbar">
+  <div class="navbar-fixed">
+    <nav class="white" role="navigation">
+        <div class="nav-wrapper w90">
+            <a href="/" class="waves-effect brand-logo center">
+              cyber&nbsp;
+              <span style="color: red; font-size:0.85em;">
+                <strong>•</strong>
+              </span>
+              &nbsp;Fund
+            </a>
+            <ul class="hide-on-med-and-down">
+                {{> navbarItem path="/" text="Rating"}}
+                {{> navbarItem path="/portfolio" text="Portfolio"}}
+                {{> navbarItem path="/radar" text="Radar"}}
+            </ul>
+            <ul style="left: -250px" id="nav-mobile" class="side-nav">
+                {{> navbarItem path="/" text="Rating"}}
+                {{> navbarItem path="/portfolio" text="Portfolio"}}
+                {{> navbarItem path="/radar" text="Radar"}}
+            </ul>
+            <ul class="right hide-on-med-and-down">
+                <li>{{> btcPriceSimple class="black-text"}}</li>
+                <li class="waves-effect">
+                    <a href="https://medium.com/cyber-blog" target="_blank">Blog</a></li>
+                <li class="waves-effect">
+                    <a href="http://cybertalks.org/" target="_blank">Community</a></li>
+            </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i
+                    class="mdi-navigation-menu"></i></a>
+        </div>
+    </nav>
+  </div>
+</template>
+
+<template name="navbarItem">
+    <li class="waves-effect {{isActivePath path=path}}"><a
+            href="{{path}}">{{text}}</a></li>
+</template>
