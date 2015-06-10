@@ -48,3 +48,11 @@ Template['btcPrice'].events({
     currency.set(val);
   }
 });
+
+Template['btcPriceSimple'].helpers({
+  price: function(){
+    var prices = CF.MarketData.btcPriceaLatestDoc();
+    if (prices) return Blaze._globalHelpers.readableNumbers( parseFloat(prices.metrics.price.usd).toFixed(2));
+    return ""
+  }
+})

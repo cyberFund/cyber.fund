@@ -1,26 +1,26 @@
 <!-- originally created for cyber.fund project-->
 <template name="ratingTable">
-    <table style="width:90%" align="center" class="hoverable">
+    <table class="responsive-table hoverable" align="center">
         <thead>
-        <th>System</th>
-        <th>↓ Rating</th>
-        <th>Token</th>
-        <th>Trade</th>
-        <th>Cap in Ƀ</th>
-        <th>7d Change</th>
-        <th>Cap in $</th>
-        <th>7d Change</th>
+        <th class="center">System</th>
+        <th class="center">↓ Rating</th>
+        <th class="center">Token</th>
+        <th class="center">Trade</th>
+        <th class="center">Cap in Ƀ</th>
+        <th class="center">7d Change</th>
+        <th class="center">Cap in $</th>
+        <th class="center">7d Change</th>
         </thead>
         <tbody>
         {{#each rows}}
             <tr style="vertical-align: middle">
-                <td><span style="width: 50px;">
+                <td class="left-align enlarge">
                     {{> hitryImage img_name=img_name}}
-                </span>
-                    <span style="font-size: 1.2em;">{{name}}</span>
+
+                    <span style="vertical-align: middle; font-size: 1.2em;">&nbsp;{{name}}</span>
                 </td>
 
-                <td>{{rating}}<!--todo: cf-star-rating--></td>
+                <td class="center-align">{{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
 
                 <td>{{# withTooltip}}
                     {{percentsToText supplyChangePercents.week}}
@@ -34,7 +34,7 @@
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="center-align">{{# withTooltip}}
                     <span>{{deviationToText tradeVolumeMedianDeviation.week tradeVolume}}
                     </span>
 
@@ -50,7 +50,7 @@
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="right-align">{{# withTooltip}}
                     Ƀ {{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
@@ -61,7 +61,7 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="right-align">{{# withTooltip}}
                     <span class="{{percentsToClass capChangePercents.week.btc}}">
                         {{percentsToText2 capChangePercents.week.btc}}</span>
                     {{#if capChange.week.btc}}
@@ -73,7 +73,7 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{# withTooltip}}
+                <td class="right-align enlarge">{{# withTooltip}}
                     <span>$ {{readableN cap.usd 0}}</span>
                     {{#if price.btc}}
                         {{#tooltip}}
@@ -84,7 +84,7 @@
                     {{/if}}
                 {{/withTooltip}}</td>
 
-                <td>{{#withTooltip}}
+                <td class="right-align">{{#withTooltip}}
                     <span class="{{percentsToClass capChangePercents.week.usd}}">
                         {{percentsToText2 capChangePercents.week.usd}}</span>
 
@@ -102,7 +102,7 @@
 
 <template name="hitryImage">
     <img src="http://cyber.fund/logos/{{img_name}}.png"
-         style="width: 30px; height: 30px" class="hidden"/>
+         style="width: 30px; height: 30px;vertical-align:middle " class="hidden"/>
 </template>
 
 <template name="withTooltip">

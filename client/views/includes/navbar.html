@@ -1,31 +1,34 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
-  <div class="navbar-fixed">
-    <nav class="white" role="navigation">
-        <div class="nav-wrapper container">
-            <a href="/" class="waves-effect brand-logo center">cyber &nbsp;<span
-                    style="color: red; font-size: 1.1em;">•</span>&nbsp;Fund</a>
-            <ul class="hide-on-med-and-down">
-                {{> navbarItem path="/" text="Rating"}}
-                {{> navbarItem path="/portfolio" text="Portfolio"}}
-                {{> navbarItem path="/radar" text="Radar"}}
-            </ul>
-            <ul style="left: -250px" id="nav-mobile" class="side-nav">
-                {{> navbarItem path="/" text="Rating"}}
-                {{> navbarItem path="/portfolio" text="Portfolio"}}
-                {{> navbarItem path="/radar" text="Radar"}}
-            </ul>
-            <ul class="right hide-on-med-and-down">
-                {{> navbarItem path="https://medium.com/cyber-blog" text="Blog"}}
-                {{> navbarItem path="http://cybertalks.org/" text="Community"}}
-            </ul>
-            <a href="#" data-activates="nav-mobile" class="button-collapse"><i
-                    class="mdi-navigation-menu"></i></a>
-        </div>
-    </nav>
-  </div>
+    <div class="navbar-fixed">
+        <nav class="white" role="navigation" style="width: 90%; margin-left: 5%" >
+            <div class="nav-wrapper container">
+                <a href="/" class="waves-effect brand-logo center">cyber
+                    &nbsp;<span
+                            style="color: red; font-size: 1.1em;">•</span>&nbsp;Fund</a>
+                <ul class="hide-on-med-and-down">
+                    {{> navbarItem path="/" text="Rating"}}
+                    {{> navbarItem path="/portfolio" text="Portfolio"}}
+                    {{> navbarItem path="/radar" text="Radar"}}
+                </ul>
+                <ul style="left: -250px" id="nav-mobile" class="side-nav">
+                    {{> navbarItem path="/" text="Rating"}}
+                    {{> navbarItem path="/portfolio" text="Portfolio"}}
+                    {{> navbarItem path="/radar" text="Radar"}}
+                </ul>
+                <ul class="right hide-on-med-and-down">
+                    {{> navbarItem path="https://medium.com/cyber-blog" text="Blog"}}
+                    {{> navbarItem path="http://cybertalks.org/" text="Community"}}
+                </ul>
+                <a href="#" data-activates="nav-mobile"
+                   class="button-collapse"><i
+                        class="mdi-navigation-menu"></i></a>
+            </div>
+        </nav>
+    </div>
 </template>
 
 <template name="navbarItem">
-    <li class="waves-effect {{isActivePath path=path}}"><a href="{{path}}">{{text}}</a></li>
+    <li class="waves-effect {{isActivePath path=path}}"><a
+            href="{{path}}">{{text}}</a></li>
 </template>

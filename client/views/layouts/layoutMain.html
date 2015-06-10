@@ -2,11 +2,10 @@
 <template name="layoutMain">
 
     {{> navbar}}
-
-    {{> yield}}
-
+    <div class="w90">
+        {{> yield}}
+    </div>
     {{> footer}}
 
     <div class="hiddendiv common"></div>
-    <div style="left: 0px;" class="drag-target"></div>
 </template>
