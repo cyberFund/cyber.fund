@@ -21,6 +21,9 @@ var helpers = {
   and: function (value1, value2) {
     return value1 && value2;
   },
+  or:  function (value1, value2) {
+    return value1 || value2;
+  },
   contains: function (list, value) {
     return _.contains(list, value);
   },
