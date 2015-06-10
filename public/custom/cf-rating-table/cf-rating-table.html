@@ -26,6 +26,9 @@
 			href="/custom/cf-cap-usd/cf-cap-usd.html">
 <link rel="import"
 			href="/custom/cf-cap-btc/cf-cap-btc.html">
+<link rel="import"
+      href="/custom/cf-btc-price/cf-btc-price.html">
+
 
 <polymer-element name="cf-rating-table" vertical layout style="width:90%; margin:auto; margin-top:5px;">
 	<template>
@@ -36,7 +39,12 @@
 			options="{{options}}"
 			data="{{current}}"
 		></meteor-query>
-
+        <div>
+            <div style="text-align: right">
+                <cf-btc-price currency="usd">
+                </cf-btc-price>
+            </div>
+        </div>
 		<div horizontal layout style="padding: 0.9em 1em">
 			<b style="width: 50px;"><!-- System logo --></b>
 			<b flex>System</b>

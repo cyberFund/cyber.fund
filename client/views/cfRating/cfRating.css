@@ -1,0 +1,23 @@
+.cf-rating  {
+  text-align: center;
+  width: 100%;
+}
+.cf-rating [value="1"] {
+  color: #000000;
+}
+
+.cf-rating [value="2"] {
+  color: #FF1744;
+}
+
+.cf-rating [value="3"] {
+  color: #FF9100;
+}
+
+.cf-rating [value="4"] {
+  color: #FFEA00;
+}
+
+.cf-rating [value="5"] {
+  color: #00E676;
+}
