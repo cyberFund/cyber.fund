@@ -9,6 +9,10 @@ html {
  * Made By MaterializeCSS.com
  */
 
+.container {
+	width: 90%;
+}
+
 nav ul a,
 nav .brand-logo {
 	color: #444;
