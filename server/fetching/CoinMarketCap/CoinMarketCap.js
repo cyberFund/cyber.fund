@@ -1,19 +1,19 @@
 var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
-var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000 * 100;
+var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000;
 
-this.fetching.coinMarketCap = {};
+CF.fetching.coinMarketCap = {};
 
-this.fetching.coinMarketCap.processData = function(data, callback) {
+CF.fetching.coinMarketCap.processData = function(data, callback) {
 	var systems = data.markets;
 	var fetchedTimestamp = data.timestamp;
 
-	var dayAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+	var dayAgoTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 		moment.unix(fetchedTimestamp).subtract(1, "days").unix());
 
-	var weekAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+	var weekAgoTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 		moment.unix(fetchedTimestamp).subtract(1, "weeks").unix());
 
-	var monthAgoTimestamp = processing.getNearestTimestamp("CoinMarketCap",
+	var monthAgoTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 		moment.unix(fetchedTimestamp).subtract(1, "months").unix());
 
 	var processedData = systems.map(function(rawSystem) {
@@ -28,11 +28,11 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		processedSystem.metrics.volume24.btc = parseFloat(processedSystem.metrics.volume24.btc) || 0;
 
 		var tradeVolumeMedians = {
-			day: processing.getMedianValue("CoinMarketCap",
+			day: CF.processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", dayAgoTimestamp),
-			week: processing.getMedianValue("CoinMarketCap",
+			week: CF.processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", weekAgoTimestamp),
-			month: processing.getMedianValue("CoinMarketCap",
+			month: CF.processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
 		};
 
@@ -47,11 +47,11 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		});
 
 		var supplyBefore = {
-			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
+			day: CF.processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
 				rawSystem, "metrics.availableSupplyNumber"),
-			week: processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
+			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.availableSupplyNumber"),
-			month: processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
+			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
 				rawSystem, "metrics.availableSupplyNumber"),
 		};
 
@@ -67,11 +67,11 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 		});
 
 		var capBefore = {
-			day: processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
+			day: CF.processing.getNearestDocument("CoinMarketCap", dayAgoTimestamp,
 				rawSystem, "metrics.marketCap"),
-			week: processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
+			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.marketCap"),
-			month: processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
+			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
 				rawSystem, "metrics.marketCap"),
 		};
 
@@ -99,25 +99,25 @@ this.fetching.coinMarketCap.processData = function(data, callback) {
 Meteor.startup(function() {
 	var fetch = function() {
 		console.log("Fetching data from CoinMarketCap...");
-		fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
+		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
 				console.error("Error while fetching:", error);
 				return;
 			}
 
-			fetching.coinMarketCap.processData(getResult, function(error, processResult) {
+			CF.fetching.coinMarketCap.processData(getResult, function(error, processResult) {
 				if (error) {
 					console.error("Error while processing:", error);
 					return;
 				}
 
-				fetching.saveToDb(processResult, function(error, saveResult) {
+				CF.fetching.saveToDb(processResult, function(error, saveResult) {
 					if (error) {
 						console.error("Error while saving:", error);
 						return;
 					}
 
-					processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
+					CF.processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
 					console.log("Data from CoinMarketCap saved!");
 				});
 			});

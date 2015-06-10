@@ -17,7 +17,7 @@
                 <td class="left-align">
                     {{> hitryImage img_name=img_name}}
 
-                    <span class="enlarge" style="vertical-align: middle">&nbsp;{{name}}</span>
+                    <span class="enlarge" style="vertical-align: middle">&nbsp;{{_name}}</span>
                 </td>
 
                 <td class="center-align hide-on-small-and-down">
@@ -55,7 +55,7 @@
                     Ƀ {{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}}:<br/>
+                            <div>Price per 1 {{_name}}:<br/>
                                 <b>Ƀ {{price.btc}}</b>
                             </div>
                         {{/tooltip}}
@@ -78,7 +78,7 @@
                     <span class="enlarge">$ {{readableN cap.usd 0}}</span>
                     {{#if price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{name}}:<br/>
+                            <div>Price per 1 {{_name}}:<br/>
                                 <b>$ {{price.usd}}</b>
                             </div>
                         {{/tooltip}}
@@ -104,7 +104,7 @@
             <a class="waves-effect waves-light btn show-more deep-orange">
                 <i class="mdi-navigation-expand-more left"></i>
                 <i class="mdi-navigation-expand-more right"></i>
-                show {{#if evenMore}}even {{/if}}more crap</a>
+                show {{#if evenMore}}even more{{/if}} crap</a>
         </div>
     {{/if}}
     <div style="padding-bottom: 40px"></div>
