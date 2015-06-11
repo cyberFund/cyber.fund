@@ -41,8 +41,10 @@
 
                     {{#tooltip}}
                         <div>Trade volume (24h):
+                            {{#if tradeVolumeOk tradeVolume}}
                             <b>{{readableN tradeVolume 2}}</b>
                             BTC
+                            {{else}}<b>illiquid</b>{{/if}}
                         </div>
                         <div>Median deviation:
                             <b>{{readableN tradeVolumeMedianDeviation.week 2}}</b>

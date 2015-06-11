@@ -87,6 +87,9 @@ Template['ratingTable'].helpers({
     return (sel.rating < 2) &&
       (!sel.limit ||
       (Session.get('curDataCount') > sel.limit ));
+  },
+  tradeVolumeOk: function(tv) {
+    return tv && (tv >= 1.0);
   }
 });
 
