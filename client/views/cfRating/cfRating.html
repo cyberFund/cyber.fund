@@ -1,8 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="cfRating">
-    <span class="cf-rating" style="text-align: center">
-        {{#each arr}}
-            <span value="{{../rating}}">✪</span>
-        {{/each}}
+    <span class="cf-rating" style="text-align: center" data-value="{{rating}}">
+        {{#each arr}}✪&nbsp;{{/each}}
     </span>
 </template>
