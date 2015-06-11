@@ -2,14 +2,14 @@
 <template name="ratingTable">
     <table class="hoverable" align="center">
         <thead>
-        <th class="center">System</th>
+        <th class="left-align">System</th>
         <th class="center hide-on-small-and-down">↓ Rating</th>
         <th class="center hide-on-small-and-down">Token</th>
         <th class="center hide-on-small-and-down">Trade</th>
-        <th class="center hide-on-med-and-down">Cap in Ƀ</th>
-        <th class="center hide-on-med-and-down">7d Change</th>
-        <th class="center">Cap in $</th>
-        <th class="center">7d Change</th>
+        <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
+        <th class="right-align hide-on-med-and-down">7d Change</th>
+        <th class="right-align">Cap in $</th>
+        <th class="right-align">7d Change</th>
         </thead>
         <tbody>
         {{#each rows}}
@@ -17,10 +17,12 @@
                 <td class="left-align">
                     {{> hitryImage img_name=img_name}}
 
-                    <span class="enlarge" style="vertical-align: middle">&nbsp;{{_name}}</span>
+                    <span class="enlarge"
+                          style="vertical-align: middle">&nbsp;{{_name}}</span>
                 </td>
 
                 <td class="center-align hide-on-small-and-down">
+
                         {{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
 
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
@@ -40,25 +42,28 @@
                     </span>
 
                     {{#tooltip}}
-                        <div>Trade volume (24h):
-                            {{#if tradeVolumeOk tradeVolume}}
-                            <b>{{readableN tradeVolume 2}}</b>
-                            BTC
-                            {{else}}<b>illiquid</b>{{/if}}
-                        </div>
-                        <div>Median deviation:
-                            <b>{{readableN tradeVolumeMedianDeviation.week 2}}</b>
-                            BTC
-                        </div>
+                        {{#if tradeVolumeOk tradeVolume}}
+                            <div>Trade volume (24h):
+                                <b>{{readableN tradeVolume 2}}</b>
+                                BTC
+                            </div>
+                            <div>Median deviation:
+                                <b>{{readableN tradeVolumeMedianDeviation.week 2}}</b>
+                                BTC
+                            </div>
+                        {{else}}
+                            <div>Trade volume (24h):
+                                <b>illiquid</b></div>
+                        {{/if}}
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
                 <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    Ƀ {{readableN cap.btc 0}}
+                    Ƀ&nbsp;{{readableN cap.btc 0}}
                     {{#if price.btc}}
                         {{#tooltip}}
                             <div>Price per 1 {{_name}}:<br/>
-                                <b>Ƀ {{price.btc}}</b>
+                                <b>Ƀ&nbsp;{{price.btc}}</b>
                             </div>
                         {{/tooltip}}
                     {{/if}}
@@ -77,11 +82,11 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align">{{# withTooltip}}
-                    <span class="enlarge">$ {{readableN cap.usd 0}}</span>
+                    <span class="enlarge">$&nbsp;{{readableN cap.usd 0}}</span>
                     {{#if price.btc}}
                         {{#tooltip}}
                             <div>Price per 1 {{_name}}:<br/>
-                                <b>$ {{price.usd}}</b>
+                                <b>$&nbsp;{{price.usd}}</b>
                             </div>
                         {{/tooltip}}
                     {{/if}}
