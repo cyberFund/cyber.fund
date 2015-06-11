@@ -101,7 +101,6 @@ Template['ratingTable'].events({
       sel.rating = 1;
 
       Session.set('curDataSelector', sel);
-      console.log(Session.get('curDataSelector'));
       return;
     }
     if (rating == 1) {

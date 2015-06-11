@@ -12,7 +12,16 @@ Meteor.startup(function() {
 	Meteor.methods({
 		getSegmentKey: function() {
 			return SEGMENT_KEY;
-		},
+		}
 	});
 
 });
+
+Accounts.onCreateUser(function(options, user) {
+	analytics.alias(Meteor.userId());
+	if (options.profile)
+		user.profile = options.profile;
+	return user;
+});
+
+
