@@ -23,7 +23,8 @@ Template['ratingTable'].helpers({
     return CurrentData.find({"cap.btc": {$gt: 0}}, {sort: Session.get("ratingSorter")});
   },
   'img_name': function () {
-    return (this.name ? this.name : '').toString().toLowerCase();
+    var ret = (this.icon ? this.icon : this.name) || '';
+    return ret.toString().toLowerCase();
   },
   _name: function(){ //see "ALIASES"
     return this.cyberName || this.name;
