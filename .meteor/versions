@@ -19,6 +19,7 @@ ejson@1.0.6
 ermlab:log4js-silos@0.1.7
 fastclick@1.0.3
 geojson-utils@1.0.3
+gwendall:body-events@0.1.6
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0

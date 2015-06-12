@@ -16,3 +16,15 @@ Meteor.autorun(function (c) {
 
   c.stop();
 });
+
+
+Template.body.events({
+  'click a[target="_blank"]': function(e, t){
+    Meteor.call("_trackAnalytics", {
+      event: "ext link",
+      properties: {
+        link: $(e.currentTarget).attr('href')
+      }
+    })
+  }
+});

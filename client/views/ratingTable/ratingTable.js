@@ -1,6 +1,6 @@
 Session.setDefault('curDataSelector', {rating: 5});
 
-Deps.autorun(function() {
+Deps.autorun(function () {
   Meteor.subscribe("current-data", Session.get('curDataSelector'));
 });
 
@@ -26,7 +26,7 @@ Template['ratingTable'].helpers({
     var ret = (this.icon ? this.icon : this.name) || '';
     return ret.toString().toLowerCase();
   },
-  _name: function(){ //see "ALIASES"
+  _name: function () { //see "ALIASES"
     return this.cyberName || this.name;
   },
   percentsToText: function (percents) {
@@ -80,15 +80,15 @@ Template['ratingTable'].helpers({
   hasMore: function () {
     var sel = Session.get("curDataSelector")
 
-    return sel.rating  > 1 ;
+    return sel.rating > 1;
   },
-  evenMore: function (){
+  evenMore: function () {
     var sel = Session.get("curDataSelector")
     return (sel.rating < 2) &&
       (!sel.limit ||
       (Session.get('curDataCount') > sel.limit ));
   },
-  tradeVolumeOk: function(tv) {
+  tradeVolumeOk: function (tv) {
     return tv && (tv >= 1.0);
   }
 });
@@ -96,25 +96,36 @@ Template['ratingTable'].helpers({
 Template['ratingTable'].events({
   'click .show-more': function (e, t) {
     var sel = Session.get("curDataSelector");
-    var rating =  sel.rating;
-    if (rating == 2) {
-      sel.rating = 1;
-
-      Session.set('curDataSelector', sel);
-      return;
+    var rating = sel.rating;
+    var tracker;
+    switch (rating) {
+      case 2:
+        sel.rating = 1;
+        tracker = '1';
+        Session.set('curDataSelector', sel);
+        break;
+      case 1:
+        var count = CurrentData.find().count();
+        var newLimit = count + 200;
+        sel.rating = 0;
+        sel.limit = newLimit;
+        Session.set('curDataSelector', sel);
+        tracker = '2';
+        break;
+      case 0:
+        sel.limit += 200;
+        Session.set('curDataSelector', sel);
+        tracker = '3+';
+        break;
+      default:
+        break;
     }
-    if (rating == 1) {
-      var count =  CurrentData.find().count();
-      var newLimit = count + 200;
-      sel.rating = 0;
-      sel.limit = newLimit;
-      Session.set('curDataSelector', sel);
-      return;
-    }
-    if (rating == 0) {
-      sel.limit += 200;
-      Session.set('curDataSelector', sel);
-    }
+    Meteor.call('_trackAnalytics', {
+      event: "show more",
+      properties: {
+        counter: tracker
+      }
+    });
   }
 });
 
