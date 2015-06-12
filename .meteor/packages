@@ -15,4 +15,5 @@ reactive-var
 amplify
 cyberfund-base
 cyberfund-marketdata
-accounts-password
+accounts-twitter
+ermlab:log4js-silos
