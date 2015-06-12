@@ -21,7 +21,7 @@ Meteor.startup(function() {
 				"metrics.marketCap.btc",
 				"metrics.marketCap.usd"
 			]);
-		if (nearest && nearest.fetch) nearest.fetch().forEach(function(doc) {
+		if (nearest && nearest.fetch) nearest.forEach(function(doc) {
 				var id = doc.name + "/" + doc.symbol;
 				capHistory[id] = capHistory[id] || [];
 				capHistory[id].push({
