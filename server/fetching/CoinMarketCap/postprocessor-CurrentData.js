@@ -13,18 +13,20 @@ Meteor.startup(function() {
 			curTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 				moment.unix(timestamp).subtract(i, "days").unix());
 
+			var nearest =
 			CF.processing.getAllNearest("CoinMarketCap", curTimestamp, [
 				"timestamp",
 				"name",
 				"symbol",
 				"metrics.marketCap.btc",
-				"metrics.marketCap.usd",
-			]).fetch().forEach(function(doc) {
+				"metrics.marketCap.usd"
+			]);
+		if (nearest && nearest.fetch) nearest.fetch().forEach(function(doc) {
 				var id = doc.name + "/" + doc.symbol;
 				capHistory[id] = capHistory[id] || [];
 				capHistory[id].push({
 					timestamp: doc.timestamp,
-					cap: doc.metrics.marketCap,
+					cap: doc.metrics.marketCap
 				});
 			});
 		}

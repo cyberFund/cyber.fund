@@ -1,6 +1,8 @@
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/master/chaingear.json";
 var fetchInterval = 30 * 60 * 1000;
 
+var logger = log4js.getLogger("meteor-fetching");
+
 CF.fetching.cyberFund = {};
 
 CF.fetching.cyberFund.processData = function(data, callback) {
@@ -17,27 +19,27 @@ CF.fetching.cyberFund.processData = function(data, callback) {
 
 Meteor.startup(function() {
 	var fetch = function() {
-		console.log("Fetching data from cyberFund...");
+		logger.info("Fetching data from cyberFund...");
 		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
-				console.error("Error while fetching:", error);
+				logger.error("Error while fetching:", error);
 				return;
 			}
 
 			CF.fetching.cyberFund.processData(getResult, function(error, processResult) {
 				if (error) {
-					console.error("Error while processing:", error);
+					logger.error("Error while processing:", error);
 					return;
 				}
 
 				CF.fetching.saveToDb(processResult, function(error, saveResult) {
 					if (error) {
-						console.error("Error while saving:", error);
+						logger.error("Error while saving:", error);
 						return;
 					}
 
 					CF.processing.doPostprocessing("cyberFund", processResult[0].timestamp, processResult);
-					console.log("Data from cyberFund saved!");
+					logger.info("Data from cyberFund saved!");
 				});
 			});
 		});

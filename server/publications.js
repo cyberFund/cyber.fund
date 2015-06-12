@@ -1,7 +1,6 @@
 
 Meteor.publish("current-data", function(options) {
 	options = options || {};
-	console.log(options);
 	var selector = {"cap.btc": { $gt: 0 }};
 	var params = { sort: { "rating": -1, "cap.btc": -1  }};
 	if ( !isNaN(options.rating)) selector["rating"] = {$gte: options.rating};
