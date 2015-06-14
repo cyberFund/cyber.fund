@@ -103,7 +103,7 @@ Meteor.startup(function() {
 		logger.info("Fetching data from CoinMarketCap...");
 		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
-				logger.error("Error while fetching:", error);
+				logger.error("Error while fetching coinmarket:", error);
 				return;
 			}
 

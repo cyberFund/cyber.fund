@@ -22,7 +22,7 @@ Meteor.startup(function() {
 		logger.info("Fetching data from cyberFund...");
 		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
-				logger.error("Error while fetching:", error);
+				logger.error("Error while fetching cyberfund:", error);
 				return;
 			}
 
