@@ -121,7 +121,7 @@ Template['ratingTable'].events({
         break;
     }
     Meteor.call('_trackAnalytics', {
-      event: "show more",
+      event: "Viewed Crap",
       properties: {
         counter: tracker
       }
