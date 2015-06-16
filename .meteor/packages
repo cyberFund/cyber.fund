@@ -22,3 +22,5 @@ twitter
 useraccounts:materialize
 service-configuration
 stevezhu:lodash
+meteorhacks:kadira
+meteorhacks:kadira-profiler
