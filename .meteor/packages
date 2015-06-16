@@ -18,9 +18,9 @@ cyberfund-marketdata
 accounts-twitter
 ermlab:log4js-silos
 gwendall:body-events
-twitter
 useraccounts:materialize
 service-configuration
 stevezhu:lodash
 meteorhacks:kadira
 meteorhacks:kadira-profiler
+twitter
