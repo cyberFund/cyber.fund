@@ -19,9 +19,7 @@ Meteor.startup(function() {
 			}
 			updatedData.name = newSystemData.name; // useless
 			updatedData.symbol = newSystemData.symbol; //useless
-			if (newSystemData.icon) {
-				updatedData.icon = newSystemData.icon;
-			}
+			updatedData.icon = newSystemData.icon;
 			updatedData.lastUpdateTimestamp = newSystemData.timestamp;
 			updatedData.rating = updatedData.rating || 0;
 

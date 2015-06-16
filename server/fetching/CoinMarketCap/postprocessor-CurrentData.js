@@ -18,6 +18,7 @@ Meteor.startup(function() {
 				"timestamp",
 				"name",
 				"symbol",
+				"icon",
 				"metrics.marketCap.btc",
 				"metrics.marketCap.usd"
 			]);
@@ -37,6 +38,7 @@ Meteor.startup(function() {
 			var fieldsToUpdate = {
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
+				icon: newSystemData.icon,
 				lastUpdateTimestamp: newSystemData.timestamp,
 				supply: metrics.availableSupplyNumber,
 				supplyChange: metrics.supplyChange,
