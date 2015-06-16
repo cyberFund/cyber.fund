@@ -31,6 +31,11 @@ Template.body.events({
 
 
 Meteor.startup(function() {
+  analytics.track('testing client-side analytics', {
+    name: 'nooooo',
+    value: '11111'
+  });
+
   Tracker.autorun(function(c) {
     // waiting for user subscription to load
     if (! Router.current() || ! Router.current().ready())
