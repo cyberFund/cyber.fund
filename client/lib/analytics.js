@@ -21,7 +21,7 @@ Meteor.autorun(function (c) {
 Template.body.events({
   'click a[target="_blank"]': function(e, t){
     Meteor.call("_trackAnalytics", {
-      event: "ext link",
+      event: "Clicked External Link",
       properties: {
         link: $(e.currentTarget).attr('href')
       }
