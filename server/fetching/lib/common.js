@@ -7,6 +7,7 @@ CF.fetching.get = function (url, options, callback) {
     try {
       parsedData = result.data || JSON.parse(result.content);
     } catch (e) {
+
     }
 
     if (error) {
@@ -30,7 +31,7 @@ CF.fetching.getCollection = function () {
 
 CF.fetching.saveToDb = function (data, callback) {
   this.getCollection().rawCollection().insert(data, {
-    w: 1,
+    w: 1
   }, function (error, result) {
     if (error) {
       callback(error);

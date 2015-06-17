@@ -15,11 +15,11 @@ CF.processing = {
 
 			var result;
 			var options = {};
+			options.fields = {};
+			options.fields.timestamp = 1;
 
 			if (field) {
-				options.fields = {};
 				options.fields[field] = 1;
-				options.fields.timestamp = 1;
 			}
 
 			if (source) {
@@ -39,7 +39,6 @@ CF.processing = {
 
 			result = MarketData.findOne(query, options);
 			return result ? result : null;
-
 		};
 
 		var getLatest = function() {
@@ -86,7 +85,7 @@ CF.processing = {
 	},
 
 	getNearestTimestamp: function(source, nearestTo) {
-		return this.getNearestDocument(source, nearestTo, null, "timestamp");
+		return CF.processing.getNearestDocument(source, nearestTo, null, "timestamp");
 	},
 
 	getAllNearest: function(source, nearestTo, fields) {
@@ -100,7 +99,7 @@ CF.processing = {
 			processedFields = fields;
 		}
 
-		var timestamp = this.getNearestTimestamp(source, nearestTo);
+		var timestamp =  CF.processing.getNearestTimestamp(source, nearestTo);
 		if (timestamp) {
 			return MarketData.find({ timestamp: timestamp, source: source }, {
 				fields: processedFields,
@@ -131,19 +130,19 @@ CF.processing = {
 			skip: Math.floor(count / 2),
 		});
 
-		return medianDocument ? this._deref(medianDocument, fieldName) : null;
+		return medianDocument ?  CF.processing._deref(medianDocument, fieldName) : null;
 	},
 
 	_postprocessors: [],
 
 	addPostprocessor: function(postprocessor) {
-		this._postprocessors.push(postprocessor);
+		CF.processing._postprocessors.push(postprocessor);
 	},
 
 	doPostprocessing: function(source, timestamp, data) {
-		this._postprocessors.forEach(function(postprocessor) {
+		CF.processing._postprocessors.forEach(function(postprocessor) {
 			postprocessor(source, timestamp, data);
 		});
-	},
+	}
 
 };

@@ -45,6 +45,6 @@ Meteor.startup(function() {
 		});
 	};
 
-	Meteor.setInterval(fetch, fetchInterval);
 	fetch();
+	Meteor.setInterval(fetch, fetchInterval);
 });

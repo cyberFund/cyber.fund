@@ -25,7 +25,7 @@ Meteor.startup(function() {
 
 			CurrentData.upsert({
 				name: newSystemData.name, // we re searching by this key
-				symbol: newSystemData.symbol,
+				symbol: newSystemData.symbol
 			}, { $set: updatedData }); // and changeset contains same values..
 		});
 	}));

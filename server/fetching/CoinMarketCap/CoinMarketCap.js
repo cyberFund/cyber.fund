@@ -24,7 +24,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			symbol: rawSystem.symbol,
 			source: "CoinMarketCap",
 			timestamp: rawSystem.timestamp,
-			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp"),
+			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp")
 		};
 
 		processedSystem.metrics.volume24.btc = parseFloat(processedSystem.metrics.volume24.btc) || 0;
@@ -54,7 +54,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.availableSupplyNumber"),
 			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
-				rawSystem, "metrics.availableSupplyNumber"),
+				rawSystem, "metrics.availableSupplyNumber")
 		};
 
 		processedSystem.metrics.supplyChange = {};
@@ -74,7 +74,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.marketCap"),
 			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
-				rawSystem, "metrics.marketCap"),
+				rawSystem, "metrics.marketCap")
 		};
 
 		processedSystem.metrics.capChange = {};
@@ -87,7 +87,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			} else {
 				processedSystem.metrics.capChange[time] = {
 					btc: 0,
-					usd: 0,
+					usd: 0
 				};
 			}
 		});
@@ -126,6 +126,7 @@ Meteor.startup(function() {
 		});
 	};
 
-	Meteor.setInterval(fetch, fetchInterval);
 	fetch();
+	Meteor.setInterval(fetch, fetchInterval);
+
 });
