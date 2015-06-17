@@ -8,11 +8,15 @@ meteor-platform
 mquandalle:bower
 http
 momentjs:moment
-percolatestudio:segment.io@=1.1.1_1
+
+# percolatestudio:segment.io@=1.1.1_1
+
 iron:router
 zimme:active-route
+
 reactive-var
 amplify
+
 cyberfund-base
 cyberfund-marketdata
 accounts-twitter

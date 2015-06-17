@@ -120,7 +120,7 @@ Template['ratingTable'].events({
       default:
         break;
     }
-    Meteor.call('_trackAnalytics', {
+    analytics.track({
       event: "Viewed Crap",
       properties: {
         counter: tracker

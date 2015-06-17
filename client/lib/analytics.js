@@ -20,7 +20,7 @@
 
 Template.body.events({
   'click a[target="_blank"]': function(e, t){
-    Meteor.call("_trackAnalytics", {
+    analytics.track({
       event: "Clicked External Link",
       properties: {
         link: $(e.currentTarget).attr('href')
@@ -31,11 +31,6 @@ Template.body.events({
 
 
 Meteor.startup(function() {
-  analytics.track('testing client-side analytics', {
-    name: 'nooooo',
-    value: '11111'
-  });
-
   Tracker.autorun(function(c) {
     // waiting for user subscription to load
     if (! Router.current() || ! Router.current().ready())
