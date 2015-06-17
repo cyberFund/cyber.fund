@@ -29,6 +29,9 @@ Template['ratingTable'].helpers({
   _name: function () { //see "ALIASES"
     return this.cyberName || this.name;
   },
+  name_: function(){
+    return Blaze._globalHelpers._toU(this.name);
+  },
   percentsToText: function (percents) {
     if (percents < 0) {
       return "Deflation " + (-percents).toFixed(2) + "%";
@@ -126,16 +129,3 @@ Template['ratingTable'].events({
       });
   }
 });
-
-
-Template['hitryImage'].rendered = function () {
-  var $image = this.$('img');
-
-  $image.on('load', function () {
-    $image.removeClass('hidden');
-  });
-
-  if ($image[0].complete) {
-    $image.load();
-  }
-}

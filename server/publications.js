@@ -23,3 +23,11 @@ Meteor.publish(null, function () {
     fields: { "services.twitter.screenName": 1, "services.twitter.profile_image_url_https": 1}
   });
 });
+
+Meteor.publish('customCurrentData', function(selector){
+  return CurrentData.find(selector);
+});
+
+Meteor.publish('customMarketData', function(selector){
+  return MarketData.find(selector);
+});

@@ -81,6 +81,13 @@ var helpers = {
     var ret = parseFloat(input);
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
+  },
+
+  _toU: function(str){
+    return str.replace(/\ /g, "_")
+  },
+  _toS: function(str){
+    return str.replace(/_/g, " ")
   }
 };
 

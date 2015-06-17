@@ -1,0 +1,17 @@
+<!-- originally created for cyber.fund project-->
+<template name="systemBasic">
+    {{#with curData}}
+        <div class="row" style="height: 1.6rem">&nbsp;</div>
+        <div class="row">
+            <div class="col m4 center">
+                <h3>{{name}}</h3>
+                <span>{{symbol}}</span>
+            </div>
+            <div class="col m4 center">
+                <div style="width: 80%">
+                    {{> hitryImage img_name=img_name style="width: 100%"}}
+                </div>
+            </div>
+        </div>
+    {{/with}}
+</template>
