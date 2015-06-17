@@ -17,6 +17,8 @@ Meteor.startup(function() {
 	});
 
 }); //obsolete, not needed.
+
+
 /*
 Accounts.onCreateUser(function(options, user) {
 	analytics.alias(Meteor.userId());
