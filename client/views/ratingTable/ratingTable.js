@@ -120,12 +120,10 @@ Template['ratingTable'].events({
       default:
         break;
     }
-    analytics.track({
-      event: "Viewed Crap",
-      properties: {
+    analytics.track("Viewed Crap",
+      {
         counter: tracker
-      }
-    });
+      });
   }
 });
 
