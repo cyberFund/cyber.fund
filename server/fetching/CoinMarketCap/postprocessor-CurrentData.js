@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-	CF.processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		if (source !== "CoinMarketCap") {
 			return;
 		}
@@ -18,7 +18,6 @@ Meteor.startup(function() {
 				"timestamp",
 				"name",
 				"symbol",
-				"icon",
 				"metrics.marketCap.btc",
 				"metrics.marketCap.usd"
 			]);
@@ -77,6 +76,6 @@ Meteor.startup(function() {
 				symbol: newSystemData.symbol
 			}, { $set: fieldsToUpdate });
 		});
-	}));
+	});
 
 });

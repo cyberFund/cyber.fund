@@ -1,6 +1,6 @@
 Meteor.startup(function() {
 
-	CF.processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		if (source !== "cyberFund") {
 			return;
 		}
@@ -28,6 +28,6 @@ Meteor.startup(function() {
 				symbol: newSystemData.symbol
 			}, { $set: updatedData }); // and changeset contains same values..
 		});
-	}));
+	});
 
 });
