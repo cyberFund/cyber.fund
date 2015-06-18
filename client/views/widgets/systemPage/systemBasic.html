@@ -12,6 +12,21 @@
                     {{> hitryImage img_name=img_name style="width: 100%"}}
                 </div>
             </div>
+            <div class="col m4 center">
+                <ul>
+                    <!-- sample link item data:::
+                        "name": "web site",
+                        "url": "http://ethereum.org/",
+                        "icon": "website.png",
+                        "tags": ["Main", "Apps"],-->
+                    {{#each links}}
+                        <li><a href="{{url}}">{{name}}</a>
+                            <!--{{name}}} here relates to `links` item-->
+                        </li>
+                        <!--span> to access system name here - use {{../name}}</span-->
+                    {{/each}}
+                </ul>
+            </div>
         </div>
     {{/with}}
 </template>
