@@ -35,7 +35,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", weekAgoTimestamp),
 			month: CF.processing.getMedianValue("CoinMarketCap",
-				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
+				rawSystem, "metrics.volume24.btc", monthAgoTimestamp)
 		};
 
 		processedSystem.metrics.tradeVolumeMedianDeviation = {};
@@ -118,8 +118,9 @@ Meteor.startup(function() {
 						logger.error("Error while saving:", error);
 						return;
 					}
-
-					CF.processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
+					Meteor.wrapAsync(function () {
+						CF.processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
+					});
 					logger.info("Data from CoinMarketCap saved!");
 				});
 			});

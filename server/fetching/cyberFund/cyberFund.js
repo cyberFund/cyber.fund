@@ -37,8 +37,9 @@ Meteor.startup(function() {
 						logger.error("Error while saving:", error);
 						return;
 					}
-
-					CF.processing.doPostprocessing("cyberFund", processResult[0].timestamp, processResult);
+					Meteor.wrapAsync(function () {
+						CF.processing.doPostprocessing("cyberFund", processResult[0].timestamp, processResult);
+					});
 					logger.info("Data from cyberFund saved!");
 				});
 			});

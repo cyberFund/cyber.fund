@@ -15,10 +15,10 @@ CF.processing = {
 
       var result;
       var options = {};
-      options.fields = {};
-      options.fields.timestamp = 1;
 
       if (field) {
+        options.fields = {};
+        options.fields.timestamp = 1;
         options.fields[field] = 1;
       }
 
@@ -141,9 +141,7 @@ CF.processing = {
 
   doPostprocessing: function (source, timestamp, data) {
     CF.processing._postprocessors.forEach(function (postprocessor) {
-      Meteor.wrapAsync(function () {
         postprocessor(source, timestamp, data);
-      });
     });
   }
 };

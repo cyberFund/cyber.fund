@@ -1,8 +1,0 @@
-{
-  "includePaths": [
-    "sass/components",
-    "sass"
-  ],
-  "useIndex": true,
-  "indexFilePath": "sass/materialize.scss"
-}
