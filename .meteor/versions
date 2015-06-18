@@ -37,6 +37,7 @@ iron:url@1.0.9
 jquery@1.11.3_2
 json@1.0.3
 launch-screen@1.0.2
+less@1.0.14
 livedata@1.0.13
 localstorage@1.0.3
 logging@1.0.7
@@ -65,6 +66,7 @@ retry@1.0.3
 routepolicy@1.0.5
 service-configuration@1.0.4
 session@1.1.0
+softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 stevezhu:lodash@3.9.3
@@ -74,6 +76,8 @@ twitter@1.1.4
 ui@1.0.6
 underscore@1.0.3
 url@1.0.4
+useraccounts:core@1.11.1
+useraccounts:materialize@1.11.1
 webapp@1.2.0
 webapp-hashing@1.0.3
 zimme:active-route@2.0.4
