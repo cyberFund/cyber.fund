@@ -1,0 +1,68 @@
+<!-- originally created for cyber.fund project-->
+<template name="accounts">
+  <div class="row">
+    <table class="hoverable card">
+      <thead>
+        <tr>
+            <th data-field="id">Account</th>
+            <th data-field="name">Address</th>
+            <th data-field="price">Token</th>
+            <th data-field="price">Balance</th>
+            <th data-field="price">Actions</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>NCC</td>
+          <td>NDJAKL-V5WPRZ-PBG3DS-JBC4Y6-KRGNML-4W2XC2-KPPX</td>
+          <td>NEM</td>
+          <td>4,005,234</td>
+          <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+        </tr>
+        <tr>
+          <td>Coinprism</td>
+          <td>akNSFDbQ5qnDQJqS2TqEsSXcssErkZ1sUvf</td>
+          <td>cyber•Fund</td>
+          <td>250000</td>
+          <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td>cyber•Shares</td>
+          <td>10000</td>
+          <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+        </tr>
+        <tr>
+          <td>Genesis Purchase</td>
+          <td>7c4401ae98f12ef6de39ae24cf9fc51f80eba16b</td>
+          <td>Ethereum</td>
+          <td>10200</td>
+          <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#addaccount" >
+      <i class="large mdi-action-account-balance-wallet"></i>
+    </a>
+
+    <!-- Modal Structure -->
+    <div id="addaccounts" class="modal">
+      <div class="modal-content">
+        <h4>Add Account</h4>
+        <p>!!!</p>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      </div>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function(){
+      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+      $('.modal-trigger').leanModal();
+    });
+  </script>
+</template>
