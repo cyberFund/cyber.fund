@@ -22,12 +22,11 @@ Meteor.startup(function() {
 			updatedData.icon = newSystemData.icon;
 			updatedData.lastUpdateTimestamp = newSystemData.timestamp;
 			updatedData.rating = updatedData.rating || 0;
-
+console.log("upserting "+ newSystemData.name)
 			CurrentData.upsert({
 				name: newSystemData.name, // we re searching by this key
 				symbol: newSystemData.symbol
 			}, { $set: updatedData }); // and changeset contains same values..
 		});
 	});
-
 });

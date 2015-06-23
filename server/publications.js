@@ -1,8 +1,8 @@
 Meteor.publish("current-data", function (options) {
   options = options || {};
-  var selector = {"cap.btc": {$gt: 0}};
+  var selector = {};
   var params = {sort: {"rating": -1, "cap.btc": -1}};
-  if (!isNaN(options.rating)) selector["rating"] = {$gte: options.rating};
+  if (!isNaN(options.rating)) selector["metrics.rating"] = {$gte: options.rating};
   if (!isNaN(options.limit)) params.limit = options.limit;
   return CurrentData.find(selector, params);
 });

@@ -17,7 +17,7 @@
             <tr style="vertical-align: middle">
                 <td class="left-align">
                     <a href="{{pathFor 'system' name_=name_}}">
-                        {{> hitryImage img_name=img_name style="width: 40px; height: 40px;vertical-align:middle"}}
+                        {{> hitryImage img_url=img_url style="width: 40px; height: 40px;vertical-align:middle"}}
 
                         <span class="enlarge"
                               style="vertical-align: middle">&nbsp;{{_name}}</span>
@@ -26,7 +26,7 @@
 
                 <td class="center-align hide-on-small-and-down">
 
-                        {{>cfRating rating=rating}}<!--todo: cf-star-rating--></td>
+                        {{>cfRating rating=metrics.rating}}<!--todo: cf-star-rating--></td>
 
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
                     <span>{{percentsToText supplyChangePercents.week}}</span>

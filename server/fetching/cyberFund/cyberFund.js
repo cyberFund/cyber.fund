@@ -1,51 +1,58 @@
-var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/master/chaingear.json";
+var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchInterval = 30 * 60 * 1000;
 
 var logger = log4js.getLogger("meteor-fetching");
 
 CF.fetching.cyberFund = {};
 
-CF.fetching.cyberFund.processData = function(data, callback) {
-	var timestamp = moment().unix();
+CF.fetching.cyberFund.processData = function (data, callback) {
+  var timestamp = moment().unix();
 
-	var processedData = data.map(function(system) {
-		system.source = "cyberFund";
-		system.timestamp = timestamp;
-		return system;
-	});
+  var processedData = data.map(function (system) {
+    system.source = "cyberFund";
+    system.timestamp = timestamp;
+    return system;
+  });
 
-	callback(null, processedData);
+  callback(null, processedData);
 };
 
-Meteor.startup(function() {
-	var fetch = function() {
-		logger.info("Fetching data from cyberFund...");
-		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
-			if (error) {
-				logger.error("Error while fetching cyberfund:", error);
-				return;
-			}
+Meteor.startup(function () {
+  var fetch = function () {
+    logger.info("Fetching data from cyberFund...");
+    var res = HTTP.call("HEAD", sourceUrl, {timeout: fetchInterval});
+    var previous = Extras.findOne({_id: 'chaingear_etag'});
+    if (!res || !res.headers || !res.headers.etag) return;
+    if (!previous || (previous.etag != res.headers.etag)) {
+      logger.info("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
 
-			CF.fetching.cyberFund.processData(getResult, function(error, processResult) {
-				if (error) {
-					logger.error("Error while processing:", error);
-					return;
-				}
+      CF.fetching.get(sourceUrl, {timeout: fetchInterval}, function (error, getResult) {
+        if (error) {
+          logger.error("Error while fetching cyberfund:", error);
+          return;
+        }
+        //if (CurrentData.find().count() < 1000) {
+        _.each(getResult, function (system) {
+          var selector = {
+            name: system.name,
+            symbol: system.symbol
+          };
+          if (!CurrentData.findOne(selector)) {
+            CurrentData.insert(system);
+          }
+          else {
+            CurrentData.upsert(selector, {$set: _.omit(system, ['name', 'symbol'])});
+          }
+        });
+        //}
+      });
+      Extras.upsert({_id: 'chaingear_etag'}, {etag: res.headers.etag});
+    } else {
+      console.log("chaingear not changed..")
+    }
+  };
 
-				CF.fetching.saveToDb(processResult, function(error, saveResult) {
-					if (error) {
-						logger.error("Error while saving:", error);
-						return;
-					}
-					Meteor.wrapAsync(function () {
-						CF.processing.doPostprocessing("cyberFund", processResult[0].timestamp, processResult);
-					});
-					logger.info("Data from cyberFund saved!");
-				});
-			});
-		});
-	};
-
-	fetch();
-	Meteor.setInterval(fetch, fetchInterval);
+  fetch();
+  Meteor.setInterval(fetch, fetchInterval);
 });
+

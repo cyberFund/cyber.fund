@@ -1,5 +1,6 @@
 CF.fetching = {};
 
+
 CF.fetching.get = function (url, options, callback) {
   HTTP.get(url, options, function (error, result) {
     var parsedData, errorMessage;
@@ -30,7 +31,7 @@ CF.fetching.getCollection = function () {
 };
 
 CF.fetching.saveToDb = function (data, callback) {
-  this.getCollection().rawCollection().insert(data, {
+  CF.fetching.getCollection().rawCollection().insert(data, {
     w: 1
   }, function (error, result) {
     if (error) {

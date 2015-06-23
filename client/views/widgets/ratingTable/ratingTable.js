@@ -20,11 +20,12 @@ Session.setDefault("ratingSorter", {
 
 Template['ratingTable'].helpers({
   'rows': function () {
-    return CurrentData.find({"cap.btc": {$gt: 0}}, {sort: Session.get("ratingSorter")});
+    return CurrentData.find({}, {sort: Session.get("ratingSorter")});
   },
-  'img_name': function () {
+  'img_url': function () {
     var ret = (this.icon ? this.icon : this.name) || '';
-    return ret.toString().toLowerCase();
+    ret= ret.toString().toLowerCase();
+    return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/"+ret+".png";
   },
   _name: function () { //see "ALIASES"
     return this.cyberName || this.name;

@@ -9,10 +9,11 @@ Template['systemBasic'].helpers({
       name: Blaze._globalHelpers._toS(Router.current().params.name_)
     });
   },
-  'img_name': function () {
+  'img_url': function () {
     var ret = (this.icon ? this.icon : this.name) || '';
-    return ret.toString().toLowerCase();
-  },
+    ret= ret.toString().toLowerCase();
+    return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/"+ret+".png";
+  }
 });
 
 Template['systemBasic'].events({
