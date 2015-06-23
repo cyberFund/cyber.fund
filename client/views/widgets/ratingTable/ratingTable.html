@@ -1,6 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="ratingTable">
-    <table class="hoverable card" align="center">
+  <div class="card">
+    <table class="hoverable" align="center">
         <thead>
         <th class="left-align"><span style="margin-left: 40px">&nbsp;&nbsp;System</span>
         </th>
@@ -106,6 +107,7 @@
         {{/each}}
         </tbody>
     </table>
+  </div>
     {{#if or hasMore evenMore}}
         <div class="center">
             <a class="waves-effect waves-light btn show-more deep-orange">
