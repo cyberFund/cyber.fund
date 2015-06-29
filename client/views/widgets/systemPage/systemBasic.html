@@ -89,18 +89,14 @@
           </script>
         </div>
         <div id="links" class="section scrollspy row">
-            <div class="col m4 center">
-                <ul>
-                    {{#each links}}
-                      {{#if tagMatchesTags "Main" tags}}
-                        <li><a href="{{url}}" target="_blank">MAIN = {{name}}</a></li>
-                      {{else}}
-                        <li><a href="{{url}}" target="_blank">{{name}}</a></li>
-                      {{/if}}
+              {{#each links}}
+                {{#if tagMatchesTags "Main" tags}}
+                  <div class="col l3 center"><img src="http://chaingear.cyber.fund/{{name}}/{{icon}}"><a href="{{url}}" target="_blank">{{name}}</a></div>
+                <!-- {{else}}
+                  <li><a href="{{url}}" target="_blank">{{name}}</a></li> -->
+                {{/if}}
 
-                    {{/each}}
-                </ul>
-            </div>
+              {{/each}}
         </div>
       </div>
       <div class="col hide-on-small-only m3 l2">
