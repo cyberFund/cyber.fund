@@ -24,10 +24,12 @@ Meteor.publish(null, function () {
   });
 });
 
-Meteor.publish('customCurrentData', function(selector){
-  return CurrentData.find(selector);
+Meteor.publish('customCurrentData', function(selector, options){
+  options = options || {};
+  return CurrentData.find(selector, options);
 });
 
-Meteor.publish('customMarketData', function(selector){
-  return MarketData.find(selector);
+Meteor.publish('customMarketData', function(selector, options){
+  options = options || {};
+  return MarketData.find(selector, options);
 });
