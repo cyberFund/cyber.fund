@@ -1,5 +1,5 @@
 Template['systemBasic'].rendered = function () {
-  
+
 };
 
 Template['systemBasic'].helpers({
@@ -18,6 +18,10 @@ Template['systemBasic'].helpers({
 
 Template['systemBasic'].events({
   'click .bar': function (e, t) {
-    
+
   }
+});
+
+$(document).ready(function(){
+  $('.tabs-wrapper .row').pushpin({ top: $('.tabs-wrapper').offset().top });
 });

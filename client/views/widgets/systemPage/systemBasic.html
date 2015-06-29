@@ -1,32 +1,43 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
-    {{#with curData}}
-        <div class="row" style="height: 1.6rem">&nbsp;</div>
-        <div class="row">
-            <div class="col m4 center">
-                <h3>{{name}}</h3>
-                <span>{{symbol}}</span>
-            </div>
-            <div class="col m4 center">
-                <div style="width: 80%">
-                    {{> hitryImage img_url=img_url style="width: 100%"}}
-                </div>
-            </div>
-            <div class="col m4 center">
-                <ul>
-                    <!-- sample link item data:::
-                        "name": "web site",
-                        "url": "http://ethereum.org/",
-                        "icon": "website.png",
-                        "tags": ["Main", "Apps"],-->
-                    {{#each links}}
-                        <li><a href="{{url}}">{{name}}</a>
-                            <!--{{name}}} here relates to `links` item-->
-                        </li>
-                        <!--span> to access system name here - use {{../name}}</span-->
-                    {{/each}}
-                </ul>
-            </div>
-        </div>
-    {{/with}}
+  {{#with curData}}
+    <div id="info" class="row valign-wrapper" style="padding:10px">
+      <div class="col l4 center valign">
+          <h2>{{name}}</h2>
+          <span>{{symbol}}</span>
+      </div>
+      <div class="col l4 center valign">
+          {{> hitryImage img_url=img_url style="width: 40%"}}
+      </div>
+      <div class="col m4 center valign">
+          <h4 style="color:green">✪✪✪✪✪</h4>
+      </div>
+    </div>
+    <div class="row center">
+      <p>Bitcoin is a System</p>
+    </div>
+    <div class="row center">
+      <div class="col l4 center valign">
+
+          <span>{{symbol}}</span>
+      </div>
+    </div>
+    <div id="links" class="section scrollspy row">
+      <div class="col m4 center">
+        <ul>
+            <!-- sample link item data:::
+                "name": "web site",
+                "url": "http://ethereum.org/",
+                "icon": "website.png",
+                "tags": ["Main", "Apps"],-->
+          {{#each links}}
+            <li><a href="{{url}}">{{name}}</a>
+                <!--{{name}}} here relates to `links` item-->
+            </li>
+            <!--span> to access system name here - use {{../name}}</span-->
+          {{/each}}
+        </ul>
+      </div>
+    </div>
+  {{/with}}
 </template>
