@@ -2,99 +2,101 @@
 <template name="systemBasic">
   <div class="row">
     {{#with curData}}
-      <div id="info" class="row valign-wrapper s12 m9 l10" style="padding:20px">
-        <div class="col l4 center valign">
-            <h2>{{name}}</h2>
-            <span>{{symbol}}</span>
-        </div>
-        <div class="col l4 center valign">
-            {{> hitryImage img_url=img_url style="width: 40%"}}
-        </div>
-        <div class="col m4 center valign">
-            <h4 style="color:green">✪✪✪✪✪</h4>
-        </div>
-      </div>
-      <div id="headline" class="row center">
-        <p>Bitcoin is a System</p>
-      </div>
-      <div id="main-links" class="row center">
-        <div class="col l3 center valign">
-            <a href="">Link</a>
-        </div>
-        <div class="col l3 center valign">
-            <a href="">Link</a>
-        </div>
-        <div class="col l3 center valign">
-            <a href="">Link</a>
-        </div>
-        <div class="col l3 center valign">
-            <a href="">Link</a>
-        </div>
-      </div>
-      <div id="market" class="row center">
-        <div class="col l3 center valign" style="padding:10px">
-          <div class="card">
-            <p>Price</p>
-            <p>Link</p>
-            <p>Link</p>
+      <div class="s12 m9 l10">
+        <div id="info" class="row valign-wrapper" style="padding:20px">
+          <div class="col l4 center valign">
+              <h2>{{name}}</h2>
+              <span>{{symbol}}</span>
+          </div>
+          <div class="col l4 center valign">
+              {{> hitryImage img_url=img_url style="width: 40%"}}
+          </div>
+          <div class="col m4 center valign">
+              <h4 style="color:green">✪✪✪✪✪</h4>
           </div>
         </div>
-        <div class="col l3 center valign" style="padding:10px">
-          <div class="card">
-            <p>Cap</p>
-            <p>Link</p>
-            <p>Link</p>
+        <div id="headline" class="row center">
+          <p>Bitcoin is a System</p>
+        </div>
+        <div id="main-links" class="row center">
+          <div class="col l3 center valign">
+              <a href="">Link</a>
+          </div>
+          <div class="col l3 center valign">
+              <a href="">Link</a>
+          </div>
+          <div class="col l3 center valign">
+              <a href="">Link</a>
+          </div>
+          <div class="col l3 center valign">
+              <a href="">Link</a>
           </div>
         </div>
-        <div class="col l3 center valign" style="padding:10px">
-          <div class="card">
-            <p>Trade</p>
-            <p>Link</p>
-            <p>Link</p>
+        <div id="market" class="row center">
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Price</p>
+              <p>Link</p>
+              <p>Link</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Cap</p>
+              <p>Link</p>
+              <p>Link</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Trade</p>
+              <p>Link</p>
+              <p>Link</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Supply</p>
+              <p>Link</p>
+              <p>.</p>
+            </div>
           </div>
         </div>
-        <div class="col l3 center valign" style="padding:10px">
-          <div class="card">
-            <p>Supply</p>
-            <p>Link</p>
-            <p>.</p>
-          </div>
-        </div>
-      </div>
-      <div id="charts" class="row center">
-        <script type="text/javascript">
-                var data = {
-            // A labels array that can contain any sort of values
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-            // Our series array that contains series objects or in this case series data arrays
-            series: [
-              [5, 2, 4, 2, 0]
-            ]
-          };
+        <div id="charts" class="row center">
+          <script type="text/javascript">
+                  var data = {
+              // A labels array that can contain any sort of values
+              labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+              // Our series array that contains series objects or in this case series data arrays
+              series: [
+                [5, 2, 4, 2, 0]
+              ]
+            };
 
-          // Create a new line chart object where as first parameter we pass in a selector
-          // that is resolving to our chart container element. The Second parameter
-          // is the actual data object.
-          new Chartist.Line('.ct-chart', data);
-        </script>
-        <div class="ct-chart" style="height:200px"></div>
-      </div>
-      <div id="hashtag" class="row center">
-        <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
-        <script>!function(d,s,id)
-          {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
-          if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
-          fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
-        </script>
-      </div>
-      <div id="links" class="section scrollspy row">
-          <div class="col m4 center">
-              <ul>
-                  {{#each links}}
-                      <li><a href="{{url}}" target="_blank">{{name}}</a></li>
-                  {{/each}}
-              </ul>
-          </div>
+            // Create a new line chart object where as first parameter we pass in a selector
+            // that is resolving to our chart container element. The Second parameter
+            // is the actual data object.
+            new Chartist.Line('.ct-chart', data);
+          </script>
+          <div class="ct-chart" style="height:200px"></div>
+        </div>
+        <div id="hashtag" class="row center">
+          <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
+          <script>!function(d,s,id)
+            {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+            if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+          </script>
+        </div>
+        <div id="links" class="section scrollspy row">
+            <div class="col m4 center">
+                <ul>
+                    {{#each links}}
+                        <li><a href="{{url}}" target="_blank">{{name}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
       </div>
       <div class="col hide-on-small-only m3 l2">
           <ul>
