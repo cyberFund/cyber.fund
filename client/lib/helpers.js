@@ -82,7 +82,9 @@ var helpers = {
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
   },
-
+  tagMatchesTags: function(tag, tags) {
+    return tags.indexOf(tag) > -1;
+  },
   _toU: function(str){
     return str.replace(/\ /g, "_")
   },
