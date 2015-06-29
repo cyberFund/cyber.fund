@@ -3,76 +3,68 @@
   <div class="row">
     {{#with curData}}
       <div class="col s12 m9 l10">
-        <div id="info" class="row valign-wrapper" style="padding:20px">
+        <div id="about" class="row valign-wrapper" style="padding:20px">
           <div class="col l4 center valign">
-            <h2>{{name}}</h2>
-            <span>{{symbol}}</span>
+              <h2>{{name}}</h2>
+              <span>{{symbol}}</span>
           </div>
           <div class="col l4 center valign">
-            {{> hitryImage img_url=img_url style="width: 40%"}}
+              {{> hitryImage img_url=img_url style="width: 40%"}}
           </div>
           <div class="col m4 center valign">
-            <h4 style="color:green">✪✪✪✪✪</h4>
+              <h4>{{>cfRating rating=metrics.rating}}</h4>
           </div>
         </div>
         <div id="headline" class="row center">
-          <p>Bitcoin is a System</p>
+          <p>{{descriptions.short_description}}</p>
         </div>
         <div id="main-links" class="row center">
           <div class="col l3 center valign">
-            <a href="">Link</a>
+              <a href="">Link</a>
           </div>
           <div class="col l3 center valign">
-            <a href="">Link</a>
+              <a href="">Link</a>
           </div>
           <div class="col l3 center valign">
-            <a href="">Link</a>
+              <a href="">Link</a>
           </div>
           <div class="col l3 center valign">
-            <a href="">Link</a>
+              <a href="">Link</a>
           </div>
         </div>
         <div id="market" class="row center">
           <div class="col l3 center valign" style="padding:10px">
             <div class="card">
               <p>Price</p>
-
-              <p>Link</p>
-
-              <p>Link</p>
+              <p class="enlarge">{{readableN price.usd}}</p>
+              <p>{{readableN price.btc}}</p>
             </div>
           </div>
           <div class="col l3 center valign" style="padding:10px">
             <div class="card">
               <p>Cap</p>
-
-              <p>Link</p>
-
-              <p>Link</p>
+              <p class="enlarge">{{readableN cap.usd 0}}</p>
+              <p>{{readableN cap.btc 0}}</p>
             </div>
           </div>
           <div class="col l3 center valign" style="padding:10px">
             <div class="card">
               <p>Trade</p>
-
-              <p>Link</p>
-
+              <p class="enlarge">{{readableN tradeVolume 0}}</p>
               <p>Link</p>
             </div>
           </div>
           <div class="col l3 center valign" style="padding:10px">
             <div class="card">
               <p>Supply</p>
-
-              <p>Link</p>
-
+              <p class="enlarge">{{supply}}</p>
               <p>.</p>
             </div>
           </div>
         </div>
         <div id="charts" class="row center">
           <script type="text/javascript">
-            var data = {
+                  var data = {
               // A labels array that can contain any sort of values
               labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
               // Our series array that contains series objects or in this case series data arrays
@@ -89,42 +81,39 @@
           <div class="ct-chart" style="height:200px"></div>
         </div>
         <div id="hashtag" class="row center">
-          <a class="twitter-timeline"
-             href="https://twitter.com/hashtag/ethereum"
-             data-widget-id="615439140906233857">#bitcoin Tweets</a>
-          <script>!function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-            if (!d.getElementById(id)) {
-              js = d.createElement(s);
-              js.id = id;
-              js.src = p + "://platform.twitter.com/widgets.js";
-              fjs.parentNode.insertBefore(js, fjs);
-            }
-          }(document, "script", "twitter-wjs");
+          <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
+          <script>!function(d,s,id)
+            {var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';
+            if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
           </script>
         </div>
         <div id="links" class="section scrollspy row">
-          <div class="col m4 center">
-            <ul>
-              {{#each links}}
-                <li><a href="{{url}}"
-                       target="_blank">{{name}}</a></li>
-              {{/each}}
-            </ul>
-          </div>
+            <div class="col m4 center">
+                <ul>
+                    {{#each links}}
+                        <li><a href="{{url}}" target="_blank">{{name}}</a></li>
+                    {{/each}}
+                </ul>
+            </div>
         </div>
       </div>
       <div class="col hide-on-small-only m3 l2">
-        {{#pageContents class='scroller'}}
-          <li><a href="#info" class="">Info</a></li>
-          <li><a href="#headline" class="">Headline</a></li>
-          <li><a href="#main-links" class="">Links</a></li>
-          <li><a href="#market" class="">Market</a></li>
-          <li><a href="#charts" class="">Charts</a></li>
-          <li><a href="#hashtag" class="">Twitter flow</a></li>
-          <li><a href="#links" class="">More Links</a></li>
-        {{/pageContents}}
+          <ul>
+              <li>
+                  <a href="#about">About</a>
+                  <a href="#market">Market</a>
+                  <a href="#apps">Apps</a>
+                  <a href="#hashtag">#bitcoin</a>
+                  <a href="#dapps">Dapps</a>
+                  <a href="#code">Code</a>
+                  <a href="#science">Science</a>
+                  <a href="#description">Description</a>
+                  <a href="#specs">Specs</a>
+              </li>
+          </ul>
       </div>
     {{/with}}
+    <a class="btn-floating btn-large waves-effect waves-light red"><i class="stars"></i></a>
   </div>
 </template>
