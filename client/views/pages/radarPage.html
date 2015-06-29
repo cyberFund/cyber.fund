@@ -1,6 +1,11 @@
 <!-- originally created for cyber.fund project-->
 <template name="radarPage">
     <div class="row">
+      <div>
+        {{isBeforeNow "1/2/2014" "D/M/YYYY"}}
+        {{isAfterNow "1/2/2016" "D/M/YYYY"}}
+        {{isNowBetween "1/2/2014" "1/2/2016" "D/M/YYYY"}}
+      </div>
       <h4>Active Crowd Investments</h4>
       <div class="col s12 m6 l4">
         <div class="card">
