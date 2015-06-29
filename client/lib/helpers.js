@@ -86,16 +86,12 @@ var helpers = {
     return tags.indexOf(tag) > -1;
   },
   isBeforeNow: function(date, format){
-    console.log(date, format);
-    console.log(moment(date, format));
     return moment(date, format).isBefore(moment(), 'day');
   },
   isAfterNow: function(date, format){
-    console.log(date, format);
     return moment(date, format).isAfter(moment(), 'day');
   },
   isNowBetween: function(date1, date2, format){
-    console.log(date1, date2, format);
     return moment().isBetween(moment(date1, format), moment(date2, format), 'day');
   },
   _toU: function(str){
