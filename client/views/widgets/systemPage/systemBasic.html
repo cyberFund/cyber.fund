@@ -9,7 +9,7 @@
               <span>{{symbol}}</span>
           </div>
           <div class="col l4 center valign">
-              {{> hitryImage img_url=img_url style="width: 40%"}}
+              {{> hitryImage img_url=img_url style="width: 50%"}}
           </div>
           <div class="col m4 center valign">
               <h4>{{>cfRating rating=metrics.rating}}</h4>
@@ -18,19 +18,15 @@
         <div id="headline" class="row center">
           <p>{{descriptions.short_description}}</p>
         </div>
-        <div id="main-links" class="row center">
-          <div class="col l3 center valign">
-              <a href="">Link</a>
-          </div>
-          <div class="col l3 center valign">
-              <a href="">Link</a>
-          </div>
-          <div class="col l3 center valign">
-              <a href="">Link</a>
-          </div>
-          <div class="col l3 center valign">
-              <a href="">Link</a>
-          </div>
+        <div id="main" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Main" tags}}
+                  <div class="col l3 center">
+                    <img src="http://chaingear.cyber.fund/{{name}}/{{icon}}">
+                    <a href="{{url}}" target="_blank">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
         </div>
         <div id="market" class="row center">
           <div class="col l3 center valign" style="padding:10px">
@@ -80,6 +76,26 @@
           </script>
           <div class="ct-chart" style="height:200px"></div>
         </div>
+        <div id="apps" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Apps" tags}}
+                  <div class="col l3 center">
+                    <img src="http://chaingear.cyber.fund/{{name}}/{{icon}}">
+                    <a href="{{url}}" target="_blank">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="dapps" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Dapps" tags}}
+                  <div class="col l3 center">
+                    <img src="http://chaingear.cyber.fund/{{name}}/{{icon}}">
+                    <a href="{{url}}" target="_blank">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
         <div id="hashtag" class="row center">
           <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
           <script>!function(d,s,id)
@@ -88,28 +104,71 @@
             fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
           </script>
         </div>
-        <div id="links" class="section scrollspy row">
+        <div id="code" class="section row">
               {{#each links}}
-                {{#if tagMatchesTags "Main" tags}}
-                  <div class="col l3 center"><img src="http://chaingear.cyber.fund/{{name}}/{{icon}}"><a href="{{url}}" target="_blank">{{name}}</a></div>
-                <!-- {{else}}
-                  <li><a href="{{url}}" target="_blank">{{name}}</a></li> -->
+                {{#if tagMatchesTags "Code" tags}}
+                  <div class="col l3 center">
+                    <img src="http://chaingear.cyber.fund/{{name}}/{{icon}}">
+                    <a href="{{url}}" target="_blank">{{name}}</a>
+                  </div>
                 {{/if}}
               {{/each}}
+        </div>
+        <div id="science" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Science" tags}}
+                  <div class="col l3 center">
+                    <img src="http://chaingear.cyber.fund/{{name}}/{{icon}}">
+                    <a href="{{url}}" target="_blank">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="description" class="row center">
+          <p>{{description}}</p>
+        </div>
+        <div id="specs" class="row center striped">
+          <div class="col offset-l3 l6">
+            <table>
+              <thead>
+                <tr>
+                    <th data-field="property">Name</th>
+                    <th data-field="value">Item Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col l3"></div>
+        </div>
+        <div id="improve" class="row center">
+          <p>Please, help <a href="https://github.com/cyberFund/chaingear/tree/gh-pages/sources/{{name}}">improve this page</a> on Github</p>
         </div>
       </div>
       <div class="col hide-on-small-only m3 l2">
         {{#pageContents class='scroller'}}
-            <li><a href="#info" class="">Info</a></li>
-            <li><a href="#headline" class="">Headline</a></li>
-            <li><a href="#main-links" class="">Links</a></li>
+            <li><a href="#about" class="">About</a></li>
             <li><a href="#market" class="">Market</a></li>
-            <li><a href="#charts" class="">Charts</a></li>
-            <li><a href="#hashtag" class="">Twitter flow</a></li>
-            <li><a href="#links" class="">More Links</a></li>
+            <li><a href="#apps" class="">Apps</a></li>
+            <li><a href="#dapps" class="">Dapps</a></li>
+            <li><a href="#hashtag" class="">Twitter</a></li>
+            <li><a href="#code" class="">Code</a></li>
+            <li><a href="#science" class="">Science</a></li>
+            <li><a href="#description" class="">Description</a></li>
+            <li><a href="#specs" class="">Specs</a></li>
         {{/pageContents}}
       </div>
     {{/with}}
-    <a class="btn-floating btn-large waves-effect waves-light red"><i class="stars"></i></a>
+    <a class="btn-floating btn-large waves-effect waves-light red">
+      <i class="stars"></i></a>
   </div>
 </template>
