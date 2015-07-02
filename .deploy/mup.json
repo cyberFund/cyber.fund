@@ -6,6 +6,7 @@
       "username": "root",
       //"password": ""
       // or pem file (ssh based authentication)
+
       "pem": "~/.ssh/id_rsa"
     }
   ],
