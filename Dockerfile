@@ -1,26 +1,40 @@
-FROM node:0.10
-MAINTAINER Daniel Dent (https://www.danieldent.com/)
+# Use phusion/passenger-full as base image. To make your builds reproducible, make
+# sure you lock down to a specific version, not to `latest`!
+# See https://github.com/phusion/passenger-docker/blob/master/Changelog.md for
+# a list of version numbers.
+FROM phusion/passenger-full:0.9.15
+# Or, instead of the 'full' variant, use one of these:
+#FROM phusion/passenger-ruby19:<VERSION>
+#FROM phusion/passenger-ruby20:<VERSION>
+#FROM phusion/passenger-ruby21:<VERSION>
+#FROM phusion/passenger-ruby22:<VERSION>
+#FROM phusion/passenger-jruby17:<VERSION>
+#FROM phusion/passenger-nodejs:<VERSION>
+#FROM phusion/passenger-customizable:<VERSION>
 
-ENV METEOR_VERSION 1.1.0.2
-ENV METEOR_INSTALLER_SHA256 4020ef4d3bc257cd570b5b2d49e3490699c52d0fd98453e29b7addfbdfba9c80
-ENV METEOR_LINUX_X86_32_SHA256 3fdddd00f380468c6ddc1ab151c09942e928054837a0a727eae68b15d6f606b9
-ENV METEOR_LINUX_X86_64_SHA256 9dcc4ba6698eaa09016ff8cb8b77704fe31916e8ac86b54796f7e5e591cecaf6
+# Set correct environment variables.
+ENV HOME /root
 
-# 1. Download & verify the meteor installer.
-# 2. Patch it to validate the meteor tarball's checksums.
-# 3. Install meteor
+# Use baseimage-docker's init process.
+CMD ["/sbin/my_init"]
 
-COPY meteor-installer.patch /tmp/meteor/meteor-installer.patch
-COPY vboxsf-shim.sh /usr/local/bin/vboxsf-shim
-RUN curl -SL https://install.meteor.com/ -o /tmp/meteor/inst \
-    && sed -e "s/^RELEASE=.*/RELEASE=\"\$METEOR_VERSION\"/" /tmp/meteor/inst > /tmp/meteor/inst-canonical \
-    && echo $METEOR_INSTALLER_SHA256 /tmp/meteor/inst-canonical | sha256sum -c \
-    && patch /tmp/meteor/inst /tmp/meteor/meteor-installer.patch \
-    && chmod +x /tmp/meteor/inst \
-    && /tmp/meteor/inst \
-    && rm -rf /tmp/meteor
+# If you're using the 'customizable' variant, you need to explicitly opt-in
+# for features. Uncomment the features you want:
+#
+#   Build system and git.
+#RUN /pd_build/utilities.sh
+#   Ruby support.
+#RUN /pd_build/ruby1.9.sh
+#RUN /pd_build/ruby2.0.sh
+#RUN /pd_build/ruby2.1.sh
+#RUN /pd_build/ruby2.2.sh
+#RUN /pd_build/jruby1.7.sh
+#   Python support.
+#RUN /pd_build/python.sh
+#   Node.js and Meteor support.
+RUN /pd_build/nodejs.sh
 
-VOLUME /app
-WORKDIR /app
-EXPOSE 3000
-CMD [ "meteor" ]
+# ...put your own build instructions here...
+
+# Clean up APT when done.
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*

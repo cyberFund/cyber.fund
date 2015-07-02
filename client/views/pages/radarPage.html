@@ -6,7 +6,10 @@
         {{isAfterNow "1/2/2016" "D/M/YYYY"}}
         {{isNowBetween "1/2/2014" "1/2/2016" "D/M/YYYY"}}
       </div>
+
       <h4>Active Crowd Investments</h4>
+      {{#each crowdsale}}
+        {{#if isNowBetween start_date end_date}}
       <div class="col s12 m6 l4">
         <div class="card">
           <div class="card-image">
@@ -21,6 +24,8 @@
           </div>
         </div>
       </div>
+          {{/if}}
+      {{/each}}
     </div>
     <div class="row">
       <h4>Upcoming Crowd Investments</h4>

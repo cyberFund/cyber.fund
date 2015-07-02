@@ -24,12 +24,16 @@ Meteor.publish(null, function () {
   });
 });
 
-Meteor.publish('customCurrentData', function(selector, options){
+Meteor.publish('customCurrentData', function(selector, options){ //TODO: refactor this and all usages. this is not safe
   options = options || {};
   return CurrentData.find(selector, options);
 });
 
-Meteor.publish('customMarketData', function(selector, options){
+Meteor.publish('customMarketData', function(selector, options){ //TODO: refactor this and all usages. this is not safe
   options = options || {};
   return MarketData.find(selector, options);
+});
+
+Meteor.publish('crowdsale', function(){
+  return CurrentData.find(CF.Chaingear.selector.crowdsales);
 });

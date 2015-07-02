@@ -10,9 +10,7 @@ Template['systemBasic'].helpers({
     });
   },
   'img_url': function () {
-    var ret = (this.icon ? this.icon : this.name) || '';
-    ret= ret.toString().toLowerCase();
-    return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/"+ret+".png";
+    return CF.Chaingear.helpers.cgIcon(this);
   }
 });
 

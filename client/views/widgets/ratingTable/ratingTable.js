@@ -23,9 +23,7 @@ Template['ratingTable'].helpers({
     return CurrentData.find({}, {sort: Session.get("ratingSorter")});
   },
   'img_url': function () {
-    var ret = (this.icon ? this.icon : this.name) || '';
-    ret= ret.toString().toLowerCase();
-    return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/"+ret+".png";
+    return CF.Chaingear.helpers.cgIcon(this);
   },
   _name: function () { //see "ALIASES"
     return this.cyberName || this.name;
