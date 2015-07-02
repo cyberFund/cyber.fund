@@ -9,24 +9,8 @@
 
       <h4>Active Crowd Investments</h4>
       {{#each crowdsale}}
-        {{log this}}
         {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
-      <div class="col s12 m6 l4">
-        <div class="card">
-          <div class="card-image">
-            {{> cgIcon data=this style="width:150px"}}
-            <span class="card-title">{{name}}</span>
-          </div>
-          <div><p>Start date: {{crowdsales.start_date}}</p>
-          <p>End date: {{crowdsales.end_date}}</p></div>
-          <div class="card-content">
-            <p>Ethereum is a community-driven project aiming to decentralize the internet and return it to its democratic roots. It is a platform for building and running applications which do not need to rely on trust and cannot be controlled by any central authority.</p>
-          </div>
-          <div class="card-action">
-            <a href="#">Invest</a>
-          </div>
-        </div>
-      </div>
+          {{> radarCard this}}
           {{/if}}
       {{/each}}
     </div>
@@ -34,22 +18,7 @@
       <h4>Upcoming Crowd Investments</h4>
       {{#each crowdsale}}
         {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}}
-          <div class="col s12 m6 l4">
-            <div class="card">
-              <div class="card-image">
-                {{> cgIcon data=this style="width:150px"}}
-                <span class="card-title">{{name}}</span>
-              </div>
-              <div><p>Start date: {{crowdsales.start_date}}</p>
-                <p>End date: {{crowdsales.end_date}}</p></div>
-              <div class="card-content">
-                <p>Ethereum is a community-driven project aiming to decentralize the internet and return it to its democratic roots. It is a platform for building and running applications which do not need to rely on trust and cannot be controlled by any central authority.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">Invest</a>
-              </div>
-            </div>
-          </div>
+          {{> radarCard this}}
         {{/if}}
       {{/each}}
     </div>
@@ -57,22 +26,7 @@
       <h4>Past Crwod Investments</h4>
       {{#each crowdsale}}
         {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}}
-          <div class="col s12 m6 l4">
-            <div class="card">
-              <div class="card-image">
-                {{> cgIcon data=this style="width:150px"}}
-                <span class="card-title">{{name}}</span>
-              </div>
-              <div><p>Start date: {{crowdsales.start_date}}</p>
-                <p>End date: {{crowdsales.end_date}}</p></div>
-              <div class="card-content">
-                <p>Ethereum is a community-driven project aiming to decentralize the internet and return it to its democratic roots. It is a platform for building and running applications which do not need to rely on trust and cannot be controlled by any central authority.</p>
-              </div>
-              <div class="card-action">
-                <a href="#">Invest</a>
-              </div>
-            </div>
-          </div>
+          {{> radarCard this}}
         {{/if}}
       {{/each}}
     </div>
