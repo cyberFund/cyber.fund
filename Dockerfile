@@ -1,40 +1,42 @@
-# Use phusion/passenger-full as base image. To make your builds reproducible, make
-# sure you lock down to a specific version, not to `latest`!
-# See https://github.com/phusion/passenger-docker/blob/master/Changelog.md for
-# a list of version numbers.
-FROM phusion/passenger-full:0.9.15
-# Or, instead of the 'full' variant, use one of these:
-#FROM phusion/passenger-ruby19:<VERSION>
-#FROM phusion/passenger-ruby20:<VERSION>
-#FROM phusion/passenger-ruby21:<VERSION>
-#FROM phusion/passenger-ruby22:<VERSION>
-#FROM phusion/passenger-jruby17:<VERSION>
-#FROM phusion/passenger-nodejs:<VERSION>
-#FROM phusion/passenger-customizable:<VERSION>
+# DOCKER-VERSION 1.7.0
+# METEOR-VERSION 1.1.0.2
+FROM ubuntu:trusty
 
-# Set correct environment variables.
-ENV HOME /root
+RUN apt-get update
 
-# Use baseimage-docker's init process.
-CMD ["/sbin/my_init"]
+### For latest Node
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository -y ppa:chris-lea/node.js
+RUN apt-get update
+RUN apt-get install -y build-essential nodejs
+###
 
-# If you're using the 'customizable' variant, you need to explicitly opt-in
-# for features. Uncomment the features you want:
-#
-#   Build system and git.
-#RUN /pd_build/utilities.sh
-#   Ruby support.
-#RUN /pd_build/ruby1.9.sh
-#RUN /pd_build/ruby2.0.sh
-#RUN /pd_build/ruby2.1.sh
-#RUN /pd_build/ruby2.2.sh
-#RUN /pd_build/jruby1.7.sh
-#   Python support.
-#RUN /pd_build/python.sh
-#   Node.js and Meteor support.
-RUN /pd_build/nodejs.sh
+### For standard Ubuntu Node
+#RUN apt-get install -y build-essential nodejs npm
+#RUN ln -s /usr/bin/nodejs /usr/bin/node
+###
 
-# ...put your own build instructions here...
+# Install git, curl, python, and phantomjs
+RUN apt-get install -y git curl python phantomjs
 
-# Clean up APT when done.
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+# Make sure we have a directory for the application
+RUN mkdir -p /var/www
+RUN chown -R www-data:www-data /var/www
+
+# Install fibers -- this doesn't seem to do any good, for some reason
+RUN npm install -g fibers
+
+# Install Meteor
+RUN curl https://install.meteor.com/ |sh
+
+# Install entrypoint
+ADD entrypoint.sh /usr/bin/entrypoint.sh
+RUN chmod +x /usr/bin/entrypoint.sh
+
+# Add known_hosts file
+ADD known_hosts /root/.ssh/known_hosts
+
+EXPOSE 80
+
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD []
