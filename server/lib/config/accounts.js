@@ -4,7 +4,6 @@ Meteor.startup(function () {
     {service: "twitter"},
     {
       $set: {
-
         consumerKey: process.env.TWITTER_CONSUMER_KEY,
         secret: process.env.TWITTER_CONSUMER_SECRET
       }

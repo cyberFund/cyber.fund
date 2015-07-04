@@ -14,8 +14,8 @@ Template['ratingTable'].rendered = function () {
 };
 
 Session.setDefault("ratingSorter", {
-  rating: -1,
-  "cap.btc": -1
+  "metrics.rating": -1,
+  "metrics.cap.btc": -1
 });
 
 Template['ratingTable'].helpers({
