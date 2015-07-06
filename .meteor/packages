@@ -19,15 +19,17 @@ amplify
 
 cyberfund-base
 cyberfund-marketdata
+cyberfund-chaingear
 accounts-twitter
 ermlab:log4js-silos
+
 gwendall:body-events
 useraccounts:materialize
 
 service-configuration
-stevezhu:lodash
 meteorhacks:kadira
 meteorhacks:kadira-profiler
+
 twitter
 mfpierre:chartist-js
-cyberfund-chaingear
+materialize:materialize

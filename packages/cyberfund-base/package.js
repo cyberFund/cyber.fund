@@ -10,9 +10,15 @@ Package.describe({
   documentation: 'README.md'
 });
 
+var c= "client", s= "server", cs = ["client", "server"];
+
+Npm.depends({"crypto-balance":  "0.0.20"}); // # todo: move to separate package..
+
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
-  api.addFiles('cyberfund-base.js');
+  api.use(["underscore"], cs);
+  api.addFiles('cyberfund-base.js', cs);
+  api.addFiles(['server/utils-server.js', 'server/check-balance.js'], s);
   api.export("CF");
 });
 
