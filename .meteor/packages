@@ -17,9 +17,10 @@ zimme:active-route
 reactive-var
 amplify
 
-cyberfund-base
-cyberfund-marketdata
-cyberfund-chaingear
+cyberfund:cyberfund-base
+cyberfund:cyberfund-marketdata
+cyberfund:cyberfund-chaingear
+cyberfund:cyberfund-es
 accounts-twitter
 ermlab:log4js-silos
 

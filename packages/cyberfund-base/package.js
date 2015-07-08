@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'cyberfund-base',
+  name: 'cyberfund:cyberfund-base',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -24,6 +24,6 @@ Package.onUse(function(api) {
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('cyberfund-base');
+  api.use('cyberfund:cyberfund-base');
   api.addFiles('cyberfund-base-tests.js');
 });

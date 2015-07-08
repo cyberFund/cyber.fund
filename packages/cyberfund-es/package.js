@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'cyberfund:cyberfund-chaingear',
+  name: 'cyberfund:cyberfund-es',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -10,16 +10,19 @@ Package.describe({
   documentation: 'README.md'
 });
 
+Npm.depends({
+  "elasticsearch": "5.0.0"//,
+  //"request-promise": "^0.4.2"
+});
+
 Package.onUse(function(api) {
+  api.use(['cyberfund:cyberfund-base', "underscore"]);
   api.versionsFrom('1.1.0.2');
-  api.use(['underscore', 'cyberfund:cyberfund-base']);
-  api.use(['ui'], 'client');
-  api.addFiles('cyberfund-chaingear.js', ['client', 'server']);
-  api.addFiles('client/cyberfund-chaingear-client.js', 'client');
+  api.addFiles('cyberfund-es.js');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('cyberfund:cyberfund-chaingear');
-  api.addFiles('cyberfund-chaingear-tests.js');
+  api.use('cyberfund:cyberfund-es', "server");
+  api.addFiles('cyberfund-es-tests.js');
 });
