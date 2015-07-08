@@ -1,8 +1,87 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
-  <div>
-<p>
-  Profile
-</p>
+  <div class="row">
+    <div class="col l3">
+      <img src="" style="height:150px">
+      <h4>Dima Starodubcev</h4>
+      <h5>21xhipster</h5>
+      <br>
+      <img src="twitter.png" style="height:30px">
+      <p>@21xhipster</p>
+      <div class="row">
+        <div class="col l4">
+          <h5 class="center">13</h5>
+          <p class="center">Following</p>
+        </div>
+        <div class="col l4">
+          <h5 class="center">5</h5>
+          <p class="center">Starred</p>
+        </div>
+        <div class="col l4">
+          <h5 class="center">27</h5>
+          <p class="center">Followers</p>
+        </div>
+      </div>
+    </div>
+    <div class="col l9">
+
+      <div class="row card" style="padding:10px">
+        <div class="row">
+          <div class="col l6">
+            <h4>My Holdings<span class="badge">public</span></h4>
+          </div>
+          <div class="col l6 right">
+            <h4>142 bitcoins</h4>
+          </div>
+        </div>
+        <table class="hoverable">
+          <tbody>
+            <tr>
+              <td>NEM</td>
+              <td>NDJAKL-V5WPRZ-PBG3DS-JBC4Y6-KRGNML-4W2XC2-KPPX</td>
+              <td>4,005,234</td>
+            </tr>
+            <tr>
+              <td>cyber•Fund</td>
+              <td>akNSFDbQ5qnDQJqS2TqEsSXcssErkZ1sUvf</td>
+              <td>250000</td>
+            </tr>
+            <tr>
+              <td>cyber•Shares</td>
+              <td>akNSFDbQ5qnDQJqS2TqEsSXcssErkZ1sUvf</td>
+              <td>10000</td>
+            </tr>
+            <tr>
+              <td>Ethereum</td>
+              <td>7c4401ae98f12ef6de39ae24cf9fc51f80eba16b</td>
+              <td>10200</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
   </div>
+  <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#addaccount" >
+    <i class="large mdi-action-account-balance-wallet"></i>
+  </a>
+
+  <!-- Modal Structure -->
+  <div id="addaccount" class="modal">
+    <div class="modal-content">
+      <h4>Add Account</h4>
+      <!-- For personal profile - Add account. For inner acount - Follow  -->
+      <p>!!!</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function(){
+      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+      $('.modal-trigger').leanModal();
+    });
+  </script>
 </template>
