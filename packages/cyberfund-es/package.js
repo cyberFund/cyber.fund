@@ -18,7 +18,7 @@ Npm.depends({
 Package.onUse(function(api) {
   api.use(['cyberfund:cyberfund-base', "underscore"]);
   api.versionsFrom('1.1.0.2');
-  api.addFiles('cyberfund-es.js');
+  api.addFiles('cyberfund-es.js', 'server');
 });
 
 Package.onTest(function(api) {
