@@ -120,7 +120,7 @@ _.extend(ns, {
                             "by_system": {
                                 "terms": {
                                     "field": "system",
-                                    "size": 700
+                                    "size": 0
                                 },
                                 "aggs": {
                                     "avg_cap_btc": {
@@ -156,16 +156,20 @@ _.extend(ns, {
                             "by_system": {
                                 "terms": {
                                     "field": "system",
-                                    "size": 700 //currently has ~640 systems. this allows fetch em all
+                                    "size": 0 //currently has ~640 systems. this allows fetch em all
                                 },
                                 "aggs": {
-                                    "latest_supply": {
+                                    "latest": {
                                         "top_hits": {
                                             "size": 1,
                                             "sort": [{"timestamp": {"order": "desc"}}],
                                             "_source": {
                                                 "include": [
-                                                    "supply_current"
+                                                    "supply_current",
+                                                    "price_usd",
+                                                    "price_btc",
+                                                    "volume24_btc",
+                                                    "volume24_usd"
                                                 ]
                                             }
                                         }
