@@ -47,7 +47,7 @@ _.extend(CF.ES, {
 
     isClientQueryAllowed: function (queryName) {
         return ns.queries[queryName] && ns.queries[queryName].client_allowed;
-    },
+    }
 });
 
 Meteor.methods({
@@ -111,17 +111,17 @@ _.extend(ns, {
         latest_values: {
             //client_allowed: true,
             getQueryObj: function (params) {
+
                 var ret = {
                     "index": 'marketcap-read',
                     "type": 'market',
                     "size": 0,
                     "body": {
-                        //"query": {}, //todo use params to get only part of data (i.e. for specific system)
                         "aggs": {
                             "by_system": {
                                 "terms": {
                                     "field": "system",
-                                    "size": 7
+                                    "size": 700 //currently has ~640 systems. this allows fetch em all
                                 },
                                 "aggs": {
                                     "latest_supply": {
@@ -140,6 +140,19 @@ _.extend(ns, {
                         }
                     }
                 };
+                 if (params && params.system) { // we thus able accepting single query. yet, not sure if it is effective..
+                     var q = {"term": {"system": params.system }};
+                    ret.body.query = q;
+                 }
+                if (params && params.systems) { // we thus able accepting single query. yet, not sure if it is effective..
+                    var q = {"bool": {"should": []}};
+
+                    _.each (params.systems, function (item){
+                        q.bool.should.push( {"term": {"system": item }} );
+                    });
+
+                    ret.body.query = q;
+                }
                 return ret;
             }
         }
