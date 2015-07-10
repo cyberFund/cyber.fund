@@ -15,5 +15,8 @@ _.extend(CF.Utils, {
             fut["throw"](error);
         });
         return fut.wait();
+    },
+    escapeRegExp: function escapeRegexp(str) {
+        return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     }
 });
