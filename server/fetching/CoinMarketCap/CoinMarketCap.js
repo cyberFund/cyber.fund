@@ -127,7 +127,7 @@ Meteor.startup(function() {
 		});
 	};
 
-	//fetch();
-	//Meteor.setInterval(fetch, fetchInterval);
+	fetch();
+	Meteor.setInterval(fetch, fetchInterval);
 
 });
