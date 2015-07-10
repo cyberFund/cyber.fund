@@ -55,7 +55,7 @@ Meteor.methods({
     esQuery: function (queryName, params) {
         if (ns.isClientQueryAllowed(queryName)) {
             //if (params.transform)
-              //  var transform = ns.queries.getTransform(params.transform);
+            //  var transform = ns.queries.getTransform(params.transform);
             //return transform(CF.Utils.extractFromPromise(ns.sendQuery(queryName, params)))
             return CF.Utils.extractFromPromise(ns.sendQuery(queryName, params))
         }
@@ -67,7 +67,41 @@ Meteor.methods({
 
 _.extend(ns, {
     queries: {
-        averages_15m_full: {
+        /**
+         * extends query object, if there are recognized parameters
+         * this probably won't stay for long, but seems as good idea for handling aggregations.
+         */
+        _parametrize: function (qObj, params) { //TODO: some tests would be ok..
+            function _extendQuery(qObj, extension){
+                if (!qObj.body.query) {
+                    qObj.body.query = extension;
+                } else {
+                    var q0 = qObj.body.query;
+                    qObj.body.query = {"bool": {
+                        "must": [
+                            q0, extension
+                        ]
+                    }}
+                }
+                return qObj;
+            }
+            var q;
+            if (params.system) { // we thus able accepting single query. yet, not sure if it is effective..
+                q = {"term": {"system": params.system}};
+                return _extendQuery(qObj, q);
+            }
+            if (params.systems) { // we thus able accepting single query. yet, not sure if it is effective..
+                q = {"bool": {"should": []}};
+                _.each(params.systems, function (item) {
+                    q.bool.should.push({"term": {"system": item}});
+                });
+                return _extendQuery(qObj, q);
+
+            }
+            return _extendQuery(qObj, {"wildcard": {"system": "*"}});
+        },
+
+        averages_last_15m: {
             client_allowed: true, //comment out to disable client ability calling this.
             getQueryObj: function (params) {
                 // todo: allow passing set of keys with params,
@@ -86,7 +120,7 @@ _.extend(ns, {
                             "by_system": {
                                 "terms": {
                                     "field": "system",
-                                    "size": 7
+                                    "size": 700
                                 },
                                 "aggs": {
                                     "avg_cap_btc": {
@@ -104,6 +138,7 @@ _.extend(ns, {
                         }
                     }
                 };
+                if (params) return CF.ES.queries._parametrize(ret, params);
                 return ret;
             }
         },
@@ -140,19 +175,7 @@ _.extend(ns, {
                         }
                     }
                 };
-                 if (params && params.system) { // we thus able accepting single query. yet, not sure if it is effective..
-                     var q = {"term": {"system": params.system }};
-                    ret.body.query = q;
-                 }
-                if (params && params.systems) { // we thus able accepting single query. yet, not sure if it is effective..
-                    var q = {"bool": {"should": []}};
-
-                    _.each (params.systems, function (item){
-                        q.bool.should.push( {"term": {"system": item }} );
-                    });
-
-                    ret.body.query = q;
-                }
+                if (params) return CF.ES.queries._parametrize(ret, params);
                 return ret;
             }
         }
