@@ -14,9 +14,10 @@ Meteor.startup(function() {
 		unique: true,
 		sparse: true,
 		dropDups: true,
+		background: true
 	});
 
-	CurrentData._ensureIndex({ name: 1, symbol: 1 });
+	//CurrentData._ensureIndex({ name: 1, symbol: 1 });
 
 	CurrentData._ensureIndex({
 		name: 1,
@@ -25,6 +26,7 @@ Meteor.startup(function() {
 		unique: true,
 		sparse: true,
 		dropDups: true,
+		background: true
 	});
 
 });
