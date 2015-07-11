@@ -21,6 +21,9 @@ var helpers = {
   and: function (value1, value2) {
     return value1 && value2;
   },
+  not: function (value){
+    return !value;
+  },
   or:  function (value1, value2) {
     return value1 || value2;
   },

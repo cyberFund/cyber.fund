@@ -117,3 +117,7 @@ main {
 	margin: 0 auto;
 	position: relative;
 }
+
+table.hoverable-my tr:hover {
+	background-color: rgba(0,0,0,0.05);
+}
