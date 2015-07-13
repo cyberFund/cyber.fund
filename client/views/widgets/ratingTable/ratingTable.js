@@ -25,9 +25,11 @@ Template['ratingTable'].helpers({
     'img_url': function () {
         return CF.Chaingear.helpers.cgIcon(this);
     },
+    // either currency name or name
     _name: function () { //see "ALIASES"
         return this.aliases.CurrencyName || this.name;
     },
+    // underscored currency name
     name_: function () {
         return Blaze._globalHelpers._toU(this.name);
     },
