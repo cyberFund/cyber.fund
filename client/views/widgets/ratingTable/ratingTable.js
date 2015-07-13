@@ -40,17 +40,26 @@ Template['ratingTable'].helpers({
             return "Stable";
         }
     },
-    deviationToText: function (deviation, absolute) {
+    dailyTradeVolumeToText: function (volumeDaily, absolute) {
+        //<0.1% - Illiquid
+        //<0.3% - Very Low
+        //< 0.5% - Low
+        //< 1% - Normal
+        //< 2% - High
+        //`> 3% - Very High (edited)
+
         if (!absolute) {
             return "Normal";
         }
-        if (Math.abs(deviation / absolute) < 0.05) {
-            return "Normal";
-        }
-        if (deviation > 0) {
-            return "High";
-        }
-        return "Low";
+
+        if (Math.abs(volumeDaily / absolute) < 0.001) return "Illiquid";
+        if (Math.abs(volumeDaily / absolute) < 0.003) return "Very Low";
+        if (Math.abs(volumeDaily / absolute) < 0.005) return "Low";
+        if (Math.abs(volumeDaily / absolute) < 0.01) return "Normal";
+        if (Math.abs(volumeDaily / absolute) < 0.025) return "High";
+        return "Very High";
+
+
     },
     capBtcToText: function (cap) {
         var ret = parseFloat(cap);
@@ -91,7 +100,19 @@ Template['ratingTable'].helpers({
             (Session.get('curDataCount') > sel.limit ));
     },
     tradeVolumeOk: function (tv) {
-        return tv && (tv >= 1.0);
+        return tv && (tv >= 0.2);
+    },
+    turnover: function(){
+        var metrics = this.metrics;
+        if (metrics.cap && metrics.cap.usd)
+        return 100.0* metrics.tradeVolume / metrics.cap.btc;
+        return 0;
+    },
+    dayToDayTradeVolumeChange: function(){
+        var metrics = this.metrics;
+        if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day)
+        return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
+        return 0;
     }
 });
 

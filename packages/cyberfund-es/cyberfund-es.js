@@ -65,6 +65,57 @@ Meteor.methods({
     }
 });
 
+var most_recent_values = {
+    "latest": {
+        "top_hits": {
+            "size": 1,
+            "sort": [{"timestamp": {"order": "desc"}}], // sort order here interfers with ranges!!!11
+            "_source": {
+                "include": [
+                    "supply_current",
+                    "price_usd",
+                    "price_btc",
+                    "volume24_btc",
+                    "volume24_usd",
+                    "cap_btc",
+                    "cap_usd"
+                ]
+            }
+        }
+    }
+};
+var latest_values = {
+    "index": 'marketcap-read',
+    "type": 'market',
+    "size": 0,
+    "body": {
+        "aggs": {
+            "by_system": {
+                "terms": {
+                    "field": "system",
+                    "size": 0
+                },
+                "aggs": {
+                    "by_time": {
+                        "range": {
+                            "field": "timestamp",
+                            "ranges": [
+                                // NOTE: resulting ranges seem being influenced by timestamp sorting we do in nested
+                                // 'most_recent_values' aggregation. thus, re-indexing of `by_time` buckets is needed.
+
+                                {"from": "now-1d","to": "now"}, // latest goes from here
+                                {"from":"now-7d", "to": "now-1d"} //yesterday's goes from here.
+                                //{"to": "now-7d"} //week ago..
+                            ]
+                        },
+                        "aggs": most_recent_values
+                    },
+                }
+            }
+        }
+    }
+};
+
 _.extend(ns, {
     queries: {
         /**
@@ -72,19 +123,22 @@ _.extend(ns, {
          * this probably won't stay for long, but seems as good idea for handling aggregations.
          */
         _parametrize: function (qObj, params) { //TODO: some tests would be ok..
-            function _extendQuery(qObj, extension){
+            function _extendQuery(qObj, extension) {
                 if (!qObj.body.query) {
                     qObj.body.query = extension;
                 } else {
                     var q0 = qObj.body.query;
-                    qObj.body.query = {"bool": {
-                        "must": [
-                            q0, extension
-                        ]
-                    }}
+                    qObj.body.query = {
+                        "bool": {
+                            "must": [
+                                q0, extension
+                            ]
+                        }
+                    }
                 }
                 return qObj;
             }
+
             var q;
             if (params.system) { // we thus able accepting single query. yet, not sure if it is effective..
                 q = {"term": {"system": params.system}};
@@ -113,7 +167,7 @@ _.extend(ns, {
                     "body": {
                         "query": {
                             "range": {
-                                "timestamp": {"from": "now-20m"}
+                                "timestamp": {"from": "now-15m"}
                             }
                         },
                         "aggs": {
@@ -147,38 +201,7 @@ _.extend(ns, {
             //client_allowed: true,
             getQueryObj: function (params) {
 
-                var ret = {
-                    "index": 'marketcap-read',
-                    "type": 'market',
-                    "size": 0,
-                    "body": {
-                        "aggs": {
-                            "by_system": {
-                                "terms": {
-                                    "field": "system",
-                                    "size": 0 //currently has ~640 systems. this allows fetch em all
-                                },
-                                "aggs": {
-                                    "latest": {
-                                        "top_hits": {
-                                            "size": 1,
-                                            "sort": [{"timestamp": {"order": "desc"}}],
-                                            "_source": {
-                                                "include": [
-                                                    "supply_current",
-                                                    "price_usd",
-                                                    "price_btc",
-                                                    "volume24_btc",
-                                                    "volume24_usd"
-                                                ]
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                };
+                var ret = latest_values;
                 if (params) return CF.ES.queries._parametrize(ret, params);
                 return ret;
             }

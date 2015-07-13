@@ -50,19 +50,19 @@
 
       <a href="/profile" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.services.twitter.profile_image_url_https}}
-          {{currentUser.services.twitter.screenName}}
+        {{currentUser.services.twitter.screenName}}
       </a>
 
     {{else}}
-
-      <a href="/profile">
-        {{#if currentUser.profile.name}}
-          {{currentUser.profile.name}}
-        {{else}}
-          Profile
-        {{/if}}
-      </a>
-
+      {{#if not loggingIn}}
+        <a href="/profile">
+          {{#if currentUser.profile.name}}
+            {{currentUser.profile.name}}
+          {{else}}
+            Profile
+          {{/if}}
+        </a>
+      {{/if}}
     {{/if}}
   {{else}}
     {{> atNavButton }}

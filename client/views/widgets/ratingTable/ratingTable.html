@@ -10,9 +10,9 @@
         <th class="center hide-on-small-and-down">Token</th>
         <th class="center hide-on-small-and-down">Trade</th>
         <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
-        <th class="right-align hide-on-med-and-down">7d Change</th>
+        <th class="right-align hide-on-med-and-down">1d Change</th>
         <th class="right-align">Cap in $</th>
-        <th class="right-align">7d Change</th>
+        <th class="right-align">1d Change</th>
         </thead>
         <tbody>
         {{#each rows}}
@@ -31,28 +31,33 @@
                         {{>cfRating rating=metrics.rating}}</td>
 
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
-                    <span>{{percentsToText metrics.supplyChangePercents.week}}</span>
+                    <span>{{percentsToText metrics.supplyChangePercents.day}}</span>
                     {{#tooltip}}
                         <div>Current supply:
                             <b>{{readableN metrics.supply 0}}</b>
                         </div>
                         <div>Absolute change:
-                            <b>{{readableN SHmetrics.supplyChange.week 0}}</b>
+                            <b>{{readableN metrics.supplyChange.day 0}}</b>
                         </div>
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
                 <td class="center-align hide-on-small-and-down">
-                    {{#if tradeVolumeOk SHmetrics.tradeVolume}}
+                    {{#if tradeVolumeOk metrics.tradeVolume}}
                         {{# withTooltip}}
-                            <span>{{deviationToText SHmetrics.tradeVolumeMedianDeviation.week metrics.tradeVolume}}</span>
+                            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
                             {{#tooltip}}
-                                <div>Trade volume
-                                    (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
-                                </div>
-                                <div>Median
-                                    deviation:<b>{{readableN SHmetrics.tradeVolumeMedianDeviation.week 2}}</b>BTC
-                                </div>
+                              <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+                              </div>
+
+                              <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
+                              </div>
+
+                              <div>Turnover:<b>{{readableN turnover 2}}</b> %
+                              </div>
+                                <!--div>Median
+                                    deviation:<b>{{readableN metrics.tradeVolumeMedianDeviation.week 2}}</b>BTC
+                                </div-->
                             {{/tooltip}}
                         {{/withTooltip}}
                     {{else}}
@@ -72,12 +77,12 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    <span class="{{percentsToClass SHmetrics.capChangePercents.week.btc}}">
-                        {{percentsToText2 SHmetrics.capChangePercents.week.btc}}</span>
-                    {{#if SHmetrics.capChange.week.btc}}
+                    <span class="{{percentsToClass metrics.capChangePercents.day.btc}}">
+                        {{percentsToText2 metrics.capChangePercents.day.btc}}</span>
+                    {{#if metrics.capChange.day.btc}}
                         {{#tooltip}}
                             <div>Real change:
-                                <b>{{readableN SHmetrics.capChange.week.btc 2}}</b>
+                                <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
                             </div>
                         {{/tooltip}}
                     {{/if}}
@@ -85,7 +90,7 @@
 
                 <td class="right-align">{{# withTooltip}}
                     <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                    {{#if metrics.price.btc}}
+                    {{#if metrics.price.usd}}
                         {{#tooltip}}
                             <div>Price per 1 {{_name}}:<br/>
                                 <b>$&nbsp;{{metrics.price.usd}}</b>
@@ -95,12 +100,12 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align">{{#withTooltip}}
-                    <span class="{{percentsToClass SHmetrics.capChangePercents.week.usd}}">
-                        {{percentsToText2 SHmetrics.capChangePercents.week.usd}}</span>
+                    <span class="{{percentsToClass metrics.capChangePercents.day.usd}}">
+                        {{percentsToText2 metrics.capChangePercents.day.usd}}</span>
 
                     {{#tooltip}}
                         <div>Real change:
-                            <b>{{readableN SHmetrics.capChange.week.usd 2}}</b>
+                            <b>${{readableN metrics.capChange.day.usd 2}} </b>
                         </div>
                     {{/tooltip}}
                 {{/withTooltip}}</td>
