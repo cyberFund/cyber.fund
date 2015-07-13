@@ -3,7 +3,18 @@
 
   <div class="card" style="padding:10px">
     <table class="hoverable-my" align="center" id="rating-table">
-        <thead>
+      <!--thead id="fixed-thead" class="fixed-thead z-index-1">
+      <th class="left-align"><span style="margin-left: 40px">&nbsp;&nbsp;System</span>
+      </th>
+      <th class="center hide-on-small-and-down">↓ Rating</th>
+      <th class="center hide-on-small-and-down">Token</th>
+      <th class="center hide-on-small-and-down">Trade</th>
+      <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
+      <th class="right-align hide-on-med-and-down">1d Change</th>
+      <th class="right-align">Cap in $</th>
+      <th class="right-align">1d Change</th>
+      </thead-->
+        <thead  id="fixed-thead">
         <th class="left-align"><span style="margin-left: 40px">&nbsp;&nbsp;System</span>
         </th>
         <th class="center hide-on-small-and-down">↓ Rating</th>
@@ -113,7 +124,7 @@
 
                     {{#tooltip}}
                         <div>Real change:
-                            <b>$точно{{readableN metrics.capChange.day.usd 2}} </b>
+                            <b>{{readableN metrics.capChange.day.usd 2}} $</b>
                         </div>
                     {{/tooltip}}
                 {{/withTooltip}}</td>
@@ -131,5 +142,4 @@
         </div>
     {{/if}}
     <div style="padding-bottom: 40px"></div>
-    <div style="position:fixed; top: 20px; right: 0; z-index:12000" class="card z-index-5" id="test">click me</div>
 </template>

@@ -11,6 +11,26 @@ Template['ratingTable'].onCreated = function () {
 
 Template['ratingTable'].rendered = function () {
 
+    var t= function() {
+        var $thead = $("#fixed-thead");
+       if ($(window).scrollTop() > 100) {
+           if (!$thead.hasClass("show")) {
+               $thead.css("width", $thead.width()+"px");
+               $thead.find("th").each(function(){
+                   $(this).css("width", $(this).innerWidth()+"px");
+               });
+               $thead.addClass("fixed-thead z-index-1 show");
+           }
+       } else {
+           $thead.removeClass("fixed-thead z-index-1 show");
+           $thead.css("width",'');
+           $thead.find("th").each(function(){
+               $(this).css("width", '');
+           });
+       }
+    };
+
+    $(window).scroll(t);
 };
 
 Session.setDefault("ratingSorter", {
