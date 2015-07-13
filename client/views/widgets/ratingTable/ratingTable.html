@@ -33,7 +33,15 @@
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
                     <span>{{percentsToText metrics.supplyChangePercents.day}}</span>
                     {{#tooltip}}
-                        <div>Current supply:
+
+                      <div>Ticker:
+                        <b>{{symbol}}</b>
+                      </div>
+                      <div>Currency name:
+                        <b>{{_name}}</b>
+                      </div>
+
+                      <div>Current supply:
                             <b>{{readableN metrics.supply 0}}</b>
                         </div>
                         <div>Absolute change:
