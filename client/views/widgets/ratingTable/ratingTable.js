@@ -11,7 +11,7 @@ Template['ratingTable'].onCreated = function () {
 
 Template['ratingTable'].rendered = function () {
 
-    var t= function() {
+    var t= _.throttle(function() {
         var $thead = $("#fixed-thead");
        if ($(window).scrollTop() > 100) {
            if (!$thead.hasClass("show")) {
@@ -19,16 +19,16 @@ Template['ratingTable'].rendered = function () {
                $thead.find("th").each(function(){
                    $(this).css("width", $(this).innerWidth()+"px");
                });
-               $thead.addClass("fixed-thead z-index-1 show");
+               $thead.addClass("fixed-thead show");
            }
        } else {
-           $thead.removeClass("fixed-thead z-index-1 show");
+           $thead.removeClass("fixed-thead show");
            $thead.css("width",'');
            $thead.find("th").each(function(){
                $(this).css("width", '');
            });
        }
-    };
+    }, 400);
 
     $(window).scroll(t);
 };

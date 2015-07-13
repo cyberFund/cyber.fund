@@ -2,16 +2,18 @@
     background-color: white;
     position: fixed;
     top: -80px;
-    -webkit-transition: all 0.3s linear;
-    -moz-transition: all 0.3s linear;
-    -ms-transition: all 0.3s linear;
-    -o-transition: all 0.3s linear;
-    transition: all 0.3s linear;
-    z-index: 200;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
     padding-top: 10px;
 }
 
 .fixed-thead.show {
     top: 55px;
-    //todo: mediaqueries
+}
+
+.z20 {
+    z-index: 20;
 }
