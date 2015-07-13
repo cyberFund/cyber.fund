@@ -6,22 +6,35 @@ function _normKey(str) { //thing is, elasticsearch by default returns long strin
     return str.slice(0, 15);
 }
 
-function _searchSelector(bucketKey) { //elasticsearch returns first 15 symbols + "..." if system name is longer than 15 symbols...
-    // i wish i knew how to change this
+function _searchSelector(bucketKey) {
+
+    // sym_sys is alike 'SYMBL|System'
+    bucketKey = bucketKey.split("|");
+    var selector = {};
+    if (bucketKey.length == 2) {
+        var symbol = bucketKey[0];
+        bucketKey = bucketKey[1];
+        selector.symbol = symbol;
+    } else {
+        bucketKey = bucketKey[0];
+    }
+
+    //elasticsearch returns first 15 symbols + "..." if system name is longer than 15 symbols...
     if (bucketKey.slice(-3) == "...") {
         bucketKey = bucketKey.slice(0, -3);
         var reg = new RegExp('^' + CF.Utils.escapeRegExp(bucketKey));
-        return {
+        return _.extend(selector, {
             $or: [
                 {"aliases.CoinMarketCap": {$regex: reg, $options: 'i'}},
                 {"name": {$regex: reg, $options: 'i'}}]
-        };
+        });
     }
-    return {
+
+    return _.extend(selector, {
         $or: [
             {"aliases.CoinMarketCap": bucketKey},
             {"name": bucketKey}]
-    };
+    });
 }
 
 var esParsers = {

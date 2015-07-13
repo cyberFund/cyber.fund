@@ -92,7 +92,7 @@ var latest_values = {
         "aggs": {
             "by_system": {
                 "terms": {
-                    "field": "system",
+                    "field": "sym_sys",
                     "size": 0
                 },
                 "aggs": {
@@ -109,7 +109,7 @@ var latest_values = {
                             ]
                         },
                         "aggs": most_recent_values
-                    },
+                    }
                 }
             }
         }
@@ -173,7 +173,7 @@ _.extend(ns, {
                         "aggs": {
                             "by_system": {
                                 "terms": {
-                                    "field": "system",
+                                    "field": "sym_sys",
                                     "size": 0
                                 },
                                 "aggs": {
