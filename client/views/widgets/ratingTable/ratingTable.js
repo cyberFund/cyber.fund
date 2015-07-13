@@ -13,7 +13,7 @@ Template['ratingTable'].rendered = function () {
 
     var t= _.throttle(function() {
         var $thead = $("#fixed-thead");
-       if ($(window).scrollTop() > 100) {
+       if ($(window).scrollTop() > 0) {
            if (!$thead.hasClass("show")) {
                $thead.css("width", $thead.width()+"px");
                $thead.find("th").each(function(){
