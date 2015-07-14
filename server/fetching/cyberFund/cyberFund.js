@@ -40,8 +40,13 @@ Meteor.startup(function () {
           if (!CurrentData.findOne(selector)) {
             CurrentData.insert(system);
           }
+
+
           else {
-            CurrentData.upsert(selector, {$set: _.omit(system, ['name', 'symbol'])});
+            var set = _.omit(system, ['name', 'symbol']);
+            var modifier = {$set: set};
+            if (!set.rating) modifier.$unset = {rating: true};
+            CurrentData.upsert(selector, modifier);
           }
         });
         //}
