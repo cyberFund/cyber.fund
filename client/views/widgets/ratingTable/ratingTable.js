@@ -10,19 +10,26 @@ Template['ratingTable'].onCreated = function () {
 };
 
 Template['ratingTable'].rendered = function () {
-
+    var $thead = $("#fixed-thead");
+    var $thead0 = $("#normal-thead");
+    function recalcWidths(){
+        var widths = [];
+        $thead0.find("th").each(function(i, el){
+            widths[i] = $(el).innerWidth();
+        });
+        $thead.find("th").each(function(i, el){
+            $(el).css("width", widths[i]+"px");
+        });
+    }
     var t= _.throttle(function() {
-        var $thead = $("#fixed-thead");
        if ($(window).scrollTop() > 0) {
            if (!$thead.hasClass("show")) {
-               $thead.css("width", $thead.width()+"px");
-               $thead.find("th").each(function(){
-                   $(this).css("width", $(this).innerWidth()+"px");
-               });
-               $thead.addClass("fixed-thead show");
+               //$thead.css("height", $thead0.height()+"px");
+               recalcWidths()
+               $thead.addClass("show");
            }
        } else {
-           $thead.removeClass("fixed-thead show");
+           $thead.removeClass("show");
            $thead.css("width",'');
            $thead.find("th").each(function(){
                $(this).css("width", '');
@@ -31,6 +38,8 @@ Template['ratingTable'].rendered = function () {
     }, 400);
 
     $(window).scroll(t);
+    $(window).resize(recalcWidths);
+    $(window).trigger("resize");
 };
 
 Session.setDefault("ratingSorter", {
