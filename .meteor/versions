@@ -13,6 +13,7 @@ check@1.0.5
 coffeescript@1.0.6
 cyberfund:cyberfund-base@0.0.1
 cyberfund:cyberfund-chaingear@0.0.1
+cyberfund:cyberfund-currentdata@0.0.1
 cyberfund:cyberfund-es@0.0.1
 cyberfund:cyberfund-marketdata@0.0.1
 ddp@1.1.0

@@ -4,7 +4,6 @@ Template['systemBasic'].rendered = function () {
 
 Template['systemBasic'].helpers({
   'curData': function () {
-    console.log(Router.current().params.name_);
     return CurrentData.findOne({
       name: Blaze._globalHelpers._toS(Router.current().params.name_)
     });

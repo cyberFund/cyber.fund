@@ -34,6 +34,18 @@ Meteor.publish('customMarketData', function(selector, options){ //TODO: refactor
   return MarketData.find(selector, options);
 });
 
+Meteor.publish('systemData', function(options) {
+  var name = options.name;
+  var symbol = options.symbol;
+  if (symbol && name)
+    return CurrentData.find(CF.CurrentData.selectors.name_symbol(name, symbol));
+  if (name)
+    return CurrentData.find(CF.CurrentData.selectors.name(name));
+  if (symbol)
+    return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
+  return [];
+});
+
 Meteor.publish('crowdsale', function(){
   return CurrentData.find(CF.Chaingear.selector.crowdsales);
 });
