@@ -21,7 +21,6 @@
 Template.body.events({
   'click a[target="_blank"]': function (e, t) {
     if (analytics) {
-      console.log('track');
       analytics.track("Clicked External Link",
         {
           link: $(e.currentTarget).attr('href')

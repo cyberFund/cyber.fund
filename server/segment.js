@@ -1,4 +1,3 @@
-
 Meteor.startup(function() {
 
 	var SEGMENT_KEY = null;
