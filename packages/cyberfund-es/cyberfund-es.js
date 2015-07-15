@@ -130,18 +130,18 @@ _.extend(ns, {
 
             var q;
             if (params.system) { // we thus able accepting single query. yet, not sure if it is effective..
-                q = {"term": {"system": params.system}};
+                q = {"term": {"sym_sys": params.system}};
                 return _extendQuery(qObj, q);
             }
             if (params.systems) { // we thus able accepting single query. yet, not sure if it is effective..
                 q = {"bool": {"should": []}};
                 _.each(params.systems, function (item) {
-                    q.bool.should.push({"term": {"system": item}});
+                    q.bool.should.push({"term": {"sym_sys": item}});
                 });
                 return _extendQuery(qObj, q);
 
             }
-            return _extendQuery(qObj, {"wildcard": {"system": "*"}});
+            return qObj;//_extendQuery(qObj, {"wildcard": {"sym_sys": "*"}});
         },
 
         averages_last_15m: {

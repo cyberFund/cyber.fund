@@ -50,6 +50,7 @@ var esParsers = {
 
         var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
         if (!_.isArray(buckets)) return;
+        logger.info("latest values fetched: total of " + buckets.length + " buckets");
         _.each(buckets, function (bucket) {
 
             // elasticsearch returns 'date range' buckets in custom order,
@@ -78,10 +79,16 @@ var esParsers = {
 
             if (_.isArray(current.latest.hits.hits) && current.latest.hits.hits.length > 0) {
                 sNow = current.latest.hits.hits[0]._source;
+            } else {
+                logger.info("no current data for " + bucket.key);
+                console.log(bucket);
+                console.log();
             }
 
             if (_.isArray(dayAgo.latest.hits.hits) && dayAgo.latest.hits.hits.length > 0) {
                 sDayAgo = dayAgo.latest.hits.hits[0]._source;
+            } else {
+                logger.info("no yesterday data for " + bucket.key);
             }
 
             if (_.isEmpty(sNow)) return;
@@ -147,19 +154,22 @@ var esParsers = {
 
             if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
             if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
-            if (!_.isEmpty(set))
+            if (!_.isEmpty(set)) {
                 CurrentData.update(_searchSelector(bucket.key), {$set: set});
+            } else {
+               // logger.info("no averages for " + bucket.key);
+            }
         });
     }
 };
 
-function fetchLatest() {
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values"));
+function fetchLatest(params) {
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
     esParsers.latest_values(result)
 }
 
-function fetchAverage15m() {
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m"));
+function fetchAverage15m(params) {
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
     esParsers.averages_l15(result);
 
 }

@@ -8,13 +8,17 @@ _.extend(CF.Utils, {
      * @returns promise {*}
      */
     extractFromPromise: function extractFromPromise(promise) {
-        var fut = new Future();
-        promise.then(function (result) {
-            fut["return"](result);
-        }, function (error) {
-            fut["throw"](error);
-        });
-        return fut.wait();
+        if (promise.then) {
+            var fut = new Future();
+            promise.then(function (result) {
+                fut["return"](result);
+            }, function (error) {
+                fut["throw"](error);
+            });
+            return fut.wait();
+        } else { //in case promise already resolved
+            return promise;
+        }
     },
     escapeRegExp: function escapeRegexp(str) {
         return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
