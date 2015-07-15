@@ -133,6 +133,7 @@ var esParsers = {
             }
 
             if (!_.isEmpty(set)) {
+                set.updatedAt = new Date();
                 // console.log(set);
                 CurrentData.update(_searchSelector(bucket.key), {$set: set});
             }

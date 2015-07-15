@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-
+/*
 	var SEGMENT_KEY = null;
 
 	if ("SEGMENT_KEY" in process.env) {
@@ -14,7 +14,7 @@ Meteor.startup(function() {
 			return SEGMENT_KEY;
 		}
 	});
-
+*/
 }); //obsolete, not needed.
 
 

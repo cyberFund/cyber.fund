@@ -59,6 +59,12 @@
                         <div>Absolute change:
                             <b>{{readableN metrics.supplyChange.day 0}}</b>
                         </div>
+                      <div>Debug:
+                        {{#if updatedAt}}
+                        <b>{{updatedAt}}</b>
+                          {{/if}}
+                      </div>
+
                     {{/tooltip}}
                 {{/withTooltip}}</td>
 
