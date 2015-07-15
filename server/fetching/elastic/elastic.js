@@ -89,6 +89,7 @@ var esParsers = {
                 sDayAgo = dayAgo.latest.hits.hits[0]._source;
             } else {
                 logger.info("no yesterday data for " + bucket.key);
+                console.log();
             }
 
             if (_.isEmpty(sNow)) return;
