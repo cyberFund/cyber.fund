@@ -70,17 +70,6 @@ var most_recent_values = {
         "top_hits": {
             "size": 1,
             "sort": [{"timestamp": {"order": "desc"}}], // sort order here interfers with ranges!!!11
-            "_source": {
-                "include": [
-                    "supply_current",
-                    "price_usd",
-                    "price_btc",
-                    "volume24_btc",
-                    "volume24_usd",
-                    "cap_btc",
-                    "cap_usd"
-                ]
-            }
         }
     }
 };
@@ -103,9 +92,9 @@ var latest_values = {
                                 // NOTE: resulting ranges seem being influenced by timestamp sorting we do in nested
                                 // 'most_recent_values' aggregation. thus, re-indexing of `by_time` buckets is needed.
 
-                                {"from": "now-1d","to": "now"}, // latest goes from here
-                                {"from":"now-7d", "to": "now-1d"} //yesterday's goes from here.
-                                //{"to": "now-7d"} //week ago..
+                                {"from": "now-8h","to": "now"}, // latest goes from here
+                                {"from":"now-1d-8h", "to": "now-1d"} //yesterday's goes from here.
+                                //{"from": "now-7d-8h", "to": "now-7d"} //week ago..
                             ]
                         },
                         "aggs": most_recent_values
