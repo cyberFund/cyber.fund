@@ -4,7 +4,7 @@ CF.Chaingear.helpers = {
         var icon = (that.icon ? that.icon : that.system) || '';
         icon = icon.toString().toLowerCase();
 
-        return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/" + ret + ".png";
+        return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/" + icon + ".png";
     }
 };
 

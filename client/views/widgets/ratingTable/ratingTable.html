@@ -34,7 +34,7 @@
                         {{> cgIcon data=this style="width: 40px; height: 40px;vertical-align:middle"}}
 
                         <span class="enlarge"
-                              style="vertical-align: middle">&nbsp;{{_name}}</span>
+                              style="vertical-align: middle">&nbsp;{{displaySystem}}</span>
                     </a>
                 </td>
 
@@ -50,7 +50,7 @@
                         <b>{{symbol}}</b>
                       </div>
                       <div>Currency name:
-                        <b>{{_name}}</b>
+                        <b>{{displaySystem}}</b>
                       </div>
 
                       <div>Current supply:
@@ -95,7 +95,7 @@
                     Ƀ&nbsp;{{readableN metrics.cap.btc 0}}
                     {{#if metrics.price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{_name}}:<br/>
+                            <div>Price per 1 {{displaySystem}}:<br/>
                                 <b>Ƀ&nbsp;{{metrics.price.btc}}</b>
                             </div>
                         {{/tooltip}}
@@ -118,7 +118,7 @@
                     <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
                     {{#if metrics.price.usd}}
                         {{#tooltip}}
-                            <div>Price per 1 {{_name}}:<br/>
+                            <div>Price per 1 {{displaySystem}}:<br/>
                                 <b>$&nbsp;{{metrics.price.usd}}</b>
                             </div>
                         {{/tooltip}}

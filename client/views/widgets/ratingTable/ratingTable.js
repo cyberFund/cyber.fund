@@ -55,8 +55,8 @@ Template['ratingTable'].helpers({
         return CF.Chaingear.helpers.cgIcon(this);
     },
     // either currency name or name
-    _name: function () { //see "ALIASES"
-        return this.aliases.CurrencyName || this.name;
+    displaySystem: function () { //see "ALIASES"
+        return this.aliases.CurrencyName || this.nickname;
     },
     symbol: function() {
         if (this.token && this.token.token_symbol) {
@@ -67,7 +67,7 @@ Template['ratingTable'].helpers({
     },
     // underscored currency name
     name_: function () {
-        return Blaze._globalHelpers._toU(this.name);
+        return Blaze._globalHelpers._toU(this.system);
     },
     percentsToText: function (percents) {
         if (percents < 0) {

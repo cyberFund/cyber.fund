@@ -36,6 +36,7 @@ Meteor.publish('customMarketData', function(selector, options){ //TODO: refactor
 });
 
 Meteor.publish('systemData', function(options) {
+  //still using name & symbol. probably got to refactor to avoid confusion in future
   var name = options.name;
   var symbol = options.symbol;
   if (symbol && name)

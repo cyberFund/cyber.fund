@@ -31,7 +31,6 @@ function _searchSelector(bucketKey) {
   selector = {"system": bucketKey};
 
   selector["token.token_symbol"] = symbol;
-  console.log(selector);
   return selector;
 }
 
