@@ -1,3 +1,3 @@
-Meteor.autorun(function(){
-	//Meteor.subscribe('userData');
+Tracker.autorun(function(){
+	Meteor.subscribe('userDetails');
 });

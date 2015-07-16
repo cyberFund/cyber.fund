@@ -15,39 +15,47 @@ Meteor.methods({
 
 Meteor.publish("fresh-price", function () {
   //return MarketData.find({"token.token_symbol": 'BTC', 'metrics.price': {$exists: true}},
-    //{sort: {timestamp: -1}, limit: 1});
+  //{sort: {timestamp: -1}, limit: 1});
   return []; // no marketdata as of now
 });
 
-Meteor.publish(null, function () {
+Meteor.publish('userDetails', function () {
+  //console.log(Meteor.users.findOne({_id: this.userId}));
+
   return Meteor.users.find({_id: this.userId}, {
-    fields: { "services.twitter.screenName": 1, "services.twitter.profile_image_url_https": 1}
+    fields: {
+      "services.twitter.screenName": 1,
+      "services.twitter.profile_image_url_https": 1
+    }
   });
 });
 
-Meteor.publish('customCurrentData', function(selector, options){ //TODO: refactor this and all usages. this is not safe
+Meteor.publish('customCurrentData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
   options = options || {};
   return CurrentData.find(selector, options);
 });
 
-Meteor.publish('customMarketData', function(selector, options){ //TODO: refactor this and all usages. this is not safe
+Meteor.publish('customMarketData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
   options = options || {};
   return MarketData.find(selector, options);
 });
 
-Meteor.publish('systemData', function(options) {
+Meteor.publish('systemData', function (options) {
   //still using name & symbol. probably got to refactor to avoid confusion in future
   var name = options.name;
   var symbol = options.symbol;
-  if (symbol && name)
+  if (symbol && name) {
     return CurrentData.find(CF.CurrentData.selectors.name_symbol(name, symbol));
-  if (name)
+  }
+  if (name) {
     return CurrentData.find(CF.CurrentData.selectors.name(name));
-  if (symbol)
+  }
+  if (symbol) {
     return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
+  }
   return [];
 });
 
-Meteor.publish('crowdsale', function(){
+Meteor.publish('crowdsale', function () {
   return CurrentData.find(CF.Chaingear.selector.crowdsales);
 });

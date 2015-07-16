@@ -46,7 +46,7 @@
 
 <template name="userDropdown">
   {{#if currentUser}}
-    {{#if currentUser.services.twitter}}
+    {{#if and currentUser.services currentUser.services.twitter}}
 
       <a href="/profile" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.services.twitter.profile_image_url_https}}
