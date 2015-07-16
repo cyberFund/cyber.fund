@@ -33,19 +33,14 @@ Meteor.startup(function () {
         }
         //if (CurrentData.find().count() < 1000) {
         _.each(getResult, function (system) {
-          var selector = {
-            name: system.name,
-            symbol: system.symbol
-          };
+          var selector = CF.CurrentData.selectors.name_symbol(system.name, system.symbol);
           if (!CurrentData.findOne(selector)) {
             CurrentData.insert(system);
           }
-
-
           else {
-            var set = _.omit(system, ['name', 'symbol']);
+            var set = _.omit(system, ['system', 'symbol']);
             var modifier = {$set: set};
-            if (!set.rating) modifier.$unset = {rating: true};
+            if (!set["ratings.rating"]) modifier.$unset = {"ratings.rating": true};
             CurrentData.upsert(selector, modifier);
           }
         });

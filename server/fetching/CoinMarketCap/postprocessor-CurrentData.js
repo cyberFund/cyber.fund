@@ -72,7 +72,7 @@ Meteor.startup(function() {
 			});
 
 			CurrentData.upsert({
-				name: newSystemData.name,
+				system: newSystemData.name,
 				symbol: newSystemData.symbol
 			}, { $set: fieldsToUpdate });
 		});

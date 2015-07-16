@@ -1,15 +1,15 @@
 Meteor.publish("current-data", function (options) {
   options = options || {};
   var selector = {};
-  var params = {sort: {"rating": -1, "cap.btc": -1}};
-  if (!isNaN(options.rating)) selector["metrics.rating"] = {$gte: options.rating};
+  var params = {sort: {"ratings.rating": -1, "metrics.cap.btc": -1}};
+  if (!isNaN(options["ratings.rating"])) selector["ratings.rating"] = {$gte: options["ratings.rating"]};
   if (!isNaN(options.limit)) params.limit = options.limit;
   return CurrentData.find(selector, params);
 });
 
 Meteor.methods({
   currentDataCount: function () {
-    return CurrentData.find({"cap.btc": {$gt: 0}}).count();
+    return CurrentData.find({"metrics.cap.btc": {$gt: 0}}).count();
   }
 });
 

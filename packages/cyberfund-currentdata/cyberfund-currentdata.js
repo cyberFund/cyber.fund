@@ -1,15 +1,15 @@
 // Write your package code here!
 CF.CurrentData = {
-    selectors: {
+    selectors: { //todo: rename selectors to avoid confusin (echoes of name->system migration)
         name_symbol: function(name, symbol){
             return {
                 symbol: symbol,
-                $or: [{"aliases.CurrencyName": name},{"name": name}]
+                system: name
             }
         },
         name: function(name){
             return {
-                $or: [{"aliases.CurrencyName": name},{"name": name}]
+                system: name
             }
         },
         symbol: function(symbol){

@@ -52,7 +52,7 @@ Template['btcPrice'].events({
 Template['btcPriceSimple'].helpers({
   price: function(){
     //var prices = CF.MarketData.btcPriceaLatestDoc();
-    var btc = CurrentData.findOne({name: "Bitcoin"});
+    var btc = CurrentData.findOne({system: "Bitcoin"});
     if (btc) return Blaze._globalHelpers.readableNumbers( parseFloat(btc.metrics.price.usd).toFixed(2));
     return ""
   }

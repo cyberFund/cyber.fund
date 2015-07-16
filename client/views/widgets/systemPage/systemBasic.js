@@ -5,7 +5,7 @@ Template['systemBasic'].rendered = function () {
 Template['systemBasic'].helpers({
   'curData': function () {
     return CurrentData.findOne({
-      name: Blaze._globalHelpers._toS(Router.current().params.name_)
+      system: Blaze._globalHelpers._toS(Router.current().params.name_)
     });
   },
   'img_url': function () {
