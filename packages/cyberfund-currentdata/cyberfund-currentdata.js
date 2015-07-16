@@ -3,7 +3,7 @@ CF.CurrentData = {
     selectors: { //todo: rename selectors to avoid confusin (echoes of name->system migration)
         name_symbol: function(name, symbol){
             return {
-                symbol: symbol,
+                "token.token_symbol": symbol,
                 system: name
             }
         },
@@ -13,7 +13,7 @@ CF.CurrentData = {
             }
         },
         symbol: function(symbol){
-            return {symbol: symbol}
+            return {"token.token_symbol": symbol}
         }
     }
 };

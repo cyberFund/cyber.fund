@@ -1,4 +1,4 @@
-var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
+/*var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
 var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000;
 
 var logger = log4js.getLogger("meteor-fetching");
@@ -131,3 +131,4 @@ Meteor.startup(function() {
 	//Meteor.setInterval(fetch, fetchInterval);
 
 });
+*/

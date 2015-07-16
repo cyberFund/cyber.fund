@@ -1,4 +1,4 @@
-Meteor.startup(function() {
+/*Meteor.startup(function() {
 	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		if (source !== "CoinMarketCap") {
 			return;
@@ -79,3 +79,4 @@ Meteor.startup(function() {
 	});
 
 });
+*/

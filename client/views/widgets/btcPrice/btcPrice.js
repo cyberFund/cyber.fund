@@ -8,7 +8,7 @@ Meteor.startup(function(){
 Template['btcPrice'].rendered = function () {
   var self = this;
   Tracker.autorun(function () {
-    var r = CF.MarketData.btcPriceaLatestDoc();
+    var r = null;// todo: switch to currentData same as in simple widget// CF.MarketData.btcPriceaLatestDoc();
 
     if (r && r.metrics)
       $('.dropdown-button').dropdown(/*{
@@ -26,7 +26,7 @@ Template['btcPrice'].rendered = function () {
 Template['btcPrice'].helpers({
   'keys': function () {
     //console.log(MarketData);
-    var r = CF.MarketData.btcPriceaLatestDoc();
+    var r = null//CF.MarketData.btcPriceaLatestDoc();
     return _.keys( (r && r.metrics) ? r.metrics.price : {});
   },
   currency: function(){
@@ -36,7 +36,7 @@ Template['btcPrice'].helpers({
     return  (currency.get() == key) ? 'selected': '';
   },
   price: function(){
-    var prices = CF.MarketData.btcPriceaLatestDoc();
+    var prices = null// see line 10// CF.MarketData.btcPriceaLatestDoc();
     if (prices) return Blaze._globalHelpers.readableNumbers( parseFloat(prices.metrics.price[currency.get()]).toFixed(2));
     return ""
   }
@@ -53,7 +53,7 @@ Template['btcPriceSimple'].helpers({
   price: function(){
     //var prices = CF.MarketData.btcPriceaLatestDoc();
     var btc = CurrentData.findOne({system: "Bitcoin"});
-    if (btc) return Blaze._globalHelpers.readableNumbers( parseFloat(btc.metrics.price.usd).toFixed(2));
+    if (btc && btc.metrics) return Blaze._globalHelpers.readableNumbers( parseFloat(btc.metrics.price.usd).toFixed(2));
     return ""
   }
 })

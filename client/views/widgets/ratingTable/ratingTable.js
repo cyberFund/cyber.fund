@@ -58,6 +58,13 @@ Template['ratingTable'].helpers({
     _name: function () { //see "ALIASES"
         return this.aliases.CurrencyName || this.name;
     },
+    symbol: function() {
+        if (this.token && this.token.token_symbol) {
+            return this.token.token_symbol
+        }
+        console.log("not found symbol for `" + this.system + '` system');
+        return "";
+    },
     // underscored currency name
     name_: function () {
         return Blaze._globalHelpers._toU(this.name);

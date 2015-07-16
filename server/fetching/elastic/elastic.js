@@ -30,7 +30,8 @@ function _searchSelector(bucketKey) {
   }
   selector = {"system": bucketKey};
 
-  selector.symbol = symbol;
+  selector["token.token_symbol"] = symbol;
+  console.log(selector);
   return selector;
 }
 
@@ -144,7 +145,7 @@ var esParsers = {
     });
     if (notFounds.length) {
       logger.info("not found any currentData for ");
-      logger.info(notFounds);
+      logger.info(notFounds.length);
 
     }
     /*console.log(buckets[0]);

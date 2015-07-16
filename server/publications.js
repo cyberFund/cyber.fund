@@ -14,8 +14,9 @@ Meteor.methods({
 });
 
 Meteor.publish("fresh-price", function () {
-  return MarketData.find({symbol: 'BTC', 'metrics.price': {$exists: true}},
-    {sort: {timestamp: -1}, limit: 1});
+  //return MarketData.find({"token.token_symbol": 'BTC', 'metrics.price': {$exists: true}},
+    //{sort: {timestamp: -1}, limit: 1});
+  return []; // no marketdata as of now
 });
 
 Meteor.publish(null, function () {

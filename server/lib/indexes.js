@@ -20,8 +20,8 @@ Meteor.startup(function() {
 	//CurrentData._ensureIndex({ name: 1, symbol: 1 });
 
 	CurrentData._ensureIndex({
-		name: 1,
-		symbol: 1,
+		"system": 1,
+		"token.token_symbol": 1,
 	}, {
 		unique: true,
 		sparse: true,
