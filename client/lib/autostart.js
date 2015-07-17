@@ -1,5 +1,10 @@
 Tracker.autorun(function(){
 	Meteor.subscribe('userDetails');
+	if (Meteor.user()) {
+		Meteor.call("getUserNumber", function(err, ret){
+			Session.set("userRegistracionCount", ret)
+		})
+	}
 });
 
 if (Package['iron:router']) {
