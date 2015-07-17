@@ -64,7 +64,7 @@ Template['ratingTable'].helpers({
         if (this.token && this.token.token_symbol) {
             return this.token.token_symbol
         }
-        console.log("not found symbol for `" + this.system + '` system');
+        //console.log("not found symbol for `" + this.system + '` system');
         return "";
     },
     // underscored currency name
@@ -191,8 +191,6 @@ Template['ratingTable'].events({
     'click #test': function (e, t) {
         var table = t.$("table#rating-table");
         table.find("thead th").each(function () {
-            console.log(t.$(this).width());
-
         })
     },
     'click .no-click a': function(){
