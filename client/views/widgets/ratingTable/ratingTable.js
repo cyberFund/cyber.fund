@@ -194,5 +194,8 @@ Template['ratingTable'].events({
             console.log(t.$(this).width());
 
         })
+    },
+    'click .no-click a': function(){
+        return false;
     }
 });

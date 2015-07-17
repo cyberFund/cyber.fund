@@ -29,10 +29,10 @@
         <tbody>
         {{#each rows}}
             <tr style="vertical-align: middle">
-                <td class="left-align">
-                    <div mhref="{{pathFor 'system1' name_=name_}}" style="font-weight: 400; display: inline; white-space: nowrap;">
+                <td class="left-align no-click" >
+                    <a href="{{pathFor 'system1' name_=name_}}" style="cursor: text; display: inline; white-space: nowrap;">
                         {{> cgIcon data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
-                    </div>
+                    </a>
                 </td>
 
                 <td class="center-align hide-on-small-and-down">
@@ -56,11 +56,6 @@
                         <div>Absolute change:
                             <b>{{readableN metrics.supplyChange.day 0}}</b>
                         </div>
-                      <div>Debug:
-                        {{#if updatedAt}}
-                        <b>{{updatedAt}}</b>
-                          {{/if}}
-                      </div>
 
                     {{/tooltip}}
                 {{/withTooltip}}</td>
