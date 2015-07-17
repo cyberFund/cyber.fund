@@ -1,120 +1,130 @@
 <!-- originally created for cyber.fund project-->
 <template name="portfolioPage">
-  <div class="row">
-    <div class="col l12 m6 s4 center">
-      <br>
-      <img src="http://cybertalks.org/user_avatar/cybertalks.org/21xhipster/120/5_1.png">
-      <h5>Dima Starodubcev</h5>
-      <h6>Architect</h6>
-      <br>
-      <h3>Show Me the Money!</h3>
-      <br>
-      <div>{{> atNavButton }}</div>
-      <br>
-      <br>
-    </div>
     <div class="row">
-      <div class="col l4 center">
-        <i class="large material-icons deep-orange-text">directions_walk</i>
-        <h4>Realtime Valuation</h4>
-        <p>We crunch market data for all blockchains and even for some notable inliquid blockchain assets</p>
-      </div>
-      <div class="col l4 center">
-        <i class="large material-icons yellow-text">directions_run</i>
-        <h4>Balance Autoupdate</h4>
-        <p>For majority of blockchains balances are updated automaticaly. Just put your address and it will be tracked</p>
-      </div>
-      <div class="col l4 center">
-        <i class="large material-icons lime-text">directions_bike</i>
-        <h4>Trustless</h4>
-        <p>We also invest in blockchains a lot. So we care about security. We never touch your private keys</p>
-      </div>
-      <br>
-      <br>
-      <br>
-      <br>
-    </div>
-  </div>
+        <div class="col l12 m6 s4 center">
+            <br>
+            <img src="http://cybertalks.org/user_avatar/cybertalks.org/21xhipster/120/5_1.png">
+            <h5>Dima Starodubcev</h5>
+            <h6>Architect</h6>
+            <br>
 
-
-  <!-- <div class="row">
-    <div class="s12 m4 l4">
-      <h1>126 bitcoins</h1>
-
-      <h2>$ 25,7364</h2>
-    </div>
-    <div class="s12 m4 l4">
-
-    </div>
-    <div class="s12 m4 l4">
-
-    </div>
-  </div>
-
-  <div class="row">
-    <table class="hoverable card">
-      <thead>
-      <tr>
-        <th data-field="id">Account</th>
-        <th data-field="name">Address</th>
-        <th data-field="price">Token</th>
-        <th data-field="price">Balance</th>
-        <th data-field="price">Actions</th>
-      </tr>
-      </thead>
-
-      <tbody>
-      <tr>
-        <td>NCC</td>
-        <td>NDJAKL-V5WPRZ-PBG3DS-JBC4Y6-KRGNML-4W2XC2-KPPX</td>
-        <td>NEM</td>
-        <td>4,005,234</td>
-        <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
-      </tr>
-      <tr>
-        <td>Coinprism</td>
-        <td>akNSFDbQ5qnDQJqS2TqEsSXcssErkZ1sUvf</td>
-        <td>cyber•Fund</td>
-        <td>250000</td>
-        <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td>cyber•Shares</td>
-        <td>10000</td>
-        <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
-      </tr>
-      <tr>
-        <td>Genesis Purchase</td>
-        <td>7c4401ae98f12ef6de39ae24cf9fc51f80eba16b</td>
-        <td>Ethereum</td>
-        <td>10200</td>
-        <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
-      </tr>
-      </tbody>
-    </table>
-
-    <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#addaccount">
-      <i class="large mdi-action-account-balance-wallet"></i>
-    </a>
-  </div>
-  <div class="row">
-    <h3>Check balance</h3>
-
-    <form class="col s12 black-text">
-      <div class="row">
-        <div class="input-field col s6">
-          <i class="mdi-input"></i>
-          <input id="account" type="text">
-          <label for="account">Token</label>
+            <h3>Show Me the Money!</h3>
+            <br>
+            {{#if not currentUser}}
+                <div>{{> atNavButton }}</div>
+            {{/if}}
+            <br>
+            <br>
         </div>
-        <div class="col s6">
-          <button class="btn waves-effect waves-light check-balance" type="button">Query
-          </button>
+        <div class="row">
+            <div class="col l4 center">
+                <i class="large material-icons deep-orange-text">directions_walk</i>
+                <h4>Realtime Valuation</h4>
+
+                <p>We crunch market data for all blockchains and even for some
+                    notable inliquid blockchain assets</p>
+            </div>
+            <div class="col l4 center">
+                <i class="large material-icons yellow-text">directions_run</i>
+                <h4>Balance Autoupdate</h4>
+
+                <p>For majority of blockchains balances are updated
+                    automaticaly. Just put your address and it will be
+                    tracked</p>
+            </div>
+            <div class="col l4 center">
+                <i class="large material-icons lime-text">directions_bike</i>
+                <h4>Trustless</h4>
+
+                <p>We also invest in blockchains a lot. So we care about
+                    security. We never touch your private keys</p>
+            </div>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
-      </div>
-    </form>
-  </div> -->
+    </div>
+
+
+    <!-- <div class="row">
+	  <div class="s12 m4 l4">
+		<h1>126 bitcoins</h1>
+
+		<h2>$ 25,7364</h2>
+	  </div>
+	  <div class="s12 m4 l4">
+
+	  </div>
+	  <div class="s12 m4 l4">
+
+	  </div>
+	</div>
+
+	<div class="row">
+	  <table class="hoverable card">
+		<thead>
+		<tr>
+		  <th data-field="id">Account</th>
+		  <th data-field="name">Address</th>
+		  <th data-field="price">Token</th>
+		  <th data-field="price">Balance</th>
+		  <th data-field="price">Actions</th>
+		</tr>
+		</thead>
+
+		<tbody>
+		<tr>
+		  <td>NCC</td>
+		  <td>NDJAKL-V5WPRZ-PBG3DS-JBC4Y6-KRGNML-4W2XC2-KPPX</td>
+		  <td>NEM</td>
+		  <td>4,005,234</td>
+		  <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+		</tr>
+		<tr>
+		  <td>Coinprism</td>
+		  <td>akNSFDbQ5qnDQJqS2TqEsSXcssErkZ1sUvf</td>
+		  <td>cyber•Fund</td>
+		  <td>250000</td>
+		  <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+		</tr>
+		<tr>
+		  <td></td>
+		  <td></td>
+		  <td>cyber•Shares</td>
+		  <td>10000</td>
+		  <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+		</tr>
+		<tr>
+		  <td>Genesis Purchase</td>
+		  <td>7c4401ae98f12ef6de39ae24cf9fc51f80eba16b</td>
+		  <td>Ethereum</td>
+		  <td>10200</td>
+		  <td><a class="wave-effect wave-light btn-flat">Update balance</a></td>
+		</tr>
+		</tbody>
+	  </table>
+
+	  <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#addaccount">
+		<i class="large mdi-action-account-balance-wallet"></i>
+	  </a>
+	</div>
+	<div class="row">
+	  <h3>Check balance</h3>
+
+	  <form class="col s12 black-text">
+		<div class="row">
+		  <div class="input-field col s6">
+			<i class="mdi-input"></i>
+			<input id="account" type="text">
+			<label for="account">Token</label>
+		  </div>
+		  <div class="col s6">
+			<button class="btn waves-effect waves-light check-balance" type="button">Query
+			</button>
+		  </div>
+		</div>
+	  </form>
+	</div> -->
 
 </template>

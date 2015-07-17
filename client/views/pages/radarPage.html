@@ -9,7 +9,9 @@
       <br>
       <h3>Don't Miss a Thing!</h3>
       <br>
+        {{#if not currentUser}}
       <div>{{> atNavButton }}</div>
+        {{/if}}
       <br>
       <br>
     </div>
