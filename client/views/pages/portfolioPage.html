@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="portfolioPage">
     <div class="row">
-        <div class="col l12 m6 s4 center">
+        <div class="col l12 m12 s12 center">
             <br>
             <img src="http://cybertalks.org/user_avatar/cybertalks.org/21xhipster/120/5_1.png">
             <h5>Dima Starodubcev</h5>
@@ -10,9 +10,15 @@
 
             <h3>Show Me the Money!</h3>
             <br>
+
             {{#if not currentUser}}
-                <div>{{> atNavButton }}</div>
+                <div class="row">
+                    <div class="col s12 m6 offset-m3 l4-offet-l4">
+                        {{> atForm }}
+                    </div>
+                </div>
             {{/if}}
+
             <br>
             <br>
         </div>
