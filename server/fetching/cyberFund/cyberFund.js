@@ -34,13 +34,33 @@ Meteor.startup(function () {
         //if (CurrentData.find().count() < 1000) {
         _.each(getResult, function (system) {
           var selector = CF.CurrentData.selectors.name_symbol(system.name, system.symbol);
-          if (!CurrentData.findOne(selector)) {
+          var doc = CurrentData.findOne(selector);
+          if (!doc) {
+            if (system.specs && (system.specs.supply || system.specs.cap)) {
+              // push supply & caps to metrics
+              system.metrics = system.metrics || {};
+              system.metrics.supply = system.specs.supply;
+              system.metrics.cap = system.specs.cap
+
+            }
+
             CurrentData.insert(system);
           }
           else {
             var set = _.omit(system, ['system', 'symbol']);
+            // push supply & caps to metrics
+            if (system.specs) {
+              if (doc.specs.supply) {
+                set["metrics.supply"] = system.specs.supply;
+              }
+              if (doc.specs.cap) {
+                set["metrics.cap.usd"] = system.specs.cap.usd;
+                set["metrics.cap.btc"] = system.specs.cap.btc;
+              }
+            }
+
             var modifier = {$set: set};
-            if (!set["ratings.rating"]) modifier.$unset = {"ratings.rating": true};
+            if (!set["ratings.rating_cyber"]) modifier.$unset = {"ratings.rating_cyber": true};
             CurrentData.upsert(selector, modifier);
           }
         });

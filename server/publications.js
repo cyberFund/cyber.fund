@@ -1,8 +1,8 @@
 Meteor.publish("current-data", function (options) {
   options = options || {};
   var selector = {};
-  var params = {sort: {"ratings.rating": -1, "metrics.cap.btc": -1}};
-  if (!isNaN(options["ratings.rating"])) selector["ratings.rating"] = {$gte: options["ratings.rating"]};
+  var params = {sort: {"ratings.rating_cyber": -1, "metrics.cap.btc": -1}};
+  if (!isNaN(options["ratings.rating_cyber"])) selector["ratings.rating_cyber"] = {$gte: options["ratings.rating_cyber"]};
   if (!isNaN(options.limit)) params.limit = options.limit;
   return CurrentData.find(selector, params);
 });

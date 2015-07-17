@@ -122,3 +122,7 @@ main {
 table.hoverable-my tr:hover {
 	background-color: rgba(0,0,0,0.05);
 }
+
+.alike-navlink {
+	padding: 0 15px;
+}

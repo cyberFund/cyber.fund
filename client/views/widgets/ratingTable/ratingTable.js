@@ -1,4 +1,4 @@
-Session.setDefault('curDataSelector', {"ratings.rating": 5});
+Session.setDefault('curDataSelector', {"ratings.rating_cyber": 5});
 
 Deps.autorun(function () {
     Meteor.subscribe("current-data", Session.get('curDataSelector'));
@@ -22,7 +22,9 @@ Template['ratingTable'].rendered = function () {
         });
     }
     var t= _.throttle(function() {
-       if ($(window).scrollTop() > 0) {
+        var $w = $(window);
+        var scrolltop = $w.scrollTop();
+       if (scrolltop > 0 && scrolltop < ($("#rating-table").height() - $w.height() ))  {
            if (!$thead.hasClass("show")) {
                //$thead.css("height", $thead0.height()+"px");
                recalcWidths()
@@ -43,7 +45,7 @@ Template['ratingTable'].rendered = function () {
 };
 
 Session.setDefault("ratingSorter", {
-    "ratings.rating": -1,
+    "ratings.rating_cyber": -1,
     "metrics.cap.btc": -1
 });
 
@@ -129,11 +131,11 @@ Template['ratingTable'].helpers({
     hasMore: function () {
         var sel = Session.get("curDataSelector");
 
-        return sel["ratings.rating"] > 1;
+        return sel["ratings.rating_cyber"] > 1;
     },
     evenMore: function () {
         var sel = Session.get("curDataSelector");
-        return (sel["ratings.rating"] < 2) &&
+        return (sel["ratings.rating_cyber"] < 2) &&
             (!sel.limit ||
             (Session.get('curDataCount') > sel.limit ));
     },
@@ -157,18 +159,18 @@ Template['ratingTable'].helpers({
 Template['ratingTable'].events({
     'click .show-more': function (e, t) {
         var sel = Session.get("curDataSelector");
-        var rating = sel["ratings.rating"];
+        var rating = sel["ratings.rating_cyber"];
         var tracker;
         switch (rating) {
             case 2:
-                sel["ratings.rating"] = 1;
+                sel["ratings.rating_cyber"] = 1;
                 tracker = '1';
                 Session.set('curDataSelector', sel);
                 break;
             case 1:
                 var count = CurrentData.find().count();
                 var newLimit = count + 200;
-                sel["ratings.rating"] = 0;
+                sel["ratings.rating_cyber"] = 0;
                 sel.limit = newLimit;
                 Session.set('curDataSelector', sel);
                 tracker = '2';

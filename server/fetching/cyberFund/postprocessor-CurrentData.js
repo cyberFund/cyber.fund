@@ -8,7 +8,7 @@ Meteor.startup(function() {
 		data.forEach(function (newSystemData) {
 			var set = _.omit(newSystemData, ['system', 'symbol']);
 			var modifier = {$set: set};
-			if (!set["ratings.rating"]) modifier.$unset = {"ratings.rating": true};
+			if (!set["ratings.rating_cyber"]) modifier.$unset = {"ratings.rating_cyber": true};
 			CurrentData.upsert(selector, modifier);
 		});
 	});*/

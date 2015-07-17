@@ -20,7 +20,7 @@
             <a href="https://medium.com/cyber-blog" target="_blank">Blog</a></li>
           <li class="waves-effect">
             <a href="http://cybertalks.org/" target="_blank">Community</a></li>
-          <li>{{> btcPriceSimple class="black-text"}}</li>
+          <li>{{> btcPriceSimple class="black-text alike-navlink"}}</li>
           <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActivePath path="/profile"}}">
             {{> userDropdown}}
           </li>
@@ -46,11 +46,11 @@
 
 <template name="userDropdown">
   {{#if currentUser}}
-    {{#if and currentUser.services currentUser.services.twitter}}
+    {{#if currentUser.profile.twitterName}}
 
       <a href="/profile" style="vertical-align: middle">
-        {{> hitryImage style="vertical-align: middle" img_url=currentUser.services.twitter.profile_image_url_https}}
-        {{currentUser.services.twitter.screenName}}
+        {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
+        {{currentUser.profile.twitterName}}
       </a>
 
     {{else}}
