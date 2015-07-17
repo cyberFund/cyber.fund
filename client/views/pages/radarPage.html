@@ -10,7 +10,11 @@
       <h3>Don't Miss a Thing!</h3>
       <br>
         {{#if not currentUser}}
-      <div>{{> atForm }}</div>
+            <div class="row">
+                <div class="col s12 m4 offset-m4 l4-offet-l4">
+                    {{> atForm }}
+                </div>
+            </div>
         {{/if}}
       <br>
       <br>
@@ -39,9 +43,6 @@
   </div>
     <!-- <div class="row">
       <div>
-        {{isBeforeNow "1/2/2014" "D/M/YYYY"}}
-        {{isAfterNow "1/2/2016" "D/M/YYYY"}}
-        {{isNowBetween "1/2/2014" "1/2/2016" "D/M/YYYY"}}
       </div>
 
       <h4>Active Crowd Investments</h4>
