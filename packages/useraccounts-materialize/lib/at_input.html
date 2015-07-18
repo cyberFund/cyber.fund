@@ -1,0 +1,54 @@
+<template name="atInput">
+    {{> Template.dynamic template=templateName}}
+</template>
+
+<template name="atTextInput">
+  <div class="at-input input-field">
+    {{#if showLabels}}
+      <label for="at-field-{{_id}}">
+        {{displayName}} {{#unless required}}{{optionalText}}{{/unless}}
+      </label>
+    {{/if}}
+    <input class="validate {{#if hasError}}invalid{{/if}} {{#if hasSuccess}}valid{{/if}}" type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" placeholder="{{#unless showLabels}} {{placeholder}} {{/unless}}" autocapitalize="none" autocorrect="off">
+    {{#if hasIcon}}
+        <span class="{{iconClass}}"></span>
+    {{/if}}
+    {{#if hasError}}
+      <span class='red-text'>{{errorText}}</span>
+    {{/if}}
+  </div>
+</template>
+
+<template name="atCheckboxInput">
+  <div class="at-input">
+      <input type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" {{disabled}}>
+      <label for="at-field-{{_id}}">{{displayName}}</label>
+  </div>
+</template>
+
+<template name="atSelectInput">
+  <div class="at-input">
+    <label for="at-field-{{_id}}">{{displayName}}</label>
+    <select id="at-field-{{_id}}" name="at-field-{{_id}}">
+      {{#each values}}
+        <option value="{{value}}">{{text}}</option>
+      {{/each}}
+    </select>
+  </div>
+</template>
+
+<template name="atRadioInput">
+  <div class="at-input">
+    <label>{{displayName}}</label>
+  </div>
+  {{#each values}}
+    <div class="at-input">
+      <input id="at-field-{{id}}-choice-{{value}}" type="radio" name="at-field-{{id}}" value={{value}}>
+      <label>{{text}}</label>
+    </div>
+  {{/each}}
+</template>
+
+<template name="atHiddenInput">
+  <input type="hidden" id="at-field-{{_id}}" name="at-field-{{_id}}">
+</template>

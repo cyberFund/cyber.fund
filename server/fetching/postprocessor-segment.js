@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-
+/*
 	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		analytics.track({
 			userId: "server",
@@ -11,5 +11,5 @@ Meteor.startup(function() {
 			},
 		});
 	});
-
+*/
 });

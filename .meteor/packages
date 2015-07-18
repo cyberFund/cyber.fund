@@ -8,10 +8,33 @@ meteor-platform
 mquandalle:bower
 http
 momentjs:moment
-percolatestudio:segment.io@=1.1.1_1
+
+# percolatestudio:segment.io@=1.1.1_1
+
 iron:router
 zimme:active-route
+
 reactive-var
 amplify
-cyberfund-base
-cyberfund-marketdata
+
+cyberfund:cyberfund-base
+cyberfund:cyberfund-marketdata
+cyberfund:cyberfund-chaingear
+cyberfund:cyberfund-es
+accounts-twitter
+ermlab:log4js-silos
+
+gwendall:body-events
+useraccounts:materialize
+
+service-configuration
+meteorhacks:kadira
+meteorhacks:kadira-profiler
+
+twitter
+mfpierre:chartist-js
+materialize:materialize
+cyberfund:cyberfund-currentdata
+spiderable
+# okgrow:analytics
+tmeasday:publish-counts

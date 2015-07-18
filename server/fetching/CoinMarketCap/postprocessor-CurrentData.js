@@ -1,5 +1,5 @@
-Meteor.startup(function() {
-	CF.processing.addPostprocessor(Meteor.bindEnvironment(function(source, timestamp, data) {
+/*Meteor.startup(function() {
+	CF.processing.addPostprocessor(function(source, timestamp, data) {
 		if (source !== "CoinMarketCap") {
 			return;
 		}
@@ -13,18 +13,20 @@ Meteor.startup(function() {
 			curTimestamp = CF.processing.getNearestTimestamp("CoinMarketCap",
 				moment.unix(timestamp).subtract(i, "days").unix());
 
+			var nearest =
 			CF.processing.getAllNearest("CoinMarketCap", curTimestamp, [
 				"timestamp",
 				"name",
 				"symbol",
 				"metrics.marketCap.btc",
-				"metrics.marketCap.usd",
-			]).fetch().forEach(function(doc) {
+				"metrics.marketCap.usd"
+			]);
+		if (nearest && nearest.fetch) nearest.forEach(function(doc) {
 				var id = doc.name + "/" + doc.symbol;
 				capHistory[id] = capHistory[id] || [];
 				capHistory[id].push({
 					timestamp: doc.timestamp,
-					cap: doc.metrics.marketCap,
+					cap: doc.metrics.marketCap
 				});
 			});
 		}
@@ -35,6 +37,7 @@ Meteor.startup(function() {
 			var fieldsToUpdate = {
 				name: newSystemData.name,
 				symbol: newSystemData.symbol,
+				icon: newSystemData.icon,
 				lastUpdateTimestamp: newSystemData.timestamp,
 				supply: metrics.availableSupplyNumber,
 				supplyChange: metrics.supplyChange,
@@ -42,14 +45,14 @@ Meteor.startup(function() {
 				tradeVolumeMedianDeviation: metrics.tradeVolumeMedianDeviation,
 				cap: {
 					btc: parseFloat(metrics.marketCap.btc) || 0,
-					usd: parseFloat(metrics.marketCap.usd) || 0,
+					usd: parseFloat(metrics.marketCap.usd) || 0
 				},
 				capChange: metrics.capChange,
 				price: {
 					btc: parseFloat(metrics.price.btc) || 0,
-					usd: parseFloat(metrics.price.usd) || 0,
+					usd: parseFloat(metrics.price.usd) || 0
 				},
-				capHistory: capHistory[newSystemData.name + "/" + newSystemData.symbol],
+				capHistory: capHistory[newSystemData.name + "/" + newSystemData.symbol]
 			};
 
 			fieldsToUpdate.supplyChangePercents = {};
@@ -64,15 +67,16 @@ Meteor.startup(function() {
 					btc: parseFloat((metrics.capChange[time].btc * 100 /
 						(fieldsToUpdate.cap.btc - metrics.capChange[time].btc)).toFixed(8)),
 					usd: parseFloat((metrics.capChange[time].usd * 100 /
-						(fieldsToUpdate.cap.usd - metrics.capChange[time].usd)).toFixed(8)),
+						(fieldsToUpdate.cap.usd - metrics.capChange[time].usd)).toFixed(8))
 				};
 			});
 
 			CurrentData.upsert({
-				name: newSystemData.name,
-				symbol: newSystemData.symbol,
+				system: newSystemData.name,
+				symbol: newSystemData.symbol
 			}, { $set: fieldsToUpdate });
 		});
-	}));
+	});
 
 });
+*/

@@ -4,6 +4,5 @@
   "homepage": "http://cyber.fund",
   "private": true,
   "dependencies": {
-    "materialize": "~0.96.1"
   }
 }

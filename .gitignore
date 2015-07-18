@@ -15,3 +15,4 @@ Desktop.ini
 *.sublime-workspace
 _temp.py
 .idea/
+.deploy/

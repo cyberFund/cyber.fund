@@ -1,0 +1,144 @@
+<!-- originally created for cyber.fund project-->
+<template name="ratingTable">
+
+  <div class="card" style="padding:10px">
+    <table class="hoverable-my" align="center" id="rating-table">
+
+        <thead  id="fixed-thead" class="fixed-thead z20">
+        <th class="left-align"><span style="margin-left: 40px">&nbsp;&nbsp;System</span>
+        </th>
+        <th class="center hide-on-small-and-down">↓ Rating</th>
+        <th class="center hide-on-small-and-down">Token</th>
+        <th class="center hide-on-small-and-down">Trade</th>
+        <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
+        <th class="right-align hide-on-med-and-down">1d&nbsp;Change</th>
+        <th class="right-align">Cap in $</th>
+        <th class="right-align">1d&nbsp;Change</th>
+        </thead>
+      <thead id="normal-thead">
+      <th class="left-align"><span style="margin-left: 40px">&nbsp;&nbsp;System</span>
+      </th>
+      <th class="center hide-on-small-and-down">↓ Rating</th>
+      <th class="center hide-on-small-and-down">Token</th>
+      <th class="center hide-on-small-and-down">Trade</th>
+      <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
+      <th class="right-align hide-on-med-and-down">1d&nbsp;Change</th>
+      <th class="right-align">Cap in $</th>
+      <th class="right-align">1d&nbsp;Change</th>
+      </thead>
+        <tbody>
+        {{#each rows}}
+            <tr style="vertical-align: middle">
+                <td class="left-align no-click" >
+                    <a href="{{pathFor 'system1' name_=name_}}" class="enlarge" style="cursor: text; display: inline; white-space: nowrap;">
+                        {{> cgIcon data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
+                    </a>
+                </td>
+
+                <td class="center-align hide-on-small-and-down">
+
+                        {{>cfRating rating=ratings.rating_cyber}}</td>
+
+                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
+                    <span>{{percentsToText metrics.supplyChangePercents.day}}</span>
+                    {{#tooltip}}
+
+                      <div>Ticker:
+                        <b>{{symbol}}</b>
+                      </div>
+                      <div>Currency name:
+                        <b>{{displaySystem}}</b>
+                      </div>
+
+                      <div>Current supply:
+                            <b>{{readableN metrics.supply 0}}</b>
+                        </div>
+                        <div>Absolute change:
+                            <b>{{readableN metrics.supplyChange.day 0}}</b>
+                        </div>
+
+                    {{/tooltip}}
+                {{/withTooltip}}</td>
+
+                <td class="center-align hide-on-small-and-down">
+                    {{#if tradeVolumeOk metrics.tradeVolume}}
+                        {{# withTooltip}}
+                            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
+                            {{#tooltip}}
+                              <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+                              </div>
+
+                              <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
+                              </div>
+
+                              <div>Turnover:<b>{{readableN turnover 2}}</b> %
+                              </div>
+                                <!--div>Median
+                                    deviation:<b>{{readableN metrics.tradeVolumeMedianDeviation.week 2}}</b>BTC
+                                </div-->
+                            {{/tooltip}}
+                        {{/withTooltip}}
+                    {{else}}
+                        <span>Illiquid</span>
+                    {{/if}}
+                </td>
+
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
+                    Ƀ&nbsp;{{readableN metrics.cap.btc 0}}
+                    {{#if metrics.price.btc}}
+                        {{#tooltip}}
+                            <div>Price per 1 {{displaySystem}}:<br/>
+                                <b>Ƀ&nbsp;{{metrics.price.btc}}</b>
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
+                    <span class="{{percentsToClass metrics.capChangePercents.day.btc}}">
+                        {{percentsToText2 metrics.capChangePercents.day.btc}}</span>
+                    {{#if metrics.capChange.day.btc}}
+                        {{#tooltip}}
+                            <div>Real change:
+                                <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td class="right-align">{{# withTooltip}}
+                    <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                    {{#if metrics.price.usd}}
+                        {{#tooltip}}
+                            <div>Price per 1 {{displaySystem}}:<br/>
+                                <b>$&nbsp;{{metrics.price.usd}}</b>
+                            </div>
+                        {{/tooltip}}
+                    {{/if}}
+                {{/withTooltip}}</td>
+
+                <td class="right-align">{{#withTooltip}}
+                    <span class="{{percentsToClass metrics.capChangePercents.day.usd}}">
+                        {{percentsToText2 metrics.capChangePercents.day.usd}}</span>
+
+                    {{#tooltip}}
+                        <div>Real change:
+                            <b>{{readableN metrics.capChange.day.usd 2}} $</b>
+                        </div>
+                    {{/tooltip}}
+                {{/withTooltip}}</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+  </div>
+    {{#if or hasMore evenMore}}
+        <div class="center">
+            <a class="waves-effect waves-light btn show-more deep-orange">
+                <i class="mdi-navigation-expand-more left"></i>
+                <i class="mdi-navigation-expand-more right"></i>
+                show {{#if evenMore}}even more{{/if}} crap</a>
+        </div>
+    {{/if}}
+    <div style="padding-bottom: 40px"></div>
+</template>

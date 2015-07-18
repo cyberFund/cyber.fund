@@ -1,2 +1,3 @@
-// Write your package code here!
-CF  = {};
+CF = {
+    Utils: {}
+};

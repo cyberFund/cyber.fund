@@ -4,7 +4,7 @@ CF.MarketData.collection = new Meteor.Collection("MarketData");
 
 CF.MarketData.btcPriceaLatestDoc = function () {
   return MarketData.findOne({
-    symbol: 'BTC',
+    "token.token_symbol": 'BTC',
     'metrics.price': {$exists: true}
   }, {sort: {timestamp: -1}, limit: 1});
 };

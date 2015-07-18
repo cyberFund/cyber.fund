@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'cyberfund-marketdata',
+  name: 'cyberfund:cyberfund-marketdata',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -11,13 +11,13 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.use('cyberfund-base');
+  api.use('cyberfund:cyberfund-base');
   api.versionsFrom('1.1.0.2');
   api.addFiles('cyberfund-marketdata.js');
 });
 
 Package.onTest(function(api) {
   api.use('tinytest');
-  api.use('cyberfund-marketdata');
+  api.use('cyberfund:cyberfund-marketdata');
   api.addFiles('cyberfund-marketdata-tests.js');
 });

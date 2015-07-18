@@ -21,6 +21,9 @@ var helpers = {
   and: function (value1, value2) {
     return value1 && value2;
   },
+  not: function (value){
+    return !value;
+  },
   or:  function (value1, value2) {
     return value1 || value2;
   },
@@ -42,6 +45,10 @@ var helpers = {
   },
   sum: function (value1, value2) {
     return value1 + value2;
+  },
+
+  dif: function(v1, v2){
+    return parseInt(v1) - parseInt(v2)
   },
 
   session: function (key) {
@@ -81,6 +88,27 @@ var helpers = {
     var ret = parseFloat(input);
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
+  },
+  tagMatchesTags: function(tag, tags) {
+    return tags.indexOf(tag) > -1;
+  },
+  isBeforeNow: function(date, format){
+    return moment(date, format).isBefore(moment(), 'day');
+  },
+  isAfterNow: function(date, format){
+    return moment(date, format).isAfter(moment(), 'day');
+  },
+  isNowBetween: function(date1, date2, format){
+    return moment().isBetween(moment(date1, format), moment(date2, format), 'day');
+  },
+  _toU: function(str){
+    return str.replace(/\ /g, "_")
+  },
+  _toS: function(str){
+    return str.replace(/_/g, " ")
+  },
+  usersCount: function(){
+    return Counts.get('usersCount')
   }
 };
 

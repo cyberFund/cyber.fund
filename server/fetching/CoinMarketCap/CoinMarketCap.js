@@ -1,5 +1,7 @@
-var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
+/*var sourceUrl = "http://coinmarketcap.northpole.ro/api/v5/all.json";
 var fetchInterval = ("RARE_FETCH" in process.env ? 50 : 5) * 60 * 1000;
+
+var logger = log4js.getLogger("meteor-fetching");
 
 CF.fetching.coinMarketCap = {};
 
@@ -22,7 +24,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			symbol: rawSystem.symbol,
 			source: "CoinMarketCap",
 			timestamp: rawSystem.timestamp,
-			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp"),
+			metrics: _.omit(rawSystem, "position", "name", "symbol", "timestamp")
 		};
 
 		processedSystem.metrics.volume24.btc = parseFloat(processedSystem.metrics.volume24.btc) || 0;
@@ -33,7 +35,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getMedianValue("CoinMarketCap",
 				rawSystem, "metrics.volume24.btc", weekAgoTimestamp),
 			month: CF.processing.getMedianValue("CoinMarketCap",
-				rawSystem, "metrics.volume24.btc", monthAgoTimestamp),
+				rawSystem, "metrics.volume24.btc", monthAgoTimestamp)
 		};
 
 		processedSystem.metrics.tradeVolumeMedianDeviation = {};
@@ -52,7 +54,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.availableSupplyNumber"),
 			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
-				rawSystem, "metrics.availableSupplyNumber"),
+				rawSystem, "metrics.availableSupplyNumber")
 		};
 
 		processedSystem.metrics.supplyChange = {};
@@ -72,7 +74,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			week: CF.processing.getNearestDocument("CoinMarketCap", weekAgoTimestamp,
 				rawSystem, "metrics.marketCap"),
 			month: CF.processing.getNearestDocument("CoinMarketCap", monthAgoTimestamp,
-				rawSystem, "metrics.marketCap"),
+				rawSystem, "metrics.marketCap")
 		};
 
 		processedSystem.metrics.capChange = {};
@@ -85,7 +87,7 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 			} else {
 				processedSystem.metrics.capChange[time] = {
 					btc: 0,
-					usd: 0,
+					usd: 0
 				};
 			}
 		});
@@ -98,32 +100,35 @@ CF.fetching.coinMarketCap.processData = function(data, callback) {
 
 Meteor.startup(function() {
 	var fetch = function() {
-		console.log("Fetching data from CoinMarketCap...");
+		logger.info("Fetching data from CoinMarketCap...");
 		CF.fetching.get(sourceUrl, { timeout: fetchInterval }, function(error, getResult) {
 			if (error) {
-				console.error("Error while fetching:", error);
+				logger.error("Error while fetching coinmarket:", error);
 				return;
 			}
 
 			CF.fetching.coinMarketCap.processData(getResult, function(error, processResult) {
 				if (error) {
-					console.error("Error while processing:", error);
+					logger.error("Error while processing:", error);
 					return;
 				}
 
 				CF.fetching.saveToDb(processResult, function(error, saveResult) {
 					if (error) {
-						console.error("Error while saving:", error);
+						logger.error("Error while saving:", error);
 						return;
 					}
-
-					CF.processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
-					console.log("Data from CoinMarketCap saved!");
+					Meteor.wrapAsync(function () {
+						CF.processing.doPostprocessing("CoinMarketCap", getResult.timestamp, processResult);
+					});
+					logger.info("Data from CoinMarketCap saved!");
 				});
 			});
 		});
 	};
 
-	Meteor.setInterval(fetch, fetchInterval);
-	fetch();
+	//fetch();
+	//Meteor.setInterval(fetch, fetchInterval);
+
 });
+*/

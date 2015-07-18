@@ -1,0 +1,165 @@
+<!-- originally created for cyber.fund project-->
+<template name="systemBasic">
+  <div class="row">
+    {{#with curData}}
+      <div class="col s12 m9 l10">
+        <div id="about" class="row valign-wrapper" style="padding:20px">
+          <div class="col l4 center valign">
+              <h2>{{name}}</h2>
+              <span>{{symbol}}</span>
+          </div>
+          <div class="col l4 center valign">
+              {{> hitryImage img_url=img_url style="width: 50%"}}
+          </div>
+          <div class="col m4 center valign">
+              <h4>{{>cfRating rating=metrics.rating}}</h4>
+          </div>
+        </div>
+        <div id="headline" class="row center">
+          <p>{{descriptions.short_description}}</p>
+        </div>
+        <div id="main" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Main" tags}}
+                  <div class="col l3 center">
+                    <a href="{{url}}" target="_blank"><img src="/img/link_sample.png" style="vertical-align: middle;">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="market" class="row center">
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Price</p>
+              <p class="enlarge">{{readableN price.usd}}</p>
+              <p>{{readableN price.btc}}</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Cap</p>
+              <p class="enlarge">{{readableN cap.usd 0}}</p>
+              <p>{{readableN cap.btc 0}}</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Trade</p>
+              <p class="enlarge">{{readableN tradeVolume.btc 0}}</p>
+              <p>Link</p>
+            </div>
+          </div>
+          <div class="col l3 center valign" style="padding:10px">
+            <div class="card">
+              <p>Supply</p>
+              <p class="enlarge">{{supply}}</p>
+              <p>.</p>
+            </div>
+          </div>
+        </div>
+        <div id="charts" class="row center">
+          <script type="text/javascript">
+                  var data = {
+              // A labels array that can contain any sort of values
+              labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+              // Our series array that contains series objects or in this case series data arrays
+              series: [
+                [5, 2, 4, 2, 0]
+              ]
+            };
+
+            // Create a new line chart object where as first parameter we pass in a selector
+            // that is resolving to our chart container element. The Second parameter
+            // is the actual data object.
+            new Chartist.Line('.ct-chart', data);
+          </script>
+          <div class="ct-chart" style="height:200px"></div>
+        </div>
+        <div id="apps" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Apps" tags}}
+                  <div class="col l3 center">
+                    <a href="{{url}}" target="_blank"><img src="/img/link_sample.png" style="vertical-align: middle;">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="dapps" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Dapps" tags}}
+                  <div class="col l3 center">
+                    <a href="{{url}}" target="_blank"><img src="/img/link_sample.png" style="vertical-align: middle;">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="hashtag" class="row center">
+          <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
+
+        </div>
+        <div id="code" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Code" tags}}
+                  <div class="col l3 center">
+                    <a href="{{url}}" target="_blank"><img src="/img/link_sample.png" style="vertical-align: middle;">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="science" class="section row">
+              {{#each links}}
+                {{#if tagMatchesTags "Science" tags}}
+                  <div class="col l3 center">
+                    <a href="{{url}}" target="_blank"><img src="/img/link_sample.png" style="vertical-align: middle;">{{name}}</a>
+                  </div>
+                {{/if}}
+              {{/each}}
+        </div>
+        <div id="description" class="row center">
+          <p>{{description}}</p>
+        </div>
+        <div id="specs" class="row center striped">
+          <div class="col offset-l3 l6">
+            <table>
+              <thead>
+                <tr>
+                    <th data-field="property">Name</th>
+                    <th data-field="value">Item Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Alan</td>
+                  <td>Jellybean</td>
+                </tr>
+                <tr>
+                  <td>Jonathan</td>
+                  <td>Lollipop</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col l3"></div>
+        </div>
+        <div id="improve" class="row center">
+          <p>Please, help <a href="https://github.com/cyberFund/chaingear/tree/gh-pages/sources/{{name}}">improve this page</a> on Github</p>
+        </div>
+      </div>
+      <div class="col hide-on-small-only m3 l2">
+        {{#pageContents class='scroller'}}
+            <li><a href="#about" class="">About</a></li>
+            <li><a href="#market" class="">Market</a></li>
+            <li><a href="#apps" class="">Apps</a></li>
+            <li><a href="#dapps" class="">Dapps</a></li>
+            <li><a href="#hashtag" class="">Twitter</a></li>
+            <li><a href="#code" class="">Code</a></li>
+            <li><a href="#science" class="">Science</a></li>
+            <li><a href="#description" class="">Description</a></li>
+            <li><a href="#specs" class="">Specs</a></li>
+        {{/pageContents}}
+      </div>
+    {{/with}}
+    <a class="btn-floating btn-large waves-effect waves-light red">
+      <i class="stars"></i></a>
+  </div>
+</template>
