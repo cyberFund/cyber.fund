@@ -75,6 +75,7 @@ spacebars@1.0.6
 spacebars-compiler@1.0.6
 spiderable@1.0.7
 templating@1.1.1
+tmeasday:publish-counts@0.4.0
 tracker@1.0.7
 twitter@1.1.4
 ui@1.0.6

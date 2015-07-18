@@ -1,0 +1,50 @@
+<!-- originally created for cyber.fund project-->
+<template name="loginBox">
+    <div>
+        {{#if not currentUser}}
+            <div class="row">
+                <div class="col s12 m4 offset-m4 l4-offet-l4">
+                    {{> atForm }}
+
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">Why login?
+                            </div>
+                            <div class="collapsible-body">
+                                <p>
+                                    Early adopters get priveldges.</p>
+
+                                <p>
+                                    We have defined group A and group B for
+                                    early adopters
+                                </p>
+
+                                <p>
+                                    {{> groupsCount}}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        {{else}}
+            {{> groupsCount}}
+        {{/if}}
+    </div>
+</template>
+
+<template name="groupsCount">
+    {{#if usersCount}}
+        {{#if lt usersCount 100}}
+            {{usersCount}} people joined. {{dif 100 usersCount}} left for test
+            group A
+        {{else}}
+            {{#if lt usersCount 400}}
+                {{usersCount}} people joined. {{dif 400 usersCount}} left for
+                test group B<br>
+                group A is full.
+            {{/if}}
+        {{/if}}
+    {{/if}}
+</template>

@@ -1,33 +1,43 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
 
-  <div class="col l12 m6 s4 center">
-    <br>
-      <img src="http://cybertalks.org/user_avatar/cybertalks.org/creat0r/120/28_1.png">
-      <h5>Kostya Lomashuk</h5>
-      <h6>Creat0r</h6>
-      <br>
-      <h3>Nothing here yet!</h3>
-      <br>
-      <h3>Follow up releases in Twitter</h3>
-      <br>
-      <a href="https://twitter.com/cyberfundio" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @cyberfundio</a>
-  </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div class="col l12 m6 s4 center">
+        <br>
+        <img src="http://cybertalks.org/user_avatar/cybertalks.org/creat0r/120/28_1.png">
+        <h5>Kostya Lomashuk</h5>
+        <h6>Creat0r</h6>
+        <br>
+
+        <h3>Nothing here yet!</h3>
+        <br>
+
+        <h3>Follow up releases in Twitter</h3>
+        <br>
+        <a href="https://twitter.com/cyberfundio" class="twitter-follow-button"
+           data-show-count="false" data-size="large">Follow @cyberfundio</a>
+    </div>
     <br>
     <br>
-  <script>
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-  </script>
-  <!-- div class="row">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + '://platform.twitter.com/widgets.js';
+                fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, 'script', 'twitter-wjs');
+    </script>
+    <!-- div class="row">
     <div style="padding: 6px; right:0;">
       {{> atNavButton }}
     </div>
-  </div>
   <div class="row">
     <div class="col l3">
       <img src="" style="height:150px">
@@ -93,25 +103,42 @@
   <a class="btn-floating btn-large waves-effect waves-light red modal-trigger" href="#addaccount" >
     <i class="large mdi-action-account-balance-wallet"></i-->
 
-  <!-- Modal Structure -->
-  <!--div id="addaccount" class="modal">
-    <div class="modal-content">
-      <h4>Add Account</h4>
+    <!-- Modal Structure -->
+    <!--div id="addaccount" class="modal">
+	  <div class="modal-content">
+		<h4>Add Account</h4>
 
-      <p>!!!</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-    </div>
-  </div>
+		<p>!!!</p>
+	  </div>
+	  <div class="modal-footer">
+		<a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+	  </div>
+	</div>
 
-  <script>
-    $(document).ready(function(){
-      // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-      $('.modal-trigger').leanModal();
-    });
-  </script -->
-    {{#if userRegistracionCount}}
-        <div>you are user #{{userRegistracionCount}}</div>
-    {{/if}}
+	<script>
+	  $(document).ready(function(){
+		// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+		$('.modal-trigger').leanModal();
+	  });
+	</script -->
+    <div class="row">
+        <div class="col s12 m4 offset-m4 l4-offet-l4 center">
+            {{#if userRegistracionCount}}
+                <div>
+                    you are user #{{userRegistracionCount}}
+                </div>
+                {{#if lte userRegistracionCount 100}}
+                    <div>
+                        we have classified you as group A user
+                    </div>
+                {{else}}
+                    {{#if lte userRegistracionCount 400}}
+                        <div>
+                            we have classified you as group B user
+                        </div>
+                    {{/if}}
+                {{/if}}
+            {{/if}}
+        </div>
+    </div>
 </template>

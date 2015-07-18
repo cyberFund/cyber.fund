@@ -47,6 +47,10 @@ var helpers = {
     return value1 + value2;
   },
 
+  dif: function(v1, v2){
+    return parseInt(v1) - parseInt(v2)
+  },
+
   session: function (key) {
     return Session.get(key);
   },
@@ -102,6 +106,9 @@ var helpers = {
   },
   _toS: function(str){
     return str.replace(/_/g, " ")
+  },
+  usersCount: function(){
+    return Counts.get('usersCount')
   }
 };
 

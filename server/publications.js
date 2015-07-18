@@ -59,3 +59,7 @@ Meteor.publish('systemData', function (options) {
 Meteor.publish('crowdsale', function () {
   return CurrentData.find(CF.Chaingear.selector.crowdsales);
 });
+
+Meteor.publish("usersCount", function(){
+  Counts.publish(this, 'usersCount', Meteor.users.find());
+})

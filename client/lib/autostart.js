@@ -7,6 +7,10 @@ Tracker.autorun(function(){
 	}
 });
 
+Meteor.startup(function(){
+	Meteor.subscribe('usersCount');
+})
+
 if (Package['iron:router']) {
 
 	Package['iron:router'].Router.onRun(function() {
