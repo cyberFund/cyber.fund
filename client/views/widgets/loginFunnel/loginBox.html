@@ -29,21 +29,23 @@
                 </div>
             </div>
         {{else}}
-            {{> groupsCount}}
+            {{> followUsOnTwitter }}
         {{/if}}
     </div>
 </template>
 
 <template name="groupsCount">
-    {{#if usersCount}}
-        {{#if lt usersCount 100}}
-            {{usersCount}} people joined. {{dif 100 usersCount}} left for test
-            group A
-        {{else}}
-            {{#if lt usersCount 400}}
-                {{usersCount}} people joined. {{dif 400 usersCount}} left for
-                test group B<br>
-                group A is full.
+    {{#if not currentUser}}
+        {{#if usersCount}}
+            {{#if lt usersCount 100}}
+                {{usersCount}} people joined. {{dif 100 usersCount}} left for test
+                group A
+            {{else}}
+                {{#if lt usersCount 400}}
+                    {{usersCount}} people joined. {{dif 400 usersCount}} left for
+                    test group B<br>
+                    group A is full.
+                {{/if}}
             {{/if}}
         {{/if}}
     {{/if}}
