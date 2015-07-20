@@ -3,7 +3,7 @@
   <div class="row">
     {{#with curData}}
       <div class="col s12 m9 l10">
-        <div id="about" class="row valign-wrapper" style="padding:20px">
+        <div id="about" class="row scrollspy valign-wrapper" style="padding:20px">
           <div class="col l4 center valign">
               <h2>{{name}}</h2>
               <span>{{symbol}}</span>
@@ -15,10 +15,10 @@
               <h4>{{>cfRating rating=metrics.rating}}</h4>
           </div>
         </div>
-        <div id="headline" class="row center">
+        <div id="headline" class="row scrollspy center">
           <p>{{descriptions.short_description}}</p>
         </div>
-        <div id="main" class="section row">
+        <div id="main" class="section scrollspy row">
               {{#each links}}
                 {{#if tagMatchesTags "Main" tags}}
                   <div class="col l3 center">
@@ -27,7 +27,7 @@
                 {{/if}}
               {{/each}}
         </div>
-        <div id="market" class="row center">
+        <div id="market" class="row scrollspy center">
           <div class="col l3 center valign" style="padding:10px">
             <div class="card">
               <p>Price</p>
@@ -57,7 +57,7 @@
             </div>
           </div>
         </div>
-        <div id="charts" class="row center">
+        <div id="charts" class="row scrollspy center">
           <script type="text/javascript">
                   var data = {
               // A labels array that can contain any sort of values
@@ -75,7 +75,7 @@
           </script>
           <div class="ct-chart" style="height:200px"></div>
         </div>
-        <div id="apps" class="section row">
+        <div id="apps" class="section scrollspy row">
               {{#each links}}
                 {{#if tagMatchesTags "Apps" tags}}
                   <div class="col l3 center">
@@ -84,7 +84,7 @@
                 {{/if}}
               {{/each}}
         </div>
-        <div id="dapps" class="section row">
+        <div id="dapps" class="section scrollspy row">
               {{#each links}}
                 {{#if tagMatchesTags "Dapps" tags}}
                   <div class="col l3 center">
@@ -93,11 +93,11 @@
                 {{/if}}
               {{/each}}
         </div>
-        <div id="hashtag" class="row center">
+        <div id="hashtag" class="row scrollspy center">
           <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
 
         </div>
-        <div id="code" class="section row">
+        <div id="code" class="section scrollspy row">
               {{#each links}}
                 {{#if tagMatchesTags "Code" tags}}
                   <div class="col l3 center">
@@ -106,7 +106,7 @@
                 {{/if}}
               {{/each}}
         </div>
-        <div id="science" class="section row">
+        <div id="science" class="section scrollspy row">
               {{#each links}}
                 {{#if tagMatchesTags "Science" tags}}
                   <div class="col l3 center">
@@ -115,10 +115,10 @@
                 {{/if}}
               {{/each}}
         </div>
-        <div id="description" class="row center">
+        <div id="description" class="row scrollspy center">
           <p>{{description}}</p>
         </div>
-        <div id="specs" class="row center striped">
+        <div id="specs" class="row center scrollspy  striped">
           <div class="col offset-l3 l6">
             <table>
               <thead>
@@ -141,14 +141,17 @@
           </div>
           <div class="col l3"></div>
         </div>
-        <div id="improve" class="row center">
+        <div id="improve" class="row scrollspy center">
           <p>Please, help <a href="https://github.com/cyberFund/chaingear/tree/gh-pages/sources/{{name}}">improve this page</a> on Github</p>
         </div>
       </div>
       <div class="col hide-on-small-only m3 l2">
-        {{#pageContents class='scroller'}}
+        {{#pageContents class='fixed _scroller'}}
             <li><a href="#about" class="">About</a></li>
+            <li><a href="#headline" class="">Headline</a></li>
+            <li><a href="#main" class="">Main</a></li>
             <li><a href="#market" class="">Market</a></li>
+            <li><a href="#charts" class="">Charts</a></li>
             <li><a href="#apps" class="">Apps</a></li>
             <li><a href="#dapps" class="">Dapps</a></li>
             <li><a href="#hashtag" class="">Twitter</a></li>
@@ -156,6 +159,7 @@
             <li><a href="#science" class="">Science</a></li>
             <li><a href="#description" class="">Description</a></li>
             <li><a href="#specs" class="">Specs</a></li>
+            <li><a href="#improve" class="">Improve</a></li>
         {{/pageContents}}
       </div>
     {{/with}}

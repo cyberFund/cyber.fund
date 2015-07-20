@@ -1,5 +1,5 @@
 Template['systemBasic'].rendered = function () {
-
+  $('.scrollspy').scrollSpy();
 };
 
 Template['systemBasic'].helpers({
