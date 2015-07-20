@@ -1,5 +1,5 @@
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
-var fetchInterval = 30 * 60 * 1000;
+var fetchInterval = 5 * 60 * 1000;
 
 var logger = log4js.getLogger("meteor-fetching");
 
@@ -17,6 +17,40 @@ CF.fetching.cyberFund.processData = function (data, callback) {
   callback(null, processedData);
 };
 
+/**
+ *
+ * @param obj
+ * @returns {{}}
+ */
+function flatten(obj) { //todo move to utils..
+  if (!_.isObject(obj)) return;
+
+  var result = {};
+
+  function add(key, prop) {
+    result[key] = prop;
+  }
+
+  function iter(currentKey, object) {
+    _.each(object, function (v, k) {
+
+      var key = currentKey ? currentKey + "." + k : k;
+      if (_.isArray(v)) {
+        add(key, v);
+      } else {
+        if (_.isObject(v)) {
+          iter(key, v)
+        } else {
+          add(key, v)
+        }
+      }
+    })
+  }
+
+  iter("", obj);
+  return result;
+}
+
 Meteor.startup(function () {
   var fetch = function () {
     logger.info("Fetching data from cyberFund...");
@@ -33,7 +67,7 @@ Meteor.startup(function () {
         }
         //if (CurrentData.find().count() < 1000) {
         _.each(getResult, function (system) {
-          var selector = CF.CurrentData.selectors.name_symbol(system.name, system.symbol);
+          var selector = CF.CurrentData.selectors.name_symbol(system.system, system.token.token_symbol);
           var doc = CurrentData.findOne(selector);
           if (!doc) {
             if (system.specs && (system.specs.supply || system.specs.cap)) {
@@ -60,7 +94,8 @@ Meteor.startup(function () {
             }
 
             var modifier = {$set: set};
-            if (!set["ratings.rating_cyber"]) modifier.$unset = {"ratings.rating_cyber": true};
+            //if (!set["ratings.rating_cyber"]) modifier.$unset = {"ratings.rating_cyber": true};
+
             CurrentData.upsert(selector, modifier);
           }
         });
