@@ -194,6 +194,7 @@ Template['ratingTable'].events({
         })
     },
     'click .no-click a': function(){
+        Materialize.toast("Coming soon!", 3000);
         return false;
     }
 });
