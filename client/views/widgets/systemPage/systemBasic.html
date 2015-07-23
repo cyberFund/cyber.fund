@@ -95,7 +95,17 @@
         </div>
         <div id="hashtag" class="row scrollspy center">
           <a class="twitter-timeline" href="https://twitter.com/hashtag/ethereum" data-widget-id="615439140906233857">#bitcoin Tweets</a>
-
+            <script>
+                !function (d, s, id) {
+                    var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                    if (!d.getElementById(id)) {
+                        js = d.createElement(s);
+                        js.id = id;
+                        js.src = p + '://platform.twitter.com/widgets.js';
+                        fjs.parentNode.insertBefore(js, fjs);
+                    }
+                }(document, 'script', 'twitter-wjs');
+            </script>
         </div>
         <div id="code" class="section scrollspy row">
               {{#each links}}
@@ -148,20 +158,16 @@
       <div class="col hide-on-small-only m3 l2">
         {{#pageContents class='fixed _scroller'}}
             <li><a href="#about" class="">About</a></li>
-            <li><a href="#headline" class="">Headline</a></li>
-            <li><a href="#main" class="">Main</a></li>
             <li><a href="#market" class="">Market</a></li>
-            <li><a href="#charts" class="">Charts</a></li>
             <li><a href="#apps" class="">Apps</a></li>
             <li><a href="#dapps" class="">Dapps</a></li>
             <li><a href="#hashtag" class="">Twitter</a></li>
             <li><a href="#code" class="">Code</a></li>
             <li><a href="#science" class="">Science</a></li>
-            <li><a href="#description" class="">Description</a></li>
-            <li><a href="#specs" class="">Specs</a></li>
-            <li><a href="#improve" class="">Improve</a></li>
+            <li><a href="#description" class="">Specs</a></li>
         {{/pageContents}}
       </div>
+
     {{/with}}
     <!--a class="btn-floating btn-large waves-effect waves-light red">
       <i class="stars"></i></a-->
