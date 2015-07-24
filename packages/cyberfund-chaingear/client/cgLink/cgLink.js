@@ -20,17 +20,17 @@ Template['cgLink'].helpers({
       case "github.png":
         return "github";
       case "blog.png":
-        return "link";
+        return "comment";
       case "website.png":
-        return "link";
+        return "home";
       case "forum.png":
-        return "link";
+        return "comments";
       case "explorer.png":
-        return "link";
+        return "search";
       case "whitepaper.png":
-        return "link";
+        return "mortar-board";
       case "paper.png":
-        return "link";
+        return "newspaper-o";
       default:
         return "external-link"
     }
