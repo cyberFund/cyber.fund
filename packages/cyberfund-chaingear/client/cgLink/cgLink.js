@@ -8,10 +8,6 @@ Template['cgLink'].helpers({
    */
   "iconClass": function () {
     var link = this;
-    if (link.type == "custom") {
-      console.log(link);
-      return ""
-    }
     switch (link.icon) {
       case "twitter.png":
         return "twitter";
@@ -32,8 +28,13 @@ Template['cgLink'].helpers({
       case "paper.png":
         return "newspaper-o";
       default:
-        return "external-link"
+        break;
     }
+    if (link.type == "custom") {
+      console.log(link);
+      return ""
+    }
+    return "external-link";
   }
 });
 

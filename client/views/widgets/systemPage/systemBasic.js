@@ -32,6 +32,14 @@ Template['systemBasic'].helpers({
   },
   hashtag: function(){
     return (this.descriptions &&  this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1): ""
+  },
+  existLinksWith: function(tag){
+    var links = this.links;
+
+    if (!_.isArray(links)) return false;
+    return !!_.find(links, function(link){
+      return (_.isArray(link.tags) &&link.tags.indexOf(tag) > -1);
+    });
   }
 });
 
