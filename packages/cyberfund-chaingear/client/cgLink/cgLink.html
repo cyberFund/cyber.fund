@@ -1,10 +1,11 @@
 <!-- originally created for cyber.fund project-->
 <template name="cgLink">
-    <a href="{{url}}" target="_blank">
+    <a href="{{url}}" target="_blank" class="cg-link">
         {{#if iconClass}}
-            <i class="fa {{iconClass}} black-text"></i>
+            <i class="fa fa-{{iconClass}} "></i>
         {{else}}
-            <img src="/img/link_sample.png" style="vertical-align: middle;">
+            <i class="fa fa-external-link-square"></i>
+            <!--img src="/img/link_sample.png" style="vertical-align: middle;"-->
         {{/if}}
         {{name}}
     </a>

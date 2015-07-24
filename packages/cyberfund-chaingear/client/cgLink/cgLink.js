@@ -8,13 +8,32 @@ Template['cgLink'].helpers({
    */
   "iconClass": function () {
     var link = this;
+    if (link.type == "custom") {
+      console.log(link);
+      return ""
+    }
     switch (link.icon) {
       case "twitter.png":
-        return "fa-twitter";
+        return "twitter";
+      case "reddit.png":
+        return "reddit";
+      case "github.png":
+        return "github";
+      case "blog.png":
+        return "link";
+      case "website.png":
+        return "link";
+      case "forum.png":
+        return "link";
+      case "explorer.png":
+        return "link";
+      case "whitepaper.png":
+        return "link";
+      case "paper.png":
+        return "link";
       default:
-        return ""
+        return "external-link"
     }
-    return "";
   }
 });
 
