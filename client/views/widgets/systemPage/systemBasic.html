@@ -23,10 +23,7 @@
                     {{#each links}}
                         {{#if tagMatchesTags "Main" tags}}
                             <div class="col l3 center">
-                                <a href="{{url}}" target="_blank"><img
-                                        src="/img/link_sample.png"
-                                        style="vertical-align: middle;">{{name}}
-                                </a>
+                                {{> cgLink this}}
                             </div>
                         {{/if}}
                     {{/each}}
@@ -91,16 +88,13 @@
                     {{#each links}}
                         {{#if tagMatchesTags "Apps" tags}}
                             <div class="col l3 center">
-                                <a href="{{url}}" target="_blank"><img
-                                        src="/img/link_sample.png"
-                                        style="vertical-align: middle;">{{name}}
-                                </a>
+                                {{> cgLink this}}
                             </div>
                         {{/if}}
                     {{/each}}
                 </div>
                 <div id="dapps" class="section scrollspy row">
-                    {{#if dependents}} {{! todo: extract widget}}
+                    {{#if dependentsExist}} {{! todo: extract widget}}
 
                         <h3 class="center">Dapps</h3>
                         <ul class="dapps-list">
@@ -118,38 +112,37 @@
                     <!--{{#each links}}
                         {{#if tagMatchesTags "Dapps" tags}}
                             <div class="col l3 center">
-                                <a href="{{url}}" target="_blank"><img
-                                        src="/img/link_sample.png"
-                                        style="vertical-align: middle;">{{name}}
-                                </a>
+                                {{> cgLink this}}
                             </div>
                         {{/if}}
                     {{/each}}-->
                 </div>
-                <div id="hashtag" class="row scrollspy center">
-                    <a class="twitter-timeline"
-                       href="https://twitter.com/hashtag/ethereum"
-                       data-widget-id="615439140906233857">#bitcoin Tweets</a>
-                    <script>
-                        !function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                            if (!d.getElementById(id)) {
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = p + '://platform.twitter.com/widgets.js';
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }
-                        }(document, 'script', 'twitter-wjs');
-                    </script>
-                </div>
+                {{#if false}}
+                    <div id="hashtag" class="row scrollspy center">
+                        {{! #if hashtag}}
+                        <a class="twitter-timeline"
+                           href="https://twitter.com/hashtag/ethereum"
+                           data-widget-id="615439140906233857">#bitcoin
+                            Tweets</a>
+                        <script>
+                            !function (d, s, id) {
+                                var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+                                if (!d.getElementById(id)) {
+                                    js = d.createElement(s);
+                                    js.id = id;
+                                    js.src = p + '://platform.twitter.com/widgets.js';
+                                    fjs.parentNode.insertBefore(js, fjs);
+                                }
+                            }(document, 'script', 'twitter-wjs');
+                        </script>
+                        {{! /if}}
+                    </div>
+                {{/if}}
                 <div id="code" class="section scrollspy row">
                     {{#each links}}
                         {{#if tagMatchesTags "Code" tags}}
                             <div class="col l3 center">
-                                <a href="{{url}}" target="_blank"><img
-                                        src="/img/link_sample.png"
-                                        style="vertical-align: middle;">{{name}}
-                                </a>
+                                {{> cgLink this}}
                             </div>
                         {{/if}}
                     {{/each}}
@@ -158,10 +151,7 @@
                     {{#each links}}
                         {{#if tagMatchesTags "Science" tags}}
                             <div class="col l3 center">
-                                <a href="{{url}}" target="_blank"><img
-                                        src="/img/link_sample.png"
-                                        style="vertical-align: middle;">{{name}}
-                                </a>
+                                {{> cgLink this}}
                             </div>
                         {{/if}}
                     {{/each}}
@@ -203,11 +193,11 @@
                     <li><a href="#about" class="">About</a></li>
                     <li><a href="#market" class="">Market</a></li>
                     <li><a href="#apps" class="">Apps</a></li>
-                    {{#if and descriptions descriptions.hashtag}}
+                    {{#if false}}
                         <li><a href="#hashtag"
                                class="">{{descriptions.hashtag}}</a></li>
                     {{/if}}
-                    {{#if dependents}}
+                    {{#if dependentsExist}}
                         <li><a href="#dapps" class="">Dapps</a></li>
                     {{/if}}
                     <li><a href="#code" class="">Code</a></li>

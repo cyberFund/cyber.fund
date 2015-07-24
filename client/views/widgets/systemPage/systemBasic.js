@@ -18,6 +18,9 @@ Template['systemBasic'].helpers({
   'dependents': function(){
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {sort: {system: 1}})
   },
+  'dependentsExist': function(){
+    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
+  },
   'symbol': function(){
     return this.token ? this.token.token_symbol : ""
   },
@@ -26,6 +29,9 @@ Template['systemBasic'].helpers({
   },
   displaySystem: function () { //see "ALIASES"
     return this.aliases.CurrencyName || this.nickname;
+  },
+  hashtag: function(){
+    return (this.descriptions &&  this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1): ""
   }
 });
 
@@ -36,7 +42,18 @@ Template['systemBasic'].onCreated(function () {
   var instance= this;
 
   instance.autorun(function () {
-    console.log(systemName());
     instance.subscribe('dependentCoins', systemName());
+  /*    if (this.descriptions.twwidid) {
+        twttr.widgets.createTimeline(
+          "600756918018179072",
+          document.getElementById("container"),
+          {
+            height: 400
+          }
+        );
+      }
+    })*/
   });
 });
+
+
