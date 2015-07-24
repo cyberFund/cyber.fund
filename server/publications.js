@@ -62,4 +62,14 @@ Meteor.publish('crowdsale', function () {
 
 Meteor.publish("usersCount", function(){
   Counts.publish(this, 'usersCount', Meteor.users.find());
-})
+});
+
+Meteor.publish('dependentCoins', function(system) {
+  console.log(CF.CurrentData.selectors.dependents(system));
+  //console.log()
+  return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
+    fields: {
+      "system": 1, "icon": 1, "dependencies": 1, "aliases.CurrencyName":1, "nickname": 1
+    }
+  })
+});

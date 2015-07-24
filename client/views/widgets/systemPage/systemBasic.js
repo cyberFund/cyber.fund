@@ -1,3 +1,7 @@
+function systemName(){
+  return Blaze._globalHelpers._toS(Router.current().params.name_);
+}
+
 Template['systemBasic'].rendered = function () {
   $('.scrollspy').scrollSpy();
 };
@@ -5,16 +9,34 @@ Template['systemBasic'].rendered = function () {
 Template['systemBasic'].helpers({
   'curData': function () {
     return CurrentData.findOne({
-      system: Blaze._globalHelpers._toS(Router.current().params.name_)
+      system: systemName()
     });
   },
   'img_url': function () {
-    return CF.Chaingear.helpers.cgIcon(this);
+    return CF.Chaingear.helpers.cgSystemLogo(this);
+  },
+  'dependents': function(){
+    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {sort: {system: 1}})
+  },
+  'symbol': function(){
+    return this.token ? this.token.token_symbol : ""
+  },
+  name_: function () {
+    return Blaze._globalHelpers._toU(this.system);
+  },
+  displaySystem: function () { //see "ALIASES"
+    return this.aliases.CurrencyName || this.nickname;
   }
 });
 
 Template['systemBasic'].events({
-  'click .bar': function (e, t) {
+});
 
-  }
+Template['systemBasic'].onCreated(function () {
+  var instance= this;
+
+  instance.autorun(function () {
+    console.log(systemName());
+    instance.subscribe('dependentCoins', systemName());
+  });
 });

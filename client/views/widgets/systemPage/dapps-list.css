@@ -1,0 +1,10 @@
+ul.dapps-list {
+  list-style: none;
+}
+
+ul.dapps-list > li {
+  display: inline-block;
+  padding: 6px 12px;
+  margin: 6px 9px;
+  width: 220px;
+}

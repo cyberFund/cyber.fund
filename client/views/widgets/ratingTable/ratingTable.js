@@ -54,7 +54,7 @@ Template['ratingTable'].helpers({
         return CurrentData.find({}, {sort: Session.get("ratingSorter")});
     },
     'img_url': function () {
-        return CF.Chaingear.helpers.cgIcon(this);
+        return CF.Chaingear.helpers.cgSystemLogo(this);
     },
     // either currency name or name
     displaySystem: function () { //see "ALIASES"

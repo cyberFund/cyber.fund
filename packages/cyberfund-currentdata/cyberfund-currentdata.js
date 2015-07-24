@@ -14,6 +14,9 @@ CF.CurrentData = {
         },
         symbol: function(symbol){
             return {"token.token_symbol": symbol}
+        },
+        dependents: function(system){
+            return {"dependencies": system};
         }
     }
 };
