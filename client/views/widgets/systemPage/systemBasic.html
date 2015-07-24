@@ -20,13 +20,16 @@
                     <p>{{descriptions.short_description}}</p>
                 </div>
                 <div id="main" class="section scrollspy row">
-                    {{#each links}}
-                        {{#if tagMatchesTags "Main" tags}}
-                            <div class="col l3 center">
-                                {{> cgLink this}}
-                            </div>
-                        {{/if}}
-                    {{/each}}
+                    {{#if existLinksWith "Main"}}
+                        <h4 class="center">Main links</h4>
+                        {{#each links}}
+                            {{#if tagMatchesTags "Main" tags}}
+                                <div class="col l3 center">
+                                    {{> cgLink this}}
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{/if}}
                 </div>
                 <div id="market" class="row scrollspy center">
                     <div class="col l3 center valign" style="padding:10px">
@@ -140,28 +143,28 @@
                 {{/if}}
                 <div id="code" class="section scrollspy row">
                     {{#if existLinksWith 'Code'}}
-                            <h3 class="center">Code</h3>
+                        <h3 class="center">Code</h3>
                         {{#each links}}
-                        {{#if tagMatchesTags "Code" tags}}
-                            <div class="col l3 center">
-                                {{> cgLink this}}
-                            </div>
-                        {{/if}}
-                    {{/each}}
-                        {{else}}
+                            {{#if tagMatchesTags "Code" tags}}
+                                <div class="col l3 center">
+                                    {{> cgLink this}}
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{else}}
 
                     {{/if}}
                 </div>
                 <div id="science" class="section scrollspy row">
                     {{#if existLinksWith 'Science'}}
                         <h3 class="center">Science</h3>
-                    {{#each links}}
-                        {{#if tagMatchesTags "Science" tags}}
-                            <div class="col l3 center">
-                                {{> cgLink this}}
-                            </div>
-                        {{/if}}
-                    {{/each}}
+                        {{#each links}}
+                            {{#if tagMatchesTags "Science" tags}}
+                                <div class="col l3 center">
+                                    {{> cgLink this}}
+                                </div>
+                            {{/if}}
+                        {{/each}}
                     {{/if}}
                 </div>
                 <div id="description" class="row scrollspy center">
@@ -169,19 +172,20 @@
                 </div>
                 <div id="specs" class="row center scrollspy  striped">
                     <div class="col offset-l3 l6">
+                        <h3 class="center">Specifications</h3>
                         <table>
                             <thead>
                             <tr>
-                                <th data-field="property">Name</th>
-                                <th data-field="value">Item Name</th>
+                                <th data-field="property">Property</th>
+                                <th data-field="value">Value</th>
                             </tr>
                             </thead>
                             <tbody>
                             {{#each keyValue specs}}
-                            <tr>
-                                <td>{{key}}</td>
-                                <td>{{value}}</td>
-                            </tr>
+                                <tr>
+                                    <td>{{key}}</td>
+                                    <td>{{value}}</td>
+                                </tr>
                             {{/each}}
                             </tbody>
                         </table>
@@ -208,7 +212,7 @@
                     {{/if}}
                     <li><a href="#code" class="">Code</a></li>
                     <li><a href="#science" class="">Science</a></li>
-                    <li><a href="#description" class="">Specs</a></li>
+                    <li><a href="#specs" class="">Specs</a></li>
                 {{/pageContents}}
             </div>
 
