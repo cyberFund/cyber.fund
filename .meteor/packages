@@ -39,3 +39,4 @@ spiderable
 # okgrow:analytics
 tmeasday:publish-counts
 fortawesome:fontawesome
+percolate:synced-cron

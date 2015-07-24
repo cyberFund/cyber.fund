@@ -20,7 +20,8 @@ CF.fetching.cyberFund.processData = function (data, callback) {
 /**
  *
  * @param obj
- * @returns {{}}
+ * @returns {{}} object with keys flattened. ok to use in conjunction with
+ * collection.update({..}, {$set: flatten(obj)})
  */
 function flatten(obj) { //todo move to utils..
   if (!_.isObject(obj)) return;
@@ -51,7 +52,7 @@ function flatten(obj) { //todo move to utils..
   return result;
 }
 
-Meteor.startup(function () {
+//Meteor.startup(function () {
   var fetch = function () {
     logger.info("Fetching data from cyberFund...");
     var res = HTTP.call("HEAD", sourceUrl, {timeout: fetchInterval});
@@ -109,5 +110,18 @@ Meteor.startup(function () {
 
   fetch();
   Meteor.setInterval(fetch, fetchInterval);
+//});
+Meteor.startup(function(){
+  fetch();
+});
+SyncedCron.add({
+    name: 'fetch chaingear data',
+    schedule: function(parser) {
+      // parser is a later.parse object
+      return parser.cron('0/5 * * * *', false);
+    },
+    job: function() {
+      fetch();
+    }
 });
 

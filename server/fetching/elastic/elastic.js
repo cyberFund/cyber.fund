@@ -185,19 +185,41 @@ function fetchAverage15m(params) {
 
 }
 Meteor.startup(function () {
-  Meteor.setTimeout(
+/*  Meteor.setTimeout(
     function () {
       fetchLatest();
-      Meteor.setInterval(fetchLatest, 300000);
+ //     Meteor.setInterval(fetchLatest, 300000);
     }, 4000);
 
 
   Meteor.setTimeout(
     function () {
       fetchAverage15m();
-      Meteor.setInterval(fetchAverage15m, 300000);
-    }, 12000);
+ //     Meteor.setInterval(fetchAverage15m, 300000);
+    }, 20000);*/
+});
 
+SyncedCron.add({
+  name: 'fetch latest elasticsearch data',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.cron('3/5 * * * *', false);
+  },
+  job: function() {
+    fetchAverage15m();
+  }
+});
+
+
+SyncedCron.add({
+  name: 'fetch avegares 15m elasticsearch data',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.cron('2/5 * * * *', false);
+  },
+  job: function() {
+    fetchLatest();
+  }
 });
 
 Meteor.methods({
