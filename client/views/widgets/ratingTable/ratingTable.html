@@ -40,7 +40,7 @@
                         {{>cfRating rating=ratings.rating_cyber}}</td>
 
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
-                    <span>{{percentsToText metrics.supplyChangePercents.day}}</span>
+                    <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
                     {{#tooltip}}
 
                       <div>Ticker:
@@ -95,7 +95,7 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    <span class="{{percentsToClass metrics.capChangePercents.day.btc}}">
+                    <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
                         {{percentsToText2 metrics.capChangePercents.day.btc}}</span>
                     {{#if metrics.capChange.day.btc}}
                         {{#tooltip}}
@@ -118,7 +118,7 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align">{{#withTooltip}}
-                    <span class="{{percentsToClass metrics.capChangePercents.day.usd}}">
+                    <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
                         {{percentsToText2 metrics.capChangePercents.day.usd}}</span>
 
                     {{#tooltip}}

@@ -4,6 +4,10 @@ Meteor.publish("current-data", function (options) {
   var params = {sort: {"ratings.rating_cyber": -1, "metrics.cap.btc": -1}};
   if (!isNaN(options["ratings.rating_cyber"])) selector["ratings.rating_cyber"] = {$gte: options["ratings.rating_cyber"]};
   if (!isNaN(options.limit)) params.limit = options.limit;
+  params.fields = {
+    "aliases.CurrencyName": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1,
+    "nickname": 1
+  };
   return CurrentData.find(selector, params);
 });
 

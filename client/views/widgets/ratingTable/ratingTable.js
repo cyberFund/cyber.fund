@@ -71,15 +71,6 @@ Template['ratingTable'].helpers({
     name_: function () {
         return Blaze._globalHelpers._toU(this.system);
     },
-    percentsToText: function (percents) {
-        if (percents < 0) {
-            return "Deflation " + (-percents).toFixed(2) + "%";
-        } else if (percents > 0) {
-            return "Inflation " + percents.toFixed(2) + "%";
-        } else {
-            return "Stable";
-        }
-    },
     dailyTradeVolumeToText: function (volumeDaily, absolute) {
         //<0.1% - Illiquid
         //<0.3% - Very Low
@@ -114,9 +105,6 @@ Template['ratingTable'].helpers({
         } else {
             return "= 0%";
         }
-    },
-    percentsToClass: function (percents) {
-        return (percents < 0) ? "red-text" : "green-text";
     },
     capUsdToText: function (cap) {
         var ret = parseFloat(cap);

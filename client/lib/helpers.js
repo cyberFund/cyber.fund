@@ -109,7 +109,19 @@ var helpers = {
   },
   usersCount: function(){
     return Counts.get('usersCount')
-  }
+  },
+  greenRedNumber: function(value){
+      return (value < 0) ? "red-text" : "green-text";
+  },
+  inflationToText: function (percents) {
+    if (percents < 0) {
+      return "Deflation " + (-percents).toFixed(2) + "%";
+    } else if (percents > 0) {
+      return "Inflation " + percents.toFixed(2) + "%";
+    } else {
+      return "Stable";
+    }
+  },
 };
 
 _.each(helpers, function (helper, key) {

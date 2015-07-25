@@ -21,7 +21,7 @@
                 </div>
                 <div id="main" class="section scrollspy row">
                     {{#if existLinksWith "Main"}}
-                        <h4 class="center">Main links</h4>
+                        <h3 class="center">Main links</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Main" tags}}
                                 <div class="col l3 center">
@@ -32,42 +32,42 @@
                     {{/if}}
                 </div>
                 <div id="market" class="row scrollspy center">
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Price</p>
-
-                            <p class="enlarge">{{readableN price.usd}}</p>
-
-                            <p>{{readableN price.btc}}</p>
-                        </div>
-                    </div>
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Cap</p>
-
-                            <p class="enlarge">{{readableN cap.usd 0}}</p>
-
-                            <p>{{readableN cap.btc 0}}</p>
-                        </div>
-                    </div>
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Trade</p>
-
-                            <p class="enlarge">{{readableN tradeVolume.btc 0}}</p>
-
-                            <p>Link</p>
-                        </div>
-                    </div>
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Supply</p>
-
-                            <p class="enlarge">{{supply}}</p>
-
-                            <p>.</p>
-                        </div>
-                    </div>
+                    <h3 class="center"> Market </h3>
+                    <table class="centered bordered">
+                        <thead>
+                        <tr>
+                            <th>
+                                Supply
+                            </th>
+                            <th>
+                                Price
+                            </th>
+                            <th>
+                                Trade, 24h
+                            </th>
+                            <th>
+                                Cap
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td rowspan="2">
+                                <span class="enlarge">{{readableN metrics.supply 0}}</span>
+                                <br>
+                                <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
+                            </td>
+                            <td> ..price usd.. </td>
+                            <td> ..trade usd.. </td>
+                            <td> ..cap usd.. </td>
+                        </tr>
+                        <tr>
+                            <td> ..price btc.. </td>
+                            <td> ..trade btc.. </td>
+                            <td> ..cap btc.. </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
                 <div id="charts" class="row scrollspy center">
                     <script type="text/javascript">
@@ -88,6 +88,8 @@
                     <div class="ct-chart" style="height:200px"></div>
                 </div>
                 <div id="apps" class="section scrollspy row">
+            {{#if existLinksWith 'Apps'}}
+                    <h3 class="center">Apps</h3>
                     {{#each links}}
                         {{#if tagMatchesTags "Apps" tags}}
                             <div class="col l3 center">
@@ -95,6 +97,7 @@
                             </div>
                         {{/if}}
                     {{/each}}
+                {{/if}}
                 </div>
                 <div id="dapps" class="section scrollspy row">
                     {{#if dependentsExist}} {{! todo: extract widget}}
