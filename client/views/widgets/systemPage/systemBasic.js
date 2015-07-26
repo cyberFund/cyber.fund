@@ -101,9 +101,9 @@ Template['systemBasic'].helpers({
       return [];
     }
 
-    return _.filter(this.links, function(link){
+    return _.first(_.filter(this.links, function(link){
       return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
-    }).first(4);
+    }), 4);
   }
 });
 
