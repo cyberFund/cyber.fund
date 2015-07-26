@@ -93,6 +93,14 @@ Template['systemBasic'].helpers({
       return CF.Utils.deltaPercents( metrics.tradeVolume,
          metrics.tradeVolumePrevious.day);
     }
+  },
+  main_links: function(){
+    if (!this.links || !_.isArray(this.links)) {
+      return [];
+    }
+    return _.where(links, function(link){
+      return link.tags.indexOf("Main") > -1
+    }).first(4);
   }
 });
 

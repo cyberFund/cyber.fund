@@ -8,3 +8,7 @@ ul.dapps-list > li {
   margin: 6px 9px;
   width: 220px;
 }
+
+.push_down {
+   top: 250px;
+}

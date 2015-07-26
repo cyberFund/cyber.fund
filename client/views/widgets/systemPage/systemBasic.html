@@ -21,13 +21,10 @@
                 </div>
                 <div id="main" class="section scrollspy row">
                     {{#if existLinksWith "Main"}}
-                        <h3 class="center">Main links</h3>
-                        {{#each links}}
-                            {{#if tagMatchesTags "Main" tags}}
+                        {{#each main_links}}
                                 <div class="col l3 center">
                                     {{> cgLink this}}
                                 </div>
-                            {{/if}}
                         {{/each}}
                     {{/if}}
                 </div>
@@ -241,7 +238,7 @@
                 </div>
             </div>
             <div class="col hide-on-small-only m3 l2">
-                {{#pageContents class='fixed _scroller'}}
+                {{#pageContents class='fixed _scroller push_down'}}
                     <li><a href="#about" class="">About</a></li>
                     <li><a href="#market" class="">Market</a></li>
                     <li><a href="#apps" class="">Apps</a></li>
