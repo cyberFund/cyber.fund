@@ -27,81 +27,71 @@
                         {{/each}}
                 </div>
                 <div id="market" class="row scrollspy center">
-                    <h3 class="center"> Market </h3>
-                    <table class="centered bordered">
-                        <thead>
-                        <tr>
-                            <th>
-                                Supply
-                            </th>
-                            <th>
-                                Price
-                            </th>
-                            <th>
-                                Trade, 24h
-                            </th>
-                            <th>
-                                Cap
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td rowspan="2">
-                                <span class="enlarge">{{readableN metrics.supply 0}} {{aliases.CurrencyName}}s</span>
-                                {{#if metrics.supplyChangePercents.day}}
-                                <br>
-                                <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
-                                {{/if}}
-                            </td>
-                            <td> <span class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
+                    <h3 class="center"> &nbsp; </h3>
+                    <div class="col l3 center valign" style="padding:10px">
+                        <div class="card">
+                            <h5>Price</h5>
+                            <p><span class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
                                 {{#if metrics.priceChangePercents.day.usd}}
                                     <br>
                                 <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
                                     {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
-                                {{/if}}
-                            </td>
-                            <td> <span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
-                                {{#if yesterdayVolumeUsd}}
-                                    <br>
-                                <span class="{{greenRedNumber usdVolumeChange }}">
-                                    {{percentsToTextUpDown usdVolumeChange }}</span>
-                                {{/if}}
-                            </td>
-                            <td><span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                                {{#if metrics.capChangePercents.day.usd}}
-                                <br>
-                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
-                                {{/if}}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN metrics.price.btc 8}}</span>
+                                {{/if}}</p>
+                            <p><span class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
                                 {{#if metrics.priceChangePercents.day.btc}}
                                     <br>
-                                {{log metrics.priceChangePercents.day.btc}}
-                                <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-                                    {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
-                                {{/if}}
-                            </td>
-                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
-                                {{#if yesterdayVolumeBtc}}
+                                    {{log metrics.priceChangePercents.day.btc}}
+                                    <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+                                        {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+                                {{/if}}</p>
+                        </div>
+                    </div>
+                    <div class="col l3 center valign" style="padding:10px">
+                        <div class="card">
+                            <p>Cap</p>
+                            <p><span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                                {{#if metrics.capChangePercents.day.usd}}
                                     <br>
-                                <span class="{{greenRedNumber btcVolumeChange }}">
-                                    {{percentsToTextUpDown btcVolumeChange }}</span>
-                                {{/if}}
-                            </td>
-                            <td><span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+                                {{/if}}</p>
+                            <p><span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
                                 {{#if metrics.capChangePercents.day.btc}}
                                     <br>
                                 <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
                                     {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-                                {{/if}}
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                {{/if}}</p>
+                        </div>
+                    </div>
+                    <div class="col l3 center valign" style="padding:10px">
+                        <div class="card">
+                            <p>Trade</p>
+                            <p><span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
+                                {{#if yesterdayVolumeUsd}}
+                                    <br>
+                                <span class="{{greenRedNumber usdVolumeChange }}">
+                                    {{percentsToTextUpDown usdVolumeChange }}</span>
+                                {{/if}}</p>
+                            <p><span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+                                {{#if yesterdayVolumeBtc}}
+                                    <br>
+                                <span class="{{greenRedNumber btcVolumeChange }}">
+                                    {{percentsToTextUpDown btcVolumeChange }}</span>
+                                {{/if}}</p>
+                        </div>
+                    </div>
+                    <div class="col l3 center valign" style="padding:10px">
+                        <div class="card">
+                            <p>Supply</p>
+                            <p>&nbsp;</p>
+                            <p><span class="enlarge">{{readableN metrics.supply 0}} {{aliases.CurrencyName}}s</span>
+                                {{#if metrics.supplyChangePercents.day}}
+                                    <br>
+                                    <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
+                                {{/if}}</p>
+                            <p>&nbsp;</p>
+                        </div>
+                    </div>
                 </div>
                 <div id="charts" class="row scrollspy center">
                     <script type="text/javascript">
@@ -208,6 +198,7 @@
                     <p>{{description}}</p>
                 </div>
                 <div id="specs" class="row center scrollspy  striped">
+                    {{#if hasSpecs}}
                     <div class="col offset-l3 l6">
                         <h3 class="center">Specifications</h3>
                         <table>
@@ -227,6 +218,7 @@
                             </tbody>
                         </table>
                     </div>
+                    {{/if}}
                     <div class="col l3"></div>
                 </div>
                 <div id="improve" class="row scrollspy center">

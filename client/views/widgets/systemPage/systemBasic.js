@@ -97,13 +97,16 @@ Template['systemBasic'].helpers({
   main_links: function(){
     console.log(this.links);
     if (!this.links || !_.isArray(this.links)) {
-      console.log("...")
+      console.log("...");
       return [];
     }
 
     return _.first(_.filter(this.links, function(link){
       return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
     }), 4);
+  },
+  hasSpecs: function(){
+    return (this.specs && !_.isEmpty(this.specs));
   }
 });
 

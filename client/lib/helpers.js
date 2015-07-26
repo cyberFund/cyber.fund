@@ -89,6 +89,23 @@ var helpers = {
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
   },
+  satoshi8: function(value) {
+    function group3(input, sep){
+      while (/(\d+)(\d{3})/.test(input.toString())) {
+        input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
+      }
+      return input;
+    };
+    function group3_(input, sep){
+      while (/(\d+)(\d{3})/.test(input.toString())) {
+        input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
+      }
+      return input;
+    }
+
+    var out = value.toFixed(8).split('.');
+    return group3(out[0])+"."+group3_(out[1], " ");
+  },
   tagMatchesTags: function(tag, tags) {
     return tags.indexOf(tag) > -1;
   },
