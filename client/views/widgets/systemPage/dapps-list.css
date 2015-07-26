@@ -11,4 +11,5 @@ ul.dapps-list > li {
 
 .push_down {
    top: 250px;
+  right: 12px;
 }
