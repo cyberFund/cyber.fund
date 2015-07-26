@@ -97,15 +97,6 @@ Template['ratingTable'].helpers({
         if (isNaN(ret)) return "";
         return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
     },
-    percentsToText2: function (percents) {
-        if (percents < 0) {
-            return "↓ " + (-percents.toFixed(2)) + "%";
-        } else if (percents > 0) {
-            return "↑ " + percents.toFixed(2) + "%";
-        } else {
-            return "= 0%";
-        }
-    },
     capUsdToText: function (cap) {
         var ret = parseFloat(cap);
         if (isNaN(ret)) return "";

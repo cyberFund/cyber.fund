@@ -54,17 +54,55 @@
                         <tr>
                             <td rowspan="2">
                                 <span class="enlarge">{{readableN metrics.supply 0}}</span>
+                                {{#if metrics.supplyChangePercents.day}}
                                 <br>
                                 <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
+                                {{/if}}
                             </td>
-                            <td> ..price usd.. </td>
-                            <td> ..trade usd.. </td>
-                            <td> ..cap usd.. </td>
+                            <td> <span class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
+                                {{#if metrics.priceChangePercents.day.usd}}
+                                    <br>
+                                <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+                                    {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+                                {{/if}}
+                            </td>
+                            <td> <span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
+                                {{#if yesterdayVolumeUsd}}
+                                    <br>
+                                <span class="{{greenRedNumber usdVolumeChange }}">
+                                    {{percentsToTextUpDown usdVolumeChange }}</span>
+                                {{/if}}
+                            </td>
+                            <td><span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                                {{#if metrics.capChangePercents.day.usd}}
+                                <br>
+                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+                                {{/if}}
+                            </td>
                         </tr>
                         <tr>
-                            <td> ..price btc.. </td>
-                            <td> ..trade btc.. </td>
-                            <td> ..cap btc.. </td>
+                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN metrics.price.btc 2}}</span>
+                                {{#if metrics.priceChangePercents.day.btc}}
+                                    <br>
+                                <span class="{{greenRedNumber metrics.priceChangePercents.day.tc}}">
+                                    {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+                                {{/if}}
+                            </td>
+                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+                                {{#if yesterdayVolumeBtc}}
+                                    <br>
+                                <span class="{{greenRedNumber btcVolumeChange }}">
+                                    {{percentsToTextUpDown btcVolumeChange }}</span>
+                                {{/if}}
+                            </td>
+                            <td><span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+                                {{#if metrics.capChangePercents.day.btc}}
+                                    <br>
+                                <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+                                    {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+                                {{/if}}
+                            </td>
                         </tr>
                         </tbody>
                     </table>

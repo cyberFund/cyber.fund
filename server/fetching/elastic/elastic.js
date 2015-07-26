@@ -103,6 +103,7 @@ var esParsers = {
           var supplyDayAgo = sDayAgo.supply_current// || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
             (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
+
           set["metrics.supplyChange.day"] = sNow.supply_current - supplyDayAgo;
         }
 
@@ -112,8 +113,24 @@ var esParsers = {
         // }
       }
 
-      if (sNow.price_usd) set["metrics.price.usd"] = sNow.price_usd;
-      if (sNow.price_btc) set["metrics.price.btc"] = sNow.price_btc;
+      if (sNow.price_usd) {
+        set["metrics.price.usd"] = sNow.price_usd;
+        if (sDayAgo.price_usd) {
+          set["metrics.priceChangePercents.day.usd"] = 100.0 *
+            (sNow.price_usd - sDayAgo.price_usd) / sNow.price_usd;
+          set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
+        }
+      }
+
+      if (sNow.price_btc) {
+        set["metrics.price.btc"] = sNow.price_btc;
+        if (sDayAgo.price_btc) {
+          set["metrics.priceChangePercents.day.btc"] = 100.0 *
+            (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
+          set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
+        }
+      }
+
       if (sNow.volume24_btc) {
         set["metrics.tradeVolume"] = sNow.volume24_btc;
         //set["metrics.tradeVolume.usd"] = sNow.volume24_usd;

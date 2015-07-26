@@ -31,7 +31,7 @@ Template['cgLink'].helpers({
         break;
     }
     if (link.type == "custom") {
-      console.log(link);
+      //console.log(link);
       return ""
     }
     return "external-link";

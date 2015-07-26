@@ -19,6 +19,8 @@ Package.onUse(function(api) {
   api.use(["underscore"], cs);
   api.addFiles('cyberfund-base.js', cs);
   api.addFiles(['server/utils-server.js', 'server/check-balance.js'], s);
+  api.addFiles(['client/utils-client.js'], c);
+
   api.export("CF");
 });
 

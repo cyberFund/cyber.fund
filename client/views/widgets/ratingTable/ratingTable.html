@@ -96,7 +96,7 @@
 
                 <td class="right-align hide-on-med-and-down">{{# withTooltip}}
                     <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-                        {{percentsToText2 metrics.capChangePercents.day.btc}}</span>
+                        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
                     {{#if metrics.capChange.day.btc}}
                         {{#tooltip}}
                             <div>Real change:
@@ -119,7 +119,7 @@
 
                 <td class="right-align">{{#withTooltip}}
                     <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                        {{percentsToText2 metrics.capChangePercents.day.usd}}</span>
+                        {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
 
                     {{#tooltip}}
                         <div>Real change:

@@ -122,6 +122,15 @@ var helpers = {
       return "Stable";
     }
   },
+  percentsToTextUpDown: function (percents) {
+    if (percents < 0) {
+      return "↓ " + (-percents.toFixed(2)) + "%";
+    } else if (percents > 0) {
+      return "↑ " + percents.toFixed(2) + "%";
+    } else {
+      return "= 0%";
+    }
+  }
 };
 
 _.each(helpers, function (helper, key) {
