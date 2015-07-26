@@ -1,7 +1,7 @@
 Session.setDefault('curDataSelector', {"ratings.rating_cyber": 5});
 
 Deps.autorun(function () {
-    Meteor.subscribe("current-data", Session.get('curDataSelector'));
+    Meteor.subscribe("currentDataRP", Session.get('curDataSelector'));
 });
 
 

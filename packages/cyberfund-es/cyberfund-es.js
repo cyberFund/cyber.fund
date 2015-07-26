@@ -111,7 +111,7 @@ _.extend(ns, {
          * extends query object, if there are recognized parameters
          * this probably won't stay for long, but seems as good idea for handling aggregations.
          */
-        _parametrize: function (qObj, params) { //TODO: some tests would be ok..
+        _parametrize: function (qObj, params) {
             function _extendQuery(qObj, extension) {
                 if (!qObj.body.query) {
                     qObj.body.query = extension;
@@ -145,10 +145,8 @@ _.extend(ns, {
         },
 
         averages_last_15m: {
-            client_allowed: true, //comment out to disable client ability calling this.
+            client_allowed: false, //comment out to disable client ability calling this.
             getQueryObj: function (params) {
-                // todo: allow passing set of keys with params,
-                // to allow getting data by parts
                 var ret = {
                     "index": 'marketcap-read',
                     "type": 'market',

@@ -12,7 +12,7 @@ Package.describe({
 
 var c= "client", s= "server", cs = ["client", "server"];
 
-Npm.depends({"crypto-balance":  "0.0.20"}); // # todo: move to separate package..
+Npm.depends({"crypto-balance":  "0.0.20"});
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');

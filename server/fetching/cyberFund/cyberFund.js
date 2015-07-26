@@ -68,7 +68,7 @@ function flatten(obj) { //todo move to utils..
         }
         //if (CurrentData.find().count() < 1000) {
         _.each(getResult, function (system) {
-          var selector = CF.CurrentData.selectors.name_symbol(system.system, system.token.token_symbol);
+          var selector = CF.CurrentData.selectors.system_symbol(system.system, system.token.token_symbol);
           var doc = CurrentData.findOne(selector);
           if (!doc) {
             if (system.specs && (system.specs.supply || system.specs.cap)) {

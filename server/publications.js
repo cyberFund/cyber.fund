@@ -1,4 +1,7 @@
-Meteor.publish("current-data", function (options) {
+/**
+ * currentData, just fields enough to draw rating table..
+ */
+Meteor.publish("currentDataRP", function (options) {
   options = options || {};
   var selector = {};
   var params = {sort: {"ratings.rating_cyber": -1, "metrics.cap.btc": -1}};
@@ -23,6 +26,7 @@ Meteor.publish("fresh-price", function () {
   return []; // no marketdata as of now
 });
 
+
 Meteor.publish('userDetails', function () {
   //console.log(Meteor.users.findOne({_id: this.userId}));
 
@@ -34,25 +38,18 @@ Meteor.publish('userDetails', function () {
   });
 });
 
-Meteor.publish('customCurrentData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
-  options = options || {};
-  return CurrentData.find(selector, options);
-});
-
-Meteor.publish('customMarketData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
-  options = options || {};
-  return MarketData.find(selector, options);
-});
-
+/**
+ * fetch full currentData document
+ */
 Meteor.publish('systemData', function (options) {
   //still using name & symbol. probably got to refactor to avoid confusion in future
   var name = options.name;
   var symbol = options.symbol;
   if (symbol && name) {
-    return CurrentData.find(CF.CurrentData.selectors.name_symbol(name, symbol));
+    return CurrentData.find(CF.CurrentData.selectors.system_symbol(name, symbol));
   }
   if (name) {
-    return CurrentData.find(CF.CurrentData.selectors.name(name));
+    return CurrentData.find(CF.CurrentData.selectors.system(name));
   }
   if (symbol) {
     return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
