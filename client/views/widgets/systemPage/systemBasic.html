@@ -82,10 +82,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN metrics.price.btc 2}}</span>
+                            <td> <span class="enlarge">Ƀ&nbsp;{{readableN metrics.price.btc 8}}</span>
                                 {{#if metrics.priceChangePercents.day.btc}}
                                     <br>
-                                <span class="{{greenRedNumber metrics.priceChangePercents.day.tc}}">
+                                {{log metrics.priceChangePercents.day.btc}}
+                                <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
                                     {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
                                 {{/if}}
                             </td>

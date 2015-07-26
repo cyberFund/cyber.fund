@@ -52,26 +52,26 @@ Template['systemBasic'].helpers({
   // not good. must be fixed soon.
   todayVolumeUsd: function(){
     if (this.metrics && this.metrics.tradeVolume && this.metrics.price)
-    return this.metrics.tradeVolume * this.metrics.price.usd;
+    return this.metrics.tradeVolume * this.metrics.price.usd / this.metrics.price.btc;
     return 0;
   },
   yesterdayVolumeUsd: function(){
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.price) {
-      return metrics.price.usd * metrics.tradeVolumePrevious.day;
+      return metrics.price.usd / metrics.price.btc * metrics.tradeVolumePrevious.day;
     }
   },
   todayVolumeBtc: function(){
     if (this.metrics && this.metrics.tradeVolume && this.metrics.price)
-      return this.metrics.tradeVolume * this.metrics.price.btc;
+      return this.metrics.tradeVolume;
     return 0;
   },
   yesterdayVolumeBtc: function(){
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.price) {
-      return metrics.price.btc * metrics.tradeVolumePrevious.day;
+      return metrics.tradeVolumePrevious.day;
     }
   },
   usdVolumeChange: function(){
@@ -80,17 +80,18 @@ Template['systemBasic'].helpers({
       metrics.tradeVolumePrevious.day && metrics.price
       && metrics.tradeVolume && metrics.price) {
 
-      return CF.Utils.deltaPercents(metrics.price.usd * metrics.tradeVolume, metrics.price.usd * metrics.tradeVolumePrevious.day);
+      return CF.Utils.deltaPercents(metrics.price.usd  / metrics.price.btc * metrics.tradeVolume,
+        metrics.price.usd / metrics.price.btc * metrics.tradeVolumePrevious.day);
     }
   },
   btcVolumeChange: function(){
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
-      metrics.tradeVolumePrevious.day && metrics.price
-      && metrics.tradeVolume && metrics.price) {
+      metrics.tradeVolumePrevious.day
+      && metrics.tradeVolume) {
 
-      return CF.Utils.deltaPercents(metrics.price.btc * metrics.tradeVolume,
-        metrics.price.btc * metrics.tradeVolumePrevious.day);
+      return CF.Utils.deltaPercents( metrics.tradeVolume,
+         metrics.tradeVolumePrevious.day);
     }
   }
 });
