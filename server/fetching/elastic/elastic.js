@@ -188,6 +188,13 @@ var esParsers = {
         // logger.info("no averages for " + bucket.key);
       }
     });
+  },
+  averages_date_hist: function(result, params){
+    console.log(result);
+    Extras.insert({
+      result: result,
+      params: params
+    })
   }
 };
 
@@ -199,21 +206,23 @@ function fetchLatest(params) {
 function fetchAverage15m(params) {
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
   esParsers.averages_l15(result);
-
 }
+
+function fetchAverages(params){
+  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result);
+}
+
 Meteor.startup(function () {
-/*  Meteor.setTimeout(
-    function () {
-      fetchLatest();
- //     Meteor.setInterval(fetchLatest, 300000);
-    }, 4000);
+  var countHourlies = CurrentData.find({"hourlyData": {$exists: true}}).count();
+  var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
 
+  var params = {
+    from: "now-2d", to: "now-1d", interval: "hour"//, system: "Bitcoin"
+  };
+  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result, params);
 
-  Meteor.setTimeout(
-    function () {
-      fetchAverage15m();
- //     Meteor.setInterval(fetchAverage15m, 300000);
-    }, 20000);*/
 });
 
 SyncedCron.add({
