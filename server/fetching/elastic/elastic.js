@@ -319,7 +319,6 @@ SyncedCron.add({
 
 Meteor.methods({
   "initAverageValues": function (curDataId) {
-    console.log("here & " + curDataId);
     var curDataDoc = CurrentData.findOne({_id: curDataId});
     if (!curDataDoc || curDataDoc.initializedAverages || !curDataDoc.token) return; //only shoot once. like a real panda.
 
@@ -333,8 +332,6 @@ Meteor.methods({
     };
     try {
       var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
-      console.log("beep");
-      console.log("now here");
       esParsers.averages_date_hist(result, params);
 
       // fetch hourlies for past week;
@@ -345,9 +342,7 @@ Meteor.methods({
         system: system
       };
       try {
-        console.log("beep");
         result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
-        console.log("and now here");
         esParsers.averages_date_hist(result, params);
 
         CurrentData.update({_id: curDataId}, {$set: {initializedAverages: true}});
