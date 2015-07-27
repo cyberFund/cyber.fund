@@ -1,6 +1,6 @@
 SyncedCron.config({
   logger: log4js.getLogger("synced-cron"),
   collectionTTL: 604800,
-  utc: true,
+  utc: true
 });
-SyncedCron.start();
+//SyncedCron.start();

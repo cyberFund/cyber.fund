@@ -29,60 +29,71 @@
                 <div id="market" class="row scrollspy center">
                     <h3 class="center"> &nbsp; </h3>
                     <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
+                        <div class="card markt">
                             <h5>Price</h5>
                             <p><span class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
+                                <br>
                                 {{#if metrics.priceChangePercents.day.usd}}
-                                    <br>
+
                                 <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
                                     {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+                                    {{else}}&nbsp;
                                 {{/if}}</p>
                             <p><span class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
+                                <br>
                                 {{#if metrics.priceChangePercents.day.btc}}
-                                    <br>
+
                                     {{log metrics.priceChangePercents.day.btc}}
                                     <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
                                         {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+                                {{else}}&nbsp;
                                 {{/if}}</p>
                         </div>
                     </div>
                     <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Cap</p>
+                        <div class="card markt">
+                            <h5>Cap</h5>
                             <p><span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                                <br>
                                 {{#if metrics.capChangePercents.day.usd}}
-                                    <br>
+
                                 <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
                                     {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+                                    {{else}}
+                                    &nbsp;
                                 {{/if}}</p>
                             <p><span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+                                <br>
                                 {{#if metrics.capChangePercents.day.btc}}
-                                    <br>
+
                                 <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
                                     {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+                                    {{else}}&nbsp;
                                 {{/if}}</p>
                         </div>
                     </div>
                     <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Trade</p>
+                        <div class="card markt">
+                            <h5>Trade</h5>
                             <p><span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
+                                <br>
                                 {{#if yesterdayVolumeUsd}}
-                                    <br>
                                 <span class="{{greenRedNumber usdVolumeChange }}">
                                     {{percentsToTextUpDown usdVolumeChange }}</span>
+                                {{else}}&nbsp;
                                 {{/if}}</p>
                             <p><span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+                                <br>
                                 {{#if yesterdayVolumeBtc}}
-                                    <br>
                                 <span class="{{greenRedNumber btcVolumeChange }}">
                                     {{percentsToTextUpDown btcVolumeChange }}</span>
+                                {{else}}&nbsp;
                                 {{/if}}</p>
                         </div>
                     </div>
                     <div class="col l3 center valign" style="padding:10px">
-                        <div class="card">
-                            <p>Supply</p>
+                        <div class="card markt">
+                            <h5>Supply</h5>
                             <p>&nbsp;</p>
                             <p><span class="enlarge">{{readableN metrics.supply 0}} {{aliases.CurrencyName}}s</span>
                                 {{#if metrics.supplyChangePercents.day}}
@@ -129,7 +140,7 @@
                         <h3 class="center">Dapps</h3>
                         <ul class="dapps-list">
                             {{#each dependents}}
-                                <li class="card center">
+                                <li class="card center col l3 m3">
                                     <a href="{{pathFor 'system1' name_=name_}}"
                                        class="enlarge"
                                        style="display: inline; white-space: nowrap;">
@@ -211,7 +222,7 @@
                             <tbody>
                             {{#each keyValue specs}}
                                 <tr>
-                                    <td>{{key}}</td>
+                                    <td>{{_specs_ key}}</td>
                                     <td>{{value}}</td>
                                 </tr>
                             {{/each}}
@@ -222,8 +233,8 @@
                     <div class="col l3"></div>
                 </div>
                 <div id="improve" class="row scrollspy center">
-                    <p>Please, help <a
-                            href="https://github.com/cyberFund/chaingear/tree/gh-pages/sources/{{name}}">improve
+                    <p>Please, help <a target="_blank"
+                            href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">improve
                         this page</a> on Github</p>
                 </div>
             </div>

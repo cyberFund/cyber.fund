@@ -4,12 +4,16 @@ ul.dapps-list {
 
 ul.dapps-list > li {
   display: inline-block;
-  padding: 6px 12px;
-  margin: 6px 9px;
-  width: 220px;
+ /* padding: 6px 12px; */
+ /* margin: 6px 9px; */
+ /* width: 220px;*/
 }
 
 .push_down {
    top: 250px;
   right: 12px;
+}
+
+.card.markt {
+  height: 14em;
 }

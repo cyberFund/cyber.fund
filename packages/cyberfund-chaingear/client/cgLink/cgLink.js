@@ -6,8 +6,11 @@ Template['cgLink'].helpers({
   /**
    * returns specifically fa-icon class
    */
-  "iconClass": function () {
+
+  "iconUrl": function () {
     var link = this;
+    //if (link.icon)
+      //return "https://github.com/cyberFund/chaingear/blob/gh-pages/logos/" + link.icon;
     switch (link.icon) {
       case "twitter.png":
         return "twitter";
@@ -36,7 +39,7 @@ Template['cgLink'].helpers({
     }
     return "external-link";
   }
-});
+})
+;
 
-Template['cgLink'].events({
-});
+Template['cgLink'].events({});

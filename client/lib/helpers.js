@@ -147,6 +147,13 @@ var helpers = {
     } else {
       return "= 0%";
     }
+  },
+  _specs_: function(key){
+    var specs = {
+      block_time: "Block Time"
+    };
+    var ret = specs[key] || key;
+    return ret;
   }
 };
 

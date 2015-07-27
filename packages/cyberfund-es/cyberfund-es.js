@@ -227,32 +227,32 @@ _.extend(ns, {
                       "interval" : params.interval
                     },
                     "aggs": {
-                      "avg_cap_usd": {
+                      "cap_usd": {
                         "avg": {
                           "field": "cap_usd"
                         }
                       },
-                      "avg_cap_btc": {
+                      "cap_btc": {
                         "avg": {
                           "field": "cap_btc"
                         }
                       },
-                      "avg_price_usd": {
+                      "price_usd": {
                         "avg": {
                           "field": "price_usd"
                         }
                       },
-                      "avg_price_btc": {
+                      "price_btc": {
                         "avg": {
                           "field": "price_btc"
                         }
                       },
-                      "avg_volume24_btc": {
+                      "volume24_btc": {
                         "avg": {
                           "field": "volume24_btc"
                         }
                       },
-                      "avg_volume24_usd": {
+                      "volume24_usd": {
                         "avg": {
                           "field": "volume24_usd"
                         }

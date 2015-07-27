@@ -190,11 +190,45 @@ var esParsers = {
     });
   },
   averages_date_hist: function(result, params){
-    console.log(result);
-    Extras.insert({
-      result: result,
-      params: params
-    })
+    var daily = params.interval == "day";
+    var hourly =  params.interval == "hour";
+
+    if (!hourly && !daily) {
+      console.warn("averages_date_hist es parser: ");
+      console.warn("only 'hour' and 'day' currently supported as intervals for data");
+      console.log();
+    }
+
+    if (!result || !result.aggregations || !result.aggregations.by_system
+      || !result.aggregations.by_system.buckets) {
+      this.errorLogger(result);
+      return;
+    }
+
+    var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
+    if (!_.isArray(buckets)) return;
+
+    var notFounds = [];
+    _.each(buckets, function(sysBucket){
+      var systemKey = sysBucket.key;
+      if (CurrentData.find(_searchSelector(systemKey)).count() == 0) {
+        notFounds.push(sysBucket.key);
+        return;
+      }
+      if (daily) _key = "dailyData";
+      if (hourly) _key = "hourlyData";
+      if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
+        return;
+      }
+      console.log(systemKey);
+
+      _.each (sysBucket.over_time.buckets, function (timeBucket){
+        var utc = moment.utc(timeBucket.key_as_string);
+        //console.log(timeBucket);
+        console.log(utc);
+      });
+      $set = {}
+    });
   }
 };
 
@@ -218,7 +252,7 @@ Meteor.startup(function () {
   var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
 
   var params = {
-    from: "now-1h/h", to: "now/h", interval: "hour", systems: ["BTC|Bitcoin", "LTC|Litecoin"]
+    from: "now-1d/d", to: "now/d", interval: "day", systems: ["BTC|Bitcoin", "LTC|Litecoin"]
   };
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);

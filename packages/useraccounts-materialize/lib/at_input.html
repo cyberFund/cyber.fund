@@ -11,7 +11,7 @@
     {{/if}}
     <input class="validate {{#if hasError}}invalid{{/if}} {{#if hasSuccess}}valid{{/if}}" type="{{type}}" id="at-field-{{_id}}" name="at-field-{{_id}}" placeholder="{{#unless showLabels}} {{placeholder}} {{/unless}}" autocapitalize="none" autocorrect="off">
     {{#if hasIcon}}
-        <span class="{{iconClass}}"></span>
+        <span class="{{iconUrl}}"></span>
     {{/if}}
     {{#if hasError}}
       <span class='red-text'>{{errorText}}</span>
