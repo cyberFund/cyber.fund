@@ -218,7 +218,7 @@ Meteor.startup(function () {
   var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
 
   var params = {
-    from: "now-2d", to: "now-1d", interval: "hour"//, system: "Bitcoin"
+    from: "now-1h/h", to: "now/h", interval: "hour", systems: ["BTC|Bitcoin", "LTC|Litecoin"]
   };
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);

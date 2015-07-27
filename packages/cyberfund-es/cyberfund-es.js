@@ -209,8 +209,8 @@ _.extend(ns, {
             "query": {
               "range": {
                 "timestamp": {
-                  "from": params.from ,
-                  "to": params.to
+                  "gte": params.from, //gte-lt are used to force desired behavior:
+                  "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
                 }
               }
             },
@@ -264,10 +264,8 @@ _.extend(ns, {
             }
           }
         };
-        //ret = CF.ES.queries._parametrize(ret, params);
-        console.log(ret);
-        console.log(ret.body.aggs);
-        console.log(ret.body.query);
+        if (params.system || params.systems)
+        ret = CF.ES.queries._parametrize(ret, params);
         return ret;
       }
     },
