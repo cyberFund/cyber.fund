@@ -189,9 +189,9 @@ var esParsers = {
       }
     });
   },
-  averages_date_hist: function(result, params){
+  averages_date_hist: function (result, params) {
     var daily = params.interval == "day";
-    var hourly =  params.interval == "hour";
+    var hourly = params.interval == "hour";
 
     if (!hourly && !daily) {
       console.warn("averages_date_hist es parser: ");
@@ -209,12 +209,14 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
-    _.each(buckets, function(sysBucket){
+    _.each(buckets, function (sysBucket) {
       var systemKey = sysBucket.key;
-      if (CurrentData.find(_searchSelector(systemKey)).count() == 0) {
+      var id = CurrentData.findOne(_searchSelector(systemKey));
+      if (!id) {
         notFounds.push(sysBucket.key);
         return;
       }
+      id = id._id;
       if (daily) _key = "dailyData";
       if (hourly) _key = "hourlyData";
       if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
@@ -222,12 +224,33 @@ var esParsers = {
       }
       console.log(systemKey);
 
-      _.each (sysBucket.over_time.buckets, function (timeBucket){
+      // apply changes to currentData
+      var set = {};
+
+      _.each(sysBucket.over_time.buckets, function (timeBucket) {
+        if (!timeBucket.key_as_string) return;
         var utc = moment.utc(timeBucket.key_as_string);
-        //console.log(timeBucket);
-        console.log(utc);
+        if (!utc) return;
+
+        function grab(timeBucket) {
+          var ret = {};
+          _.each(["cap_usd", "cap_btc", "volume24_btc",
+            "price_usd", "volume24_usd", "price_btc"], function (k) {
+            ret[k] = timeBucket[k].value;
+          });
+          return ret;
+        }
+
+        var key;
+        if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
+        if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
+        set[key] = grab(timeBucket);
+
       });
-      $set = {}
+      if (!_.isEmpty(set)) {
+        CurrentData.update({_id: id}, {$set: set});
+      } else {
+      }
     });
   }
 };
@@ -242,7 +265,7 @@ function fetchAverage15m(params) {
   esParsers.averages_l15(result);
 }
 
-function fetchAverages(params){
+function fetchAverages(params) {
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result);
 }
@@ -252,20 +275,102 @@ Meteor.startup(function () {
   var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
 
   var params = {
-    from: "now-1d/d", to: "now/d", interval: "day", systems: ["BTC|Bitcoin", "LTC|Litecoin"]
+    from: "now-1d/d",
+    to: "now/d",
+    interval: "day"
   };
+
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
-  esParsers.averages_date_hist(result, params);
+  //  esParsers.averages_date_hist(result, params);
 
 });
 
 SyncedCron.add({
+  name: 'fetch last hour averages',
+  schedule: function (parser) {
+    return parser.cron('4 * * * *', false);
+  },
+  job: function () {
+    var params = {
+      from: "now-1h/h",
+      to: "now/h",
+      interval: "hour"
+    };
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+    esParsers.averages_date_hist(result, params);
+  }
+});
+
+SyncedCron.add({
+  name: 'fetch last day averages',
+  schedule: function (parser) {
+    return parser.cron('6 0 * * *', false);
+  },
+  job: function () {
+    var params = {
+      from: "now-1d/d",
+      to: "now/d",
+      interval: "day"
+    };
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+    esParsers.averages_date_hist(result, params);
+  }
+});
+
+Meteor.methods({
+  "initAverageValues": function (curDataId) {
+    console.log("here & " + curDataId);
+    var curDataDoc = CurrentData.findOne({_id: curDataId});
+    if (!curDataDoc || curDataDoc.initializedAverages || !curDataDoc.token) return; //only shoot once. like a real panda.
+
+    var system = curDataDoc.token.token_symbol+"|"+curDataDoc.system;
+    // fetch dailies for 30 last days
+    var params = {
+      from: "now-30d/d",
+      to: "now/d",
+      interval: "day",
+      system: system
+    };
+    try {
+      var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+      console.log("beep");
+      console.log("now here");
+      esParsers.averages_date_hist(result, params);
+
+      // fetch hourlies for past week;
+      params = {
+        from: "now-7d/h",
+        to: "now/h",
+        interval: "hour",
+        system: system
+      };
+      try {
+        console.log("beep");
+        result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+        console.log("and now here");
+        esParsers.averages_date_hist(result, params);
+
+        CurrentData.update({_id: curDataId}, {$set: {initializedAverages: true}});
+      } catch (e) { // if something went wrong - just do not set flag
+        console.log("gotcha 1");
+        console.log(e);
+        return;
+      }
+    } catch (e) {
+      console.log("gotcha 2");
+      console.log(e);
+      return; // just do not set flag if something went wrong
+    }
+  }
+});
+
+SyncedCron.add({
   name: 'fetch latest elasticsearch data',
-  schedule: function(parser) {
+  schedule: function (parser) {
     // parser is a later.parse object
     return parser.cron('3/5 * * * *', false);
   },
-  job: function() {
+  job: function () {
     fetchAverage15m();
   }
 });
@@ -273,11 +378,11 @@ SyncedCron.add({
 
 SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
-  schedule: function(parser) {
+  schedule: function (parser) {
     // parser is a later.parse object
     return parser.cron('2/5 * * * *', false);
   },
-  job: function() {
+  job: function () {
     fetchLatest();
   }
 });

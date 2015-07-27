@@ -4,6 +4,10 @@ function systemName(){
 
 Template['systemBasic'].rendered = function () {
   $('.scrollspy').scrollSpy();
+  var curDataDoc = this.data.curData.fetch()[0];
+  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
+    Meteor.call("initAverageValues", curDataDoc._id);
+  }
 };
 
 Template['systemBasic'].helpers({
