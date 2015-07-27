@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div id="headline" class="row scrollspy center">
-                    <p>{{descriptions.short_description}}</p>
+                    <p>{{descriptions.headline}}</p>
                 </div>
                 <div id="main" class="section scrollspy row">
                         {{#each main_links}}
@@ -138,17 +138,19 @@
                     {{#if dependentsExist}} {{! todo: extract widget}}
 
                         <h3 class="center">Dapps</h3>
-                        <ul class="dapps-list">
+
                             {{#each dependents}}
-                                <li class="card center col l3 m3">
+                            <div class="col l3 center valign" style="padding:0 10px; margin: 6px 0;" >
+                                <div class="card" style="padding: 10px 0; margin: 2px 0">
                                     <a href="{{pathFor 'system1' name_=name_}}"
                                        class="enlarge"
                                        style="display: inline; white-space: nowrap;">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
                                     </a>
-                                </li>
+                                </div>
+                            </div>
                             {{/each}}
-                        </ul>
+
                     {{/if}}
                     <!--{{#each links}}
                         {{#if tagMatchesTags "Dapps" tags}}
