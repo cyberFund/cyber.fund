@@ -10,7 +10,7 @@
                         <span>{{symbol}}</span>
                     </div>
                     <div class="col l4 center valign">
-                        {{> hitryImage img_url=img_url style="width: 45%"}}
+                        {{> hitryImage img_url=img_url style="width: 50%"}}
                     </div>
                     <div class="col m4 center valign">
                         <h4>{{>cfRating rating=ratings.rating_cyber}}</h4>
@@ -94,7 +94,7 @@
                         <div class="card markt">
                             <h5>Supply</h5>
                             <p>&nbsp;</p>
-                            <p><span class="enlarge">{{readableN metrics.supply 0}} {{aliases.CurrencyName}}s</span>
+                            <p><span class="enlarge">{{readableN metrics.supply 0}}<br> {{aliases.CurrencyName}}s</span>
                                 {{#if metrics.supplyChangePercents.day}}
                                     <br>
                                     <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
