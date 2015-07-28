@@ -27,7 +27,6 @@
                         {{/each}}
                 </div>
                 <div id="market" class="row scrollspy center">
-                    <h3 class="center"> &nbsp; </h3>
                     <div class="col l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Price</h5>
@@ -200,7 +199,7 @@
                         <h3 class="center">Science</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Science" tags}}
-                                <div class="col l3 center">
+                                <div class="row">
                                     {{> cgLink this}}
                                 </div>
                             {{/if}}
