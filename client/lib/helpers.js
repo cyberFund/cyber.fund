@@ -150,7 +150,13 @@ var helpers = {
   },
   _specs_: function(key){
     var specs = {
-      block_time: "Block Time"
+      block_time: "Target Block Time, seconds"
+      rpc: "RPC Port"
+      block_reward: "Block Reward"
+      halfing_cycle: "Halfing Cycle, blocks"
+      total_tokens:	"Total Tokens"
+      difficulty_cycle: "Difficulty Cycle, blocks"
+      txs_confirm: "Guaranted TX confirm, blocks"
     };
     var ret = specs[key] || key;
     return ret;
