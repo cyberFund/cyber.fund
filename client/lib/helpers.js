@@ -102,9 +102,17 @@ var helpers = {
       }
       return input;
     }
+    try {
+      value = parseFloat(value);
+    } catch(e) {
 
+    }
     var out = value.toFixed(8).split('.');
-    return group3(out[0])+"."+group3_(out[1], " ");
+    var ret = "";
+    if (out[0]) ret += group3(out[0]);
+
+    if (out[1]) ret += "." + group3_(out[1]);
+    return ret;
   },
   tagMatchesTags: function(tag, tags) {
     return tags.indexOf(tag) > -1;

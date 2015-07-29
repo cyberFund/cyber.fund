@@ -222,7 +222,6 @@ var esParsers = {
       if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
         return;
       }
-      console.log(systemKey);
 
       // apply changes to currentData
       var set = {};

@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div id="charts" class="row scrollspy center">
-                    <script type="text/javascript">
+                    <!--script type="text/javascript">
                         var data = {
                             // A labels array that can contain any sort of values
                             labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
@@ -119,8 +119,9 @@
                         // that is resolving to our chart container element. The Second parameter
                         // is the actual data object.
                         new Chartist.Line('.ct-chart', data);
-                    </script>
-                    <div class="ct-chart" style="height:200px"></div>
+                    </script-->
+                    <!--div class="ct-chart" style="height:200px"></div-->
+                    {{> monthlyGraph this}}
                 </div>
                 <div id="apps" class="section scrollspy row">
             {{#if existLinksWith 'Apps'}}

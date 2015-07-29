@@ -99,9 +99,7 @@ Template['systemBasic'].helpers({
     }
   },
   main_links: function(){
-    console.log(this.links);
     if (!this.links || !_.isArray(this.links)) {
-      console.log("...");
       return [];
     }
 
