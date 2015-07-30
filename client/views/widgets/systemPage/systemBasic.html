@@ -180,7 +180,7 @@
                 {{/if}}
                 <div id="code" class="section scrollspy row">
                     {{#if existLinksWith 'Code'}}
-                        <h3 class="center">Code</h3>
+                        <h3 class="center">Developers Dimension</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Code" tags}}
                                 <div class="col l3 center">
@@ -194,7 +194,7 @@
                 </div>
                 <div id="science" class="section scrollspy row">
                     {{#if existLinksWith 'Science'}}
-                        <h3 class="center">Science</h3>
+                        <h3 class="center">Scientific Roots</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Science" tags}}
                                 <div class="row">
@@ -231,10 +231,35 @@
                     {{/if}}
                     <div class="col l3"></div>
                 </div>
+
+                <div id="code" class="section scrollspy row">
+                    {{#if existLinksWith 'Code'}}
+                        <h3 class="center">Developers Dimension</h3>
+                        {{#each links}}
+                            {{#if tagMatchesTags "Code" tags}}
+                                <div class="col l3 center">
+                                    {{> cgLink this}}
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{else}}
+
+                    {{/if}}
+                </div>
+
                 <div id="improve" class="row scrollspy center">
-                    <p>Please, help <a target="_blank"
-                            href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">improve
-                        this page</a> on Github</p>
+                  <h3 class="center">Fans Edge</h3>
+                    <p>You can
+                      <a target="_blank"
+                            href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">
+                        improve {{system}}'s page
+                      </a>
+                       on Github
+                    </p>
+                    <p>We consider <a target="_blank"   href"http://cybertalks.org/t/do-cyber-fund-better-together/322">any proposals
+                    </a>
+                       for customizing displayed data and layout to make {{system}} more transparent and understandable for investors, developers and usual people.
+                    </p>
                 </div>
             </div>
             <!--div class="col hide-on-small-only m3 l2">
