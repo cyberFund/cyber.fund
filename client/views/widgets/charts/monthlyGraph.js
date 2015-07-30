@@ -74,6 +74,10 @@ Template['monthlyGraph'].rendered = function () {
         Chartist.plugins.tooltip({
             transform: function (v) {
               return "Ƀ " + CF.Utils.readableN(v, 2);
+            },
+            labelOffset: {
+              x: 0,
+              y: -20
             }
           }
         ),
@@ -111,6 +115,10 @@ Template['monthlyGraph'].rendered = function () {
         Chartist.plugins.tooltip({
           transform: function (v) {
             return "Ƀ " + CF.Utils.readableN(v, 2);
+          },
+          labelOffset: {
+            x: 0,
+            y: -20
           }
         }),
         Chartist.plugins.ctAxisTitle({

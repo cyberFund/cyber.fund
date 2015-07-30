@@ -32,7 +32,7 @@ Template['systemBasic'].helpers({
     return Blaze._globalHelpers._toU(this.system);
   },
   displaySystem: function () { //see "ALIASES"
-    return this.aliases.CurrencyName || this.nickname;
+    return  this.nickname || this.aliases.CurrencyName;
   },
   hashtag: function(){
     return (this.descriptions &&  this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1): ""

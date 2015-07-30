@@ -58,7 +58,7 @@ Template['ratingTable'].helpers({
     },
     // either currency name or name
     displaySystem: function () { //see "ALIASES"
-        return this.aliases.CurrencyName || this.nickname;
+        return  this.nickname || this.aliases.CurrencyName;
     },
     symbol: function() {
         if (this.token && this.token.token_symbol) {
