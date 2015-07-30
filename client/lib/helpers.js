@@ -83,6 +83,9 @@ var helpers = {
   isNumber: function(value){
     return _.isNumber(value)
   },
+  isObject: function(value){
+    return _.isObject(value)
+  },
   satoshi8: function(value) {
     function group3(input, sep){
       while (/(\d+)(\d{3})/.test(input.toString())) {

@@ -45,6 +45,22 @@ Template['systemBasic'].helpers({
       return (_.isArray(link.tags) &&link.tags.indexOf(tag) > -1);
     });
   },
+  countWithTag: function(tag){
+    var links = this.links;
+    if (!_.isArray(links)) return 0;
+    var f= _.filter(links, function(link){
+      return _.isArray(link.tags) && (link.tags.indexOf(tag)> -1);
+    });
+    return f.length;
+  },
+  isFewApps: function(){
+    var links = this.links;
+    if (!_.isArray(links)) return 0;
+    var f= _.filter(links, function(link){
+      return _.isArray(link.tags) && (link.tags.indexOf('Apps')> -1);
+    });
+    return f.length < 9;
+  },
   dayToDayTradeVolumeChange: function(){
     var metrics = this.metrics;
     if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day)
