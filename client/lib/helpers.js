@@ -155,7 +155,7 @@ var helpers = {
       block_time: "Target Block Time, seconds",
       rpc: "RPC Port",
       block_reward: "Block Reward",
-      halfing_cycle: "Halfing Cycle, blocks",
+      halfing_cycle: "Reward Halfing Cycle, blocks",
       total_tokens:	"Total Tokens",
       difficulty_cycle: "Difficulty Cycle, blocks",
       txs_confirm: "Guaranted TX confirm, blocks",
