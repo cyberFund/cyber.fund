@@ -3,3 +3,26 @@
   position: absolute;
   color: white;
 }
+
+.ct-chart.ct-chart-monthly-cap-btc .ct-series.ct-series-a .ct-line{
+  stroke: red;
+  stroke-width: 2px;
+}
+.ct-chart.ct-chart-monthly-cap-btc .ct-series.ct-series-a .ct-point{
+  stroke: red;
+  stroke-width: 5px;
+}
+
+.ct-chart.ct-chart-monthly-cap-usd .ct-series.ct-series-a .ct-line{
+  stroke: blue;
+  stroke-width: 2px;
+}
+.ct-chart.ct-chart-monthly-cap-usd .ct-series.ct-series-a .ct-point{
+  stroke: blue;
+  stroke-width: 5px;
+}
+
+.ct-chart.ct-chart-monthly-vol .ct-series.ct-series-a .ct-bar{
+  fill: gray;
+  stroke: grey
+}

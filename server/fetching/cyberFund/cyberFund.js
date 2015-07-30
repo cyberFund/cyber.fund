@@ -69,6 +69,10 @@ function flatten(obj) { //todo move to utils..
           }
           //if (CurrentData.find().count() < 1000) {
           _.each(getResult, function (system) {
+            if (!system.token){
+              logger.info("no .token for system '"+system.system+"'");
+              return;
+            }
             var selector = CF.CurrentData.selectors.system_symbol(system.system, system.token.token_symbol);
             var doc = CurrentData.findOne(selector);
             if (!doc) {

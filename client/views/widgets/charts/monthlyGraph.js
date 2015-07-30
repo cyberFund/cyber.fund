@@ -21,7 +21,13 @@ Template['monthlyGraph'].rendered = function () {
       ticks.push(tick);
     }
     console.log(ticks);
-    var dataCap = {
+    var dataCapBtc = {
+      labels: [],
+      series: [
+        []
+      ]
+    };
+    var dataCapUsd = {
       labels: [],
       series: [
         []
@@ -41,8 +47,11 @@ Template['monthlyGraph'].rendered = function () {
         day: dta[2]
       }).format("D MMM");
 
-      dataCap.labels.push(tick.sameDOW ? dte : "");
-      dataCap.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
+      dataCapBtc.labels.push(tick.sameDOW ? dte : "");
+      dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
+
+      dataCapUsd.labels.push(tick.sameDOW ? dte : "");
+      dataCapUsd.series[0].push((tick && tick.value) ? tick.value["cap_usd"] || null : null);
 
       dataVol.labels.push(tick.sameDOW ? dte : "");
       dataVol.series[0].push((tick && tick.value) ? tick.value["volume24_btc"] || null : null);
@@ -50,8 +59,12 @@ Template['monthlyGraph'].rendered = function () {
 
     if (self.data.metrics) {
       if (self.data.metrics.cap) {
-        dataCap.labels.push(current.format("D MMM"));
-        dataCap.series[0].push(self.data.metrics.cap.btc || null);
+        dataCapBtc.labels.push(current.format("D MMM"));
+        dataCapBtc.series[0].push(self.data.metrics.cap.btc || null);
+
+        dataCapUsd.labels.push(current.format("D MMM"));
+        dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
+
       }
 
       dataVol.labels.push(current.format("D MMM"));
@@ -61,14 +74,18 @@ Template['monthlyGraph'].rendered = function () {
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
-    console.log(dataCap);
-    console.log(dataVol);
-    new Chartist.Line('.ct-chart-monthly-cap', dataCap, {
+
+    new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
       chartPadding: {
         top: 20,
         right: 0,
         bottom: 30,
         left: 35
+      },
+      axisY: {
+        labelInterpolationFnc: function (value) {
+          return "Ƀ" + CF.Utils.monetaryFormatter(value);
+        }
       },
       plugins: [
         Chartist.plugins.tooltip({
@@ -104,12 +121,65 @@ Template['monthlyGraph'].rendered = function () {
         })
       ]
     });
+
+    new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
+      chartPadding: {
+        top: 20,
+        right: 0,
+        bottom: 30,
+        left: 35
+      },
+      axisY : {
+        labelInterpolationFnc: function (value) {
+          return "$" + CF.Utils.monetaryFormatter(value);
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({
+            transform: function (v) {
+              return "Ƀ " + CF.Utils.readableN(v, 2);
+            },
+            labelOffset: {
+              x: 0,
+              y: -20
+            }
+          }
+        ),
+        Chartist.plugins.ctAxisTitle({
+          axisX: {
+            axisTitle: 'Date',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 10,
+              y: 40
+            },
+            textAnchor: 'middle'
+          },
+          axisY: {
+            axisTitle: 'Cap Usd',
+            axisClass: 'ct-axis-title',
+            offset: {
+              x: 0,
+              y: -4
+            },
+            textAnchor: 'middle',
+            flipTitle: false
+          }
+        })
+      ]
+    });
+
     new Chartist.Bar('.ct-chart-monthly-vol', dataVol, {
       chartPadding: {
         top: 0,
         right: 0,
         bottom: 0,
         left: 35
+      },
+      axisY: {
+        labelInterpolationFnc: function (value) {
+          return "Ƀ" + CF.Utils.monetaryFormatter(value);
+        }
       },
       plugins: [
         Chartist.plugins.tooltip({
