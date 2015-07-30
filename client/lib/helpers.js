@@ -80,6 +80,9 @@ var helpers = {
   },
   readableNumbers: CF.Utils.readableNumbers,
   readableN: CF.Utils.readableN,
+  isNumber: function(value){
+    return _.isNumber(value)
+  },
   satoshi8: function(value) {
     function group3(input, sep){
       while (/(\d+)(\d{3})/.test(input.toString())) {

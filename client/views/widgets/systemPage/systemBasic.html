@@ -138,13 +138,15 @@
 
                             {{#each dependents}}
                             <div class="col l3 center valign" style="padding:0 10px; margin: 6px 0;" >
+                                <a href="{{pathFor 'system1' name_=name_}}">
                                 <div class="card" style="padding: 10px 0; margin: 2px 0">
-                                    <a href="{{pathFor 'system1' name_=name_}}"
+                                    <span
                                        class="enlarge"
                                        style="display: inline; white-space: nowrap;">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
-                                    </a>
+                                    </span>
                                 </div>
+                                </a>
                             </div>
                             {{/each}}
 
@@ -222,7 +224,12 @@
                             {{#each keyValue specs}}
                                 <tr>
                                     <td>{{_specs_ key}}</td>
-                                    <td>{{value}}</td>
+                                    <td> {{#if isNumber value}}
+                                    {{readableNumbers value}}
+                                    {{else}}
+                                        {{value}}
+                                    {{/if}}
+                                    </td>
                                 </tr>
                             {{/each}}
                             </tbody>
