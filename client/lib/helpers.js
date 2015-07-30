@@ -94,8 +94,8 @@ var helpers = {
       return input;
     }
     function group3_(input, sep){
-      while (/(\d+)(\d{3})/.test(input.toString())) {
-        input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
+      while (/(\d{3})(\d+)/.test(input.toString())) {
+        input = input.toString().replace(/(\d{3})(\d+)/, "$1" + (sep || ",") + "$2");
       }
       return input;
     }
@@ -108,7 +108,7 @@ var helpers = {
     var ret = "";
     if (out[0]) ret += group3(out[0]);
 
-    if (out[1]) ret += "." + group3_(out[1]);
+    if (out[1]) ret += "." + group3_(out[1], " ");
     return ret;
   },
   tagMatchesTags: function(tag, tags) {
