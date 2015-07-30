@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div id="headline" class="row scrollspy center">
-                    <p>{{descriptions.headline}} with x applications and y decentralized apps</p>
+                    <p>{{descriptions.headline}} used in x apps and created y decentralized apps</p>
                 </div>
                 <div id="main" class="section scrollspy row">
                         {{#each main_links}}
@@ -183,7 +183,7 @@
                         <h3 class="center">Developers Dimension</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Code" tags}}
-                                <div class="col l3 center">
+                                <div class="row">
                                     {{> cgLink this}}
                                 </div>
                             {{/if}}
