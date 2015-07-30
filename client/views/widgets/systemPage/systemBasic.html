@@ -210,7 +210,7 @@
                 <div id="specs" class="row center scrollspy  striped">
                     {{#if hasSpecs}}
                     <div class="col offset-l3 l6">
-                        <h3 class="center">Specifications</h3>
+                        <h3 class="center">Specification</h3>
                         <table>
                             <thead>
                             <tr>
@@ -232,21 +232,6 @@
                     <div class="col l3"></div>
                 </div>
 
-                <div id="code" class="section scrollspy row">
-                    {{#if existLinksWith 'Code'}}
-                        <h3 class="center">Developers Dimension</h3>
-                        {{#each links}}
-                            {{#if tagMatchesTags "Code" tags}}
-                                <div class="col l3 center">
-                                    {{> cgLink this}}
-                                </div>
-                            {{/if}}
-                        {{/each}}
-                    {{else}}
-
-                    {{/if}}
-                </div>
-
                 <div id="improve" class="row scrollspy center">
                   <h3 class="center">Fans Edge</h3>
                     <p>You can
@@ -256,9 +241,12 @@
                       </a>
                        on Github
                     </p>
-                    <p>We consider <a target="_blank"   href"http://cybertalks.org/t/do-cyber-fund-better-together/322">any proposals
-                    </a>
-                       for customizing displayed data and layout to make {{system}} more transparent and understandable for investors, developers and usual people.
+                    <p>We consider
+                      <a
+                        target="_blank"   href="http://cybertalks.org/t/do-cyber-fund-better-together/322">
+                        any proposals
+                      </a>
+                         for customizing displayed data and layout to make {{system}} more transparent and understandable for investors, developers and usual people.
                     </p>
                 </div>
             </div>
