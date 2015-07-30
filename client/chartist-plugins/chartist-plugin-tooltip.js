@@ -38,7 +38,6 @@
     Chartist.plugins.tooltip = function (options) {
 
       options = Chartist.extend({}, defaultOptions, options);
-      console.log(options);
       return function tooltip(chart) {
         var tooltipSelector = '.ct-point';
         if (chart instanceof Chartist.Bar) {

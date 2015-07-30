@@ -84,7 +84,7 @@ Template['monthlyGraph'].rendered = function () {
       },
       axisY: {
         labelInterpolationFnc: function (value) {
-          return "Ƀ" + CF.Utils.monetaryFormatter(value);
+          return CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [
@@ -131,7 +131,7 @@ Template['monthlyGraph'].rendered = function () {
       },
       axisY : {
         labelInterpolationFnc: function (value) {
-          return "$" + CF.Utils.monetaryFormatter(value);
+          return CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [
@@ -178,7 +178,7 @@ Template['monthlyGraph'].rendered = function () {
       },
       axisY: {
         labelInterpolationFnc: function (value) {
-          return "Ƀ" + CF.Utils.monetaryFormatter(value);
+          return  CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [

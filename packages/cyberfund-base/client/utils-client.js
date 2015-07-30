@@ -20,7 +20,6 @@ CF.Utils.readableN = function(input, roundTo){ //roundTo - how many digits after
 };
 
 CF.Utils.monetaryFormatter = function(input){
-  console.log(input);
   var postfix = "", value = input, decimals = 2;
   if (input > 5000) {
     postfix = 'k';
