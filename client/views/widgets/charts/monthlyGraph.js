@@ -64,17 +64,15 @@ Template['monthlyGraph'].rendered = function () {
 
         dataCapUsd.labels.push(current.format("D MMM"));
         dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
-
       }
 
       dataVol.labels.push(current.format("D MMM"));
       dataVol.series[0].push(self.data.metrics.tradeVolume || null);
     }
-
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
-
+    self.$(".ct-chart-monthly-cap-btc").css("height", "240px");
     new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
       chartPadding: {
         top: 20,
@@ -122,6 +120,7 @@ Template['monthlyGraph'].rendered = function () {
       ]
     });
 
+    self.$(".ct-chart-monthly-cap-usd").css("height", "240px");
     new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
       chartPadding: {
         top: 20,
@@ -129,7 +128,7 @@ Template['monthlyGraph'].rendered = function () {
         bottom: 30,
         left: 35
       },
-      axisY : {
+      axisY: {
         labelInterpolationFnc: function (value) {
           return CF.Utils.monetaryFormatter(value);
         }
@@ -169,6 +168,7 @@ Template['monthlyGraph'].rendered = function () {
       ]
     });
 
+    self.$(".ct-chart-monthly-vol").css("height", "140px");
     new Chartist.Bar('.ct-chart-monthly-vol', dataVol, {
       chartPadding: {
         top: 0,
@@ -178,7 +178,7 @@ Template['monthlyGraph'].rendered = function () {
       },
       axisY: {
         labelInterpolationFnc: function (value) {
-          return  CF.Utils.monetaryFormatter(value);
+          return CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [
@@ -214,6 +214,8 @@ Template['monthlyGraph'].rendered = function () {
         })
       ]
     });
+    console.log(dataVol.series[0]);
+    console.log("vvvv")
   });
 };
 

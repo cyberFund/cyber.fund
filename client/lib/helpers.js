@@ -153,7 +153,7 @@ var helpers = {
       return "= 0%";
     }
   },
-  _specs_: function(key){
+  _specs_: function(key, key2){
     var specs = {
       block_time: "Target Block Time, seconds",
       rpc: "RPC Port",
@@ -161,10 +161,18 @@ var helpers = {
       halfing_cycle: "Reward Halfing Cycle, blocks",
       total_tokens:	"Total Tokens",
       difficulty_cycle: "Difficulty Cycle, blocks",
-      txs_confirm: "Guaranted TX confirm, blocks",
+      txs_confirm: "Guaranted TX confirm, blocks"
     };
-    var ret = specs[key] || key;
-    return ret;
+    return specs[key] || key;
+  },
+  _specs__: function(key, key2){
+    var specs = {
+      cap: {
+        usd: "USD Capitalization",
+        btc: "Bitcoin capitalization"
+      }
+    };
+    return  specs[key]&& specs[key][key2] ? specs[key][key2] : key + "_" + key2;
   }
 };
 

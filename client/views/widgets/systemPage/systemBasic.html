@@ -242,7 +242,7 @@
                                     {{#if isObject value}}
                                         {{#each keyValue value}}
                                             <tr>
-                                                <td>{{../key}}_{{key}}</td>
+                                                <td>{{_specs__ ../key key}}</td>
                                                 <td> {{#if isNumber value}}
                                                     {{readableNumbers value}}
                                                 {{else}}

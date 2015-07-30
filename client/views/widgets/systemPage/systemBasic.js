@@ -125,6 +125,9 @@ Template['systemBasic'].helpers({
   },
   hasSpecs: function(){
     return (this.specs && !_.isEmpty(this.specs));
+  },
+  ___join: function(k1, k2){
+    return k1+"_"+k2;
   }
 });
 
