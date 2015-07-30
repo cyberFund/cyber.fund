@@ -78,24 +78,15 @@ var helpers = {
   randomOf: function (from, to) {
     return from + Math.floor(Math.random() * (to - from + 1));
   },
-  readableNumbers: function (input) {
-    while (/(\d+)(\d{3})/.test(input.toString())) {
-      input = input.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
-    }
-    return input;
-  },
-  readableN: function(input, roundTo){ //roundTo - how many digits after dot
-    var ret = parseFloat(input);
-    if (isNaN(ret)) return "";
-    return Blaze._globalHelpers.readableNumbers(ret.toFixed(roundTo));
-  },
+  readableNumbers: CF.Utils.readableNumbers,
+  readableN: CF.Utils.readableN,
   satoshi8: function(value) {
     function group3(input, sep){
       while (/(\d+)(\d{3})/.test(input.toString())) {
         input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
       }
       return input;
-    };
+    }
     function group3_(input, sep){
       while (/(\d+)(\d{3})/.test(input.toString())) {
         input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
