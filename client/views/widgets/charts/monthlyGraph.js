@@ -20,7 +20,7 @@ Template['monthlyGraph'].rendered = function () {
       };
       ticks.push(tick);
     }
-    console.log(ticks);
+
     var dataCapBtc = {
       labels: [],
       series: [
@@ -214,8 +214,10 @@ Template['monthlyGraph'].rendered = function () {
         })
       ]
     });
-    console.log(dataVol.series[0]);
-    console.log("vvvv")
+    for (i = 0; i< dataVol.series[0].length; i++){
+
+      if (dataVol.series[0][i] == null) dataVol.series[0][i] = 0;
+    }
   });
 };
 

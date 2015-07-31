@@ -17,7 +17,8 @@
                     </div>
                 </div>
                 <div id="headline" class="row scrollspy center">
-                    <p>{{descriptions.headline}} used in {{countWithTag 'Apps'}}
+                    <p>{{descriptions.headline}} used
+                        in {{countWithTag links 'Apps'}}
                         apps and created {{dependents.count}} decentralized
                         apps</p>
                 </div>
@@ -119,38 +120,67 @@
                     </div>
                 </div>
                 <div id="charts" class="row scrollspy center">
-                    <!--script type="text/javascript">
-                        var data = {
-                            // A labels array that can contain any sort of values
-                            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-                            // Our series array that contains series objects or in this case series data arrays
-                            series: [
-                                [5, 2, 4, 2, 0]
-                            ]
-                        };
-
-                        // Create a new line chart object where as first parameter we pass in a selector
-                        // that is resolving to our chart container element. The Second parameter
-                        // is the actual data object.
-                        new Chartist.Line('.ct-chart', data);
-                    </script-->
-                    <!--div class="ct-chart" style="height:200px"></div-->
                     {{> monthlyGraph this}}
                 </div>
                 <div id="apps" class="section scrollspy row">
                     {{#if existLinksWith 'Apps'}}
                         <h3 class="center">Apps</h3>
-                        {{#if isFewApps}}
-                            {{#each links}}
-                                {{#if tagMatchesTags "Apps" tags}}
-                                    <div class="col l3 center">
-                                        {{> cgLink this}}
-                                    </div>
+                        {{! #if isFewApps}}
+                        {{#with linksWithTag links "Apps"}}
+                            {{#if gte this.length 8}}
+                            <div class="row">
+                                <div class="col s12">
+                                    <ul class="tabs">
+                                        <li class="tab col s3 {{#if linksWithoutTags this mainTags}}{{else}}disabled{{/if}}">
+                                            <a href="#tag-magic">Other</a></li>
+                                        <li class="tab col s3 {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
+                                            <a href="#tag-wallet">Wallet</a>
+                                        </li>
+                                        <li class="tab col s3 {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
+                                            <a href="#tag-exchange">Exchange</a>
+                                        </li>
+                                        <li class="tab col s3 {{#if linksWithTag this "News"}}{{else}}disabled{{/if}}">
+                                            <a href="#tag-news">Analytics</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div id="tag-wallet" class="col s12">
+                                    {{#each linksWithTag this "Wallet"}}
+                                        <div class="col s3">
+                                            {{> cgLink this}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div id="tag-exchange" class="col s12">
+                                    {{#each linksWithTag this "Exchange"}}
+                                        <div class="col s3">
+                                            {{> cgLink this}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div id="tag-news" class="col s12">
+                                    {{#each linksWithTag this "News"}}
+                                        <div class="col s3">
+                                            {{> cgLink this}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                                <div id="tag-magic" class="col s12">
+                                    {{#each linksWithoutTags this mainTags}}
+                                        <div class="col s3">
+                                            {{> cgLink this}}
+                                        </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                                {{else}}
+                                    {{#each this}}
+                                        <div class="col s3">
+                                            {{> cgLink this}}
+                                        </div>
+                                    {{/each}}
                                 {{/if}}
-                            {{/each}}
-                        {{else}}
-                            ''there be tabs''
-                        {{/if}}
+                        {{/with}}
                     {{/if}}
                 </div>
                 <div id="dapps" class="section scrollspy row">

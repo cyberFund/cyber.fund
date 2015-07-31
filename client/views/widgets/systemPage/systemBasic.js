@@ -8,6 +8,7 @@ Template['systemBasic'].rendered = function () {
   if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
+  $('ul.tabs').tabs();
 };
 
 Template['systemBasic'].helpers({
@@ -45,21 +46,33 @@ Template['systemBasic'].helpers({
       return (_.isArray(link.tags) &&link.tags.indexOf(tag) > -1);
     });
   },
-  countWithTag: function(tag){
-    var links = this.links;
+  countWithTag: function(links, tag){
     if (!_.isArray(links)) return 0;
     var f= _.filter(links, function(link){
       return _.isArray(link.tags) && (link.tags.indexOf(tag)> -1);
     });
     return f.length;
   },
-  isFewApps: function(){
-    var links = this.links;
-    if (!_.isArray(links)) return 0;
+  linksWithTag: function(links, tag){
+    if (!_.isArray(links)) return [];
     var f= _.filter(links, function(link){
-      return _.isArray(link.tags) && (link.tags.indexOf('Apps')> -1);
+      return _.isArray(link.tags) && (link.tags.indexOf(tag)> -1);
     });
-    return f.length < 9;
+    return f;
+  },
+  mainTags: ['Wallet', "Exxchange", "News"],
+  appTags: ["Wallet", "Exchange", "Analytics", "Magic"],
+  linksWithoutTags: function(links, tags){
+    if (!_.isArray(links)) return [];
+    var f= _.filter(links, function(link){
+      var ret = _.isArray(link.tags);
+      _.each(tags, function(tag){
+        if (link.tags.indexOf(tag)> -1) ret = false;
+      });
+
+      return ret;
+    });
+    return f;
   },
   dayToDayTradeVolumeChange: function(){
     var metrics = this.metrics;
