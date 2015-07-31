@@ -32,61 +32,63 @@
                 <div id="market" class="row scrollspy center">
                     {{#if and metrics metrics.price}}
                         {{#if or metrics.price.usd metrics.price.btc}}
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card markt">
-                            <h5>Price</h5>
-{{#if metrics.price.usd}}
-                            <p><span
-                                    class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
-                                <br>
-                                {{#if metrics.priceChangePercents.day.usd}}
+                            <div class="col l3 center valign"
+                                 style="padding:10px">
+                                <div class="card markt">
+                                    <h5>Price</h5>
+                                    {{#if metrics.price.usd}}
+                                        <p><span
+                                                class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
+                                            <br>
+                                            {{#if metrics.priceChangePercents.day.usd}}
 
-                                    <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
-                                        {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
-                                {{else}}&nbsp;
-                                {{/if}}</p>
-{{/if}}{{#if metrics.price.btc}}
-                            <p><span
-                                    class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
-                                <br>
-                                {{#if metrics.priceChangePercents.day.btc}}
-                                    <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-                                        {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
-                                {{else}}&nbsp;
-                                {{/if}}</p>{{/if}}
-                        </div>
-                    </div>
+                                                <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+                                                    {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+                                            {{else}}&nbsp;
+                                            {{/if}}</p>
+                                    {{/if}}{{#if metrics.price.btc}}
+                                    <p><span
+                                            class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
+                                        <br>
+                                        {{#if metrics.priceChangePercents.day.btc}}
+                                            <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+                                                {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+                                        {{else}}&nbsp;
+                                        {{/if}}</p>{{/if}}
+                                </div>
+                            </div>
                         {{/if}}
                     {{/if}}
                     {{#if and metrics metrics.cap}}
                         {{#if or metrics.cap.btc metrics.cap.usd}}
-                    <div class="col l3 center valign" style="padding:10px">
-                        <div class="card markt">
-                            <h5>Cap</h5>
-                            {{#if metrics.cap.usd}}
-                            <p><span
-                                    class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                                <br>
-                                {{#if metrics.capChangePercents.day.usd}}
+                            <div class="col l3 center valign"
+                                 style="padding:10px">
+                                <div class="card markt">
+                                    <h5>Cap</h5>
+                                    {{#if metrics.cap.usd}}
+                                        <p><span
+                                                class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                                            <br>
+                                            {{#if metrics.capChangePercents.day.usd}}
 
-                                    <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                                        {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
-                                {{else}}
-                                    &nbsp;
-                                {{/if}}</p>
-{{/if}}{{#if metrics.cap.btc}}
-                            <p><span
-                                    class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
-                                <br>
-                                {{#if metrics.capChangePercents.day.btc}}
+                                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+                                            {{else}}
+                                                &nbsp;
+                                            {{/if}}</p>
+                                    {{/if}}{{#if metrics.cap.btc}}
+                                    <p><span
+                                            class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+                                        <br>
+                                        {{#if metrics.capChangePercents.day.btc}}
 
-                                    <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-                                        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-                                {{else}}&nbsp;
-                                {{/if}}</p>
-                        {{/if}}
-                        </div>
-                    </div>
+                                            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+                                                {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+                                        {{else}}&nbsp;
+                                        {{/if}}</p>
+                                {{/if}}
+                                </div>
+                            </div>
                         {{/if}}
                     {{/if}}
                     <div class="col l3 center valign" style="padding:10px">
@@ -131,64 +133,120 @@
                 <div id="charts" class="row scrollspy center">
                     {{> monthlyGraph this}}
                 </div>
+
+                <div id="code" class="section scrollspy row">
+                    {{#if existLinksWith links 'News'}}
+                        <h3 class="center">News</h3>
+                        {{#each links}}
+                            {{#if tagMatchesTags "News" tags}}
+                                <div class="row">
+                                    {{> cgLink this}}
+                                </div>
+                            {{/if}}
+                        {{/each}}
+                    {{else}}
+
+                    {{/if}}
+                </div>
+
                 <div id="apps" class="section scrollspy row">
-                    {{#if existLinksWith 'Apps'}}
+                    {{#if existLinksWith links 'Apps'}}
                         <h3 class="center">Apps</h3>
                         {{! #if isFewApps}}
                         {{#with linksWithTag links "Apps"}}
+                            {{log this}}
                             {{#if gte this.length 8}}
-                            <div class="row">
-                                <div class="col s12">
-                                    <ul class="tabs">
-                                        <li class="tab col s3 {{#if linksWithoutTags this mainTags}}{{else}}disabled{{/if}}">
-                                            <a href="#tag-magic">Other</a></li>
-                                        <li class="tab col s3 {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
-                                            <a href="#tag-wallet">Wallet</a>
-                                        </li>
-                                        <li class="tab col s3 {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
-                                            <a href="#tag-exchange">Exchange</a>
-                                        </li>
-                                        <li class="tab col s3 {{#if linksWithTag this "News"}}{{else}}disabled{{/if}}">
-                                            <a href="#tag-news">News</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div id="tag-wallet" class="col s12">
-                                    {{#each linksWithTag this "Wallet"}}
-                                        <div class="col s3">
-                                            {{> cgLink this}}
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            {{#if existLinksWith this "Wallet"}}
+                                                <li class="tab  {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
+                                                    <a href="#tag-wallet">Wallet</a>
+                                                </li>
+                                            {{/if}}
+                                            {{#if existLinksWith this "Exchange"}}
+                                                <li class="tab  {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
+                                                    <a href="#tag-exchange">Exchange</a>
+                                                </li>
+                                            {{/if}}
+                                            {{#if existLinksWith this "Analytics"}}
+                                                <li class="tab  {{#if linksWithTag this "Analytics"}}{{else}}disabled{{/if}}">
+                                                    <a href="#tag-analytics">Analytics</a>
+                                                </li>
+                                            {{/if}}
+                                            {{#if existLinksWith this "Magic"}}
+                                                <li class="tab  {{#if linksWithTag this "Magic"}}{{else}}disabled{{/if}}">
+                                                    <a href="#tag-magic">Magic</a>
+                                                </li>
+                                            {{/if}}
+                                            <li class="tab {{#if linksWithoutTags this mainTags}}{{else}}disabled{{/if}}">
+                                                <a href="#tag-other">Other</a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    {{#if existLinksWith this "Wallet"}}
+                                        <div id="tag-wallet" class="col s12">
+                                            {{#each linksWithTag this "Wallet"}}
+                                                {{> cgLinkCard this}}
+                                                <!--div class="col s3">
+                                                    {{> cgLink this}}
+                                                </div-->
+                                            {{/each}}
                                         </div>
-                                    {{/each}}
-                                </div>
-                                <div id="tag-exchange" class="col s12">
-                                    {{#each linksWithTag this "Exchange"}}
-                                        <div class="col s3">
-                                            {{> cgLink this}}
+                                    {{/if}}
+
+                                    {{#if existLinksWith this "Wallet"}}
+                                        <div id="tag-exchange" class="col s12">
+                                            {{#each linksWithTag this "Exchange"}}
+                                                {{> cgLinkCard this}}
+                                                <!--div class="col s3">
+                                                    {{> cgLink this}}
+                                                </div-->
+                                            {{/each}}
                                         </div>
-                                    {{/each}}
-                                </div>
-                                <div id="tag-news" class="col s12">
-                                    {{#each linksWithTag this "News"}}
-                                        <div class="col s3">
-                                            {{> cgLink this}}
+                                    {{/if}}
+                                    {{#if existLinksWith this "Analytics"}}
+                                        <div id="tag-analytics" class="col s12">
+                                            {{#each linksWithTag this "Analytics"}}
+                                                {{> cgLinkCard this}}
+                                                <!--div class="col s3">
+                                                    {{> cgLink this}}
+                                                </div-->
+                                            {{/each}}
                                         </div>
-                                    {{/each}}
-                                </div>
-                                <div id="tag-magic" class="col s12">
-                                    {{#each linksWithoutTags this mainTags}}
-                                        <div class="col s3">
-                                            {{> cgLink this}}
+                                    {{/if}}
+
+                                    {{#if existLinksWith this "Magic"}}
+                                        <div id="tag-magic" class="col s12">
+                                            {{#each linksWithTag this "Magic"}}
+                                                {{> cgLinkCard this}}
+                                                <!--div class="col s3">
+                                                    {{> cgLink this}}
+                                                </div-->
+                                            {{/each}}
                                         </div>
-                                    {{/each}}
+                                    {{/if}}
+
+                                    <div id="tag-other" class="col s12">
+                                        {{#each linksWithoutTags this mainTags}}
+                                            <div class="col s3">
+                                                {{> cgLinkCard this}}
+                                                <!--div class="col s3">
+                                                    {{> cgLink this}}
+                                                </div-->
+                                            </div>
+                                        {{/each}}
+                                    </div>
+
                                 </div>
-                            </div>
-                                {{else}}
-                                    {{#each this}}
-                                        <div class="col s3">
-                                            {{> cgLink this}}
-                                        </div>
-                                    {{/each}}
-                                {{/if}}
+                            {{else}}
+                                {{#each this}}
+                                    <div class="col s3">
+                                        {{> cgLink this}}
+                                    </div>
+                                {{/each}}
+                            {{/if}}
                         {{/with}}
                     {{/if}}
                 </div>
@@ -238,7 +296,7 @@
                     </div>
                 {{/if}}
                 <div id="code" class="section scrollspy row">
-                    {{#if existLinksWith 'Code'}}
+                    {{#if existLinksWith links 'Code'}}
                         <h3 class="center">Developers Dimension</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Code" tags}}
@@ -252,7 +310,7 @@
                     {{/if}}
                 </div>
                 <div id="science" class="section scrollspy row">
-                    {{#if existLinksWith 'Science'}}
+                    {{#if existLinksWith links 'Science'}}
                         <h3 class="center">Scientific Roots</h3>
                         {{#each links}}
                             {{#if tagMatchesTags "Science" tags}}

@@ -3,6 +3,7 @@ function systemName(){
 }
 
 Template['systemBasic'].rendered = function () {
+
   $('.scrollspy').scrollSpy();
   var curDataDoc = this.data.curData.fetch()[0];
   if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
@@ -35,9 +36,7 @@ Template['systemBasic'].helpers({
   hashtag: function(){
     return (this.descriptions &&  this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1): ""
   },
-  existLinksWith: function(tag){
-    var links = this.links;
-
+  existLinksWith: function(links, tag){
     if (!_.isArray(links)) return false;
     return !!_.find(links, function(link){
       return (_.isArray(link.tags) &&link.tags.indexOf(tag) > -1);
@@ -57,7 +56,7 @@ Template['systemBasic'].helpers({
     });
     return f;
   },
-  mainTags: ['Wallet', "Exxchange", "News"],
+  mainTags: ['Wallet', "Exxchange", "Analytics", "Magic"],
   appTags: ["Wallet", "Exchange", "Analytics", "Magic"],
   linksWithoutTags: function(links, tags){
     if (!_.isArray(links)) return [];
