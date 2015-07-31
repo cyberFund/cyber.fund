@@ -26,27 +26,27 @@
                     {{#if neq page_state 'ready'}}
                         <p> This page is a draft </p>
                     {{/if}}
-                        {{#if independent}}
-                            <p> This system has no dependencies</p>
-                        {{else}}
-                            <p>This system depends on: </p>
-                            {{#each depends_on}}
-                                <div class="col l3 center valign"
-                                     style="padding:0 10px; margin: 6px 0;">
-                                    <a href="{{pathFor 'system1' name_=name_}}">
-                                        <div class="card"
-                                             style="padding: 10px 0; margin: 2px 0">
+                    {{#if independent this}}
+                        <p> This system has no dependencies</p>
+                    {{else}}
+                        <p>This system depends on: </p>
+                        {{#each depends_on}}
+                            <div class="col l3 center valign"
+                                 style="padding:0 10px; margin: 6px 0;">
+                                <a href="{{pathFor 'system1' name_=name_}}">
+                                    <div class="card"
+                                         style="padding: 10px 0; margin: 2px 0">
                                     <span
                                             class="enlarge"
                                             style="display: inline; white-space: nowrap;">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                         {{displaySystem this}}
                                     </span>
-                                        </div>
-                                    </a>
-                                </div>
-                            {{/each}}
-                        {{/if}}
+                                    </div>
+                                </a>
+                            </div>
+                        {{/each}}
+                    {{/if}}
                 </div>
 
                 <div id="main" class="section scrollspy row">
@@ -181,7 +181,6 @@
                         <h3 class="center">Apps</h3>
                         {{! #if isFewApps}}
                         {{#with linksWithTag links "Apps"}}
-                            {{log this}}
                             {{#if gte this.length 8}}
                                 <div class="row">
                                     <div class="col s12">

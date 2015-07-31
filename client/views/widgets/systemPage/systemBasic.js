@@ -59,9 +59,8 @@ Template['systemBasic'].helpers({
   independent: function(system){
     var deps = system.dependencies;
     if (!deps) return true;
-    if (!_.isArray(deps) && deps == 'independent') return true;
-    if (deps.indexOf('independent') > -1) return true;
-    return false;
+    if (!_.isArray(deps)) deps = [deps];
+    return deps.indexOf('independent') > -1;
   },
   linksWithTag: function(links, tag){
     if (!_.isArray(links)) return [];

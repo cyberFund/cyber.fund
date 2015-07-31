@@ -8,7 +8,9 @@
                 <div style="width: 100% margin: 0 auto;">
                     {{> hitryImage img_url=iconUrl style="width: auto; height: 40px; vertical-align:middle"}}
                 </div>
-            <span class="enlarge">{{name}}</span>
+                {{#if not headline}}
+                    <span class="enlarge">{{name}}</span>
+                {{/if}}
             </div>
         </a>
     </div>
