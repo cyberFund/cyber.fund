@@ -24,6 +24,13 @@ Template['systemBasic'].helpers({
   'dependents': function(){
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {sort: {system: 1}})
   },
+  depends_on: function(){
+    var self = this;
+    if (!self.dependencies) return [];
+    var deps = self.dependencies;
+    if (!_.isArray(deps)) deps = [deps];
+    return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
+  },
   'dependentsExist': function(){
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
   },
@@ -48,6 +55,13 @@ Template['systemBasic'].helpers({
       return _.isArray(link.tags) && (link.tags.indexOf(tag)> -1);
     });
     return f.length;
+  },
+  independent: function(system){
+    var deps = system.dependencies;
+    if (!deps) return true;
+    if (!_.isArray(deps) && deps == 'independent') return true;
+    if (deps.indexOf('independent') > -1) return true;
+    return false;
   },
   linksWithTag: function(links, tag){
     if (!_.isArray(links)) return [];
@@ -148,16 +162,11 @@ Template['systemBasic'].onCreated(function () {
 
   instance.autorun(function () {
     instance.subscribe('dependentCoins', systemName());
-  /*    if (this.descriptions.twwidid) {
-        twttr.widgets.createTimeline(
-          "600756918018179072",
-          document.getElementById("container"),
-          {
-            height: 400
-          }
-        );
-      }
-    })*/
+    if (instance.data && instance.data.dependencies){
+      var d = instance.data.dependencies;
+      if (!_.isArray(d)) d = [d];
+      if (d.indexOf("independent") > -1) instance.subscribe('dependencies', d);
+    }
   });
 });
 
