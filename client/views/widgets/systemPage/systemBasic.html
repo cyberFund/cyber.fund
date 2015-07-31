@@ -30,10 +30,12 @@
                     {{/each}}
                 </div>
                 <div id="market" class="row scrollspy center">
+                    {{#if and metrics metrics.price}}
+                        {{#if or metrics.price.usd metrics.price.btc}}
                     <div class="col l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Price</h5>
-
+{{#if metrics.price.usd}}
                             <p><span
                                     class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
                                 <br>
@@ -43,7 +45,7 @@
                                         {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
                                 {{else}}&nbsp;
                                 {{/if}}</p>
-
+{{/if}}{{#if metrics.price.btc}}
                             <p><span
                                     class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
                                 <br>
@@ -51,13 +53,17 @@
                                     <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
                                         {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
                                 {{else}}&nbsp;
-                                {{/if}}</p>
+                                {{/if}}</p>{{/if}}
                         </div>
                     </div>
+                        {{/if}}
+                    {{/if}}
+                    {{#if and metrics metrics.cap}}
+                        {{#if or metrics.cap.btc metrics.cap.usd}}
                     <div class="col l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Cap</h5>
-
+                            {{#if metrics.cap.usd}}
                             <p><span
                                     class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
                                 <br>
@@ -68,7 +74,7 @@
                                 {{else}}
                                     &nbsp;
                                 {{/if}}</p>
-
+{{/if}}{{#if metrics.cap.btc}}
                             <p><span
                                     class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
                                 <br>
@@ -78,8 +84,11 @@
                                         {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
                                 {{else}}&nbsp;
                                 {{/if}}</p>
+                        {{/if}}
                         </div>
                     </div>
+                        {{/if}}
+                    {{/if}}
                     <div class="col l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Trade</h5>
