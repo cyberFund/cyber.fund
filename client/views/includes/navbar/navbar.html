@@ -14,9 +14,10 @@
           {{> navbarItem path="/" text="Rating"}}
           {{> navbarItem path="/portfolio" text="Portfolio"}}
           {{> navbarItem path="/radar" text="Radar"}}
-            <li style="height: 64px;">
+            <li style="height: 64px; display: inline">
                 <i style="display: inline;" class="black-text tiny material-icons">search</i>
-                <input class="search-input black-text" style="display: inline; width: 8em; line-height: 1rem; height: 1rem" type="text" name="search">
+                {{> inputAutocomplete settings=searchSettings id="msg" class="search-input black-text" placeholder="Search for coin"}}
+                <!--input class="search-input black-text" style="display: inline; width: 8em; line-height: 1rem; height: 1rem" type="text" name="search"-->
             </li>
         </ul>
         <ul class="right hide-on-med-and-down">

@@ -8,8 +8,28 @@ Tracker.autorun(function(){
 });
 
 Template['navbar'].helpers({
-  'foo': function () {
-    
+  'searchSettings': function () {
+      return {
+        position: "bottom",
+        limit: 5,
+        rules: [
+          {
+            token: '',
+            collection: CurrentData,
+            field: "system",
+            template: Template.searchHelper
+          }/*,
+          {
+            token: '!',
+            collection: Dataset,
+            field: "_id",
+            options: '',
+            matchAll: true,
+            filter: { type: "autocomplete" },
+            template: Template.dataPiece
+          }*/
+        ]
+      };
   }
 });
 

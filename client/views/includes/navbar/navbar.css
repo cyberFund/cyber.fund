@@ -1,4 +1,11 @@
-.search-input {
+input.search-input {
   border: 0;
   vertical-align: middle;
+  display: inline;
+  height: 1rem;
+  line-height: 1rem;
+  width: 8em !important;
+}
+.autocomplete-container {
+  background: gray;
 }
