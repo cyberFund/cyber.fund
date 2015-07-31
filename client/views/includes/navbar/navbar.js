@@ -8,23 +8,6 @@ Tracker.autorun(function(){
 });
 
 Template['navbar'].helpers({
-  'searchSettings': function () {
-      return {
-        position: "bottom",
-        limit: 5,
-        rules: [
-          {
-            token: '',
-            collection: 'CurrentData',
-            field: "aliases.CurrencyName",
-            subscription: "search-sys",
-            matchAll: true,
-            template: Template.searchHelper,
-            noMatchTemplate: Template.searchNoMatchedSearch
-          }
-        ]
-      };
-  }
 });
 
 Template['navbar'].events({
@@ -33,8 +16,5 @@ Template['navbar'].events({
       $('#sidenav-overlay').trigger('click');
     }, 280)
 
-  },
-  "autocompleteselect input": function(event, template, doc) {
-    console.log("selected ", doc);
   }
 });

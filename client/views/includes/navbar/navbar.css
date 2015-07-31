@@ -4,8 +4,33 @@ input.search-input {
   display: inline;
   height: 1rem;
   line-height: 1rem;
-  width: 8em !important;
+  width: 8em;
 }
-.autocomplete-container {
-  background: gray;
+.-autocomplete-container {
+  position: absolute;
+  background: white;
+  border: 1px solid #DDD;
+  border-radius: 3px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  min-width: 240px;
+  z-index: 1000;
+}
+
+.-autocomplete-list {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.-autocomplete-item {
+  display: block;
+  padding: 2px 5px;
+  border-bottom: 1px solid #DDD;
+}
+
+.-autocomplete-item.selected {
+  color: white;
+  background: #FF9100;
+  text-decoration: none;
 }

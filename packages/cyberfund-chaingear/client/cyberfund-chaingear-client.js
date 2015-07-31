@@ -8,7 +8,8 @@ CF.Chaingear.helpers = {
         var system = that.system;
         var icon = (that.icon ? that.icon : that.system) || '';
         icon = icon.toString().toLowerCase();
-
+        console.log(icon);
+        console.log("https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/" + icon + ".png");
         return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/" + icon + ".png";
     }
 };
