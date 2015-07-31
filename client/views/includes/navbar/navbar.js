@@ -15,19 +15,22 @@ Template['navbar'].helpers({
         rules: [
           {
             token: '',
-            collection: CurrentData,
-            field: "system",
-            template: Template.searchHelper
-          }/*,
-          {
-            token: '!',
-            collection: Dataset,
-            field: "_id",
-            options: '',
+            collection: 'CurrentData',
+            field: "aliases.CurrencyName",
+            subscription: "search-sys",
             matchAll: true,
-            filter: { type: "autocomplete" },
-            template: Template.dataPiece
-          }*/
+            template: Template.searchHelper,
+            noMatchTemplate: Template.searchNoMatchedSearch
+          },
+          {
+            token: '',
+            collection: 'CurrentData',
+            field: "system",
+            subscription: "search-sys",
+            matchAll: true,
+            template: Template.searchHelper,
+            noMatchTemplate: Template.searchNoMatchedSearch
+          }
         ]
       };
   }

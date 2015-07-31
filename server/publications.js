@@ -72,3 +72,21 @@ Meteor.publish('dependentCoins', function(system) {
     }
   })
 });
+
+Meteor.publish('search-sys', function(selector, options, collname) {
+  console.log(selector);
+  var keys = ["aliases.CurrencyName", "system", "nickname"];
+  var k = false;
+  _.each(keys, function(key){
+    if (selector[key]) k = true;
+  });
+
+  if (!k) return [];
+  var collection;
+  if (collname == "CurrentData")
+    collection = CurrentData;
+  if (!collection) return [];
+  options.fields = {"system": 1, "icon": 1, "aliases.CurrencyName": 1, "nickname": 1};
+  Autocomplete.publishCursor( collection.find(selector, options), this);
+  this.ready();
+});
