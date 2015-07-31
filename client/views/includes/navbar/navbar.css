@@ -6,30 +6,32 @@ input.search-input {
   line-height: 1rem;
   width: 8em;
 }
-.-autocomplete-container {
+.search-wrap .-autocomplete-container {
   position: absolute;
   background: white;
   border: 1px solid #DDD;
   border-radius: 3px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   min-width: 240px;
+  display: block;
   z-index: 1000;
 }
 
-.-autocomplete-list {
+.search-wrap .-autocomplete-list {
   list-style: none;
   display: block;
   margin: 0;
   padding: 0;
 }
 
-.-autocomplete-item {
+.search-wrap .-autocomplete-item {
   display: block;
-  padding: 2px 5px;
+  width: 100%;
+  padding: 0 10px 0;
   border-bottom: 1px solid #DDD;
 }
 
-.-autocomplete-item.selected {
+.search-wrap .-autocomplete-item.selected {
   color: white;
   background: #FF9100;
   text-decoration: none;

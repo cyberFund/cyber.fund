@@ -13,7 +13,7 @@ Template['searchItem'].helpers({
           collection: 'CurrentData',
           field: "aliases.CurrencyName",
           subscription: "search-sys",
-          matchAll: true,
+          matchAll: false,
           template: Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
         }
