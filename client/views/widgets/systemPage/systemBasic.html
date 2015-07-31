@@ -6,16 +6,15 @@
                 <p class="center"> This page is a draft </p>
             {{/if}}
             <div class="col s12 m10 offset-m1 l10 offset-l1">
-                <div id="about" class="row scrollspy valign-wrapper"
-                     style="padding:20px">
-                    <div class="col l4 center valign">
+                <div id="about" class="row scrollspy valign-wrapper">
+                    <div class="col s12 m12 l4 center valign">
                         <h2>{{system}}</h2>
                         <span>{{symbol}}</span>
                     </div>
-                    <div class="col l4 center valign">
+                    <div class="col s12 m12 l4 center valign">
                         {{> hitryImage img_url=img_url style="width: 50%"}}
                     </div>
-                    <div class="col m4 center valign">
+                    <div class="col s12 l4 center valign">
                         <h4>{{>cfRating rating=ratings.rating_cyber}}</h4>
                         {{#if independent this}}
                             <p> Independent System </p>
@@ -60,7 +59,7 @@
                 <div id="market" class="row scrollspy center">
                     {{#if and metrics metrics.price}}
                         {{#if or metrics.price.usd metrics.price.btc}}
-                            <div class="col l3 center valign"
+                            <div class="col s12 m6 l3 center valign"
                                  style="padding:10px">
                                 <div class="card markt">
                                     <h5>Price</h5>
@@ -89,7 +88,7 @@
                     {{/if}}
                     {{#if and metrics metrics.cap}}
                         {{#if or metrics.cap.btc metrics.cap.usd}}
-                            <div class="col l3 center valign"
+                            <div class="col s12 m6 l3 center valign"
                                  style="padding:10px">
                                 <div class="card markt">
                                     <h5>Cap</h5>
@@ -119,7 +118,7 @@
                             </div>
                         {{/if}}
                     {{/if}}
-                    <div class="col l3 center valign" style="padding:10px">
+                    <div class="col s12 m6 l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Trade</h5>
 
@@ -142,7 +141,7 @@
                                 {{/if}}</p>
                         </div>
                     </div>
-                    <div class="col l3 center valign" style="padding:10px">
+                    <div class="col s6 m6 l3 center valign" style="padding:10px">
                         <div class="card markt">
                             <h5>Supply</h5>
 
@@ -267,7 +266,7 @@
                                 </div>
                             {{else}}
                                 {{#each this}}
-                                    <div class="col s3">
+                                    <div class="col s12 m6 l3">
                                         {{> cgLink this}}
                                     </div>
                                 {{/each}}
@@ -281,7 +280,7 @@
                         <h3 class="center">Dapps</h3>
 
                         {{#each dependents}}
-                            <div class="col l3 center valign"
+                            <div class="col s6 m6 l3 center valign"
                                  style="padding:0 10px; margin: 6px 0;">
                                 <a href="{{pathFor 'system1' name_=name_}}">
                                     <div class="card"
@@ -351,7 +350,7 @@
                 </div>
                 <div id="specs" class="row center scrollspy  striped">
                     {{#if hasSpecs}}
-                        <div class="col offset-l3 l6">
+                        <div class="col offset-l3 l6 offset-m1 m10 s12">
                             <h3 class="center">Specification</h3>
                             <table>
                                 <thead>
@@ -390,7 +389,7 @@
                             </table>
                         </div>
                     {{/if}}
-                    <div class="col l3"></div>
+                    <div class="col l3 m1 hide-"></div>
                 </div>
 
                 <div id="improve" class="row scrollspy center">
@@ -435,7 +434,9 @@
                     <li><a href="#specs" class="">Specs</a></li>
                 {{/pageContents}}
             </div-->
+            <div class="col l1 m1 hide-on-small-and-down">
 
+            </div>
         {{/with}}
         <!--a class="btn-floating btn-large waves-effect waves-light red">
 		  <i class="stars"></i></a-->

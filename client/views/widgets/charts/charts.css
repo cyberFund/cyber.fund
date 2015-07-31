@@ -24,5 +24,6 @@
 
 .ct-chart.ct-chart-monthly-vol .ct-series.ct-series-a .ct-bar{
   fill: gray;
-  stroke: grey
+  stroke: grey;
+  stroke-width: 4px;
 }
