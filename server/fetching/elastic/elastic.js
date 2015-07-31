@@ -160,8 +160,8 @@ var esParsers = {
 
     });
     if (notFounds.length) {
-      logger.info("not found any currentData for ");
-      logger.info(notFounds.length);
+      logger.warn("not found any currentData for ");
+      logger.warn(notFounds.length);
 
     }
     /*console.log(buckets[0]);
@@ -255,13 +255,23 @@ var esParsers = {
 };
 
 function fetchLatest(params) {
-  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
-  esParsers.latest_values(result)
+  try {
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
+    esParsers.latest_values(result)
+  } catch(e){
+    logger.warn("could not fetch latest values");
+    logger.warn(e)
+  }
 }
 
 function fetchAverage15m(params) {
-  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
-  esParsers.averages_l15(result);
+  try {
+    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
+    esParsers.averages_l15(result);
+  } catch (e) {
+    logger.warn("could not fetch latest_!5m_averages");
+    logger.warn(e)
+  }
 }
 
 function fetchAverages(params) {
@@ -346,13 +356,13 @@ Meteor.methods({
 
         CurrentData.update({_id: curDataId}, {$set: {initializedAverages: true}});
       } catch (e) { // if something went wrong - just do not set flag
-        console.log("gotcha 1");
-        console.log(e);
+        logger.warn("couinld not fetch average_values_date_histogram hourly");
+        logger.warn(e);
         return;
       }
     } catch (e) {
-      console.log("gotcha 2");
-      console.log(e);
+      logger.warn("couinld not fetch average_values_date_histogram daily");
+      logger.warn(e);
       return; // just do not set flag if something went wrong
     }
   }

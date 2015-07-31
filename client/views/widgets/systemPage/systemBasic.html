@@ -2,6 +2,9 @@
 <template name="systemBasic">
     <div class="row">
         {{#with curData}}
+            {{#if neq page_state 'ready'}}
+                <p class="center"> This page is a draft </p>
+            {{/if}}
             <div class="col s12 m10 offset-m1 l10 offset-l1">
                 <div id="about" class="row scrollspy valign-wrapper"
                      style="padding:20px">
@@ -14,6 +17,28 @@
                     </div>
                     <div class="col m4 center valign">
                         <h4>{{>cfRating rating=ratings.rating_cyber}}</h4>
+                        {{#if independent this}}
+                            <p> Independent System </p>
+                        {{else}}
+                            {{#if descriptions}}
+                                <p>{{descriptions.system_type}}</p>
+                            {{/if}}
+                            <p>This system depends on: </p>
+
+                                {{#each depends_on}}
+                                <div class="col center valign"
+                                     style="padding:0 10px; margin: 6px 0;">
+
+                                    <a href="{{pathFor 'system1' name_=name_}}">
+
+                                    <span class="enlarge"
+                                          style="display: inline; white-space: nowrap;">
+                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+                                    </span>
+                                    </a>
+                                </div>
+                                {{/each}}
+                        {{/if}}
                     </div>
                 </div>
                 <div id="headline" class="row scrollspy center">
@@ -22,30 +47,6 @@
                             in {{countWithTag links 'Apps'}}
                             apps and created {{dependents.count}} decentralized
                             apps</p>
-                    {{/if}}
-                    {{#if neq page_state 'ready'}}
-                        <p> This page is a draft </p>
-                    {{/if}}
-                    {{#if independent this}}
-                        <p> This system has no dependencies</p>
-                    {{else}}
-                        <p>This system depends on: </p>
-                        {{#each depends_on}}
-                            <div class="col l3 center valign"
-                                 style="padding:0 10px; margin: 6px 0;">
-                                <a href="{{pathFor 'system1' name_=name_}}">
-                                    <div class="card"
-                                         style="padding: 10px 0; margin: 2px 0">
-                                    <span
-                                            class="enlarge"
-                                            style="display: inline; white-space: nowrap;">
-                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
-                                        {{displaySystem this}}
-                                    </span>
-                                    </div>
-                                </a>
-                            </div>
-                        {{/each}}
                     {{/if}}
                 </div>
 
