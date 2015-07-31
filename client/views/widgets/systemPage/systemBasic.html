@@ -149,7 +149,7 @@
                                             <a href="#tag-exchange">Exchange</a>
                                         </li>
                                         <li class="tab col s3 {{#if linksWithTag this "News"}}{{else}}disabled{{/if}}">
-                                            <a href="#tag-news">Analytics</a>
+                                            <a href="#tag-news">News</a>
                                         </li>
                                     </ul>
                                 </div>
@@ -206,7 +206,8 @@
                                     <span
                                             class="enlarge"
                                             style="display: inline; white-space: nowrap;">
-                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
+                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+                                        {{displaySystem this}}
                                     </span>
                                     </div>
                                 </a>

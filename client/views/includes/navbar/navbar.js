@@ -21,15 +21,6 @@ Template['navbar'].helpers({
             matchAll: true,
             template: Template.searchHelper,
             noMatchTemplate: Template.searchNoMatchedSearch
-          },
-          {
-            token: '',
-            collection: 'CurrentData',
-            field: "system",
-            subscription: "search-sys",
-            matchAll: true,
-            template: Template.searchHelper,
-            noMatchTemplate: Template.searchNoMatchedSearch
           }
         ]
       };
@@ -42,5 +33,8 @@ Template['navbar'].events({
       $('#sidenav-overlay').trigger('click');
     }, 280)
 
+  },
+  "autocompleteselect input": function(event, template, doc) {
+    console.log("selected ", doc);
   }
 });

@@ -75,13 +75,24 @@ Meteor.publish('dependentCoins', function(system) {
 
 Meteor.publish('search-sys', function(selector, options, collname) {
   console.log(selector);
-  var keys = ["aliases.CurrencyName", "system", "nickname"];
+  var s = selector["aliases.CurrencyName"];
+  if (s) {
+    selector = {$or:
+      [
+        {"aliases.CurrencyName": s},
+        {"system": s},
+        {"nickname": s}
+      ]};
+  } else return [];
+  /*var keys = ["aliases.CurrencyName", "system", "nickname"];
   var k = false;
   _.each(keys, function(key){
     if (selector[key]) k = true;
   });
+   if (!k) return [];
+  */
 
-  if (!k) return [];
+
   var collection;
   if (collname == "CurrentData")
     collection = CurrentData;

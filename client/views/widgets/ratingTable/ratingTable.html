@@ -31,7 +31,7 @@
             <tr style="vertical-align: middle">
                 <td class="left-align" >
                     <a href="{{pathFor 'system1' name_=name_}}" class="enlarge" style="display: inline; white-space: nowrap;">
-                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
+                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem this}}
                     </a>
                 </td>
 
@@ -47,7 +47,7 @@
                         <b>{{symbol}}</b>
                       </div>
                       <div>Currency name:
-                        <b>{{displaySystem}}</b>
+                        <b>{{displaySystem this}}</b>
                       </div>
 
                       <div>Current supply:
@@ -87,7 +87,7 @@
                     Ƀ&nbsp;{{readableN metrics.cap.btc 0}}
                     {{#if metrics.price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{displaySystem}}:<br/>
+                            <div>Price per 1 {{displaySystem this}}:<br/>
                                 <b>Ƀ&nbsp;{{metrics.price.btc}}</b>
                             </div>
                         {{/tooltip}}
@@ -110,7 +110,7 @@
                     <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
                     {{#if metrics.price.usd}}
                         {{#tooltip}}
-                            <div>Price per 1 {{displaySystem}}:<br/>
+                            <div>Price per 1 {{displaySystem this}}:<br/>
                                 <b>$&nbsp;{{metrics.price.usd}}</b>
                             </div>
                         {{/tooltip}}

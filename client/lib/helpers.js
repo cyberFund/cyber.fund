@@ -173,6 +173,15 @@ var helpers = {
       }
     };
     return  specs[key]&& specs[key][key2] ? specs[key][key2] : key + "_" + key2;
+  },
+  displaySystem: function (system) { //see "ALIASES"
+    var ret = system.nickname;
+    if (!ret) {
+      if (system.aliases)
+      ret =  system.aliases.CurrencyName;
+    }
+    if (!ret) ret = system.system;
+    return ret;
   }
 };
 

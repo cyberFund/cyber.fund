@@ -1,4 +1,10 @@
 <!-- originally created for cyber.fund project-->
 <template name="searchHelper">
-    <span class="gray black-text">{{system}}</span>
+    <p>
+    <span class="enlarge black-text" style="display: inline; white-space: nowrap;">
+        {{log this}}
+        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+        {{displaySystem this}}
+    </span>
+    </p>
 </template>

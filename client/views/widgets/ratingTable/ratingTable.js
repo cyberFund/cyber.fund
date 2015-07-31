@@ -56,10 +56,6 @@ Template['ratingTable'].helpers({
     'img_url': function () {
         return CF.Chaingear.helpers.cgSystemLogo(this);
     },
-    // either currency name or name
-    displaySystem: function () { //see "ALIASES"
-        return  this.nickname || this.aliases.CurrencyName;
-    },
     symbol: function() {
         if (this.token && this.token.token_symbol) {
             return this.token.token_symbol
