@@ -279,21 +279,6 @@ function fetchAverages(params) {
   esParsers.averages_date_hist(result);
 }
 
-Meteor.startup(function () {
-  var countHourlies = CurrentData.find({"hourlyData": {$exists: true}}).count();
-  var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
-
-  var params = {
-    from: "now-1d/d",
-    to: "now/d",
-    interval: "day"
-  };
-
-  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
-  //  esParsers.averages_date_hist(result, params);
-
-});
-
 SyncedCron.add({
   name: 'fetch last hour averages',
   schedule: function (parser) {

@@ -1,0 +1,76 @@
+<!-- originally created for cyber.fund project-->
+<template name="assetsManager">
+    {{#if currentUser}}
+        <section id="assets-manager" class="assets-manager card row">
+            <h3 class="center">
+                Assets List
+            </h3>
+
+            {{#if assets}}
+                <div class="assets-table" style="display: table">
+                    <div class="row header">
+                        <th data-field="id">Account</th>
+                        <th data-field="name">Address</th>
+                        <th data-field="price">Token</th>
+                        <th data-field="price">Balance</th>
+                        <th data-field="price">Actions</th>
+                    </div>
+
+                    {{#each assets}}
+                        <div class="row">
+                            <div>{{account}}</div>
+
+                            {{#each tokens}}
+                                <div class="row">
+                                    <div>{{token}}</div>
+                                    <td>{{balance}}</td>
+                                    <div>{{address}}</div>
+                                </div>
+                            {{/each}}
+
+                            <div>
+                                <a class="wave-effect wave-light btn white act-update-balance">Update
+                                    balance</a>
+                                <a class="wave-effect wave-light btn white act-remove-asset">Remove
+                                    asset</a>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+            <div class="row">
+                <a class="btn right waves-effect btn-add-asset modal-trigger"
+                   href="#add-account" style="margin-right: 12px">Add Asset</a>
+                {{#if not assets}}
+                    <span style="margin-left: 24px">
+                    Nothing yet here, try adding something</span>
+                {{/if}}
+            </div>
+
+            <div id="add-account" class="modal">
+                <div class="modal-content">
+                    <h4>Add account</h4>
+
+                    <form id="add-account">
+                        <div class="row">
+                            <input type="text" name="account"
+                                   placeholder="Account">
+                        </div>
+                        <div class="row">
+                            <input type="text" name="address"
+                                   placeholder="Address">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!"
+                       class=" modal-action modal-close waves-effect waves-green btn-flat">Add</a>
+                    <a href="#!"
+                       class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+                </div>
+            </div>
+        </section>
+
+    {{/if}}
+</template>
+

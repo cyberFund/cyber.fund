@@ -116,12 +116,12 @@ function flatten(obj) { //todo move to utils..
     }
   };
 
-  fetch();
-  Meteor.setInterval(fetch, fetchInterval);
+ // fetch();
+ // Meteor.setInterval(fetch, fetchInterval);
 //});
-Meteor.startup(function(){
-  fetch();
-});
+//Meteor.startup(function(){
+  //fetch();
+//});
 SyncedCron.add({
     name: 'fetch chaingear data',
     schedule: function(parser) {
