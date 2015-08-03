@@ -3,10 +3,22 @@ Template['assetsManager'].rendered = function () {
 };
 
 Template['assetsManager'].helpers({
-  'tresures': function () {
+  "treasures": function () {
     var user = Meteor.user();
     if (!user) return [];
     return user.assets;
+  },
+  _rows: function (that){
+    var arr = _.map(that.assets, function(v, k){
+      return v;
+    });
+    return arr.length
+  },
+  _assets: function(){
+    var arr = _.map(this.assets, function(v, k){
+      return v;
+    })
+    return arr;
   },
   'currentAsset': function(){
     return Session.get("currentAsset");

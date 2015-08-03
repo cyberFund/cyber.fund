@@ -6,44 +6,50 @@
                 Assets List
             </h3>
 
-            {{#if and tresures tresures.length}}
-                <div class="assets-table" style="display: table">
-                    <div class="row header">
-                        <th data-field="id">Account</th>
-                        <th data-field="name">Address</th>
-                        <th data-field="price">Token</th>
-                        <th data-field="price">Balance</th>
-                        <th data-field="price">Actions</th>
-                    </div>
+            {{#if and treasures treasures.length}}
+                <table class="assets-table">
+                    <thead class="row header">
+                    <th data-field="id">Account</th>
+                    <th data-field="name">Address</th>
+                    <th data-field="price">Token</th>
+                    <th data-field="price">Balance</th>
+                    <th data-field="price">Actions</th>
 
-                    {{#each tresures}}
-                        <div class="row asset-id" style="display: table" data-account="{{account}}" data-address="{{address}}">
-                            <div>{{account}}</div>
-                            <div>{{address}}</div>
+                    </thead>
+                    <tbody>
+                    {{#each treasures}}
+                        {{#each keyValue _assets }}
+                            <tr class="row asset-id"
+                                data-account="{{account}}"
+                                data-address="{{address}}">
 
-                            {{#each values_of assets}}
-                                <div class="row">
-                                    <div>{{asset}}</div>
-                                    <div>{{quantity}}</div>
+                                {{#if eq key 0}}
+                                    <td class="top-align" rowspan="{{_rows ..}}">{{../account}}</td>
+                                    <td class="top-align" rowspan="{{_rows ..}}">{{../address}}</td>
+                                {{/if}}
 
-                                </div>
-                            {{/each}}
+                                <td>{{value.asset}}</td>
+                                <td>{{value.quantity}}</td>
 
-                            <div>
-                                <a class="wave-effect  wave-light btn act-asset act-update-balance">Update
-                                    balance</a>
-                                <a class="wave-effect wave-light btn act-asset act-remove-asset"
-                                       >Remove
-                                    asset</a>
-                            </div>
-                        </div>
+                                {{#if eq key 0}}
+                                    <td class="top-align" rowspan="{{_rows ..}}">
+                                        <a class="wave-effect  wave-light btn act-asset act-update-balance">Update
+                                            balance</a>
+                                        <a class="wave-effect wave-light btn act-asset act-remove-asset">Remove
+                                            asset</a>
+                                    </td>
+                                {{/if}}
+                            </tr>
+                        {{/each}}
                     {{/each}}
-                </div>
+                    </tbody>
+                </table>
             {{/if}}
             <div class="row">
                 <a class="btn right waves-effect btn-add-asset modal-trigger"
-                   href="#modal-add-asset" style="margin-right: 12px">Add Asset</a>
-                {{#if and tresures tresures.length}}
+                   href="#modal-add-asset" style="margin-right: 12px">Add
+                    Asset</a>
+                {{#if and treasures treasures.length}}
                 {{else}}
                     <span style="margin-left: 24px">
                     Nothing yet here, try adding something</span>
@@ -78,23 +84,24 @@
                 <div class="modal-content">
                     <h4>Remove asset</h4>
 
-                        {{#if currentAsset}}
+                    {{#if currentAsset}}
                         <div class="row">
-                            <p> Are you sure you want to remove {{currentAsset.account}} / {{currentAsset.address}} ?</p>
+                            <p> Are you sure you want to
+                                remove {{currentAsset.account}}
+                                / {{currentAsset.address}} ?</p>
                         </div>
-                        {{/if}}
-                        <div class="row">
-                            {{#if currentAsset}}
+                    {{/if}}
+                    <div class="row">
+                        {{#if currentAsset}}
                             <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                 Remove</a>
-                            {{/if}}
-                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+                        {{/if}}
+                        <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
 
-                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-
     {{/if}}
 </template>
 
