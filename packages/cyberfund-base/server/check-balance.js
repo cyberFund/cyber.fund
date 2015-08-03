@@ -1,4 +1,5 @@
 var balance = Npm.require("crypto-balance");
+CF.checkBalance = balance;
 
 Meteor.methods({
     /**
