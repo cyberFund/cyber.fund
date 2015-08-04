@@ -6,48 +6,40 @@
                 <p class="center"> This page is a draft </p>
             {{/if}}
             <div class="col s12 m10 offset-m1 l10 offset-l1">
-                <div id="about" class="row scrollspy">
-
-                    <div class="col s12 m6 l8 center">
-                        <div class="row valign-wrapper">
-                            <div class="col s4 m4 l6 center valign">
-                                {{> hitryImage img_url=img_url style="width: 50%; vertical-align: middle;"}}
-                            </div>
-                            <div class="col s8 m8 l6 center valign">
-                                <h2>{{system}}</h2>
-                                <span>{{symbol}}</span>
-                            </div>
-                        </div>
+                <div id="about" class="row scrollspy valign-wrapper">
+                    <div class="col s4 m2 l4 center valign">
+                        {{> hitryImage img_url=img_url style="width: 50%; vertical-align: middle;"}}
                     </div>
-                    <div class="col s12 m6 l4 center">
-                        <div class="row valign-wrapper">
-                            <div class="col s12 valign">
-                                <br>
-                                <h4>{{>cfRating rating=ratings.rating_cyber}}</h4>
-                                {{#if independent this}}
-                                    <p> Independent System </p>
-                                {{else}}
-                                    {{#if descriptions}}
-                                        <p>{{descriptions.system_type}}</p>
-                                    {{/if}}
-                                    <p>This system depends on: </p>
+                    <div class="col s8 m4 l4 center valign">
+                        <h2>{{system}}</h2>
+                        <span>{{symbol}}</span>
+                    </div>
 
-                                    {{#each depends_on}}
-                                        <div class="col center valign"
-                                             style="padding:0 10px; margin: 6px 0;">
+                    <div class="col s12 m6 l4 center valign">
+                        <h3>{{>cfRating rating=ratings.rating_cyber}}</h3>
+                        {{#if independent this}}
+                            <span> Independent System </span>
+                        {{else}}
+                            {{#if descriptions}}
+                                <div>{{descriptions.system_type}}</div>
+                            {{/if}}
+                            <div>This system depends on: </div>
 
-                                            <a href="{{pathFor 'system1' name_=name_}}">
+                            {{#each depends_on}}
+                                <div class="col center valign"
+                                     style="padding:0 10px; margin: 6px 0;">
+
+                                    <a href="{{pathFor 'system1' name_=name_}}">
 
                                     <span class="enlarge"
                                           style="display: inline; white-space: nowrap;">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     </span>
-                                            </a>
-                                        </div>
-                                    {{/each}}
-                                {{/if}}
-                            </div>
-                        </div>
+                                    </a>
+                                </div>
+                            {{/each}}
+                        {{/if}}
+
                     </div>
                 </div>
                 <div id="headline" class="row scrollspy center">
@@ -156,7 +148,7 @@
                          style="padding:10px">
                         <div class="card markt">
                             <h5>Supply</h5>
-
+<p style="line-height: 80%;">&nbsp;</p>
                             <p><span
                                     class="enlarge">{{readableN metrics.supply 0}}
                                 <br> {{aliases.CurrencyName}}s</span>
