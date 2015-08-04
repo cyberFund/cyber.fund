@@ -1,5 +1,4 @@
 Template['assetsManager'].rendered = function () {
-  this.$('.modal-trigger').leanModal();
 };
 
 Template['assetsManager'].helpers({
@@ -53,6 +52,10 @@ Template['assetsManager'].events({
       address: $assetrow.data("address")
     });
   },
+  'click .btn-add-asset': function(e, t){
+    t.$("#modal-add-asset").openModal();
+  },
+
   "click .act-remove-asset": function(e, t){
     t.$("#modal-remove-asset").openModal();
   },
