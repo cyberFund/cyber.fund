@@ -18,29 +18,53 @@
                     </thead>
                     <tbody>
                     {{#each treasures}}
-                        {{#each keyValue _assets }}
+                        {{#if _assets.length}}
+                            {{#each keyValue _assets }}
+                                <tr class="row asset-id"
+                                    data-account="{{../account}}"
+                                    data-address="{{../address}}">
+
+                                    {{#if eq key 0}}
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">{{../account}}</td>
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">{{../address}}</td>
+                                    {{/if}}
+
+                                    <td>{{value.asset}}</td>
+                                    <td>{{value.quantity}}</td>
+
+                                    {{#if eq key 0}}
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">
+                                            <a class="waves-effect wave-light btn act-update-balance
+                                        {{#if session 'updatingBalance'}}disabled{{/if}}">Update
+                                                balance</a>
+                                            <a class="waves-effect wave-light btn act-asset act-remove-asset ">Remove
+                                                asset</a>
+                                        </td>
+                                    {{/if}}
+                                </tr>
+                            {{/each}}
+                        {{else}}
                             <tr class="row asset-id"
                                 data-account="{{account}}"
                                 data-address="{{address}}">
 
-                                {{#if eq key 0}}
-                                    <td class="top-align" rowspan="{{_rows ..}}">{{../account}}</td>
-                                    <td class="top-align" rowspan="{{_rows ..}}">{{../address}}</td>
-                                {{/if}}
+                                <td class="top-align">{{account}}</td>
+                                <td class="top-align">{{address}}</td>
+                                <td></td>
+                                <td></td>
+                                <td class="top-align">
+                                    <a class="waves-effect wave-light btn act-update-balance
+                                        {{#if session 'updatingBalance'}}disabled{{/if}}">Update
+                                        balance</a>
+                                    <a class="waves-effect wave-light btn act-asset act-remove-asset ">Remove
+                                        asset</a>
+                                </td>
 
-                                <td>{{value.asset}}</td>
-                                <td>{{value.quantity}}</td>
-
-                                {{#if eq key 0}}
-                                    <td class="top-align" rowspan="{{_rows ..}}">
-                                        <a class="wave-effect  wave-light btn act-asset act-update-balance">Update
-                                            balance</a>
-                                        <a class="wave-effect wave-light btn act-asset act-remove-asset">Remove
-                                            asset</a>
-                                    </td>
-                                {{/if}}
                             </tr>
-                        {{/each}}
+                        {{/if}}
                     {{/each}}
                     </tbody>
                 </table>

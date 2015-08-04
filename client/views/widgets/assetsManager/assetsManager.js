@@ -17,7 +17,7 @@ Template['assetsManager'].helpers({
   _assets: function(){
     var arr = _.map(this.assets, function(v, k){
       return v;
-    })
+    });
     return arr;
   },
   'currentAsset': function(){
@@ -31,9 +31,7 @@ Template['assetsManager'].onCreated(function(){
 });
 
 Template['assetsManager'].events({
-  'click .btn-update-balance': function(e, t){
 
-  },
   'click .submit-add-asset': function(e, t){ //TAG: assets
     if (Session.get("addingAccount")) return false;
     var $form = t.$(e.currentTarget).closest("form");
@@ -48,7 +46,8 @@ Template['assetsManager'].events({
   },
 
   "click .act-asset": function(e, t) {
-    var $assetrow = t.$(e.currentTarget).closest(".asset-id");
+    var $assetrow = t.$(e.currentTarget).closest("tr");
+    console.log($assetrow);
     Session.set("currentAsset", {
       account: $assetrow.data("account"),
       address: $assetrow.data("address")
@@ -64,5 +63,14 @@ Template['assetsManager'].events({
         t.$("#modal-remove-asset").closeModal()
       }
     })
+  },
+  'click .act-update-balance': function(e, t){
+    var $assetrow = t.$(e.currentTarget).closest("tr");
+    var address =  $assetrow.data("address");
+    Session.set("updatingBalance", true);
+    Meteor.call("cfAssetsUpdateBalance", address, function(err, ret){
+      Session.set("updatingBalance", null);
+    });
+
   }
 });
