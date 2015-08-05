@@ -8,8 +8,7 @@ Meteor.publish("currentDataRP", function (options) {
   if (!isNaN(options["ratings.rating_cyber"])) selector["ratings.rating_cyber"] = {$gte: options["ratings.rating_cyber"]};
   if (!isNaN(options.limit)) params.limit = options.limit;
   params.fields = {
-    "aliases.CurrencyName": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1,
-    "nickname": 1
+    "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
   };
   return CurrentData.find(selector, params);
 });
@@ -68,14 +67,14 @@ Meteor.publish("usersCount", function(){
 Meteor.publish('dependentCoins', function(system) {
   return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
     fields: {
-      "system": 1, "icon": 1, "dependencies": 1, "aliases.CurrencyName":1, "nickname": 1
+      "system": 1, "icon": 1, "dependencies": 1, "aliases":1
     }
   })
 });
 Meteor.publish('dependencies', function(deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
-      "system": 1, "icon": 1, "dependencies": 1, "aliases.CurrencyName":1, "nickname": 1
+      "system": 1, "icon": 1, "dependencies": 1, "aliases":1
     }
   })
 });
@@ -88,7 +87,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
     selector = {$or:
       [
         {"system": s},
-        {"nickname": s},
+        {"aliases.nickname": s},
         {"aliases.CurrencyName": s}
       ]};
   } else return [];
@@ -106,7 +105,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
     collection = CurrentData;
   if (!collection) return [];
 
-  options.fields = {"system": 1, "icon": 1, "aliases.CurrencyName": 1, "nickname": 1};
+  options.fields = {"system": 1, "icon": 1, "aliases": 1};
   options.sort = {
     "ratings.rating_cyber": -1,
       "metrics.cap.btc": -1

@@ -183,11 +183,10 @@ var helpers = {
     return specs[key] && specs[key][key2] ? specs[key][key2] : key + "_" + key2;
   },
   displaySystemName: function (system) { //see "ALIASES"
-    var ret = system.nickname;
-    //if (!ret) {
-    // if (system.aliases)
-    // ret =  system.aliases.CurrencyName;
-    // }
+    var ret;
+    console.log(system);
+    if (system.aliases)
+      ret = system.aliases.nickname;
     if (!ret) ret = system.system;
     return ret;
   },

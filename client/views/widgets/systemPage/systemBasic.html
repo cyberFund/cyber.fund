@@ -11,7 +11,7 @@
                         {{> hitryImage img_url=img_url style="width: 50%; vertical-align: middle;"}}
                     </div>
                     <div class="col s8 m4 l4 center valign">
-                        <h2>{{system}}</h2>
+                        <h2>{{displaySystemName this}}</h2>
                         <span>{{symbol}}</span>
                     </div>
 
@@ -159,6 +159,12 @@
                         </div>
                     </div>
                 </div>
+                <div class="row" style="margin-top: -20px">
+                    <div class="col s12 center">
+                        Changes given for 24h
+                    </div>
+                </div>
+            <div class="row"></div>
                 <div id="charts" class="row scrollspy center">
                     {{> monthlyGraph this}}
                 </div>
