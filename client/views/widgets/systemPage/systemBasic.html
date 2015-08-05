@@ -21,14 +21,10 @@
                             <span> Independent System </span>
                         {{else}}
                             {{#if descriptions}}
-                                <div>{{descriptions.system_type}}</div>
+                                <div>{{_system_type_ descriptions.system_type}}</div>
                             {{/if}}
-                            <div>This system depends on: </div>
-
+                            <div>Built with:
                             {{#each depends_on}}
-                                <div class="col center valign"
-                                     style="padding:0 10px; margin: 6px 0;">
-
                                     <a href="{{pathFor 'system1' name_=name_}}">
 
                                     <span class="enlarge"
@@ -36,8 +32,9 @@
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     </span>
                                     </a>
-                                </div>
+
                             {{/each}}
+                            </div>
                         {{/if}}
 
                     </div>
@@ -280,7 +277,7 @@
                                             class="enlarge"
                                             style="display: inline; white-space: nowrap;">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
-                                        {{displaySystem this}}
+                                        {{displaySystemName this}}
                                     </span>
                                     </div>
                                 </a>

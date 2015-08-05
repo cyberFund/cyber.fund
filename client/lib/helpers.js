@@ -21,10 +21,10 @@ var helpers = {
   and: function (value1, value2) {
     return value1 && value2;
   },
-  not: function (value){
+  not: function (value) {
     return !value;
   },
-  or:  function (value1, value2) {
+  or: function (value1, value2) {
     return value1 || value2;
   },
   contains: function (list, value) {
@@ -47,7 +47,7 @@ var helpers = {
     return value1 + value2;
   },
 
-  dif: function(v1, v2){
+  dif: function (v1, v2) {
     return parseInt(v1) - parseInt(v2)
   },
 
@@ -80,28 +80,30 @@ var helpers = {
   },
   readableNumbers: CF.Utils.readableNumbers,
   readableN: CF.Utils.readableN,
-  isNumber: function(value){
+  isNumber: function (value) {
     return _.isNumber(value)
   },
-  isObject: function(value){
+  isObject: function (value) {
     return _.isObject(value)
   },
-  satoshi8: function(value) {
-    function group3(input, sep){
+  satoshi8: function (value) {
+    function group3(input, sep) {
       while (/(\d+)(\d{3})/.test(input.toString())) {
         input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
       }
       return input;
     }
-    function group3_(input, sep){
+
+    function group3_(input, sep) {
       while (/(\d{3})(\d+)/.test(input.toString())) {
         input = input.toString().replace(/(\d{3})(\d+)/, "$1" + (sep || ",") + "$2");
       }
       return input;
     }
+
     try {
       value = parseFloat(value);
-    } catch(e) {
+    } catch (e) {
 
     }
     var out = value.toFixed(8).split('.');
@@ -111,29 +113,29 @@ var helpers = {
     if (out[1]) ret += "." + group3_(out[1], " ");
     return ret;
   },
-  tagMatchesTags: function(tag, tags) {
+  tagMatchesTags: function (tag, tags) {
     return tags.indexOf(tag) > -1;
   },
-  isBeforeNow: function(date, format){
+  isBeforeNow: function (date, format) {
     return moment(date, format).isBefore(moment(), 'day');
   },
-  isAfterNow: function(date, format){
+  isAfterNow: function (date, format) {
     return moment(date, format).isAfter(moment(), 'day');
   },
-  isNowBetween: function(date1, date2, format){
+  isNowBetween: function (date1, date2, format) {
     return moment().isBetween(moment(date1, format), moment(date2, format), 'day');
   },
-  _toU: function(str){
+  _toU: function (str) {
     return str.replace(/\ /g, "_")
   },
-  _toS: function(str){
+  _toS: function (str) {
     return str.replace(/_/g, " ")
   },
-  usersCount: function(){
+  usersCount: function () {
     return Counts.get('usersCount')
   },
-  greenRedNumber: function(value){
-      return (value < 0) ? "red-text" : "green-text";
+  greenRedNumber: function (value) {
+    return (value < 0) ? "red-text" : "green-text";
   },
   inflationToText: function (percents) {
     if (percents < 0) {
@@ -153,33 +155,49 @@ var helpers = {
       return "= 0%";
     }
   },
-  _specs_: function(key, key2){
+  _system_type_: function(key){
+    var types = {
+      dapp: "Decentralized application"
+    };
+    return types[key] || key;
+  },
+  _specs_: function (key) {
     var specs = {
       block_time: "Target Block Time, seconds",
       rpc: "RPC Port",
       block_reward: "Block Reward",
       halfing_cycle: "Reward Halfing Cycle, blocks",
-      total_tokens:	"Total Tokens",
+      total_tokens: "Total Tokens",
       difficulty_cycle: "Difficulty Cycle, blocks",
       txs_confirm: "Guaranted TX confirm, blocks"
     };
     return specs[key] || key;
   },
-  _specs__: function(key, key2){
+  _specs__: function (key, key2) {
     var specs = {
       cap: {
         usd: "USD Capitalization",
         btc: "Bitcoin capitalization"
       }
     };
-    return  specs[key]&& specs[key][key2] ? specs[key][key2] : key + "_" + key2;
+    return specs[key] && specs[key][key2] ? specs[key][key2] : key + "_" + key2;
   },
-  displaySystem: function (system) { //see "ALIASES"
+  displaySystemName: function (system) { //see "ALIASES"
     var ret = system.nickname;
-    if (!ret) {
-      if (system.aliases)
-      ret =  system.aliases.CurrencyName;
+    //if (!ret) {
+    // if (system.aliases)
+    // ret =  system.aliases.CurrencyName;
+    // }
+    if (!ret) ret = system.system;
+    return ret;
+  },
+  displayCurrencyName: function (system) {
+    var ret;
+
+    if (system.aliases) {
+      ret = system.aliases.CurrencyName;
     }
+
     if (!ret) ret = system.system;
     return ret;
   }
