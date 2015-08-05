@@ -149,7 +149,7 @@
 <p style="line-height: 80%;">&nbsp;</p>
                             <p><span
                                     class="enlarge">{{readableN metrics.supply 0}}
-                                <br> {{displayCurrencyName}}s</span>
+                                <br> {{displayCurrencyName this}}s</span>
                                 {{#if metrics.supplyChangePercents.day}}
                                     <br>
                                     <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>

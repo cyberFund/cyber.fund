@@ -161,10 +161,14 @@ Template['systemBasic'].onCreated(function () {
 
   instance.autorun(function () {
     instance.subscribe('dependentCoins', systemName());
-    if (instance.data && instance.data.dependencies){
-      var d = instance.data.dependencies;
-      if (!_.isArray(d)) d = [d];
-      if (d.indexOf("independent") > -1) instance.subscribe('dependencies', d);
+    var data = instance.data.curData;
+    if (data) {
+      data = data.fetch()[0];
+      if (data && data.dependencies) {
+        var d = data.dependencies;
+        if (!_.isArray(d)) d = [d];
+        if (d.indexOf("independent") == -1) instance.subscribe('dependencies', d);
+      }
     }
   });
 });
