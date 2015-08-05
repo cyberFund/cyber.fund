@@ -55,4 +55,4 @@ Template['btcPriceSimple'].helpers({
     if (btc && btc.metrics) return Blaze._globalHelpers.readableNumbers( parseFloat(btc.metrics.price.usd).toFixed(2));
     return ""
   }
-})
+});

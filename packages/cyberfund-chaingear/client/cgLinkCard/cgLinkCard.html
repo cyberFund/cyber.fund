@@ -1,0 +1,17 @@
+<!-- originally created for cyber.fund project-->
+<template name="cgLinkCard">
+    <div class="col s6 m6 l3 center valign"
+         style="padding:0 10px; margin: 6px 0;">
+        <a href="{{url}}">
+            <div class="card"
+                 style="padding: 10px 0; margin: 2px 0">
+                <span class="enlarge">
+                    {{> hitryImage img_url=iconUrl style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+                {{! #if not headline}}
+                    {{name}}
+                </span>
+                {{! /if}}
+            </div>
+        </a>
+    </div>
+</template>

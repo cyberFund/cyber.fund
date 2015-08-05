@@ -8,9 +8,6 @@ Tracker.autorun(function(){
 });
 
 Template['navbar'].helpers({
-  'foo': function () {
-    
-  }
 });
 
 Template['navbar'].events({

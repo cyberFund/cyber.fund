@@ -1,7 +1,7 @@
 Session.setDefault('curDataSelector', {"ratings.rating_cyber": 5});
 
 Deps.autorun(function () {
-    Meteor.subscribe("current-data", Session.get('curDataSelector'));
+    Meteor.subscribe("currentDataRP", Session.get('curDataSelector'));
 });
 
 
@@ -54,11 +54,7 @@ Template['ratingTable'].helpers({
         return CurrentData.find({}, {sort: Session.get("ratingSorter")});
     },
     'img_url': function () {
-        return CF.Chaingear.helpers.cgIcon(this);
-    },
-    // either currency name or name
-    displaySystem: function () { //see "ALIASES"
-        return this.aliases.CurrencyName || this.nickname;
+        return CF.Chaingear.helpers.cgSystemLogo(this);
     },
     symbol: function() {
         if (this.token && this.token.token_symbol) {
@@ -70,15 +66,6 @@ Template['ratingTable'].helpers({
     // underscored currency name
     name_: function () {
         return Blaze._globalHelpers._toU(this.system);
-    },
-    percentsToText: function (percents) {
-        if (percents < 0) {
-            return "Deflation " + (-percents).toFixed(2) + "%";
-        } else if (percents > 0) {
-            return "Inflation " + percents.toFixed(2) + "%";
-        } else {
-            return "Stable";
-        }
     },
     dailyTradeVolumeToText: function (volumeDaily, absolute) {
         //<0.1% - Illiquid
@@ -105,18 +92,6 @@ Template['ratingTable'].helpers({
         var ret = parseFloat(cap);
         if (isNaN(ret)) return "";
         return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
-    },
-    percentsToText2: function (percents) {
-        if (percents < 0) {
-            return "↓ " + (-percents.toFixed(2)) + "%";
-        } else if (percents > 0) {
-            return "↑ " + percents.toFixed(2) + "%";
-        } else {
-            return "= 0%";
-        }
-    },
-    percentsToClass: function (percents) {
-        return (percents < 0) ? "red-text" : "green-text";
     },
     capUsdToText: function (cap) {
         var ret = parseFloat(cap);

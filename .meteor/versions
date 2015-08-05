@@ -16,12 +16,14 @@ cyberfund:cyberfund-chaingear@0.0.1
 cyberfund:cyberfund-currentdata@0.0.1
 cyberfund:cyberfund-es@0.0.1
 cyberfund:cyberfund-marketdata@0.0.1
+dandv:caret-position@2.1.1
 ddp@1.1.0
 deps@1.0.7
 ejson@1.0.6
 email@1.0.6
 ermlab:log4js-silos@0.1.7
 fastclick@1.0.3
+fortawesome:fontawesome@4.3.0
 geojson-utils@1.0.3
 gwendall:body-events@0.1.6
 html-tools@1.0.4
@@ -53,6 +55,7 @@ meteorhacks:meteorx@1.3.1
 mfpierre:chartist-js@1.5.0
 minifiers@1.1.5
 minimongo@1.0.8
+mizzao:autocomplete@0.5.1
 mobile-status-bar@1.0.3
 momentjs:moment@2.10.3
 mongo@1.1.0
@@ -62,6 +65,7 @@ oauth@1.1.4
 oauth1@1.1.4
 observe-sequence@1.0.6
 ordered-dict@1.0.3
+percolate:synced-cron@1.2.1
 random@1.0.3
 reactive-dict@1.1.0
 reactive-var@1.0.5

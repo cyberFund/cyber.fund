@@ -1,9 +1,12 @@
 CF.Chaingear.helpers = {
-    'cgIcon': function (that) {
-        var system = that.system;
+    /**
+     *
+     * @param that - CurrentData item
+     * @returns {string} url to image
+     */
+    "cgSystemLogo": function (that) {
         var icon = (that.icon ? that.icon : that.system) || '';
         icon = icon.toString().toLowerCase();
-
         return "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/logos/" + icon + ".png";
     }
 };

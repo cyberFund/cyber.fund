@@ -29,9 +29,9 @@
         <tbody>
         {{#each rows}}
             <tr style="vertical-align: middle">
-                <td class="left-align no-click" >
-                    <a href="{{pathFor 'system1' name_=name_}}" class="enlarge no-click" style="cursor: text; display: inline; white-space: nowrap;">
-                        {{> cgIcon data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystem}}
+                <td class="left-align" >
+                    <a href="{{pathFor 'System' name_=name_}}" class="enlarge" style="display: inline; white-space: nowrap;">
+                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}{{displaySystemName this}}
                     </a>
                 </td>
 
@@ -40,14 +40,14 @@
                         {{>cfRating rating=ratings.rating_cyber}}</td>
 
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
-                    <span>{{percentsToText metrics.supplyChangePercents.day}}</span>
+                    <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
                     {{#tooltip}}
 
                       <div>Ticker:
                         <b>{{symbol}}</b>
                       </div>
                       <div>Currency name:
-                        <b>{{displaySystem}}</b>
+                        <b>{{displayCurrencyName this}}</b>
                       </div>
 
                       <div>Current supply:
@@ -87,7 +87,7 @@
                     Ƀ&nbsp;{{readableN metrics.cap.btc 0}}
                     {{#if metrics.price.btc}}
                         {{#tooltip}}
-                            <div>Price per 1 {{displaySystem}}:<br/>
+                            <div>Price per 1 {{displaySystemName this}}:<br/>
                                 <b>Ƀ&nbsp;{{metrics.price.btc}}</b>
                             </div>
                         {{/tooltip}}
@@ -95,8 +95,8 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    <span class="{{percentsToClass metrics.capChangePercents.day.btc}}">
-                        {{percentsToText2 metrics.capChangePercents.day.btc}}</span>
+                    <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+                        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
                     {{#if metrics.capChange.day.btc}}
                         {{#tooltip}}
                             <div>Real change:
@@ -110,7 +110,7 @@
                     <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
                     {{#if metrics.price.usd}}
                         {{#tooltip}}
-                            <div>Price per 1 {{displaySystem}}:<br/>
+                            <div>Price per 1 {{displaySystemName this}}:<br/>
                                 <b>$&nbsp;{{metrics.price.usd}}</b>
                             </div>
                         {{/tooltip}}
@@ -118,8 +118,8 @@
                 {{/withTooltip}}</td>
 
                 <td class="right-align">{{#withTooltip}}
-                    <span class="{{percentsToClass metrics.capChangePercents.day.usd}}">
-                        {{percentsToText2 metrics.capChangePercents.day.usd}}</span>
+                    <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                        {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
 
                     {{#tooltip}}
                         <div>Real change:

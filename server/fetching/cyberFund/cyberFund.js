@@ -20,7 +20,8 @@ CF.fetching.cyberFund.processData = function (data, callback) {
 /**
  *
  * @param obj
- * @returns {{}}
+ * @returns {{}} object with keys flattened. ok to use in conjunction with
+ * collection.update({..}, {$set: flatten(obj)})
  */
 function flatten(obj) { //todo move to utils..
   if (!_.isObject(obj)) return;
@@ -51,9 +52,9 @@ function flatten(obj) { //todo move to utils..
   return result;
 }
 
-Meteor.startup(function () {
-  var fetch = function () {
-    logger.info("Fetching data from cyberFund...");
+var fetch = function () {
+  logger.info("Fetching data from cyberFund...");
+  try {
     var res = HTTP.call("HEAD", sourceUrl, {timeout: fetchInterval});
     var previous = Extras.findOne({_id: 'chaingear_etag'});
     if (!res || !res.headers || !res.headers.etag) return;
@@ -67,7 +68,11 @@ Meteor.startup(function () {
         }
         //if (CurrentData.find().count() < 1000) {
         _.each(getResult, function (system) {
-          var selector = CF.CurrentData.selectors.name_symbol(system.system, system.token.token_symbol);
+          if (!system.token) {
+            logger.info("no .token for system '" + system.system + "'");
+            return;
+          }
+          var selector = CF.CurrentData.selectors.system_symbol(system.system, system.token.token_symbol);
           var doc = CurrentData.findOne(selector);
           if (!doc) {
             if (system.specs && (system.specs.supply || system.specs.cap)) {
@@ -81,7 +86,6 @@ Meteor.startup(function () {
             CurrentData.insert(system);
           }
           else {
-            //var set = flatten(_.omit(system, ['system', 'symbol']));
             var set = _.omit(system, ['system', 'symbol']);
             // push supply & caps to metrics
             if (system.specs) {
@@ -106,9 +110,19 @@ Meteor.startup(function () {
     } else {
       console.log("chaingear not changed..")
     }
-  };
+  } catch (e) {
+    console.log("probably no connection while trying to fetch cynberfund")
+  }
+};
 
-  fetch();
-  Meteor.setInterval(fetch, fetchInterval);
+SyncedCron.add({
+  name: 'fetch chaingear data',
+  schedule: function (parser) {
+    // parser is a later.parse object
+    return parser.cron('0/5 * * * *', false);
+  },
+  job: function () {
+    fetch();
+  }
 });
 

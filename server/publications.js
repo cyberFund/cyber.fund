@@ -1,9 +1,15 @@
-Meteor.publish("current-data", function (options) {
+/**
+ * currentData, just fields enough to draw rating table..
+ */
+Meteor.publish("currentDataRP", function (options) {
   options = options || {};
   var selector = {};
   var params = {sort: {"ratings.rating_cyber": -1, "metrics.cap.btc": -1}};
   if (!isNaN(options["ratings.rating_cyber"])) selector["ratings.rating_cyber"] = {$gte: options["ratings.rating_cyber"]};
   if (!isNaN(options.limit)) params.limit = options.limit;
+  params.fields = {
+    "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
+  };
   return CurrentData.find(selector, params);
 });
 
@@ -19,6 +25,7 @@ Meteor.publish("fresh-price", function () {
   return []; // no marketdata as of now
 });
 
+
 Meteor.publish('userDetails', function () {
   //console.log(Meteor.users.findOne({_id: this.userId}));
 
@@ -30,25 +37,18 @@ Meteor.publish('userDetails', function () {
   });
 });
 
-Meteor.publish('customCurrentData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
-  options = options || {};
-  return CurrentData.find(selector, options);
-});
-
-Meteor.publish('customMarketData', function (selector, options) { //TODO: refactor this and all usages. this is not safe
-  options = options || {};
-  return MarketData.find(selector, options);
-});
-
+/**
+ * fetch full currentData document
+ */
 Meteor.publish('systemData', function (options) {
   //still using name & symbol. probably got to refactor to avoid confusion in future
   var name = options.name;
   var symbol = options.symbol;
   if (symbol && name) {
-    return CurrentData.find(CF.CurrentData.selectors.name_symbol(name, symbol));
+    return CurrentData.find(CF.CurrentData.selectors.system_symbol(name, symbol));
   }
   if (name) {
-    return CurrentData.find(CF.CurrentData.selectors.name(name));
+    return CurrentData.find(CF.CurrentData.selectors.system(name));
   }
   if (symbol) {
     return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
@@ -62,4 +62,54 @@ Meteor.publish('crowdsale', function () {
 
 Meteor.publish("usersCount", function(){
   Counts.publish(this, 'usersCount', Meteor.users.find());
-})
+});
+
+Meteor.publish('dependentCoins', function(system) {
+  return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
+    fields: {
+      "system": 1, "icon": 1, "dependencies": 1, "aliases":1
+    }
+  })
+});
+Meteor.publish('dependencies', function(deps) {
+  return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
+    fields: {
+      "system": 1, "icon": 1, "dependencies": 1, "aliases":1
+    }
+  })
+});
+
+
+Meteor.publish('search-sys', function(selector, options, collname) {
+
+  var s = selector["aliases.CurrencyName"];
+  if (s) {
+    selector = {$or:
+      [
+        {"system": s},
+        {"aliases.nickname": s},
+        {"aliases.CurrencyName": s}
+      ]};
+  } else return [];
+  /*var keys = ["aliases.CurrencyName", "system", "nickname"];
+  var k = false;
+  _.each(keys, function(key){
+    if (selector[key]) k = true;
+  });
+   if (!k) return [];
+  */
+
+
+  var collection;
+  if (collname == "CurrentData")
+    collection = CurrentData;
+  if (!collection) return [];
+
+  options.fields = {"system": 1, "icon": 1, "aliases": 1};
+  options.sort = {
+    "ratings.rating_cyber": -1,
+      "metrics.cap.btc": -1
+  };
+  Autocomplete.publishCursor( collection.find(selector, options), this);
+  this.ready();
+});

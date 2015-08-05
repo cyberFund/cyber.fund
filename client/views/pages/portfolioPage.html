@@ -2,11 +2,20 @@
 <template name="portfolioPage">
     <div class="row">
         <div class="col l12 m12 s12 center">
+
             <br>
             <br>
+
             <h3>Control your portfolio!</h3>
             <br>
             {{> loginBox}}
+            {{#if currentUser}}
+                <div class="row">
+                    <div class="col s12 center">
+                        {{> followUsOnTwitter}}
+                    </div>
+                </div>
+            {{/if}}
         </div>
     </div>
     <div class="row">
@@ -37,7 +46,6 @@
         <br>
         <br>
     </div>
-    {{! > followUsOnTwitter}}
 
     <!-- div class="row">
 	  <div class="s12 m4 l4">
