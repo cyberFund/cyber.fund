@@ -3,4 +3,4 @@ SyncedCron.config({
   collectionTTL: 604800,
   utc: true
 });
-SyncedCron.start();
+//SyncedCron.start();

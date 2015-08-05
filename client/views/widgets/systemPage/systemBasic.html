@@ -168,13 +168,15 @@
                 <div id="code" class="section scrollspy row">
                     {{#if existLinksWith links 'News'}}
                         <h3 class="center">News</h3>
+                    <div class="row">
                         {{#each links}}
                             {{#if tagMatchesTags "News" tags}}
-                                <div class="row">
-                                    {{> cgLink this}}
-                                </div>
+
+                                    {{> cgLinkCard this}}
+
                             {{/if}}
                         {{/each}}
+                    </div>
                     {{else}}
 
                     {{/if}}
@@ -219,9 +221,6 @@
                                         <div id="tag-wallet" class="col s12">
                                             {{#each linksWithTag this "Wallet"}}
                                                 {{> cgLinkCard this}}
-                                                <!--div class="col s3">
-                                                    {{> cgLink this}}
-                                                </div-->
                                             {{/each}}
                                         </div>
                                     {{/if}}
@@ -230,9 +229,6 @@
                                         <div id="tag-exchange" class="col s12">
                                             {{#each linksWithTag this "Exchange"}}
                                                 {{> cgLinkCard this}}
-                                                <!--div class="col s3">
-                                                    {{> cgLink this}}
-                                                </div-->
                                             {{/each}}
                                         </div>
                                     {{/if}}
@@ -240,9 +236,6 @@
                                         <div id="tag-analytics" class="col s12">
                                             {{#each linksWithTag this "Analytics"}}
                                                 {{> cgLinkCard this}}
-                                                <!--div class="col s3">
-                                                    {{> cgLink this}}
-                                                </div-->
                                             {{/each}}
                                         </div>
                                     {{/if}}
@@ -251,9 +244,6 @@
                                         <div id="tag-magic" class="col s12">
                                             {{#each linksWithTag this "Magic"}}
                                                 {{> cgLinkCard this}}
-                                                <!--div class="col s3">
-                                                    {{> cgLink this}}
-                                                </div-->
                                             {{/each}}
                                         </div>
                                     {{/if}}
@@ -261,9 +251,6 @@
                                     <div id="tag-other" class="col s12">
                                         {{#each linksWithoutTags this mainTags}}
                                             {{> cgLinkCard this}}
-                                            <!--div class="col s3">
-                                                    {{> cgLink this}}
-                                                </div-->
                                         {{/each}}
                                     </div>
 
