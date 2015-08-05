@@ -17,8 +17,9 @@ Npm.depends({"crypto-balance":  "0.0.20"});
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   api.use(["underscore"], cs);
+  api.use(["ermlab:log4js-silos"], s);
   api.addFiles('cyberfund-base.js', cs);
-  api.addFiles(['server/utils-server.js', 'server/check-balance.js'], s);
+  api.addFiles(['server/utils-server.js', 'server/assetsCryptoBalance.js'], s);
   api.addFiles(['client/utils-client.js'], c);
 
   api.export("CF");

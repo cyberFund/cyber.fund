@@ -1,0 +1,130 @@
+<!-- originally created for cyber.fund project-->
+<template name="assetsManager">
+    {{#if currentUser}}
+        <section id="assets-manager" class="assets-manager card row">
+            <h3 class="center">
+                Assets List
+            </h3>
+
+            {{#if and treasures treasures.length}}
+                <table class="assets-table">
+                    <thead class="row header">
+                    <th data-field="id">Account</th>
+                    <th data-field="name">Address</th>
+                    <th data-field="price">Token</th>
+                    <th data-field="price">Balance</th>
+                    <th data-field="price">Actions</th>
+
+                    </thead>
+                    <tbody>
+                    {{#each treasures}}
+                        {{#if _assets.length}}
+                            {{#each keyValue _assets }}
+                                <tr class="row asset-id"
+                                    data-account="{{../account}}"
+                                    data-address="{{../address}}">
+
+                                    {{#if eq key 0}}
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">{{../account}}</td>
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">{{../address}}</td>
+                                    {{/if}}
+
+                                    <td>{{value.asset}}</td>
+                                    <td>{{value.quantity}}</td>
+
+                                    {{#if eq key 0}}
+                                        <td class="top-align"
+                                            rowspan="{{_rows ..}}">
+                                            <a class="waves-effect wave-light btn act-update-balance
+                                        {{#if session 'updatingBalance'}}disabled{{/if}}">Update
+                                                balance</a>
+                                            <a class="waves-effect wave-light btn act-asset act-remove-asset ">Remove
+                                                asset</a>
+                                        </td>
+                                    {{/if}}
+                                </tr>
+                            {{/each}}
+                        {{else}}
+                            <tr class="row asset-id"
+                                data-account="{{account}}"
+                                data-address="{{address}}">
+
+                                <td class="top-align">{{account}}</td>
+                                <td class="top-align">{{address}}</td>
+                                <td></td>
+                                <td></td>
+                                <td class="top-align">
+                                    <a class="waves-effect wave-light btn act-update-balance
+                                        {{#if session 'updatingBalance'}}disabled{{/if}}">Update
+                                        balance</a>
+                                    <a class="waves-effect wave-light btn act-asset act-remove-asset ">Remove
+                                        asset</a>
+                                </td>
+
+                            </tr>
+                        {{/if}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            {{/if}}
+            <div class="row">
+                <a class="btn right waves-effect btn-add-asset" style="margin-right: 12px">Add
+                    Asset</a>
+                {{#if and treasures treasures.length}}
+                {{else}}
+                    <span style="margin-left: 24px">
+                    Nothing yet here, try adding something</span>
+                {{/if}}
+            </div>
+
+            <div id="modal-add-asset" class="modal">
+                <div class="modal-content">
+                    <h4>Add asset</h4>
+
+                    <form id="add-account-form">
+                        <div class="row">
+                            <input type="text" name="account"
+                                   placeholder="Account">
+                        </div>
+                        <div class="row">
+                            <input type="text" name="address"
+                                   placeholder="Address">
+                        </div>
+
+                        <div class="row">
+                            <a class="btn submit-add-asset  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Add</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="modal-remove-asset" class="modal">
+                <div class="modal-content">
+                    <h4>Remove asset</h4>
+
+                    {{#if currentAsset}}
+                        <div class="row">
+                            <p> Are you sure you want to
+                                remove {{currentAsset.account}}
+                                / {{currentAsset.address}} ?</p>
+                        </div>
+                    {{/if}}
+                    <div class="row">
+                        {{#if currentAsset}}
+                            <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Remove</a>
+                        {{/if}}
+                        <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+    {{/if}}
+</template>
+

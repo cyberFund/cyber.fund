@@ -113,3 +113,8 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   Autocomplete.publishCursor( collection.find(selector, options), this);
   this.ready();
 });
+
+Meteor.publish('ownAssets', function() { //TAG: assets
+  if (!this.userId) return [];
+  return Meteor.users.find({_id: this.userId}, {fields: {"assets": 1}});
+});

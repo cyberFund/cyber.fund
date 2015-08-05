@@ -216,7 +216,9 @@ Template['monthlyGraph'].rendered = function () {
     });
     for (i = 0; i< dataVol.series[0].length; i++){
 
-      if (dataVol.series[0][i] == null) dataVol.series[0][i] = 0;
+      if (dataVol.series[0][i] == null) {
+        dataVol.series[0][i] = 0;
+      }
     }
   });
 };
