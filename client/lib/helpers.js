@@ -184,7 +184,6 @@ var helpers = {
   },
   displaySystemName: function (system) { //see "ALIASES"
     var ret;
-    console.log(system);
     if (system.aliases)
       ret = system.aliases.nickname;
     if (!ret) ret = system.system;
