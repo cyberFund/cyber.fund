@@ -24,7 +24,7 @@ Template['searchItem'].helpers({
 
 Template['searchItem'].events({
   "autocompleteselect input#search": function(event, template, doc) {
-    Router.current().router.go("system1", {name_: Blaze._globalHelpers._toU(doc.system) })
+    Router.current().router.go("System", {name_: Blaze._globalHelpers._toU(doc.system) })
     template.$("input#search").val("");
   }
 });
