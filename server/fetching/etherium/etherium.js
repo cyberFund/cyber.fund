@@ -16,7 +16,7 @@ var fetch = function(){
           metrics = metrics.metrics;
           var supply = blockCount*5 + 72002454.768;
           var set = {
-            'metrics.su[pply': supply,
+            'metrics.supply': supply,
             'metrics.cap.btc': metrics.price.btc *supply,
             'metrics.cap.usd': metrics.price.usd *supply
           };
@@ -31,3 +31,14 @@ var fetch = function(){
     return;
   }
 };
+
+SyncedCron.add({
+  name: 'fetch etherium volume data',
+  schedule: function (parser) {
+    // parser is a later.parse object
+    return parser.cron('5/15 * * * * *', true)
+  },
+  job: function () {
+    fetch();
+  }
+});

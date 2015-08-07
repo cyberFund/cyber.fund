@@ -11,25 +11,32 @@ Template['cgLink'].helpers({
     var link = this;
     //if (link.icon)
       //return "https://github.com/cyberFund/chaingear/blob/gh-pages/logos/" + link.icon;
+
+
+
     switch (link.icon) {
+      case "wiki.png":
+        return "wikipedia-w";
       case "twitter.png":
         return "twitter";
+      case "Wallet.png":
+        return "credit-card";
       case "reddit.png":
         return "reddit";
       case "github.png":
         return "github";
       case "blog.png":
-        return "comment";
+        return "pencil-square-o";
       case "website.png":
         return "home";
       case "forum.png":
-        return "comments";
+        return "comments-o";
       case "explorer.png":
         return "search";
       case "whitepaper.png":
         return "mortar-board";
       case "paper.png":
-        return "newspaper-o";
+        return "graduation-cap";
       default:
         break;
     }
