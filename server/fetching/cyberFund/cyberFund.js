@@ -89,10 +89,10 @@ var fetch = function () {
             var set = _.omit(system, ['system', 'symbol']);
             // push supply & caps to metrics
             if (system.specs) {
-              if (doc.specs.supply) {
+              if (system.specs.supply) {
                 set["metrics.supply"] = system.specs.supply;
               }
-              if (doc.specs.cap) {
+              if (system.specs.cap) {
                 set["metrics.cap.usd"] = system.specs.cap.usd;
                 set["metrics.cap.btc"] = system.specs.cap.btc;
               }
