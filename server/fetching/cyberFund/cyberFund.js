@@ -119,7 +119,7 @@ SyncedCron.add({
   name: 'fetch chaingear data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('0/5 * * * *', false);
+    return parser.cron('1/5 * * * *', false);
   },
   job: function () {
     fetch();
