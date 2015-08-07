@@ -3,7 +3,8 @@
     <div class="row">
         {{#with curData}}
             {{#if neq page_state 'ready'}}
-                <p class="center"> This page is a draft </p>
+                <p class="center"> This page is not ready yet. Follow <a target="_blank"
+                        href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">fan zone</a> to help us improve it faster! </p>
             {{/if}}
             <div class="col s12 m10 offset-m1 l10 offset-l1">
                 <div id="about" class="row scrollspy valign-wrapper">
