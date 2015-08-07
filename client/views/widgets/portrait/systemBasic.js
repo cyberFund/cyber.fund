@@ -69,10 +69,11 @@ Template['systemBasic'].helpers({
     });
     return f;
   },
-  mainTags: ['Wallet', "Exxchange", "Analytics", "Magic"],
-  appTags: ["Wallet", "Exchange", "Analytics", "Magic"],
+  mainTags: function(){return ['Wallet', "Exchange", "Analytics", "Magic"]},
+
   linksWithoutTags: function(links, tags){
     if (!_.isArray(links)) return [];
+
     var f= _.filter(links, function(link){
       var ret = _.isArray(link.tags);
       _.each(tags, function(tag){
@@ -81,6 +82,7 @@ Template['systemBasic'].helpers({
 
       return ret;
     });
+
     return f;
   },
   dayToDayTradeVolumeChange: function(){
