@@ -230,8 +230,9 @@
                                         </div>
                                     {{/if}}
 
-                                    {{#if existLinksWith this "Wallet"}}
+                                    {{#if existLinksWith this "Exchange"}}
                                         <div id="tag-exchange" class="col s12">
+                                            {{log this}}
                                             {{#each linksWithTag this "Exchange"}}
                                                 {{> cgLinkCard this}}
                                             {{/each}}
