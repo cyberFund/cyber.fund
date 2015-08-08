@@ -12,7 +12,7 @@ Template['cgLink'].helpers({
     //if (link.icon)
       //return "https://github.com/cyberFund/chaingear/blob/gh-pages/logos/" + link.icon;
 
-
+    if (link.type == "github") return "github";
 
     switch (link.icon) {
       case "wiki.png":
@@ -41,7 +41,6 @@ Template['cgLink'].helpers({
         break;
     }
     if (link.type == "custom") {
-      //console.log(link);
       return ""
     }
     return "external-link";
