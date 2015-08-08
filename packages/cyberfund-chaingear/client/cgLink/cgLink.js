@@ -10,16 +10,40 @@ Template['cgLink'].helpers({
   "iconUrl": function () {
     var link = this;
     //if (link.icon)
-      //return "https://github.com/cyberFund/chaingear/blob/gh-pages/logos/" + link.icon;
+    //return "https://github.com/cyberFund/chaingear/blob/gh-pages/logos/" + link.icon;
 
-    if (link.type == "github") return "github";
-
-    switch (link.icon) {
+    switch (link.type) {
+      case "wiki":
+        return "wikipedia-w";
+      case "twitter":
+        return "twitter";
+      case "wallet":
+        return "credit-card";
+      case "reddit":
+        return "reddit";
+      case "github":
+        return "github";
+      case "blog":
+        return "pencil-square-o";
+      case "website":
+        return "home";
+      case "forum":
+        return "comments-o";
+      case "explorer":
+        return "search";
+      case "whitepaper":
+        return "mortar-board";
+      case "paper":
+        return "graduation-cap";
+      default:
+        break;
+    }
+    switch (link.icon.toLowerCase()) {
       case "wiki.png":
         return "wikipedia-w";
       case "twitter.png":
         return "twitter";
-      case "Wallet.png":
+      case "wallet.png":
         return "credit-card";
       case "reddit.png":
         return "reddit";
