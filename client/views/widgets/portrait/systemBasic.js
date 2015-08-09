@@ -69,7 +69,7 @@ Template['systemBasic'].helpers({
     });
     return f;
   },
-  mainTags: ['Wallet', "Exxchange", "Analytics", "Magic"],
+  mainTags: ['Wallet', "Exchange", "Analytics", "Magic"],
   appTags: ["Wallet", "Exchange", "Analytics", "Magic"],
   linksWithoutTags: function(links, tags){
     if (!_.isArray(links)) return [];
