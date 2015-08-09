@@ -82,7 +82,7 @@ var fetch = function () {
               system.metrics.cap = system.specs.cap
 
             }
-
+            console.log("inserting system " + system.system);
             CurrentData.insert(system);
           }
           else {
