@@ -160,7 +160,8 @@ main {
 }
 
 .rating-sys {
-  font-size: 2.4rem
+  font-size: 2.4rem;
+  margin-top: 1rem;
 }
 
 .header-sys {
@@ -169,8 +170,9 @@ main {
 }
 
 .symbol-sys {
-  font-size: 1.6rem
+  font-size: 1.6rem;
   display: block;
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -196,15 +198,16 @@ main {
   }
 
   .rating-sys {
-    font-size: 1.5rem
+    font-size: 1.5rem;
+    margin-top: 1.1rem;
   }
 
   .header-sys {
     font-size: 2.2rem;
-    width: 100%
+    padding-top: 1.2rem;
   }
   .symbol-sys {
-    font-size: 1.2rem
+    font-size: 1.2rem;
   }
 }
 

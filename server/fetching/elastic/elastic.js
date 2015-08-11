@@ -93,13 +93,27 @@ var esParsers = {
 
       if (_.isEmpty(sNow)) return;
 
-      //todo: use same set of keys at CF.ES.queries.latest_Values
+      // try using existing supply value if none here
+      if (!sNow.supply_current) {
+        var cd = CurrentData.findOne(_searchSelector(bucket.key));
+        sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
+        if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
+      }
+
       if (sNow.supply_current) {
 
+        // try count cap (if none) using price and suuply
+        if (!sNow.cap_usd && sNow.price_usd) {
+          sNow.cap_usd = sNow.supply_current * sNow.price_usd;
+        }
+
+        // try count cap (if none) using price and suuply
+        if (!sNow.cap_btc && sNow.price_btc) {
+          sNow.cap_btc = sNow.supply_current * sNow.price_btc;
+        }
 
         set["metrics.supply"] = sNow.supply_current;
         if (sDayAgo.supply_current) {
-
           var supplyDayAgo = sDayAgo.supply_current// || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
             (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
