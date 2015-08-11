@@ -175,9 +175,20 @@ main {
 
 }
 
+.nar-row {
+
+  margin:0 5%;
+
+}
+
 @media only screen and (max-width: 600px) {
   .w90 {
     width: 98%;
+  }
+  .nar-row {
+
+    margin:0 1%;
+
   }
 
   .alike-navlink {
@@ -208,6 +219,12 @@ main {
   }
   .symbol-sys {
     font-size: 1.2rem;
+  }
+
+  .nar-row {
+
+    margin:0 7%;
+
   }
 }
 
