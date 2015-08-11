@@ -155,6 +155,10 @@ main {
   vertical-align: middle
 }
 
+.th-sys {
+  margin-left: 40px
+}
+
 @media only screen and (max-width: 600px) {
   .w90 {
     width: 98%;
@@ -172,6 +176,10 @@ main {
     height: 32px;
     margin-right: 4px;
   }
+
+  .th-sys {
+    margin-left: 32px
+  }
 }
 
 @media only screen and (min-width: 1201px) {
@@ -184,6 +192,10 @@ main {
     width: 54px;
     height: 54px;
     margin-right: 9px;
+  }
+
+  .th-sys {
+    margin-left: 54px
   }
 }
 
