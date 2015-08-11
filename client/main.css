@@ -159,6 +159,20 @@ main {
   margin-left: 40px
 }
 
+.rating-sys {
+  font-size: 3rem
+}
+
+.header-sys {
+  font-size: 3.5rem;
+  display: block;
+}
+
+.symbol-sys {
+  font-size: 1.6rem
+  display: block;
+}
+
 @media only screen and (max-width: 600px) {
   .w90 {
     width: 98%;
@@ -179,6 +193,18 @@ main {
 
   .th-sys {
     margin-left: 32px
+  }
+
+  .rating-sys {
+    font-size: 1.4rem
+  }
+
+  .header-sys {
+    font-size: 2.2rem;
+    width: 100%
+  }
+  .symbol-sys {
+    font-size: 1.2rem
   }
 }
 
