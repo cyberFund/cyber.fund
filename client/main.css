@@ -16,8 +16,8 @@ nav .brand-logo {
 }
 
 .logo-sys {
-  height: 8em; vertical-align: middle;
-  width: auto;
+  max-height: 8em; vertical-align: middle;
+  height: auto; width: auto;
 }
 
 p {
