@@ -81,16 +81,27 @@ Meteor.publish('dependencies', function(deps) {
 
 
 Meteor.publish('search-sys', function(selector, options, collname) {
+  console.log(selector);
 
   var s = selector["aliases.CurrencyName"];
   if (s) {
+
     selector = {$or:
       [
         {"system": s},
         {"aliases.nickname": s},
         {"aliases.CurrencyName": s}
       ]};
-  } else return [];
+  } else {
+    var s = selector['token.token_symbol'];
+    if (s) {
+      s['$regex'].replace("$", "");
+      console.log(selector);
+    }
+    else {
+      return [];
+    }
+  }
   /*var keys = ["aliases.CurrencyName", "system", "nickname"];
   var k = false;
   _.each(keys, function(key){
@@ -105,7 +116,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
     collection = CurrentData;
   if (!collection) return [];
 
-  options.fields = {"system": 1, "icon": 1, "aliases": 1};
+  options.fields = {"system": 1, "icon": 1, "aliases": 1, 'token': 1};
   options.sort = {
     "ratings.rating_cyber": -1,
       "metrics.cap.btc": -1

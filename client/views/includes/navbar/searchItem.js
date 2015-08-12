@@ -9,6 +9,15 @@ Template['searchItem'].helpers({
       limit: 5,
       rules: [
         {
+          token: '!',
+          collection: 'CurrentData',
+          field: "token.token_symbol",
+          subscription: "search-sys",
+          matchAll: false,
+          template: Template.searchSystemBySymbolItem,
+          noMatchTemplate: Template.searchNoMatchedSearch
+        },
+        {
           token: '',
           collection: 'CurrentData',
           field: "aliases.CurrencyName",
@@ -16,7 +25,7 @@ Template['searchItem'].helpers({
           matchAll: false,
           template: Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
-        }
+        },
       ]
     };
   }
