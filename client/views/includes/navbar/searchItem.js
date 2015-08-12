@@ -10,9 +10,9 @@ Template['searchItem'].helpers({
       rules: [
         {
           token: '!',
-          collection: 'CurrentData',
+          collection: 'CurrentData_',
           field: "token.token_symbol",
-          subscription: "search-sys",
+          subscription: "search-sym",
           matchAll: false,
           template: Template.searchSystemBySymbolItem,
           noMatchTemplate: Template.searchNoMatchedSearch

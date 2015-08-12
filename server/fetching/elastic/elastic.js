@@ -96,6 +96,7 @@ var esParsers = {
       // try using existing supply value if none here
       if (!sNow.supply_current) {
         var cd = CurrentData.findOne(_searchSelector(bucket.key));
+        console.log(cd);
         sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
         if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
       }
