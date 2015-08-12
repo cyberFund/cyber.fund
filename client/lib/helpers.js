@@ -1,3 +1,32 @@
+
+/**
+ * repressent string (of digits) splitting it in groups of 3, from begin
+ *   to be used for string part before decimal dot
+ * @param input - string to be split
+ * @param sep - separator
+ * @returns altered string
+ */
+function group3natural(input, sep) {
+  while (/(\d+)(\d{3})/.test(input.toString())) {
+    input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
+  }
+  return input;
+}
+
+/**
+ * repressent string (of digits) splitting it in groups of 3, from end
+ *   to be used for string part after decimal dot
+ * @param input - string to be split
+ * @param sep - separator
+ * @returns altered string
+ */
+function group3decimal(input, sep) {
+  while (/(\d{3})(\d+)/.test(input.toString())) {
+    input = input.toString().replace(/(\d{3})(\d+)/, "$1" + (sep || ",") + "$2");
+  }
+  return input;
+}
+
 var helpers = {
   eq: function
     (value1, value2) {
@@ -86,31 +115,17 @@ var helpers = {
   isObject: function (value) {
     return _.isObject(value)
   },
-  satoshi8: function (value) {
-    function group3(input, sep) {
-      while (/(\d+)(\d{3})/.test(input.toString())) {
-        input = input.toString().replace(/(\d+)(\d{3})/, "$1" + (sep || ",") + "$2");
-      }
-      return input;
-    }
-
-    function group3_(input, sep) {
-      while (/(\d{3})(\d+)/.test(input.toString())) {
-        input = input.toString().replace(/(\d{3})(\d+)/, "$1" + (sep || ",") + "$2");
-      }
-      return input;
-    }
-
+  satoshi_decimals: function (value, precision) {
+    if (!precision && precision != 0) precision = 8;
     try {
       value = parseFloat(value);
     } catch (e) {
 
     }
-    var out = value.toFixed(8).split('.');
+    var out = value.toFixed(precision).split('.');
     var ret = "";
-    if (out[0]) ret += group3(out[0]);
-
-    if (out[1]) ret += "." + group3_(out[1], " ");
+    if (out[0]) ret += group3natural(out[0]);
+    if (out[1]) ret += "." + group3decimal(out[1], " ");
     return ret;
   },
   tagMatchesTags: function (tag, tags) {

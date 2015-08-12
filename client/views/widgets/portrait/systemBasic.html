@@ -75,8 +75,10 @@
                         <div class="card markt">
                             <h5>Price</h5>
                             {{#if metrics.price.usd}}
-                                <p><span
-                                        class="enlarge">$&nbsp;{{readableN metrics.price.usd 2}}</span>
+                                <p><span class="enlarge">$&nbsp;
+                                    {{#if gte  metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}}
+                                    {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}
+                                </span>
                                     <br>
                                     {{#if metrics.priceChangePercents.day.usd}}
 
@@ -86,7 +88,7 @@
                                     {{/if}}</p>
                             {{/if}}{{#if metrics.price.btc}}
                             <p><span
-                                    class="enlarge">Ƀ&nbsp;{{satoshi8 metrics.price.btc }}</span>
+                                    class="enlarge">Ƀ&nbsp;{{satoshi_decimals metrics.price.btc 8}}</span>
                                 <br>
                                 {{#if metrics.priceChangePercents.day.btc}}
                                     <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
