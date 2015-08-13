@@ -8,13 +8,22 @@ Template['searchItem'].helpers({
       position: "bottom",
       limit: 5,
       rules: [
+        /*{
+          token: '!',
+          collection: 'CurrentData_',
+          field: "token.token_symbol",
+          subscription: "search-sym",
+          matchAll: false,
+          template: Template.searchSystemBySymbolItem,
+          noMatchTemplate: Template.searchNoMatchedSearch
+        },*/
         {
           token: '',
           collection: 'CurrentData',
           field: "aliases.CurrencyName",
           subscription: "search-sys",
           matchAll: false,
-          template: Template.searchSystemItem,
+          template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
         }
       ]

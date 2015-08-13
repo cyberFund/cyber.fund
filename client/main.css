@@ -1,6 +1,7 @@
 html {
-	font-family: "RobotoDraft", sans-serif;
+  font-family: "RobotoDraft", sans-serif;
 }
+
 /* Custom Stylesheet */
 /**
  * Use this file to override Materialize files so you can update
@@ -11,113 +12,246 @@ html {
 
 nav ul a,
 nav .brand-logo {
-	color: #444;
+  color: #444;
+}
+
+.logo-sys {
+  width: auto;
+  height : auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 p {
-	line-height: 2rem;
+  line-height: 2rem;
 }
 
 .button-collapse {
-	color: #26a69a;
+  color: #26a69a;
 }
 
 .parallax-container {
-	min-height: 380px;
-	line-height: 0;
-	height: auto;
-	color: rgba(255,255,255,.9);
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255, 255, 255, .9);
 }
+
 .parallax-container .section {
-	width: 100%;
+  width: 100%;
 }
 
-@media only screen and (max-width : 992px) {
-	.parallax-container .section {
-		position: absolute;
-		top: 40%;
-	}
-	#index-banner .section {
-		top: 10%;
-	}
+@media only screen and (max-width: 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+
+  #index-banner .section {
+    top: 10%;
+  }
 }
 
-@media only screen and (max-width : 600px) {
-	#index-banner .section {
-		top: 0;
-	}
-}
+@media only screen and (max-width: 600px) {
+  #index-banner .section {
+    top: 0;
+  }
 
+  html {
+    font-size: 13px
+  }
+}
 
 .icon-block {
-	padding: 0 15px;
+  padding: 0 15px;
 }
 
 footer.page-footer {
-	margin: 0;
+  margin: 0;
 }
 
 #nav-mobile li {
-	display: block
+  display: block
 }
 
-a.tooltip {outline:none; }
-a.tooltip strong {line-height:30px;}
-a.tooltip:hover {text-decoration:none;}
+a.tooltip {
+  outline: none;
+}
+
+a.tooltip strong {
+  line-height: 30px;
+}
+
+a.tooltip:hover {
+  text-decoration: none;
+}
+
 a.tooltip span {
-	z-index:10;display:none; padding:14px 20px;
-	margin-top:60px; margin-left:-160px;
-	width:300px; line-height:16px;
+  z-index: 10;
+  display: none;
+  padding: 14px 20px;
+  margin-top: 60px;
+  margin-left: -160px;
+  width: 300px;
+  line-height: 16px;
 }
-a.tooltip:hover span{
-	display:inline; position:absolute;
-	border:2px solid #FFF;  color:#EEE;
-	background:#333;
+
+a.tooltip:hover span {
+  display: inline;
+  position: absolute;
+  border: 2px solid #FFF;
+  color: #EEE;
+  background: #333;
 }
-.callout {z-index:20;position:absolute;border:0;top:-14px;left:120px;}
+
+.callout {
+  z-index: 20;
+  position: absolute;
+  border: 0;
+  top: -14px;
+  left: 120px;
+}
 
 .with-tooltip {
-	position: relative;
+  position: relative;
 }
+
 .with-tooltip .tooltip {
-	display: none;
+  display: none;
 }
 
 .with-tooltip:hover .tooltip {
-	position: absolute;
-	display: block;
-	text-align: left;
-	right: 80%;
-	bottom: 0;
-	border-radius: 6px;
-	//border: #333 1px solid;
-	padding: 6px;
-	width: 200px;
-	line-height: 1rem;
-	font-size: 0.8rem;
-	z-index: 40;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 10px 0px;
+  position: absolute;
+  display: block;
+  text-align: left;
+  right: 80%;
+  bottom: 0;
+  border-radius: 6px;
+  padding: 6px;
+  width: 200px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  z-index: 40;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 10px 0px;
 }
 
 body {
-	display: flex;
-	min-height: 100vh;
-	flex-direction: column;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 .enlarge {
-	font-size: 136%;
+  font-size: 136%;
 }
 
 main {
-	flex: 1 0 auto;
+  flex: 1 0 auto;
 }
 
 .w90 {
-	width: 90%;
-	margin: 0 auto;
-	position: relative;
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
 }
+
+.cg-system-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 6px;
+  vertical-align: middle
+}
+
+.th-sys {
+  margin-left: 40px
+}
+
+.rating-sys {
+  font-size: 2.4rem;
+  margin-top: 1rem;
+}
+
+.header-sys {
+  font-size: 3.5rem;
+  display: block;
+}
+
+.symbol-sys {
+  font-size: 1.6rem;
+  display: block;
+
+}
+
+.nar-row {
+
+  margin:0 5%;
+
+}
+
+@media only screen and (max-width: 600px) {
+  .w90 {
+    width: 98%;
+  }
+  .nar-row {
+
+    margin:0 1%;
+
+  }
+
+  .alike-navlink {
+    padding: 0 6px;
+  }
+
+  .enlarge {
+    font-size: 127%;
+  }
+  .cg-system-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 4px;
+  }
+
+  .th-sys {
+    margin-left: 32px
+  }
+
+  .rating-sys {
+    font-size: 1.5rem;
+    margin-top: 1.1rem;
+  }
+
+  .header-sys {
+    font-size: 2.2rem;
+    padding-top: 1.2rem;
+  }
+  .symbol-sys {
+    font-size: 1.2rem;
+  }
+
+  .nar-row {
+
+    margin:0 7%;
+
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+
+  .alike-navlink {
+    padding: 0 20px;
+  }
+
+  .cg-system-logo {
+    width: 54px;
+    height: 54px;
+    margin-right: 9px;
+  }
+
+  .th-sys {
+    margin-left: 54px
+  }
+}
+
 
 table.hoverable-my tr:hover {
 	background-color: rgba(0,0,0,0.05);
