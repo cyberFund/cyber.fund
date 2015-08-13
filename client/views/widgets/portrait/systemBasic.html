@@ -2,7 +2,7 @@
 <template name="systemBasic">
     {{#with curData}}
         <div class="nar-row">
-        {{#if neq page_state 'ready'}}
+        {{#if neq descriptions.page_state 'ready'}}
             <p class="center"> This page is not ready yet. Follow <a
                     target="_blank"
                     href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">fan
