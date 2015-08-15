@@ -1,12 +1,18 @@
-Template['monthlyGraph'].rendered = function () {
+Template['fulltimeGraph'].rendered = function () {
   var ticks = [];
   var self = this;
   Tracker.autorun(function (comp) {
     if (!self.data || !self.data.dailyData) return;
     comp.stop();
-    var current = moment.utc();
-    for (var i = 30; i > 0; i--) {
-      var iterate = moment.utc().subtract(i, "days");
+    var current = moment.utc().startOf('day');
+    //calc first data point
+    var minyear = _.min(_.keys(self.data.dailyData));
+    var minmonth = _.min(_.keys(self.data.dailyData[minyear]));
+    var minday = _.min(_.keys(self.data.dailyData[minyear][minmonth]));
+    var iterate = moment.utc({yaer: minyear, month: minmonth, day: minday});
+
+    //do the rest
+    while (iterate < current) {
       var year = iterate.year();
       var month = iterate.month();
       var day = iterate.date();
@@ -16,9 +22,10 @@ Template['monthlyGraph'].rendered = function () {
       var tick = {
         key: key,
         value: val || null,
-        needKey: iterate.day() == current.day() //only will display those days
+        needKey: iterate.date() == current.date() //only will display those days
       };
       ticks.push(tick);
+      iterate = iterate.add(1, "days");
     }
 
     var dataCapBtc = {
@@ -41,11 +48,12 @@ Template['monthlyGraph'].rendered = function () {
     };
     _.each(ticks, function (tick) {
       var dta = tick.key.split(".");
+      var format = (dta[1] == 11) ? "D[&nbsp;]MMM YYYY" : "D[&nbsp;]MMM";
       var dte = moment({
         year: dta[0],
         month: dta[1],
         day: dta[2]
-      }).format("D MMM");
+      }).format(format);
 
       dataCapBtc.labels.push(tick.needKey ? dte : "");
       dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
@@ -59,14 +67,14 @@ Template['monthlyGraph'].rendered = function () {
 
     if (self.data.metrics) {
       if (self.data.metrics.cap) {
-        dataCapBtc.labels.push(current.format("D MMM"));
+        dataCapBtc.labels.push(current.format("D[&nbsp;]MMM"));
         dataCapBtc.series[0].push(self.data.metrics.cap.btc || null);
 
-        dataCapUsd.labels.push(current.format("D MMM"));
+        dataCapUsd.labels.push(current.format("D[&nbsp;]MMM"));
         dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
       }
 
-      dataVol.labels.push(current.format("D MMM"));
+      dataVol.labels.push(current.format("D[&nbsp;]MMM"));
       dataVol.series[0].push(self.data.metrics.tradeVolume || null);
     }
     // Create a new line chart object where as first parameter we pass in a selector
@@ -74,6 +82,7 @@ Template['monthlyGraph'].rendered = function () {
     // is the actual data object.
     self.$(".ct-chart-monthly-cap-btc").css("height", "240px");
     new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
+      showPoint: false,
       chartPadding: {
         top: 20,
         right: 30,
@@ -116,6 +125,7 @@ Template['monthlyGraph'].rendered = function () {
 
     self.$(".ct-chart-monthly-cap-usd").css("height", "240px");
     new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
+      showPoint: false,
       chartPadding: {
         top: 20,
         right: 30,
@@ -202,13 +212,13 @@ Template['monthlyGraph'].rendered = function () {
   });
 };
 
-Template['monthlyGraph'].helpers({
+Template['fulltimeGraph'].helpers({
   'foo': function () {
     
   }
 });
 
-Template['monthlyGraph'].events({
+Template['fulltimeGraph'].events({
   'click .bar': function (e, t) {
     
   }

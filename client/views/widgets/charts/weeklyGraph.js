@@ -78,7 +78,7 @@ Template['weeklyGraph'].rendered = function () {
     new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
       chartPadding: {
         top: 20,
-        right: 0,
+        right: 30,
         bottom: 30,
         left: 35
       },
@@ -120,7 +120,7 @@ Template['weeklyGraph'].rendered = function () {
     new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
       chartPadding: {
         top: 20,
-        right: 0,
+        right: 30,
         bottom: 30,
         left: 35
       },
@@ -162,7 +162,7 @@ Template['weeklyGraph'].rendered = function () {
     new Chartist.Bar('.ct-chart-monthly-vol', dataVol, {
       chartPadding: {
         top: 0,
-        right: 0,
+        right: 30,
         bottom: 0,
         left: 35
       },
