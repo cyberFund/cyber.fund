@@ -349,7 +349,7 @@ Meteor.methods({
     var system = curDataDoc.token.token_symbol+"|"+curDataDoc.system;
     // fetch dailies for 30 last days
     var params = {
-      from: "now-30d/d",
+      from: "now-4y/d",
       to: "now/d",
       interval: "day",
       system: system
@@ -360,7 +360,7 @@ Meteor.methods({
 
       // fetch hourlies for past week;
       params = {
-        from: "now-7d/h",
+        from: "now-30d/h",
         to: "now/h",
         interval: "hour",
         system: system

@@ -8,7 +8,7 @@
                         target="_blank"
                         href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">fan
                     zone</a> to help us improve it faster!
-                    {{else}}&nbsp;
+                {{else}}&nbsp;
                 {{/if}}
             </p>
 
@@ -187,7 +187,22 @@
             </div>
             <div class="row"></div>
             <div id="charts" class="row scrollspy center">
-                {{> monthlyGraph this}}
+                {{#if selectedGraph 'week'}}
+                    {{> weeklyGraph this}}
+                {{/if}}
+                {{#if selectedGraph 'month'}}
+                    {{> monthlyGraph this}}
+                {{/if}}
+                {{#if selectedGraph 'all'}}
+                    {{> fulltimeGraph this}}
+                {{/if}}
+            </div>
+            <div id="charts-ctl" class="row scrollspy center">
+                <a class="btn {{selectedGraph 'week'}}"
+                   data-span="week">weekly</a>
+                <a class="btn {{selectedGraph 'month'}}" data-span="month">monthly</a>
+                <a class="btn {{selectedGraph 'all'}}" data-span="all">full
+                    time</a>
             </div>
 
             <div id="code" class="section scrollspy row">
@@ -253,7 +268,6 @@
 
                                 {{#if existLinksWith this "Exchange"}}
                                     <div id="tag-exchange" class="col s12">
-                                        {{log this}}
                                         {{#each linksWithTag this "Exchange"}}
                                             {{> cgLinkCard this}}
                                         {{/each}}
