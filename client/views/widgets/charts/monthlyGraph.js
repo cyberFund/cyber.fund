@@ -16,7 +16,7 @@ Template['monthlyGraph'].rendered = function () {
       var tick = {
         key: key,
         value: val || null,
-        sameDOW: iterate.day() == current.day() //only will display those days
+        needKey: iterate.day() == current.day() //only will display those days
       };
       ticks.push(tick);
     }
@@ -47,13 +47,13 @@ Template['monthlyGraph'].rendered = function () {
         day: dta[2]
       }).format("D MMM");
 
-      dataCapBtc.labels.push(tick.sameDOW ? dte : "");
+      dataCapBtc.labels.push(tick.needKey ? dte : "");
       dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
 
-      dataCapUsd.labels.push(tick.sameDOW ? dte : "");
+      dataCapUsd.labels.push(tick.needKey ? dte : "");
       dataCapUsd.series[0].push((tick && tick.value) ? tick.value["cap_usd"] || null : null);
 
-      dataVol.labels.push(tick.sameDOW ? dte : "");
+      dataVol.labels.push(tick.needKey ? dte : "");
       dataVol.series[0].push((tick && tick.value) ? tick.value["volume24_btc"] || null : null);
     });
 
@@ -76,55 +76,7 @@ Template['monthlyGraph'].rendered = function () {
     new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
       chartPadding: {
         top: 20,
-        right: 0,
-        bottom: 30,
-        left: 35
-      },
-      axisY: {
-        labelInterpolationFnc: function (value) {
-          return CF.Utils.monetaryFormatter(value);
-        }
-      },
-      plugins: [
-        Chartist.plugins.tooltip({
-            transform: function (v) {
-              return "Ƀ " + CF.Utils.readableN(v, 2);
-            },
-            labelOffset: {
-              x: 0,
-              y: -20
-            }
-          }
-        ),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: ''/*,
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 10,
-              y: 40
-            },
-            textAnchor: 'middle'*/
-          },
-          axisY: {
-            axisTitle: 'Cap Btc',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: -4
-            },
-            textAnchor: 'middle',
-            flipTitle: false
-          }
-        })
-      ]
-    });
-
-    self.$(".ct-chart-monthly-cap-usd").css("height", "240px");
-    new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
-      chartPadding: {
-        top: 20,
-        right: 0,
+        right: 30,
         bottom: 30,
         left: 35
       },
@@ -147,12 +99,47 @@ Template['monthlyGraph'].rendered = function () {
         Chartist.plugins.ctAxisTitle({
           axisX: {
             axisTitle: ''
-            /*axisClass: 'ct-axis-title',
+          },
+          axisY: {
+            axisTitle: 'Cap Btc',
+            axisClass: 'ct-axis-title',
             offset: {
-              x: 10,
-              y: 40
+              x: 0,
+              y: -4
             },
-            textAnchor: 'middle'*/
+            textAnchor: 'middle',
+            flipTitle: false
+          }
+        })
+      ]
+    });
+
+    self.$(".ct-chart-monthly-cap-usd").css("height", "240px");
+    new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
+      chartPadding: {
+        top: 20,
+        right: 30,
+        bottom: 30,
+        left: 35
+      },
+      axisY: {
+        labelInterpolationFnc: function (value) {
+          return CF.Utils.monetaryFormatter(value);
+        }
+      },
+      plugins: [
+        Chartist.plugins.tooltip({
+            transform: function (v) {
+              return "Ƀ " + CF.Utils.readableN(v, 2);
+            },
+            labelOffset: {
+              x: 0,
+              y: -20
+            }
+          }
+        ),
+        Chartist.plugins.ctAxisTitle({
+          axisX: {
           },
           axisY: {
             axisTitle: 'Cap Usd',
@@ -172,7 +159,7 @@ Template['monthlyGraph'].rendered = function () {
     new Chartist.Bar('.ct-chart-monthly-vol', dataVol, {
       chartPadding: {
         top: 0,
-        right: 0,
+        right: 30,
         bottom: 0,
         left: 35
       },
@@ -193,13 +180,7 @@ Template['monthlyGraph'].rendered = function () {
         }),
         Chartist.plugins.ctAxisTitle({
           axisX: {
-            axisTitle: ''/*,
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: 50
-            },
-            textAnchor: 'middle'*/
+            axisTitle: ''
           },
           axisY: {
             axisTitle: 'Trade Btc',
@@ -216,9 +197,7 @@ Template['monthlyGraph'].rendered = function () {
     });
     for (i = 0; i< dataVol.series[0].length; i++){
 
-      if (dataVol.series[0][i] == null) {
-        dataVol.series[0][i] = 0;
-      }
+      if (dataVol.series[0][i] == null) dataVol.series[0][i] = 0;
     }
   });
 };
