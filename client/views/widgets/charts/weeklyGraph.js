@@ -1,22 +1,23 @@
-Template['monthlyGraph'].rendered = function () {
+Template['weeklyGraph'].rendered = function () {
   var ticks = [];
   var self = this;
   Tracker.autorun(function (comp) {
-    if (!self.data || !self.data.dailyData) return;
+    if (!self.data || !self.data.hourlyData) return;
     comp.stop();
     var current = moment.utc();
-    for (var i = 30; i > 0; i--) {
-      var iterate = moment.utc().subtract(i, "days");
+    for (var i = 7*24; i > 0; i--) {
+      var iterate = moment.utc().subtract(i, "hours");
       var year = iterate.year();
       var month = iterate.month();
       var day = iterate.date();
-      var key = [year, month, day].join(".");
-      var val = self.data.dailyData[year] ? self.data.dailyData[year][month] ?
-        self.data.dailyData[year][month][day] : null : null;
+      var hour = iterate.hours();
+      var key = [year, month, day, hour].join("."); //todo - so, going to build some lib specifically for chartist?
+      var val = self.data.hourlyData[year] ? self.data.dailyData[year][month] ?
+        self.data.hourlyData[year][month][day] ? self.data.hourlyData[year][month][day][hour] : null : null : null;
       var tick = {
         key: key,
         value: val || null,
-        needKey: iterate.day() == current.day() //only will display those days
+        needKey: iterate.hours() == (current.hours()+23)%24 //only will display those days
       };
       ticks.push(tick);
     }
@@ -44,8 +45,9 @@ Template['monthlyGraph'].rendered = function () {
       var dte = moment({
         year: dta[0],
         month: dta[1],
-        day: dta[2]
-      }).format("D MMM");
+        day: dta[2],
+        hour: dta[3]
+      }).format("MMM[&nbsp;]D HH[:00]");
 
       dataCapBtc.labels.push(tick.needKey ? dte : "");
       dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
@@ -59,14 +61,14 @@ Template['monthlyGraph'].rendered = function () {
 
     if (self.data.metrics) {
       if (self.data.metrics.cap) {
-        dataCapBtc.labels.push(current.format("D MMM"));
+        dataCapBtc.labels.push("");//current.format("D HH"));
         dataCapBtc.series[0].push(self.data.metrics.cap.btc || null);
 
-        dataCapUsd.labels.push(current.format("D MMM"));
+        dataCapUsd.labels.push("");//current.format("D HH"));
         dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
       }
 
-      dataVol.labels.push(current.format("D MMM"));
+      dataVol.labels.push("");//current.format("D HH"));
       dataVol.series[0].push(self.data.metrics.tradeVolume || null);
     }
     // Create a new line chart object where as first parameter we pass in a selector
@@ -140,6 +142,7 @@ Template['monthlyGraph'].rendered = function () {
         ),
         Chartist.plugins.ctAxisTitle({
           axisX: {
+            axisTitle: ''
           },
           axisY: {
             axisTitle: 'Cap Usd',
@@ -196,19 +199,18 @@ Template['monthlyGraph'].rendered = function () {
       ]
     });
     for (i = 0; i< dataVol.series[0].length; i++){
-
       if (dataVol.series[0][i] == null) dataVol.series[0][i] = 0;
     }
   });
 };
 
-Template['monthlyGraph'].helpers({
+Template['weeklyGraph'].helpers({
   'foo': function () {
     
   }
 });
 
-Template['monthlyGraph'].events({
+Template['weeklyGraph'].events({
   'click .bar': function (e, t) {
     
   }

@@ -10,6 +10,7 @@ Template['systemBasic'].rendered = function () {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
   $('ul.tabs').tabs();
+  if (!CF.MarketData.graphTime.get()) CF.MarketData.graphTime.set("month");
 };
 
 Template['systemBasic'].helpers({
@@ -152,10 +153,18 @@ Template['systemBasic'].helpers({
   },
   ___join: function(k1, k2){
     return k1+"_"+k2;
+  },
+  selectedGraph: function(key){
+    console.log(CF.MarketData.graphTime.get());
+    return CF.MarketData.graphTime.get() == key ? "orange": "";
   }
 });
 
 Template['systemBasic'].events({
+  'click #charts-ctl a.btn': function(e, t){
+    var val = $(e.currentTarget).data("span");
+    CF.MarketData.graphTime.set(val);
+  }
 });
 
 Template['systemBasic'].onCreated(function () {
