@@ -80,9 +80,9 @@ Template['fulltimeGraph'].rendered = function () {
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
-    self.$(".ct-chart-monthly-cap-btc").css("height", "240px");
-    new Chartist.Line('.ct-chart-monthly-cap-btc', dataCapBtc, {
-      showPoint: false,
+    self.$(".ct-chart-cap-btc").css("height", "240px");
+    new Chartist.Line('.ct-chart-cap-btc', dataCapBtc, {
+     // showPoint: false,
       chartPadding: {
         top: 20,
         right: 30,
@@ -96,9 +96,7 @@ Template['fulltimeGraph'].rendered = function () {
       },
       plugins: [
         Chartist.plugins.tooltip({
-            transform: function (v) {
-              return "Ƀ " + CF.Utils.readableN(v, 2);
-            },
+            tooltipFnc: CF.MarketData.tooltipFncB,
             labelOffset: {
               x: 0,
               y: -20
@@ -123,9 +121,9 @@ Template['fulltimeGraph'].rendered = function () {
       ]
     });
 
-    self.$(".ct-chart-monthly-cap-usd").css("height", "240px");
-    new Chartist.Line('.ct-chart-monthly-cap-usd', dataCapUsd, {
-      showPoint: false,
+    self.$(".ct-chart-cap-usd").css("height", "240px");
+    new Chartist.Line('.ct-chart-cap-usd', dataCapUsd, {
+    //  showPoint: false,
       chartPadding: {
         top: 20,
         right: 30,
@@ -139,9 +137,7 @@ Template['fulltimeGraph'].rendered = function () {
       },
       plugins: [
         Chartist.plugins.tooltip({
-            transform: function (v) {
-              return "Ƀ " + CF.Utils.readableN(v, 2);
-            },
+            tooltipFnc: CF.MarketData.tooltipFncS,
             labelOffset: {
               x: 0,
               y: -20
@@ -165,8 +161,8 @@ Template['fulltimeGraph'].rendered = function () {
       ]
     });
 
-    self.$(".ct-chart-monthly-vol").css("height", "140px");
-    new Chartist.Bar('.ct-chart-monthly-vol', dataVol, {
+    self.$(".ct-chart-vol").css("height", "140px");
+    new Chartist.Bar('.ct-chart-vol', dataVol, {
       chartPadding: {
         top: 0,
         right: 30,
@@ -180,9 +176,7 @@ Template['fulltimeGraph'].rendered = function () {
       },
       plugins: [
         Chartist.plugins.tooltip({
-          transform: function (v) {
-            return "Ƀ " + CF.Utils.readableN(v, 2);
-          },
+          tooltipFnc: CF.MarketData.tooltipFncB,
           labelOffset: {
             x: 0,
             y: -20
