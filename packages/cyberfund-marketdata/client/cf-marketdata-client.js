@@ -1,3 +1,1 @@
-/**
- * Created by angelo on 8/15/15.
- */
+CF.MarketData.graphTime = new CF.Utils.SessionVariable("CF.MarketData.graphTime");
