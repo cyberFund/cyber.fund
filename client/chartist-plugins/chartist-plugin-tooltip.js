@@ -19,25 +19,26 @@
    *
    */
   /* global Chartist */
-  (function (window, document, Chartist) {
+  (function(window, document, Chartist) {
     'use strict';
 
     var defaultOptions = {
-      currency: undefined,
+      currency: undefined
       // showTooltips: true,
       // tooltipEvents: ['mousemove', 'touchstart', 'touchmove'],
-      labelClass: 'ct-label',
-      labelOffset: {
-        x: 0,
-        y: -10
-      },
-      textAnchor: 'middle'
+      // labelClass: 'ct-label',
+      // labelOffset: {
+      //   x: 0,
+      //   y: -10
+      // },
+      // textAnchor: 'middle'
     };
 
     Chartist.plugins = Chartist.plugins || {};
-    Chartist.plugins.tooltip = function (options) {
+    Chartist.plugins.tooltip = function(options) {
 
       options = Chartist.extend({}, defaultOptions, options);
+
       return function tooltip(chart) {
         var tooltipSelector = '.ct-point';
         if (chart instanceof Chartist.Bar) {
@@ -48,11 +49,11 @@
 
         var $chart = $(chart.container);
         var $toolTip = $chart
-          .append('<div class="chartist-tooltip"></div>')
-          .find('.chartist-tooltip')
-          .hide();
+        .append('<div class="chartist-tooltip"></div>')
+        .find('.chartist-tooltip')
+        .hide();
 
-        $chart.on('mouseenter', tooltipSelector, function () {
+        $chart.on('mouseenter', tooltipSelector, function() {
           var $point = $(this);
           var tooltipText = '';
 
@@ -73,25 +74,20 @@
             }
 
             var value = $point.attr('ct:value');
-            if (options.transform) {
-              value = options.transform(value);
-            } else {
-              if (!$.isEmptyObject(options.currency)) {
-                value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
-              }
+            if (!$.isEmptyObject(options.currency)) {
+              value = options.currency + value.replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, "$1,");
             }
-
             tooltipText += value;
           }
 
           $toolTip.html(tooltipText).show();
         });
 
-        $chart.on('mouseleave', tooltipSelector, function () {
+        $chart.on('mouseleave', tooltipSelector, function() {
           $toolTip.hide();
         });
 
-        $chart.on('mousemove', function (event) {
+        $chart.on('mousemove', function(event) {
           // For some reasons, on FF, we can't rely on event.offsetX and event.offsetY,
           // that's why we prioritize event.originalEvent.layerX and event.originalEvent.layerY
           // see https://github.com/gionkunz/chartist-js/issues/381

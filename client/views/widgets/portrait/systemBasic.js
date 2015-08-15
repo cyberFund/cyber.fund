@@ -10,7 +10,7 @@ Template['systemBasic'].rendered = function () {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
   $('ul.tabs').tabs();
-  if (!CF.MarketData.graphTime.get()) CF.MarketData.graphTime.set("month");
+  if (!CF.MarketData.graphTime.get()) CF.MarketData.graphTime.set("all");
 };
 
 Template['systemBasic'].helpers({
@@ -161,9 +161,23 @@ Template['systemBasic'].helpers({
 });
 
 Template['systemBasic'].events({
-  'click #charts-ctl a.btn': function(e, t){
+  'click #charts-ctl a.btn.act': function(e, t){
     var val = $(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
+    analytics.track('buttonClick', {
+      section: 'graphs',
+      role: 'timespan select',
+      value: val
+    })
+  },
+  'click #charts-ctl a.btn.mock': function(e, t){
+    var val = $(e.currentTarget).data("span");
+    Materialize.toast('Coming soon!', 2500);
+    analytics.track('buttonClick', {
+      section: 'graphs',
+      role: 'timespan select',
+      value: val
+    })
   }
 });
 
