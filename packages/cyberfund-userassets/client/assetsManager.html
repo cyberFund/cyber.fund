@@ -2,13 +2,18 @@
 <template name="assetsManager">
     {{#if currentUser}}
         <section id="assets-manager" class="assets-manager card row">
+            <header>
             <h3 class="center">
                 Assets List
             </h3>
+            </header>
             {{> addAccount}}
-            {{#each acconts}}
+            {{#if currentUser.accounts}}
+            {{#each _accounts}}
+                {{log this}}
                 {{> displayAccount this}}
             {{/each}}
+            {{/if}}
         </section>
     {{/if}}
 </template>

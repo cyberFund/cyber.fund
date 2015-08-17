@@ -15,11 +15,13 @@ Package.onUse(function(api) {
   api.use(["cyberfund:cyberfund-base", 'ermlab:log4js-silos']);
   api.use(['underscore'], ['client', 'server']);
   api.use(['ui', 'templating'], 'client');
-  api.addFiles('server/cyberfund-userassets-methods.js', 'server');
-  api.addFiles(['client/assetsManager.html',
-  'client/assetsManager.js', 'client/addAccount.html',
-    'client/addAccount.js', 'client/displayAccount.html',
-    'client/displayAccount.js'], 'client');
+  api.addFiles(['cyberfund-userassets.js'], ['client', 'server']);
+  api.addFiles(['server/cyberfund-userassets-methods.js', 'server/cyberfund-userassets-pub.js'], 'server');
+  api.addFiles(['client/assetsManager.html', 'client/assetsManager.js',
+    'client/addAccount.html', 'client/addAccount.js',
+    'client/addAsset.html', 'client/addAsset.js',
+    'client/displayAccount.html', 'client/displayAccount.js'
+  ], 'client');
 });
 
 Package.onTest(function(api) {

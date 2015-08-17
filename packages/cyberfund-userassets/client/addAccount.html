@@ -1,4 +1,42 @@
 <!-- originally created for cyber.fund project-->
 <template name="addAccount">
 
+    <div class="row">
+        <a class="btn right waves-effect btn-add-account btn-margin-right">Add
+            Account</a>
+    </div>
+
+
+    <div id="modal-add-account" class="modal">
+        <div class="modal-content">
+            <h4>Add asset</h4>
+
+            <form id="add-account-form">
+                <div class="row">
+                    <input autocomplete="off" type="text" id="account-name" name="account"
+                           class="validate" placeholder="Account name">
+                    <label id="account-name-exists" class="red-text hidden">Account with that name already exists</label>
+
+                    <br/>
+                    <div class="switch">
+                        <label>
+                            <label for="private-type">Account Type</label><br/>
+                            Public
+                            <input id="private-type" {{disabledPrivates}} name="private-type" type="checkbox">
+                            <span class="lever"></span>
+                            Private
+                        </label>
+                    </div>
+                    <br/>
+                </div>
+
+                <div class="row">
+                    <a class="btn submit-add-account  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                        Add</a>
+                    <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                </div>
+            </form>
+        </div>
+    </div>
 </template>
