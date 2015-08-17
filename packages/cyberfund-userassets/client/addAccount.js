@@ -56,5 +56,9 @@ Template['addAccount'].events({
       $('#account-name').val('');
       $("#modal-add-account").closeModal();
     });
+  },
+  'click mock-soon-': function(e, t){
+    Materialize.toast("Private acccounts coming soon", 3200);
   }
+
 });

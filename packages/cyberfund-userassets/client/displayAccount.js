@@ -40,6 +40,9 @@ Template['displayAccount'].events({
   'click .req-rename-account': function(e, t){
     $("#modal-rename-account").openModal();
   },
+  'click .mock-soon': function(e,t){
+    Materialize.toast('Private accounts coming soon', 3200);
+  },
   'click .req-add-asset': function (e, t) {
     t.$("#modal-add-asset").openModal();
   },
