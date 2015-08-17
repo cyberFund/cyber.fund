@@ -52,9 +52,9 @@ Template['addAccount'].events({
     }
     var name = t.$name.val();
     Meteor.call("cfAssetsAddAccount", {isPublic: isPublic, name: name}, function(err, ret){
-      console.log(ret);
-      console.log(err);
-      t.$("#modal-add-account").closeModal();
+
+      $('#account-name').val('');
+      $("#modal-add-account").closeModal();
     });
   }
 });

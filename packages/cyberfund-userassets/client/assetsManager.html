@@ -37,20 +37,19 @@
 
             <div id="modal-rename-account" class="modal">
                 <div class="modal-content">
-                    <h4>Rename account</h4>
+                    <h4>Rename account {{currentAccount.name}}</h4>
 
                     <form id="add-account-form">
+                        {{#if currentAccount}}
                         <div class="row">
-                            <input type="text" name="account">
+                            <label for="rename-account-in">New name</label>
+                            <input type="text" id="rename-account-in" value="{{currentAccount.name}}"/>
+                            <label id="account-rename-exists" class="red-text hidden">Account with that name already exists</label>
                         </div>
+                        {{/if}}
                         <div class="row">
-                            <input type="text" name="address"
-                                   placeholder="Address">
-                        </div>
-
-                        <div class="row">
-                            <a class="btn submit-add-asset  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                Add</a>
+                            <a class="btn submit-rename-account  waves-effect">
+                                Rename</a>
                             <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
 
                         </div>

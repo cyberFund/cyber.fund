@@ -2,6 +2,8 @@ CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAcco
 
 
 Template['assetsManager'].rendered = function () {
+  this.$renameAccountInput = this.$("#rename-account-in");
+  this.$renameAccountErrorLabel = this.$("#account-rename-exists");
 };
 
 Template['assetsManager'].helpers({
@@ -26,8 +28,6 @@ Template['assetsManager'].helpers({
 Template['assetsManager'].onCreated(function () {
   var instance = this;
   instance.subscribe('ownAssets');
-
-
 });
 
 Template['assetsManager'].events({
@@ -43,5 +43,28 @@ Template['assetsManager'].events({
     console.log(CF.UserAssets.currentAccount.get());
     Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccount.get());
     $("#modal-remove-account").closeModal();
+  },
+  'keyup #rename-account-in, change #rename-account-in': function(e, t){
+    var accountId = CF.UserAssets.currentAccount.get();
+    var user = Meteor.user();
+    if (!user || !user.accounts || !accountId || !user.accounts[accountId]) return;
+    var oldName = user.accounts[accountId].name;
+
+    var invalidState = t.$renameAccountInput.hasClass("invalid");
+    var validName = CF.UserAssets.accNameIsValid(t.$renameAccountInput.val(), oldName);
+
+    if (invalidState && validName) { // => valid
+      t.$renameAccountInput.removeClass("invalid");
+      t.$renameAccountErrorLabel.addClass("hidden")
+    }
+    if (!invalidState && !validName) { // => invalid
+      t.$renameAccountInput.addClass("invalid");
+      t.$renameAccountErrorLabel.removeClass("hidden")
+    }
+  },
+  'click .submit-rename-account': function(e, t){
+    var key = CF.UserAssets.currentAccount.get();
+    Meteor.call("cfAssetsRenameAccount", CF.UserAssets.currentAccount.get(), t.$renameAccountInput.val());
+    $("#modal-rename-account").closeModal();
   }
 });

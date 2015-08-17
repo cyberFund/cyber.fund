@@ -37,6 +37,9 @@ Template['displayAccount'].events({
   'click .req-remove-account': function(e, t){
     $("#modal-remove-account").openModal();
   },
+  'click .req-rename-account': function(e, t){
+    $("#modal-rename-account").openModal();
+  },
   'click .req-add-asset': function (e, t) {
     t.$("#modal-add-asset").openModal();
   },

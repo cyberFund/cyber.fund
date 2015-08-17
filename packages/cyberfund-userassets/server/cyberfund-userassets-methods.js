@@ -92,9 +92,12 @@ Meteor.methods({
       return;
     }
     var checkName = CF.UserAssets.accountNameIsValid(newName, accounts, accounts[key].name);
-    var k = 'accounts.'+key+".name";
-    if (checkName) Meteor.users.update(sel, {$set: {k: newName}});
-
+    if (checkName) {
+      var k = 'accounts.' + key + ".name";
+      var set = {$set: {}};
+      set.$set[k] = newName;
+      Meteor.users.update(sel, set);
+    }
   },
   cfAssetsRemoveAccount: function(key) {
     if (!this.userId) return;
