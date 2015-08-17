@@ -217,7 +217,7 @@ var helpers = {
 };
 
 _.each(helpers, function (helper, key) {
-  UI.registerHelper(key, helper);
+  Template.registerHelper(key, helper);
 });
 /**
  * Created by angelo on 6/9/15.

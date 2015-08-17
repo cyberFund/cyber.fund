@@ -16,8 +16,10 @@ Package.onUse(function(api) {
   api.use(['underscore'], ['client', 'server']);
   api.use(['ui', 'templating'], 'client');
   api.addFiles('server/cyberfund-userassets-methods.js', 'server');
-  api.addFiles(['client/assetsManager/assetsManager.html',
-  'client/assetsManager/assetsManager.js'], 'client');
+  api.addFiles(['client/assetsManager.html',
+  'client/assetsManager.js', 'client/addAccount.html',
+    'client/addAccount.js', 'client/displayAccount.html',
+    'client/displayAccount.js'], 'client');
 });
 
 Package.onTest(function(api) {

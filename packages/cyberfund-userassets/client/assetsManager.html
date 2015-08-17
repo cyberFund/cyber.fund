@@ -1,0 +1,15 @@
+<!-- originally created for cyber.fund project-->
+<template name="assetsManager">
+    {{#if currentUser}}
+        <section id="assets-manager" class="assets-manager card row">
+            <h3 class="center">
+                Assets List
+            </h3>
+            {{> addAccount}}
+            {{#each acconts}}
+                {{> displayAccount this}}
+            {{/each}}
+        </section>
+    {{/if}}
+</template>
+
