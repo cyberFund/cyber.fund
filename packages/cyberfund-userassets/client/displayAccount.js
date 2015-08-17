@@ -1,3 +1,5 @@
+CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
+
 Template['displayAccount'].rendered = function () {
   $('.dropdown-button').dropdown({
       inDuration: 300,
@@ -24,24 +26,24 @@ Template['displayAccount'].events({
     t.$("#modal-remove-asset").openModal();
   },
   'click .submit-remove-asset': function (e, t) {
-    Meteor.call("cfAssetsRemoveAsset", Session.get("currentAsset"), function (err, ret) {
+    Meteor.call("cfAssetsRemoveAsset", CF.UserAssets.currentAsset.get(), function (err, ret) {
       if (!err) {
-        Session.set("currentAsset", null);
+        CF.UserAssets.currentAsset.set(null);
         t.$("#modal-remove-asset").closeModal()
       }
     })
   },
 
-  "click .act-asset": function (e, t) {
-    var $assetrow = t.$(e.currentTarget).closest("tr");
-    console.log($assetrow);
-    Session.set("currentAsset", {
-      account: $assetrow.data("account"),
-      address: $assetrow.data("address")
-    });
+  'click .req-remove-account': function(e, t){
+    $("#modal-remove-account").openModal();
   },
-  'click .btn-add-asset': function (e, t) {
+  'click .req-add-asset': function (e, t) {
     t.$("#modal-add-asset").openModal();
   },
+
+  'click .per-account': function(e, t){
+    var accountKey = t.$(e.currentTarget).closest(".account-item").data("accountKey");
+    CF.UserAssets.currentAccount.set(accountKey);
+  }
 
 });

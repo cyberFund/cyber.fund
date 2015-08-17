@@ -16,9 +16,10 @@
 
             <div id="modal-add-asset" class="modal">
                 <div class="modal-content">
-                    <h4>Add asset to account {{activeAccountName}}</h4>
+                    <h4>Add asset to account {{currentAccount.name}}</h4>
 
-                    <form id="add-asset-form" data-account-key="{{session 'currentAccount'}}">
+                    <form id="add-asset-form"
+                          data-account-key="{{session 'currentAccount'}}">
                         <div class="row">
                             <input type="text" name="address"
                                    placeholder="Address">
@@ -54,6 +55,29 @@
 
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div id="modal-remove-account" class="modal">
+                <div class="modal-content">
+                    {{#if currentAccount}}
+                        <h4>Remove account {{currentAccount.name}}</h4>
+
+
+                        <div class="row">
+                            <p> Are you sure you want to
+                                remove {{currentAccount.name}} account?</p>
+                        </div>
+
+                        <div class="row">
+                            {{#if currentAccount}}
+                                <a class="btn submit-remove-account red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                    Remove</a>
+                            {{/if}}
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                        </div>
+                    {{/if}}
                 </div>
             </div>
         </section>

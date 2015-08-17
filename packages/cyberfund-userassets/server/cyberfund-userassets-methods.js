@@ -95,5 +95,13 @@ Meteor.methods({
     var k = 'accounts.'+key+".name";
     if (checkName) Meteor.users.update(sel, {$set: {k: newName}});
 
+  },
+  cfAssetsRemoveAccount: function(key) {
+    if (!this.userId) return;
+    var k = 'accounts.'+ key;
+    var unset = {$unset: {}};
+    unset.$unset[k] = true;
+    console.log(k);
+    console.log(Meteor.users.update({_id: this.userId}, unset));
   }
 });

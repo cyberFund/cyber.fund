@@ -1,3 +1,6 @@
+CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAccount');
+
+
 Template['assetsManager'].rendered = function () {
 };
 
@@ -12,12 +15,11 @@ Template['assetsManager'].helpers({
     if (!user || !user.accounts) return [];
     return Blaze._globalHelpers.keyValue(user.accounts);
   },
-  activeAccountName: function(){
+  currentAccount: function(){
+    var current = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
-    if (!user) return '';
-    var current = Session.get('currentAccount');
-    if (!current || !user.accounts || !user.accounts[current]) return '';
-    return user.accounts[current].name
+    if (!current || !user || !user.accounts || !user.accounts[current] ) return {};
+    return user.accounts[current];
   }
 });
 
@@ -37,8 +39,9 @@ Template['assetsManager'].events({
       Session.set("updatingBalance", null);
     });
   },
-  'click .per-account': function(e, t){
-    var accountKey = t.$(e.currentTarget).closest(".account-item").data("accountKey");
-    Session.set('currentAccount', accountKey);
+  'click .submit-remove-account': function(e, t) {
+    console.log(CF.UserAssets.currentAccount.get());
+    Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccount.get());
+    $("#modal-remove-account").closeModal();
   }
 });

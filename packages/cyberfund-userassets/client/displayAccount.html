@@ -7,7 +7,7 @@
                 <h6 class="grey-text center">({{publicity}})</h6>
 
                 <div style="position: absolute; top: 0; right: 0px">
-                    {{> addAsset account=../key}}
+                    {{> addAsset}}
                 </div>
                 <!-- Dropdown Structure -->
                 <a class='dropdown-button btn white small per-account black-text btn-margin-left'
@@ -16,15 +16,12 @@
                     account</a>
                 <ul id='dropdown_{{../key}}' class='dropdown-content'>
                     <li><a class="req-rename-account"> rename</a></li>
-                    <li><a class="red-text req-delete-account"> delete</a></li>
+                    <li><a class="red-text req-remove-account"> delete</a></li>
                     <li>
                         <a class="grey-text req-toggle-private {{disabledTogglePrivate}}">
                             make {{#if isPublic}}private{{else}}
                             public{{/if}}</a></li>
                 </ul>
-
-
-
                 {{#each kv_assets}}
                     {{#with valie}}
                         <div data-asset="../key">
