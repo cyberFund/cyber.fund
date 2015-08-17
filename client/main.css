@@ -260,3 +260,16 @@ table.hoverable-my tr:hover {
 .alike-navlink {
   padding: 0 15px;
 }
+
+.account-item {
+  position: relative;
+  min-height: 12rem;
+}
+
+.btn-margin-right{
+  margin-right: 12px
+}
+
+.btn-margin-left {
+  margin-left: 12px;
+}

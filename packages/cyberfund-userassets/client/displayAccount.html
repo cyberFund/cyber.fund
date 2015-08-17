@@ -1,21 +1,26 @@
 <!-- originally created for cyber.fund project-->
 <template name="displayAccount">
     <div class="row">
-
         {{#with value}}
-            <div class="account-card" data-account-key="{{../key}}">
+            <div class="account-item" data-account-key="{{../key}}">
                 <h4 class="center">{{name}}</h4>
                 <h6 class="grey-text center">({{publicity}})</h6>
+
                 <div style="position: absolute; top: 0; right: 0px">
-                {{> addAsset account=../key}}
+                    {{> addAsset account=../key}}
                 </div>
                 <!-- Dropdown Structure -->
-                <a class='dropdown-button btn white small black-text btn-margin-left'
-                   data-activates='dropdown_{{../key}}' style="position: absolute; top: 0; left: 0">Manage account</a>
+                <a class='dropdown-button btn white small per-account black-text btn-margin-left'
+                   data-activates='dropdown_{{../key}}'
+                   style="position: absolute; top: 0; left: 0">Manage
+                    account</a>
                 <ul id='dropdown_{{../key}}' class='dropdown-content'>
                     <li><a class="req-rename-account"> rename</a></li>
                     <li><a class="red-text req-delete-account"> delete</a></li>
-                    <li><a class="grey-text req-toggle-private {{disabledTogglePrivate}}" > make {{#if isPublic}}private{{else}}public{{/if}}</a></li>
+                    <li>
+                        <a class="grey-text req-toggle-private {{disabledTogglePrivate}}">
+                            make {{#if isPublic}}private{{else}}
+                            public{{/if}}</a></li>
                 </ul>
 
 

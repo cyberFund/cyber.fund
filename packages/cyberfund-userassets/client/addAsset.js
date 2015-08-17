@@ -16,6 +16,9 @@ Template['addAsset'].helpers({
 });
 
 Template['addAsset'].events({
+  'click .req-add-asset': function(e, t){
+    $("#modal-add-asset").openModal();
+  },
   'click .submit-add-asset': function (e, t) { //TAG: assets
     if (Session.get("addingAccount")) return false;
     var $form = t.$(e.currentTarget).closest("form");

@@ -3,17 +3,59 @@
     {{#if currentUser}}
         <section id="assets-manager" class="assets-manager card row">
             <header>
-            <h3 class="center">
-                Assets List
-            </h3>
+                <h3 class="center">
+                    Assets List
+                </h3>
             </header>
             {{> addAccount}}
             {{#if currentUser.accounts}}
-            {{#each _accounts}}
-                {{log this}}
-                {{> displayAccount this}}
-            {{/each}}
+                {{#each _accounts}}
+                    {{> displayAccount this}}
+                {{/each}}
             {{/if}}
+
+            <div id="modal-add-asset" class="modal">
+                <div class="modal-content">
+                    <h4>Add asset to account {{activeAccountName}}</h4>
+
+                    <form id="add-asset-form" data-account-key="{{session 'currentAccount'}}">
+                        <div class="row">
+                            <input type="text" name="address"
+                                   placeholder="Address">
+                        </div>
+
+                        <div class="row">
+                            <a class="btn submit-add-asset  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Add</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="modal-rename-account" class="modal">
+                <div class="modal-content">
+                    <h4>Rename account</h4>
+
+                    <form id="add-account-form">
+                        <div class="row">
+                            <input type="text" name="account">
+                        </div>
+                        <div class="row">
+                            <input type="text" name="address"
+                                   placeholder="Address">
+                        </div>
+
+                        <div class="row">
+                            <a class="btn submit-add-asset  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Add</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
         </section>
     {{/if}}
 </template>
