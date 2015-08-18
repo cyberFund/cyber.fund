@@ -9,20 +9,20 @@
             </header>
             {{> addAccount}}
             {{#if currentUser.accounts}}
-                {{#each _accounts}}
-                    {{> displayAccount this}}
+                {{#each keyValue currentUser.accounts}}
+                    {{> displayAccount value=value key=key}}
                 {{/each}}
             {{/if}}
 
             <div id="modal-add-asset" class="modal">
                 <div class="modal-content">
-                    <h4>Add asset to account {{currentAccount.name}}</h4>
+                    <h4 class="center">Add asset to account {{currentAccount.name}}</h4>
 
                     <form id="add-asset-form"
-                          data-account-key="{{session 'currentAccount'}}">
+                          account-key="{{session 'currentAccount'}}">
                         <div class="row">
-                            <input type="text" name="address"
-                                   placeholder="Address">
+                            <input type="text" name="address" placeholder="Address" id="add-asset-input">
+                            <label id="add-asset-error" class="red-text hidden">Asset already exists</label>
                         </div>
 
                         <div class="row">
@@ -60,18 +60,42 @@
             <div id="modal-remove-account" class="modal">
                 <div class="modal-content">
                     {{#if currentAccount}}
-                        <h4>Remove account {{currentAccount.name}}</h4>
+                        <h4 class="center">Remove account {{currentAccount.name}}</h4>
 
 
                         <div class="row">
                             <p> Are you sure you want to
-                                remove {{currentAccount.name}} account?</p>
+                                delete {{currentAccount.name}} account?</p>
                         </div>
 
                         <div class="row">
                             {{#if currentAccount}}
                                 <a class="btn submit-remove-account red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                    Remove</a>
+                                    Delete</a>
+                            {{/if}}
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+
+
+            <div id="modal-remove-asset" class="modal">
+                <div class="modal-content">
+                    {{#if currentAccount}}
+                        <h4 class="center">Remove asset</h4>
+
+
+                        <div class="row">
+                            <p> Are you sure you want to delete {{currentAssetId}} asset
+                                at {{currentAccount.name}} account ?</p>
+                        </div>
+
+                        <div class="row">
+                            {{#if currentAccount}}
+                                <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                    Delete</a>
                             {{/if}}
                             <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
 

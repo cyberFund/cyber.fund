@@ -2,12 +2,12 @@
 <template name="displayAccount">
     <div class="row">
         {{#with value}}
-            <div class="account-item" data-account-key="{{../key}}">
+            <div class="account-item" account-key="{{../key}}">
                 <h4 class="center">{{name}}</h4>
                 <h6 class="grey-text center">({{publicity}})</h6>
 
                 <div style="position: absolute; top: 0; right: 0px">
-                    {{> addAsset}}
+                    <a class="btn right per-account req-add-asset btn-margin-right">Add asset</a>
                 </div>
                 <!-- Dropdown Structure -->
                 <a class='dropdown-button btn white small per-account black-text btn-margin-left'
@@ -22,12 +22,22 @@
                             make {{#if isPublic}}private{{else}}
                             public{{/if}}</a></li>
                 </ul>
-                {{#each kv_assets}}
-                    {{#with valie}}
-                        <div data-asset="../key">
-                            ..
+                {{#each keyValue assets}}
+
+                        <div class="asset-item" asset-id="{{key}}">
+                            <h5>{{key}}</h5>
+
+                            <div style="position: absolute; bottom: 0; right: 0">
+                                <a class="btn right white black-text per-asset req-update-balance btn-margin-right">Update balance</a>
+                                <a class="btn right red per-asset req-remove-asset btn-margin-right">Remove asset</a>
+                            </div>
+                            {{log value}}
+                            {{#each keyValue value.treasures}}
+                                <div>{{key}}: {{value.quantity}}</div>
+                            {{/each}}
+                            <div> balance update: {{or value.meta.balance 'manual'}}</div>
                         </div>
-                    {{/with}}
+
                 {{/each}}
             </div>
         {{/with}}

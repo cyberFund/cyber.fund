@@ -1,21 +1,33 @@
 var logger = log4js.getLogger("assets-tracker");
 Meteor.methods({
-  cfAssetsUpdateBalance: function (address) {
-    var userId = this.userId;
-
-    if (!userId) {
+  cfAssetsUpdateBalance: function (accountKey, address) {
+    console.log('he');
+    if (!this.userId) {
       return;
     }
+    var sel = {_id: this.userId};
+    var accounts = Meteor.users.findOne(sel).accounts || {};
 
-    // check asset exists
-    var asset = Meteor.users.findOne({_id: userId, "assets.address": address}, {fields: {"assets": 1}});
-    if (!asset) {
-      logger.warn("updateBalance - no such address");
+    if (!accountKey) { //todo: update all balances for user
+      //
       return;
     }
+    if (!address) { //todo: update all balances for account
+      //
+      return;
+    }
+console.log('re');
 
-    var set = {};
-
+    var asset = accounts[accountKey] && accounts[accountKey].assets
+      && accounts[accountKey].assets[address];
+    if (!asset) return;
+    console.log(1);
+    var set = {$set: {}};
+    var key =  ['accounts', accountKey, 'assets', address].join(".");
+    console.log(key);
+    set.$set[key] = {
+      'treasures': {}
+    };
     CF.checkBalance(address, Meteor.bindEnvironment(function (err, result) {
         if (!err && result) {
           _.each(result, function (item) {
@@ -26,7 +38,7 @@ Meteor.methods({
             } catch (e) {
               q = item.quantity;
             }
-            set[item.asset] = {
+            set.$set[key]['treasures'][item.asset] = {
               quantity: q,
               asset: item.asset,
               updatedAt: new Date(),
@@ -34,33 +46,38 @@ Meteor.methods({
               address: item.address
             }
           });
-          Meteor.users.update({_id: userId, "assets.address": address}, {
-            $set: {"assets.$.assets": set}
-          });
+          // if at least one result received
+          console.log(_.keys(set.$set[key]));
+          if (_.keys(set.$set[key]['treasures']).length) {
+            set.$set[key]['meta'] = {
+              "balance": "auto"
+            };
+            console.log(set);
+            Meteor.users.update(sel, set);
+          }
         }
       })
     );
   },
-  "cfAssetsAddAsset": function (account, address) {
+
+  "cfAssetsAddAsset": function (accountKey, address) {
     if (!this.userId) return;
     var userId = this.userId;
+    var key = ["accounts", accountKey, "assets", address].join(".");
+    var set = {$set :{}};
+    set.$set[key] = {};
     //push account to dictionary of accounts, so can use in autocomplete later
-    Meteor.users.update({_id: userId}, {
-      $push: {
-        assets: {account: account, address: address}
-      }
-    });
-    Meteor.call("cfAssetsUpdateBalance", address)
+    Meteor.users.update({_id: userId}, set);
+    Meteor.call("cfAssetsUpdateBalance", accountKey, address)
   },
 
-  cfAssetsRemoveAsset: function (asset) {
+  cfAssetsRemoveAsset: function (accountKey, asset) {
     var userId = this.userId;
     if (!userId) return;
-    Meteor.users.update({_id: userId}, {
-      $pull: {
-        assets: {account: asset.account, address: asset.address}
-      }
-    });
+    var key = ['accounts', accountKey, "assets", asset].join(".");
+    var unset = {$unset:{}};
+    unset.$unset[key] = true;
+    Meteor.users.update({_id: userId}, unset);
   },
 
   cfAssetsAddAccount: function(obj){
@@ -104,7 +121,6 @@ Meteor.methods({
     var k = 'accounts.'+ key;
     var unset = {$unset: {}};
     unset.$unset[k] = true;
-    console.log(k);
-    console.log(Meteor.users.update({_id: this.userId}, unset));
+    Meteor.users.update({_id: this.userId}, unset);
   }
 });
