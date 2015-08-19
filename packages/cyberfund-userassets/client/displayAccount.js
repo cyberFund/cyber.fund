@@ -1,4 +1,4 @@
-CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
+CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 
 Template['displayAccount'].rendered = function () {
   var t = this;
@@ -21,18 +21,22 @@ Template['displayAccount'].helpers({
   },
   'publicity': function () {
     return this.isPublic ? 'public' : 'private'
+  },
+  autoUpdateAvailable: function(address){
+    var re = new RegExp();
+    return (address || '').match(/^[13]/) ? true : false;
   }
 });
 
 Template['displayAccount'].events({
-  "click .act-remove-asset": function (e, t) {
-    t.$("#modal-remove-asset").openModal();
+  "click .act-remove-address": function (e, t) {
+    t.$("#modal-remove-address").openModal();
   },
-  'click .submit-remove-asset': function (e, t) {
-    Meteor.call("cfAssetsRemoveAsset", CF.UserAssets.currentAsset.get(), function (err, ret) {
+  'click .submit-remove-address': function (e, t) {
+    Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAddress.get(), function (err, ret) {
       if (!err) {
-        CF.UserAssets.currentAsset.set(null);
-        t.$("#modal-remove-asset").closeModal()
+        CF.UserAssets.currentAddress.set(null);
+        t.$("#modal-remove-address").closeModal()
       }
     })
   },
@@ -46,24 +50,24 @@ Template['displayAccount'].events({
   'click .mock-soon': function (e, t) {
     Materialize.toast('Private accounts coming soon', 3200);
   },
-  'click .req-add-asset': function (e, t) {
-    $("#modal-add-asset").openModal();
+  'click .req-add-address': function (e, t) {
+    $("#modal-add-address").openModal();
   },
-  'click .per-asset': function(e, t){
-    var $asset = $(e.currentTarget).closest(".asset-item");
-    CF.UserAssets.currentAsset.set($asset.attr("asset-id"));
+  'click .per-address': function(e, t){
+    var $asset = $(e.currentTarget).closest(".address-item");
+    CF.UserAssets.currentAddress.set($asset.attr("address-id"));
     CF.UserAssets.currentAccount.set($asset.closest(".account-item")
       .attr("account-key"));
-    console.log(CF.UserAssets.currentAsset.get());
+    console.log(CF.UserAssets.currentAddress.get());
     console.log(CF.UserAssets.currentAccount.get());
   },
-  'click .req-remove-asset': function(e, t) {
-    $('#modal-remove-asset').openModal();
+  'click .req-remove-address': function(e, t) {
+    $('#modal-remove-address').openModal();
   },
-  'click .req-update-asset': function(e, t){
+  'click .req-update-address': function(e, t){
     Meteor.call("cfAssetUpdateBalance",
       CF.UserAssets.currentAccount.get(),
-      CF.UserAssets.currentAsset.get())
+      CF.UserAssets.currentAddress.get())
   }
 
 });

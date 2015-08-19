@@ -1,7 +1,7 @@
 var logger = log4js.getLogger("assets-tracker");
 Meteor.methods({
   cfAssetsUpdateBalance: function (accountKey, address) {
-    console.log('he');
+    console.log('he', accountKey, address);
     if (!this.userId) {
       return;
     }
@@ -17,13 +17,12 @@ Meteor.methods({
       return;
     }
 console.log('re');
-
-    var asset = accounts[accountKey] && accounts[accountKey].assets
-      && accounts[accountKey].assets[address];
+    var asset = accounts[accountKey] && accounts[accountKey].addresses
+      && accounts[accountKey].addresses[address];
     if (!asset) return;
     console.log(1);
     var set = {$set: {}};
-    var key =  ['accounts', accountKey, 'assets', address].join(".");
+    var key =  ['accounts', accountKey, 'addresses', address].join(".");
     console.log(key);
     set.$set[key] = {
       'treasures': {}
@@ -32,6 +31,7 @@ console.log('re');
         if (!err && result) {
           _.each(result, function (item) {
             if (item.status != 'success') return;
+            if (item.asset != 'BTC') return;
             var q;
             try {
               q = parseFloat(item.quantity)
@@ -60,10 +60,10 @@ console.log('re');
     );
   },
 
-  "cfAssetsAddAsset": function (accountKey, address) {
+  "cfAssetsAddAddress": function (accountKey, address) {
     if (!this.userId) return;
     var userId = this.userId;
-    var key = ["accounts", accountKey, "assets", address].join(".");
+    var key = ["accounts", accountKey, "addresses", address].join(".");
     var set = {$set :{}};
     set.$set[key] = {};
     //push account to dictionary of accounts, so can use in autocomplete later
@@ -71,10 +71,10 @@ console.log('re');
     Meteor.call("cfAssetsUpdateBalance", accountKey, address)
   },
 
-  cfAssetsRemoveAsset: function (accountKey, asset) {
+  cfAssetsRemoveAddress: function (accountKey, asset) {
     var userId = this.userId;
     if (!userId) return;
-    var key = ['accounts', accountKey, "assets", asset].join(".");
+    var key = ['accounts', accountKey, "addresses", asset].join(".");
     var unset = {$unset:{}};
     unset.$unset[key] = true;
     Meteor.users.update({_id: userId}, unset);
@@ -93,7 +93,7 @@ console.log('re');
     $set['accounts.'+key] = {
       name: obj.name,
       isPublic: obj.isPublic,
-      assets: {}
+      addresses: {}
     };
     Meteor.users.update(sel, {$set: $set});
     return "ok";

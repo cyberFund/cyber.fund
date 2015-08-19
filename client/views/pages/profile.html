@@ -1,23 +1,14 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
     <div class="row">
-        <div class="col l12 m12 s12">
-            {{> assetsManager }}
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col l12 m12 s12 center">
+        <div class="col s12 m12 l3 center">
+            <div class="row">
+                {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
+            </div>
             <h3>Follow up releases in Twitter</h3>
             <br>
             {{> followUsOnTwitter}}
-        </div>
-    </div>
-    <br>
-    <br>
 
-    <div class="row">
-        <div class="col s12 m4 offset-m4 l4-offet-l4 center">
             {{#if userRegistracionCount}}
                 <div>
                     you are user #{{userRegistracionCount}}
@@ -34,7 +25,12 @@
                     {{/if}}
                 {{/if}}
             {{/if}}
+
+        </div>
+        <div class="col l9 m12 s12">
+            {{> assetsManager }}
         </div>
     </div>
+
 
 </template>

@@ -14,21 +14,21 @@
                 {{/each}}
             {{/if}}
 
-            <div id="modal-add-asset" class="modal">
+            <div id="modal-add-address" class="modal">
                 <div class="modal-content">
-                    <h4 class="center">Add asset to account {{currentAccount.name}}</h4>
+                    <h4 class="center">Add address to account {{currentAccount.name}}</h4>
 
-                    <form id="add-asset-form"
+                    <form id="add-address-form"
                           account-key="{{session 'currentAccount'}}">
                         <div class="row">
-                            <input type="text" name="address" placeholder="Address" id="add-asset-input">
-                            <label id="add-asset-error" class="red-text hidden">Asset already exists</label>
+                            <input type="text" name="address" placeholder="Address" id="add-address-input">
+                            <label id="add-address-error" class="red-text hidden">Address already exists</label>
                         </div>
 
                         <div class="row">
-                            <a class="btn submit-add-asset  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                            <a class="btn submit-add-address  waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                 Add</a>
-                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
 
                         </div>
                     </form>
@@ -50,7 +50,7 @@
                         <div class="row">
                             <a class="btn submit-rename-account  waves-effect">
                                 Rename</a>
-                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
 
                         </div>
                     </form>
@@ -73,7 +73,7 @@
                                 <a class="btn submit-remove-account red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                     Delete</a>
                             {{/if}}
-                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
 
                         </div>
                     {{/if}}
@@ -81,23 +81,23 @@
             </div>
 
 
-            <div id="modal-remove-asset" class="modal">
+            <div id="modal-remove-address" class="modal">
                 <div class="modal-content">
                     {{#if currentAccount}}
-                        <h4 class="center">Remove asset</h4>
+                        <h4 class="center">Remove address</h4>
 
 
                         <div class="row">
-                            <p> Are you sure you want to delete {{currentAssetId}} asset
+                            <p> Are you sure you want to delete {{currentAssetId}} address
                                 at {{currentAccount.name}} account ?</p>
                         </div>
 
                         <div class="row">
                             {{#if currentAccount}}
-                                <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                <a class="btn submit-remove-address red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                     Delete</a>
                             {{/if}}
-                            <a class="modal-action modal-close btn  waves-effect  cancel-add-asset right grey">Cancel</a>
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
 
                         </div>
                     {{/if}}

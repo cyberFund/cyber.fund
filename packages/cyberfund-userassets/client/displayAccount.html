@@ -7,7 +7,7 @@
                 <h6 class="grey-text center">({{publicity}})</h6>
 
                 <div style="position: absolute; top: 0; right: 0px">
-                    <a class="btn right per-account req-add-asset btn-margin-right">Add asset</a>
+                    <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
                 </div>
                 <!-- Dropdown Structure -->
                 <a class='dropdown-button btn white small per-account black-text btn-margin-left'
@@ -22,20 +22,22 @@
                             make {{#if isPublic}}private{{else}}
                             public{{/if}}</a></li>
                 </ul>
-                {{#each keyValue assets}}
+                {{#each keyValue addresses}}
 
-                        <div class="asset-item" asset-id="{{key}}">
+                        <div class="address-item" address-id="{{key}}">
                             <h5>{{key}}</h5>
 
                             <div style="position: absolute; bottom: 0; right: 0">
-                                <a class="btn right white black-text per-asset req-update-balance btn-margin-right">Update balance</a>
-                                <a class="btn right red per-asset req-remove-asset btn-margin-right">Remove asset</a>
+                                {{#if autoUpdateAvailable key}}
+                                    <a class="btn right white black-text per-address req-update-balance btn-margin-right">Update balance</a>
+                                {{/if}}
+                                <a class="btn right red per-address req-remove-address btn-margin-right">Remove address</a>
                             </div>
                             {{log value}}
                             {{#each keyValue value.treasures}}
                                 <div>{{key}}: {{value.quantity}}</div>
                             {{/each}}
-                            <div> balance update: {{or value.meta.balance 'manual'}}</div>
+                            <!--div> balance update: {{or value.meta.balance 'manual'}}</div-->
                         </div>
 
                 {{/each}}

@@ -4,16 +4,11 @@ CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAcco
 Template['assetsManager'].rendered = function () {
   this.$renameAccountInput = this.$("#rename-account-in");
   this.$renameAccountErrorLabel = this.$("#account-rename-exists");
-  this.$addAssetInput = this.$("#add-asset-input");
-  this.$addAssetErrorLabel = this.$("#add-asset-error");
+  this.$addAssetInput = this.$("#add-address-input");
+  this.$addAssetErrorLabel = this.$("#add-address-error");
 };
 
 Template['assetsManager'].helpers({
-  "treasures": function () {
-    var user = Meteor.user();
-    if (!user) return [];
-    return user.assets;
-  },
   currentAccount: function(){
     var current = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
@@ -21,7 +16,7 @@ Template['assetsManager'].helpers({
     return user.accounts[current];
   },
   currentAssetId: function(){
-    return CF.UserAssets.currentAsset.get();
+    return CF.UserAssets.currentAddress.get();
   }
 });
 
@@ -32,11 +27,9 @@ Template['assetsManager'].onCreated(function () {
 
 Template['assetsManager'].events({
   'click .req-update-balance': function (e, t) {
-    var $assetrow = t.$(e.currentTarget).closest("tr");
-    var address = $assetrow.attr("asset-id");
-    Meteor.call("cfAssetsUpdateBalance", address, function (err, ret) {
-      Session.set("updatingBalance", null);
-    });
+    //var $assetrow = t.$(e.currentTarget).closest("tr");
+    //var address = $assetrow.attr("asset-id");
+    Meteor.call("cfAssetsUpdateBalance", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get());
   },
   'click .submit-remove-account': function(e, t) {
     console.log(CF.UserAssets.currentAccount.get());
@@ -66,11 +59,11 @@ Template['assetsManager'].events({
     Meteor.call("cfAssetsRenameAccount", CF.UserAssets.currentAccount.get(), t.$renameAccountInput.val());
     $("#modal-rename-account").closeModal();
   },
-  'keyup #add-asset-input, change #add-asset-input': function(e, t){
+  'keyup #add-address-input, change #add-address-input': function(e, t){
     var address = t.$addAssetInput.val();
     var accounts = Meteor.user.accounts || {};
     var addresses = _.flatten(_.map(accounts, function (account){
-      return _.map(account.assets, function(v, k){
+      return _.map(account.addresses, function(v, k){
         return k;
       })
     }));
@@ -80,13 +73,13 @@ Template['assetsManager'].events({
       t.$addAssetErrorLabel.addClass("hidden")
     }
   },
-  'click .submit-add-asset': function (e, t) { //TAG: assets
+  'click .submit-add-address': function (e, t) { //TAG: assets
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val();
     console.log(account, address);
     var accounts = Meteor.user.accounts || {};
     var addresses = _.flatten(_.map(accounts, function (account){
-      return _.map(account.assets, function(v, k){
+      return _.map(account.addresses, function(v, k){
         return k;
       })
     }));
@@ -94,22 +87,19 @@ Template['assetsManager'].events({
       return;
     }
 
-    Meteor.call("cfAssetsAddAsset", account, address, function (err, ret) {
+    Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
-      t.$("#modal-add-asset").closeModal();
+      t.$("#modal-add-address").closeModal();
 
     })
   },
-  'click .submit-remove-asset': function(e, t){
-    Meteor.call("cfAssetsRemoveAsset", CF.UserAssets.currentAccount.get(),
-    CF.UserAssets.currentAsset.get());
-    $("#modal-remove-asset").closeModal();
+  'click .submit-remove-address': function(e, t){
+    Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccount.get(),
+    CF.UserAssets.currentAddress.get());
+    $("#modal-remove-address").closeModal();
   },
   'click .per-account': function(e, t){
     var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
-    console.log(accountKey);
     CF.UserAssets.currentAccount.set(accountKey.toString());
-    console.log(CF.UserAssets.currentAccount.get());
-    console.log(Meteor.user().accounts[CF.UserAssets.currentAccount.get()]);
   }
 });
