@@ -81,13 +81,13 @@ console.log('re');
   },
 
   cfAssetsAddAccount: function(obj){
-    if (!this.userId) return "no userid";
+    if (!this.userId) return {err:"no userid"};
     var sel = {_id: this.userId};
     check (obj, {isPublic: Boolean, name: String});
     var user = Meteor.users.findOne(sel);
     if (!user.accounts) Meteor.users.update(sel, {$set: {accounts: {}}});
 
-    if (!CF.UserAssets.accountNameIsValid(obj.name, user.accounts)) return "invalid acc name";
+    if (!CF.UserAssets.accountNameIsValid(obj.name, user.accounts)) return {err:"invalid acc name"};
     var key = CF.UserAssets.nextKey(user.accounts);
     var $set = {};
     $set['accounts.'+key] = {
@@ -96,7 +96,7 @@ console.log('re');
       addresses: {}
     };
     Meteor.users.update(sel, {$set: $set});
-    return "ok";
+    return {newAccountKey: key};
   },
 
   cfAssetsRenameAccount: function(key, newName){

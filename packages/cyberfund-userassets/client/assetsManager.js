@@ -77,20 +77,12 @@ Template['assetsManager'].events({
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val();
     console.log(account, address);
-    var accounts = Meteor.user.accounts || {};
-    var addresses = _.flatten(_.map(accounts, function (account){
-      return _.map(account.addresses, function(v, k){
-        return k;
-      })
-    }));
-    if (addresses.indexOf(address) > -1) {
-      return;
-    }
+
+    if (CF.UserAssets.uiAddressExists(address)) return;
 
     Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
       t.$("#modal-add-address").closeModal();
-
     })
   },
   'click .submit-remove-address': function(e, t){
