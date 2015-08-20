@@ -7,7 +7,8 @@ var logger = log4js.getLogger("assets-tracker");
  */
 CF.UserAssets.tokenCB2tokenCG = function(cryptoBalanceToken){
   var matchingTable = {
-    'BTC': 'BTC'
+    'BTC': 'BTC',
+    'OA/CFUND': 'CFUND'
   };
   return matchingTable[cryptoBalanceToken] || false;
 }
@@ -148,5 +149,17 @@ Meteor.methods({
     var unset = {$unset: {}};
     unset.$unset[k] = true;
     Meteor.users.update({_id: this.userId}, unset);
+  },
+  cfAssetsAddAsset: function(account, address, asset, q){
+    if (!this.userId) return;
+    var sel = {_id: this.userId};
+    var modify = {$set: {}};
+    var key = ['accounts',account,'addresses',address,'assets',asset].join(".");
+    modify.$set[key] = {
+      asset: asset,
+      quantity: q,
+      update:'manual'
+    }
+    Meteor.users.update(sel, modify)
   }
 });

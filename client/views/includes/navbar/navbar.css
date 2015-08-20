@@ -1,11 +1,13 @@
 input.search-input {
   border: 0;
-  vertical-align: bottom;
-  margin-bottom: 34px;
   display: inline;
   height: 1rem;
   line-height: 1rem;
   width: 8em;
+}
+input.search-input.at-navbar{
+  vertical-align: bottom;
+  margin-bottom: 34px;
 }
 .search-wrap .-autocomplete-container {
   position: absolute;

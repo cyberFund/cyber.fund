@@ -9,14 +9,17 @@ Template['assetsManager'].rendered = function () {
 };
 
 Template['assetsManager'].helpers({
-  currentAccount: function(){
+  currentAccount: function () {
     var current = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
-    if (!current || !user || !user.accounts || !user.accounts[current] ) return {};
+    if (!current || !user || !user.accounts || !user.accounts[current]) return {};
     return user.accounts[current];
   },
-  currentAssetId: function(){
+  currentAddress: function () {
     return CF.UserAssets.currentAddress.get();
+  },
+  currentAsset: function () {
+    return CF.UserAssets.currentAsset.get();
   }
 });
 
@@ -32,17 +35,17 @@ Template['assetsManager'].events({
     var $t = t.$(e.currentTarget);
     $t.addClass("disabled");
     Meteor.call("cfAssetsUpdateBalance", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(),
-      function(er, re){
+      function (er, re) {
         console.log("here")
-      $t.removeClass("disabled");
-    });
+        $t.removeClass("disabled");
+      });
   },
-  'click .submit-remove-account': function(e, t) {
+  'click .submit-remove-account': function (e, t) {
     console.log(CF.UserAssets.currentAccount.get());
     Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccount.get());
     $("#modal-remove-account").closeModal();
   },
-  'keyup #rename-account-in, change #rename-account-in': function(e, t){
+  'keyup #rename-account-in, change #rename-account-in': function (e, t) {
     var accountId = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
     if (!user || !user.accounts || !accountId || !user.accounts[accountId]) return;
@@ -60,16 +63,16 @@ Template['assetsManager'].events({
       t.$renameAccountErrorLabel.removeClass("hidden")
     }
   },
-  'click .submit-rename-account': function(e, t){
+  'click .submit-rename-account': function (e, t) {
     var key = CF.UserAssets.currentAccount.get();
     Meteor.call("cfAssetsRenameAccount", CF.UserAssets.currentAccount.get(), t.$renameAccountInput.val());
     $("#modal-rename-account").closeModal();
   },
-  'keyup #add-address-input, change #add-address-input': function(e, t){
+  'keyup #add-address-input, change #add-address-input': function (e, t) {
     var address = t.$addAssetInput.val();
     var accounts = Meteor.user.accounts || {};
-    var addresses = _.flatten(_.map(accounts, function (account){
-      return _.map(account.addresses, function(v, k){
+    var addresses = _.flatten(_.map(accounts, function (account) {
+      return _.map(account.addresses, function (v, k) {
         return k;
       })
     }));
@@ -83,21 +86,70 @@ Template['assetsManager'].events({
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val();
     console.log(account, address);
-
     if (CF.UserAssets.uiAddressExists(address)) return;
-
     Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
       t.$("#modal-add-address").closeModal();
     })
   },
-  'click .submit-remove-address': function(e, t){
+  'click .submit-remove-address': function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccount.get(),
-    CF.UserAssets.currentAddress.get());
+      CF.UserAssets.currentAddress.get());
     $("#modal-remove-address").closeModal();
   },
-  'click .per-account': function(e, t){
+  'click .per-account': function (e, t) {
     var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
     CF.UserAssets.currentAccount.set(accountKey.toString());
+  },
+  'click .submit-add-asset': function (e, t) {
+    var $form = $(e.currentTarget).closest("form");
+    var $target = $form.find("#asset-quantity-input");
+    var key = CF.UserAssets.currentAsset.get();
+    if (key && key.token) {
+      key = key.token.token_symbol
+    }
+    if (!key) {
+      Materialize.toast("please pick a coin", 4000);
+      return;
+    }
+    var qua = $target.val();
+    if (!qua) {
+      var $label = $target.closest(".number-sum-wrapper").find("label");
+      $label.removeClass('hidden');
+      $target.addClass('invalid');
+      return;
+    }
+    try {
+      qua = parseFloat(qua);
+    } catch (e) {
+      return;
+    }
+    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua);
+    $form.find("#asset-quantity-input").val('');
+  },
+  "autocompleteselect input#search2": function (event, template, doc) {
+    CF.UserAssets.currentAsset.set(doc ? doc : null)
+    template.$("input#search2").val("");
+    console.log(template.$("#asset-quantity-input"));
+    //Meteor.setTimeout(function () {
+      $("#asset-quantity-input").focus()
+    //}, 40)
+  },
+  //todo move into dedicated template?
+  'keyup .number-sum, change .munber-sum': function (e, t) {
+    var $target = t.$(e.currentTarget);
+    var $label = $target.closest(".number-sum-wrapper").find("label");
+    var val = $target.val();
+
+    if (val) {
+      var test = parseFloat(val);
+      if (isNaN(test)) {
+        $label.removeClass('hidden');
+        $target.addClass('invalid');
+      } else {
+        $label.addClass('hidden');
+        $target.removeClass('invalid');
+      }
+    }
   }
 });

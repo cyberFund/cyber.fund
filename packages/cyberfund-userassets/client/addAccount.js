@@ -88,6 +88,7 @@ Template['addAccount'].helpers({
 Template['addAccount'].events({
   'click .btn-add-account': function (e, t) {
     t.$("#modal-add-account").openModal();
+    t.$selectAccount.material_select('destroy');
     t.$selectAccount.material_select();
   },
   'keyup #account-name, change #account-name': function (e, t) {

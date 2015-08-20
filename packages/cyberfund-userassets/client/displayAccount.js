@@ -1,4 +1,5 @@
-CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
+CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
+CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 
 Template['displayAccount'].rendered = function () {
   var t = this;
@@ -12,7 +13,6 @@ Template['displayAccount'].rendered = function () {
       belowOrigin: true // Displays dropdown below the button
     }
   );
-
 };
 
 Template['displayAccount'].helpers({
@@ -64,10 +64,13 @@ Template['displayAccount'].events({
   'click .req-remove-address': function(e, t) {
     $('#modal-remove-address').openModal();
   },
+  'click .req-add-asset-to-address': function(e, t){
+    CF.UserAssets.currentAsset.set(null);
+    $('#modal-add-asset').openModal();
+  },
   'click .req-update-address': function(e, t){
     Meteor.call("cfAssetUpdateBalance",
       CF.UserAssets.currentAccount.get(),
       CF.UserAssets.currentAddress.get())
   }
-
 });
