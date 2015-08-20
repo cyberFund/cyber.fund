@@ -124,8 +124,10 @@ Template['assetsManager'].events({
     } catch (e) {
       return;
     }
-    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua);
     $form.find("#asset-quantity-input").val('');
+    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function(){
+      $form.closest(".modal").closeModal();
+    });
   },
   "autocompleteselect input#search2": function (event, template, doc) {
     CF.UserAssets.currentAsset.set(doc ? doc : null)
