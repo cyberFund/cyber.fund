@@ -272,6 +272,10 @@ table.hoverable-my tr:hover {
   min-height: 6rem;
 }
 
+.asset-item {
+  position: relative;
+}
+
 .btn-margin-right{
   margin-right: 12px
 }
