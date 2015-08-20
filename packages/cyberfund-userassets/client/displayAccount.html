@@ -25,21 +25,27 @@
                 </ul>
                 {{#each keyValue addresses}}
 
-                        <div class="address-item" address-id="{{key}}">
-                            <h5>{{key}}</h5>
+                    <div class="address-item" address-id="{{key}}">
+                        <h5>{{key}}</h5>
 
-                            <div style="position: absolute; bottom: 0; right: 0">
-                                {{#if autoUpdateAvailable key}}
-                                    <a class="btn right white black-text per-address req-update-balance btn-margin-right">Update balance</a>
-                                {{/if}}
-                                <a class="btn right red per-address req-remove-address btn-margin-right">Remove address</a>
-                            </div>
-                            {{log value}}
-                            {{#each keyValue value.assets}}
-                                <div>{{key}}: {{value.quantity}}</div>
-                            {{/each}}
-                            <!--div> balance update: {{or value.meta.balance 'manual'}}</div-->
+                        <div style="position: absolute; top: 0; right: 0">
+                            <a class="btn-floating btn-small right red per-address req-remove-address btn-margin-right">
+                                    <i class="material-icons small">delete</i>
+                            </a>
                         </div>
+                        {{#if autoUpdateAvailable key}}
+                            <div style="position: absolute; bottom: 0; right: 0">
+                                <a class="btn-floating btn-tiny right blue per-address req-update-balance btn-margin-right">
+                                    <i class="material-icons small">loop</i>
+                                </a>
+                            </div>
+                        {{/if}}
+                        {{log value}}
+                        {{#each keyValue value.assets}}
+                            <div>{{key}}: {{value.quantity}}</div>
+                        {{/each}}
+                        <!--div> balance update: {{or value.meta.balance 'manual'}}</div-->
+                    </div>
 
                 {{/each}}
             </div>

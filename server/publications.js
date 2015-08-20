@@ -135,3 +135,20 @@ Meteor.publish('search-sym', function(selector, options, collname) {
 Meteor.publish("BitcoinPrice", function(){
   return CurrentData.find({system: "Bitcoin"})
 });
+
+Meteor.publish('avatars', function(uidArray){
+  if (!_.isArray(uidArray)) return this.ready();
+  return Meteor.users.find({_id: {$in: uidArray}}, {fields: {
+    'profile.name': 1,
+    'profile.twitterIconUrl': 1,
+    'profile.twitterName': 1
+  }});
+});
+
+Meteor.publish('userProfilesByTwid', function(twidArr){
+  if (!_.isArray(twidArr)) {
+    this.ready();
+    return;
+  }
+  return Meteor.users.find({"profile.twitterName": {$in: twidArr}});
+});

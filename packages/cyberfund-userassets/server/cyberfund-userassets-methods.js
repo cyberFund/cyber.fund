@@ -6,8 +6,10 @@ var logger = log4js.getLogger("assets-tracker");
  * @returns {CG token OR false - if auptoupdate is disabled.}
  */
 CF.UserAssets.tokenCB2tokenCG = function(cryptoBalanceToken){
-  if (cryptoBalanceToken == 'BTC') return BTC;
-  return false;
+  var matchingTable = {
+    'BTC': 'BTC'
+  };
+  return matchingTable[cryptoBalanceToken] || false;
 }
 
 Meteor.methods({

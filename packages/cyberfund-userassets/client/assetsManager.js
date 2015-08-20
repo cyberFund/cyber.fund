@@ -29,7 +29,13 @@ Template['assetsManager'].events({
   'click .req-update-balance': function (e, t) {
     //var $assetrow = t.$(e.currentTarget).closest("tr");
     //var address = $assetrow.attr("asset-id");
-    Meteor.call("cfAssetsUpdateBalance", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get());
+    var $t = t.$(e.currentTarget);
+    $t.addClass("disabled");
+    Meteor.call("cfAssetsUpdateBalance", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(),
+      function(er, re){
+        console.log("here")
+      $t.removeClass("disabled");
+    });
   },
   'click .submit-remove-account': function(e, t) {
     console.log(CF.UserAssets.currentAccount.get());

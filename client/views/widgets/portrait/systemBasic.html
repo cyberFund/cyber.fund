@@ -198,10 +198,12 @@
                 {{/if}}
             </div>
             <div id="charts-ctl" class="row scrollspy center">
-                <a class="btn mock {{selectedGraph 'day'}}" data-span="day">Last Day</a>
+                <a class="btn mock {{selectedGraph 'day'}}" data-span="day">Last
+                    Day</a>
                 <a class="btn act {{selectedGraph 'week'}}"
                    data-span="week">Last Week</a>
-                <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last Month</a>
+                <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last
+                    Month</a>
                 <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
             </div>
 
@@ -312,15 +314,16 @@
                     <h3 class="center">Dapps</h3>
 
                     {{#each dependents}}
-                        <div class="col s6 m6 l3 center valign"
+                        <div class="col s6 m6 l3"
                              style="padding:0 10px; margin: 6px 0;">
                             <a href="{{pathFor 'System' name_=name_}}">
                                 <div class="card"
                                      style="padding: 10px 0; margin: 2px 0">
+                                    {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     <span
                                             class="enlarge"
                                             style="display: inline; white-space: nowrap;">
-                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+
                                         {{displaySystemName this}}
                                     </span>
                                 </div>
@@ -424,6 +427,17 @@
                 <div class="col l3 m1 hide-"></div>
             </div>
 
+            {{#if _usersStarred}}
+                <div id="users-starred">
+                    <h3 class="center">Starred by </h3>
+                    {{#each usersStarred}}
+                        <a href="{{pathFor 'UserProfile' twid=profile.twitterName}}">
+                            {{>hitryImage img_url=profile.twitterIconUrl style="margin: 6px 3px; width=40px; height=40px;"}}
+                        </a>
+                    {{/each}}
+                </div>
+            {{/if}}
+
             <div id="improve" class="row scrollspy center">
                 <h3 class="center">Fans Edge</h3>
 
@@ -471,7 +485,16 @@
 
             </div>
         </div>
+        {{#if currentUser}}
+            <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+                <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}">
+                    <i class="material-icons"
+                       style="font-size: 3.8rem">stars</i>
+                </a>
+            </div>
+        {{/if}}
     {{/with}}
     <!--a class="btn-floating btn-large waves-effect waves-light red">
 	  <i class="stars"></i></a-->
+
 </template>
