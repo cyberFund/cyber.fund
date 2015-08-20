@@ -10,11 +10,12 @@ Template['systemBasic'].rendered = function () {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
   $('ul.tabs').tabs();
-  if (!CF.MarketData.graphTime.get()) CF.MarketData.graphTime.set("all");
+
   var t = this;
   Tracker.autorun(function () {
     t._system = t.data.curData.fetch()[0];
-    Meteor.subscribe('avatars', t._system._usersStarred)
+    if (t._system && t._system._usersStarred)
+      Meteor.subscribe('avatars', t._system._usersStarred)
   })
 };
 
@@ -70,10 +71,9 @@ Template['systemBasic'].helpers({
   },
   linksWithTag: function (links, tag) {
     if (!_.isArray(links)) return [];
-    var f = _.filter(links, function (link) {
+    return _.filter(links, function (link) {
       return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
     });
-    return f;
   },
   mainTags: function () {
     return ['Wallet', "Exchange", "Analytics", "Magic"]
@@ -82,7 +82,7 @@ Template['systemBasic'].helpers({
   linksWithoutTags: function (links, tags) {
     if (!_.isArray(links)) return [];
 
-    var f = _.filter(links, function (link) {
+    return _.filter(links, function (link) {
       var ret = _.isArray(link.tags);
       _.each(tags, function (tag) {
         if (link.tags.indexOf(tag) > -1) ret = false;
@@ -90,8 +90,6 @@ Template['systemBasic'].helpers({
 
       return ret;
     });
-
-    return f;
   },
   dayToDayTradeVolumeChange: function () {
     var metrics = this.metrics;
@@ -183,7 +181,7 @@ Template['systemBasic'].helpers({
 
 Template['systemBasic'].events({
   'click #charts-ctl a.btn.act': function (e, t) {
-    var val = $(e.currentTarget).data("span");
+    var val = t.$(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
     analytics.track('buttonClick', {
       section: 'graphs',
@@ -192,7 +190,7 @@ Template['systemBasic'].events({
     })
   },
   'click #charts-ctl a.btn.mock': function (e, t) {
-    var val = $(e.currentTarget).data("span");
+    var val = t.$(e.currentTarget).data("span");
     Materialize.toast('Coming soon!', 2500);
     analytics.track('buttonClick', {
       section: 'graphs',

@@ -50,7 +50,8 @@ Template['weeklyGraph'].rendered = function () {
       }).format("MMM[&nbsp;]D HH[:00]");
 
       dataCapBtc.labels.push(tick.needKey ? dte : "");
-      dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
+      dataCapBtc.series[0].push({value: (tick && tick.value) ? tick.value["cap_btc"] || null : null,
+      meta: (tick && tick.value) ? tick.value["price_btc"] || null : null });
 
       dataCapUsd.labels.push(tick.needKey ? dte : "");
       dataCapUsd.series[0].push((tick && tick.value) ? tick.value["cap_usd"] || null : null);
@@ -62,7 +63,7 @@ Template['weeklyGraph'].rendered = function () {
     if (self.data.metrics) {
       if (self.data.metrics.cap) {
         dataCapBtc.labels.push("");//current.format("D HH"));
-        dataCapBtc.series[0].push(self.data.metrics.cap.btc || null);
+        dataCapBtc.series[0].push({meta: self.data.metrics.price.btc || null, value: self.data.metrics.cap.btc || null});
 
         dataCapUsd.labels.push("");//current.format("D HH"));
         dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
