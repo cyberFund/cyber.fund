@@ -1,4 +1,15 @@
 var logger = log4js.getLogger("assets-tracker");
+
+/**
+ * converts crypto-balance token to chaingear token.
+ * @param cryptoBalanceToken - token received from crypto-balance library
+ * @returns {CG token OR false - if auptoupdate is disabled.}
+ */
+CF.UserAssets.tokenCB2tokenCG = function(cryptoBalanceToken){
+  if (cryptoBalanceToken == 'BTC') return BTC;
+  return false;
+}
+
 Meteor.methods({
   cfAssetsUpdateBalance: function (accountKey, address) {
     console.log('he', accountKey, address);
@@ -16,44 +27,56 @@ Meteor.methods({
       //
       return;
     }
-console.log('re');
-    var asset = accounts[accountKey] && accounts[accountKey].addresses
+
+    var addressObj = accounts[accountKey] && accounts[accountKey].addresses
       && accounts[accountKey].addresses[address];
-    if (!asset) return;
+    if (!addressObj) return;
     console.log(1);
-    var set = {$set: {}};
-    var key =  ['accounts', accountKey, 'addresses', address].join(".");
+    var modify = {$set: {}, $unset: {}};
+
+    var key =  ['accounts', accountKey, 'addresses', address, 'assets'].join(".");
     console.log(key);
-    set.$set[key] = {
-      'treasures': {}
-    };
+    _.each(addressObj.assets, function(asset, assetKey){
+      console.log(asset, key);
+      if (asset.update === 'auto') {
+        modify.$unset[[key,assetKey].join('.')] = "true"
+      }
+    });
+
     CF.checkBalance(address, Meteor.bindEnvironment(function (err, result) {
         if (!err && result) {
           _.each(result, function (item) {
             if (item.status != 'success') return;
-            if (item.asset != 'BTC') return;
+
+            item.asset = CF.UserAssets.tokenCB2tokenCG(item.asset);
+            if (!item.asset) return;
+
             var q;
             try {
               q = parseFloat(item.quantity)
             } catch (e) {
               q = item.quantity;
             }
-            set.$set[key]['treasures'][item.asset] = {
+            var k = [key, item.asset].join(".");
+            modify.$set[k] = {
+              update: 'auto',
               quantity: q,
               asset: item.asset,
               updatedAt: new Date(),
               service: item.service,
               address: item.address
             }
+            delete modify.$unset[k];
           });
-          // if at least one result received
-          console.log(_.keys(set.$set[key]));
-          if (_.keys(set.$set[key]['treasures']).length) {
-            set.$set[key]['meta'] = {
-              "balance": "auto"
-            };
-            console.log(set);
-            Meteor.users.update(sel, set);
+
+          // clear empty modifiers
+          if (_.isEmpty(modify.$unset)) delete(modify.$unset);
+          if (_.isEmpty(modify.$set)) delete(modify.$set);
+
+          // if modifier not empty
+          if (_.keys(modify).length) {
+            console.log(modify);
+            Meteor.users.update(sel, modify);
           }
         }
       })
@@ -65,7 +88,7 @@ console.log('re');
     var userId = this.userId;
     var key = ["accounts", accountKey, "addresses", address].join(".");
     var set = {$set :{}};
-    set.$set[key] = {};
+    set.$set[key] = {assets: {}};
     //push account to dictionary of accounts, so can use in autocomplete later
     Meteor.users.update({_id: userId}, set);
     Meteor.call("cfAssetsUpdateBalance", accountKey, address)
@@ -77,6 +100,7 @@ console.log('re');
     var key = ['accounts', accountKey, "addresses", asset].join(".");
     var unset = {$unset:{}};
     unset.$unset[key] = true;
+    console.log(unset);
     Meteor.users.update({_id: userId}, unset);
   },
 

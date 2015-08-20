@@ -136,7 +136,7 @@ Template['addAccount'].events({
     { // add to existing account
       var accountId = t.$selectAccount.val();
       if (!accountId) {
-        Materialize.toast("Please select account to add to");
+        Materialize.toast("Please select account to add to", 4000);
         return;
       }
       Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
