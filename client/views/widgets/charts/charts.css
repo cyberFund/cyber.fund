@@ -12,7 +12,7 @@
 }
 .ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
   stroke: #eeeeee;
-  stroke-width: 10px;
+  stroke-width: 8px;
 }
 
 .ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-line{
@@ -21,7 +21,7 @@
 }
 .ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
   stroke: #eeeeee;
-  stroke-width: 10px;
+  stroke-width: 8px;
 }
 
 .ct-chart.ct-chart-vol .ct-series.ct-series-a .ct-bar{
