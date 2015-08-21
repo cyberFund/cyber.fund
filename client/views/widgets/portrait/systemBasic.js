@@ -220,5 +220,3 @@ Template['systemBasic'].onCreated(function () {
     }
   });
 });
-
-

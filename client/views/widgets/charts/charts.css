@@ -26,6 +26,16 @@
 
 .ct-chart.ct-chart-vol .ct-series.ct-series-a .ct-bar{
   fill: grey;
-  stroke: #80d8ff ;
+  stroke: 80d8ff ;
   stroke-width: 4px;
+}
+
+}
+.ct-chart.ct-chart-time-full.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
+  stroke-width: 2px;
+}
+
+.ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
+  stroke: cyan;
+  stroke-width: 2px;
 }
