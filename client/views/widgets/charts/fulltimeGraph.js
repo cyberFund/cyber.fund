@@ -1,3 +1,4 @@
+var ns = CF.Chartist;
 Template['fulltimeGraph'].rendered = function () {
   var ticks = [];
   var self = this;
@@ -27,182 +28,53 @@ Template['fulltimeGraph'].rendered = function () {
       ticks.push(tick);
       iterate = iterate.add(1, "days");
     }
-
-    var dataCapBtc = {
-      labels: [],
-      series: [
-        []
-      ]
-    };
-    var dataCapUsd = {
-      labels: [],
-      series: [
-        []
-      ]
-    };
-    var dataVol = {
-      labels: [],
-      series: [
-        []
-      ]
-    };
-    _.each(ticks, function (tick) {
-      var dta = tick.key.split(".");
-      var format = (dta[1] == 11) ? "D[&nbsp;]MMM YYYY" : "D[&nbsp;]MMM";
-      var dte = moment({
-        year: dta[0],
-        month: dta[1],
-        day: dta[2]
-      }).format(format);
-
-      dataCapBtc.labels.push(tick.needKey ? dte : "");
-      dataCapBtc.series[0].push((tick && tick.value) ? tick.value["cap_btc"] || null : null);
-
-      dataCapUsd.labels.push(tick.needKey ? dte : "");
-      dataCapUsd.series[0].push((tick && tick.value) ? tick.value["cap_usd"] || null : null);
-
-      dataVol.labels.push(tick.needKey ? dte : "");
-      dataVol.series[0].push((tick && tick.value) ? tick.value["volume24_btc"] || null : null);
-    });
+    var data = ns.fn.fulltime.getData(ticks);
 
     if (self.data.metrics) {
-      if (self.data.metrics.cap) {
-        dataCapBtc.labels.push(current.format("D[&nbsp;]MMM"));
-        dataCapBtc.series[0].push(self.data.metrics.cap.btc || null);
-
-        dataCapUsd.labels.push(current.format("D[&nbsp;]MMM"));
-        dataCapUsd.series[0].push(self.data.metrics.cap.usd || null);
+      data.labels.push("");//current.format("D HH"));
+      if (self.data.metrics.cap  && self.data.metrics.price) {
+        data.capB.push({meta: self.data.metrics.price.btc || '', value: self.data.metrics.cap.btc || null});
+        data.capU.push(self.data.metrics.cap.usd || null);
       }
-
-      dataVol.labels.push(current.format("D[&nbsp;]MMM"));
-      dataVol.series[0].push(self.data.metrics.tradeVolume || null);
+      data.trade.push(self.data.metrics.tradeVolume || null);
     }
+
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
-    self.$(".ct-chart-cap-btc").css("height", "240px");
-    new Chartist.Line('.ct-chart-cap-btc', dataCapBtc, {
-     // showPoint: false,
-      chartPadding: {
-        top: 20,
-        right: 30,
-        bottom: 30,
-        left: 35
-      },
+    self.$(".ct-chart-cap-btc").css("height", ns.heights.cap);
+    new Chartist.Line('.ct-chart-cap-btc', {labels: data.labels, series: [data.capB]}, {
+      chartPadding: ns.options.chartPadding.cap,
+      axisY: ns.options.axisY,
+      plugins: [
+        Chartist.plugins.tooltip(ns.options.plugins.tooltip.cap.btc),
+        Chartist.plugins.ctAxisTitle( ns.options.plugins.ctAxisTitle.cap.btc)
+      ]
+    });
+
+    self.$(".ct-chart-cap-usd").css("height", ns.heights.cap);
+    new Chartist.Line('.ct-chart-cap-usd',  {labels: data.labels, series: [data.capU]}, {
+      chartPadding: ns.options.chartPadding.cap,
       axisY: {
         labelInterpolationFnc: function (value) {
           return CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [
-        Chartist.plugins.tooltip({
-            tooltipFnc: CF.MarketData.tooltipFncB,
-            labelOffset: {
-              x: 0,
-              y: -20
-            }
-          }
-        ),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: ''
-          },
-          axisY: {
-            axisTitle: 'Cap Btc',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: -4
-            },
-            textAnchor: 'middle',
-            flipTitle: false
-          }
-        })
+        Chartist.plugins.tooltip(ns.options.plugins.tooltip.cap.usd),
+        Chartist.plugins.ctAxisTitle(ns.options.plugins.ctAxisTitle.cap.usd)
       ]
     });
 
-    self.$(".ct-chart-cap-usd").css("height", "240px");
-    new Chartist.Line('.ct-chart-cap-usd', dataCapUsd, {
-    //  showPoint: false,
-      chartPadding: {
-        top: 20,
-        right: 30,
-        bottom: 30,
-        left: 35
-      },
-      axisY: {
-        labelInterpolationFnc: function (value) {
-          return CF.Utils.monetaryFormatter(value);
-        }
-      },
+    self.$(".ct-chart-vol").css("height", ns.heights.trade);
+    new Chartist.Bar('.ct-chart-vol',  {labels: data.labels, series: [data.trade]}, {
+      chartPadding: ns.options.chartPadding.trade,
+      axisY: ns.options.axisY,
       plugins: [
-        Chartist.plugins.tooltip({
-            tooltipFnc: CF.MarketData.tooltipFncS,
-            labelOffset: {
-              x: 0,
-              y: -20
-            }
-          }
-        ),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-          },
-          axisY: {
-            axisTitle: 'Cap Usd',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: -4
-            },
-            textAnchor: 'middle',
-            flipTitle: false
-          }
-        })
+        Chartist.plugins.tooltip(ns.options.plugins.tooltip.trade),
+        Chartist.plugins.ctAxisTitle(ns.options.plugins.ctAxisTitle.trade)
       ]
     });
-
-    self.$(".ct-chart-vol").css("height", "140px");
-    new Chartist.Bar('.ct-chart-vol', dataVol, {
-      chartPadding: {
-        top: 0,
-        right: 30,
-        bottom: 0,
-        left: 35
-      },
-      axisY: {
-        labelInterpolationFnc: function (value) {
-          return CF.Utils.monetaryFormatter(value);
-        }
-      },
-      plugins: [
-        Chartist.plugins.tooltip({
-          tooltipFnc: CF.MarketData.tooltipFncB,
-          labelOffset: {
-            x: 0,
-            y: -20
-          }
-        }),
-        Chartist.plugins.ctAxisTitle({
-          axisX: {
-            axisTitle: ''
-          },
-          axisY: {
-            axisTitle: 'Trade Btc',
-            axisClass: 'ct-axis-title',
-            offset: {
-              x: 0,
-              y: -4
-            },
-            textAnchor: 'middle',
-            flipTitle: false
-          }
-        })
-      ]
-    });
-    for (i = 0; i< dataVol.series[0].length; i++){
-
-      if (dataVol.series[0][i] == null) dataVol.series[0][i] = 0;
-    }
   });
 };
 
