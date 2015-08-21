@@ -4,7 +4,7 @@
   color: white;
 }
 
-.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-line{
+.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-line {
   stroke: red;
   stroke-width: 2px;
 }
@@ -27,3 +27,30 @@
   stroke: grey;
   stroke-width: 4px;
 }
+
+
+
+.ct-chart.ct-chart-time-full.ct-chart-cap-btc .ct-series.ct-series-a .ct-line {
+  stroke: blue;
+  stroke-width: 5px;
+}
+.ct-chart.ct-chart-time-full.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
+  stroke: green;
+  stroke-width: 7px;
+}
+
+.ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-line{
+  stroke: black;
+  stroke-width: 5px;
+}
+.ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
+  stroke: cyan;
+  stroke-width: 7px;
+}
+
+.ct-chart.ct-chart-time-full.ct-chart-vol .ct-series.ct-series-a .ct-bar{
+  fill: black;
+  stroke: green;
+  stroke-width: 16px;
+}
+
