@@ -151,8 +151,30 @@
 
             <div id="modal-delete-asset" class="modal">
                 <div class="modal-content">
-                    {{#if currentAccount}}
+                    {{#if currentAsset}}
                         <h4 class="center">Delete asset</h4>
+
+                        <div class="row">
+                            <p> Are you sure you want to delete {{currentAsset.token.token_symbol}}
+                                at {{currentAddress}}
+                                (Account {{currentAccount.name}}) ?</p>
+                        </div>
+                    {{/if}}
+                    <div class="row">
+                        {{#if currentAccount}}
+                            <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Delete</a>
+                        {{/if}}
+                        <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="modal-edit-asset" class="modal">
+                <div class="modal-content">
+                    {{#if currentAccount}}
+                        <h4 class="center">Edit asset</h4>
 
                         <div class="row">
                             <p> Are you sure you want to delete {{currentAsset.token.token_symbol}}

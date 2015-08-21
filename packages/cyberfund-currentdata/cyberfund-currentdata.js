@@ -13,6 +13,8 @@ CF.CurrentData = {
       }
     },
     symbol: function (symbol) {
+      if (_.isArray(symbol))
+        return {"token.token_symbol": {$in: symbol}}
       return {"token.token_symbol": symbol}
     },
     dependents: function (system) {

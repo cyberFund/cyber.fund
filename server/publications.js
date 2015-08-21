@@ -152,3 +152,7 @@ Meteor.publish('userProfilesByTwid', function(twidArr){
   }
   return Meteor.users.find({"profile.twitterName": {$in: twidArr}});
 });
+
+Meteor.publish('assetsSystems', function(tokens){
+  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields: {system: 1, token: 1, aliases: 1, icon: 1}})
+})

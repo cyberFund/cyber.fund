@@ -29,6 +29,15 @@ Template['displayAccount'].helpers({
 });
 
 Template['displayAccount'].events({
+  'click .req-remove-account': function (e, t) {
+    $("#modal-remove-account").openModal();
+  },
+  'click .req-rename-account': function (e, t) {
+    $("#modal-rename-account").openModal();
+  },
+  'click .mock-soon': function (e, t) {
+    Materialize.toast('Private accounts coming soon', 3200);
+  },
   "click .act-remove-address": function (e, t) {
     t.$("#modal-remove-address").openModal();
   },
@@ -39,16 +48,6 @@ Template['displayAccount'].events({
         t.$("#modal-remove-address").closeModal()
       }
     })
-  },
-
-  'click .req-remove-account': function (e, t) {
-    $("#modal-remove-account").openModal();
-  },
-  'click .req-rename-account': function (e, t) {
-    $("#modal-rename-account").openModal();
-  },
-  'click .mock-soon': function (e, t) {
-    Materialize.toast('Private accounts coming soon', 3200);
   },
   'click .req-add-address': function (e, t) {
     $("#modal-add-address").openModal();
@@ -72,5 +71,33 @@ Template['displayAccount'].events({
     Meteor.call("cfAssetUpdateBalance",
       CF.UserAssets.currentAccount.get(),
       CF.UserAssets.currentAddress.get())
+  },
+  'click .req-delete-asset': function(e, t){
+    var $item = t.$(e.currentTarget).closest(".asset-item")
+
+    CF.UserAssets.currentAsset.set(CurrentData.findOne(
+      {"token.token_symbol": $item.attr("asset-key")},
+      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
+    if (CF.UserAssets.currentAsset.get()) {
+      $("#modal-delete-asset").openModal();
+      $item = $item.closest(".address-item");
+      CF.UserAssets.currentAccount.set($item.attr("address-id"));
+      $item = $item.closest(".account-item");
+      CF.UserAssets.currentAccount.set($item.attr("account-key"));
+    }
+  },
+  'click .req-edit-asset': function(e,t){
+    var $item = t.$(e.currentTarget).closest(".asset-item");
+
+    CF.UserAssets.currentAsset.set(CurrentData.findOne(
+      {"token.token_symbol": $item.attr("asset-key")},
+      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
+    if (CF.UserAssets.currentAsset.get()) {
+      $("#modal-edit-asset").openModal();
+      $item = $item.closest(".address-item");
+      CF.UserAssets.currentAccount.set($item.attr("address-id"));
+      $item = $item.closest(".account-item");
+      CF.UserAssets.currentAccount.set($item.attr("account-key"));
+    }
   }
 });

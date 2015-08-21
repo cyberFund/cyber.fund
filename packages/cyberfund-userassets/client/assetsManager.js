@@ -25,7 +25,25 @@ Template['assetsManager'].helpers({
 
 Template['assetsManager'].onCreated(function () {
   var instance = this;
+
+  //if own profile, else getting data from user' "profile.assets" -
+  // this all going to be actual once we get to private accounts
   instance.subscribe('ownAssets');
+  Tracker.autorun(function () {
+    var user = Meteor.user();
+    var symbols = user && user.accounts && _.values(user.accounts);
+    if (symbols) {
+      symbols = _.flatten(_.map(symbols, function (account) {
+        return _.values(account.addresses)
+      }));
+    }
+    if (symbols) {
+      symbols = _.flatten(_.map(symbols, function (address) {
+        return _.keys(address.assets)
+      }));
+    }
+    Meteor.subscribe('assetsSystems', symbols);
+  });
 });
 
 Template['assetsManager'].events({
@@ -125,7 +143,7 @@ Template['assetsManager'].events({
       return;
     }
     $form.find("#asset-quantity-input").val('');
-    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function(){
+    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
       $form.closest(".modal").closeModal();
     });
   },
@@ -134,7 +152,7 @@ Template['assetsManager'].events({
     template.$("input#search2").val("");
     console.log(template.$("#asset-quantity-input"));
     //Meteor.setTimeout(function () {
-      $("#asset-quantity-input").focus()
+    $("#asset-quantity-input").focus()
     //}, 40)
   },
   //todo move into dedicated template?
