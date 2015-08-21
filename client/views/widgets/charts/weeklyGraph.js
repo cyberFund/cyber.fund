@@ -7,7 +7,7 @@ Template['weeklyGraph'].rendered = function () {
     if (!self.data || !self.data.hourlyData) return;
     comp.stop();
     var current = moment.utc();
-    for (var i = 7*24; i > 0; i--) {
+    for (var i = 7*24; i > 0; i=i-3) {
       var iterate = moment.utc().subtract(i, "hours");
       var year = iterate.year();
       var month = iterate.month();
@@ -19,7 +19,7 @@ Template['weeklyGraph'].rendered = function () {
       var tick = {
         key: key,
         value: val || null,
-        needKey: iterate.hours() == (current.hours()+23)%24 //only will display those days
+        needKey: iterate.hours() == current.hours()//only will display those days
       };
       ticks.push(tick);
     }
