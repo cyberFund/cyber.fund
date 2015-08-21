@@ -199,10 +199,10 @@
             </div>
             <div class="row"></div>
             <div id="charts" class="row scrollspy center">
-                {{#if selectedGraph 'week'}}
+                {{#if _selectedGraph 'week'}}
                     {{> weeklyGraph this}}
                 {{/if}}
-                {{#if selectedGraph 'month'}}
+                {{#if _selectedGraph 'month'}}
                     {{> monthlyGraph this}}
                 {{/if}}
                 {{#if _selectedGraph 'all' }}

@@ -163,7 +163,7 @@ Template['systemBasic'].helpers({
     return k1 + "_" + k2;
   },
   selectedGraph: function (key) {
-    return CF.MarketData.graphTime.get() == key ? "orange" : "";
+    return CF.MarketData.graphTime.get() == key ? "orange" : "green";
   },
   _selectedGraph: function (key) {
     return CF.MarketData.graphTime.get() == key
