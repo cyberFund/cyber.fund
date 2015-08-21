@@ -217,5 +217,3 @@ Template['systemBasic'].onCreated(function () {
     }
   });
 });
-
-
