@@ -161,5 +161,13 @@ Meteor.methods({
       update:'manual'
     }
     Meteor.users.update(sel, modify)
+  },
+  cfAssetsDeleteAsset: function(account, address, asset) {
+    if (!this.userId) return;
+    var sel = {_id: this.userId};
+    var modify = {$unset: {}};
+    var key = ['accounts',account,'addresses',address,'assets',asset].join(".");
+    modify.$unset[key] = true;
+    Meteor.users.update(sel, modify)
   }
 });

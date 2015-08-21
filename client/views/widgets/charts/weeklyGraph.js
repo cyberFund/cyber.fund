@@ -1,5 +1,4 @@
 var ns = CF.Chartist;
-console.log(ns);
 Template['weeklyGraph'].rendered = function () {
   var ticks = [];
   var self = this;

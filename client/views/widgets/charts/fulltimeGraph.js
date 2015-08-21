@@ -23,7 +23,7 @@ Template['fulltimeGraph'].rendered = function () {
       var tick = {
         key: key,
         value: val || null,
-        needKey: !iterate.weeks()%4 //only will display those days
+        needKey: iterate.weeks()%4==0 //only will display those days
       };
       ticks.push(tick);
       iterate = iterate.add(7, "days");

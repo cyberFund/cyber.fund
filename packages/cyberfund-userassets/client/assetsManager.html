@@ -72,8 +72,7 @@
 
 
                         <div class="row">
-                            <p> Are you sure you want to
-                                delete {{currentAccount.name}} account?</p>
+                            <p> Confirm deletion {{currentAccount.name}} account</p>
                         </div>
 
                         <div class="row">
@@ -96,9 +95,8 @@
 
 
                         <div class="row">
-                            <p> Are you sure you want to
-                                delete {{currentAddress}} address
-                                at {{currentAccount.name}} account ?</p>
+                            <p> Confirm deletion of {{currentAddress}} address
+                                at {{currentAccount.name}} account</p>
                         </div>
                     {{/if}}
                     <div class="row">
@@ -129,14 +127,20 @@
                                 {{> searchItem2}}
                             </div>
                             <div class="col lg-9 md-9 sm-8">
-                                <input type="text" style="width: 100%; color: black" name="asset-symbol-input" disabled placeholder="Use search bar"
+                                <input type="text"
+                                       style="width: 100%; color: black"
+                                       name="asset-symbol-input" disabled
+                                       placeholder="Use search bar"
                                        value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
                             </div>
                         </div>
                         <div class="row number-sum-wrapper">
-                            <input type="text" name="asset-quantity-input" class="number-sum validate" id="asset-quantity-input"
+                            <input type="text" name="asset-quantity-input"
+                                   class="number-sum validate"
+                                   id="asset-quantity-input"
                                    placeholder="Type amount here"/>
-                            <label class="red-text hidden">Please enter valid number</label>
+                            <label class="red-text hidden">Please enter valid
+                                number</label>
                         </div>
                         <div class="row">
                             {{#if currentAccount}}
@@ -155,9 +159,8 @@
                         <h4 class="center">Delete asset</h4>
 
                         <div class="row">
-                            <p> Are you sure you want to delete {{currentAsset.token.token_symbol}}
-                                at {{currentAddress}}
-                                (Account {{currentAccount.name}}) ?</p>
+                            <p> Confirm deletion of {{currentAsset.token.token_symbol}}
+                                at {{currentAddress}}</p>
                         </div>
                     {{/if}}
                     <div class="row">
@@ -172,34 +175,44 @@
 
             <div id="modal-edit-asset" class="modal">
                 <div class="modal-content">
-                    {{#if currentAccount}}
+                    <form>
                         <h4 class="center">Edit asset</h4>
+                        {{#if currentAccount}}
+                            <div class="row">
+                                <p> Update quantity
+                                    of {{currentAsset.token.token_symbol}}
+                                    at {{currentAddress}}</p>
 
-                        <div class="row">
-                            <p> Change quantity of {{currentAsset.token.token_symbol}}
-                                at {{currentAddress}}
-                                (Account {{currentAccount.name}}) ?</p>
-                            <div class="col lg-3 md-3 sm-4">
-                                <input type="text" style="width: 100%; color: black" name="asset-symbol-input" disabled placeholder="Use search bar"
-                                       value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
-                            </div>
-                            <div class="col lg-3 md-3 sm-4">
-                                <div class="row number-sum-wrapper">
-                                    <input type="text" name="asset-quantity-input" value={{currentAmount}} class="number-sum validate" id="asset-quantity-input"
-                                           placeholder="Type amount here"/>
-                                    <label class="red-text hidden">Please enter valid number</label>
+                                <div class="col lg-3 md-3 sm-4">
+                                    <input type="text"
+                                           style="width: 100%; color: black"
+                                           name="asset-symbol-input" disabled
+                                           placeholder="Use search bar"
+                                           value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
+                                </div>
+                                <div class="col lg-3 md-3 sm-4">
+                                    <div class="row number-sum-wrapper">
+                                        <input style="width: 100%; display: block"
+                                               type="text"
+                                               name="asset-quantity-input"
+                                               value="{{currentAmount}}"
+                                               class="number-sum validate"
+                                               id="asset-quantity-edit"
+                                               placeholder="Type amount here"/>
+                                        <label class="red-text hidden">Please
+                                            enter valid number</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    {{/if}}
-                    <div class="row">
-                        {{#if currentAccount}}
-                            <a class="btn submit-edit-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                Delete</a>
                         {{/if}}
-                        <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
-
-                    </div>
+                        <div class="row">
+                            <a class="modal-action modal-close btn  waves-effect  cancel-add-address grey">Cancel</a>
+                            {{#if currentAccount}}
+                                <a class="btn submit-edit-asset right waves-effect">
+                                    Update</a>
+                            {{/if}}
+                        </div>
+                    </form>
                 </div>
             </div>
         </section>

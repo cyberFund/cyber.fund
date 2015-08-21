@@ -57,8 +57,6 @@ Template['displayAccount'].events({
     CF.UserAssets.currentAddress.set($asset.attr("address-id"));
     CF.UserAssets.currentAccount.set($asset.closest(".account-item")
       .attr("account-key"));
-    console.log(CF.UserAssets.currentAddress.get());
-    console.log(CF.UserAssets.currentAccount.get());
   },
   'click .req-remove-address': function(e, t) {
     $('#modal-remove-address').openModal();
@@ -79,11 +77,11 @@ Template['displayAccount'].events({
       {"token.token_symbol": $item.attr("asset-key")},
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
     if (CF.UserAssets.currentAsset.get()) {
-      $("#modal-delete-asset").openModal();
       $item = $item.closest(".address-item");
-      CF.UserAssets.currentAccount.set($item.attr("address-id"));
+      CF.UserAssets.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
       CF.UserAssets.currentAccount.set($item.attr("account-key"));
+      $("#modal-delete-asset").openModal();
     }
   },
   'click .req-edit-asset': function(e,t){
@@ -93,11 +91,11 @@ Template['displayAccount'].events({
       {"token.token_symbol": $item.attr("asset-key")},
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
     if (CF.UserAssets.currentAsset.get()) {
-      $("#modal-edit-asset").openModal();
       $item = $item.closest(".address-item");
-      CF.UserAssets.currentAccount.set($item.attr("address-id"));
+      CF.UserAssets.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
       CF.UserAssets.currentAccount.set($item.attr("account-key"));
+      $("#modal-edit-asset").openModal();
     }
   }
 });

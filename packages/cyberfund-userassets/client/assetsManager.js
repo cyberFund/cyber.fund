@@ -21,15 +21,26 @@ Template['assetsManager'].helpers({
   currentAsset: function () {
     return CF.UserAssets.currentAsset.get();
   },
-  currentAmount: function(){
+  currentAmount: function () {
     var user = Meteor.user();
     var amount = user.accounts;
-    if (amount) amount = amount[CF.UserAssets.currentAccount.get()];
-    if (amount) amount = amount.addresses;
-    if (amount) amount = amount[CF.UserAssets.currentAddress.get()];
-    if (amount) amount = amount.assets;
-    if (amount) amount = amount[CF.UserAssets.currentAsset.get()];
-
+    if (!amount) return '';
+    var key = CF.UserAssets.currentAccount.get();
+    if (!key) return ''
+    amount = amount[key];
+    if (!amount) return '';
+    amount = amount.addresses;
+    if (!amount) return '';
+    amount = amount[CF.UserAssets.currentAddress.get()];
+    if (!amount) return '';
+    amount = amount.assets;
+    if (!amount) return '';
+    var key = CF.UserAssets.currentAsset.get();
+    if (key) key = key.token;
+    if (key) key = key.token_symbol;
+    if (amount) amount = (key ? amount[key] : '');
+    if (!amount) return '';
+    return amount.quantity || '';
   }
 });
 
@@ -64,7 +75,6 @@ Template['assetsManager'].events({
     $t.addClass("disabled");
     Meteor.call("cfAssetsUpdateBalance", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(),
       function (er, re) {
-        console.log("here")
         $t.removeClass("disabled");
       });
   },
@@ -113,7 +123,6 @@ Template['assetsManager'].events({
   'click .submit-add-address': function (e, t) { //TAG: assets
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val();
-    console.log(account, address);
     if (CF.UserAssets.uiAddressExists(address)) return;
     Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
@@ -160,7 +169,6 @@ Template['assetsManager'].events({
   "autocompleteselect input#search2": function (event, template, doc) {
     CF.UserAssets.currentAsset.set(doc ? doc : null)
     template.$("input#search2").val("");
-    console.log(template.$("#asset-quantity-input"));
     //Meteor.setTimeout(function () {
     $("#asset-quantity-input").focus()
     //}, 40)
@@ -181,5 +189,46 @@ Template['assetsManager'].events({
         $target.removeClass('invalid');
       }
     }
+  },
+  'click .submit-edit-asset': function (e, t) {
+    var $form = $(e.currentTarget).closest("form");
+    var $target = $form.find("#asset-quantity-edit");
+    var key = CF.UserAssets.currentAsset.get();
+    if (key && key.token) {
+      key = key.token.token_symbol
+    }
+    if (!key) {
+      $form.closest(".modal").closeModal();
+      return;
+    }
+    var qua = $target.val();
+    if (!qua) {
+      var $label = $target.closest(".number-sum-wrapper").find("label");
+      $label.removeClass('hidden');
+      $target.addClass('invalid');
+      return;
+    }
+    try {
+      qua = parseFloat(qua);
+    } catch (e) {
+      return;
+    }
+    $form.find("#asset-quantity-edit").val('');
+    Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
+      $form.closest(".modal").closeModal();
+    });
+  },
+  'click .submit-delete-asset': function (e, t) {
+    var sym = CF.UserAssets.currentAsset.get().token;
+    if (sym) sym = sym.token_symbol; //todo: provide getter.
+    if (!sym) {
+      t.$("#modal-delete-asset").closeModal();
+      return;
+    }
+    Meteor.call("cfAssetsDeleteAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), sym,
+      function (err, ret) {
+        CF.UserAssets.currentAsset.set(null);
+        t.$("#modal-delete-asset").closeModal();
+      })
   }
 });
