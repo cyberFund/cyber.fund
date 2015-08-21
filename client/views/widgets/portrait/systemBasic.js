@@ -165,6 +165,9 @@ Template['systemBasic'].helpers({
   selectedGraph: function (key) {
     return CF.MarketData.graphTime.get() == key ? "orange" : "";
   },
+  _selectedGraph: function (key) {
+    return CF.MarketData.graphTime.get() == key
+  },
   systemIsStarredColor: function () {
     var ret = false;
     var user = Meteor.user();

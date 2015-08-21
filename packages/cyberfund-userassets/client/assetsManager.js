@@ -20,6 +20,16 @@ Template['assetsManager'].helpers({
   },
   currentAsset: function () {
     return CF.UserAssets.currentAsset.get();
+  },
+  currentAmount: function(){
+    var user = Meteor.user();
+    var amount = user.accounts;
+    if (amount) amount = amount[CF.UserAssets.currentAccount.get()];
+    if (amount) amount = amount.addresses;
+    if (amount) amount = amount[CF.UserAssets.currentAddress.get()];
+    if (amount) amount = amount.assets;
+    if (amount) amount = amount[CF.UserAssets.currentAsset.get()];
+
   }
 });
 

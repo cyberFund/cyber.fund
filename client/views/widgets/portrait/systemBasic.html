@@ -66,6 +66,18 @@
                 {{/if}}
             </div>
 
+            {{#if _usersStarred}}
+                <div id="users-starred">
+                    <span>Starred by </span>
+                    <span>{{#each usersStarred}}
+                        <a href="{{pathFor 'UserProfile' twid=profile.twitterName}}">
+                            {{>hitryImage img_url=profile.twitterIconUrl style="margin: 6px 3px; width=40px; height=40px;"}}
+                        </a>
+                    {{/each}}
+                    </span>
+                </div>
+            {{/if}}
+
             <div id="main" class="section scrollspy row">
                 {{#each main_links}}
                     <div class="col m6 s12 l3 center">
@@ -193,7 +205,7 @@
                 {{#if selectedGraph 'month'}}
                     {{> monthlyGraph this}}
                 {{/if}}
-                {{#if selectedGraph 'all'}}
+                {{#if _selectedGraph 'all' }}
                     {{> fulltimeGraph this}}
                 {{/if}}
             </div>
@@ -426,17 +438,6 @@
                 {{/if}}
                 <div class="col l3 m1 hide-"></div>
             </div>
-
-            {{#if _usersStarred}}
-                <div id="users-starred">
-                    <h3 class="center">Starred by </h3>
-                    {{#each usersStarred}}
-                        <a href="{{pathFor 'UserProfile' twid=profile.twitterName}}">
-                            {{>hitryImage img_url=profile.twitterIconUrl style="margin: 6px 3px; width=40px; height=40px;"}}
-                        </a>
-                    {{/each}}
-                </div>
-            {{/if}}
 
             <div id="improve" class="row scrollspy center">
                 <h3 class="center">Fans Edge</h3>

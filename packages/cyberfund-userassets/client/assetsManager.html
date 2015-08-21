@@ -162,11 +162,10 @@
                     {{/if}}
                     <div class="row">
                         {{#if currentAccount}}
-                            <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                            <a class="btn submit-delete-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                 Delete</a>
                         {{/if}}
                         <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
-
                     </div>
                 </div>
             </div>
@@ -177,14 +176,25 @@
                         <h4 class="center">Edit asset</h4>
 
                         <div class="row">
-                            <p> Are you sure you want to delete {{currentAsset.token.token_symbol}}
+                            <p> Change quantity of {{currentAsset.token.token_symbol}}
                                 at {{currentAddress}}
                                 (Account {{currentAccount.name}}) ?</p>
+                            <div class="col lg-3 md-3 sm-4">
+                                <input type="text" style="width: 100%; color: black" name="asset-symbol-input" disabled placeholder="Use search bar"
+                                       value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
+                            </div>
+                            <div class="col lg-3 md-3 sm-4">
+                                <div class="row number-sum-wrapper">
+                                    <input type="text" name="asset-quantity-input" value={{currentAmount}} class="number-sum validate" id="asset-quantity-input"
+                                           placeholder="Type amount here"/>
+                                    <label class="red-text hidden">Please enter valid number</label>
+                                </div>
+                            </div>
                         </div>
                     {{/if}}
                     <div class="row">
                         {{#if currentAccount}}
-                            <a class="btn submit-remove-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                            <a class="btn submit-edit-asset red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                 Delete</a>
                         {{/if}}
                         <a class="modal-action modal-close btn  waves-effect  cancel-add-address right grey">Cancel</a>
