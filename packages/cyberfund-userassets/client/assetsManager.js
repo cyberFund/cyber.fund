@@ -132,7 +132,7 @@ Template['assetsManager'].events({
   'click .submit-remove-address': function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccount.get(),
       CF.UserAssets.currentAddress.get());
-    $("#modal-remove-address").closeModal();
+    $("#modal-delete-address").closeModal();
   },
   'click .per-account': function (e, t) {
     var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
@@ -150,7 +150,7 @@ Template['assetsManager'].events({
       return;
     }
     var qua = $target.val();
-    if (!qua) {
+    if (!qua&& qua !==0) {
       var $label = $target.closest(".number-sum-wrapper").find("label");
       $label.removeClass('hidden');
       $target.addClass('invalid');
@@ -230,5 +230,8 @@ Template['assetsManager'].events({
         CF.UserAssets.currentAsset.set(null);
         t.$("#modal-delete-asset").closeModal();
       })
+  },
+  'keydown': function(e, t){
+    console.log(e.key);
   }
 });

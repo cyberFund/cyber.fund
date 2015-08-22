@@ -39,13 +39,13 @@ Template['displayAccount'].events({
     Materialize.toast('Private accounts coming soon', 3200);
   },
   "click .act-remove-address": function (e, t) {
-    t.$("#modal-remove-address").openModal();
+    t.$("#modal-delete-address").openModal();
   },
   'click .submit-remove-address': function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAddress.get(), function (err, ret) {
       if (!err) {
         CF.UserAssets.currentAddress.set(null);
-        t.$("#modal-remove-address").closeModal()
+        t.$("#modal-delete-address").closeModal()
       }
     })
   },
@@ -58,8 +58,8 @@ Template['displayAccount'].events({
     CF.UserAssets.currentAccount.set($asset.closest(".account-item")
       .attr("account-key"));
   },
-  'click .req-remove-address': function(e, t) {
-    $('#modal-remove-address').openModal();
+  'click .req-delete-address': function(e, t) {
+    $('#modal-delete-address').openModal();
   },
   'click .req-add-asset-to-address': function(e, t){
     CF.UserAssets.currentAsset.set(null);
