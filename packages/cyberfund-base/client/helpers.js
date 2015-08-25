@@ -213,6 +213,11 @@ var helpers = {
 
     if (!ret) ret = system.system;
     return ret;
+  },
+  ownTwid: function(){
+    var user =  Meteor.user();
+    if (!user) return '';
+    return user.profile && user.profile.twitterName;
   }
 };
 

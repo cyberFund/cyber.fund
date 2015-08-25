@@ -26,7 +26,7 @@
           <li class="waves-effect">
             <a href="http://cybertalks.org/" target="_blank">Community</a></li>
           <li>{{> btcPriceSimple class="black-text alike-navlink"}}</li>
-          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActivePath path="/profile"}}">
+          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
             {{> userDropdown}}
           </li>
         </ul>
@@ -58,7 +58,7 @@
   {{#if currentUser}}
     {{#if currentUser.profile.twitterName}}
 
-      <a href="/profile" style="vertical-align: middle">
+      <a href="{{pathFor 'Profile' twid=ownTwid}}" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
         {{currentUser.profile.twitterName}}
       </a>

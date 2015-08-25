@@ -29,4 +29,7 @@ Meteor.startup(function() {
 		//background: true
 	});
 
+	Meteor.users._ensureIndex({
+		"profile.twitterName": 1
+	}, {unique: 1})
 });

@@ -145,14 +145,14 @@ Meteor.publish('avatars', function(uidArray){
   }});
 });
 
-Meteor.publish('userProfilesByTwid', function(twidArr){
-  if (!_.isArray(twidArr)) {
-    this.ready();
-    return;
-  }
-  return Meteor.users.find({"profile.twitterName": {$in: twidArr}});
+Meteor.publish('userProfileByTwid', function(twid){
+  return Meteor.users.find({"profile.twitterName": twid}, {
+    fields: {
+      'profile': 1, accounts: 1, createdAt: 1
+    }
+  });
 });
 
 Meteor.publish('assetsSystems', function(tokens){
   return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields: {system: 1, token: 1, aliases: 1, icon: 1}})
-})
+});

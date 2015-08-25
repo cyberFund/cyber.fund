@@ -1,19 +1,22 @@
 <!-- originally created for cyber.fund project-->
 <template name="assetsManager">
-    {{#if currentUser}}
-        <section id="assets-manager" class="assets-manager row">
-            <header>
-                <h3 class="center">
-                    Assets List
-                </h3>
-            </header>
-            {{> addAccount}}
-            {{#if currentUser.accounts}}
-                {{#each keyValue currentUser.accounts}}
-                    {{> displayAccount value=value key=key}}
-                {{/each}}
-            {{/if}}
 
+    <section id="assets-manager" class="assets-manager row">
+        <header>
+            <h3 class="center">
+                Assets List
+            </h3>
+        </header>
+        {{#if isOwnAssets}}
+            {{> addAccount}}
+        {{/if}}
+        {{#if _accounts}}
+            {{#each keyValue _accounts}}
+                {{> displayAccount value=value key=key}}
+            {{/each}}
+        {{/if}}
+
+        {{#if isOwnAssets}}
             <div id="modal-add-address" class="modal">
                 <div class="modal-content">
                     <h4 class="center">Add address to
@@ -72,7 +75,8 @@
 
 
                         <div class="row">
-                            <p> Confirm deletion {{currentAccount.name}} account</p>
+                            <p> Confirm deletion {{currentAccount.name}}
+                                account</p>
                         </div>
 
                         <div class="row">
@@ -159,7 +163,8 @@
                         <h4 class="center">Delete asset</h4>
 
                         <div class="row">
-                            <p> Confirm deletion of {{currentAsset.token.token_symbol}}
+                            <p> Confirm deletion
+                                of {{currentAsset.token.token_symbol}}
                                 at {{currentAddress}}</p>
                         </div>
                     {{/if}}
@@ -215,7 +220,7 @@
                     </form>
                 </div>
             </div>
-        </section>
-    {{/if}}
+        {{/if}}
+    </section>
 </template>
 

@@ -7,21 +7,38 @@
             </div>
             <h3>Follow up releases in Twitter</h3>
             <br>
-            {{> followUsOnTwitter}}
 
-            {{#if userRegistracionCount}}
+            {{#if ownProfile}}
+                {{> followUsOnTwitter}}
+            <div>
+                You follow {{or user.profile.followingUsers.length 0}} people
+            </div>
                 <div>
-                    you are user #{{userRegistracionCount}}
+                    {{followedByCount}} people follow you
                 </div>
-                {{#if lte userRegistracionCount 100}}
+            {{else}}
+                <div>
+                Follows {{followingCount}} people
+                </div>
+                <div>
+                    Is followed by {{followedByCount}} people
+                </div>
+            {{/if}}
+            {{#if ownProfile}}
+                {{#if userRegistracionCount}}
                     <div>
-                        we have classified you as group A user
+                        you are user #{{userRegistracionCount}}
                     </div>
-                {{else}}
-                    {{#if lte userRegistracionCount 400}}
+                    {{#if lte userRegistracionCount 100}}
                         <div>
-                            we have classified you as group B user
+                            we have classified you as group A user
                         </div>
+                    {{else}}
+                        {{#if lte userRegistracionCount 400}}
+                            <div>
+                                we have classified you as group B user
+                            </div>
+                        {{/if}}
                     {{/if}}
                 {{/if}}
             {{/if}}
@@ -30,7 +47,24 @@
         <div class="col l9 m12 s12">
             {{> assetsManager }}
         </div>
+
+        {{#if currentUser}}
+            {{#if not ownProfile}}
+                <div class="fixed-action-btn"
+                     style="bottom: 24px; right: 24px;">
+                    {{#if following}}
+                        <a class="btn-floating btn-large btn-unfollow blue"
+                           title="Unfollow">
+                            <i class="large material-icons">thumb_down</i>
+                        </a>
+                    {{else}}
+                        <a class="btn-floating btn-large btn-follow green"
+                           title="Follow">
+                            <i class="large material-icons">thumb_up</i>
+                        </a>
+                    {{/if}}
+                </div>
+            {{/if}}
+        {{/if}}
     </div>
-
-
 </template>

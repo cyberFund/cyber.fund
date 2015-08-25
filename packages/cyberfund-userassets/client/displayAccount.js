@@ -1,5 +1,9 @@
 CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
+var isOwnAssets = function(){
+  return Meteor.userId() &&
+    CF.Profile.currentTwid.get() == CF.User.twid();
+}
 
 Template['displayAccount'].rendered = function () {
   var t = this;
@@ -23,22 +27,30 @@ Template['displayAccount'].helpers({
     return this.isPublic ? 'public' : 'private'
   },
   autoUpdateAvailable: function(address){
+    if (!isOwnAssets()) return false;
     var re = new RegExp();
     return (address || '').match(/^[13]/) ? true : false;
+  },
+  isOwn: function(){
+    return isOwnAssets();
   }
 });
 
 Template['displayAccount'].events({
   'click .req-remove-account': function (e, t) {
+    if (!isOwnAssets()) return;
     $("#modal-remove-account").openModal();
   },
   'click .req-rename-account': function (e, t) {
+    if (!isOwnAssets()) return;
     $("#modal-rename-account").openModal();
   },
   'click .mock-soon': function (e, t) {
+    if (!isOwnAssets()) return;
     Materialize.toast('Private accounts coming soon', 3200);
   },
   "click .act-remove-address": function (e, t) {
+    if (!isOwnAssets()) return;
     t.$("#modal-delete-address").openModal();
   },
   'click .submit-remove-address': function (e, t) {

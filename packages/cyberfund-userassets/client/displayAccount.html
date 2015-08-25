@@ -4,68 +4,75 @@
         {{#with value}}
             <div class="account-item" account-key="{{../key}}">
                 <h4 class="center">{{name}}</h4>
-                <h6 class="grey-text center">({{publicity}})</h6>
-
+                {{#if isOwn}}
+                    <h6 class="grey-text center">({{publicity}})</h6>
+                {{/if}}
                 <!-- add adress button div style="position: absolute; top: 0; right: 0px">
                     <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
                 </div  -->
 
-                <!-- Dropdown Structure -->
-                <a class='dropdown-button btn white small per-account black-text btn-margin-right'
-                   data-activates='dropdown_{{../key}}'
-                   style="position: absolute; top: 0; right: 0">Manage
-                    account</a>
-                <ul id='dropdown_{{../key}}' class='dropdown-content'>
-                    <li><a class="req-rename-account"> rename</a></li>
-                    <li><a class="red-text req-remove-account"> delete</a></li>
-                    <li>
-                        <a class="grey-text req-toggle-private mock-soon {{disabledTogglePrivate}}">
-                            make {{#if isPublic}}private{{else}}
-                            public{{/if}}</a></li>
-                </ul>
+                {{#if isOwn}}
+                    <a class='dropdown-button btn white small per-account black-text btn-margin-right'
+                       data-activates='dropdown_{{../key}}'
+                       style="position: absolute; top: 0; right: 0">Manage
+                        account</a>
+                    <ul id='dropdown_{{../key}}' class='dropdown-content'>
+                        <li><a class="req-rename-account"> rename</a></li>
+                        <li><a class="red-text req-remove-account"> delete</a>
+                        </li>
+                        <li>
+                            <a class="grey-text req-toggle-private mock-soon {{disabledTogglePrivate}}">
+                                make {{#if isPublic}}private{{else}}
+                                public{{/if}}</a></li>
+                    </ul>
+                {{/if}}
                 <ul class="collection adresses-list"
                     style="border-bottom: 0; margin-bottom: 0">
                     {{#each keyValue addresses}}
                         <li class="address-item collection-item"
                             address-id="{{key}}">
                             <h5 style="margin-left: 40px;">{{key}}</h5>
-                            {{#if autoUpdateAvailable key}}
-                                <div style="position: absolute; top: 10px; left: 0px;">
-                                    <a class="btn-floating btn-tiny right blue per-address req-update-balance btn-margin-left">
-                                        <i class="material-icons small">loop</i>
+
+                            {{#if isOwn}}
+                                {{#if autoUpdateAvailable key}}
+                                    <div style="position: absolute; top: 10px; left: 0px;">
+                                        <a class="btn-floating btn-tiny right blue per-address req-update-balance btn-margin-left">
+                                            <i class="material-icons small">loop</i>
+                                        </a>
+                                    </div>
+                                {{/if}}
+                                <div style="position: absolute; bottom: 10px; left: 50%; margin-left: -2em">
+                                    <a class="btn-floating btn-small green per-address req-add-asset-to-address">
+                                        <i class="material-icons small">add</i>
+                                    </a>
+                                </div>
+                                <div style="position: absolute; top: 10px; right: 0px;">
+                                    <a class="btn-floating btn-small red per-address req-delete-address btn-margin-right">
+                                        <i class="material-icons small">delete</i>
                                     </a>
                                 </div>
                             {{/if}}
 
-                            <div style="position: absolute; bottom: 10px; left: 50%; margin-left: -2em">
-                                <a class="btn-floating btn-small green per-address req-add-asset-to-address">
-                                    <i class="material-icons small">add</i>
-                                </a>
-                            </div>
-                            <div style="position: absolute; top: 10px; right: 0px;">
-                                <a class="btn-floating btn-small red per-address req-delete-address btn-margin-right">
-                                    <i class="material-icons small">delete</i>
-                                </a>
-                            </div>
                             <ul class="collection assets-list"
                                 style="margin-bottom: 48px;">
                                 {{#each keyValue value.assets}}
-                                    <li class="collection-item asset-item" asset-key="{{key}}">{{key}}
+                                    <li class="collection-item asset-item"
+                                        asset-key="{{key}}">{{key}}
                                         : {{value.quantity}}
-                                        {{#if neq value.update 'auto'}}
-                                            <div style="position: absolute; top: 2px; right: 12px;">
-                                                <a class="btn-floating btn-tiny req-edit-asset yellow"><i
-                                                        class="material-icons tiny">edit</i></a>
-                                                <a class="btn-floating btn-tiny req-delete-asset red"><i
-                                                        class="material-icons tiny">delete</i></a>
-                                            </div>
+                                        {{#if isOwn}}
+                                            {{#if neq value.update 'auto'}}
+                                                <div style="position: absolute; top: 2px; right: 12px;">
+                                                    <a class="btn-floating btn-tiny req-edit-asset yellow"><i
+                                                            class="material-icons tiny">edit</i></a>
+                                                    <a class="btn-floating btn-tiny req-delete-asset red"><i
+                                                            class="material-icons tiny">delete</i></a>
+                                                </div>
+                                            {{/if}}
                                         {{/if}}
                                     </li>
                                 {{/each}}
                             </ul>
-                            <!--div> balance update: {{or value.meta.balance 'manual'}}</div-->
                         </li>
-
                     {{/each}}
                 </ul>
             </div>

@@ -71,7 +71,7 @@
                 <div id="users-starred">
                     <span>Starred by </span>
                     <span>{{#each usersStarred}}
-                        <a href="{{pathFor 'UserProfile' twid=profile.twitterName}}">
+                        <a href="{{pathFor 'Profile' twid=profile.twitterName}}">
                             {{>hitryImage img_url=profile.twitterIconUrl style="margin: 6px 3px; width=40px; height=40px;"}}
                         </a>
                     {{/each}}

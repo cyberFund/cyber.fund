@@ -1,5 +1,8 @@
 CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAccount');
-
+var isOwnAssets = function(){
+  return Meteor.userId() &&
+    CF.Profile.currentTwid.get() == CF.User.twid();
+}
 
 Template['assetsManager'].rendered = function () {
   this.$renameAccountInput = this.$("#rename-account-in");
@@ -9,19 +12,35 @@ Template['assetsManager'].rendered = function () {
 };
 
 Template['assetsManager'].helpers({
+  isOwnAssets: function(){ return isOwnAssets()},
+  _accounts: function(){
+    if (isOwnAssets()) {
+      var accounts = Meteor.user().accounts
+      _.extend(accounts, Meteor.user().accountsPrivate);
+      return accounts;
+    } else {
+      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
+      if (!user) return {};
+      return user.accounts
+    }
+  },
   currentAccount: function () {
+    if (!isOwnAssets()) return null;
     var current = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
     if (!current || !user || !user.accounts || !user.accounts[current]) return {};
     return user.accounts[current];
   },
   currentAddress: function () {
+    if (!isOwnAssets()) return null;
     return CF.UserAssets.currentAddress.get();
   },
   currentAsset: function () {
+    if (!isOwnAssets()) return null;
     return CF.UserAssets.currentAsset.get();
   },
   currentAmount: function () {
+    if (!isOwnAssets) return '';
     var user = Meteor.user();
     var amount = user.accounts;
     if (!amount) return '';
@@ -49,7 +68,7 @@ Template['assetsManager'].onCreated(function () {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  instance.subscribe('ownAssets');
+  instance.subscribe('profileAssets');
   Tracker.autorun(function () {
     var user = Meteor.user();
     var symbols = user && user.accounts && _.values(user.accounts);
@@ -69,6 +88,7 @@ Template['assetsManager'].onCreated(function () {
 
 Template['assetsManager'].events({
   'click .req-update-balance': function (e, t) {
+    if (!isOwnAssets()) return;
     //var $assetrow = t.$(e.currentTarget).closest("tr");
     //var address = $assetrow.attr("asset-id");
     var $t = t.$(e.currentTarget);
@@ -79,11 +99,13 @@ Template['assetsManager'].events({
       });
   },
   'click .submit-remove-account': function (e, t) {
+    if (!isOwnAssets()) return;
     console.log(CF.UserAssets.currentAccount.get());
     Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccount.get());
     $("#modal-remove-account").closeModal();
   },
   'keyup #rename-account-in, change #rename-account-in': function (e, t) {
+    if (!isOwnAssets()) return;
     var accountId = CF.UserAssets.currentAccount.get();
     var user = Meteor.user();
     if (!user || !user.accounts || !accountId || !user.accounts[accountId]) return;
@@ -102,11 +124,13 @@ Template['assetsManager'].events({
     }
   },
   'click .submit-rename-account': function (e, t) {
+    if (!isOwnAssets()) return;
     var key = CF.UserAssets.currentAccount.get();
     Meteor.call("cfAssetsRenameAccount", CF.UserAssets.currentAccount.get(), t.$renameAccountInput.val());
     $("#modal-rename-account").closeModal();
   },
   'keyup #add-address-input, change #add-address-input': function (e, t) {
+    if (!isOwnAssets()) return;
     var address = t.$addAssetInput.val();
     var accounts = Meteor.user.accounts || {};
     var addresses = _.flatten(_.map(accounts, function (account) {
@@ -121,6 +145,7 @@ Template['assetsManager'].events({
     }
   },
   'click .submit-add-address': function (e, t) { //TAG: assets
+    if (!isOwnAssets()) return;
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val();
     if (CF.UserAssets.uiAddressExists(address)) return;
@@ -130,15 +155,18 @@ Template['assetsManager'].events({
     })
   },
   'click .submit-remove-address': function (e, t) {
+    if (!isOwnAssets()) return;
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccount.get(),
       CF.UserAssets.currentAddress.get());
     $("#modal-delete-address").closeModal();
   },
   'click .per-account': function (e, t) {
+    if (!isOwnAssets()) return;
     var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
     CF.UserAssets.currentAccount.set(accountKey.toString());
   },
   'click .submit-add-asset': function (e, t) {
+    if (!isOwnAssets()) return;
     var $form = $(e.currentTarget).closest("form");
     var $target = $form.find("#asset-quantity-input");
     var key = CF.UserAssets.currentAsset.get();
@@ -167,6 +195,7 @@ Template['assetsManager'].events({
     });
   },
   "autocompleteselect input#search2": function (event, template, doc) {
+    if (!isOwnAssets()) return;
     CF.UserAssets.currentAsset.set(doc ? doc : null)
     template.$("input#search2").val("");
     //Meteor.setTimeout(function () {
@@ -191,6 +220,7 @@ Template['assetsManager'].events({
     }
   },
   'click .submit-edit-asset': function (e, t) {
+    if (!isOwnAssets()) return;
     var $form = $(e.currentTarget).closest("form");
     var $target = $form.find("#asset-quantity-edit");
     var key = CF.UserAssets.currentAsset.get();
@@ -219,6 +249,7 @@ Template['assetsManager'].events({
     });
   },
   'click .submit-delete-asset': function (e, t) {
+    if (!isOwnAssets()) return;
     var sym = CF.UserAssets.currentAsset.get().token;
     if (sym) sym = sym.token_symbol; //todo: provide getter.
     if (!sym) {

@@ -66,9 +66,6 @@ p {
   padding: 0 15px;
 }
 
-footer.page-footer {
-  margin: 0;
-}
 
 #nav-mobile li {
   display: block
@@ -282,4 +279,23 @@ table.hoverable-my tr:hover {
 
 .btn-margin-left {
   margin-left: 12px;
+}
+
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+#contain-all {
+  margin-top: 60px;
+  min-height:100%;
+  position:relative;
+}
+
+footer.page-footer {
+
+  bottom:0;
+
+  width:100%;
 }
