@@ -14,7 +14,7 @@ CF.UserAssets.accNameIsValid = function (newName, oldName) {
   return CF.UserAssets.accountNameIsValid(newName, accounts, oldName);
 };
 
-CF.UserAssets.uiAddressExists = function(address) {
+CF.UserAssets.uiAddressExists = function (address) {
   var accounts = Meteor.user().accounts || {};
   var addresses = _.flatten(_.map(accounts, function (account) {
     return _.map(account.addresses, function (v, k) {
@@ -46,7 +46,7 @@ Template['addAccount'].rendered = function () {
       t.$("#new-account-group").addClass("hidden");
     }
   };
-  this.uiAccountNameExists = function(newName){
+  this.uiAccountNameExists = function (newName) {
     var c = newName && CF.UserAssets.accNameIsValid(newName);
     if (!c) {
       t.$newAccountName.addClass("invalid");
@@ -56,7 +56,7 @@ Template['addAccount'].rendered = function () {
       t.$failLabelAccount.addClass("hidden");
     }
   };
-  this.uiAddressExists = function(address){
+  this.uiAddressExists = function (address) {
     var c = CF.UserAssets.uiAddressExists(address);
     if (c) {
       t.$address.addClass("invalid");
@@ -98,7 +98,7 @@ Template['addAccount'].events({
   'keyup #address-input, change #address-input': function (e, t) {
     t.uiAddressExists(t.$address.val());
   },
-  'click .submit-add-account': function (e, t) {
+  'submit #add-account-form': function (e, t) {
     var isNew = t.$newAccountCheckbox.is(':checked');
     var address = t.$address.val();
     if (!address) {
@@ -119,23 +119,20 @@ Template['addAccount'].events({
         return;
       }
       var isPublic = !t.$publicCheckbox.is(":checked");
-      Meteor.call("cfAssetsAddAccount", {
+      console.log("adding new acount");
+      console.log({
         isPublic: isPublic,
         name: name
-      }, function (err, ret) {
-        console.log (ret);
-        console.log (err);
-        if (!err && !ret.err && ret.newAccountKey) {
-            Meteor.call("cfAssetsAddAddress", ret.newAccountKey, address);
-        } else {
-          console.log(ret);
-        }
-        t.$address.val("");
-        $("#modal-add-account").closeModal();
+      })
+      console.log()
+      Meteor.call("cfAssetsAddAccount", {
+        isPublic: isPublic,
+        name: name,
+        address: address
       });
-    } else
-
-    { // add to existing account
+      t.$address.val("");
+      $("#modal-add-account").closeModal();
+    } else { // add to existing account
       var accountId = t.$selectAccount.val();
       if (!accountId) {
         Materialize.toast("Please select account to add to", 4000);

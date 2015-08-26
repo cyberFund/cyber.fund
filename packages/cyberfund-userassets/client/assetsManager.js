@@ -261,8 +261,5 @@ Template['assetsManager'].events({
         CF.UserAssets.currentAsset.set(null);
         t.$("#modal-delete-asset").closeModal();
       })
-  },
-  'keydown': function(e, t){
-    console.log(e.key);
   }
 });

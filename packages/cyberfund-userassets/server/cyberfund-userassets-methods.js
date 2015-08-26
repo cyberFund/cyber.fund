@@ -110,7 +110,7 @@ Meteor.methods({
   cfAssetsAddAccount: function(obj){
     if (!this.userId) return {err:"no userid"};
     var sel = {_id: this.userId};
-    check (obj, {isPublic: Boolean, name: String});
+    check (obj, Match.ObjectIncluding({isPublic: Boolean, name: String}) );
     var user = Meteor.users.findOne(sel);
     if (!user.accounts) Meteor.users.update(sel, {$set: {accounts: {}}});
 
@@ -122,7 +122,9 @@ Meteor.methods({
       isPublic: obj.isPublic,
       addresses: {}
     };
-    Meteor.users.update(sel, {$set: $set});
+    var r = Meteor.users.update(sel, {$set: $set});
+    console.log(r);
+    if (obj.address) Meteor.call('cfAssetsAddAddress', key, obj.address);
     return {newAccountKey: key};
   },
 
