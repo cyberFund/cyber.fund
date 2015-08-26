@@ -23,7 +23,6 @@ Package.onUse(function(api) {
   api.addFiles(['server/utils-server.js', 'server/assetsCryptoBalance.js',
   'server/cf-social-server.js'], s);
   api.addFiles(['client/utils-client.js', 'client/helpers.js'], c);
-
   api.export("CF");
 });
 

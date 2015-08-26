@@ -53,5 +53,10 @@ CF.Utils.SessionVariable = function(key){
 CF.User.twid = function(){
   var user = Meteor.user();
   if (!user) return '';
-  return user.profile && user.profile.twitterName;
+  return (user.profile && user.profile.twitterName) || '';
+};
+
+CF.User.linkToOwnProfile = function(){
+  var twid = CF.User.twid();
+  return twid ? '/@'+ twid : '/'
 }

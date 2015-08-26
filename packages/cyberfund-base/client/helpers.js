@@ -217,7 +217,7 @@ var helpers = {
   ownTwid: function(){
     var user =  Meteor.user();
     if (!user) return '';
-    return user.profile && user.profile.twitterName;
+    return (user.profile && user.profile.twitterName) || '';
   }
 };
 

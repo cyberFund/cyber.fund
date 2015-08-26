@@ -179,6 +179,10 @@ Template['systemBasic'].helpers({
   usersStarred: function(){
     var uS = this._usersStarred;
     return Meteor.users.find({_id: {$in: uS}});
+  },
+  dailyData: function(){
+    var _id = this._id;
+    return FastData.find({systemId: _id}, {sort: {timestamp: 1}})
   }
 });
 
@@ -209,10 +213,14 @@ Template['systemBasic'].events({
 
 Template['systemBasic'].onCreated(function () {
   var instance = this;
-
   instance.autorun(function () {
     instance.subscribe('dependentCoins', systemName());
+
+
+    instance.subscribe('fastData', systemName());
+
     var data = instance._system;
+
     if (data && data.dependencies) {
       var d = data.dependencies;
       if (!_.isArray(d)) d = [d];

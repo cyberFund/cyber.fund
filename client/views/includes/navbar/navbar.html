@@ -65,7 +65,7 @@
 
     {{else}}
       {{#if not loggingIn}}
-        <a href="/profile">
+        <a href="{{pathFor 'Profile' twid=ownTwid}}">
           {{#if currentUser.profile.name}}
             {{currentUser.profile.name}}
           {{else}}

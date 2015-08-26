@@ -33,6 +33,9 @@ Template['displayAccount'].helpers({
   },
   isOwn: function(){
     return isOwnAssets();
+  },
+  systemData: function(){
+    return CurrentData.findOne({"token.token_symbol": this.value.asset}) || {};
   }
 });
 

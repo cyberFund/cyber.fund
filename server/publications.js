@@ -71,6 +71,13 @@ Meteor.publish('dependentCoins', function(system) {
     }
   })
 });
+Meteor.publish('fastData', function(systemName) {
+  var _id = CurrentData.findOne({system: systemName});
+  if (!_id) return this.ready();
+  _id = _id._id;
+  return FastData.find({systemId: _id});
+})
+
 Meteor.publish('dependencies', function(deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {

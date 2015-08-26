@@ -68,9 +68,9 @@ Template['assetsManager'].onCreated(function () {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  instance.subscribe('profileAssets');
+  instance.subscribe('profileAssets', CF.Profile.currentTwid.get());
   Tracker.autorun(function () {
-    var user = Meteor.user();
+    var user =Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
     var symbols = user && user.accounts && _.values(user.accounts);
     if (symbols) {
       symbols = _.flatten(_.map(symbols, function (account) {

@@ -209,9 +209,12 @@
                 {{#if _selectedGraph 'all' }}
                     {{> fulltimeGraph this}}
                 {{/if}}
+                {{#if _selectedGraph 'day' }}
+                    {{> dailyGraph graphData=dailyData currencyId=_id }}
+                {{/if}}
             </div>
             <div id="charts-ctl" class="row scrollspy center">
-                <a class="btn mock {{selectedGraph 'day'}}" data-span="day">Last
+                <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
                     Day</a>
                 <a class="btn act {{selectedGraph 'week'}}"
                    data-span="week">Last Week</a>

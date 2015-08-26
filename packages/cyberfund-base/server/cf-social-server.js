@@ -3,8 +3,6 @@
 Meteor.methods({
   followUser: function(targetId, options){
     options = options || {};
-  console.log(targetId);
-    console.log(options);
     var  userId = this.userId,
       selTarget = {_id: targetId},
       selOwn = {_id: userId};

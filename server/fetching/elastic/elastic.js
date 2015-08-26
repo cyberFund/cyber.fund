@@ -34,6 +34,25 @@ function _searchSelector(bucketKey) {
   return selector;
 }
 
+JSON.unflatten = function(data) {
+  "use strict";
+  if (Object(data) !== data || Array.isArray(data))
+    return data;
+  var regex = /\.?([^.\[\]]+)|\[(\d+)\]/g,
+    resultholder = {};
+  for (var p in data) {
+    var cur = resultholder,
+      prop = "",
+      m;
+    while (m = regex.exec(p)) {
+      cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
+      prop = m[2] || m[1];
+    }
+    cur[prop] = data[p];
+  }
+  return resultholder[""] || resultholder;
+};
+
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
     logger.error(rejection);
@@ -62,6 +81,13 @@ var esParsers = {
 
       // current
       var mx = _.max(index);
+      var m = moment.utc(mx);
+      var stamp = {
+        day: m.date(),
+        hour: m.hours(),
+        minute: m.minutes()
+      }
+      var timestamp = m._d;
       var current = _.find(bucket.by_time.buckets, function (item) {
         return item.to == mx;
       });
@@ -162,14 +188,25 @@ var esParsers = {
         set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
       }
 
-      if (CurrentData.find(_searchSelector(bucket.key)).count() == 0) {
+      //get corresponding CurrentData _id to fill fastdata collection.
+      var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
+      if (!_id) {
         notFounds.push(bucket.key);
+      } else {
+        _id = _id._id;
       }
 
       if (!_.isEmpty(set)) {
         set.updatedAt = new Date();
         // console.log(set);
         CurrentData.update(_searchSelector(bucket.key), {$set: set});
+        set.systemId = _id;
+        set = JSON.unflatten(set);
+        delete(set.updatedAt);
+
+        set.timestamp = timestamp;
+        set.stamp = stamp;
+        FastData.insert(set)
       }
 
     });
@@ -178,11 +215,6 @@ var esParsers = {
       logger.warn(notFounds.length);
 
     }
-    /*console.log(buckets[0]);
-     console.log(buckets[0].by_time.buckets[0]);
-     console.log(buckets[0].by_time.buckets[1]);
-     console.log(buckets[0].by_time.buckets[0].latest.hits.hits);
-     console.log(buckets[0].by_time.buckets[1].latest.hits.hits);*/
   },
   averages_l15: function (result) {
     if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {
@@ -399,7 +431,7 @@ SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('2/5 * * * *', false);
+    return parser.cron('0/5 * * * *', false);
   },
   job: function () {
     fetchLatest();
