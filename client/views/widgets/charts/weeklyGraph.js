@@ -32,9 +32,13 @@ Template['weeklyGraph'].rendered = function () {
       data.trade.push(self.data.metrics.tradeVolume || null);
     }
 
+
     for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
     }
+    console.log(ticks);
+    console.log(data);
+
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.

@@ -92,7 +92,7 @@ _.extend(CF.Chartist, {
           meta: [ns.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join("|")
         });
     },
-    weekly:{}, monthly: {}, fulltime:{}
+    daily: {}, weekly:{}, monthly: {}, fulltime:{}
   },
   options: {
     axisX: {},
@@ -177,6 +177,31 @@ _.extend(CF.Chartist, {
   }
 });
 
+
+
+_.extend(CF.Chartist.fn.daily, {
+  getData: function (ticks) {
+    var data = ns.fn.dataStencil();
+    _.each(ticks, function (tick) {
+
+      var dta = tick.key.split(".");
+      var format =ns.dateformats.daily;
+      var dte = moment.utc({
+        day: dta[0],
+        hour: dta[1],
+        minute: dta[2]
+      });
+      if (tick.value) {
+        console.log(tick);
+        console.log(dte);
+      }
+      ns.fn.pushTick(tick, data, dte, format);
+    });
+    console.log(data);
+    return data
+  }
+});
+
 _.extend(CF.Chartist.fn.weekly, {
   getData: function (ticks) {
     var data = ns.fn.dataStencil();
@@ -184,7 +209,7 @@ _.extend(CF.Chartist.fn.weekly, {
 
       var dta = tick.key.split(".");
       var format =ns.dateformats.weekly;
-      var dte = moment({
+      var dte = moment.utc({
         year: dta[0],
         month: dta[1],
         day: dta[2],
@@ -204,7 +229,7 @@ _.extend(CF.Chartist.fn.monthly, {
 
       var dta = tick.key.split(".");
       var format = ns.dateformats.monthly;
-      var dte = moment({
+      var dte = moment.utc({
         year: dta[0],
         month: dta[1],
         day: dta[2]
@@ -221,7 +246,7 @@ _.extend (CF.Chartist.fn.fulltime, {
     _.each(ticks, function (tick) {
       var dta = tick.key.split(".");
       var format = (dta[1] == 11) ? ns.dateformats.fulltimeLong: ns.dateformats.fulltime;
-      var dte = moment({
+      var dte = moment.utc({
         year: dta[0],
         month: dta[1],
         day: dta[2]

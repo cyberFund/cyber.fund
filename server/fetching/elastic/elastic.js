@@ -200,13 +200,12 @@ var esParsers = {
         set.updatedAt = new Date();
         // console.log(set);
         CurrentData.update(_searchSelector(bucket.key), {$set: set});
-        set.systemId = _id;
-        set = JSON.unflatten(set);
-        delete(set.updatedAt);
-
-        set.timestamp = timestamp;
-        set.stamp = stamp;
-        FastData.insert(set)
+        var fastMetric = _.pick(sNow, [
+          "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"])
+        fastMetric.systemId = _id;
+        fastMetric.timestamp = timestamp;
+        fastMetric.stamp = stamp;
+        FastData.insert(fastMetric)
       }
 
     });
