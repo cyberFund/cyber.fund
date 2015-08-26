@@ -299,3 +299,22 @@ footer.page-footer {
 
   width:100%;
 }
+#assets-manager .collection {
+  border: 0;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}
+
+#assets-manager .collection .collection-item {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 0
+}
+
+#assets-manager .address-item.collection-item {
+  padding-left: 20px;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0
+}
