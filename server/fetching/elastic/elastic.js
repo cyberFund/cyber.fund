@@ -34,6 +34,25 @@ function _searchSelector(bucketKey) {
   return selector;
 }
 
+JSON.unflatten = function(data) {
+  "use strict";
+  if (Object(data) !== data || Array.isArray(data))
+    return data;
+  var regex = /\.?([^.\[\]]+)|\[(\d+)\]/g,
+    resultholder = {};
+  for (var p in data) {
+    var cur = resultholder,
+      prop = "",
+      m;
+    while (m = regex.exec(p)) {
+      cur = cur[prop] || (cur[prop] = (m[2] ? [] : {}));
+      prop = m[2] || m[1];
+    }
+    cur[prop] = data[p];
+  }
+  return resultholder[""] || resultholder;
+};
+
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
     logger.error(rejection);
@@ -62,6 +81,13 @@ var esParsers = {
 
       // current
       var mx = _.max(index);
+      var m = moment.utc(mx);
+      var stamp = {
+        day: m.date(),
+        hour: m.hours(),
+        minute: m.minutes()
+      }
+      var timestamp = m._d;
       var current = _.find(bucket.by_time.buckets, function (item) {
         return item.to == mx;
       });
@@ -114,7 +140,6 @@ var esParsers = {
 
         set["metrics.supply"] = sNow.supply_current;
         if (sDayAgo.supply_current) {
-
           var supplyDayAgo = sDayAgo.supply_current// || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
             (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
@@ -163,14 +188,24 @@ var esParsers = {
         set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
       }
 
-      if (CurrentData.find(_searchSelector(bucket.key)).count() == 0) {
+      //get corresponding CurrentData _id to fill fastdata collection.
+      var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
+      if (!_id) {
         notFounds.push(bucket.key);
+      } else {
+        _id = _id._id;
       }
 
       if (!_.isEmpty(set)) {
         set.updatedAt = new Date();
         // console.log(set);
         CurrentData.update(_searchSelector(bucket.key), {$set: set});
+        var fastMetric = _.pick(sNow, [
+          "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"])
+        fastMetric.systemId = _id;
+        fastMetric.timestamp = timestamp;
+        fastMetric.stamp = stamp;
+        FastData.insert(fastMetric)
       }
 
     });
@@ -179,11 +214,6 @@ var esParsers = {
       logger.warn(notFounds.length);
 
     }
-    /*console.log(buckets[0]);
-     console.log(buckets[0].by_time.buckets[0]);
-     console.log(buckets[0].by_time.buckets[1]);
-     console.log(buckets[0].by_time.buckets[0].latest.hits.hits);
-     console.log(buckets[0].by_time.buckets[1].latest.hits.hits);*/
   },
   averages_l15: function (result) {
     if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {

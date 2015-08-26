@@ -71,6 +71,13 @@ Meteor.publish('dependentCoins', function(system) {
     }
   })
 });
+Meteor.publish('fastData', function(systemName) {
+  var _id = CurrentData.findOne({system: systemName});
+  if (!_id) return this.ready();
+  _id = _id._id;
+  return FastData.find({systemId: _id});
+})
+
 Meteor.publish('dependencies', function(deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
@@ -132,11 +139,27 @@ Meteor.publish('search-sym', function(selector, options, collname) {
   this.ready();
 });
 */
-Meteor.publish('ownAssets', function() { //TAG: assets
-  if (!this.userId) return [];
-  return Meteor.users.find({_id: this.userId}, {fields: {"assets": 1}});
-});
-
 Meteor.publish("BitcoinPrice", function(){
   return CurrentData.find({system: "Bitcoin"})
+});
+
+Meteor.publish('avatars', function(uidArray){
+  if (!_.isArray(uidArray)) return this.ready();
+  return Meteor.users.find({_id: {$in: uidArray}}, {fields: {
+    'profile.name': 1,
+    'profile.twitterIconUrl': 1,
+    'profile.twitterName': 1
+  }});
+});
+
+Meteor.publish('userProfileByTwid', function(twid){
+  return Meteor.users.find({"profile.twitterName": twid}, {
+    fields: {
+      'profile': 1, accounts: 1, createdAt: 1
+    }
+  });
+});
+
+Meteor.publish('assetsSystems', function(tokens){
+  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields: {system: 1, token: 1, aliases: 1, icon: 1}})
 });

@@ -29,4 +29,10 @@ Meteor.startup(function() {
 		//background: true
 	});
 
+	Meteor.users._ensureIndex({
+		"profile.twitterName": 1
+	}, {unique: 1})
+
+	FastData._ensureIndex({"timestamp": 1}, {expireAfterSeconds: 86400});
+	FastData._ensureIndex({"systemId": 1});
 });
