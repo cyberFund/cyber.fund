@@ -10,7 +10,7 @@ Template['dailyGraph'].rendered = function () {
     current.subtract(current.minutes()%10, "minutes");
 
     var iterate = moment.utc(current).subtract(1, 'days');
-    while (iterate < current) {
+    while (iterate <= current) {
       var s = {
         "stamp.day": iterate.date(),
         "stamp.hour": iterate.hours(),
@@ -21,10 +21,10 @@ Template['dailyGraph'].rendered = function () {
       var tick = {
         key: [s["stamp.day"], s["stamp.hour"], s["stamp.minute"]].join("."),
         value: item || null,
-        needKey: s.minute == current.minutes()
+        needKey: s["stamp.minute"] == 0//current.minutes()
       };
       ticks.push(tick);
-      iterate = iterate.add(10, "minutes");
+      iterate = iterate.add(5, "minutes");
     }
     var data = ns.fn.daily.getData(ticks);
 
@@ -39,9 +39,6 @@ Template['dailyGraph'].rendered = function () {
     for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
     }
-
-    console.log(ticks);
-    console.log(data);
 
     self.$(".ct-chart-cap-btc").css("height", ns.heights.cap);
     new Chartist.Line('.ct-chart-cap-btc', {labels: data.labels, series: [data.capB]}, {

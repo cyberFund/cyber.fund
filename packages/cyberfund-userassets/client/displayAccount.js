@@ -42,7 +42,8 @@ Template['displayAccount'].helpers({
 Template['displayAccount'].events({
   'click .req-remove-account': function (e, t) {
     if (!isOwnAssets()) return;
-    $("#modal-remove-account").openModal();
+    $("#modal-delete-account").openModal();
+    $("button[type=submit]", "#delete-account-form").focus();
   },
   'click .req-rename-account': function (e, t) {
     if (!isOwnAssets()) return;
@@ -55,6 +56,7 @@ Template['displayAccount'].events({
   "click .act-remove-address": function (e, t) {
     if (!isOwnAssets()) return;
     t.$("#modal-delete-address").openModal();
+    $("button[type=submit]", "#delete-address-form").focus();
   },
   'click .submit-remove-address': function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAddress.get(), function (err, ret) {
@@ -75,6 +77,7 @@ Template['displayAccount'].events({
   },
   'click .req-delete-address': function(e, t) {
     $('#modal-delete-address').openModal();
+    $("button[type=submit]", "#delete-address-form").focus()
   },
   'click .req-add-asset-to-address': function(e, t){
     CF.UserAssets.currentAsset.set(null);
@@ -87,7 +90,6 @@ Template['displayAccount'].events({
   },
   'click .req-delete-asset': function(e, t){
     var $item = t.$(e.currentTarget).closest(".asset-item")
-
     CF.UserAssets.currentAsset.set(CurrentData.findOne(
       {"token.token_symbol": $item.attr("asset-key")},
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
@@ -97,8 +99,10 @@ Template['displayAccount'].events({
       $item = $item.closest(".account-item");
       CF.UserAssets.currentAccount.set($item.attr("account-key"));
       $("#modal-delete-asset").openModal();
+      $("button[type=submit]", "#delete-asset-form").focus();
     }
   },
+
   'click .req-edit-asset': function(e,t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
 

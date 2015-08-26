@@ -191,13 +191,8 @@ _.extend(CF.Chartist.fn.daily, {
         hour: dta[1],
         minute: dta[2]
       });
-      if (tick.value) {
-        console.log(tick);
-        console.log(dte);
-      }
       ns.fn.pushTick(tick, data, dte, format);
     });
-    console.log(data);
     return data
   }
 });

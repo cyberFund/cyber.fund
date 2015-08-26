@@ -61,10 +61,10 @@
                                         : {{value.quantity}}
                                         {{#if isOwn}}
                                             {{#if neq value.update 'auto'}}
-                                                <div style="position: absolute; top: 2px; right: 12px;">
-                                                    <a class="btn-floating btn-tiny req-edit-asset yellow"><i
+                                                <div class="secondary-content">
+                                                    <a class="btn-floating btn-tiny req-edit-asset yellow" title="Change quantity" style="vertical-align: middle;"><i
                                                             class="material-icons tiny">edit</i></a>
-                                                    <a class="btn-floating btn-tiny req-delete-asset red"><i
+                                                    <a class="btn-floating btn-tiny req-delete-asset red" title="Delete asset" style="vertical-align: middle;"><i
                                                             class="material-icons tiny">delete</i></a>
                                                 </div>
                                             {{/if}}
