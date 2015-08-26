@@ -36,6 +36,10 @@ Template['displayAccount'].helpers({
   },
   systemData: function(){
     return CurrentData.findOne({"token.token_symbol": this.value.asset}) || {};
+  },
+  name_of_system: function(){
+    var sys = CurrentData.findOne({"token.token_symbol": this.value.asset}) || {};
+    return sys.system || ''
   }
 });
 
@@ -64,7 +68,8 @@ Template['displayAccount'].events({
         CF.UserAssets.currentAddress.set(null);
         t.$("#modal-delete-address").closeModal()
       }
-    })
+    });
+    return false;
   },
   'click .req-add-address': function (e, t) {
     $("#modal-add-address").openModal();

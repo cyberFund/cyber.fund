@@ -5,16 +5,20 @@
             <div class="account-item row" account-key="{{../key}}">
                 <div class="row no-bottom-margin">
                     {{#if isOwn}}
-                        <div class="right" style="margin-right: 10px;">
-                            <a class="req-rename-account btn-floating btn-tiny yellow"><i class="material-icons tiny">edit</i></a>
-                            <a class="red-text req-remove-account btn-floating btn-tiny red"><i class="material-icons tiny">delete</i></a>
+                        <div class="right hoverie" style="margin-right: 10px;">
+                            <a class="req-rename-account btn-floating btn-tiny yellow"><i
+                                    class="material-icons tiny">edit</i></a>
+                            <a class="red-text req-remove-account btn-floating btn-tiny red"><i
+                                    class="material-icons tiny">delete</i></a>
                             <a class="req-toggle-private mock-soon grey {{disabledTogglePrivate}} btn-floating btn-tiny">
-                                <i class="material-icons tiny">{{#if isPublic}}public{{else}}vpn_lock{{/if}}</i></a>
+                                <i class="material-icons tiny">{{#if isPublic}}
+                                    public{{else}}vpn_lock{{/if}}</i></a>
                         </div>
                     {{/if}}
                     <h4 style="margin-left: 12px">{{name}}
                         {{#if isOwn}}
-                            <span style="font-size: 60%; padding: 2px 4px; margin-bottom: 2px; border-radius: 6px" class="teal white-text">
+                            <span style="font-size: 60%; padding: 2px 4px; margin-bottom: 2px; border-radius: 6px"
+                                  class="teal white-text">
                                 {{publicity}}
                             </span>
                         {{/if}}
@@ -29,9 +33,12 @@
                             address-id="{{key}}" style="margin-left: 0">
                             <div style="margin-bottom: 18px">
                                 <div class="enlarge"
-                                     style="margin-left: 0px;">{{key}}</div>
+                                     style="margin-left: 0px;">{{key}}
+                                    <span style="font-size: 40%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
+                                          class="teal white-text">unverified</span>
+                                </div>
                                 {{#if isOwn}}
-                                    <div style="position: absolute; top: 10px; right: 0px;">
+                                    <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
                                         {{#if autoUpdateAvailable key}}
                                             <a class="btn-floating btn-tiny blue per-address req-update-balance btn-margin-left">
                                                 <i class="material-icons small">loop</i>
@@ -51,13 +58,17 @@
                                 {{#each keyValue value.assets}}
                                     <li class="collection-item asset-item"
                                         asset-key="{{key}}">
-                                        {{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
-                                        {{key}}
-                                        : {{value.quantity}}
+                                        <a href="{{pathFor 'System' name_=name_of_system}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                        {{displaySystemName systemData}}</a>
+                                        : {{value.quantity}} {{displayCurrencyName systemData}}s
                                         {{#if isOwn}}
-                                            {{#if neq value.update 'auto'}}
-                                                <div class="secondary-content"
-                                                     style="margin-right: 12px;">
+                                            <div class="secondary-content hoverie"
+                                                 style="margin-right: 12px;">
+                                                {{#if eq value.update 'auto'}}
+                                                    <span style="font-size: 60%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
+                                                          class="teal white-text">
+                                                autoupdate</span>
+                                                {{else}}
                                                     <a class="btn-floating btn-tiny req-edit-asset yellow"
                                                        title="Change quantity"
                                                        style="vertical-align: middle;"><i
@@ -66,8 +77,8 @@
                                                        title="Delete asset"
                                                        style="vertical-align: middle;"><i
                                                             class="material-icons tiny">delete</i></a>
-                                                </div>
-                                            {{/if}}
+                                                {{/if}}
+                                            </div>
                                         {{/if}}
                                     </li>
                                 {{/each}}

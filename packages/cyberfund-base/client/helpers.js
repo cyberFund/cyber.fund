@@ -206,11 +206,9 @@ var helpers = {
   },
   displayCurrencyName: function (system) {
     var ret;
-
     if (system.aliases) {
       ret = system.aliases.CurrencyName;
     }
-
     if (!ret) ret = system.system;
     return ret;
   },

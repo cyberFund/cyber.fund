@@ -318,3 +318,17 @@ footer.page-footer {
 .no-bottom-margin {
   margin-bottom: 0
 }
+
+.hoverie {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s linear;
+  transiotion-delay: 0.1s
+}
+
+.account-item:hover > div > .hoverie,
+.collection-item.address-item:hover > div > .hoverie,
+.collection-item.asset-item:hover > .hoverie {
+  visibility: visible;
+  opacity: 1;
+}
