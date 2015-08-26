@@ -2,11 +2,18 @@
 <template name="displayAccount">
     <div class="card ">
         {{#with value}}
-            <div class="account-item" account-key="{{../key}}">
-                <h4 class="center">{{name}}</h4>
-                {{#if isOwn}}
-                    <h6 class="grey-text center">({{publicity}})</h6>
-                {{/if}}
+            <div class="account-item row" account-key="{{../key}}">
+                <div class="row left-align">
+                  <h4>{{name}}
+                    {{#if isOwn}}
+                      <span class="grey-text">
+                        {{publicity}}
+                      </span>
+                    {{/if}}
+                  </h4>
+
+                </div>
+
                 <!-- add adress button div style="position: absolute; top: 0; right: 0px">
                     <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
                 </div  -->

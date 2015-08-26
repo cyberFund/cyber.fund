@@ -5,11 +5,8 @@
             <div class="row">
                 {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
             </div>
-            <h3>Follow up releases in Twitter</h3>
-            <br>
 
             {{#if ownProfile}}
-                {{> followUsOnTwitter}}
             <div>
                 You follow {{or user.profile.followingUsers.length 0}} people
             </div>
