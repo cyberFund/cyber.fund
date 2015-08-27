@@ -7,7 +7,13 @@
                     {{> hitryImage style="vertical-align: middle; margin-top: 12px; width: 100px" img_url=biggerTwitterImg}}
                 </div>
                 <div>
-                    <strong class="enlarge">{{user.profile.name}}</strong>
+                    <strong class="enlarge">{{profile.name}}</strong>
+                </div>
+                <div class="grey-text">
+                    <a class="grey-text"
+                       href="https://twitter.com/@{{profile.twitterName}}">@{{profile.twitterName}}</a>
+
+                    <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
                 </div>
                 <div>
                     <strong>Starred</strong>
@@ -48,7 +54,12 @@
             {{/if}}
         </div>
         <div class="col l9 m12 s12">
-            {{> assetsManager }}
+            {{#if showAccountsAdvertise}}
+                <div class="enlarge green" style="">trololo
+                </div>
+            {{else}}
+                {{> assetsManager }}
+            {{/if}}
         </div>
 
         {{#if currentUser}}

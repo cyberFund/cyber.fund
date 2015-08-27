@@ -55,6 +55,14 @@ Template['profile'].helpers({
   biggerTwitterImg: function () {
     return this.profile && this.profile.twitterIconUrl
       && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrl) || ''
+  },
+  showAccountsAdvertise: function () {
+    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
+      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
+      return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
+    }
+    return false;
+
   }
 });
 

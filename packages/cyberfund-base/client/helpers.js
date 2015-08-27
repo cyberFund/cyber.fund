@@ -220,6 +220,9 @@ var helpers = {
   biggerTwitterImg: function(url){
     if (!url) return '';
     return url.replace('_normal', '_bigger');
+  },
+  dateFormat: function(date, format){
+    return moment(date).format(format);
   }
 
 };
