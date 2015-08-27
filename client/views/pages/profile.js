@@ -11,7 +11,6 @@ Template['profile'].rendered = function () {
       self.subscribe('profilesSystems', systems);
     }
   });
-  this.next();
 };
 
 Template['profile'].onCreated(function () {
