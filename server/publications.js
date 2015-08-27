@@ -161,5 +161,11 @@ Meteor.publish('userProfileByTwid', function(twid){
 });
 
 Meteor.publish('assetsSystems', function(tokens){
-  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields: {system: 1, token: 1, aliases: 1, icon: 1}})
+  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields:
+  {system: 1, token: 1, aliases: 1, icon: 1}})
+});
+
+Meteor.publish('profilesSystems', function(tokens){
+  return CurrentData.find(CF.CurrentData.selectors.system(tokens), {fields:
+  {system: 1, token: 1, aliases: 1, icon: 1}}) //todo: fieldsets => resp. packages
 });

@@ -1,0 +1,9 @@
+<!--
+-->
+<template name="systemsList1">
+    {{#each data}}
+        <a href="{{pathFor 'System' name_=name_}}" title="{{system}}">
+            {{> cgSystemLogo data=this style=../style class=../class}}
+        </a>
+    {{/each}}
+</template>

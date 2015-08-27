@@ -8,9 +8,9 @@ CF.CurrentData = {
       }
     },
     system: function (name) {
-      return {
-        system: name
-      }
+      if (_.isArray(name))
+        return {system: {$in: name}}
+      return {system: name}
     },
     symbol: function (symbol) {
       if (_.isArray(symbol))
