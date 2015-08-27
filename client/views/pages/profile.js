@@ -37,10 +37,8 @@ Template['profile'].helpers({
     return this.profile && this.profile.followingUsers && this.profile.followingUsers.length || 0
   },
   'starred': function () {
-    var ret = this.profile && this.profile.starredSystems &&
+    return this.profile && this.profile.starredSystems &&
       CurrentData.find(CF.CurrentData.selectors.system(this.profile.starredSystems)) || []
-    console.log( ret.fetch());
-    return ret;
   },
   'followingUsers': function () {
     return this.profile && this.profile.followingUsers &&
