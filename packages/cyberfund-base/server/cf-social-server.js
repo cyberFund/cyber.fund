@@ -18,6 +18,7 @@ Meteor.methods({
 })
 
 Meteor.publish("friendlyUsers", function(userId){
+  if (!userId) return this.ready();
   var user = Meteor.users.findOne({_id: userId});
   if (!user) {
     console.log("no user by id: " +userId+ ".");

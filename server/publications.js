@@ -166,6 +166,7 @@ Meteor.publish('assetsSystems', function(tokens){
 });
 
 Meteor.publish('profilesSystems', function(tokens){
+  if (!tokens) return this.ready();
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {fields:
   {system: 1, token: 1, aliases: 1, icon: 1}}) //todo: fieldsets => resp. packages
 });
