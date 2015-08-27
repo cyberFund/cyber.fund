@@ -7,12 +7,13 @@ Template['profile'].rendered = function () {
 Template['profile'].onCreated(function () {
   var instance = this;
   Tracker.autorun(function () {
+    console.log(CF.Profile.currentUid.get());
     instance.subscribe('friendlyUsers', CF.Profile.currentUid.get());
 
     var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
     var systems = user && user.profile && user.profile.starredSystems;
     if (systems && systems.length) {
-      Meteor.subscribe('profilesSystems', systems);
+      instance.subscribe('profilesSystems', systems);
     }
   });
 })
