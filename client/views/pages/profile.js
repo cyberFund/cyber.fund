@@ -4,31 +4,46 @@ Template['profile'].rendered = function () {
   
 };
 
+Template['assetsManager'].onCreated(function () {
+  var instance = this;
+
+  instance.subscribe('friendlyUsers', CF.Profile.currentUid.get());
+})
+
 Template['profile'].helpers({
   'userRegistracionCount': function () {
     return Session.get("userRegistracionCount")
   },
   'ownProfile': function(){
     if (!Meteor.userId()) return false;
-    return (CF.Profile.currentTwid.get() == CF.User.twid());
+    return (CF.Profile.currentTwid.get() == CF.User.twid()); //todo: get rid of twid, use user._id instead
   },
   user: function(){
-    return Meteor.users.findOneByTwid(CF.Profile.currentTwid.get())
+    return Meteor.users.findOne({_id: CF.Profile.currentUid.get()})
   },
   'following': function(){
     var user = Meteor.user();
-
-    return  user && user.profile && user.profile.followingUsers &&
-      _.contains(Meteor.user().profile.followingUsers, CF.Profile.currentUid.get());
+    return  user.profile && user.profile.followingUsers &&
+      _.contains(user.profile.followingUsers, CF.Profile.currentUid.get());
   },
   'followingCount': function(){
-    var user = Meteor.users.findOne(CF.Profile.currentUid.get());
-    return user && user.profile && user.profile.followingUsers && user.profile.followingUsers.length || 0
-
+    return this.profile && this.profile.followingUsers && this.profile.followingUsers.length || 0
+  },
+  'followingUsers': function(){
+return this.profile && this.profile.followingUsers &&
+  Meteor.users.find({_id: {$in: this.profile.followingUsers}}) || []
+  },
+  'followedByUsers': function(){
+return this.profile && this.profile.followedBy &&
+  Meteor.users.find({_id: {$in: this.profile.followedBy}}) || []
   },
   'followedByCount': function(){
-    var user = Meteor.users.findOne(CF.Profile.currentUid.get());
-    return user && user.profile && user.profile.followedBy && user.profile.followedBy.length || 0
+    return this.profile && this.profile.followedBy && this.profile.followedBy.length || 0
+  },
+
+  biggerTwitterImg: function(){
+    return this.profile && this.profile.twitterIconUrl
+      && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrl) || ''
   }
 });
 

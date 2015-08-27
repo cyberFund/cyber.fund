@@ -70,11 +70,8 @@
             {{#if _usersStarred}}
                 <div id="users-starred" class="valign-wrapper">
                     <span class="valign">Starred by </span>
-                    <span class="valign">{{#each usersStarred}}
-                        <a href="{{pathFor 'Profile' twid=profile.twitterName}}">
-                            {{>hitryImage img_url=profile.twitterIconUrl style="margin: 6px 3px; width=40px; height=40px;"}}
-                        </a>
-                    {{/each}}
+                    <span class="valign">
+                        {{>usersList1 data=usersStarred style="margin: 6px 3px; width=40px; height=40px;"}}
                     </span>
                 </div>
             {{/if}}

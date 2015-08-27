@@ -16,3 +16,18 @@ Meteor.methods({
     }
   }
 })
+
+Meteor.publish("friendlyUsers", function(userId){
+  var user = Meteor.users.findOne({_id: userId});
+  if (!user) {
+    console.log("no user by id: " +userId+ ".");
+    return this.ready();
+  }
+  if (!user.profile) return this.ready;
+  var uids = _.union(user.profile["followedBy"] || [], user.profile["followingUsers"] || [])
+  return Meteor.users.find({_id: {$in: uids}}, {fields: {
+    "profile.name": 1,
+    "profile.twitterName": 1,
+    "profile.twitterIconUrl": 1
+  }})
+})

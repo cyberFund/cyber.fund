@@ -1,26 +1,27 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
-    <div class="row">
-        <div class="col s12 m12 l3 center">
-            <div class="row">
-                {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
-            </div>
-
-            {{#if ownProfile}}
-            <div>
-                You follow {{or user.profile.followingUsers.length 0}} people
-            </div>
+    <div class="row" style="margin-top: 12px">
+        <div class="col s12 m12 l3">
+            {{#with user}}
                 <div>
-                    {{followedByCount}} people follow you
-                </div>
-            {{else}}
-                <div>
-                Follows {{followingCount}} people
+                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; width: 100px" img_url=biggerTwitterImg}}
                 </div>
                 <div>
-                    Is followed by {{followedByCount}} people
+                    <strong class="enlarge">{{user.profile.name}}</strong>
                 </div>
-            {{/if}}
+                <div>
+                    <strong>Followers</strong>
+                </div>
+                <div>
+                    {{> usersList1 data=followedByUsers style="margin: 0 3px 6px"}}
+                </div>
+                <div>
+                    <strong>Following</strong>
+                </div>
+                <div>
+                    {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
+                </div>
+            {{/with}}
             {{#if ownProfile}}
                 {{#if userRegistracionCount}}
                     <div>
@@ -39,7 +40,6 @@
                     {{/if}}
                 {{/if}}
             {{/if}}
-
         </div>
         <div class="col l9 m12 s12">
             {{> assetsManager }}

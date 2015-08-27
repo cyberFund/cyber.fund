@@ -216,7 +216,12 @@ var helpers = {
     var user =  Meteor.user();
     if (!user) return '';
     return (user.profile && user.profile.twitterName) || '';
+  },
+  biggerTwitterImg: function(url){
+    if (!url) return '';
+    return url.replace('_normal', '_bigger');
   }
+
 };
 
 _.each(helpers, function (helper, key) {
