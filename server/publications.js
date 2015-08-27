@@ -165,8 +165,9 @@ Meteor.publish('assetsSystems', function(tokens){
   {system: 1, token: 1, aliases: 1, icon: 1}})
 });
 
-Meteor.publish('profilesSystems', function(tokens){
-  if (!tokens) tokens = [];
+Meteor.publish('profilesSystems', function(userId){
+  var user = Meteor.users.findOne({_id: userId});
+  var tokens = user && user.profile && user.profile.starredSystems || [];
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {fields:
   {system: 1, token: 1, aliases: 1, icon: 1}}) //todo: fieldsets => resp. packages
 });

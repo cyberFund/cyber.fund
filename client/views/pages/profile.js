@@ -2,15 +2,8 @@ CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
 CF.Profile.currentUid = new CF.Utils.SessionVariable('cfAssetsCurrentUid');
 
 Template['profile'].rendered = function () {
-  var self = this;
-  Tracker.autorun(function () {
-    self.subscribe('friendlyUsers', CF.Profile.currentUid.get());
-    var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
-    var systems = user && user.profile && user.profile.starredSystems;
-    if (systems && systems.length) {
-      self.subscribe('profilesSystems', systems);
-    }
-  });
+  this.subscribe('friendlyUsers', CF.Profile.currentUid.get());
+  this.subscribe('profilesSystems', CF.Profile.currentUid.get());
 };
 
 Template['profile'].onCreated(function () {
