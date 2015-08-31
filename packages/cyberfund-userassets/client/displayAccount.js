@@ -24,7 +24,7 @@ Template['displayAccount'].helpers({
     return 'disabled';
   },
   'publicity': function () {
-    return this.isPublic ? 'public' : 'private'
+    return this.isPublic ? 'Public Account' : 'Private Account'
   },
   autoUpdateAvailable: function(address){
     if (!isOwnAssets()) return false;
