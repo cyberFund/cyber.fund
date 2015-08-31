@@ -4,10 +4,10 @@
         <div class="col s12 m12 l3">
             {{#with user}}
                 <div>
-                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; width: 100px" img_url=biggerTwitterImg}}
+                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; width: 280px" img_url=biggerTwitterImg}}
                 </div>
                 <div>
-                    <strong class="enlarge">{{profile.name}}</strong>
+                    <h4>{{profile.name}}</h4>
                 </div>
                 <div class="grey-text">
                     <a class="grey-text"
@@ -16,19 +16,19 @@
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
                 </div>
                 <div>
-                    <strong>Starred</strong>
+                    <h5>Starred</h5>
                 </div>
                 <div>
                     {{> systemsList1 data=starred style="width: 40px; height: 40px; margin: 0 3px 6px"}}
                 </div>
                 <div>
-                    <strong>Followers</strong>
+                    <h5>Followers</h5>
                 </div>
                 <div>
                     {{> usersList1 data=followedByUsers style="margin: 0 3px 6px"}}
                 </div>
                 <div>
-                    <strong>Following</strong>
+                    <h5>Following</h5>
                 </div>
                 <div>
                     {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
@@ -37,16 +37,17 @@
             {{#if ownProfile}}
                 {{#if userRegistracionCount}}
                     <div>
-                        you are user #{{userRegistracionCount}}
+                      <br>
+                        You are user #{{userRegistracionCount}}
                     </div>
                     {{#if lte userRegistracionCount 100}}
                         <div>
-                            we have classified you as group A user
+                            We have classified you as group A user
                         </div>
                     {{else}}
                         {{#if lte userRegistracionCount 400}}
                             <div>
-                                we have classified you as group B user
+                                We have classified you as group B user
                             </div>
                         {{/if}}
                     {{/if}}
