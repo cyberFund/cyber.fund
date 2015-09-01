@@ -34,11 +34,11 @@ CF.UserAssets.getSymbolsFromAccountsObject = function(assetsObject) {
     }));
   } else return [];
   if (symbols) {
-    symbols = _.flatten(_.map(symbols, function (address) {
-      return _.uniq(_.keys(address.assets))
-    }));
+    symbols = _.uniq(_.flatten(_.map(symbols, function (address) {
+      return (_.keys(address.assets))
+    })));
   } else return [];
-  return symbols;
+  return _.uniq(symbols);
 }
 
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
@@ -54,11 +54,8 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   } else return sum;
 
   _.each(rets, function(assetsObject){
-    console.log(assetsObject)
     assetsObject = assetsObject.assets;
-    console.log(assetsObject)
     if (assetsObject[key]) {
-      console.log(assetsObject[key])
       if (assetsObject[key].asset == key/*why we need this check?*/ && assetsObject[key].quantity) sum+= assetsObject[key].quantity
     }
   });

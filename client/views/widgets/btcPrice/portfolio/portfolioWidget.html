@@ -9,13 +9,17 @@
                 <table>
                     <thead>
                     <th>symbol</th>
-                    <th>sum balance</th>
+                    <th>q</th>
+                    <th>cost in btc</th>
+                    <th>cost in usd</th>
                     </thead>
                     <tbody>
                     {{#each pSystems}}
                         <tr>
                             <td>{{#if token}}{{token.token_symbol}}{{/if}}</td>
                             <td>{{quantity this}}</td>
+                            <td>{{btcCost this}}</td>
+                            <td>{{usdCost this}}</td>
                         </tr>
                         {{! > portTableRow this}}
                     {{/each}}

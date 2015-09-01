@@ -1,4 +1,5 @@
 Template['portfolioPage'].rendered = function () {
+
 };
 
 Template['portfolioPage'].helpers({
