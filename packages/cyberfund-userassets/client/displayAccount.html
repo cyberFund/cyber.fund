@@ -15,10 +15,10 @@
                                     public{{else}}vpn_lock{{/if}}</i></a>
                         </div>
                     {{/if}}
-                    <h4 style="margin-left: 12px">{{name}}
+                    <h4 style="margin-left: 20px">{{name}}
                         {{#if isOwn}}
-                            <span style="font-size: 60%; padding: 2px 4px; margin-bottom: 2px; border-radius: 6px"
-                                  class="teal white-text">
+                            <span style="font-size: 40%; padding: 2px 4px; margin-bottom: 2px; border-radius: 4px"
+                                  class="green white-text">
                                 {{publicity}}
                             </span>
                         {{/if}}
@@ -32,10 +32,10 @@
                         <li class="address-item collection-item"
                             address-id="{{key}}" style="margin-left: 0">
                             <div style="margin-bottom: 18px">
-                                <div class="enlarge"
+                                <div
                                      style="margin-left: 0px;">{{key}}
-                                    <span style="font-size: 40%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
-                                          class="teal white-text">unverified</span>
+                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
+                                          class="red white-text">Unverified Address</span>
                                 </div>
                                 {{#if isOwn}}
                                     <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
@@ -65,9 +65,9 @@
                                             <div class="secondary-content hoverie"
                                                  style="margin-right: 12px;">
                                                 {{#if eq value.update 'auto'}}
-                                                    <span style="font-size: 60%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
-                                                          class="teal white-text">
-                                                autoupdate</span>
+                                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
+                                                          class="amber white-text">
+                                                Autoupdate</span>
                                                 {{else}}
                                                     <a class="btn-floating btn-tiny req-edit-asset yellow"
                                                        title="Change quantity"
