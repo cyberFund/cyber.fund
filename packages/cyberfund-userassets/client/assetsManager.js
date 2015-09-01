@@ -73,17 +73,9 @@ Template['assetsManager'].onCreated(function () {
   instance.subscribe('profileAssets', CF.Profile.currentTwid.get());
   Tracker.autorun(function () {
     var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
-    var symbols = user && user.accounts && _.values(user.accounts);
-    if (symbols) {
-      symbols = _.flatten(_.map(symbols, function (account) {
-        return _.values(account.addresses)
-      }));
-    }
-    if (symbols) {
-      symbols = _.flatten(_.map(symbols, function (address) {
-        return _.keys(address.assets)
-      }));
-    }
+    var symbols = user && user.accounts
+      && CF.UserAssets.getSymbolsFromAccountsObject(user.accounts);
+
     Meteor.subscribe('assetsSystems', symbols);
   });
 });

@@ -1,0 +1,27 @@
+<!-- originally created for cyber.fund project-->
+<template name="portfolioWidget">
+    {{#if currentUser}}
+        <div class="row">
+            <div class="col sm-3 md-3 lg-3">
+                {{> folioChart}}
+            </div>
+            <div class="col sm-9 md-9 lg-9">
+                <table>
+                    <thead>
+                    <th>symbol</th>
+                    <th>sum balance</th>
+                    </thead>
+                    <tbody>
+                    {{#each pSystems}}
+                        <tr>
+                            <td>{{#if token}}{{token.token_symbol}}{{/if}}</td>
+                            <td>{{quantity this}}</td>
+                        </tr>
+                        {{! > portTableRow this}}
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {{/if}}
+</template>

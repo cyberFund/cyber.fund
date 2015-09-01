@@ -122,8 +122,10 @@ var esParsers = {
       // try using existing supply value if none here
       if (!sNow.supply_current) {
         var cd = CurrentData.findOne(_searchSelector(bucket.key));
-        sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
-        if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
+        if (cd) {
+          sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
+          if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
+        }
       }
 
       if (sNow.supply_current) {
@@ -211,7 +213,7 @@ var esParsers = {
     });
     if (notFounds.length) {
       logger.warn("not found any currentData for ");
-      logger.warn(notFounds.length);
+      logger.warn(notFounds);
 
     }
   },
@@ -228,7 +230,13 @@ var esParsers = {
       if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
       if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
       if (!_.isEmpty(set)) {
-        CurrentData.update(_searchSelector(bucket.key), {$set: set});
+        try {
+          CurrentData.update(_searchSelector(bucket.key), {$set: set});
+        } catch(e){
+          console.log(e);
+          console.log(_searchSelector(bucket.key))
+          console.log(set)
+        }
       } else {
         // logger.info("no averages for " + bucket.key);
       }
@@ -430,7 +438,7 @@ SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('0/5 * * * *', false);
+    return parser.cron('2/5 * * * *', false);
   },
   job: function () {
     fetchLatest();
