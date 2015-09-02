@@ -21,8 +21,8 @@ Template['portfolioWidget'].rendered = function () {
 // sort portfolio items by their cost, from higher to lower.
 // return -1 if x > y; return 1 if y > x
 var sortFunction = function (x, y) {
-  if (!x.token || !x.token.token_symbol) return 1;
-  if (!y.token || !y.token.token_symbol) return -1;
+  if (!x.token || !x.token.token_symbol || !x.metrics || !x.metrics.price) return 1;
+  if (!y.token || !y.token.token_symbol || !y.metrics || !y.metrics.price) return -1;
 
   var p1 =
     CF.UserAssets.getQuantitiesFromAccountsObject(
