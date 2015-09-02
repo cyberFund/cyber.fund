@@ -58,8 +58,10 @@ Template['folioChart'].rendered = function () {
       series: ticks
     }, {
       donut: true,
-      donutWidth: 90,
-      startAngle: 15,
+      donutWidth: 100,
+      startAngle: 0,
+      labelOffset: 100,
+      labelDirection: 'explode',
       //total: 200,
       //showLabel: true,
       plugins: [
