@@ -37,3 +37,8 @@
 .ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
   stroke-width: 4px;
 }
+
+.folio-pie .ct-label {
+  stroke: white;
+  stroke-width: 0.8px;
+}
