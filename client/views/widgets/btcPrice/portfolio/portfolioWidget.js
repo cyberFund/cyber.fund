@@ -31,11 +31,10 @@ CF.UserAssets.folioSortFunction = function (x, y) {
     if (!system.token.token_symbol) return '';
     return system.token.token_symbol
   }
-
   var accounts = CF.UserAssets.getAccountsObject();
-
-  return Math.sign(CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(y)) * getPrice(y)
-    > CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(x)) * getPrice(x));
+  var q1 = CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(x));
+  var q2 = CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(y));
+  return Math.sign( q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
 }
 
 Template['portfolioWidget'].helpers({
