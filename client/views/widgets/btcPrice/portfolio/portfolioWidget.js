@@ -68,7 +68,7 @@ Template['portfolioWidget'].helpers({
     if (!system.token || !system.token.token_symbol) return "no token for that system";
 
 
-    if (system.metrics && (!system.metrics.price || !system.metrics.price.btc)) return "no btc price found..";
+    if (!system.metrics  || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(4);
   }
@@ -76,7 +76,7 @@ Template['portfolioWidget'].helpers({
   usdCost: function (system) {
     if (!system.token || !system.token.token_symbol) return "no token for that system";
 
-    if (system.metrics && (!system.metrics.price || !system.metrics.price.usd)) return "no usd price found..";
+    if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.usd ).toFixed(2);
   }
