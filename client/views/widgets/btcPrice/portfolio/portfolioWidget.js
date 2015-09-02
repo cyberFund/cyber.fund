@@ -21,6 +21,16 @@ Template['portfolioWidget'].rendered = function () {
 // sort portfolio items by their cost, from higher to lower.
 // return -1 if x > y; return 1 if y > x
 CF.UserAssets.folioSortFunction = function (x, y) {
+  if (x.token && x.token.token_symbol
+    && y.token && y.token.symbol
+    && x.metrics && x.metrics.price
+    && y.metrics && y.metrics.price) {
+    return  Math.sign(CF.UserAssets.getQuantitiesFromAccountsObject(
+        CF.UserAssets.getAccountsObject(), y.token.token_symbol)* y.metrics.price.btc
+      > CF.UserAssets.getQuantitiesFromAccountsObject(
+        CF.UserAssets.getAccountsObject(), x.token.token_symbol)* x.metrics.price.btc);
+  }
+
   if ((!x.token) || (!x.token.token_symbol)) return 1;
   if ((!y.token) || (!y.token.token_symbol)) return -1;
 
@@ -35,11 +45,7 @@ CF.UserAssets.folioSortFunction = function (x, y) {
 
   if ((!x.metrics) || (!x.metrics.price)) return 1;
   if ((!y.metrics) || (!y.metrics.price)) return -1;
-
-  var p1 = q1 * x.metrics.price.btc;
-  var p2 = q2 * y.metrics.price.btc;
-
-  return Math.sign(p2 > p1);
+  return 0;
 }
 
 Template['portfolioWidget'].helpers({
