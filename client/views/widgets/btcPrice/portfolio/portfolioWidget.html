@@ -2,24 +2,38 @@
 <template name="portfolioWidget">
     {{#if currentUser}}
         <div class="row">
-            <div class="col sm-12 md-6 lg-6">
-                {{> folioChart}}
-            </div>
-            <div class="col sm-12 md-6 lg-6">
+          <div class="col sm-12 md-6 lg-6">
+              <h1>Ƀ 1000 </h1>
+              <h2>$ 100 000</h2>
+          </div>
+          <div class="col sm-12 md-6 lg-6">
+              {{> folioChart}}
+          </div>
+        </div>
+        <div class="row">
+            <div class="col sm-12 md-12 lg-12">
                 <table>
                     <thead>
-                    <th>symbol</th>
-                    <th>q</th>
-                    <th>cost in btc</th>
-                    <th>cost in usd</th>
+                    <th>System</th>
+                    <th>Amount</th>
+                    <th>Equity</th>
+                    <th>Portfolio Share</th>
+                    <th>Value in BTC</th>
+                    <th>Value in USD</th>
+                    <th>USD Price</th>
+                    <th>USD Cap</th>
                     </thead>
                     <tbody>
                     {{#each pSystems}}
                         <tr>
                             <td>{{#if token}}{{token.token_symbol}}{{/if}}</td>
                             <td>{{quantity this}}</td>
+                            <td></td>
+                            <td></td>
                             <td>{{btcCost this}}</td>
                             <td>{{usdCost this}}</td>
+                            <td></td>
+                            <td></td>
                         </tr>
                         {{! > portTableRow this}}
                     {{/each}}
