@@ -47,6 +47,9 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   if (!accountsObject) {
     return sum;
   }
+  if (!key) {
+    return sum;
+  }
   var rets =  _.values(accountsObject);
   if (rets) {
     rets = _.flatten(_.map(rets, function (account) {

@@ -1,6 +1,5 @@
-
 // this only works for current user.
-CF.UserAssets.getAccountsObject = function() {
+CF.UserAssets.getAccountsObject = function () {
   var user = Meteor.user(),
     options = Session.get("portfolioOptions");//todo: factor out
   if (!user) return {};
@@ -21,31 +20,22 @@ Template['portfolioWidget'].rendered = function () {
 // sort portfolio items by their cost, from higher to lower.
 // return -1 if x > y; return 1 if y > x
 CF.UserAssets.folioSortFunction = function (x, y) {
-  if (x.token && x.token.token_symbol
-    && y.token && y.token.symbol
-    && x.metrics && x.metrics.price
-    && y.metrics && y.metrics.price) {
-    return  Math.sign(CF.UserAssets.getQuantitiesFromAccountsObject(
-        CF.UserAssets.getAccountsObject(), y.token.token_symbol)* y.metrics.price.btc
-      > CF.UserAssets.getQuantitiesFromAccountsObject(
-        CF.UserAssets.getAccountsObject(), x.token.token_symbol)* x.metrics.price.btc);
+  var getPrice = function(system) {
+    if (!system.metrics) return 0;
+    if (!system.metrics.price) return 0;
+    if (!system.metrics.price.btc) return 0;
+    return system.metrics.price.btc;
+  }
+  var getToken = function(system){
+    if (!system.token) return '';
+    if (!system.token.token_symbol) return '';
+    return system.token.token_symbol
   }
 
-  if ((!x.token) || (!x.token.token_symbol)) return 1;
-  if ((!y.token) || (!y.token.token_symbol)) return -1;
+  var accounts = CF.UserAssets.getAccountsObject();
 
-  var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(
-    CF.UserAssets.getAccountsObject(), x.token.token_symbol);
-
-  var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(
-    CF.UserAssets.getAccountsObject(), y.token.token_symbol);
-
-  if ((!q1) && q2) return 1;
-  if ((!q2) && q1) return -1;
-
-  if ((!x.metrics) || (!x.metrics.price)) return 1;
-  if ((!y.metrics) || (!y.metrics.price)) return -1;
-  return 0;
+  return Math.sign(CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(y)) * getPrice(y)
+    > CF.UserAssets.getQuantitiesFromAccountsObject( accounts, getToken(x)) * getPrice(x));
 }
 
 Template['portfolioWidget'].helpers({
@@ -53,7 +43,7 @@ Template['portfolioWidget'].helpers({
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
       symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
-    var  r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
+    var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
     return r.fetch().sort(CF.UserAssets.folioSortFunction);
   },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
@@ -83,7 +73,7 @@ Template['portfolioWidget'].helpers({
     if (!system.token || !system.token.token_symbol) return "no token for that system";
 
 
-    if (!system.metrics  || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
+    if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(4);
   },
