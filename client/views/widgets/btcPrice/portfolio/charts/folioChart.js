@@ -1,5 +1,5 @@
 CF.UserAssets.graph = CF.UserAssets.graph || {};
-CF.UserAssets.graph.minimalShare = 0.03;
+CF.UserAssets.graph.minimalShare = 0.02;
 
 Template['folioChart'].rendered = function () {
   var self = this;
