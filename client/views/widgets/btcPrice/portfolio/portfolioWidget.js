@@ -38,18 +38,10 @@ CF.UserAssets.folioSortFunction = function (x, y) {
 }
 
 Template['portfolioWidget'].helpers({
-  'gSystems': function () { //  systems to display in portfolio chart, only present in user assets
-    var options = Session.get("portfolioOptions") || {},
-      user = Meteor.user(),
-      symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
-    var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
-    return r.fetch().sort(CF.UserAssets.folioSortFunction);
-  },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
       symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject())
-
     var stars = user.profile.starredSystems;
     if (stars && stars.length) {
       var plck = _.map(CurrentData.find({system: {$in: stars}},
