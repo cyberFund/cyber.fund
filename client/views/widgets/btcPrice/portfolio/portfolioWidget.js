@@ -20,9 +20,12 @@ Template['portfolioWidget'].rendered = function () {
 
 // sort portfolio items by their cost, from higher to lower.
 // return -1 if x > y; return 1 if y > x
-var sortFunction = function (x, y) {
-  if (!x.token || !x.token.token_symbol || !x.metrics || !x.metrics.price) return 1;
-  if (!y.token || !y.token.token_symbol || !y.metrics || !y.metrics.price) return -1;
+CF.UserAssets.folioSortFunction = function (x, y) {
+  if (!x.token || !x.token.token_symbol) return 1;
+  if (!y.token || !y.token.token_symbol) return -1;
+
+  if (!x.metrics || !x.metrics.price) return 1;
+  if (!y.metrics || !y.metrics.price) return -1;
 
   var p1 =
     CF.UserAssets.getQuantitiesFromAccountsObject(
@@ -39,7 +42,7 @@ Template['portfolioWidget'].helpers({
       user = Meteor.user(),
       symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
     var  r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
-    return r.fetch().sort(sortFunction);
+    return r.fetch().sort(CF.UserAssets.folioSortFunction);
   },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
     var options = Session.get("portfolioOptions") || {},
@@ -55,7 +58,7 @@ Template['portfolioWidget'].helpers({
       symbols = _.union(symbols, plck)
     }
     var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
-    return r.fetch().sort(sortFunction);
+    return r.fetch().sort(CF.UserAssets.folioSortFunction);
   },
   quantity: function (system) {
     if (!system.token || !system.token.token_symbol) return NaN;
@@ -71,8 +74,7 @@ Template['portfolioWidget'].helpers({
     if (!system.metrics  || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(4);
-  }
-  ,
+  },
   usdCost: function (system) {
     if (!system.token || !system.token.token_symbol) return "no token for that system";
 

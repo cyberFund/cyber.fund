@@ -1,16 +1,3 @@
-var sortFunction = function (x, y) {
-  if (!x.token || !x.token.token_symbol) return 1;
-  if (!y.token || !y.token.token_symbol) return -1;
-
-  var p1 =
-    CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), x.token.token_symbol) * x.metrics.price.btc
-  var p2 =
-    CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), y.token.token_symbol) * y.metrics.price.btc
-  return Math.sign(p2 > p1);
-}
-
 Template['folioChart'].rendered = function () {
 
   var self = this;
@@ -21,13 +8,13 @@ Template['folioChart'].rendered = function () {
       user = Meteor.user(),
       symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
     var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
-    var data = r.fetch().sort(sortFunction);
+    var data = r.fetch().sort(CF.UserAssets.folioSortFunction);
 
     console.log(data);
     _.each(data, function (system) {
       var q = CF.UserAssets.getQuantitiesFromAccountsObject(CF.UserAssets.getAccountsObject(), system.token.token_symbol);
-      var b = q * system.metrics.price.btc;
-      var u = q * system.metrics.price.usd;
+      var b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? q * system.metrics.price.btc : 0;
+      var u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? q * system.metrics.price.usd : 0;
       labels.push (system.token.token_symbol)
       ticks.push({
         value: u,
