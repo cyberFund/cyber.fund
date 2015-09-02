@@ -57,10 +57,10 @@ Template['portfolioWidget'].helpers({
         {fields: {'token.token_symbol': 1}}).fetch(), function (it) {
         return it.token && it.token.token_symbol;
       });
-      symbols = _.union(symbols, plck)
+      symbols = _.uniq(_.union(symbols, plck))
     }
     var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
-    return r.fetch().sort(CF.UserAssets.folioSortFunction);
+    return r.fetch().sort( CF.UserAssets.folioSortFunction );
   },
   quantity: function (system) {
     if (!system.token || !system.token.token_symbol) return NaN;

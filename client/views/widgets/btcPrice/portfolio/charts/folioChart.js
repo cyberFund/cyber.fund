@@ -10,7 +10,6 @@ Template['folioChart'].rendered = function () {
     var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
     var data = r.fetch().sort(CF.UserAssets.folioSortFunction);
 
-    console.log(data);
     _.each(data, function (system) {
       var q = CF.UserAssets.getQuantitiesFromAccountsObject(CF.UserAssets.getAccountsObject(), system.token.token_symbol);
       var b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? q * system.metrics.price.btc : 0;

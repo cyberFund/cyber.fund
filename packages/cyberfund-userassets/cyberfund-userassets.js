@@ -38,7 +38,6 @@ CF.UserAssets.getSymbolsFromAccountsObject = function(assetsObject) {
       return (_.keys(address.assets))
     })));
   } else return [];
-  console.log(symbols);
   return _.uniq(symbols);
 }
 
