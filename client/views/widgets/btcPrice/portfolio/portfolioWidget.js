@@ -87,12 +87,12 @@ Template['portfolioWidget'].helpers({
     if (!system.token || !system.token.token_symbol) return "no token for that system";
 
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
-    return (CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.usd ).toFixed(2);
+    return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
+      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.usd, 2);
   },
   sumB: function () {
     var sumB = getSumB();
-    return sumB.toFixed(4)
+    return CF.Utils.readableN(sumB, 4)
   },
   name_of_system: function () {
     var sys = CurrentData.findOne({_id: this._id}) || {};
@@ -110,7 +110,7 @@ Template['portfolioWidget'].helpers({
     else {
       q = 0.0;
     }
-    return q.toFixed(6);
+    return CF.Utils.readableN(q,6);
   },
   share: function (system) {
     var q = 0.0;
@@ -126,14 +126,14 @@ Template['portfolioWidget'].helpers({
   },
   usdPrice: function (system) { //TODO: use package functions here.
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
-      return system.metrics.price.usd.toFixed(2);
+      return CF.Utils.readableN(system.metrics.price.usd, 2);
     }
     return 0;
   },
   usdCap: function (system) {
     if (system && system.metrics && system.metrics.price &&
       system.metrics.price.usd && system.metrics.supply) {
-      return (system.metrics.price.usd * system.metrics.supply).toFixed(0);
+      return CF.Utils.readableN((system.metrics.price.usd * system.metrics.supply), 0);
     }
     return 0;
   },
@@ -149,7 +149,7 @@ Template['portfolioWidget'].helpers({
         sum += q * system.metrics.price.usd;
       }
     })
-    return sum.toFixed(2)
+    return CF.Utils.monetaryFormatter(sum)
   }
 });
 
