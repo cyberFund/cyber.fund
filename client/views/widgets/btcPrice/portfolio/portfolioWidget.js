@@ -105,7 +105,7 @@ Template['portfolioWidget'].helpers({
         CF.UserAssets.getAccountsObject(), system.token.token_symbol);
     }
     if (system.metrics && system.metrics.supply) {
-      q = 100000 * q / system.metrics.supply
+      q = 10000 * q / system.metrics.supply
     }
     else {
       q = 0.0;
