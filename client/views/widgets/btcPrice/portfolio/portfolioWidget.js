@@ -105,12 +105,12 @@ Template['portfolioWidget'].helpers({
         CF.UserAssets.getAccountsObject(), system.token.token_symbol);
     }
     if (system.metrics && system.metrics.supply) {
-      q = q / system.metrics.supply
+      q = 100000 * q / system.metrics.supply
     }
     else {
       q = 0.0;
     }
-    return CF.Utils.readableN(q,6);
+    return CF.Utils.readableN(q,3) + '‱';
   },
   share: function (system) {
     var q = 0.0;
