@@ -3,8 +3,8 @@
     {{#if currentUser}}
         <div class="row">
           <div class="col sm-12 md-6 lg-6">
-              <h1>Ƀ 1000 </h1>
-              <h2>$ 100 000</h2>
+              <h1>Ƀ {{sumB}} </h1>
+              <h2>$ {{sumU}} </h2>
           </div>
           <div class="col sm-12 md-6 lg-6">
               {{> folioChart}}
@@ -26,14 +26,16 @@
                     <tbody>
                     {{#each pSystems}}
                         <tr>
-                            <td>{{#if token}}{{token.token_symbol}}{{/if}}</td>
-                            <td>{{quantity this}}</td>
-                            <td></td>
-                            <td></td>
-                            <td>{{btcCost this}}</td>
-                            <td>{{usdCost this}}</td>
-                            <td></td>
-                            <td></td>
+                            <td><a href="{{pathFor 'System' name_=name_of_system}}">
+                                {{> cgSystemLogo data=this style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                {{displaySystemName this}}</a></td>
+                            <td class="right-align">{{quantity this}}</td>
+                            <td class="right-align">{{equity this}}</td>
+                            <td class="right-align">{{share this}}</td>
+                            <td class="right-align">{{btcCost this}}</td>
+                            <td class="right-align">{{usdCost this}}</td>
+                            <td class="right-align">{{usdPrice this}}</td>
+                            <td class="right-align">{{usdCap this}}</td>
                         </tr>
                         {{! > portTableRow this}}
                     {{/each}}

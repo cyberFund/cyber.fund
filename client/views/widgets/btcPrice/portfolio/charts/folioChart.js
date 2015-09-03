@@ -47,6 +47,7 @@ Template['folioChart'].rendered = function () {
     });
 
     if (others.b) {
+      labels.push("OTHER");
       ticks.push({
         value: others.u,
         meta: 'other assets: BTC: ' + others.b.toFixed(4) + '; USD: ' + others.u.toFixed(2)
@@ -57,16 +58,12 @@ Template['folioChart'].rendered = function () {
       labels: labels,
       series: ticks
     }, {
-      donut: true,
-      donutWidth: 100,
+      chartPadding: CF.Chartist.options.chartPadding.folio,
+      //donut: true,
+      //donutWidth: 100,
       startAngle: 0,
-      labelOffset: 100,
+      labelOffset: 60,
       labelDirection: 'explode',
-      //total: 200,
-      //showLabel: true,
-      plugins: [
-        Chartist.plugins.tooltip()
-      ]
     });
     //}
     //comp.stop()

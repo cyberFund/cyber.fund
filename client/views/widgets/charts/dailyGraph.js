@@ -26,6 +26,7 @@ Template['dailyGraph'].rendered = function () {
       ticks.push(tick);
       iterate = iterate.add(5, "minutes");
     }
+
     var data = ns.fn.daily.getData(ticks);
 
     if (self.data.metrics) {

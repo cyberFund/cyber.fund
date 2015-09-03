@@ -109,6 +109,12 @@ _.extend(CF.Chartist, {
         right: 30,
         bottom: 0,
         left: 35
+      },
+      folio: {
+        top: 40,
+        right: 40,
+        bottom: 40,
+        left: 40
       }
     },
     plugins: {

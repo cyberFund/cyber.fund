@@ -42,7 +42,7 @@ CF.UserAssets.getSymbolsFromAccountsObject = function(assetsObject) {
 }
 
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
-  var sum = 0;
+  var sum = 0.0;
   if (!accountsObject) {
     return sum;
   }
