@@ -120,9 +120,9 @@ Template['portfolioWidget'].helpers({
     }
     var sum = getSumB();
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
-      return (q * system.metrics.price.btc / sum).toFixed(3);
+      return (100*q * system.metrics.price.btc / sum).toFixed(1)+"%";
     }
-    return 0;
+    return "0%";
   },
   usdPrice: function (system) { //TODO: use package functions here.
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
