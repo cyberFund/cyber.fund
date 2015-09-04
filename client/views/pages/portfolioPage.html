@@ -4,6 +4,37 @@
 
 
     <div class="row center">
+        {{#if not currentUser}}
+        <h3>Control your portfolio!</h3>
+            <div class="row">
+                <div class="col l4 center">
+                    <i class="large material-icons deep-orange-text">directions_walk</i>
+                    <h4>Realtime Valuation</h4>
+
+                    <p>We crunch market data for all blockchains and even for some
+                        notable illiquid blockchain assets</p>
+                </div>
+                <div class="col l4 center">
+                    <i class="large material-icons yellow-text">directions_run</i>
+                    <h4>Balance Autoupdate</h4>
+
+                    <p>For majority of blockchains balances are updated
+                        automaticaly. Just put your address and it will be
+                        tracked</p>
+                </div>
+                <div class="col l4 center">
+                    <i class="large material-icons green-text">directions_bike</i>
+                    <h4>Trustless</h4>
+
+                    <p>We also invest in blockchains a lot. So we care about
+                        security. We never touch your private keys</p>
+                </div>
+                <br>
+                <br>
+                <br>
+                <br>
+            </div>
+        {{/if}}
         {{> loginBox}}
     </div>
 </template>
