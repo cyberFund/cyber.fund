@@ -1,17 +1,18 @@
 <!-- originally created for cyber.fund project-->
 <template name="portfolioWidget">
     {{#if currentUser}}
-        <div class="row center">
-          <div class="col sm-3 md-3 lg-3">
-              <h1>Ƀ {{sumB}} </h1>
-              <h2>$ {{sumU}} </h2>
+        <div class="row">
+          <div class="col s6 m6 l6">
+
+              <h1 class="center">Ƀ {{sumB}} </h1>
+              <h2 class="center">$ {{sumU}} </h2>
           </div>
-          <div class="col sm-9 md-9 lg-9 center">
+          <div class="col s6 m6 l6">
               {{> folioChart}}
           </div>
         </div>
         <div class="row">
-            <div class="center" style="margin: 0 auto">
+            <div class="col s12 m12 l12 center" style="margin: 0 auto">
                 <table align="center" style="width: 100%; min-width: 100%">
                     <thead>
                     <th class="center">System</th>
