@@ -27,8 +27,6 @@ Meteor.publish("fresh-price", function () {
 
 
 Meteor.publish('userDetails', function () {
-  //console.log(Meteor.users.findOne({_id: this.userId}));
-
   return Meteor.users.find({_id: this.userId}, {
     fields: {
       "services.twitter.screenName": 1,
@@ -88,8 +86,6 @@ Meteor.publish('dependencies', function(deps) {
 
 
 Meteor.publish('search-sys', function(selector, options, collname) {
-  console.log(selector);
-
   var s = selector["aliases.CurrencyName"];
   if (s) {
 

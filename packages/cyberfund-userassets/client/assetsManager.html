@@ -130,11 +130,8 @@
                                 {{> searchItem2}}
                             </div>
                             <div class="col lg-9 md-9 sm-8">
-                                <input type="text"
-                                       style="width: 100%; color: black"
-                                       name="asset-symbol-input" disabled
-                                       placeholder="Use search bar"
-                                       value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
+                                <span class="enlarge">{{#if currentAsset}}{{displaySystemName currentAsset}}
+                                       ({{currentAsset.token.token_symbol}}){{/if}}</span>
                             </div>
                         </div>
                         <div class="row number-sum-wrapper">
