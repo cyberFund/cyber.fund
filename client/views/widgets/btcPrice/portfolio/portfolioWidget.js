@@ -71,8 +71,8 @@ Template['portfolioWidget'].helpers({
   quantity: function (system) {
     if (!system.token || !system.token.token_symbol) return NaN;
 
-    return CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol);
+    return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
+      CF.UserAssets.getAccountsObject(), system.token.token_symbol), 3);
   }
   ,
   btcCost: function (system) {
@@ -81,7 +81,7 @@ Template['portfolioWidget'].helpers({
 
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(4);
+      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(3);
   },
   usdCost: function (system) {
     if (!system.token || !system.token.token_symbol) return "no token for that system";
@@ -92,7 +92,7 @@ Template['portfolioWidget'].helpers({
   },
   sumB: function () {
     var sumB = getSumB();
-    return CF.Utils.readableN(sumB, 4)
+    return CF.Utils.readableN(sumB, 3)
   },
   name_of_system: function () {
     var sys = CurrentData.findOne({_id: this._id}) || {};
@@ -149,7 +149,7 @@ Template['portfolioWidget'].helpers({
         sum += q * system.metrics.price.usd;
       }
     })
-    return CF.Utils.monetaryFormatter(sum)
+    return CF.Utils.readableN(sum, 0)
   }
 });
 

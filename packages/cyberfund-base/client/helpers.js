@@ -219,7 +219,7 @@ var helpers = {
   },
   biggerTwitterImg: function(url){
     if (!url) return '';
-    return url.replace('_normal', '_bigger');
+    return url.replace('_normal', '');
   },
   dateFormat: function(date, format){
     return moment(date).format(format);
