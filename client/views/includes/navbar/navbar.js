@@ -1,12 +1,12 @@
 Template['navbar'].rendered = function () {
   $('.button-collapse').sideNav();
 };
-
+/*
 Tracker.autorun(function(){
   var user = Meteor.user();
-  //if (user && user.profile && !user.profile.twitterName) Meteor.call("patchProfile")
+  if (user && user.profile && !user.profile.twitterName) Meteor.call("patchProfile")
 });
-
+*/
 Template['navbar'].helpers({
   isActiveOwnProfile: function(){
     var user = Meteor.user(); if (!user) return ''
