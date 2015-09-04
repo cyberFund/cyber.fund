@@ -49,3 +49,14 @@ CF.Utils.SessionVariable = function(key){
     Session.set(me._sessname, v);
   };
 };
+
+CF.User.twid = function(){
+  var user = Meteor.user();
+  if (!user) return '';
+  return (user.profile && user.profile.twitterName) || '';
+};
+
+CF.User.linkToOwnProfile = function(){
+  var twid = CF.User.twid();
+  return twid ? '/@'+ twid : '/'
+}

@@ -1,5 +1,13 @@
 <!-- originally created for cyber.fund project-->
-<template name="searchItem">
+<template name="searchItem1">
     <i style="display: inline;" class="black-text tiny material-icons">search</i>
-    {{> inputAutocomplete settings=searchSettings id="search" class="search-input black-text" placeholder="Search for coin"}}
+    {{> inputAutocomplete settings=searchSettings id="search" class="search-input at-navbar black-text" placeholder="Search for coin"}}
+</template>
+
+<template name="searchItem2">
+
+    <i style="display: inline;" class="black-text material-icons">search</i>
+    <div style="display: inline">
+        {{> inputAutocomplete settings=searchSettings id="search2" class="search-input black-text" placeholder="Type to pick coin"}}
+    </div>
 </template>

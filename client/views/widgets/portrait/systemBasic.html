@@ -39,6 +39,7 @@
                                 {{#if descriptions}}
                                     <div>{{_system_type_ descriptions.system_type}}</div>
                                 {{/if}}
+                                <br>
                                 <div>Built with
                                     {{#each depends_on}}
                                         <a href="{{pathFor 'System' name_=name_}}">
@@ -48,7 +49,6 @@
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     </span>
                                         </a>
-
                                     {{/each}}
                                 </div>
                             {{/if}}
@@ -65,6 +65,15 @@
                         apps</p>
                 {{/if}}
             </div>
+
+            {{#if _usersStarred}}
+                <div id="users-starred" class="center">
+                    <h5 style="margin-bottom: 3px;">Starred by</h5>
+                    <div>
+                        {{>usersList1 data=usersStarred style="margin: 6px 3px; width=40px; height=40px;"}}
+                    </div>
+                </div>
+            {{/if}}
 
             <div id="main" class="section scrollspy row">
                 {{#each main_links}}
@@ -187,21 +196,26 @@
             </div>
             <div class="row"></div>
             <div id="charts" class="row scrollspy center">
-                {{#if selectedGraph 'week'}}
+                {{#if _selectedGraph 'week'}}
                     {{> weeklyGraph this}}
                 {{/if}}
-                {{#if selectedGraph 'month'}}
+                {{#if _selectedGraph 'month'}}
                     {{> monthlyGraph this}}
                 {{/if}}
-                {{#if selectedGraph 'all'}}
+                {{#if _selectedGraph 'all' }}
                     {{> fulltimeGraph this}}
+                {{/if}}
+                {{#if _selectedGraph 'day' }}
+                    {{> dailyGraph graphData=dailyData currencyId=_id }}
                 {{/if}}
             </div>
             <div id="charts-ctl" class="row scrollspy center">
-                <a class="btn mock {{selectedGraph 'day'}}" data-span="day">Last Day</a>
+                <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
+                    Day</a>
                 <a class="btn act {{selectedGraph 'week'}}"
                    data-span="week">Last Week</a>
-                <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last Month</a>
+                <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last
+                    Month</a>
                 <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
             </div>
 
@@ -312,15 +326,16 @@
                     <h3 class="center">Dapps</h3>
 
                     {{#each dependents}}
-                        <div class="col s6 m6 l3 center valign"
+                        <div class="col s6 m6 l3"
                              style="padding:0 10px; margin: 6px 0;">
                             <a href="{{pathFor 'System' name_=name_}}">
                                 <div class="card"
                                      style="padding: 10px 0; margin: 2px 0">
+                                    {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
                                     <span
                                             class="enlarge"
-                                            style="display: inline; white-space: nowrap;">
-                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+                                            style="vertical-align: middle; margin-left: 10px; display: inline; white-space: nowrap;">
+
                                         {{displaySystemName this}}
                                     </span>
                                 </div>
@@ -471,7 +486,16 @@
 
             </div>
         </div>
+        {{#if currentUser}}
+            <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+                <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}">
+                    <i class="material-icons"
+                       style="font-size: 3.8rem">stars</i>
+                </a>
+            </div>
+        {{/if}}
     {{/with}}
     <!--a class="btn-floating btn-large waves-effect waves-light red">
 	  <i class="stars"></i></a-->
+
 </template>

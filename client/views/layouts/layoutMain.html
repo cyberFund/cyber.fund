@@ -1,11 +1,11 @@
 <!-- originally created for cyber.fund project-->
 <template name="layoutMain">
-
     {{> navbar}}
-    <div class="w90">
-        {{> yield}}
+    <div id="contain-all">
+        <div class="w90">
+            {{> yield}}
+        </div>
+        <div class="hiddendiv common"></div>
+        {{> footer}}
     </div>
-    {{> footer}}
-
-    <div class="hiddendiv common"></div>
 </template>

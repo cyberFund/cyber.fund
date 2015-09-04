@@ -17,6 +17,7 @@ cyberfund:cyberfund-chaingear@0.0.1
 cyberfund:cyberfund-currentdata@0.0.1
 cyberfund:cyberfund-es@0.0.1
 cyberfund:cyberfund-marketdata@0.0.1
+cyberfund:cyberfund-userassets@0.0.1
 dandv:caret-position@2.1.1
 ddp@1.1.0
 deps@1.0.7
@@ -82,7 +83,7 @@ softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
 templating@1.1.1
-tmeasday:publish-counts@0.5.1
+tmeasday:publish-counts@0.6.0
 tracker@1.0.7
 twitter@1.1.4
 ui@1.0.6

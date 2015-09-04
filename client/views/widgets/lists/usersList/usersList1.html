@@ -1,0 +1,19 @@
+<!-- provides sequence of linkcs to user profiles
+
+parameters:
+
+    @data: array or cursor of users.
+meaningful data item properties
+are `profile.twitterName` && `profile.twitterIconUrl`
+
+    @style: style applied to single item' image
+
+    @class: class applied to single item' image
+-->
+<template name="usersList1">
+    {{#each data}}
+        <a href="{{pathFor 'Profile' twid=profile.twitterName}}" title="{{profile.name}}">
+            {{>hitryImage img_url=profile.twitterIconUrl class=../class style=../style}}
+        </a>
+    {{/each}}
+</template>

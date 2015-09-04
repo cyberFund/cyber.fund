@@ -4,7 +4,6 @@ Deps.autorun(function () {
     Meteor.subscribe("currentDataRP", Session.get('curDataSelector'));
 });
 
-
 Template['ratingTable'].onCreated = function () {
 
 };

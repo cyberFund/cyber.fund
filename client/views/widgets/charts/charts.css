@@ -1,29 +1,44 @@
 .chartist-tooltip {
-  background: black;
+  background: #FF3D00;
   position: absolute;
   color: white;
+  border-radius: 7px;
+  padding: 7px;
 }
 
-.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-line{
-  stroke: red;
-  stroke-width: 2px;
+.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-line {
+  stroke: #FF9900;
+  stroke-width: 4px;
 }
 .ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
-  stroke: red;
-  stroke-width: 5px;
+  stroke: #eeeeee;
+  stroke-width: 8px;
 }
 
 .ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-line{
-  stroke: blue;
-  stroke-width: 2px;
+  stroke: #85BB65;
+  stroke-width: 4px;
 }
 .ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
-  stroke: blue;
-  stroke-width: 5px;
+  stroke: #eeeeee;
+  stroke-width: 8px;
 }
 
 .ct-chart.ct-chart-vol .ct-series.ct-series-a .ct-bar{
-  fill: gray;
-  stroke: grey;
+  fill: grey;
+  stroke: #80d8ff;
   stroke-width: 4px;
+}
+
+.ct-chart.ct-chart-time-full.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
+  stroke-width: 4px;
+}
+
+.ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
+  stroke-width: 4px;
+}
+
+.folio-pie .ct-label {
+  stroke: black;
+  stroke-width: 0.8px;
 }

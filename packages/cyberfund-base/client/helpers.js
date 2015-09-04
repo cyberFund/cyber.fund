@@ -206,18 +206,29 @@ var helpers = {
   },
   displayCurrencyName: function (system) {
     var ret;
-
     if (system.aliases) {
       ret = system.aliases.CurrencyName;
     }
-
     if (!ret) ret = system.system;
     return ret;
+  },
+  ownTwid: function(){
+    var user =  Meteor.user();
+    if (!user) return '';
+    return (user.profile && user.profile.twitterName) || '';
+  },
+  biggerTwitterImg: function(url){
+    if (!url) return '';
+    return url.replace('_normal', '');
+  },
+  dateFormat: function(date, format){
+    return moment(date).format(format);
   }
+
 };
 
 _.each(helpers, function (helper, key) {
-  UI.registerHelper(key, helper);
+  Template.registerHelper(key, helper);
 });
 /**
  * Created by angelo on 6/9/15.

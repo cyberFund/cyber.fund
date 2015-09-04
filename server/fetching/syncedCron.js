@@ -7,6 +7,6 @@ SyncedCron.config({
 //if (!process.env.GO_AWAY_SYNCED_CRON)
 {
   console.log("starting synced cron");
-  SyncedCron.start();
+  //SyncedCron.start();
 }
 

@@ -66,9 +66,6 @@ p {
   padding: 0 15px;
 }
 
-footer.page-footer {
-  margin: 0;
-}
 
 #nav-mobile li {
   display: block
@@ -254,9 +251,84 @@ main {
 
 
 table.hoverable-my tr:hover {
-	background-color: rgba(0,0,0,0.05);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .alike-navlink {
-	padding: 0 15px;
+  padding: 0 15px;
+}
+
+.account-item {
+  position: relative;
+  min-height: 12rem;
+}
+
+.address-item {
+  position: relative;
+  margin-top: 9px;
+  min-height: 6rem;
+}
+
+.asset-item {
+  position: relative;
+}
+
+.btn-margin-right{
+  margin-right: 12px
+}
+
+.btn-margin-left {
+  margin-left: 12px;
+}
+
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+#contain-all {
+  margin-top: 60px;
+  min-height:100%;
+  position:relative;
+}
+
+footer.page-footer {
+
+  bottom:0;
+
+  width:100%;
+}
+#assets-manager .collection {
+  border: 0;
+  margin-top: 0rem;
+  margin-bottom: 0.5rem;
+}
+
+#assets-manager .collection .collection-item {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 0
+}
+
+#assets-manager .address-item.collection-item {
+  padding-left: 20px;
+}
+
+.no-bottom-margin {
+  margin-bottom: 0
+}
+
+.hoverie {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s linear;
+  transiotion-delay: 0.1s
+}
+
+.account-item:hover > div > .hoverie,
+.collection-item.address-item:hover > div > .hoverie,
+.collection-item.asset-item:hover > .hoverie {
+  visibility: visible;
+  opacity: 1;
 }

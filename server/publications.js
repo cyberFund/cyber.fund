@@ -27,8 +27,6 @@ Meteor.publish("fresh-price", function () {
 
 
 Meteor.publish('userDetails', function () {
-  //console.log(Meteor.users.findOne({_id: this.userId}));
-
   return Meteor.users.find({_id: this.userId}, {
     fields: {
       "services.twitter.screenName": 1,
@@ -88,8 +86,6 @@ Meteor.publish('dependencies', function(deps) {
 
 
 Meteor.publish('search-sys', function(selector, options, collname) {
-  console.log(selector);
-
   var s = selector["aliases.CurrencyName"];
   if (s) {
 
@@ -116,29 +112,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   Autocomplete.publishCursor( collection.find(selector, options), this);
   this.ready();
 });
-/*
-Meteor.publish('search-sym', function(selector, options, collname) {
-  console.log(selector);
 
-  var s = selector['token.token_symbol'];
-  if (s) {
-  } else {
-    return this.ready();
-  }
-  var collection;
-  if (collname == "CurrentData_")
-    collection = CurrentData;
-  if (!collection) return [];
-
-  options.fields = {"system": 1, "icon": 1, "aliases": 1, 'token': 1};
-  options.sort = {
-    "ratings.rating_cyber": -1,
-    "metrics.cap.btc": -1
-  };
-  Autocomplete.publishCursor( collection.find(selector, options), this);
-  this.ready();
-});
-*/
 Meteor.publish("BitcoinPrice", function(){
   return CurrentData.find({system: "Bitcoin"})
 });
@@ -160,6 +134,48 @@ Meteor.publish('userProfileByTwid', function(twid){
   });
 });
 
+Meteor.publish('portfolioUser', function(){
+  if (!this.userId) return this.ready();
+  return Meteor.users.find({_id: this.userId}, {
+    fields: {
+      'profile': 1, accounts: 1, createdAt: 1
+    }
+  });
+})
+
 Meteor.publish('assetsSystems', function(tokens){
-  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields: {system: 1, token: 1, aliases: 1, icon: 1}})
+  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields:
+  {system: 1, token: 1, aliases: 1, icon: 1}})
 });
+
+Meteor.publish('profilesSystems', function(userId){
+  var user = Meteor.users.findOne({_id: userId});
+  var tokens = user && user.profile && user.profile.starredSystems || [];
+  return CurrentData.find(CF.CurrentData.selectors.system(tokens), {fields:
+  {system: 1, token: 1, aliases: 1, icon: 1}}) //todo: fieldsets => resp. packages
+});
+
+Meteor.publish("portfolioSystems", function(options){
+  options = options || {};
+  if (!this.userId) return this.ready();
+  var user = Meteor.users.findOne({_id: this.userId});
+
+  var symbols = CF.UserAssets.getSymbolsFromAccountsObject(user.accounts)
+  if (options.privateAssets) {
+    symbols = _.union(symbols, CF.UserAssets.getSymbolsFromAccountsObject(user.accountsPrivate))
+  }
+
+  var stars = user.profile.starredSystems;
+  if (stars && stars.length) {
+
+    var plck = _.map(CurrentData.find({system: {$in: stars}},
+      {fields: {'token.token_symbol': 1}}).fetch(), function(it){
+      return it.token && it.token.token_symbol;
+    });
+    symbols = _.union(symbols, plck)
+  }
+  return CurrentData.find(CF.CurrentData.selectors.symbol(symbols),
+    {fields: {
+      "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
+    }})
+})

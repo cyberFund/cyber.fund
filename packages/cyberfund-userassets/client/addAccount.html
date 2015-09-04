@@ -1,0 +1,77 @@
+<!-- originally created for cyber.fund project-->
+<template name="addAccount">
+
+    <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+        <a class="btn-floating btn-large btn-add-account red">
+            <i class="large material-icons">add</i>
+        </a>
+    </div>
+
+    <div id="modal-add-account" class="modal">
+        <div class="modal-content">
+            <h4>Add address</h4>
+
+            <form id="add-account-form">
+                <div class="form-group" id="add-address-group">
+                    <div class="row">
+                        <input autocomplete="off" type="text" id="address-input"
+                               name="address"
+                               class="validate" placeholder="Address">
+                        <label id="address-exists" class="red-text hidden">Adress
+                            already exists</label>
+                    </div>
+
+                    <div class="row">
+                        <div class="switch">
+                            <label>
+                                <label for="add-to-new-account">Add address
+                                    to:</label><br/>
+                                Existing account
+                                <input id="add-to-new-account" type="checkbox">
+                                <span class="lever"></span>
+                                New account
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div id="existing-account-group">
+                    <select id="account-id-select">
+                        <option value="">Select account</option>
+                        {{#each keyValue currentUser.accounts}}
+                            <option value="{{key}}">{{value.name}}</option>
+                        {{/each}}
+                    </select>
+                </div>
+
+                <div class="form-group" id="new-account-group">
+                    <div class="row">
+                        <input autocomplete="off" type="text" id="account-name"
+                               name="account"
+                               class="validate" placeholder="Account name">
+                        <label id="account-name-exists" class="red-text hidden">Account
+                            with that name already exists</label>
+                    </div>
+                    <div class="row">
+                        <div class="switch mock-soon-">
+                            <label>
+                                <label for="private-type">Account
+                                    Type</label><br/>
+                                Public
+                                <input id="private-type" {{disabledPrivates}}
+                                       name="private-type" type="checkbox">
+                                <span class="lever"></span>
+                                Private
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <a class="modal-action modal-close btn  waves-effect  cancel-add-address grey">Cancel</a>
+                    <button type='submit' class="btn submit-add-account right waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</template>

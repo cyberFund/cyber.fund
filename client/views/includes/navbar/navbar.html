@@ -15,7 +15,7 @@
           {{> navbarItem path="/portfolio" text="Portfolio"}}
           {{> navbarItem path="/radar" text="Radar"}}
             <li class="search-wrap" style="height: 64px; display: inline">
-                {{> searchItem}}
+                {{> searchItem1}}
             </li>
         </ul>
         <ul class="right hide-on-med-and-down">
@@ -23,10 +23,8 @@
             <a href="http://cyberep.cyber.fund" target="_blank">Cyberep</a></li>
           <li class="waves-effect">
             <a href="https://blog.cyber.fund" target="_blank">Blog</a></li>
-          <li class="waves-effect">
-            <a href="http://cybertalks.org/" target="_blank">Community</a></li>
           <li>{{> btcPriceSimple class="black-text alike-navlink"}}</li>
-          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActivePath path="/profile"}}">
+          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
             {{> userDropdown}}
           </li>
         </ul>
@@ -38,7 +36,7 @@
           <li class="waves-effect">
             <a href="http://cyberep.cyber.fund" target="_blank">Cyberep</a></li>
             <li class="search-wrap" style="height: 64px; display: inline">
-                {{> searchItem}}
+                {{> searchItem1}}
             </li>
         </ul>
 
@@ -58,14 +56,14 @@
   {{#if currentUser}}
     {{#if currentUser.profile.twitterName}}
 
-      <a href="/profile" style="vertical-align: middle">
+      <a href="{{pathFor 'Profile' twid=ownTwid}}" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrl}}
         {{currentUser.profile.twitterName}}
       </a>
 
     {{else}}
       {{#if not loggingIn}}
-        <a href="/profile">
+        <a href="{{pathFor 'Profile' twid=ownTwid}}">
           {{#if currentUser.profile.name}}
             {{currentUser.profile.name}}
           {{else}}
