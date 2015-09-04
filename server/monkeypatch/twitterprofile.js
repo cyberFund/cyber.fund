@@ -7,6 +7,23 @@ Meteor.methods({
   }
 });
 
+Accounts.onCreateUser(function(options, user) {
+  //var d6 = function () { return Math.floor(Random.fraction() * 6) + 1; };
+  //user.dexterity = d6() + d6() + d6();
+  console.log(options);
+  console.log(user);
+  // We still want the default hook's 'profile' behavior.
+  if (user.services && user.services.twitter) {
+    options.profile = options.profile || {}
+    options.profile.twitterName = user.services.twitter.screenName;
+    options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
+    options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
+  }
+  if (options.profile)
+    user.profile = options.profile;
+  return user;
+});
+
 CF.Profile.patch = function(user){
 
   if (!user) return;
