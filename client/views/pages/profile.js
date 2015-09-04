@@ -55,7 +55,6 @@ Template['profile'].helpers({
       return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
     }
     return false;
-
   }
 });
 
