@@ -99,13 +99,13 @@ var fetch = function () {
                 }
 
                 // check if we can hotfix price
-                if (system.specs.cap && system.specs.supply) {
+                if (system.specs.cap && system.specs.supply ) {
                   // check if need hotfixing price
-                  if (!doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
-                    if (!doc.metrics.price || !doc.metrics.price.usd) {
+                  if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
+                    if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
                       set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
                     }
-                    if (!doc.metrics.price || !doc.metrics.price.btc) {
+                    if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
                       set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
                     }
                   }
