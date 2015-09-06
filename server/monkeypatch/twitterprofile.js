@@ -30,6 +30,7 @@ CF.Profile.patch = function(user){
   if (!user.services.twitter) return;
 
   var set = {}
+
   if (user.profile.twitterName != user.services.twitter.screenName) {
     set["profile.twitterName"] = user.services.twitter.screenName;
   }

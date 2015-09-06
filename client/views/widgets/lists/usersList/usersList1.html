@@ -10,7 +10,7 @@ are `profile.twitterName` && `profile.twitterIconUrl`
 
     @class: class applied to single item' image
 -->
-<template name="usersList1">
+<template name="usersList1"> 
     {{#each data}}
         <a href="{{pathFor 'Profile' twid=profile.twitterName}}" title="{{profile.name}}">
             {{>hitryImage img_url=profile.twitterIconUrlHttps class=../class style=../style}}
