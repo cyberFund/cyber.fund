@@ -121,7 +121,7 @@ Meteor.publish('avatars', function(uidArray){
   if (!_.isArray(uidArray)) return this.ready();
   return Meteor.users.find({_id: {$in: uidArray}}, {fields: {
     'profile.name': 1,
-    'profile.twitterIconUrl': 1,
+    'profile.twitterIconUrlHttps': 1,
     'profile.twitterName': 1
   }});
 });
