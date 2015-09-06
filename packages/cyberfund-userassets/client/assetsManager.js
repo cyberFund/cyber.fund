@@ -107,7 +107,7 @@ Template['assetsManager'].events({
     var oldName = user.accounts[accountId].name;
 
     var invalidState = t.$renameAccountInput.hasClass("invalid");
-    var validName = CF.UserAssets.accNameIsValid(t.$renameAccountInput.val(), oldName);
+    var validName = CF.UserAssets.accNameIsValid(t.$renameAccountInput.val().trim(), oldName);
 
     if (invalidState && validName) { // => valid
       t.$renameAccountInput.removeClass("invalid");
@@ -127,7 +127,7 @@ Template['assetsManager'].events({
   },
   'keyup #add-address-input, change #add-address-input': function (e, t) {
     if (!isOwnAssets()) return;
-    var address = t.$addAssetInput.val();
+    var address = t.$addAssetInput.val().trim();
     var accounts = Meteor.user.accounts || {};
     var addresses = _.flatten(_.map(accounts, function (account) {
       return _.map(account.addresses, function (v, k) {
@@ -143,7 +143,7 @@ Template['assetsManager'].events({
   'submit #add-address-form': function (e, t) { //TAG: assets
     if (!isOwnAssets()) return false;
     var account = CF.UserAssets.currentAccount.get();
-    var address = t.$addAssetInput.val();
+    var address = t.$addAssetInput.val().trim();
     if (CF.UserAssets.uiAddressExists(address)) return false;
     Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
@@ -176,7 +176,7 @@ Template['assetsManager'].events({
       Materialize.toast("please pick a coin", 4000);
       return false;
     }
-    var qua = $target.val();
+    var qua = $target.val().trim();
     if (!qua && qua !== 0) {
       var $label = $target.closest(".number-sum-wrapper").find("label");
       $label.removeClass('hidden');
@@ -207,7 +207,7 @@ Template['assetsManager'].events({
   'keyup .number-sum, change .munber-sum': function (e, t) {
     var $target = t.$(e.currentTarget);
     var $label = $target.closest(".number-sum-wrapper").find("label");
-    var val = $target.val();
+    var val = $target.val().trim();
 
     if (val) {
       var test = parseFloat(val);
@@ -232,7 +232,7 @@ Template['assetsManager'].events({
       $form.closest(".modal").closeModal();
       return false;
     }
-    var qua = $target.val();
+    var qua = $target.val().trim();
     if (!qua) {
       var $label = $target.closest(".number-sum-wrapper").find("label");
       $label.removeClass('hidden');

@@ -100,23 +100,23 @@ Template['addAccount'].events({
   },
   'submit #add-account-form': function (e, t) {
     var isNew = t.$newAccountCheckbox.is(':checked');
-    var address = t.$address.val();
+    var address = t.$address.val().trim();
     if (!address) {
       Materialize.toast("please enter address", 4000);
-      return;
+      return false;
     }
     if (CF.UserAssets.uiAddressExists(address)) {
-      return;
+      return false;
     }
 
     if (isNew) { // add to new account
       var name = t.$newAccountName.val();
       if (!name) {
         Materialize.toast("please enter account name or select existing account", 4000);
-        return;
+        return false;
       }
       if (!CF.UserAssets.accNameIsValid(name)) {
-        return;
+        return false;
       }
       var isPublic = !t.$publicCheckbox.is(":checked");
       console.log("adding new acount");
@@ -132,15 +132,17 @@ Template['addAccount'].events({
       });
       t.$address.val("");
       $("#modal-add-account").closeModal();
+      return false;
     } else { // add to existing account
-      var accountId = t.$selectAccount.val();
+      var accountId = t.$selectAccount.val().trim();
       if (!accountId) {
         Materialize.toast("Please select account to add to", 4000);
-        return;
+        return false;
       }
       Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
         t.$("#modal-add-account").closeModal();
         t.$address.val("");
+        return false;
       });
     }
   },
