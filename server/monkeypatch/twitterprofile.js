@@ -25,7 +25,7 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 CF.Profile.patch = function(user){
-console.log("here");
+
   if (!user) return;
   if (!user.services.twitter) return;
 
@@ -33,7 +33,7 @@ console.log("here");
   if (user.profile.twitterName != user.services.twitter.screenName) {
     set["profile.twitterName"] = user.services.twitter.screenName;
   }
-  if (user.profile.twitterIconUrl != user.services.twitter.profile_image_url)
+  if (user.profile.twitterIconUrlHttps != user.services.twitter.profile_image_url_https)
   {
     set["profile.twitterIconUrl"] = user.services.twitter.profile_image_url;
     set["profile.twitterIconUrlHttps"] = user.services.twitter.profile_image_url_https;

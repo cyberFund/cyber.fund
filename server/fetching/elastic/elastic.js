@@ -227,9 +227,7 @@ var esParsers = {
             FastData.insert(fastMetric)
           }
 
-        }
-        )
-        ;
+        });
         if (notFounds.length) {
           logger.warn("not found any currentData for ");
           logger.warn(notFounds);

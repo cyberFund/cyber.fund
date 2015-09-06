@@ -46,8 +46,8 @@ Template['profile'].helpers({
   },
 
   biggerTwitterImg: function () {
-    return this.profile && this.profile.twitterIconUrl
-      && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrl) || ''
+    return this.profile && this.profile.twitterIconUrlHttps
+      && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrlHttps) || ''
   },
   showAccountsAdvertise: function () {
     if (CF.Profile.currentTwid.get() == CF.User.twid()) {
