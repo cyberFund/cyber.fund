@@ -2,7 +2,7 @@
 var logger = log4js.getLogger("meteor-fetching-es");
 
 function _normKey(str) { //thing is, elasticsearch by default returns long string as (first 15 symbols + '...')
-                         // not sure yet how to force it returning full key, so for now just cutting result + searching by "starts_with"
+  // not sure yet how to force it returning full key, so for now just cutting result + searching by "starts_with"
   return str.slice(0, 15);
 }
 
@@ -34,10 +34,11 @@ function _searchSelector(bucketKey) {
   return selector;
 }
 
-JSON.unflatten = function(data) {
+JSON.unflatten = function (data) {
   "use strict";
-  if (Object(data) !== data || Array.isArray(data))
+  if (Object(data) !== data || Array.isArray(data)) {
     return data;
+  }
   var regex = /\.?([^.\[\]]+)|\[(\d+)\]/g,
     resultholder = {};
   for (var p in data) {
@@ -71,247 +72,269 @@ var esParsers = {
     var notFounds = [];
     _.each(buckets, function (bucket) {
 
-      // elasticsearch returns 'date range' buckets in custom order,
-      // not corresponding to order they were defined. it looks depending on sort order by timestamp, used inside
-      // inner aggregations, so best is to explicitly get buckets.
-      // here we use bucket with max 'to' value as current, next bucket is 'day ago' bucket.. same as defined in aggregation..
-      var index = _.map(bucket.by_time.buckets, function (item) {
-        return item.to;
-      });
+        // elasticsearch returns 'date range' buckets in custom order,
+        // not corresponding to order they were defined. it looks depending on sort order by timestamp, used inside
+        // inner aggregations, so best is to explicitly get buckets.
+        // here we use bucket with max 'to' value as current, next bucket is 'day ago' bucket.. same as defined in aggregation..
+        var index = _.map(bucket.by_time.buckets, function (item) {
+          return item.to;
+        });
 
-      // current
-      var mx = _.max(index);
-      var m = moment.utc(mx);
-      var stamp = {
-        day: m.date(),
-        hour: m.hours(),
-        minute: m.minutes()
-      }
-      var timestamp = m._d;
-      var current = _.find(bucket.by_time.buckets, function (item) {
-        return item.to == mx;
-      });
-
-      // day ago
-      index = _.without(index, mx);
-      mx = _.max(index);
-      var dayAgo = _.find(bucket.by_time.buckets, function (item) {
-        return item.to == mx;
-      });
-
-      var set = {},
-        sNow = {}, sDayAgo = {}, sWeekAgo = {};
-
-      if (_.isArray(current.latest.hits.hits) && current.latest.hits.hits.length > 0) {
-        sNow = current.latest.hits.hits[0]._source;
-      } else {
-        //   logger.info("no current data for " + bucket.key);
-        //   console.log(bucket);
-        //   console.log();
-      }
-
-      if (_.isArray(dayAgo.latest.hits.hits) && dayAgo.latest.hits.hits.length > 0) {
-        sDayAgo = dayAgo.latest.hits.hits[0]._source;
-      } else {
-        //                logger.info("no yesterday data for " + bucket.key);
-        //              console.log();
-      }
-
-      if (_.isEmpty(sNow)) return;
-
-      // try using existing supply value if none here
-      if (!sNow.supply_current) {
-        var cd = CurrentData.findOne(_searchSelector(bucket.key));
-        if (cd) {
-          sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
-          if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
-        }
-      }
-
-      if (sNow.supply_current) {
-
-        // try count cap (if none) using price and suuply
-        if (!sNow.cap_usd && sNow.price_usd) {
-          sNow.cap_usd = sNow.supply_current * sNow.price_usd;
+        // current
+        var mx = _.max(index);
+        var m = moment.utc(mx);
+        var stamp = {
+          day: m.date(),
+          hour: m.hours(),
+          minute: m.minutes()
         }
 
-        // try count cap (if none) using price and suuply
-        if (!sNow.cap_btc && sNow.price_btc) {
-          sNow.cap_btc = sNow.supply_current * sNow.price_btc;
-        }
-
-        set["metrics.supply"] = sNow.supply_current;
-        if (sDayAgo.supply_current) {
-          var supplyDayAgo = sDayAgo.supply_current// || sNow.supply_current;
-          set["metrics.supplyChangePercents.day"] = 100.0 *
-            (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
-
-          set["metrics.supplyChange.day"] = sNow.supply_current - supplyDayAgo;
-        }
-
-        // todo: add week changes/ month changes
-        // if (sWeekAgo) {
         //
-        // }
-      }
+        var timestamp = m._d;
+        var current = _.find(bucket.by_time.buckets, function (item) {
+          return item.to == mx;
+        });
 
-      if (sNow.price_usd) {
-        set["metrics.price.usd"] = sNow.price_usd;
-        if (sDayAgo.price_usd) {
-          set["metrics.priceChangePercents.day.usd"] = 100.0 *
-            (sNow.price_usd - sDayAgo.price_usd) / sNow.price_usd;
-          set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
+        // day ago
+        index = _.without(index, mx);
+        mx = _.max(index);
+        var dayAgo = _.find(bucket.by_time.buckets, function (item) {
+          return item.to == mx;
+        });
+
+        var set = {},
+          sNow = {}, sDayAgo = {}, sWeekAgo = {};
+
+        if (_.isArray(current.latest.hits.hits) && current.latest.hits.hits.length > 0) {
+          sNow = current.latest.hits.hits[0]._source;
+        } else {
+          //   logger.info("no current data for " + bucket.key);
+          //   console.log(bucket);
+          //   console.log();
         }
-      }
 
-      if (sNow.price_btc) {
-        set["metrics.price.btc"] = sNow.price_btc;
-        if (sDayAgo.price_btc) {
-          set["metrics.priceChangePercents.day.btc"] = 100.0 *
-            (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
-          set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
+        if (_.isArray(dayAgo.latest.hits.hits) && dayAgo.latest.hits.hits.length > 0) {
+          sDayAgo = dayAgo.latest.hits.hits[0]._source;
+        } else {
+          //                logger.info("no yesterday data for " + bucket.key);
+          //              console.log();
         }
-      }
 
-      if (sNow.volume24_btc) {
-        set["metrics.tradeVolume"] = sNow.volume24_btc;
-        //set["metrics.tradeVolume.usd"] = sNow.volume24_usd;
-        if (sDayAgo.volume24_btc) set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
-      }
+        if (_.isEmpty(sNow)) return;
 
-      if (sNow.cap_usd && sDayAgo.cap_usd) {
-        set["metrics.capChangePercents.day.usd"] = 100.0 *
-          (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
-        set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
-      }
-      if (sNow.cap_btc && sDayAgo.cap_btc) {
-        set["metrics.capChangePercents.day.btc"] = 100.0 *
-          (sNow.cap_btc - sDayAgo.cap_btc) / sNow.cap_btc;
-        set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
-      }
+        var cd = CurrentData.findOne(_searchSelector(bucket.key));
 
-      //get corresponding CurrentData _id to fill fastdata collection.
-      var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
-      if (!_id) {
-        notFounds.push(bucket.key);
-      } else {
-        _id = _id._id;
-      }
-
-      if (!_.isEmpty(set)) {
-        set.updatedAt = new Date();
-        // console.log(set);
-        CurrentData.update(_searchSelector(bucket.key), {$set: set});
-        var fastMetric = _.pick(sNow, [
-          "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"])
-        fastMetric.systemId = _id;
-        fastMetric.timestamp = timestamp;
-        fastMetric.stamp = stamp;
-        FastData.insert(fastMetric)
-      }
-
-    });
-    if (notFounds.length) {
-      logger.warn("not found any currentData for ");
-      logger.warn(notFounds);
-
-    }
-  },
-  averages_l15: function (result) {
-    if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {
-      return;
-    }
-    var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
-
-    _.each(buckets, function (bucket) {
-      var findSel = _searchSelector(bucket.key),
-        set = {};
-
-      if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
-      if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
-      if (!_.isEmpty(set)) {
-        try {
-          CurrentData.update(_searchSelector(bucket.key), {$set: set});
-        } catch(e){
-          console.log(e);
-          console.log(_searchSelector(bucket.key))
-          console.log(set)
+        // try using existing supply value if none here
+        if (!sNow.supply_current) {
+          if (cd) {
+            sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
+            if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
+          }
         }
-      } else {
-        // logger.info("no averages for " + bucket.key);
-      }
-    });
-  },
-  averages_date_hist: function (result, params) {
-    var daily = params.interval == "day";
-    var hourly = params.interval == "hour";
 
-    if (!hourly && !daily) {
-      console.warn("averages_date_hist es parser: ");
-      console.warn("only 'hour' and 'day' currently supported as intervals for data");
-      console.log();
-    }
+        // if supply value is here
+        if (sNow.supply_current) {
 
-    if (!result || !result.aggregations || !result.aggregations.by_system
-      || !result.aggregations.by_system.buckets) {
-      this.errorLogger(result);
-      return;
-    }
+          // try count cap (if none) using price and supply
+          if (!sNow.cap_usd && sNow.price_usd) {
+            sNow.cap_usd = sNow.supply_current * sNow.price_usd;
+          }
 
-    var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
-    if (!_.isArray(buckets)) return;
+          // try count cap (if none) using price and suuply
+          if (!sNow.cap_btc && sNow.price_btc) {
+            sNow.cap_btc = sNow.supply_current * sNow.price_btc;
+          }
 
-    var notFounds = [];
-    _.each(buckets, function (sysBucket) {
-      var systemKey = sysBucket.key;
-      var id = CurrentData.findOne(_searchSelector(systemKey));
-      if (!id) {
-        notFounds.push(sysBucket.key);
+          set["metrics.supply"] = sNow.supply_current;
+          if (sDayAgo.supply_current) {
+            var supplyDayAgo = sDayAgo.supply_current// || sNow.supply_current;
+            set["metrics.supplyChangePercents.day"] = 100.0 *
+              (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
+
+            set["metrics.supplyChange.day"] = sNow.supply_current - supplyDayAgo;
+          }
+
+          // todo: add week changes/ month changes
+          // if (sWeekAgo) {
+          //
+          // }
+
+        } else { //if no supply - let s try calc it from cap & price
+          if (cd.metrics && cd.metrics.cap && cd.metrics.price) {
+            if (cd.metrics.cap.btc && cd.metrics.price.btc) {
+              set["metrics.supply"] = cd.metrics.cap.btc/ cd.metrics.price.btc;
+            } else {
+              if (cd.metrics.cap.usd && cd.metrics.price.usd) {
+                set["metrics.supply"] = cd.metrics.cap.usd/ cd.metrics.price.usd;
+              }
+            }
+          }
+        }
+
+          if (sNow.price_usd) {
+            set["metrics.price.usd"] = sNow.price_usd;
+            if (sDayAgo.price_usd) {
+              set["metrics.priceChangePercents.day.usd"] = 100.0 *
+                (sNow.price_usd - sDayAgo.price_usd) / sNow.price_usd;
+              set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
+            }
+          }
+
+          if (sNow.price_btc) {
+            set["metrics.price.btc"] = sNow.price_btc;
+            if (sDayAgo.price_btc) {
+              set["metrics.priceChangePercents.day.btc"] = 100.0 *
+                (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
+              set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
+            }
+          }
+
+          if (sNow.volume24_btc) {
+            set["metrics.tradeVolume"] = sNow.volume24_btc;
+            //set["metrics.tradeVolume.usd"] = sNow.volume24_usd;
+            if (sDayAgo.volume24_btc) set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
+          }
+
+          if (sNow.cap_usd && sDayAgo.cap_usd) {
+            set["metrics.capChangePercents.day.usd"] = 100.0 *
+              (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
+            set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
+          }
+          if (sNow.cap_btc && sDayAgo.cap_btc) {
+            set["metrics.capChangePercents.day.btc"] = 100.0 *
+              (sNow.cap_btc - sDayAgo.cap_btc) / sNow.cap_btc;
+            set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
+          }
+
+          //get corresponding CurrentData _id to fill fastdata collection.
+          var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
+          if (!_id) {
+            notFounds.push(bucket.key);
+          } else {
+            _id = _id._id;
+          }
+
+          // those are used to build daily charts
+          if (!_.isEmpty(set)) {
+            set.updatedAt = new Date();
+            // console.log(set);
+            CurrentData.update(_searchSelector(bucket.key), {$set: set});
+            var fastMetric = _.pick(sNow, [
+              "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"])
+            fastMetric.systemId = _id;
+            fastMetric.timestamp = timestamp;
+            fastMetric.stamp = stamp;
+            FastData.insert(fastMetric)
+          }
+
+        }
+        )
+        ;
+        if (notFounds.length) {
+          logger.warn("not found any currentData for ");
+          logger.warn(notFounds);
+        }
+      },
+
+      averages_l15
+    :
+    function (result) {
+      if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {
         return;
       }
-      id = id._id;
-      if (daily) _key = "dailyData";
-      if (hourly) _key = "hourlyData";
-      if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
-        return;
-      }
+      var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
 
-      // apply changes to currentData
-      var set = {};
+      _.each(buckets, function (bucket) {
+        var findSel = _searchSelector(bucket.key),
+          set = {};
 
-      _.each(sysBucket.over_time.buckets, function (timeBucket) {
-        if (!timeBucket.key_as_string) return;
-        var utc = moment.utc(timeBucket.key_as_string);
-        if (!utc) return;
-
-        function grab(timeBucket) {
-          var ret = {};
-          _.each(["cap_usd", "cap_btc", "volume24_btc",
-            "price_usd", "volume24_usd", "price_btc"], function (k) {
-            ret[k] = timeBucket[k].value;
-          });
-          return ret;
+        if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
+        if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
+        if (!_.isEmpty(set)) {
+          try {
+            CurrentData.update(_searchSelector(bucket.key), {$set: set});
+          } catch (e) {
+            console.log(e);
+            console.log(_searchSelector(bucket.key))
+            console.log(set)
+          }
+        } else {
+          // logger.info("no averages for " + bucket.key);
         }
-
-        var key;
-        if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
-        if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
-        set[key] = grab(timeBucket);
-
       });
-      if (!_.isEmpty(set)) {
-        CurrentData.update({_id: id}, {$set: set});
-      } else {
+    }
+
+    ,
+    averages_date_hist: function (result, params) {
+      var daily = params.interval == "day";
+      var hourly = params.interval == "hour";
+
+      if (!hourly && !daily) {
+        console.warn("averages_date_hist es parser: ");
+        console.warn("only 'hour' and 'day' currently supported as intervals for data");
+        console.log();
       }
-    });
-  }
-};
+
+      if (!result || !result.aggregations || !result.aggregations.by_system
+        || !result.aggregations.by_system.buckets) {
+        this.errorLogger(result);
+        return;
+      }
+
+      var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
+      if (!_.isArray(buckets)) return;
+
+      var notFounds = [];
+      _.each(buckets, function (sysBucket) {
+        var systemKey = sysBucket.key;
+        var id = CurrentData.findOne(_searchSelector(systemKey));
+        if (!id) {
+          notFounds.push(sysBucket.key);
+          return;
+        }
+        id = id._id;
+        if (daily) _key = "dailyData";
+        if (hourly) _key = "hourlyData";
+        if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
+          return;
+        }
+
+        // apply changes to currentData
+        var set = {};
+
+        _.each(sysBucket.over_time.buckets, function (timeBucket) {
+          if (!timeBucket.key_as_string) return;
+          var utc = moment.utc(timeBucket.key_as_string);
+          if (!utc) return;
+
+          function grab(timeBucket) {
+            var ret = {};
+            _.each(["cap_usd", "cap_btc", "volume24_btc",
+              "price_usd", "volume24_usd", "price_btc"], function (k) {
+              ret[k] = timeBucket[k].value;
+            });
+            return ret;
+          }
+
+          var key;
+          if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
+          if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
+          set[key] = grab(timeBucket);
+
+        });
+        if (!_.isEmpty(set)) {
+          CurrentData.update({_id: id}, {$set: set});
+        } else {
+        }
+      });
+    }
+  };
 
 function fetchLatest(params) {
   try {
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
     esParsers.latest_values(result)
-  } catch(e){
+  } catch (e) {
     logger.warn("could not fetch latest values");
     logger.warn(e)
   }
@@ -332,21 +355,21 @@ function fetchAverages(params) {
   esParsers.averages_date_hist(result);
 }
 /*
-Meteor.startup(function () {
-  var countHourlies = CurrentData.find({"hourlyData": {$exists: true}}).count();
-  var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
+ Meteor.startup(function () {
+ var countHourlies = CurrentData.find({"hourlyData": {$exists: true}}).count();
+ var countDailies = CurrentData.find({"dailyData": {$exists: true}}).count();
 
-  var params = {
-    from: "now-1d/d",
-    to: "now/d",
-    interval: "day"
-  };
+ var params = {
+ from: "now-1d/d",
+ to: "now/d",
+ interval: "day"
+ };
 
-  //var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
-  //  esParsers.averages_date_hist(result, params);
+ //var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+ //  esParsers.averages_date_hist(result, params);
 
-});
-*/
+ });
+ */
 
 SyncedCron.add({
   name: 'fetch last hour averages',
@@ -385,7 +408,7 @@ Meteor.methods({
     var curDataDoc = CurrentData.findOne({_id: curDataId});
     if (!curDataDoc || curDataDoc.initializedAverages || !curDataDoc.token) return; //only shoot once. like a real panda.
 
-    var system = curDataDoc.token.token_symbol+"|"+curDataDoc.system;
+    var system = curDataDoc.token.token_symbol + "|" + curDataDoc.system;
     // fetch dailies for 30 last days
     var params = {
       from: "now-4y/d",
