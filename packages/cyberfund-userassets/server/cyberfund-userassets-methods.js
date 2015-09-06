@@ -15,7 +15,6 @@ CF.UserAssets.tokenCB2tokenCG = function(cryptoBalanceToken){
 
 Meteor.methods({
   cfAssetsUpdateBalance: function (accountKey, address) {
-    console.log('he', accountKey, address);
     if (!this.userId) {
       return;
     }
@@ -34,13 +33,10 @@ Meteor.methods({
     var addressObj = accounts[accountKey] && accounts[accountKey].addresses
       && accounts[accountKey].addresses[address];
     if (!addressObj) return;
-    console.log(1);
     var modify = {$set: {}, $unset: {}};
 
     var key =  ['accounts', accountKey, 'addresses', address, 'assets'].join(".");
-    console.log(key);
     _.each(addressObj.assets, function(asset, assetKey){
-      console.log(asset, key);
       if (asset.update === 'auto') {
         modify.$unset[[key,assetKey].join('.')] = "true"
       }
@@ -78,7 +74,6 @@ Meteor.methods({
 
           // if modifier not empty
           if (_.keys(modify).length) {
-            console.log(modify);
             Meteor.users.update(sel, modify);
           }
         }
@@ -103,7 +98,6 @@ Meteor.methods({
     var key = ['accounts', accountKey, "addresses", asset].join(".");
     var unset = {$unset:{}};
     unset.$unset[key] = true;
-    console.log(unset);
     Meteor.users.update({_id: userId}, unset);
   },
 
@@ -123,7 +117,6 @@ Meteor.methods({
       addresses: {}
     };
     var r = Meteor.users.update(sel, {$set: $set});
-    console.log(r);
     if (obj.address) Meteor.call('cfAssetsAddAddress', key, obj.address);
     return {newAccountKey: key};
   },
@@ -133,8 +126,6 @@ Meteor.methods({
     var sel = {_id: this.userId};
     var accounts = Meteor.users.findOne(sel).accounts;
     if (!accounts || !accounts[key]) {
-      console.log(accounts);
-      console.log(key);
       return;
     }
     var checkName = CF.UserAssets.accountNameIsValid(newName, accounts, accounts[key].name);
