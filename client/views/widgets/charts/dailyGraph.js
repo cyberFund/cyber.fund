@@ -29,13 +29,27 @@ Template['dailyGraph'].rendered = function () {
 
     var data = ns.fn.daily.getData(ticks);
 
-    if (self.data.metrics) {
+    if (self.data.metrics && self.data.metrics.cap && self.data.metrics.price) {
+      var dta = current.format(ns.dateformats.daily).replace("&nbsp;", " ");
       data.labels.push("");//current.format("D HH"));
-      if (self.data.metrics.cap  && self.data.metrics.price) {
-        data.capB.push({meta: self.data.metrics.price.btc || '', value: self.data.metrics.cap.btc || null});
-        data.capU.push(self.data.metrics.cap.usd || null);
-      }
-      data.trade.push(self.data.metrics.tradeVolume || null);
+
+      data.capB.push(
+        {
+          meta: [self.data.metrics.price.btc || '', dta].join("|"),
+          value: self.data.metrics.cap.btc || null
+        });
+
+      data.capU.push(
+        {
+          value: self.data.metrics.cap.usd || null,
+          meta: [self.data.metrics.price.usd, dta].join("|")
+        });
+
+      data.trade.push(
+        {
+          value: self.data.metrics.tradeVolume || 0,
+          meta: [self.data.metrics.price.btc, dta].join("|")
+        });
     }
     for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
