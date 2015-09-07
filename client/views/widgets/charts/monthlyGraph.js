@@ -24,6 +24,29 @@ Template['monthlyGraph'].rendered = function () {
 
     var data = ns.fn.monthly.getData(ticks);
 
+    if (self.data.metrics && self.data.metrics.cap && self.data.metrics.price) {
+      var dta = current.format(ns.dateformats.monthly).replace("&nbsp;", " ");
+      data.labels.push("");//current.format("D HH"));
+
+      data.capB.push(
+        {
+          meta: [self.data.metrics.price.btc || '', dta].join("|"),
+          value: self.data.metrics.cap.btc || null
+        });
+
+      data.capU.push(
+        {
+          value: self.data.metrics.cap.usd || null,
+          meta: [self.data.metrics.price.usd, dta].join("|")
+        });
+
+      data.trade.push(
+        {
+          value: self.data.metrics.tradeVolume || 0,
+          meta: [self.data.metrics.price.btc, dta].join("|")
+        });
+    }
+    /*
     if (self.data.metrics) {
       data.labels.push("");//current.format("D HH"));
       if (self.data.metrics.cap && self.data.metrics.price) {
@@ -31,7 +54,7 @@ Template['monthlyGraph'].rendered = function () {
         data.capU.push(self.data.metrics.cap.usd || null);
       }
       data.trade.push(self.data.metrics.tradeVolume || null);
-    }
+    }*/
 
     for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
