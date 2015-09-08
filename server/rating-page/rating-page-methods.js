@@ -13,12 +13,12 @@ Meteor.methods({
       CurrentData.update({system: sys}, {$pull: {'_usersStarred': uid}});
     }
   },
-  starSysByKey: function (key) {
+  starSysBySys: function (sys) {
     var uid = this.userId;
     if (!uid) return;
     var sel = {_id: uid};
-    var system = CurrentData.findOne({"token.token_symbol": key});
-    var sys = system.system;
+    var system = CurrentData.findOne(CF.CurrentData.selectors.symbol(sys));
+    system = system.system;
     if (system) {
       var user = Meteor.users.findOne(sel)
       if (user) {
