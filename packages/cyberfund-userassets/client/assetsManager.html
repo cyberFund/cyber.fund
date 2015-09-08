@@ -3,6 +3,10 @@
     <section id="assets-manager" class="assets-manager row">
         {{#if isOwnAssets}}
             {{> addAccount}}
+            {{#if showAccountsAdvertise}}
+                <div class="enlarge" style="">add account
+                </div>
+            {{/if}}
         {{/if}}
         {{#if _accounts}}
             {{#each keyValue _accounts}}
@@ -131,7 +135,8 @@
                             </div>
                             <div class="col lg-9 md-9 sm-8">
                                 <span class="enlarge">{{#if currentAsset}}{{displaySystemName currentAsset}}
-                                       ({{currentAsset.token.token_symbol}}){{/if}}</span>
+                                    ({{currentAsset.token.token_symbol}}
+                                    ){{/if}}</span>
                             </div>
                         </div>
                         <div class="row number-sum-wrapper">
@@ -143,10 +148,10 @@
                                 number</label>
                         </div>
                         <div class="row">
-                                <button type="submit"
-                                        class="btn right red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                    Add
-                                </button>
+                            <button type="submit"
+                                    class="btn right red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Add
+                            </button>
                             <a class="modal-action modal-close btn  waves-effect  cancel-add-address grey">Cancel</a>
                         </div>
                     </form>
@@ -167,10 +172,10 @@
                             </div>
                         {{/if}}
                         <div class="row">
-                                <button type="submit"
-                                        class="btn red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                    Delete
-                                </button>
+                            <button type="submit"
+                                    class="btn red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Delete
+                            </button>
                             <a class="modal-action modal-close btn  waves-effect right grey">Cancel</a>
                         </div>
                     </form>
@@ -211,10 +216,10 @@
                         {{/if}}
                         <div class="row">
                             <a class="modal-action modal-close btn  waves-effect grey">Cancel</a>
-                                <button type="submit"
-                                        class="btn right waves-effect">
-                                    Update
-                                </button>
+                            <button type="submit"
+                                    class="btn right waves-effect">
+                                Update
+                            </button>
                         </div>
                     </form>
                 </div>
