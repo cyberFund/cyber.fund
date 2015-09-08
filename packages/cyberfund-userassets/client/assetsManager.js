@@ -198,7 +198,7 @@ Template['assetsManager'].events({
     Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
       $form.closest(".modal").closeModal();
     });
-    Meteor.call("starSysByKey", key);
+    Meteor.call("starSysBySys", key);
     return false;
   },
   "autocompleteselect input#search2": function (event, template, doc) {

@@ -17,9 +17,7 @@ Meteor.methods({
     var uid = this.userId;
     if (!uid) return;
     var sel = {_id: uid};
-    var system = CurrentData.findOne(CF.CurrentData.selectors.symbol(sys));
-    system = system.system;
-    if (system) {
+    if (sys) {
       var user = Meteor.users.findOne(sel)
       if (user) {
         var starred = user.profile.starredSystems;

@@ -160,7 +160,7 @@ var esParsers = {
           // }
 
         } else { //if no supply - let s try calc it from cap & price
-          if (cd.metrics && cd.metrics.cap && cd.metrics.price) {
+          if (cd && cd.metrics && cd.metrics.cap && cd.metrics.price) {
             if (cd.metrics.cap.btc && cd.metrics.price.btc) {
               set["metrics.supply"] = cd.metrics.cap.btc/ cd.metrics.price.btc;
             } else {
