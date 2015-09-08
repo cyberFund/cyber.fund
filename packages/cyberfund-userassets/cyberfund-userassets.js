@@ -25,20 +25,20 @@ CF.UserAssets.nextKey = function(accounts){
  * @returns {Array} of token symbols
  */
 
-CF.UserAssets.getSymbolsFromAccountsObject = function(assetsObject) {
+CF.UserAssets.getSystemsFromAccountsObject = function(assetsObject) {
   if (!assetsObject) return [];
-  var symbols = _.values(assetsObject);
-  if (symbols) {
-    symbols = _.flatten(_.map(symbols, function (account) {
+  var systems = _.values(assetsObject);
+  if (systems) {
+    systems = _.flatten(_.map(systems, function (account) {
       return _.values(account.addresses)
     }));
   } else return [];
-  if (symbols) {
-    symbols = _.uniq(_.flatten(_.map(symbols, function (address) {
+  if (systems) {
+    systems = _.uniq(_.flatten(_.map(systems, function (address) {
       return (_.keys(address.assets))
     })));
   } else return [];
-  return _.uniq(symbols);
+  return _.uniq(systems);
 }
 
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {

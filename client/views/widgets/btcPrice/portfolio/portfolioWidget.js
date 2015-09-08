@@ -39,7 +39,7 @@ CF.UserAssets.folioSortFunction = function (x, y) {
 
 var getSumB = function () {
   var accounts = CF.UserAssets.getAccountsObject(),
-    symbols = symbols = CF.UserAssets.getSymbolsFromAccountsObject(accounts),
+    symbols = symbols = CF.UserAssets.getSystemsFromAccountsObject(accounts),
     sum = 0;
   _.each(symbols, function (symbol) {
     var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, symbol);
@@ -56,7 +56,7 @@ Template['portfolioWidget'].helpers({
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
-      symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject())
+      symbols = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject())
     var stars = user.profile.starredSystems;
     if (stars && stars.length) {
       var plck = _.map(CurrentData.find({system: {$in: stars}},
@@ -140,7 +140,7 @@ Template['portfolioWidget'].helpers({
   },
   sumU: function () {
     var accounts = CF.UserAssets.getAccountsObject(),
-      symbols = symbols = CF.UserAssets.getSymbolsFromAccountsObject(accounts),
+      symbols = symbols = CF.UserAssets.getSystemsFromAccountsObject(accounts),
       sum = 0;
     _.each(symbols, function (symbol) {
       var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, symbol);

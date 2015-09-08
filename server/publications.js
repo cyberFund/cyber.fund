@@ -145,7 +145,7 @@ Meteor.publish('portfolioUser', function(){
 })
 
 Meteor.publish('assetsSystems', function(tokens){
-  return CurrentData.find(CF.CurrentData.selectors.symbol(tokens), {fields:
+  return CurrentData.find(CF.CurrentData.selectors.system(tokens), {fields:
   {system: 1, token: 1, aliases: 1, icon: 1}})
 });
 
@@ -161,9 +161,9 @@ Meteor.publish("portfolioSystems", function(options){
   if (!this.userId) return this.ready();
   var user = Meteor.users.findOne({_id: this.userId});
 
-  var symbols = CF.UserAssets.getSymbolsFromAccountsObject(user.accounts)
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts)
   if (options.privateAssets) {
-    symbols = _.union(symbols, CF.UserAssets.getSymbolsFromAccountsObject(user.accountsPrivate))
+    systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
   }
 
   var stars = user.profile.starredSystems;
@@ -173,9 +173,9 @@ Meteor.publish("portfolioSystems", function(options){
       {fields: {'token.token_symbol': 1}}).fetch(), function(it){
       return it.token && it.token.token_symbol;
     });
-    symbols = _.union(symbols, plck)
+    systems = _.union(systems, plck)
   }
-  return CurrentData.find(CF.CurrentData.selectors.symbol(symbols),
+  return CurrentData.find(CF.CurrentData.selectors.symbol(systems),
     {fields: {
       "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
     }})

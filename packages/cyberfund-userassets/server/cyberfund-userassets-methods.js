@@ -1,14 +1,14 @@
 var logger = log4js.getLogger("assets-tracker");
 
 /**
- * converts crypto-balance token to chaingear token.
+ * converts crypto-balance token to chaingear system name.
  * @param cryptoBalanceToken - token received from crypto-balance library
- * @returns {CG token OR false - if auptoupdate is disabled.}
+ * @returns {CG system name OR false - if autoupdate is disabled.}
  */
-CF.UserAssets.tokenCB2tokenCG = function(cryptoBalanceToken){
+CF.UserAssets.tokenCB2systemCG = function(cryptoBalanceToken){
   var matchingTable = {
-    'BTC': 'BTC',
-    'OA/CFUND': 'CFUND'
+    'BTC': 'Bitcoin',
+    'OA/CFUND': 'cyberFund'
   };
   return matchingTable[cryptoBalanceToken] || false;
 }
@@ -47,7 +47,7 @@ Meteor.methods({
           _.each(result, function (item) {
             if (item.status != 'success') return;
 
-            item.asset = CF.UserAssets.tokenCB2tokenCG(item.asset);
+            item.asset = CF.UserAssets.tokenCB2systemCG(item.asset);
             if (!item.asset) return;
 
             var q;

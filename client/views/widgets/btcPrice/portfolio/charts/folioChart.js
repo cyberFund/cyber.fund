@@ -8,7 +8,7 @@ Template['folioChart'].rendered = function () {
 
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
-      symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
+      symbols = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject());
     var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
     var data = r.fetch().sort(CF.UserAssets.folioSortFunction);
 

@@ -35,11 +35,11 @@ Template['displayAccount'].helpers({
     return isOwnAssets();
   },
   systemData: function(){
-    return CurrentData.findOne({"token.token_symbol": this.value.asset}) || {};
+    return CurrentData.findOne(CF.CurrentData.selectors.system(this.value.asset)) || {};
   },
   name_of_system: function(){
-    var sys = CurrentData.findOne({"token.token_symbol": this.value.asset}) || {};
-    return sys.system || ''
+    return this.value.asset;//}) || {};
+    //return sys.system || ''
   }
 });
 
@@ -95,8 +95,8 @@ Template['displayAccount'].events({
   },
   'click .req-delete-asset': function(e, t){
     var $item = t.$(e.currentTarget).closest(".asset-item")
-    CF.UserAssets.currentAsset.set(CurrentData.findOne(
-      {"token.token_symbol": $item.attr("asset-key")},
+    CF.UserAssets.currentAsset.set(
+      CurrentData.findOne(CF.CurrentData.selectors.system( $item.attr("asset-key")),
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
     if (CF.UserAssets.currentAsset.get()) {
       $item = $item.closest(".address-item");
@@ -111,8 +111,8 @@ Template['displayAccount'].events({
   'click .req-edit-asset': function(e,t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
 
-    CF.UserAssets.currentAsset.set(CurrentData.findOne(
-      {"token.token_symbol": $item.attr("asset-key")},
+    CF.UserAssets.currentAsset.set(
+      CurrentData.findOne(CF.CurrentData.selectors.system($item.attr("asset-key")),
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
     if (CF.UserAssets.currentAsset.get()) {
       $item = $item.closest(".address-item");
