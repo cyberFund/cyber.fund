@@ -11,7 +11,6 @@ momentjs:moment
 
 # percolatestudio:segment.io@=1.1.1_1
 
-iron:router
 zimme:active-route
 
 reactive-var
@@ -42,3 +41,4 @@ percolate:synced-cron
 mizzao:autocomplete
 meteorhacks:fast-render
 cyberfund:cyberfund-userassets
+kadira:flow-router

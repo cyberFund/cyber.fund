@@ -10,8 +10,6 @@ Meteor.methods({
 Accounts.onCreateUser(function(options, user) {
   //var d6 = function () { return Math.floor(Random.fraction() * 6) + 1; };
   //user.dexterity = d6() + d6() + d6();
-  console.log(options);
-  console.log(user);
   // We still want the default hook's 'profile' behavior.
   if (user.services && user.services.twitter) {
     options.profile = options.profile || {}

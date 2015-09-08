@@ -25,12 +25,14 @@
                     <h5>Followers</h5>
                 </div>
                 <div>
+                    {{log followedByUsers}}
                     {{> usersList1 data=followedByUsers style="margin: 0 3px 6px"}}
                 </div>
                 <div>
                     <h5>Following</h5>
                 </div>
                 <div>
+                    {{log followingUsers}}
                     {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
                 </div>
             {{/with}}

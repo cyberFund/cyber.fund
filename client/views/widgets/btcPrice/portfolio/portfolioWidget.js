@@ -119,7 +119,8 @@ Template['portfolioWidget'].helpers({
         CF.UserAssets.getAccountsObject(), system.token.token_symbol);
     }
     var sum = getSumB();
-    if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
+    if (system && system.metrics && system.metrics.price
+      && system.metrics.price.btc && sum>0.0) {
       return (100*q * system.metrics.price.btc / sum).toFixed(1)+"%";
     }
     return "0%";
