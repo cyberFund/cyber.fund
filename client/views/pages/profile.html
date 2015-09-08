@@ -25,21 +25,19 @@
                     <h5>Followers</h5>
                 </div>
                 <div>
-                    {{log followedByUsers}}
                     {{> usersList1 data=followedByUsers style="margin: 0 3px 6px"}}
                 </div>
                 <div>
                     <h5>Following</h5>
                 </div>
                 <div>
-                    {{log followingUsers}}
                     {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
                 </div>
             {{/with}}
             {{#if ownProfile}}
                 {{#if userRegistracionCount}}
                     <div>
-                      <br>
+                        <br>
                         You are user #{{userRegistracionCount}}
                     </div>
                     {{#if lte userRegistracionCount 100}}
@@ -57,12 +55,7 @@
             {{/if}}
         </div>
         <div class="col l9 m12 s12">
-            {{#if showAccountsAdvertise}}
-                <div class="enlarge green" style="">trololo
-                </div>
-            {{else}}
-                {{> assetsManager }}
-            {{/if}}
+            {{> assetsManager }}
         </div>
 
         {{#if currentUser}}

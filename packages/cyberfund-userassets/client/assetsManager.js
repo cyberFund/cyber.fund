@@ -99,6 +99,13 @@ Template['assetsManager'].events({
     $("#modal-delete-account").closeModal();
     return false;
   },
+  showAccountsAdvertise: function () {
+    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
+      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
+      return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
+    }
+    return false;
+  },
   'keyup #rename-account-in, change #rename-account-in': function (e, t) {
     if (!isOwnAssets()) return;
     var accountId = CF.UserAssets.currentAccount.get();
