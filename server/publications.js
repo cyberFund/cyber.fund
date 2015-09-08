@@ -170,12 +170,12 @@ Meteor.publish("portfolioSystems", function(options){
   if (stars && stars.length) {
 
     var plck = _.map(CurrentData.find({system: {$in: stars}},
-      {fields: {'token.token_symbol': 1}}).fetch(), function(it){
-      return it.token && it.token.token_symbol;
+      {fields: {'system': 1}}).fetch(), function(it){
+      return it.system;
     });
     systems = _.union(systems, plck)
   }
-  return CurrentData.find(CF.CurrentData.selectors.symbol(systems),
+  return CurrentData.find(CF.CurrentData.selectors.system(systems),
     {fields: {
       "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
     }})
