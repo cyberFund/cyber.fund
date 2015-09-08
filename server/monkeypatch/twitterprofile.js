@@ -23,10 +23,8 @@ Accounts.onCreateUser(function(options, user) {
 });
 
 CF.Profile.patch = function(user){
-
   if (!user) return;
   if (!user.services.twitter) return;
-
   var set = {}
   if (user.profile.twitterName != user.services.twitter.screenName) {
     set["profile.twitterName"] = user.services.twitter.screenName;
@@ -37,7 +35,7 @@ CF.Profile.patch = function(user){
     set["profile.twitterIconUrlHttps"] = user.services.twitter.profile_image_url_https;
   };
   if (_.keys(set).length)
-    Meteor.users.update({_id: this.userId}, {$set: set})
+    Meteor.users.update({_id: user._id}, {$set: set})
 }
 
 SyncedCron.add({
