@@ -26,24 +26,23 @@ CF.UserAssets.folioSortFunction = function (x, y) {
     if (!system.metrics.price.btc) return 0;
     return system.metrics.price.btc;
   }
-  var getToken = function (system) {
-    if (!system.token) return '';
-    if (!system.token.token_symbol) return '';
-    return system.token.token_symbol
+  var getSystem = function (system) {
+    if (!system.system) return '';
+    return system.system;
   }
   var accounts = CF.UserAssets.getAccountsObject();
-  var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getToken(x));
-  var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getToken(y));
+  var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x));
+  var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
   return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
 }
 
 var getSumB = function () {
   var accounts = CF.UserAssets.getAccountsObject(),
-    symbols = symbols = CF.UserAssets.getSystemsFromAccountsObject(accounts),
+    systems = CF.UserAssets.getSystemsFromAccountsObject(accounts),
     sum = 0;
-  _.each(symbols, function (symbol) {
-    var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, symbol);
-    var system = CurrentData.findOne({"token.token_symbol": symbol});
+  _.each(systems, function (sys) {
+    var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, sys);
+    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
       sum += q * system.metrics.price.btc;
@@ -56,39 +55,39 @@ Template['portfolioWidget'].helpers({
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
-      symbols = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject())
+      systems = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject())
     var stars = user.profile.starredSystems;
     if (stars && stars.length) {
       var plck = _.map(CurrentData.find({system: {$in: stars}},
-        {fields: {'token.token_symbol': 1}}).fetch(), function (it) {
-        return it.token && it.token.token_symbol;
+        {fields: {'system': 1}}).fetch(), function (it) {
+        return it.system;
       });
-      symbols = _.uniq(_.union(symbols, plck))
+      systems = _.uniq(_.union(systems, plck))
     }
-    var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
+    var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
     return r.fetch().sort(CF.UserAssets.folioSortFunction);
   },
   quantity: function (system) {
-    if (!system.token || !system.token.token_symbol) return NaN;
+    if (!system.system) return NaN;
 
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol), 3);
+      CF.UserAssets.getAccountsObject(), system.system), 3);
   }
   ,
   btcCost: function (system) {
-    if (!system.token || !system.token.token_symbol) return "no token for that system";
+    if (!system.system) return "no token for that system";
 
 
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.btc).toFixed(3);
+      CF.UserAssets.getAccountsObject(), system.system) * system.metrics.price.btc).toFixed(3);
   },
   usdCost: function (system) {
-    if (!system.token || !system.token.token_symbol) return "no token for that system";
+    if (!system.system) return "no token for that system";
 
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.token.token_symbol) * system.metrics.price.usd, 2);
+      CF.UserAssets.getAccountsObject(), system.system) * system.metrics.price.usd, 2);
   },
   sumB: function () {
     var sumB = getSumB();
@@ -100,9 +99,9 @@ Template['portfolioWidget'].helpers({
   },
   equity: function (system) {
     var q = 0.0;
-    if (system.token && system.token.token_symbol) {
+    if (system.system) {
       q = CF.UserAssets.getQuantitiesFromAccountsObject(
-        CF.UserAssets.getAccountsObject(), system.token.token_symbol);
+        CF.UserAssets.getAccountsObject(), system.system);
     }
     if (system.metrics && system.metrics.supply) {
       q = 10000 * q / system.metrics.supply
@@ -114,9 +113,9 @@ Template['portfolioWidget'].helpers({
   },
   share: function (system) {
     var q = 0.0;
-    if (system.token && system.token.token_symbol) {
+    if (system.system) {
       q = CF.UserAssets.getQuantitiesFromAccountsObject(
-        CF.UserAssets.getAccountsObject(), system.token.token_symbol);
+        CF.UserAssets.getAccountsObject(), system.system);
     }
     var sum = getSumB();
     if (system && system.metrics && system.metrics.price
@@ -140,11 +139,11 @@ Template['portfolioWidget'].helpers({
   },
   sumU: function () {
     var accounts = CF.UserAssets.getAccountsObject(),
-      symbols = symbols = CF.UserAssets.getSystemsFromAccountsObject(accounts),
+      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts),
       sum = 0;
-    _.each(symbols, function (symbol) {
-      var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, symbol);
-      var system = CurrentData.findOne({"token.token_symbol": symbol});
+    _.each(systems, function (sys) {
+      var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, sys);
+      var system = CurrentData.findOne(CF.CurrentData.selectors.system( sys));
 
       if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
         sum += q * system.metrics.price.usd;
