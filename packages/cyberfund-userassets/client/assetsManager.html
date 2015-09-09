@@ -3,6 +3,10 @@
     <section id="assets-manager" class="assets-manager row">
         {{#if isOwnAssets}}
             {{> addAccount}}
+            {{#if showAccountsAdvertise}}
+                <div class="enlarge" style="">add account
+                </div>
+            {{/if}}
         {{/if}}
         {{#if _accounts}}
             {{#each keyValue _accounts}}
@@ -130,8 +134,9 @@
                                 {{> searchItem2}}
                             </div>
                             <div class="col lg-9 md-9 sm-8">
-                                <span class="enlarge">{{#if currentAsset}}{{displaySystemName currentAsset}}
-                                       ({{currentAsset.token.token_symbol}}){{/if}}</span>
+                                <span class="enlarge">{{#if currentAsset}}
+                                    {{>systemWithToken currentAsset}}
+                                    ){{/if}}</span>
                             </div>
                         </div>
                         <div class="row number-sum-wrapper">
@@ -143,10 +148,10 @@
                                 number</label>
                         </div>
                         <div class="row">
-                                <button type="submit"
-                                        class="btn right red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                    Add
-                                </button>
+                            <button type="submit"
+                                    class="btn right red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Add
+                            </button>
                             <a class="modal-action modal-close btn  waves-effect  cancel-add-address grey">Cancel</a>
                         </div>
                     </form>
@@ -162,15 +167,15 @@
 
                             <div class="row">
                                 <p> Confirm deletion
-                                    of {{currentAsset.token.token_symbol}}
+                                    of {{currentAsset.system}}
                                     at {{currentAddress}}</p>
                             </div>
                         {{/if}}
                         <div class="row">
-                                <button type="submit"
-                                        class="btn red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
-                                    Delete
-                                </button>
+                            <button type="submit"
+                                    class="btn red waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
+                                Delete
+                            </button>
                             <a class="modal-action modal-close btn  waves-effect right grey">Cancel</a>
                         </div>
                     </form>
@@ -184,7 +189,7 @@
                         {{#if currentAccount}}
                             <div class="row">
                                 <p> Update quantity
-                                    of {{currentAsset.token.token_symbol}}
+                                    of {{currentAsset.system}}
                                     at {{currentAddress}}</p>
 
                                 <div class="col lg-3 md-3 sm-4">
@@ -192,7 +197,7 @@
                                            style="width: 100%; color: black"
                                            name="asset-symbol-input" disabled
                                            placeholder="Use search bar"
-                                           value="{{#if currentAsset}}{{displaySystemName currentAsset}} ({{currentAsset.token.token_symbol}}){{/if}}">
+                                           value="{{#if currentAsset}}{{>systemWithToken currentAsset}}{{/if}}">
                                 </div>
                                 <div class="col lg-3 md-3 sm-4">
                                     <div class="row number-sum-wrapper">
@@ -211,10 +216,10 @@
                         {{/if}}
                         <div class="row">
                             <a class="modal-action modal-close btn  waves-effect grey">Cancel</a>
-                                <button type="submit"
-                                        class="btn right waves-effect">
-                                    Update
-                                </button>
+                            <button type="submit"
+                                    class="btn right waves-effect">
+                                Update
+                            </button>
                         </div>
                     </form>
                 </div>

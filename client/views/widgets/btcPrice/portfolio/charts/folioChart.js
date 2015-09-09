@@ -1,5 +1,5 @@
 CF.UserAssets.graph = CF.UserAssets.graph || {};
-CF.UserAssets.graph.minimalShare = 0.02;
+CF.UserAssets.graph.minimalShare = 0.015;
 
 Template['folioChart'].rendered = function () {
   var self = this;
@@ -8,8 +8,8 @@ Template['folioChart'].rendered = function () {
 
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
-      symbols = CF.UserAssets.getSymbolsFromAccountsObject(CF.UserAssets.getAccountsObject());
-    var r = CurrentData.find(CF.CurrentData.selectors.symbol(symbols));
+      systems = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject());
+    var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
     var data = r.fetch().sort(CF.UserAssets.folioSortFunction);
 
     var sum = 0; // this to be used o determine if minor actives
@@ -22,8 +22,8 @@ Template['folioChart'].rendered = function () {
     };
     _.each(data, function (system) {
       var point = {
-        symbol: system.token.token_symbol,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(CF.UserAssets.getAccountsObject(), system.token.token_symbol)
+        symbol: system.system,
+        q: CF.UserAssets.getQuantitiesFromAccountsObject(CF.UserAssets.getAccountsObject(), system.system)
       }
       point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
       point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;
@@ -62,7 +62,7 @@ Template['folioChart'].rendered = function () {
       //donut: true,
       //donutWidth: 100,
       startAngle: 0,
-      labelOffset: 82,
+      labelOffset: 85,
       labelDirection: 'explode',
     });
     //}
