@@ -8,7 +8,7 @@ var subs = new SubsManager({
 });
 
 Tracker.autorun(function () {
-  subs.subscribe("currentDataRP", {
+  Meteor.subscribe("currentDataRP", {
     limit: Session.get('ratingPageLimit'),
     sort: Session.get('ratingPageSort')
   });
