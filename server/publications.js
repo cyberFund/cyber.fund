@@ -12,7 +12,6 @@ Meteor.publish("currentDataRP", function (options) {
   };
   var keys = _.keys(options.sort)
   selector[keys[0]] = {$exists: true}
-  console.log(selector)
   return CurrentData.find(selector, options);
 });
 
