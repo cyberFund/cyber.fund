@@ -19,10 +19,10 @@ Template['ratingTable'].onCreated(function () {
   Session.set("ratingPageLimit", initialLimit);
   Session.set("ratingPageSort", CF.Rating.sorter0);
 
-  Tracker.autorun(function () {
+  self.autorun(function () {
     var limit = Session.get("ratingPageLimit");
     var sort = Session.get("ratingPageSort");
-    self.sub = subs.subscribe("currentDataRP",
+    self.sub = Meteor.subscribe("currentDataRP",
       {
         limit: limit,
         sort: sort
