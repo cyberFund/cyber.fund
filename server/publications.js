@@ -9,6 +9,9 @@ Meteor.publish("currentDataRP", function (options) {
   if (!options.sort || !_.isObject(options.sort) || !_.keys(options.sort).length) {
     options.sort = CF.Rating.sorter0;
   }
+  if (options.sort["ratings.rating_cyber"]) {
+    options.sort["metrics.cap.btc"] = options.sort["ratings.rating_cyber"];
+  }
 
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
