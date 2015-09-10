@@ -5,26 +5,52 @@
     <table class="hoverable-my" align="center" id="rating-table">
 
         <thead  id="fixed-thead" class="fixed-thead z20">
-        <th class="left-align"><span  class="th-sys">&nbsp;&nbsp;System</span>
-        </th>
-        <th class="center hide-on-small-and-down">↓ Rating</th>
-        <th class="center hide-on-small-and-down">Token</th>
-        <th class="center hide-on-small-and-down">Trade</th>
-        <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
-        <th class="right-align hide-on-med-and-down">1d&nbsp;Change</th>
-        <th class="right-align">Cap in $</th>
-        <th class="right-align">1d&nbsp;Change</th>
+        <th class="left-align"><span  class="th-sys">&nbsp;&nbsp;System</span></th>
+
+        <th class="center hide-on-small-and-down sorter"
+            data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
+
+        <th class="center hide-on-small-and-down sorter"
+            data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
+
+        <th class="center hide-on-small-and-down sorter"
+            data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
+
+        <th class="right-align hide-on-med-and-down sorter"
+                data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
+
+        <th class="right-align hide-on-med-and-down sorter"
+                data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
+
+        <th class="right-align sorter"
+            data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
+
+        <th class="right-align sorter"
+                data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
         </thead>
       <thead id="normal-thead">
-      <th class="left-align"><span class="th-sys" >&nbsp;&nbsp;System</span>
-      </th>
-      <th class="center hide-on-small-and-down">↓ Rating</th>
-      <th class="center hide-on-small-and-down">Token</th>
-      <th class="center hide-on-small-and-down">Trade</th>
-      <th class="right-align hide-on-med-and-down">Cap in Ƀ</th>
-      <th class="right-align hide-on-med-and-down">1d&nbsp;Change</th>
-      <th class="right-align">Cap in $</th>
-      <th class="right-align">1d&nbsp;Change</th>
+      <th class="left-align"><span  class="th-sys">&nbsp;&nbsp;System</span></th>
+
+      <th class="center hide-on-small-and-down sorter"
+          data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
+
+      <th class="center hide-on-small-and-down sorter"
+          data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
+
+      <th class="center hide-on-small-and-down sorter"
+          data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
+
+      <th class="right-align hide-on-med-and-down sorter"
+          data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
+
+      <th class="right-align hide-on-med-and-down sorter"
+          data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
+
+      <th class="right-align sorter"
+          data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
+
+      <th class="right-align sorter"
+          data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
       </thead>
         <tbody>
         {{#each rows}}
@@ -130,12 +156,12 @@
         </tbody>
     </table>
   </div>
-    {{#if or hasMore evenMore}}
+    {{#if hasMore}}
         <div class="center">
             <a class="waves-effect waves-light btn show-more deep-orange">
                 <i class="mdi-navigation-expand-more left"></i>
                 <i class="mdi-navigation-expand-more right"></i>
-                Discover {{#if evenMore}}even more{{/if}} opportunities</a>
+                Discover more opportunities</a>
         </div>
     {{/if}}
     <div style="padding-bottom: 40px"></div>

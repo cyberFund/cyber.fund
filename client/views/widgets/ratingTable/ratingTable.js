@@ -1,14 +1,15 @@
-Session.setDefault('curDataSelector', {"ratings.rating_cyber": 5});
+var initialLimit = CF.Rating.limit0;
 
 Deps.autorun(function () {
-    Meteor.subscribe("currentDataRP", Session.get('curDataSelector'));
+    Meteor.subscribe("currentDataRP", {limit: Session.get('ratingPageLimit'),
+        sort: Session.get('ratingPageSort')});
 });
 
 Template['ratingTable'].onCreated = function () {
-
 };
 
 Template['ratingTable'].rendered = function () {
+    Session.set('ratingPageLimit', initialLimit);
     var $thead = $("#fixed-thead");
     var $thead0 = $("#normal-thead");
     function recalcWidths(){
@@ -43,14 +44,12 @@ Template['ratingTable'].rendered = function () {
     $(window).trigger("resize");
 };
 
-Session.setDefault("ratingSorter", {
-    "ratings.rating_cyber": -1,
-    "metrics.cap.btc": -1
-});
-
 Template['ratingTable'].helpers({
     'rows': function () {
-        return CurrentData.find({}, {sort: Session.get("ratingSorter")});
+        var sort = Session.get("ratingPageSort");
+        if (sort["ratings.rating_cyber"])
+            sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
+        return CurrentData.find({}, {sort: sort});
     },
     'img_url': function () {
         return CF.Chaingear.helpers.cgSystemLogo(this);
@@ -103,23 +102,15 @@ Template['ratingTable'].helpers({
         return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
     },
     hasMore: function () {
-        var sel = Session.get("curDataSelector");
-
-        return sel["ratings.rating_cyber"] > 1;
-    },
-    evenMore: function () {
-        var sel = Session.get("curDataSelector");
-        return (sel["ratings.rating_cyber"] < 2) &&
-            (!sel.limit ||
-            (Session.get('curDataCount') > sel.limit ));
+        return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
     },
     tradeVolumeOk: function (tv) {
         return tv && (tv >= 0.2);
     },
     turnover: function(){
         var metrics = this.metrics;
-        if (metrics.cap && metrics.cap.usd)
-        return 100.0* metrics.tradeVolume / metrics.cap.btc;
+        if (metrics.cap && metrics.cap.btc)
+        return 100.0* metrics.turnover;
         return 0;
     },
     dayToDayTradeVolumeChange: function(){
@@ -127,40 +118,26 @@ Template['ratingTable'].helpers({
         if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day)
         return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
         return 0;
+    },
+    sorter: function(field){
+        var sorter = Session.get("ratingPageSort");
+        if (sorter[field] == -1) return "↓ ";
+        if (sorter[field] == 1) return "↑ ";
+        return "";
     }
 });
 
 Template['ratingTable'].events({
     'click .show-more': function (e, t) {
-        var sel = Session.get("curDataSelector");
-        var rating = sel["ratings.rating_cyber"];
-        var tracker;
-        switch (rating) {
-            case 2:
-                sel["ratings.rating_cyber"] = 1;
-                tracker = '1';
-                Session.set('curDataSelector', sel);
-                break;
-            case 1:
-                var count = CurrentData.find().count();
-                var newLimit = count + 200;
-                sel["ratings.rating_cyber"] = 0;
-                sel.limit = newLimit;
-                Session.set('curDataSelector', sel);
-                tracker = '2';
-                break;
-            case 0:
-                sel.limit += 200;
-                Session.set('curDataSelector', sel);
-                tracker = '3+';
-                break;
-            default:
-                break;
-        }
+        var step = CF.Rating.step;
+        var limit = Session.get("ratingPageLimit");
+        limit += step;
         analytics.track("Viewed Crap",
             {
-                counter: tracker
+                counter: (limit-initialLimit)/step
             });
+        limit = Math.min(limit, Counts.get("coinsCounter"))
+        Session.set("ratingPageLimit", limit);
     },
     'click #test': function (e, t) {
         var table = t.$("table#rating-table");
@@ -170,5 +147,14 @@ Template['ratingTable'].events({
     'click .no-click a': function(){
         Materialize.toast("Coming soon!", 3000);
         return false;
+    },
+    'click th.sorter': function(e, t){
+        var newSorter = $(e.currentTarget).data('sorter');
+        var sort = Session.get("ratingPageSort");
+        if (sort[newSorter]) sort[newSorter] = -sort[newSorter];
+        else {
+            sort = {}; sort[newSorter] = -1;
+        }
+        Session.set('ratingPageSort', sort)
     }
 });

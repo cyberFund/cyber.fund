@@ -191,7 +191,14 @@ var esParsers = {
 
           if (sNow.volume24_btc) {
             set["metrics.tradeVolume"] = sNow.volume24_btc;
+            var capBtc =  sNow.cap_btc || (cd && cd.metrics && cd.metrics.cap && cd.metrics.cap.btc)
+            if (capBtc && sNow.volume24_btc)
+              set["metrics.turnover"] = (0.0+sNow.volume24_btc) / capBtc;
+            else
+              set["metrics.turnover"] = 0.0;
+
             //set["metrics.tradeVolume.usd"] = sNow.volume24_usd;
+
             if (sDayAgo.volume24_btc) set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
           }
 
