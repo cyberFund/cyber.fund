@@ -1,25 +1,27 @@
 var initialLimit = CF.Rating.limit0;
 
-var subs = new SubsManager({
-  // maximum number of cache subscriptions
-  cacheLimit: 14,
-  // any subscription will be expire after 5 minute, if it's not subscribed again
-  expireIn: 5
-});
-
-Tracker.autorun(function () {
+/*Tracker.autorun(function () {
   Meteor.subscribe("currentDataRP", {
     limit: Session.get('ratingPageLimit'),
     sort: Session.get('ratingPageSort')
   });
-})
+})*/
 
 
 Template['ratingTable'].onCreated = function () {
+  var self = this;
+    self.subscribe("currentDataRP",
+      {
+        limit: Session.get("ratingPageLimit"),
+        sort: Session.set("ratingPageSort")
+      })
+  //Session.set("ratingPageLimit", CF.Rating.limit0);
+  //Session.set("ratingPageSort", CF.Rating.sorter0);
 };
 
 Template['ratingTable'].rendered = function () {
-  Session.set('ratingPageLimit', initialLimit);
+  Session.set("ratingPageLimit", CF.Rating.limit0);
+  Session.set("ratingPageSort", CF.Rating.sorter0);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -60,6 +62,8 @@ Template['ratingTable'].helpers({
   'rows': function () {
     var sort = Session.get("ratingPageSort");
     var limit = Session.get("ratingPageLimit");
+    if (!_.isObject(sort)) sort = CF.Rating.sorter0;
+    if (isNaN(limit)) limit = CF.Rating.limit0;
     if (sort["ratings.rating_cyber"]) {
       sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
     }
@@ -143,6 +147,7 @@ Template['ratingTable'].helpers({
   },
   sorter: function (field) {
     var sorter = Session.get("ratingPageSort");
+    if (!_.isObject(sorter)) return ''
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
     return "";
@@ -173,6 +178,7 @@ Template['ratingTable'].events({
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
     var sort = Session.get("ratingPageSort");
+    sort = sort || {};
     if (sort[newSorter]) {
       sort[newSorter] = -sort[newSorter];
     } else {
