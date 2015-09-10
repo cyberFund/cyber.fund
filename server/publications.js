@@ -3,7 +3,7 @@
  */
 Meteor.publish("currentDataRP", function (options) {
   options = options || {};
-  var defaultLimit = 0;
+  var defaultLimit = 1;
   var selector = {};
   if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;

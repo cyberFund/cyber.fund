@@ -1,7 +1,14 @@
 var initialLimit = CF.Rating.limit0;
 
-Deps.autorun(function () {
-    Meteor.subscribe("currentDataRP", {limit: Session.get('ratingPageLimit'),
+var subs = new SubsManager({
+    // maximum number of cache subscriptions
+    cacheLimit: 14,
+    // any subscription will be expire after 5 minute, if it's not subscribed again
+    expireIn: 5
+});
+
+Tracker.autorun(function () {
+    subs.subscribe("currentDataRP", {limit: Session.get('ratingPageLimit'),
         sort: Session.get('ratingPageSort')});
 });
 
