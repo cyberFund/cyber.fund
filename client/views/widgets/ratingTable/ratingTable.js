@@ -12,7 +12,8 @@ Tracker.autorun(function () {
     limit: Session.get('ratingPageLimit'),
     sort: Session.get('ratingPageSort')
   });
-});
+})
+
 
 Template['ratingTable'].onCreated = function () {
 };
@@ -59,16 +60,16 @@ Template['ratingTable'].helpers({
   'rows': function () {
     var sort = Session.get("ratingPageSort");
     var limit = Session.get("ratingPageLimit");
-      if (sort["ratings.rating_cyber"]) {
-          sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
-      }
+    if (sort["ratings.rating_cyber"]) {
+      sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
+    }
     return CurrentData.find({}, {sort: sort, limit: limit});
   },
   tradeVolumeUsd: function () {
     var vB = this.metrics.tradeVolume, btcPrice = 0,
       btc = CurrentData.findOne({system: "Bitcoin"});
     if (btc && btc.metrics) btcPrice = btc.metrics.price.usd;
-    return vB*btcPrice;
+    return vB * btcPrice;
   },
   'img_url': function () {
     return CF.Chaingear.helpers.cgSystemLogo(this);
@@ -128,16 +129,16 @@ Template['ratingTable'].helpers({
   },
   turnover: function () {
     var metrics = this.metrics;
-      if (metrics.cap && metrics.cap.btc) {
-          return 100.0 * metrics.turnover;
-      }
+    if (metrics.cap && metrics.cap.btc) {
+      return 100.0 * metrics.turnover;
+    }
     return 0;
   },
   dayToDayTradeVolumeChange: function () {
     var metrics = this.metrics;
-      if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
-          return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
-      }
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
+      return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
+    }
     return 0;
   },
   sorter: function (field) {
@@ -172,12 +173,12 @@ Template['ratingTable'].events({
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
     var sort = Session.get("ratingPageSort");
-      if (sort[newSorter]) {
-          sort[newSorter] = -sort[newSorter];
-      } else {
-          sort = {};
-          sort[newSorter] = -1;
-      }
+    if (sort[newSorter]) {
+      sort[newSorter] = -sort[newSorter];
+    } else {
+      sort = {};
+      sort[newSorter] = -1;
+    }
     Session.set('ratingPageSort', sort)
   }
 });
