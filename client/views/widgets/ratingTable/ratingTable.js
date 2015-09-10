@@ -54,9 +54,10 @@ Template['ratingTable'].rendered = function () {
 Template['ratingTable'].helpers({
     'rows': function () {
         var sort = Session.get("ratingPageSort");
+        var limit = Session.get("ratingPageLimit");
         if (sort["ratings.rating_cyber"])
             sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
-        return CurrentData.find({}, {sort: sort});
+        return CurrentData.find({}, {sort: sort, limit: limit});
     },
     'img_url': function () {
         return CF.Chaingear.helpers.cgSystemLogo(this);
