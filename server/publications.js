@@ -6,7 +6,7 @@ Meteor.publish("currentDataRP", function (options) {
   var defaultLimit = 1;
   var selector = {};
 
-  if (!options.sort || _.isObject(options.sort) || !_.keys(options.sort).length) {
+  if (!options.sort || !_.isObject(options.sort) || !_.keys(options.sort).length) {
     options.sort = CF.Rating.sorter0;
   }
 
