@@ -89,7 +89,9 @@
                         {{# withTooltip}}
                             <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
                             {{#tooltip}}
-                              <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+                              <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b> BTC<br/>
+                                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;<b>{{readableN tradeVolumeUsd 2}}</b> USD
                               </div>
 
                               <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
@@ -98,7 +100,7 @@
                               <div>Turnover:<b>{{readableN turnover 2}}</b> %
                               </div>
                                 <!--div>Median
-                                    deviation:<b>{{readableN metrics.tradeVolumeMedianDeviation.week 2}}</b>BTC
+                                    deviation:<b>{{readableN metrics.tradeVolumeMedianDeviation.week 2}}</b> BTC
                                 </div-->
                             {{/tooltip}}
                         {{/withTooltip}}
