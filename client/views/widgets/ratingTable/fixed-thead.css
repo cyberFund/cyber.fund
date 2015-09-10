@@ -8,7 +8,7 @@
     //-o-transition: all 0.5s ease;
     //transition: all 0.5s ease;*/
 
-    padding-top: 1.4rem;
+    padding-top: 0.6rem;
 }
 
 .fixed-thead.show {
@@ -17,4 +17,8 @@
 
 .z20 {
     z-index: 20;
+}
+
+th.sorter {
+    cursor: pointer;
 }

@@ -35,4 +35,10 @@ Meteor.startup(function() {
 
 	FastData._ensureIndex({"timestamp": 1}, {expireAfterSeconds: 86400});
 	FastData._ensureIndex({"systemId": 1});
+	CurrentData._ensureIndex({"ratings.rating_cyber": 1, "metrics.cap.btc": 1});
+	CurrentData._ensureIndex({"metrics.supplyChangePercents.day": 1}, {sparse: true});
+	CurrentData._ensureIndex({"metrics.cap.btc": 1});
+	CurrentData._ensureIndex({"metrics.cap.usd": 1});
+	CurrentData._ensureIndex({"metrics.capChangePercents.day.btc": 1}, {sparse: true});
+	CurrentData._ensureIndex({"metrics.capChangePercents.day.usd": 1}, {sparse: true});
 });
