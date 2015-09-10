@@ -1,27 +1,37 @@
 var initialLimit = CF.Rating.limit0;
 
-/*Tracker.autorun(function () {
-  Meteor.subscribe("currentDataRP", {
-    limit: Session.get('ratingPageLimit'),
-    sort: Session.get('ratingPageSort')
-  });
-})*/
+Template['ratingTable'].onDestroyed(function () {
 
+  if (this.sub && _.isFunction(this.sub.stop)) {
+    this.sub.stop();
+  }
+})
 
-Template['ratingTable'].onCreated = function () {
+var subs = new SubsManager({
+  // maximum number of cache subscriptions
+  cacheLimit: 10,
+  // any subscription will be expire after 5 minute, if it's not subscribed again
+  expireIn: 5
+});
+
+Template['ratingTable'].onCreated(function () {
   var self = this;
-    self.subscribe("currentDataRP",
+  Session.set("ratingPageLimit", initialLimit);
+  Session.set("ratingPageSort", CF.Rating.sorter0);
+
+  Tracker.autorun(function () {
+    var limit = Session.get("ratingPageLimit");
+    var sort = Session.get("ratingPageSort");
+    self.sub = subs.subscribe("currentDataRP",
       {
-        limit: Session.get("ratingPageLimit"),
-        sort: Session.set("ratingPageSort")
+        limit: limit,
+        sort: sort
       })
-  //Session.set("ratingPageLimit", CF.Rating.limit0);
-  //Session.set("ratingPageSort", CF.Rating.sorter0);
-};
+  });
+});
 
 Template['ratingTable'].rendered = function () {
-  Session.set("ratingPageLimit", CF.Rating.limit0);
-  Session.set("ratingPageSort", CF.Rating.sorter0);
+  var self = this;
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
