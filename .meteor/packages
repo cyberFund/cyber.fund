@@ -41,6 +41,6 @@ percolate:synced-cron
 mizzao:autocomplete
 meteorhacks:fast-render
 cyberfund:cyberfund-userassets
-meteorhacks:subs-manager
+#meteorhacks:subs-manager
 kadira:blaze-layout
 iron:router
