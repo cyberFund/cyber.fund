@@ -22,7 +22,7 @@ Template['ratingTable'].onCreated(function () {
   self.autorun(function () {
     var limit = Session.get("ratingPageLimit");
     var sort = Session.get("ratingPageSort");
-    self.sub = Meteor.subscribe("currentDataRP",
+    self.sub = subs.subscribe("currentDataRP",
       {
         limit: limit,
         sort: sort
