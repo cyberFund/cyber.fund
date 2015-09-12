@@ -1,34 +1,38 @@
 var initialLimit = CF.Rating.limit0;
 
 Template['ratingTable'].onDestroyed(function () {
-
-  if (this.sub && _.isFunction(this.sub.stop)) {
-    this.sub.stop();
+  if (this.sub['data'] && _.isFunction(this.sub['data'].stop)) {
+    this.sub['data'].stop();
   }
 })
 
 /*var subs = new SubsManager({
-  // maximum number of cache subscriptions
-  cacheLimit: 10,
-  // any subscription will be expire after 5 minute, if it's not subscribed again
-  expireIn: 5
-});*/
+ // maximum number of cache subscriptions
+ cacheLimit: 10,
+ // any subscription will be expire after 5 minute, if it's not subscribed again
+ expireIn: 5
+ });*/
 
 Template['ratingTable'].onCreated(function () {
   var self = this;
-  Session.set("ratingPageLimit", initialLimit);
-  Session.set("ratingPageSort", CF.Rating.sorter0);
+  this.limit = new ReactiveVar();
+  this.sort = new ReactiveVar();
+  this.limit.set(initialLimit);
+  this.sort.set(CF.Rating.sorter0);
+  this.sub = {};
+  this.subState = {};
 
-  self.autorun(function () {
-    var limit = Session.get("ratingPageLimit");
-    var sort = Session.get("ratingPageSort");
-    self.sub = Meteor.subscribe("currentDataRP",
-      {
-        limit: limit,
-        sort: sort
-      })
-  });
-});
+  //self.autorun(function () {
+  var limit = self.limit.get();
+  var sort = self.sort.get();
+  self.sub['data'] = Meteor.subscribe("currentDataRP",
+    {
+      limit: limit,
+      sort: sort
+    })
+  //});
+})
+;
 
 Template['ratingTable'].rendered = function () {
   var self = this;
@@ -46,9 +50,10 @@ Template['ratingTable'].rendered = function () {
   }
 
   var t = _.throttle(function () {
+    if (!self.sub['data'].ready()) return;
     var $w = $(window);
     var scrolltop = $w.scrollTop();
-    if (scrolltop > 0 && scrolltop < ($("#rating-table").height() - $w.height() )) {
+    if (scrolltop > 0 && scrolltop < ($("#rating-table").height() - $w.height() + 400)) {
       if (!$thead.hasClass("show")) {
         //$thead.css("height", $thead0.height()+"px");
         recalcWidths()
@@ -70,14 +75,18 @@ Template['ratingTable'].rendered = function () {
 
 Template['ratingTable'].helpers({
   'rows': function () {
-    var sort = Session.get("ratingPageSort");
-    var limit = Session.get("ratingPageLimit");
+    var sort = Template.instance().sort.get();
+    var limit = Template.instance().limit.get();
     if (!_.isObject(sort)) sort = CF.Rating.sorter0;
     if (isNaN(limit)) limit = CF.Rating.limit0;
     if (sort["ratings.rating_cyber"]) {
       sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
     }
     return CurrentData.find({}, {sort: sort, limit: limit});
+  },
+  scrolloo: function () {
+    var scrolltop = $(window).scrollTop();
+    return scrolltop + 'px';
   },
   tradeVolumeUsd: function () {
     var vB = this.metrics.tradeVolume, btcPrice = 0,
@@ -136,7 +145,7 @@ Template['ratingTable'].helpers({
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
   hasMore: function () {
-    return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
+    return Counts.get("coinsCounter") > Template.instance().limit.get();
   },
   tradeVolumeOk: function (tv) {
     return tv && (tv >= 0.2);
@@ -156,30 +165,40 @@ Template['ratingTable'].helpers({
     return 0;
   },
   sorter: function (field) {
-    var sorter = Session.get("ratingPageSort");
+    var sorter = Template.instance().sort.get();
     if (!_.isObject(sorter)) return ''
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
     return "";
+  },
+  isReady: function (key) {
+    var sub = Template.instance().sub;
+    if (sub[key] && _.isFunction(sub[key].ready)) {
+      return sub[key].ready();
+    }
+    console.log("isReady helper for " + key + " key found no suitable subscription")
+    return false;
   }
 });
 
 Template['ratingTable'].events({
   'click .show-more': function (e, t) {
     var step = CF.Rating.step;
-    var limit = Session.get("ratingPageLimit");
+    var limit = t.limit.get();
     limit += step;
     analytics.track("Viewed Crap",
       {
         counter: (limit - initialLimit) / step
       });
     limit = Math.min(limit, Counts.get("coinsCounter"))
-    Session.set("ratingPageLimit", limit);
-  },
-  'click #test': function (e, t) {
-    var table = t.$("table#rating-table");
-    table.find("thead th").each(function () {
-    })
+    t.limit.set(limit);
+    var sort = t.sort.get();
+    //t.sub['data'].stop();
+    t.sub['data'] = Meteor.subscribe("currentDataRP",
+      {
+        limit: limit,
+        sort: sort
+      })
   },
   'click .no-click a': function () {
     Materialize.toast("Coming soon!", 3000);
@@ -187,7 +206,7 @@ Template['ratingTable'].events({
   },
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
-    var sort = Session.get("ratingPageSort");
+    var sort = t.sort.get();
     sort = sort || {};
     if (sort[newSorter]) {
       sort[newSorter] = -sort[newSorter];
@@ -195,6 +214,13 @@ Template['ratingTable'].events({
       sort = {};
       sort[newSorter] = -1;
     }
-    Session.set('ratingPageSort', sort)
+    t.sort.set(sort);
+    var limit = t.limit.get();
+    t.sub['data'].stop();
+    t.sub['data'] = Meteor.subscribe("currentDataRP",
+      {
+        limit: limit,
+        sort: sort
+      })
   }
 });
