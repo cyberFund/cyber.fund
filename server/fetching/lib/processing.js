@@ -102,7 +102,7 @@ CF.processing = {
     var timestamp = CF.processing.getNearestTimestamp(source, nearestTo);
     if (timestamp) {
       return MarketData.find({timestamp: timestamp, source: source}, {
-        fields: processedFields
+        fields: processedFields,
       });
     } else {
       return null;
@@ -114,7 +114,7 @@ CF.processing = {
       name: system.name,
       symbol: system.symbol,
       source: source,
-      timestamp: {$gte: since}
+      timestamp: {$gte: since},
     }).count();
 
     var fieldNameEnabled = {};

@@ -63,7 +63,7 @@ Template['folioChart'].rendered = function () {
       //donutWidth: 100,
       startAngle: 0,
       labelOffset: 85,
-      labelDirection: 'explode'
+      labelDirection: 'explode',
     });
     //}
     //comp.stop()

@@ -323,7 +323,7 @@ footer.page-footer {
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s linear;
-  transition-delay: 0.1s
+  transiotion-delay: 0.1s
 }
 
 .account-item:hover > div > .hoverie,

@@ -291,7 +291,7 @@ var esParsers = {
 
       var notFounds = [];
       _.each(buckets, function (sysBucket) {
-        var systemKey = sysBucket.key, _key = "";
+        var systemKey = sysBucket.key;
         var id = CurrentData.findOne(_searchSelector(systemKey));
         if (!id) {
           notFounds.push(sysBucket.key);
@@ -300,10 +300,6 @@ var esParsers = {
         id = id._id;
         if (daily) _key = "dailyData";
         if (hourly) _key = "hourlyData";
-        if (!_key) {
-          console.log("averages_date_hist: no _key")
-          return;
-        }
         if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
           return;
         }

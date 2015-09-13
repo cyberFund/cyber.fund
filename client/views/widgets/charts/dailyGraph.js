@@ -51,7 +51,7 @@ Template['dailyGraph'].rendered = function () {
           meta: [self.data.metrics.price.btc, dta].join("|")
         });
     }
-    for (var i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
+    for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
     }
 
