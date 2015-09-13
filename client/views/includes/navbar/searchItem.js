@@ -25,7 +25,7 @@ Template['searchItem1'].helpers({
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
-        },
+        }
       ]
     };
   }
@@ -52,7 +52,7 @@ Template['searchItem2'].helpers({
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
-        },
+        }
       ]
     };
   }

@@ -71,7 +71,7 @@ var most_recent_values = {
   "latest": {
     "top_hits": {
       "size": 1,
-      "sort": [{"timestamp": {"order": "desc"}}], // sort order here interfers with ranges!!!11
+      "sort": [{"timestamp": {"order": "desc"}}] // sort order here interfers with ranges!!!11
     }
   }
 };

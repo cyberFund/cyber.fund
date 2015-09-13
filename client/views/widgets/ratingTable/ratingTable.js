@@ -1,11 +1,5 @@
 var initialLimit = CF.Rating.limit0;
 
-Template['ratingTable'].onDestroyed(function () {
-  if (this.sub['data'] && _.isFunction(this.sub['data'].stop)) {
-    this.sub['data'].stop();
-  }
-})
-
 /*var subs = new SubsManager({
  // maximum number of cache subscriptions
  cacheLimit: 10,
@@ -31,10 +25,9 @@ Template['ratingTable'].onCreated(function () {
       sort: sort
     })
   //});
-})
-;
+});
 
-Template['ratingTable'].rendered = function () {
+Template['ratingTable'].onRendered (function () {
   var self = this;
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
@@ -71,8 +64,14 @@ Template['ratingTable'].rendered = function () {
   $(window).scroll(t);
   $(window).resize(recalcWidths);
   $(window).trigger("resize");
-};
-
+});
+/*
+ Template['ratingTable'].onDestroyed(function () {
+ if (this.sub['data'] && _.isFunction(this.sub['data'].stop)) {
+ this.sub['data'].stop();
+ }
+ })
+ */
 Template['ratingTable'].helpers({
   'rows': function () {
     var sort = Template.instance().sort.get();
