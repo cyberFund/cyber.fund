@@ -121,6 +121,7 @@ Template['ratingTable'].helpers({
     },
     sorter: function(field){
         var sorter = Session.get("ratingPageSort");
+        if (!_.isObject(sorter)) return "";
         if (sorter[field] == -1) return "↓ ";
         if (sorter[field] == 1) return "↑ ";
         return "";
