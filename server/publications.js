@@ -3,23 +3,16 @@
  */
 Meteor.publish("currentDataRP", function (options) {
   options = options || {};
-  var defaultLimit = 1;
+  var defaultLimit = 0;
   var selector = {};
-
-  if (!options.sort || !_.isObject(options.sort) || !_.keys(options.sort).length) {
-    options.sort = CF.Rating.sorter0;
-  }
-  if (options.sort["ratings.rating_cyber"]) {
-    options.sort["metrics.cap.btc"] = options.sort["ratings.rating_cyber"];
-  }
-
+  if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
   };
-
-  var keys = _.keys(options.sort);
-  selector[keys[0]] = {$exists: true};
+  var keys = _.keys(options.sort)
+  selector[keys[0]] = {$exists: true}
+  console.log(selector)
   return CurrentData.find(selector, options);
 });
 
@@ -72,7 +65,7 @@ Meteor.publish("usersCount", function () {
   Counts.publish(this, 'usersCount', Meteor.users.find());
 });
 
-Meteor.publish('coinsCount', function () {
+Meteor.publish('coinsCount', function() {
   Counts.publish(this, 'coinsCounter', CurrentData.find({"metrics.cap.btc": {$gt: 0}}));
 });
 
