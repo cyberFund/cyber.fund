@@ -3,22 +3,17 @@
  */
 Meteor.publish("currentDataRP", function (options) {
   options = options || {};
-  var defaultLimit = 0;
+  var defaultLimit = 1;
   var selector = {};
+  options.sort = options.sort || {};
   if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
   };
-  var keys = _.keys(options.sort)
-  selector[keys[0]] = {$exists: true}
+  var keys = _.keys(options.sort);
+  selector[keys[0]] = {$exists: true};
   return CurrentData.find(selector, options);
-});
-
-Meteor.methods({
-  currentDataCount: function () {
-    return CurrentData.find(/*{"metrics.cap.btc": {$gt: 0}}*/).count();
-  }
 });
 
 Meteor.publish("fresh-price", function () {
@@ -187,6 +182,8 @@ Meteor.publish("portfolioSystems", function (options) {
     });
     systems = _.union(systems, plck)
   }
+  console.log(systems);
+  console.log(CF.CurrentData.selectors.system(systems));
   return CurrentData.find(CF.CurrentData.selectors.system(systems),
     {
       fields: {
@@ -198,4 +195,4 @@ Meteor.publish("portfolioSystems", function (options) {
         "ratings": 1
       }
     })
-})
+});

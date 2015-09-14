@@ -8,7 +8,7 @@
               <h2 class="center">$ {{sumU}} </h2>
           </div>
           <div class="col s12 m6 l6">
-              {{> folioChart}}
+              {{> folioChart chartData=chartData}}
           </div>
         </div>
         <div class="row">
@@ -21,7 +21,7 @@
                     <th class="center">Portfolio Share</th>
                     <th class="center">Value in BTC</th>
                     <th class="center">Value in USD</th>
-                    <th class="center">USD Price</th>
+                    <th class="right">USD Price<sup>1d Change</sup></th>
                     <th class="center">USD Cap</th>
                     </thead>
                     <tbody>
@@ -35,7 +35,8 @@
                             <td class="right-align">{{share this}}</td>
                             <td class="right-align">{{btcCost this}}</td>
                             <td class="right-align">{{usdCost this}}</td>
-                            <td class="right-align">{{usdPrice this}}</td>
+                            <td class="right-align">{{usdPrice}}
+                            <sup class="left-align {{greenRedNumber usdPriceChange1d}}">{{readableN usdPriceChange1d 2}}%</sup></td>
                             <td class="right-align">{{usdCap this}}</td>
                         </tr>
                         {{! > portTableRow this}}

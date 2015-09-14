@@ -3,14 +3,14 @@ CF.UserAssets.getAccountsObject = function () {
   var user = Meteor.user(),
     options = Session.get("portfolioOptions");//todo: factor out
   if (!user) return {};
-  var accounts = user.accounts
+  var accounts = user.accounts;
   /* no sooner than..
    if (options.privateAssets) {
    _.extend(accounts, user.accountsPrivate || {})
 
    }*/
   return accounts;
-}
+};
 
 Template['portfolioWidget'].rendered = function () {
   this.subscribe('portfolioSystems', Session.get('portfolioOptions'))
@@ -21,20 +21,20 @@ Template['portfolioWidget'].rendered = function () {
 // return -1 if x > y; return 1 if y > x
 CF.UserAssets.folioSortFunction = function (x, y) {
   var getPrice = function (system) {
-    if (!system.metrics) return 0;
-    if (!system.metrics.price) return 0;
-    if (!system.metrics.price.btc) return 0;
-    return system.metrics.price.btc;
-  }
-  var getSystem = function (system) {
-    if (!system.system) return '';
-    return system.system;
-  }
-  var accounts = CF.UserAssets.getAccountsObject();
-  var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x));
-  var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
+      if (!system.metrics) return 0;
+      if (!system.metrics.price) return 0;
+      if (!system.metrics.price.btc) return 0;
+      return system.metrics.price.btc;
+    },
+    getSystem = function (system) {
+      if (!system.system) return '';
+      return system.system;
+    },
+    accounts = CF.UserAssets.getAccountsObject(),
+    q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
+    q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
   return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
-}
+};
 
 var getSumB = function () {
   var accounts = CF.UserAssets.getAccountsObject(),
@@ -47,9 +47,9 @@ var getSumB = function () {
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
       sum += q * system.metrics.price.btc;
     }
-  })
+  });
   return sum;
-}
+};
 
 Template['portfolioWidget'].helpers({
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
@@ -72,8 +72,7 @@ Template['portfolioWidget'].helpers({
 
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.system), 3);
-  }
-  ,
+  },
   btcCost: function (system) {
     if (!system.system) return "no token for that system";
 
@@ -82,12 +81,15 @@ Template['portfolioWidget'].helpers({
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       CF.UserAssets.getAccountsObject(), system.system) * system.metrics.price.btc).toFixed(3);
   },
+  chartData: function () {
+    return CF.UserAssets.getAccountsObject();
+  },
   usdCost: function (system) {
     if (!system.system) return "no token for that system";
 
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
-      CF.UserAssets.getAccountsObject(), system.system) * system.metrics.price.usd, 2);
+        CF.UserAssets.getAccountsObject(), system.system) * system.metrics.price.usd, 2);
   },
   sumB: function () {
     var sumB = getSumB();
@@ -109,7 +111,7 @@ Template['portfolioWidget'].helpers({
     else {
       q = 0.0;
     }
-    return CF.Utils.readableN(q,3) + '‱';
+    return CF.Utils.readableN(q, 3) + '‱';
   },
   share: function (system) {
     var q = 0.0;
@@ -119,14 +121,24 @@ Template['portfolioWidget'].helpers({
     }
     var sum = getSumB();
     if (system && system.metrics && system.metrics.price
-      && system.metrics.price.btc && sum>0.0) {
-      return (100*q * system.metrics.price.btc / sum).toFixed(1)+"%";
+      && system.metrics.price.btc && sum > 0.0) {
+      return (100 * q * system.metrics.price.btc / sum).toFixed(1) + "%";
     }
     return "0%";
   },
-  usdPrice: function (system) { //TODO: use package functions here.
+  usdPrice: function() { //TODO: use package functions here.
+    var system = this;
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
       return CF.Utils.readableN(system.metrics.price.usd, 2);
+    }
+    return 0;
+  },
+  usdPriceChange1d: function () {
+    var system = this;
+    if (system && system.metrics && system.metrics.priceChangePercents
+      &&  system.metrics.priceChangePercents.day &&
+      system.metrics.priceChangePercents.day.usd) {
+      return system.metrics.priceChangePercents.day.usd;
     }
     return 0;
   },
@@ -143,7 +155,7 @@ Template['portfolioWidget'].helpers({
       sum = 0;
     _.each(systems, function (sys) {
       var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, sys);
-      var system = CurrentData.findOne(CF.CurrentData.selectors.system( sys));
+      var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
       if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
         sum += q * system.metrics.price.usd;

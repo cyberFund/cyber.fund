@@ -8,7 +8,7 @@ Template['folioChart'].rendered = function () {
 
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
-      systems = CF.UserAssets.getSystemsFromAccountsObject(CF.UserAssets.getAccountsObject());
+      systems = CF.UserAssets.getSystemsFromAccountsObject(self.data.chartData);
     var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
     var data = r.fetch().sort(CF.UserAssets.folioSortFunction);
 
@@ -23,7 +23,7 @@ Template['folioChart'].rendered = function () {
     _.each(data, function (system) {
       var point = {
         symbol: system.system,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(CF.UserAssets.getAccountsObject(), system.system)
+        q: CF.UserAssets.getQuantitiesFromAccountsObject(self.data.chartData, system.system)
       }
       point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
       point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;
