@@ -12,7 +12,6 @@ callback-hook@1.0.3
 check@1.0.5
 chuangbo:cookie@1.1.0
 coffeescript@1.0.6
-cosmos:browserify@0.5.0
 cyberfund:cyberfund-base@0.0.1
 cyberfund:cyberfund-chaingear@0.0.1
 cyberfund:cyberfund-currentdata@0.0.1
@@ -43,7 +42,6 @@ iron:router@1.0.9
 iron:url@1.0.9
 jquery@1.11.3_2
 json@1.0.3
-kadira:flow-router@2.6.0
 launch-screen@1.0.2
 less@1.0.14
 livedata@1.0.13
