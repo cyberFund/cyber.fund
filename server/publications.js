@@ -160,30 +160,33 @@ Meteor.publish('profilesSystems', function (userId) {
   var tokens = user && user.profile && user.profile.starredSystems || [];
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {system: 1, token: 1, aliases: 1, icon: 1}
-  }) //todo: fieldsets => resp. packages
+  }); //todo: fieldsets => resp. packages
 });
 
-Meteor.publish("portfolioSystems", function (options) {
+Meteor.publish("portfolioSystems", function (userId, options) {
   options = options || {};
   if (!this.userId) return this.ready();
-  var user = Meteor.users.findOne({_id: this.userId});
 
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts)
-  if (options.privateAssets) {
-    systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
+  var own = this.userId == userId;
+  var user = Meteor.users.findOne({_id: userId});
+  if (!user) return this.ready();
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts);
+
+  if (own) {
+    if (options.privateAssets) {
+      systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
+    }
+    var stars = user.profile.starredSystems;
+    if (stars && stars.length) {
+
+      var plck = _.map(CurrentData.find({system: {$in: stars}},
+        {fields: {'system': 1}}).fetch(), function (it) {
+        return it.system;
+      });
+      systems = _.union(systems, plck)
+    }
   }
 
-  var stars = user.profile.starredSystems;
-  if (stars && stars.length) {
-
-    var plck = _.map(CurrentData.find({system: {$in: stars}},
-      {fields: {'system': 1}}).fetch(), function (it) {
-      return it.system;
-    });
-    systems = _.union(systems, plck)
-  }
-  console.log(systems);
-  console.log(CF.CurrentData.selectors.system(systems));
   return CurrentData.find(CF.CurrentData.selectors.system(systems),
     {
       fields: {

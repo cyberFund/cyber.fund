@@ -4,6 +4,7 @@ CF.Profile.currentUid = new CF.Utils.SessionVariable('cfAssetsCurrentUid');
 Template['profile'].rendered = function () {
   this.subscribe('friendlyUsers', CF.Profile.currentUid.get());
   this.subscribe('profilesSystems', CF.Profile.currentUid.get());
+  this.subscribe('portfolioSystems', CF.Profile.currentUid.get());
 };
 
 Template['profile'].onCreated(function () {

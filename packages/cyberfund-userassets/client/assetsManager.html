@@ -7,6 +7,11 @@
                 <div class="enlarge" style="">add account
                 </div>
             {{/if}}
+            <a href="/portfolio">Portfolio View</a>
+        {{else}}
+            {{#if _accounts}}
+                {{>folioChart chartData=_accounts}}
+            {{/if}}
         {{/if}}
         {{#if _accounts}}
             {{#each keyValue _accounts}}

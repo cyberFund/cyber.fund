@@ -13,7 +13,7 @@ CF.UserAssets.getAccountsObject = function () {
 };
 
 Template['portfolioWidget'].rendered = function () {
-  this.subscribe('portfolioSystems', Session.get('portfolioOptions'))
+  this.subscribe('portfolioSystems', Meteor.userId(), Session.get('portfolioOptions'))
 };
 
 
