@@ -38,6 +38,9 @@
             <li class="search-wrap" style="height: 64px; display: inline">
                 {{> searchItem1}}
             </li>
+            <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
+                {{> userDropdown}}
+            </li>
         </ul>
 
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i
