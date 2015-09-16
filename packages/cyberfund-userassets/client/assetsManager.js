@@ -15,16 +15,12 @@ Template['assetsManager'].helpers({
     return isOwnAssets()
   },
   _accounts: function () {
-
-    if (isOwnAssets()) {
-      var accounts = Meteor.user().accounts;
-        _.extend(accounts, Meteor.user().accountsPrivate);
-      return accounts;
-    } else {
-      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
-      if (!user) return {};
-      return user.accounts
+    var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()}) || {};
+    var accounts = user.accounts || {};
+    if (user._id == Meteor.userId()) {
+        _.extend(accounts, user.accountsPrivate || {});
     }
+    return accounts;
   },
   currentAccount: function () {
     if (!isOwnAssets()) return null;
@@ -56,7 +52,7 @@ Template['assetsManager'].helpers({
     if (!amount) return '';
     amount = amount.assets;
     if (!amount) return '';
-    var key = CF.UserAssets.currentAsset.get();
+    key = CF.UserAssets.currentAsset.get();
     if (key) key = key.system;
     if (amount) amount = (key ? amount[key] : '');
     if (!amount) return '';
