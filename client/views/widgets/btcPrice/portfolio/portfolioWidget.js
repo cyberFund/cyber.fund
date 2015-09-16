@@ -1,4 +1,4 @@
-Template['portfolioWidget'].onCreated(function(){
+Template['portfolioWidget'].onCreated(function () {
   Session.set('folioWidgetSort', {"f|byValue": -1});
 });
 
@@ -42,7 +42,11 @@ Template['portfolioWidget'].helpers({
         systems = _.uniq(_.union(systems, plck))
       }
     }
-
+    if (!Math.sign) {
+      Math.sign = function (x) {
+        return +x === x ? ((x === 0) ? x : (x > 0) ? 1 : -1) : NaN;
+      }
+    }
     var getPrice = function (system) {
         if (!system.metrics) return 0;
         if (!system.metrics.price) return 0;
@@ -113,9 +117,6 @@ Template['portfolioWidget'].helpers({
     var accounts = Template.instance().data && Template.instance().data.accountsData;
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
       accounts, system.system) * system.metrics.price.btc).toFixed(3);
-  },
-  chartData: function () {
-    return Template.instance().data && Template.instance().data.accountsData;
   },
   usdCost: function (system) {
     if (!system.system) return "no token for that system";
@@ -203,7 +204,7 @@ Template['portfolioWidget'].helpers({
     })
     return CF.Utils.readableN(sum, 0)
   },
-  sorter: function(field){
+  sorter: function (field) {
     var sorter = Session.get("folioWidgetSort");
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
@@ -219,7 +220,7 @@ Template['portfolioWidget'].events({
     var sort = Session.get("folioWidgetSort");
     // same sorting criteria - reverse order
     if (sort[newSorter]) {
-        sort[newSorter] = -sort[newSorter];
+      sort[newSorter] = -sort[newSorter];
     } else {
       sort = {};
       sort[newSorter] = -1;
