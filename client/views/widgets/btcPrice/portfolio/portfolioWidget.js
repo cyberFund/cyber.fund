@@ -48,34 +48,24 @@ Template['portfolioWidget'].helpers({
           return x;
         }
         return x > 0 ? 1 : -1;
-      }
-    var getPrice = function (system) {
-        if (!system.metrics) return 0;
-        if (!system.metrics.price) return 0;
-        if (!system.metrics.price.btc) return 0;
-        return system.metrics.price.btc;
-      },
-      getSystem = function (system) {
-        if (!system.system) return '';
-        return system.system;
-      },
-      sort = {
+      };
+      var sort = {
         // sort portfolio items by their cost, from higher to lower.
         // return -1 if x > y; return 1 if y > x
         byValue: function (x, y) {
 
-          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
-            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
-          return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
+          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
+            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+          return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
         },
         byAmount: function (x, y) {
-          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
-            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
+          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
+            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
           return Math.sign(q2 - q1);
         },
         byEquity: function (x, y) {
-          var s1 = getSystem(x),
-            s2 = getSystem(y),
+          var s1 = CF.CurrentData.getSystem(x),
+            s2 = CF.CurrentData.getSystem(y),
             q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s1),
             q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s2),
             a1 = s1 && s1.metrics && s1.metrics.supply,
@@ -104,6 +94,9 @@ Template['portfolioWidget'].helpers({
     }
     return CurrentData.find(CF.CurrentData.selectors.system(systems))
       .fetch().sort(sort.byValue);
+  },
+  chartData: function(){
+    return Template.instance().data && Template.instance().data.accountsData;
   },
   quantity: function (system) {
     if (!system.system) return NaN;
