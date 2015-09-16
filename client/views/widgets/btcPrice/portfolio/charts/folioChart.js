@@ -3,17 +3,18 @@ CF.UserAssets.graph.minimalShare = 0.015;
 
 Template['folioChart'].onCreated(function () {
   var self = this;
-  Tracker.autorun(function (comp) {
+  this.autorun(function (comp) {
     var ticks = [], labels = [];
 
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
     var options = Session.get("portfolioOptions") || {},
-      user = Meteor.user(),
-      systems = CF.UserAssets.getSystemsFromAccountsObject(self.data.chartData);
-    console.log(self.data.chartData);
+
+      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
     var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
+
     var data = r.fetch().sort(function(x, y){
-      var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(self.data.chartData, CF.CurrentData.getSystem(x)),
-        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(self.data.chartData, CF.CurrentData.getSystem(y));
+      var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
+        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
       return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
     });
 
@@ -28,7 +29,7 @@ Template['folioChart'].onCreated(function () {
     _.each(data, function (system) {
       var point = {
         symbol: system.system,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(self.data.chartData, system.system)
+        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system)
       };
       point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
       point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;
@@ -40,7 +41,7 @@ Template['folioChart'].onCreated(function () {
     if (!sum) return;
     _.each(datum, function (point) {
       if (point.b / sum >= CF.UserAssets.graph.minimalShare) {
-        labels.push(point.symbol)
+        labels.push(point.symbol);
         ticks.push({
           value: point.u,
           meta: 'N: ' + point.q.toFixed(4) + '; BTC: ' + point.b.toFixed(4) + '; USD: ' + point.u.toFixed(2)
@@ -51,7 +52,7 @@ Template['folioChart'].onCreated(function () {
       }
     });
 
-    if (others.b) {
+    if (others.b && others.b > 0) {
       labels.push("OTHER");
       ticks.push({
         value: others.u,
@@ -64,14 +65,10 @@ Template['folioChart'].onCreated(function () {
       series: ticks
     }, {
       chartPadding: CF.Chartist.options.chartPadding.folio,
-      //donut: true,
-      //donutWidth: 100,
       startAngle: 0,
       labelOffset: 82,
       labelDirection: 'explode'
     });
-    //}
-    //comp.stop()
   })
 });
 
