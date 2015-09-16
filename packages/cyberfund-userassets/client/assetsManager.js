@@ -1,8 +1,8 @@
 CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAccount');
 var isOwnAssets = function () {
   return Meteor.userId() &&
-    CF.Profile.currentTwid.get() == CF.User.twid();
-}
+    CF.Profile.currentUid.get() == Meteor.userId();
+};
 
 Template['assetsManager'].rendered = function () {
   this.$renameAccountInput = this.$("#rename-account-in");

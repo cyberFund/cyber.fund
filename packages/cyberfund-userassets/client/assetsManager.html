@@ -10,7 +10,7 @@
             <a href="/portfolio">Portfolio View</a>
         {{else}}
             {{#if _accounts}}
-                {{>folioChart chartData=_accounts}}
+                {{> portfolioWidget accountsData=_accounts}}
             {{/if}}
         {{/if}}
         {{#if _accounts}}

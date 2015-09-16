@@ -5,7 +5,7 @@ CF.UserAssets.accountNameIsValid = function(name, accounts, oldName){
   var ret = true;
   _.each(accounts, function(account){
     if (name == account.name) ret = false;
-  })
+  });
   return ret;
 };
 
@@ -64,4 +64,4 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   });
 
   return sum;
-}
+};
