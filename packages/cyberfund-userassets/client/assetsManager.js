@@ -16,14 +16,11 @@ Template['assetsManager'].helpers({
   },
   _accounts: function () {
     if (isOwnAssets()) {
-      console.log("_a1")
-      var accounts = Meteor.user().accounts;
       _.extend(accounts, Meteor.user().accountsPrivate);
       return accounts;
     } else {
       var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
       if (!user) return {};
-      console.log("bbb");
       return user.accounts
     }
   },

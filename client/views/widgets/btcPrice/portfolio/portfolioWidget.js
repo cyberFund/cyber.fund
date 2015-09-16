@@ -1,3 +1,7 @@
+Template['portfolioWidget'].onCreated(function(){
+  Session.set('folioWidgetSort', {"f|byValue": -1});
+});
+
 Template['portfolioWidget'].rendered = function () {
   this.subscribe('portfolioSystems', Meteor.userId(), Session.get('portfolioOptions'))
 };
@@ -26,6 +30,7 @@ Template['portfolioWidget'].helpers({
     var options = Session.get("portfolioOptions") || {},
       accounts = Template.instance().data && Template.instance().data.accountsData,
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
+
     if (CF.Profile.currentUid.get() == Meteor.userId()) {
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
@@ -37,26 +42,62 @@ Template['portfolioWidget'].helpers({
         systems = _.uniq(_.union(systems, plck))
       }
     }
-    var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
 
-    // sort portfolio items by their cost, from higher to lower.
-    // return -1 if x > y; return 1 if y > x
-    sortFunction = function (x, y) {
-      var getPrice = function (system) {
-          if (!system.metrics) return 0;
-          if (!system.metrics.price) return 0;
-          if (!system.metrics.price.btc) return 0;
-          return system.metrics.price.btc;
+    var getPrice = function (system) {
+        if (!system.metrics) return 0;
+        if (!system.metrics.price) return 0;
+        if (!system.metrics.price.btc) return 0;
+        return system.metrics.price.btc;
+      },
+      getSystem = function (system) {
+        if (!system.system) return '';
+        return system.system;
+      },
+      sort = {
+        // sort portfolio items by their cost, from higher to lower.
+        // return -1 if x > y; return 1 if y > x
+        byValue: function (x, y) {
+
+          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
+            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
+          return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
         },
-        getSystem = function (system) {
-          if (!system.system) return '';
-          return system.system;
+        byAmount: function (x, y) {
+          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
+            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
+          return Math.sign(q2 - q1);
         },
-        q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(x)),
-        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, getSystem(y));
-      return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
-    };
-    return r.fetch().sort(sortFunction);
+        byEquity: function (x, y) {
+          var s1 = getSystem(x),
+            s2 = getSystem(y),
+            q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s1),
+            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s2),
+            a1 = s1 && s1.metrics && s1.metrics.supply,
+            a2 = s2 && s2.metrics && s2.metrics.supply;
+          if (a1 && a2) return Math.sign(q1 / a1 - q2 / a2);
+          if (!a1 && !a2) return 0; // no supply for both systems
+          if (a1) return 1; //equity defined for 1 system, not for 2
+          return -1; // vice versa
+        }
+      };
+    var sorter = Session.get('folioWidgetSort'),
+      _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
+      _split = (_sorter || '').split('|');
+
+    if (_sorter && _split) {
+      if (_split.length == 2 && _split[0] == 'f') {
+        var r = CurrentData.find(CF.CurrentData.selectors.system(systems))
+          .fetch()
+          .sort(sort[_split[1]]);
+        var val = sorter && _.isObject(sorter) && _.values(sorter)
+          && _.values(sorter)[0];
+        if (val == 1) r = r.reverse();
+        return r;
+      }
+      return CurrentData.find(CF.CurrentData.selectors.system(systems), {sort: sorter})
+    }
+    return CurrentData.find(CF.CurrentData.selectors.system(systems))
+      .fetch().sort(sort.byValue);
   },
   quantity: function (system) {
     if (!system.system) return NaN;
@@ -108,7 +149,8 @@ Template['portfolioWidget'].helpers({
     }
     return CF.Utils.readableN(q, 3) + '‱';
   },
-  share: function (system) {
+  share: function () {
+    var system = this;
     var q = 0.0;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
     if (system.system) {
@@ -160,11 +202,28 @@ Template['portfolioWidget'].helpers({
       }
     })
     return CF.Utils.readableN(sum, 0)
+  },
+  sorter: function(field){
+    var sorter = Session.get("folioWidgetSort");
+    if (!_.isObject(sorter)) return "";
+    if (sorter[field] == -1) return "↓ ";
+    if (sorter[field] == 1) return "↑ ";
+    return "";
   }
 });
 
 Template['portfolioWidget'].events({
-  'click .bar': function (e, t) {
-    
+
+  'click th.sorter': function (e, t) {
+    var newSorter = $(e.currentTarget).data('sorter');
+    var sort = Session.get("folioWidgetSort");
+    // same sorting criteria - reverse order
+    if (sort[newSorter]) {
+        sort[newSorter] = -sort[newSorter];
+    } else {
+      sort = {};
+      sort[newSorter] = -1;
+    }
+    Session.set('folioWidgetSort', sort)
   }
 });
