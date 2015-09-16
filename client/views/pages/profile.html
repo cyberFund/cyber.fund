@@ -54,7 +54,9 @@
                     {{/if}}
                 {{/if}}
             {{/if}}
-            {{>atNavButton}}
+            {{#if ownProfile}}
+                {{> atNavButton}}
+            {{/if}}
         </div>
         <div class="col l9 m12 s12">
             {{> assetsManager }}

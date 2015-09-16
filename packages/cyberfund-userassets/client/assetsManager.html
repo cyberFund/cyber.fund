@@ -2,6 +2,7 @@
 <template name="assetsManager">
     <section id="assets-manager" class="assets-manager row">
         {{#if isOwnAssets}}
+            {{log "three"}}
             {{> addAccount}}
             {{#if showAccountsAdvertise}}
                 <div class="enlarge" style="">add account
@@ -9,7 +10,11 @@
             {{/if}}
             <a href="/portfolio">Portfolio View</a>
         {{else}}
+            {{log "zero"}}
             {{#if _accounts}}
+                {{log "urrr"}}
+                {{log isOwnAssets}}
+                {{log _accounts}}
                 {{> portfolioWidget accountsData=_accounts}}
             {{/if}}
         {{/if}}

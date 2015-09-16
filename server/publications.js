@@ -165,7 +165,6 @@ Meteor.publish('profilesSystems', function (userId) {
 
 Meteor.publish("portfolioSystems", function (userId, options) {
   options = options || {};
-  if (!this.userId) return this.ready();
 
   var own = this.userId == userId;
   var user = Meteor.users.findOne({_id: userId});

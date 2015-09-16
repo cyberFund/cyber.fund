@@ -1,8 +1,7 @@
 CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 var isOwnAssets = function(){
-  return Meteor.userId() &&
-    CF.Profile.currentTwid.get() == CF.User.twid();
+  return CF.Profile.currentTwid.get() == CF.User.twid();
 }
 
 Template['displayAccount'].rendered = function () {

@@ -1,7 +1,6 @@
 CF.UserAssets.currentAccount = new CF.Utils.SessionVariable('cfAssetsCurrentAccount');
 var isOwnAssets = function () {
-  return Meteor.userId() &&
-    CF.Profile.currentUid.get() == Meteor.userId();
+   return CF.Profile.currentUid.get() == Meteor.userId();
 };
 
 Template['assetsManager'].rendered = function () {
@@ -17,12 +16,14 @@ Template['assetsManager'].helpers({
   },
   _accounts: function () {
     if (isOwnAssets()) {
-      var accounts = Meteor.user().accounts
+      console.log("_a1")
+      var accounts = Meteor.user().accounts;
       _.extend(accounts, Meteor.user().accountsPrivate);
       return accounts;
     } else {
       var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
       if (!user) return {};
+      console.log("bbb");
       return user.accounts
     }
   },
