@@ -9,6 +9,7 @@ Template['folioChart'].onCreated(function () {
     var options = Session.get("portfolioOptions") || {},
       user = Meteor.user(),
       systems = CF.UserAssets.getSystemsFromAccountsObject(self.data.chartData);
+    console.log(self.data.chartData);
     var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
     var data = r.fetch().sort(function(x, y){
       var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(self.data.chartData, CF.CurrentData.getSystem(x)),
