@@ -42,11 +42,13 @@ Template['portfolioWidget'].helpers({
         systems = _.uniq(_.union(systems, plck))
       }
     }
-    if (!Math.sign) {
-      Math.sign = function (x) {
-        return +x === x ? ((x === 0) ? x : (x > 0) ? 1 : -1) : NaN;
+    Math.sign = Math.sign || function(x) {
+        x = +x;
+        if (x === 0 || isNaN(x)) {
+          return x;
+        }
+        return x > 0 ? 1 : -1;
       }
-    }
     var getPrice = function (system) {
         if (!system.metrics) return 0;
         if (!system.metrics.price) return 0;
