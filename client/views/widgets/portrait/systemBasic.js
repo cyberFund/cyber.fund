@@ -206,7 +206,13 @@ Template['systemBasic'].events({
     })
   },
   'click .btn-star-system': function (e, t) {
-    if (!Meteor.user()) return;
+    var user = Meteor.user();
+    if (!user) return;
+    var exists = user && user.profile && user.profile.starredSystems &&
+      _.contains(user.profile.starredSystems, t._system.system);
+    analytics.track(exists ? 'Unfollowed system' : 'Followed system', {
+      systemName: t._system.system
+    });
     Meteor.call('toggleStarSys', t._system.system);
   }
 });

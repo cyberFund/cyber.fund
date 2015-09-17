@@ -213,10 +213,15 @@ Template['assetsManager'].events({
       address: CF.UserAssets.currentAddress.get(),
       accountName: CF.UserAssets.currentAccount.get()
     });
+    analytics.track('Followed system', {
+      systemName: key,
+      mode: 'auto'
+    });
+    Meteor.call("starSysBySys", key);
     Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
       $form.closest(".modal").closeModal();
     });
-    Meteor.call("starSysBySys", key);
+
     return false;
   },
   "autocompleteselect input#search2": function (event, template, doc) {

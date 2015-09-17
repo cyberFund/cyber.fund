@@ -33,6 +33,9 @@ Template['searchItem1'].helpers({
 
 Template['searchItem1'].events({
   "autocompleteselect input#search": function(event, template, doc) {
+    analytics.track("Searched Data Redirect", {
+      systemName: doc.system
+    });
     Router.current().router.go("System", {name_: Blaze._globalHelpers._toU(doc.system) })
     template.$("input#search").val("");
   }

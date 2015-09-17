@@ -54,9 +54,15 @@ Template['profile'].helpers({
 
 Template['profile'].events({
   'click .btn-follow': function (e, t) {
+    analytics.track('Followed Person', {
+      personName: CF.Profile.currentTwid.get()
+    });
     Meteor.call('followUser', CF.Profile.currentUid.get())
   },
   'click .btn-unfollow': function (e, t) {
+    analytics.track('Unfollowed Person', {
+      personName: CF.Profile.currentTwid.get()
+    });
     Meteor.call('followUser', CF.Profile.currentUid.get(), {unfollow: true})
   }
 });
