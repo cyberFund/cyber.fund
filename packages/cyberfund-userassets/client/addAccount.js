@@ -119,7 +119,7 @@ Template['addAccount'].events({
         return false;
       }
       var isPublic = !t.$publicCheckbox.is(":checked");
-      analytics.track('Added Account', {
+      analytics.track('Created Account', {
         accountName: name
       });
       analytics.track('Added Address', {
