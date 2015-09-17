@@ -274,7 +274,7 @@ Template['assetsManager'].events({
       return false;
     }
     $form.find("#asset-quantity-edit").val('');
-    analytics.track('Changed Asset', {
+    analytics.track('Changed Amount', {
       amount: qua,
       systemName: key,
       address: CF.UserAssets.currentAddress.get(),
