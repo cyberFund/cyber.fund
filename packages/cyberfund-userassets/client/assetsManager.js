@@ -57,7 +57,14 @@ Template['assetsManager'].helpers({
     if (amount) amount = (key ? amount[key] : '');
     if (!amount) return '';
     return amount.quantity || '';
-  }
+  },
+  showAccountsAdvertise: function () {
+    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
+      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
+      return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
+    }
+    return false;
+  },
 });
 
 Template['assetsManager'].onCreated(function () {
@@ -90,15 +97,11 @@ Template['assetsManager'].events({
   'submit #delete-account-form': function (e, t) {
     if (!isOwnAssets()) return false;
     console.log(CF.UserAssets.currentAccount.get());
+    analytics.track('Delete Account', {
+      accountName: CF.UserAssets.currentAccount.get()
+    });
     Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccount.get());
     $("#modal-delete-account").closeModal();
-    return false;
-  },
-  showAccountsAdvertise: function () {
-    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
-      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
-      return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
-    }
     return false;
   },
   'keyup #rename-account-in, change #rename-account-in': function (e, t) {
@@ -122,7 +125,11 @@ Template['assetsManager'].events({
   },
   'submit #rename-account-form': function (e, t) {
     if (!isOwnAssets()) return false;
-    var key = CF.UserAssets.currentAccount.get();
+    //var key = CF.UserAssets.currentAccount.get();
+    analytics.track('Renamed Account', {
+      oldName: CF.UserAssets.currentAccount.get(),
+      newName: t.$renameAccountInput.val()
+    });
     Meteor.call("cfAssetsRenameAccount", CF.UserAssets.currentAccount.get(), t.$renameAccountInput.val());
     $("#modal-rename-account").closeModal();
     return false;
@@ -146,6 +153,11 @@ Template['assetsManager'].events({
     if (!isOwnAssets()) return false;
     var account = CF.UserAssets.currentAccount.get();
     var address = t.$addAssetInput.val().trim();
+    analytics.track('Added Address', {
+      accountName: account,
+      address: address
+      //autoupdate
+    });
     if (CF.UserAssets.uiAddressExists(address)) return false;
     Meteor.call("cfAssetsAddAddress", account, address, function (err, ret) {
       t.$addAssetInput.val("");
@@ -155,6 +167,10 @@ Template['assetsManager'].events({
   },
   'submit #delete-address-form': function (e, t) {
     if (!isOwnAssets()) return false;
+    analytics.track('Delete Address', {
+      accountName: CF.UserAssets.currentAccount.get(),
+      address: CF.UserAssets.currentAddress.get()
+    });
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccount.get(),
       CF.UserAssets.currentAddress.get());
     $("#modal-delete-address").closeModal();
@@ -191,6 +207,12 @@ Template['assetsManager'].events({
       return false;
     }
     $form.find("#asset-quantity-input").val('');
+    analytics.track('Added Asset', {
+      amount: qua,
+      systemName: key,
+      address: CF.UserAssets.currentAddress.get(),
+      accountName: CF.UserAssets.currentAccount.get()
+    });
     Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
       $form.closest(".modal").closeModal();
     });
@@ -247,6 +269,12 @@ Template['assetsManager'].events({
       return false;
     }
     $form.find("#asset-quantity-edit").val('');
+    analytics.track('Changed Asset', {
+      amount: qua,
+      systemName: key,
+      address: CF.UserAssets.currentAddress.get(),
+      accountName: CF.UserAssets.currentAccount.get()
+    });
     Meteor.call("cfAssetsAddAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), key, qua, function () {
       $form.closest(".modal").closeModal();
     });
@@ -260,11 +288,16 @@ Template['assetsManager'].events({
       t.$("#modal-delete-asset").closeModal();
       return false;
     }
+    analytics.track('Delete Asset', {
+      accountName: CF.UserAssets.currentAccount.get(),
+      address: CF.UserAssets.currentAddress.get(),
+      systemName: sys
+    });
     Meteor.call("cfAssetsDeleteAsset", CF.UserAssets.currentAccount.get(), CF.UserAssets.currentAddress.get(), sys,
       function (err, ret) {
         CF.UserAssets.currentAsset.set(null);
         t.$("#modal-delete-asset").closeModal();
-      })
+      });
     return false;
   }
 });
