@@ -12,7 +12,6 @@ callback-hook@1.0.3
 check@1.0.5
 chuangbo:cookie@1.1.0
 coffeescript@1.0.6
-cosmos:browserify@0.5.1
 cyberfund:cyberfund-base@0.0.1
 cyberfund:cyberfund-chaingear@0.0.1
 cyberfund:cyberfund-currentdata@0.0.1
@@ -43,7 +42,6 @@ iron:router@1.0.9
 iron:url@1.0.9
 jquery@1.11.3_2
 json@1.0.3
-kadira:flow-router@2.6.1
 launch-screen@1.0.2
 less@1.0.14
 livedata@1.0.13
@@ -71,6 +69,7 @@ mquandalle:bower@1.4.1_1
 oauth@1.1.4
 oauth1@1.1.4
 observe-sequence@1.0.6
+ongoworks:spiderable@1.0.7
 ordered-dict@1.0.3
 percolate:synced-cron@1.2.1
 random@1.0.3
@@ -84,7 +83,6 @@ session@1.1.0
 softwarerero:accounts-t9n@1.0.9
 spacebars@1.0.6
 spacebars-compiler@1.0.6
-spiderable@1.0.7
 templating@1.1.1
 tmeasday:publish-counts@0.6.0
 tracker@1.0.7
@@ -96,4 +94,4 @@ useraccounts:core@1.11.1
 useraccounts:materialize@1.11.1
 webapp@1.2.0
 webapp-hashing@1.0.3
-zimme:active-route@2.3.0
+zimme:active-route@2.3.2

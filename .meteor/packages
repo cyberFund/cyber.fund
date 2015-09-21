@@ -41,6 +41,6 @@ percolate:synced-cron
 mizzao:autocomplete
 meteorhacks:fast-render
 cyberfund:cyberfund-userassets
-kadira:flow-router
-#iron:router
+#kadira:flow-router
+iron:router
 ongoworks:spiderable
