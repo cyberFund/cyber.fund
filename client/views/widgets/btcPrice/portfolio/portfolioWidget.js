@@ -42,40 +42,40 @@ Template['portfolioWidget'].helpers({
         systems = _.uniq(_.union(systems, plck))
       }
     }
-    Math.sign = Math.sign || function(x) {
+    Math.sign = Math.sign || function (x) {
         x = +x;
         if (x === 0 || isNaN(x)) {
           return x;
         }
         return x > 0 ? 1 : -1;
       };
-      var sort = {
-        // sort portfolio items by their cost, from higher to lower.
-        // return -1 if x > y; return 1 if y > x
-        byValue: function (x, y) {
+    var sort = {
+      // sort portfolio items by their cost, from higher to lower.
+      // return -1 if x > y; return 1 if y > x
+      byValue: function (x, y) {
 
-          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
-            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
-          return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
-        },
-        byAmount: function (x, y) {
-          var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
-            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
-          return Math.sign(q2 - q1);
-        },
-        byEquity: function (x, y) {
-          var s1 = CF.CurrentData.getSystem(x),
-            s2 = CF.CurrentData.getSystem(y),
-            q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s1),
-            q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s2),
-            a1 = s1 && s1.metrics && s1.metrics.supply,
-            a2 = s2 && s2.metrics && s2.metrics.supply;
-          if (a1 && a2) return Math.sign(q1 / a1 - q2 / a2);
-          if (!a1 && !a2) return 0; // no supply for both systems
-          if (a1) return 1; //equity defined for 1 system, not for 2
-          return -1; // vice versa
-        }
-      };
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+        return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
+      },
+      byAmount: function (x, y) {
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+        return Math.sign(q2 - q1);
+      },
+      byEquity: function (x, y) {
+        var s1 = CF.CurrentData.getSystem(x),
+          s2 = CF.CurrentData.getSystem(y),
+          q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s1),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s2),
+          a1 = s1 && s1.metrics && s1.metrics.supply,
+          a2 = s2 && s2.metrics && s2.metrics.supply;
+        if (a1 && a2) return Math.sign(q1 / a1 - q2 / a2);
+        if (!a1 && !a2) return 0; // no supply for both systems
+        if (a1) return 1; //equity defined for 1 system, not for 2
+        return -1; // vice versa
+      }
+    };
     var sorter = Session.get('folioWidgetSort'),
       _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
       _split = (_sorter || '').split('|');
@@ -95,7 +95,7 @@ Template['portfolioWidget'].helpers({
     return CurrentData.find(CF.CurrentData.selectors.system(systems))
       .fetch().sort(sort.byValue);
   },
-  chartData: function(){
+  chartData: function () {
     return Template.instance().data && Template.instance().data.accountsData;
   },
   quantity: function (system) {
@@ -220,6 +220,9 @@ Template['portfolioWidget'].events({
       sort = {};
       sort[newSorter] = -1;
     }
-    Session.set('folioWidgetSort', sort)
+    analytics.track("Sorted Portfolio", {
+      sort: sort
+    });
+    Session.set('folioWidgetSort', sort);
   }
 });

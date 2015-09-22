@@ -150,6 +150,9 @@ Template['ratingTable'].events({
         else {
             sort = {}; sort[newSorter] = -1;
         }
-        Session.set('ratingPageSort', sort)
+        analytics.track("Sorted Rating", {
+            sort: sort
+        });
+        Session.set('ratingPageSort', sort);
     }
 });
