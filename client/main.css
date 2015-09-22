@@ -41,6 +41,17 @@ p {
   width: 100%;
 }
 
+.team{
+	background:url("/images/blockchain.jpg") no-repeat 0px 0px;
+	background-size:cover;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	-ms-background-size: cover;
+	-moz-background-size: cover;
+	min-height:300px;
+	padding:80px 0;
+}
+
 @media only screen and (max-width: 992px) {
   .parallax-container .section {
     position: absolute;
@@ -147,9 +158,15 @@ main {
 }
 
 .w90 {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   position: relative;
+}
+
+hr{
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
 .cg-system-logo {
