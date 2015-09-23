@@ -9,3 +9,13 @@
         {{> footer}}
     </div>
 </template>
+<template name="layoutFullWidth">
+    {{> navbar}}
+    <div id="contain-all">
+        <div class="w100">
+            {{> yield}}
+        </div>
+        <div class="hiddendiv common"></div>
+        {{> footer}}
+    </div>
+</template>

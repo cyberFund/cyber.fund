@@ -158,6 +158,12 @@ main {
 }
 
 .w90 {
+  width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+.w100 {
   width: 100%;
   margin: 0 auto;
   position: relative;
