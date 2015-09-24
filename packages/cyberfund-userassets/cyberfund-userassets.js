@@ -72,7 +72,7 @@ CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) 
  */
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   var sum = 0.0;
-  if (accountsObject &&!key) {
+  if (accountsObject && key) {
     var rets = _.values(accountsObject);
     if (rets) {
       rets = _.flatten(_.map(rets, function (account) {

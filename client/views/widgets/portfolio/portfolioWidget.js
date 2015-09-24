@@ -42,6 +42,7 @@ var getSumU = function(accountsData) {
       sum += q * system.metrics.price.usd;
     }
   });
+  return sum;
 };
 
 var _getSumB = function (accountsData, addressesObject) {
