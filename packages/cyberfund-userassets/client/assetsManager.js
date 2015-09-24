@@ -61,10 +61,10 @@ Template['assetsManager'].helpers({
   showAccountsAdvertise: function () {
     if (CF.Profile.currentTwid.get() == CF.User.twid()) {
       var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
-      return !(_.keys(user.accounts).length || _.keys(user.privateAccounts).length)
+      return !( (user.accounts &&_.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length) )
     }
     return false;
-  },
+  }
 });
 
 Template['assetsManager'].onCreated(function () {

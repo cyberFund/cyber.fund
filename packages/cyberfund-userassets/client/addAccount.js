@@ -81,7 +81,11 @@ Template['addAccount'].rendered = function () {
 
 Template['addAccount'].helpers({
   'disabledPrivates': function () {
-    return 'disabled'
+// todo: check user has required thing marked.
+// not to keep this in profile, as profile intended to be user-modifiable
+    var user = Meteor.user();
+    return CF.UserAssets.isPrivateAccountsEnabled(user) ?
+    '' : 'disabled'
   }
 });
 
@@ -148,19 +152,21 @@ Template['addAccount'].events({
       });
       Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
         t.$("#modal-add-account").closeModal();
+        console.log(t.$newAccountName.val());
+        console.log(t.$address.val());
+        t.$newAccountName.val("");
         t.$address.val("");
         return false;
       });
     }
-  },
-  'click mock-soon-': function (e, t) {
-    Materialize.toast("Private acccounts coming soon", 3200);
+    return false;
   },
   'change #add-to-new-account': function (e, t) {
     var isNew = t.$(e.currentTarget).is(':checked');
     t.toggleAccountGroup(isNew);
   },
   'click .close-account-dialog': function(e, t){
+
     analytics.track('Closed Account Dialog');
   }
 });

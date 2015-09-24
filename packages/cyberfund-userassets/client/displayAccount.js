@@ -22,8 +22,15 @@ Template['displayAccount'].helpers({
   'disabledTogglePrivate': function () {
     return 'disabled';
   },
-  'publicity': function () {
-    return this.isPublic ? 'Public Account' : 'Private Account'
+  'publicity': function (account) {
+    var pub = 'Public Account';
+    var pri = 'Private Account';
+    var user = Meteor.user();
+    if (!account || !account.key || !user) return pub;
+    var isPrivate = (_.keys(user.accounts || {}).indexOf(account.key) == -1)
+    && !!user.accountsPrivate &&
+      (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
+    return isPrivate ? pri : pub;
   },
   autoUpdateAvailable: function(address){
     if (!isOwnAssets()) return false;

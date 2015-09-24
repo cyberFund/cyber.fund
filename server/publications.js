@@ -27,7 +27,8 @@ Meteor.publish('userDetails', function () {
   return Meteor.users.find({_id: this.userId}, {
     fields: {
       "services.twitter.screenName": 1,
-      "services.twitter.profile_image_url_https": 1
+      "services.twitter.profile_image_url_https": 1,
+      "services.privateAccountsEnabled": 1
     }
   });
 });
@@ -133,10 +134,16 @@ Meteor.publish('avatars', function (uidArray) {
 });
 
 Meteor.publish('userProfileByTwid', function (twid) {
+  var ownTwid = null;
+  if (this.userId) {
+    ownTwid = Meteor.users.findOne({_id: this.userId}).profile.twitterName
+  }
+  var fields = {
+    'profile': 1, accounts: 1, createdAt: 1
+  };
+  if (ownTwid == twid) fields.accountsPrivate = 1;
   return Meteor.users.find({"profile.twitterName": twid}, {
-    fields: {
-      'profile': 1, accounts: 1, createdAt: 1
-    }
+    fields: fields
   });
 });
 
@@ -147,7 +154,7 @@ Meteor.publish('portfolioUser', function () {
       'profile': 1, accounts: 1, createdAt: 1
     }
   });
-})
+});
 
 Meteor.publish('assetsSystems', function (tokens) {
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
