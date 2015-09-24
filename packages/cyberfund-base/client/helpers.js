@@ -87,9 +87,10 @@ var helpers = {
   concat: function (value1, value2) {
     return value1.toString() + value2.toString();
   },
-  values_of: function (arr) {
+  values_of: function (arr_or_obj) {
+    var arr = arr_or_obj;
     if (typeof arr == "object") {
-      return array = $.map(arr, function (value, index) {
+      return $.map(arr, function (value, index) {
         return [value];
       });
     }

@@ -151,7 +151,7 @@ Meteor.publish('portfolioUser', function () {
   if (!this.userId) return this.ready();
   return Meteor.users.find({_id: this.userId}, {
     fields: {
-      'profile': 1, accounts: 1, createdAt: 1
+      'profile': 1, accounts: 1, accountsPrivate: 1, createdAt: 1
     }
   });
 });
@@ -179,7 +179,7 @@ Meteor.publish("portfolioSystems", function (userId, options) {
   var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts);
 
   if (own) {
-    if (options.privateAssets) {
+    if (options.privateAssets) { //todo: unbind against this && user details subscriptions
       systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
     }
     var stars = user.profile.starredSystems;

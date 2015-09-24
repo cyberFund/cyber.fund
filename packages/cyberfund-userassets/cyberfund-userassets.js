@@ -39,7 +39,30 @@ CF.UserAssets.getSystemsFromAccountsObject = function(assetsObject) {
     })));
   } else return [];
   return _.uniq(systems);
-}
+};
+
+/**
+ * return quantity of specified coins in specified addressesObject
+ * @param addressesObject - addresses object provided
+ * @param key - system name to check against
+ * @returns {number} quantity of specified coins from accountsObject
+ *
+ * same as getQuantitiesFromAccountsObject - but to work account-wise, not totaling..
+ */
+CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) {
+  var sum = 0.0;
+  if (addressesObject && key) {
+    var rets = _.values(addressesObject);
+    _.each(rets, function (assetsObject) {
+      assetsObject = assetsObject.assets;
+      if (assetsObject[key]) {
+        if (assetsObject[key].asset == key/*why we need this check?*/ && assetsObject[key].quantity) sum += assetsObject[key].quantity
+      }
+    });
+  }
+
+  return sum;
+};
 
 /**
  * return quantity of specified coins in specified accountsObject
@@ -49,26 +72,21 @@ CF.UserAssets.getSystemsFromAccountsObject = function(assetsObject) {
  */
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   var sum = 0.0;
-  if (!accountsObject) {
-    return sum;
-  }
-  if (!key) {
-    return sum;
-  }
-  var rets =  _.values(accountsObject);
-  if (rets) {
-    rets = _.flatten(_.map(rets, function (account) {
-      return _.values(account.addresses)
-    }));
-  } else return sum;
+  if (accountsObject &&!key) {
+    var rets = _.values(accountsObject);
+    if (rets) {
+      rets = _.flatten(_.map(rets, function (account) {
+        return _.values(account.addresses)
+      }));
+    } else return sum;
 
-  _.each(rets, function(assetsObject){
-    assetsObject = assetsObject.assets;
-    if (assetsObject[key]) {
-      if (assetsObject[key].asset == key/*why we need this check?*/ && assetsObject[key].quantity) sum+= assetsObject[key].quantity
-    }
-  });
-
+    _.each(rets, function (assetsObject) {
+      assetsObject = assetsObject.assets;
+      if (assetsObject[key]) {
+        if (assetsObject[key].asset == key/*why we need this check?*/ && assetsObject[key].quantity) sum += assetsObject[key].quantity
+      }
+    });
+  }
   return sum;
 };
 

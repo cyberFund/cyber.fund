@@ -1,9 +1,12 @@
 Template['portfolioWidget'].onCreated(function () {
   Session.set('folioWidgetSort', {"f|byValue": -1});
+
+  // todo: control this from UI
+  Session.set('portfolioOptions',{privateAssets: true} )
 });
 
 Template['portfolioWidget'].rendered = function () {
-  this.subscribe('portfolioSystems', Meteor.userId(), Session.get('portfolioOptions'))
+  this.subscribe('portfolioSystems', Meteor.userId(), Session.get('portfolioOptions'));
 };
 
 /**
@@ -11,6 +14,9 @@ Template['portfolioWidget'].rendered = function () {
  * @param accountsData - accounts object
  * @returns {number} assets value in bitcoins
  */
+
+
+// TODO: DEFLATE
 var getSumB = function (accountsData) {
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
     sum = 0;
@@ -20,6 +26,47 @@ var getSumB = function (accountsData) {
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
       sum += q * system.metrics.price.btc;
+    }
+  });
+  return sum;
+};
+
+var getSumU = function(accountsData) {
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+    sum = 0;
+  _.each(systems, function (sys) {
+    var q = CF.UserAssets.getQuantitiesFromAccountsObject(accountsData, sys);
+    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+
+    if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
+      sum += q * system.metrics.price.usd;
+    }
+  });
+};
+
+var _getSumB = function (accountsData, addressesObject) {
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+    sum = 0;
+  _.each(systems, function (sys) {
+    var q = CF.UserAssets.getQuantitiesFromAddressesObject(addressesObject, sys);
+    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+
+    if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
+      sum += q * system.metrics.price.btc;
+    }
+  });
+  return sum;
+};
+
+var _getSumU = function (accountsData, addressesObject) {
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+    sum = 0;
+  _.each(systems, function (sys) {
+    var q = CF.UserAssets.getQuantitiesFromAddressesObject(addressesObject, sys);
+    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+
+    if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
+      sum += q * system.metrics.price.usd;
     }
   });
   return sum;
@@ -126,6 +173,21 @@ Template['portfolioWidget'].helpers({
     var sumB = accounts ? getSumB(accounts) : 0;
     return CF.Utils.readableN(sumB, 3)
   },
+  _sumB: function (addressesObject) {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumB = (accounts && addressesObject) ? _getSumB(accounts, addressesObject) : 0;
+    return CF.Utils.readableN(sumB, 3)
+  },
+  _sumU: function (addressesObject) {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
+    return CF.Utils.readableN(sumB, 3)
+  },
+  sumU: function () {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumU = accounts ? getSumU(accounts) : 0;
+    return CF.Utils.readableN(sumU, 0)
+  },
   name_of_system: function () {
     var sys = CurrentData.findOne({_id: this._id}) || {};
     return sys.system || ''
@@ -184,20 +246,6 @@ Template['portfolioWidget'].helpers({
       return CF.Utils.readableN((system.metrics.price.usd * system.metrics.supply), 0);
     }
     return 0;
-  },
-  sumU: function () {
-    var accounts = Template.instance().data && Template.instance().data.accountsData,
-      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts),
-      sum = 0;
-    _.each(systems, function (sys) {
-      var q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, sys);
-      var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
-
-      if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
-        sum += q * system.metrics.price.usd;
-      }
-    })
-    return CF.Utils.readableN(sum, 0)
   },
   sorter: function (field) {
     var sorter = Session.get("folioWidgetSort");
