@@ -18,10 +18,10 @@ Meteor.methods({
     if (!uid) return;
     var sel = {_id: uid};
     if (sys) {
-      var user = Meteor.users.findOne(sel)
+      var user = Meteor.users.findOne(sel);
       if (user) {
         var starred = user.profile.starredSystems;
-        if (!starred || starred.indexOf(system.system) == -1) {
+        if (!starred || starred.indexOf(sys) == -1) {
           Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
           CurrentData.update({system: sys}, {$push: {'_usersStarred': uid}});
         }

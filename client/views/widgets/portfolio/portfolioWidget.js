@@ -73,6 +73,9 @@ var _getSumU = function (accountsData, addressesObject) {
 };
 
 Template['portfolioWidget'].helpers({
+  values: function(obj){
+    return _.values(obj || {});
+  },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
     var options = Session.get("portfolioOptions") || {},
       accounts = Template.instance().data && Template.instance().data.accountsData,
@@ -181,7 +184,7 @@ Template['portfolioWidget'].helpers({
   _sumU: function (addressesObject) {
     var accounts = Template.instance().data && Template.instance().data.accountsData;
     var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
-    return CF.Utils.readableN(sumB, 3)
+    return CF.Utils.readableN(sumB, 0)
   },
   sumU: function () {
     var accounts = Template.instance().data && Template.instance().data.accountsData;
