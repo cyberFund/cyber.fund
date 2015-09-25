@@ -42,4 +42,5 @@ Meteor.startup(function() {
 	CurrentData._ensureIndex({"metrics.capChangePercents.day.btc": 1}, {sparse: true});
 	CurrentData._ensureIndex({"metrics.capChangePercents.day.usd": 1}, {sparse: true});
 	CurrentData._ensureIndex({"crowdsales": 1}, {sparse: true});
+	CurrentData._ensureIndex({"descriptions.state": 1}, {sparse: true});
 });

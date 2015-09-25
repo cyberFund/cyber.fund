@@ -9,23 +9,34 @@
             <div class="card-title black-text center-align"
                  style="font-weight: 700">{{system}}</div>
             <div class="card-content">
-                <div class="left" style="margin-right: 12px;">Start
-                    date: {{crowdsales.start_date}}</div>
-                <div class="right"> End date: {{crowdsales.end_date}}</div>
+
+                <div class="left" style="margin-right: 12px;">
+                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! active}}
+                        <strong>Days
+                            left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
+                    {{/if}}
+                    {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}} {{! upcoming}}
+                        <strong>Days
+                            left: {{daysLeft crowdsales.start_date "D/M/YYYY"}}</strong>
+                    {{/if}}
+                </div>
                 <br/><br/>
 
                 <div style="min-height: 2em">{{descriptions.headline}}
                     &nbsp;</div>
                 <div style="display: inline-block">
-                    {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}}
-
+                    {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}} {{! past}}
                         <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
-
+                    {{/if}}
+                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! past}}
+                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
                     {{/if}}
 
-                    <a href="{{crowdsales.funding_tems}}" target="_blank"> Funding
+                    <a href="{{crowdsales.funding_tems}}" target="_blank">
+                        Funding
                         terms </a>
-                    <a href="{{crowdsales.funding_url}}" target="_blank"> Funding
+                    <a href="{{crowdsales.funding_url}}" target="_blank">
+                        Funding
                         url </a>
                 </div>
             </div>
