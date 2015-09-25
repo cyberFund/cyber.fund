@@ -35,15 +35,20 @@
                     <a href="{{crowdsales.funding_tems}}" target="_blank">
                         Funding
                         terms </a>
-                    <a href="{{crowdsales.funding_url}}" target="_blank">
-                        Funding
-                        url </a>
+
                 </div>
             </div>
             {{#if crowdsales}}
                 {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
                     <div class="card-action">
-                        <a href="#">Invest</a>
+                        <a href="{{crowdsales.funding_tems}}" target="_blank">Funding
+                            terms </a>
+                    </div>
+                {{/if}}
+
+                {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
+                    <div class="card-action">
+                        <a href="{{crowdsales.funding_url}}" target="_blank">Invest</a>
                     </div>
                 {{/if}}
             {{/if}}
