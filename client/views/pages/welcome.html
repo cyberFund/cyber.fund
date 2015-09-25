@@ -15,7 +15,9 @@
       <p>Keep Records of Your Public Keys</p>
       <p>Follow Best Portfolios</p></h5></span>
       <br>
-      <a class="red waves-effect waves-light btn" id="login-button">Sign Up</a>
+        {{#if not currentUser}}
+            <a class="red waves-effect waves-light btn login-button">Sign Up</a>
+        {{/if}}
     {{! > atNavButton text='sign in' }}
     </div>
   </div>
@@ -36,7 +38,9 @@
   <br>
   <br>
   <h4>Sign Up now and you will have public account free forever!</h4>
-  <a class="red waves-effect waves-light btn" id="login-button">Sign Up</a>
+    {{#if not currentUser}}
+        <a class="red waves-effect waves-light btn login-button">Sign Up</a>
+    {{/if}}
   {{! > atNavButton text='sign in' }}
   <br>
   <br>
@@ -116,7 +120,9 @@
   <br>
   <br>
   <h4>Welcome to cyber <span class="red-text">•</span> Fund!</h4>
-  <a class="red waves-effect waves-light btn" id="login-button">Sign Up</a>
+    {{#if not currentUser}}
+        <a class="red waves-effect waves-light btn login-button">Sign Up</a>
+    {{/if}}
   {{! > atNavButton text='sign in' }}
   <br>
   <br>
