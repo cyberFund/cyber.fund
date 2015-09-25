@@ -1,14 +1,15 @@
 <template name="projectCard">
     <div class="col s12 m6 l4">
         <div class="card">
+            <a href="{{pathFor 'System' name_=name_}}">
             <div class="center-align">
                 {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
             </div>
             <div class="card-title black-text center-align"
                  style="font-weight: 700">{{system}}</div>
-
+            </a>
             <div class="card-content">
-                <div>
+                <div style="text-align: center">
                     {{descriptions.headline}}
                 </div>
             </div>
