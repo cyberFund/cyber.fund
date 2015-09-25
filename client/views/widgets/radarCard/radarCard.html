@@ -1,25 +1,41 @@
 <!-- originally created for cyber.fund project-->
 <template name="radarCard">
 
-  <div class="col s12 m6 l4">
-    <div class="card">
-      <div class="card-image"><span>
-        {{> cgSystemLogo data=this style="width:150px;"}}
-        <span class="card-title black-text">{{system}}</span></span>
-      </div>
-      <div class="card-content">
-        <div><p>Start date: {{crowdsales.start_date}}</p>
+    <div class="col s12 m6 l4">
+        <div class="card">
+            <div class="center-align">
+                {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
+            </div>
+            <div class="card-title black-text center-align"
+                 style="font-weight: 700">{{system}}</div>
+            <div class="card-content">
+                <div class="left" style="margin-right: 12px;">Start
+                    date: {{crowdsales.start_date}}</div>
+                <div class="right"> End date: {{crowdsales.end_date}}</div>
+                <br/><br/>
 
-          <p>End date: {{crowdsales.end_date}}</p></div>
-        <p>{{descriptions.summary}}</p>
-      </div>
-      {{#if crowdsales}}
-        {{#if isAfterNow crowdsales.end_date}}
-          <div class="card-action">
-            <a href="#">Invest</a>
-          </div>
-        {{/if}}
-      {{/if}}
+                <div style="min-height: 2em">{{descriptions.headline}}
+                    &nbsp;</div>
+                <div style="display: inline-block">
+                    {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}}
+
+                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
+
+                    {{/if}}
+
+                    <a href="{{crowdsales.funding_tems}}" target="_blank"> Funding
+                        terms </a>
+                    <a href="{{crowdsales.funding_url}}" target="_blank"> Funding
+                        url </a>
+                </div>
+            </div>
+            {{#if crowdsales}}
+                {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
+                    <div class="card-action">
+                        <a href="#">Invest</a>
+                    </div>
+                {{/if}}
+            {{/if}}
+        </div>
     </div>
-  </div>
 </template>
