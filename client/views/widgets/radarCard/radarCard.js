@@ -14,6 +14,9 @@ Template['radarCard'].helpers({
   },
   daysPassed: function (datestring, format) {
 
+  },
+  name_: function () {
+    return Blaze._globalHelpers._toU(this.system);
   }
 });
 
