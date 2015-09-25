@@ -7,8 +7,7 @@
                 <div class="center-align">
                     {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
                 </div>
-                <div class="card-title black-text center-align"
-                     style="font-weight: 700">{{displaySystemName system}}
+                <div class="card-title black-text center-align" style="font-weight: 700">{{displaySystemName this}}
                 </div>
             </a>
 
@@ -20,36 +19,33 @@
                             left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
                     {{/if}}
                     {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}} {{! upcoming}}
-                        <strong>Days
-                            left: {{daysLeft crowdsales.start_date "D/M/YYYY"}}</strong>
+                        <strong>Days left: {{daysLeft crowdsales.start_date "D/M/YYYY"}}</strong>
                     {{/if}}
                 </div>
                 <br/><br/>
 
-                <div style="min-height: 2em; text-align: center" >{{descriptions.headline}}
+                <div style="min-height: 2em; text-align: center">{{descriptions.headline}}
                     &nbsp;</div>
                 <div style="display: inline-block">
                     {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
+                        <strong>Tokens Sold: </strong>{{crowdsales.tokens_sold}}
+                        <strong>Current Cap: </strong>{{metrics.cap.btc}}
+                        <strong>Days ago: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
                     {{/if}}
                     {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
+                        <strong>Tokens Sold: </strong>{{crowdsales.tokens_sold}}
                     {{/if}}
                 </div>
             </div>
             {{#if crowdsales}}
-                {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
-                    <div class="card-action">
-                        <a href="{{crowdsales.funding_tems}}" target="_blank">Funding
-                            terms </a>
-                    </div>
-                {{/if}}
-
-                {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
-                    <div class="card-action">
+                <div class="card-action">
+                    {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
+                        <a href="{{crowdsales.funding_tems}}" target="_blank">Funding terms </a>
+                    {{/if}}
+                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
                         <a href="{{crowdsales.funding_url}}" target="_blank">Invest</a>
-                    </div>
-                {{/if}}
+                    {{/if}}
+                </div>
             {{/if}}
         </div>
     </div>
