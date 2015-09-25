@@ -86,6 +86,19 @@ Template['addAccount'].helpers({
     var user = Meteor.user();
     return CF.UserAssets.isPrivateAccountsEnabled(user) ?
     '' : 'disabled'
+  },
+  currentUserAccounts: function(){
+    var user = Meteor.user();
+    if (!user) return {};
+    var accountsPrivate = user.accountsPrivate;
+    var accounts = user.accounts;
+    if (accountsPrivate) {
+      _.each(accountsPrivate, function(acc){
+        acc.isPrivate = true;
+      })
+      _.extend(accounts, accountsPrivate);
+    }
+    return accounts;
   }
 });
 

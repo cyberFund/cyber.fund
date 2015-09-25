@@ -39,8 +39,8 @@
                 <div id="existing-account-group">
                     <select id="account-id-select">
                         <option value="">Select account</option>
-                        {{#each keyValue currentUser.accounts}}
-                            <option value="{{key}}">{{value.name}}</option>
+                        {{#each keyValue currentUserAccounts}}
+                            <option value="{{key}}">{{value.name}}{{#if value.isPrivate}}<sub class="grey-text">(private)</sub>{{/if}}</option>
                         {{/each}}
                     </select>
                 </div>
