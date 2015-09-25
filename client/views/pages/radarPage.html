@@ -4,7 +4,7 @@
       <div>
       </div>
 
-      <h4>Active Crowd Investments</h4>
+      <h4>Active Crowdsales</h4>
       {{#each crowdsale}}
         {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
           {{> radarCard this}}
@@ -12,7 +12,7 @@
       {{/each}}
     </div>
     <div class="row">
-      <h4>Upcoming Crowd Investments</h4>
+      <h4>Upcoming Crowdsales</h4>
       {{#each crowdsale}}
         {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}}
           {{> radarCard this}}
@@ -20,18 +20,19 @@
       {{/each}}
     </div>
     <div class="row">
-      <h4>Past Crwod Investments</h4>
+        <h4>Anticipated Projects</h4>
+        {{#each project}}
+            {{> projectCard this}}
+        {{/each}}
+    </div>
+    <div class="row">
+      <h4>Successful Crowdsales</h4>
       {{#each crowdsale}}
         {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}}
           {{> radarCard this}}
         {{/if}}
       {{/each}}
     </div>
-    <div class="row">
-        <h4>Projects</h4>
-        {{#each project}}
-            {{> projectCard this}}
-        {{/each}}
-    </div>
+
 
 </template>
