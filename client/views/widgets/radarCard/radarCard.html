@@ -7,45 +7,58 @@
                 <div class="center-align">
                     {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
                 </div>
-                <div class="card-title black-text center-align" style="font-weight: 700">{{displaySystemName this}}
+                <div class="card-title black-text center-align"
+                     style="font-weight: 700">{{displaySystemName this}}
                 </div>
             </a>
 
             <div class="card-content">
 
                 <div class="left" style="margin-right: 12px;">
-                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! active}}
+                    {{#if isActiveCrowdsale}} {{! active}}
                         <strong>Days
                             left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
                     {{/if}}
-                    {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}} {{! upcoming}}
-                        <strong>Days left: {{daysLeft crowdsales.start_date "D/M/YYYY"}}</strong>
+                    {{#if isUpcomingCrowdsale}} {{! upcoming}}
+                        <strong>Days
+                            left: {{daysLeft crowdsales.start_date }}</strong>
                     {{/if}}
                 </div>
                 <br/><br/>
 
-                <div style="min-height: 2em; text-align: center">{{descriptions.headline}}
+                <div style="height: 4em; text-align: center">{{descriptions.headline}}
                     &nbsp;</div>
                 <div style="display: inline-block">
-                    {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens Sold: </strong>{{crowdsales.tokens_sold}}
-                        <strong>Current Cap: </strong>{{metrics.cap.btc}}
-                        <strong>Days ago: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
+                    {{#if isPastCrowdsale}}
+                        <strong>Tokens
+                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
+                        <strong>Days
+                            ago: {{daysPassed crowdsales.end_date}}</strong>
                     {{/if}}
-                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens Sold: </strong>{{crowdsales.tokens_sold}}
+                    {{#if isActiveCrowdsale}}
+                        <strong>Tokens
+                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
                     {{/if}}
                 </div>
+                {{#if isPastCrowdsale}}
+                    <div>
+                        {{#if  metrics.cap.btc}}<strong>Current Cap: </strong>{{readableN metrics.cap.btc 0}} BTC{{else}}&nbsp;{{/if}}
+                    </div>
+                {{/if}}
             </div>
             {{#if crowdsales}}
-                <div class="card-action">
-                    {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
-                        <a href="{{crowdsales.funding_tems}}" target="_blank">Funding terms </a>
-                    {{/if}}
-                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
-                        <a href="{{crowdsales.funding_url}}" target="_blank">Invest</a>
-                    {{/if}}
-                </div>
+                {{#if not isPastCrowdsale}}
+                    <div class="card-action">
+                        {{#if isAfterNow crowdsales.end_date}}
+                            <a href="{{crowdsales.funding_tems}}"
+                               target="_blank">Funding terms </a>
+                        {{/if}}
+                        {{#if isActiveCrowdsale}}
+                            <a href="{{crowdsales.funding_url}}"
+                               target="_blank">Invest</a>
+                        {{/if}}
+                    </div>
+                {{/if}}
             {{/if}}
         </div>
     </div>
