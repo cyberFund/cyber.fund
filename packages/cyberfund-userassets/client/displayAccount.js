@@ -18,6 +18,14 @@ Template['displayAccount'].rendered = function () {
   );
 };
 
+function isPublicAccount(account){
+  var user = Meteor.user();
+  if (!account || !account.key || !user) return true;
+  return (_.keys(user.accounts || {}).indexOf(account.key) == -1)
+    && !!user.accountsPrivate &&
+    (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
+}
+
 Template['displayAccount'].helpers({
   'disabledTogglePrivate': function () {
     return 'disabled';
@@ -25,12 +33,10 @@ Template['displayAccount'].helpers({
   'publicity': function (account) {
     var pub = 'Public Account';
     var pri = 'Private Account';
-    var user = Meteor.user();
-    if (!account || !account.key || !user) return pub;
-    var isPrivate = (_.keys(user.accounts || {}).indexOf(account.key) == -1)
-    && !!user.accountsPrivate &&
-      (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
-    return isPrivate ? pri : pub;
+    return isPublicAccount(account) ? pri : pub;
+  },
+  'isPublic': function (account) {
+    return isPublicAccount(account);
   },
   autoUpdateAvailable: function(address){
     if (!isOwnAssets()) return false;
