@@ -9,27 +9,27 @@ function updateCrowdsales() {
     interval = Meteor.setInterval(function () {
       if (current < length) {
         var crowdsale = activeCrowdsales[current];
-        if (!crowdsale.crowdsales) return;
-        var addr = crowdsale.crowdsales.genesis_address;
-        if (addr) {
-          Meteor.call('cfCheckBalance', addr,
-            function (err, ret) {
-              if (!err && ret && ret.length) {
-                var btc = _.find(ret, function (item) {
-                  return (item.asset == 'BTC');
-                });
-                var q = btc.quantity;
-                if (!q) return;
-                if (_.isString(q)) {
-                  q = parseFloat(q)
+        if (crowdsale.crowdsales) {
+          var addr = crowdsale.crowdsales.genesis_address;
+          if (addr) {
+            Meteor.call('cfCheckBalance', addr,
+              function (err, ret) {
+                if (!err && ret && ret.length) {
+                  var btc = _.find(ret, function (item) {
+                    return (item.asset == 'BTC');
+                  });
+                  var q = btc.quantity;
+                  if (!q) return;
+                  if (_.isString(q)) {
+                    q = parseFloat(q)
+                  }
+                  console.log('updating raised amount for ' + crowdsale.system);
+                  CurrentData.update({_id: crowdsale._id},
+                    {$set: {'crowdsales.currently_raised': q}})
                 }
-                console.log('updating raised amount for ' + crowdsale.system);
-                CurrentData.update({_id: crowdsale._id},
-                  {$set: {'crowdsales.currently_raised': q}})
-              }
-            });
+              });
+          }
         }
-
         ++current;
       }
       else {
