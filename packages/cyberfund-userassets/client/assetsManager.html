@@ -7,6 +7,11 @@
                 <div class="enlarge" style="">add account
                 </div>
             {{/if}}
+            <a href="/portfolio">Portfolio View</a>
+        {{else}}
+            {{#if _accounts}}
+                {{> portfolioWidget accountsData=_accounts}}
+            {{/if}}
         {{/if}}
         {{#if _accounts}}
             {{#each keyValue _accounts}}
@@ -35,7 +40,7 @@
                                     class="btn waves-effect {{#if session 'addingAccount'}}disabled{{/if}}">
                                 Add
                             </button>
-                            <a class="modal-action modal-close btn  waves-effect right grey">Cancel</a>
+                            <a class="modal-action modal-close btn waves-effect right grey">Cancel</a>
 
                         </div>
                     </form>

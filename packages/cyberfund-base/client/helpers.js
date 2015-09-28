@@ -87,9 +87,10 @@ var helpers = {
   concat: function (value1, value2) {
     return value1.toString() + value2.toString();
   },
-  values_of: function (arr) {
+  values_of: function (arr_or_obj) {
+    var arr = arr_or_obj;
     if (typeof arr == "object") {
-      return array = $.map(arr, function (value, index) {
+      return $.map(arr, function (value, index) {
         return [value];
       });
     }
@@ -131,14 +132,18 @@ var helpers = {
   tagMatchesTags: function (tag, tags) {
     return tags.indexOf(tag) > -1;
   },
-  isBeforeNow: function (date, format) {
-    return moment(date, format).isBefore(moment(), 'day');
+  isBeforeNow: function (date) {
+    var m = /*format ? moment(date, format) : */moment(date);
+    return m.isBefore(moment(), 'day');
   },
-  isAfterNow: function (date, format) {
-    return moment(date, format).isAfter(moment(), 'day');
+  isAfterNow: function (date/*, format*/) {
+    var m = /*format ? moment(date, format) :*/ moment(date);
+    return m.isAfter(moment(), 'day');
   },
-  isNowBetween: function (date1, date2, format) {
-    return moment().isBetween(moment(date1, format), moment(date2, format), 'day');
+  isNowBetween: function (date1, date2/*, format*/) {
+    var m1 = /*format ? moment(date1, format) :*/ moment(date1),
+    m2 = /*format ? moment(date2, format) : */moment(date2);
+    return moment().isBetween(m1, m2, 'day');
   },
   _toU: function (str) {
     return str.replace(/\ /g, "_")

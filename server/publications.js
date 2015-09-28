@@ -3,23 +3,17 @@
  */
 Meteor.publish("currentDataRP", function (options) {
   options = options || {};
-  var defaultLimit = 0;
+  var defaultLimit = 1;
   var selector = {};
+  options.sort = options.sort || {};
   if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
   };
-  var keys = _.keys(options.sort)
-  selector[keys[0]] = {$exists: true}
-  console.log(selector)
+  var keys = _.keys(options.sort);
+  selector[keys[0]] = {$exists: true};
   return CurrentData.find(selector, options);
-});
-
-Meteor.methods({
-  currentDataCount: function () {
-    return CurrentData.find(/*{"metrics.cap.btc": {$gt: 0}}*/).count();
-  }
 });
 
 Meteor.publish("fresh-price", function () {
@@ -33,7 +27,8 @@ Meteor.publish('userDetails', function () {
   return Meteor.users.find({_id: this.userId}, {
     fields: {
       "services.twitter.screenName": 1,
-      "services.twitter.profile_image_url_https": 1
+      "services.twitter.profile_image_url_https": 1,
+      "services.privateAccountsEnabled": 1
     }
   });
 });
@@ -58,7 +53,8 @@ Meteor.publish('systemData', function (options) {
 });
 
 Meteor.publish('crowdsale', function () {
-  return CurrentData.find(CF.Chaingear.selector.crowdsales);
+  var sel = {$or: [CF.Chaingear.selector.crowdsales, CF.Chaingear.selector.projects]};
+  return CurrentData.find(sel);
 });
 
 Meteor.publish("usersCount", function () {
@@ -139,10 +135,16 @@ Meteor.publish('avatars', function (uidArray) {
 });
 
 Meteor.publish('userProfileByTwid', function (twid) {
+  var ownTwid = null;
+  if (this.userId) {
+    ownTwid = Meteor.users.findOne({_id: this.userId}).profile.twitterName
+  }
+  var fields = {
+    'profile': 1, accounts: 1, createdAt: 1
+  };
+  if (ownTwid == twid) fields.accountsPrivate = 1;
   return Meteor.users.find({"profile.twitterName": twid}, {
-    fields: {
-      'profile': 1, accounts: 1, createdAt: 1
-    }
+    fields: fields
   });
 });
 
@@ -150,10 +152,10 @@ Meteor.publish('portfolioUser', function () {
   if (!this.userId) return this.ready();
   return Meteor.users.find({_id: this.userId}, {
     fields: {
-      'profile': 1, accounts: 1, createdAt: 1
+      'profile': 1, accounts: 1, accountsPrivate: 1, createdAt: 1
     }
   });
-})
+});
 
 Meteor.publish('assetsSystems', function (tokens) {
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
@@ -166,28 +168,32 @@ Meteor.publish('profilesSystems', function (userId) {
   var tokens = user && user.profile && user.profile.starredSystems || [];
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {system: 1, token: 1, aliases: 1, icon: 1}
-  }) //todo: fieldsets => resp. packages
+  }); //todo: fieldsets => resp. packages
 });
 
-Meteor.publish("portfolioSystems", function (options) {
+Meteor.publish("portfolioSystems", function (userId, options) {
   options = options || {};
-  if (!this.userId) return this.ready();
-  var user = Meteor.users.findOne({_id: this.userId});
 
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts)
-  if (options.privateAssets) {
-    systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
+  var own = this.userId == userId;
+  var user = Meteor.users.findOne({_id: userId});
+  if (!user) return this.ready();
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts);
+
+  if (own) {
+    if (options.privateAssets) { //todo: unbind against this && user details subscriptions
+      systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
+    }
+    var stars = user.profile.starredSystems;
+    if (stars && stars.length) {
+
+      var plck = _.map(CurrentData.find({system: {$in: stars}},
+        {fields: {'system': 1}}).fetch(), function (it) {
+        return it.system;
+      });
+      systems = _.union(systems, plck)
+    }
   }
 
-  var stars = user.profile.starredSystems;
-  if (stars && stars.length) {
-
-    var plck = _.map(CurrentData.find({system: {$in: stars}},
-      {fields: {'system': 1}}).fetch(), function (it) {
-      return it.system;
-    });
-    systems = _.union(systems, plck)
-  }
   return CurrentData.find(CF.CurrentData.selectors.system(systems),
     {
       fields: {
@@ -199,4 +205,4 @@ Meteor.publish("portfolioSystems", function (options) {
         "ratings": 1
       }
     })
-})
+});

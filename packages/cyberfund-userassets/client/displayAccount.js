@@ -1,8 +1,7 @@
 CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 var isOwnAssets = function(){
-  return Meteor.userId() &&
-    CF.Profile.currentTwid.get() == CF.User.twid();
+  return CF.Profile.currentTwid.get() == CF.User.twid();
 }
 
 Template['displayAccount'].rendered = function () {
@@ -19,12 +18,25 @@ Template['displayAccount'].rendered = function () {
   );
 };
 
+function isPublicAccount(account){
+  var user = Meteor.user();
+  if (!account || !account.key || !user) return true;
+  return (_.keys(user.accounts || {}).indexOf(account.key) == -1)
+    && !!user.accountsPrivate &&
+    (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
+}
+
 Template['displayAccount'].helpers({
   'disabledTogglePrivate': function () {
     return 'disabled';
   },
-  'publicity': function () {
-    return this.isPublic ? 'Public Account' : 'Private Account'
+  'publicity': function (account) {
+    var pub = 'Public Account';
+    var pri = 'Private Account';
+    return isPublicAccount(account) ? pri : pub;
+  },
+  'isPublic': function (account) {
+    return isPublicAccount(account);
   },
   autoUpdateAvailable: function(address){
     if (!isOwnAssets()) return false;

@@ -33,6 +33,7 @@
                 <div>
                     {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
                 </div>
+
             {{/with}}
             {{#if ownProfile}}
                 {{#if userRegistracionCount}}
@@ -52,6 +53,9 @@
                         {{/if}}
                     {{/if}}
                 {{/if}}
+            {{/if}}
+            {{#if ownProfile}}
+                {{> atNavButton}}
             {{/if}}
         </div>
         <div class="col l9 m12 s12">

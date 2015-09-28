@@ -341,7 +341,8 @@ function fetchLatest(params) {
     esParsers.latest_values(result)
   } catch (e) {
     logger.warn("could not fetch latest values");
-    logger.warn(e)
+    logger.warn(e);
+    return e;
   }
 }
 
@@ -351,7 +352,8 @@ function fetchAverage15m(params) {
     esParsers.averages_l15(result);
   } catch (e) {
     logger.warn("could not fetch latest_!5m_averages");
-    logger.warn(e)
+    logger.warn(e);
+    throw(e)
   }
 }
 
@@ -457,7 +459,11 @@ SyncedCron.add({
     return parser.cron('3/5 * * * *', false);
   },
   job: function () {
-    fetchAverage15m();
+    try {
+      fetchAverage15m();
+    } catch(e) {
+      console.log('could not fetch elastic data (15m averages)')
+    }
   }
 });
 
@@ -469,7 +475,11 @@ SyncedCron.add({
     return parser.cron('0/5 * * * *', false);
   },
   job: function () {
-    fetchLatest();
+    try {
+      fetchLatest();
+    } catch(e) {
+      console.log('could not fetch elastic data (latest)')
+    }
   }
 });
 

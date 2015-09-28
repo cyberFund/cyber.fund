@@ -11,7 +11,7 @@ Tracker.autorun(function () {
 Meteor.startup(function () {
   Meteor.subscribe('usersCount');
   Meteor.subscribe('coinsCount');
-})
+});
 
 if (Package['iron:router']) {
 

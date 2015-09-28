@@ -22,5 +22,10 @@ Template['navbar'].events({
       $('#sidenav-overlay').trigger('click');
     }, 280)
 
+  },
+  'click #login-button': function(e, t){
+    Meteor.loginWithTwitter({
+      loginStyle: 'redirect'
+    })
   }
 });

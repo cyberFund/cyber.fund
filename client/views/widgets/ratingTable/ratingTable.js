@@ -140,11 +140,6 @@ Template['ratingTable'].events({
         limit = Math.min(limit, Counts.get("coinsCounter"))
         Session.set("ratingPageLimit", limit);
     },
-    'click #test': function (e, t) {
-        var table = t.$("table#rating-table");
-        table.find("thead th").each(function () {
-        })
-    },
     'click .no-click a': function(){
         return false;
     },
@@ -155,6 +150,9 @@ Template['ratingTable'].events({
         else {
             sort = {}; sort[newSorter] = -1;
         }
-        Session.set('ratingPageSort', sort)
+        analytics.track("Sorted Rating", {
+            sort: sort
+        });
+        Session.set('ratingPageSort', sort);
     }
 });

@@ -3,7 +3,7 @@ CF.checkBalance = balance;
 
 Meteor.methods({
   /**
-   * thin wrapper aroun Lars Kluge' crypto-balance package.
+   * thin wrapper around Lars Kluge' crypto-balance package.
    * @param wallet_
    * @returns {*|promise}
    */
