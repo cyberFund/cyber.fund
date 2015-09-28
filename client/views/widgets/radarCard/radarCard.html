@@ -43,6 +43,7 @@
                             <strong>Tokens
                                 Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
                         {{/if}}
+                        </div><div>
                         {{#if crowdsales.currently_raised}}
                             <strong>Currently
                                 raised: </strong>{{readableN crowdsales.currently_raised 1}} Ƀ
@@ -54,6 +55,10 @@
                     <div>
                         {{#if  metrics.cap.btc}}<strong>Current
                             Cap: </strong>{{readableN metrics.cap.btc 0}} Ƀ{{else}}&nbsp;{{/if}}
+                    </div>
+                    <div>
+                        {{#if  crowdsales.btc_raised}}<strong>Raised amount:
+                        </strong>{{readableN  crowdsales.btc_raised 0}} Ƀ{{else}}&nbsp;{{/if}}
                     </div>
                 {{/if}}
             </div>
