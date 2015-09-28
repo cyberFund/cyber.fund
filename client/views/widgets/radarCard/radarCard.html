@@ -10,11 +10,15 @@
                 <div class="card-title black-text center-align"
                      style="font-weight: 700">{{displaySystemName this}}
                 </div>
+
+                <div style="height: 4em; text-align: center">{{descriptions.headline}}
+                    &nbsp;
+                </div>
             </a>
 
             <div class="card-content">
 
-                <div class="left" style="margin-right: 12px;">
+                <div class="left" style="margin-right: 12px; text-align: center">
                     {{#if isActiveCrowdsale}} {{! active}}
                         <strong>{{daysLeft crowdsales.end_date "D/M/YYYY"}} days
                             left</strong>
@@ -24,9 +28,6 @@
                     {{/if}}
                 </div>
                 <br/><br/>
-
-                <div style="height: 4em; text-align: center">{{descriptions.headline}}
-                    &nbsp;</div>
                 <div style="display: inline-block">
                     {{#if isPastCrowdsale}}
                         <strong>{{readableN crowdsales.tokens_sold 0}} btc raised</strong>
