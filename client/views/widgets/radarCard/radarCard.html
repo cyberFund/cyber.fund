@@ -12,12 +12,11 @@
 
                 <div class="left" style="margin-right: 12px;">
                     {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! active}}
-                        <strong>Days
-                            left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
+                        <strong>{{daysLeft crowdsales.end_date "D/M/YYYY"}} days left</strong>
                     {{/if}}
                     {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}} {{! upcoming}}
-                        <strong>Days
-                            left: {{daysLeft crowdsales.start_date "D/M/YYYY"}}</strong>
+                        <strong>{{daysLeft crowdsales.start_date "D/M/YYYY"}} days
+                            left</strong>
                     {{/if}}
                 </div>
                 <br/><br/>
@@ -26,10 +25,10 @@
                     &nbsp;</div>
                 <div style="display: inline-block">
                     {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
+                        <strong>{{crowdsales.tokens_sold}} bitcoins raised</strong>
                     {{/if}}
                     {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>Tokens sold:</strong>{{crowdsales.tokens_sold}}
+                        <strong>{{crowdsales.tokens_sold}} bitcoins raised</strong>
                     {{/if}}
 
                     <a href="{{crowdsales.funding_tems}}" target="_blank">
