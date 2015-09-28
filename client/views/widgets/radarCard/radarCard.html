@@ -16,12 +16,11 @@
 
                 <div class="left" style="margin-right: 12px;">
                     {{#if isActiveCrowdsale}} {{! active}}
-                        <strong>Days
-                            left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
+                        <strong>{{daysLeft crowdsales.end_date "D/M/YYYY"}} days
+                            left</strong>
                     {{/if}}
                     {{#if isUpcomingCrowdsale}} {{! upcoming}}
-                        <strong>Days
-                            left: {{daysLeft crowdsales.start_date }}</strong>
+                        <strong>{{daysLeft crowdsales.start_date }} days left</strong>
                     {{/if}}
                 </div>
                 <br/><br/>
@@ -30,19 +29,16 @@
                     &nbsp;</div>
                 <div style="display: inline-block">
                     {{#if isPastCrowdsale}}
-                        <strong>Tokens
-                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
-                        <strong>Days
-                            ago: {{daysPassed crowdsales.end_date}}</strong>
+                        <strong>{{readableN crowdsales.tokens_sold 0}} btc raised</strong>
+                        <strong>{{daysPassed crowdsales.end_date}} days ago</strong>
                     {{/if}}
                     {{#if isActiveCrowdsale}}
-                        <strong>Tokens
-                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
+                        <strong>{{readableN crowdsales.tokens_sold 0}} btc raised</strong>
                     {{/if}}
                 </div>
                 {{#if isPastCrowdsale}}
                     <div>
-                        {{#if  metrics.cap.btc}}<strong>Current Cap: </strong>{{readableN metrics.cap.btc 0}} BTC{{else}}&nbsp;{{/if}}
+                        {{#if  metrics.cap.btc}}<strong></strong>{{readableN metrics.cap.btc 0}} BTC{{else}}&nbsp;{{/if}} Current Cap
                     </div>
                 {{/if}}
             </div>
