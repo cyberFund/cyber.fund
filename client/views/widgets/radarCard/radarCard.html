@@ -20,10 +20,11 @@
             <div class="card-content">
 
                 {{#if isUpcomingCrowdsale}}
-                    <div class="left btn-margin-left">
+                    <div class="left">
                         <strong>{{daysLeft crowdsales.start_date }} days
                             left</strong>
                     </div>
+                    <div style="height: 12px">&nbsp;</div>
                 {{/if}}
 
 
@@ -45,16 +46,17 @@
                 {{/if}}
 
                 {{#if isActiveCrowdsale}}
-                    <div class="left btn-margin-left">
+                    <div class="left">
                         <strong>{{daysLeft crowdsales.end_date "D/M/YYYY"}} days
                             left</strong>
                     </div>
-                    <div class="right btn-margin-right">
+                    <div class="right">
                         {{#if metrics.currently_raised}}
                             <strong>Currently
                                 raised: </strong>{{readableN metrics.currently_raised 1}} Ƀ
                         {{/if}}
                     </div>
+                    <div style="height: 12px">&nbsp;</div>
                 {{/if}}
             </div>
 

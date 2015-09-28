@@ -1,5 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="radarPage">
+
+    {{#if crowdsaleActive}}
     <div class="row">
         <h4 class="center">Active Crowdsales</h4>
         {{#each crowdsaleActive}}
@@ -8,24 +10,35 @@
             {{/if}}
         {{/each}}
     </div>
+    {{/if}}
+
+    {{#if crowdsaleUpcoming}}
     <div class="row">
         <h4 class="center">Upcoming Crowdsales</h4>
         {{#each crowdsaleUpcoming}}
             {{> radarCard this}}
         {{/each}}
     </div>
+    {{/if}}
+
+    {{#if projects}}
     <div class="row">
         <h4 class="center">Anticipated Projects</h4>
         {{#each project}}
             {{> projectCard this}}
         {{/each}}
     </div>
+   {{/if}}
+
+    {{#if crowdsalePast}}
     <div class="row">
         <h4 class="center">Successful Crowdsales</h4>
         {{#each crowdsalePast}}
             {{> radarCard this}}
         {{/each}}
     </div>
+    {{/if}}
+
     <div class="center">
         <div class="row">
             <br>
