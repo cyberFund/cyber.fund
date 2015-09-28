@@ -1,20 +1,18 @@
 <!-- originally created for cyber.fund project-->
 <template name="radarPage">
     <div class="row">
-      <h4 class="center">Active Crowdsales</h4>
-      {{#each crowdsale}}
-        {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}}
-          {{> radarCard this}}
-          {{/if}}
-      {{/each}}
+        <h4 class="center">Active Crowdsales</h4>
+        {{#each crowdsaleActive}}
+            {{#if isNowBetween crowdsales.start_date crowdsales.end_date}}
+                {{> radarCard this}}
+            {{/if}}
+        {{/each}}
     </div>
     <div class="row">
-      <h4 class="center">Upcoming Crowdsales</h4>
-      {{#each crowdsale}}
-        {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}}
-          {{> radarCard this}}
-        {{/if}}
-      {{/each}}
+        <h4 class="center">Upcoming Crowdsales</h4>
+        {{#each crowdsaleUpcoming}}
+            {{> radarCard this}}
+        {{/each}}
     </div>
     <div class="row">
         <h4 class="center">Anticipated Projects</h4>
@@ -23,44 +21,49 @@
         {{/each}}
     </div>
     <div class="row">
-      <h4 class="center">Successful Crowdsales</h4>
-      {{#each crowdsale}}
-        {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}}
-          {{> radarCard this}}
-        {{/if}}
-      {{/each}}
+        <h4 class="center">Successful Crowdsales</h4>
+        {{#each crowdsalePast}}
+            {{> radarCard this}}
+        {{/each}}
     </div>
     <div class="center">
-      <div class="row">
-        <br>
-        <br>
-        <h2>Free Services For Ingenious Inventors</h2>
-        <br>
-        <p>If you excited about creating or already working on a blockchain project you have awesome free option to list your project in cyber•Fund's Radar.</p>
-        <br>
-          <div class="col l4">
-            <i class="large material-icons yellow-text">school</i>
-            <h5>Due Diligence</h5>
-          </div>
-          <div class="col l4">
-            <i class="large material-icons lime-text">group</i>
-            <h5>Engaged Audience</h5>
-          </div>
-          <div class="col l4">
-            <i class="large material-icons pink-text">whatshot</i>
-            <h5>Blockchain Reporting</h5>
-          </div>
-          <div class="col l12">
+        <div class="row">
             <br>
             <br>
+
+            <h2>Free Services For Ingenious Inventors</h2>
             <br>
-            <h5><a class="green waves-effect waves-light btn-large" href="http://cybertalks.org/t/radar-listing-of-cryptocurrencies-and-cryptoassets/354" target="blank">Get Listed !</a></h5>
+
+            <p>If you excited about creating or already working on a blockchain
+                project you have awesome free option to list your project in
+                cyber•Fund's Radar.</p>
+            <br>
+
+            <div class="col l4">
+                <i class="large material-icons yellow-text">school</i>
+                <h5>Due Diligence</h5>
+            </div>
+            <div class="col l4">
+                <i class="large material-icons lime-text">group</i>
+                <h5>Engaged Audience</h5>
+            </div>
+            <div class="col l4">
+                <i class="large material-icons pink-text">whatshot</i>
+                <h5>Blockchain Reporting</h5>
+            </div>
+            <div class="col l12">
+                <br>
+                <br>
+                <br>
+                <h5><a class="green waves-effect waves-light btn-large"
+                       href="http://cybertalks.org/t/radar-listing-of-cryptocurrencies-and-cryptoassets/354"
+                       target="blank">Get Listed !</a></h5>
+                <br>
+                <br>
+                <br>
+            </div>
             <br>
             <br>
-            <br>
-          </div>
-          <br>
-          <br>
-      </div>
+        </div>
     </div>
 </template>
