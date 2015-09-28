@@ -25,7 +25,7 @@ function updateCrowdsales() {
                   }
                   console.log('updating raised amount for ' + crowdsale.system);
                   CurrentData.update({_id: crowdsale._id},
-                    {$set: {'crowdsales.currently_raised': q}})
+                    {$set: {'metrics.currently_raised': q}})
                 }
               });
           }

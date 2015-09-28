@@ -11,7 +11,7 @@
                      style="font-weight: 700">{{displaySystemName this}}
                 </div>
 
-                <div style="height: 4em; text-align: center">{{descriptions.headline}}
+                <div class="black-text" style="height: 4em; text-align: center">{{descriptions.headline}}
                     &nbsp;
                 </div>
             </a>
@@ -30,8 +30,6 @@
 
                 {{#if isPastCrowdsale}}
                     <div style="display: inline-block">
-                        <strong>Tokens
-                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
                         <strong>Days
                             ago: {{daysPassed crowdsales.end_date}}</strong>
                     </div>
@@ -39,14 +37,10 @@
 
                 {{#if isActiveCrowdsale}}
                     <div>
-                        {{#if crowdsales.tokens_sold}}
-                            <strong>Tokens
-                                Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
-                        {{/if}}
                         </div><div>
-                        {{#if crowdsales.currently_raised}}
+                        {{#if metrics.currently_raised}}
                             <strong>Currently
-                                raised: </strong>{{readableN crowdsales.currently_raised 1}} Ƀ
+                                raised: </strong>{{readableN metrics.currently_raised 1}} Ƀ
                         {{/if}}
                     </div>
                 {{/if}}
