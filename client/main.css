@@ -355,3 +355,7 @@ footer.page-footer {
   visibility: visible;
   opacity: 1;
 }
+
+.radar-card .card-title, .project-card .card-title {
+  margin-bottom: 20px;
+}
