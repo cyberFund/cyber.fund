@@ -3,46 +3,60 @@
 
     <div class="col s12 m6 l4">
         <div class="card">
-            <div class="center-align">
-                {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
-            </div>
-            <div class="card-title black-text center-align"
-                 style="font-weight: 700">{{system}}</div>
+            <a href="{{pathFor 'System' name_=name_}}">
+                <div class="center-align">
+                    {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
+                </div>
+                <div class="card-title black-text center-align"
+                     style="font-weight: 700">{{displaySystemName this}}
+                </div>
+            </a>
+
             <div class="card-content">
 
                 <div class="left" style="margin-right: 12px;">
-                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! active}}
-                        <strong>{{daysLeft crowdsales.end_date "D/M/YYYY"}} days left</strong>
+                    {{#if isActiveCrowdsale}} {{! active}}
+                        <strong>Days
+                            left: {{daysLeft crowdsales.end_date "D/M/YYYY"}}</strong>
                     {{/if}}
-                    {{#if isAfterNow crowdsales.start_date  "D/M/YYYY"}} {{! upcoming}}
-                        <strong>{{daysLeft crowdsales.start_date "D/M/YYYY"}} days
-                            left</strong>
+                    {{#if isUpcomingCrowdsale}} {{! upcoming}}
+                        <strong>Days
+                            left: {{daysLeft crowdsales.start_date }}</strong>
                     {{/if}}
                 </div>
                 <br/><br/>
 
-                <div style="min-height: 2em">{{descriptions.headline}}
+                <div style="height: 4em; text-align: center">{{descriptions.headline}}
                     &nbsp;</div>
                 <div style="display: inline-block">
-                    {{#if isBeforeNow crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>{{crowdsales.tokens_sold}} bitcoins raised</strong>
+                    {{#if isPastCrowdsale}}
+                        <strong>Tokens
+                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
+                        <strong>Days
+                            ago: {{daysPassed crowdsales.end_date}}</strong>
                     {{/if}}
-                    {{#if isNowBetween crowdsales.start_date crowdsales.end_date  "D/M/YYYY"}} {{! past}}
-                        <strong>{{crowdsales.tokens_sold}} bitcoins raised</strong>
+                    {{#if isActiveCrowdsale}}
+                        <strong>Tokens
+                            Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
                     {{/if}}
-
-                    <a href="{{crowdsales.funding_tems}}" target="_blank">
-                        Funding
-                        terms </a>
-                    <a href="{{crowdsales.funding_url}}" target="_blank">
-                        Funding
-                        url </a>
                 </div>
+                {{#if isPastCrowdsale}}
+                    <div>
+                        {{#if  metrics.cap.btc}}<strong>Current Cap: </strong>{{readableN metrics.cap.btc 0}} BTC{{else}}&nbsp;{{/if}}
+                    </div>
+                {{/if}}
             </div>
             {{#if crowdsales}}
-                {{#if isAfterNow crowdsales.end_date 'D/MM/YYYY'}}
+                {{#if not isPastCrowdsale}}
                     <div class="card-action">
-                        <a href="#">Invest</a>
+                        {{#if isAfterNow crowdsales.end_date}}
+                            <a href="{{crowdsales.funding_tems}}"
+                               target="_blank">Funding terms </a>
+                        {{/if}}
+                        {{#if isActiveCrowdsale}}
+                            <a href="{{crowdsales.funding_url}}"
+                               target="_blank">Invest</a>
+                        {{/if}}
                     </div>
                 {{/if}}
             {{/if}}
