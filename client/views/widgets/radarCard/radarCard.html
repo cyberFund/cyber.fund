@@ -29,12 +29,12 @@
 
 
                 {{#if isPastCrowdsale}}
-                    <div style="position: absolute; bottom: 2.2em; left: 12px">
+                    <div style="position: absolute; bottom: 2.4em; width: 100%; text-align: center">
                         <strong>
                             {{daysPassed crowdsales.end_date}} days
                             ago</strong>
                     </div>
-
+                    <br>
                     <div style="position: absolute; bottom: 1em; left: 12px;">
                         {{#if crowdsales.btc_raised}}<strong>
                             {{readableN crowdsales.btc_raised 0}}
