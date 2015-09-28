@@ -30,8 +30,8 @@
                 {{#if isPastCrowdsale}}
                     <div class="left left-align" >
                         {{#if crowdsales.btc_raised}}<strong>
-                        {{readableN  crowdsales.btc_raised 0}}
-                            Ƀ{{else}}&nbsp;{{/if}} raised</strong>
+                        {{readableN crowdsales.btc_raised 0}}
+                            Ƀ raised</strong>{{else}}&nbsp;{{/if}}
                     </div>
                     <div class="center center-align" style="margin: 0 auto;">
                         <strong>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="right right-align">
                         {{#if  metrics.cap.btc}}<strong>
-                            {{readableN metrics.cap.btc 0}} Ƀ{{else}}&nbsp;{{/if}} cap</strong>
+                            {{readableN metrics.cap.btc 0}} Ƀ cap</strong>{{else}}&nbsp;{{/if}}
                     </div>
                     <div style="height: 12px">&nbsp;</div>
                 {{/if}}
