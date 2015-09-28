@@ -10,6 +10,7 @@
                 <div class="card-title black-text center-align"
                      style="font-weight: 700">{{displaySystemName this}}
                 </div>
+
                 <div class="black-text"
                      style="height: 4em; text-align: center">{{descriptions.headline}}
                     &nbsp;
@@ -28,21 +29,24 @@
 
 
                 {{#if isPastCrowdsale}}
-                    <div class="left left-align" >
+                    <div style="position: absolute; bottom: 2.2em; left: 12px">
+                        <strong>
+                            {{daysPassed crowdsales.end_date}} days
+                            ago</strong>
+                    </div>
+
+                    <div style="position: absolute; bottom: 1em; left: 12px;">
                         {{#if crowdsales.btc_raised}}<strong>
-                        {{readableN crowdsales.btc_raised 0}}
+                            {{readableN crowdsales.btc_raised 0}}
                             Ƀ raised</strong>{{else}}&nbsp;{{/if}}
                     </div>
-                    <div class="center center-align" style="margin: 0 auto;">
-                        <strong>
-                          {{daysPassed crowdsales.end_date}} days
-                              ago</strong>
-                    </div>
-                    <div class="right right-align">
+
+                    <div style="position: absolute; bottom: 1em; right: 12px;">
                         {{#if  metrics.cap.btc}}<strong>
-                            {{readableN metrics.cap.btc 0}} Ƀ cap</strong>{{else}}&nbsp;{{/if}}
+                            {{readableN metrics.cap.btc 0}} Ƀ
+                            cap</strong>{{else}}&nbsp;{{/if}}
                     </div>
-                    <div style="height: 12px">&nbsp;</div>
+
                 {{/if}}
 
                 {{#if isActiveCrowdsale}}
@@ -53,7 +57,8 @@
                     <div class="right">
                         {{#if metrics.currently_raised}}
                             <strong>Currently
-                                raised: </strong>{{readableN metrics.currently_raised 1}} Ƀ
+                                raised: </strong>{{readableN metrics.currently_raised 1}}
+                            Ƀ
                         {{/if}}
                     </div>
                     <div style="height: 12px">&nbsp;</div>
