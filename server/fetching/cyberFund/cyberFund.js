@@ -89,10 +89,10 @@ var fetch = function () {
               var set = _.omit(system, ['system', 'symbol']);
               if (system.crowdsales) {
                 if (_.isString(system.crowdsales.start_date)) {
-                  system.crowdsales.start_date = moment(system.crowdsales.start_date)._d;
+                  system.crowdsales.start_date = moment(system.crowdsales.start_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
                 }
                 if (_.isString(system.crowdsales.end_date)) {
-                  system.crowdsales.end_date = moment(system.crowdsales.end_date)._d;
+                  system.crowdsales.end_date = moment(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
                 }
               }
               // push supply & caps to metrics
