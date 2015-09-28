@@ -16,7 +16,7 @@
       <p>Follow Best Portfolios</p></h5></span>
       <br>
         {{#if not currentUser}}
-            <a class="red waves-effect waves-light btn login-button">Sign Up</a>
+            <a class="blue waves-effect waves-light btn login-button">Sign Up with Twitter</a>
         {{/if}}
     {{! > atNavButton text='sign in' }}
     </div>
@@ -60,7 +60,7 @@
           <p>We crunch market data for all blockchains and even for
               some
               notable illiquid blockchain assets</p>
-      <i class="large material-icons deep-orange-text">router</i>
+      <i class="large material-icons blue-text">router</i>
         <h4>Scanner</h4>
           <p>We scan all(!) blockchain space for prominent
               crowdfundings and huge deals</p>
@@ -70,7 +70,7 @@
         <h4>Balance Autoupdate</h4>
         <p>A majority of the blockchains' balances are updated automatically.
         Insert your public address and it will be tracked</p>
-      <i class="large material-icons yellow-text">toys</i>
+      <i class="large material-icons lime-text">toys</i>
         <h4>Dispatcher</h4>
         <p>We filter a noise thus only awesome digital
         assets reach your attention. No scum.
@@ -81,13 +81,40 @@
         <h4>Trustless</h4>
         <p>We also invest in blockchains a lot. So we care about
         security. We never touch your private keys</p>
-      <i class="large material-icons green-text">grade</i>
+      <i class="large material-icons pink-text">grade</i>
         <h4>Verifier</h4>
         <p>We make due diligence for free. Really. All of our
         unique 4 years investment experience in blockchains.
         Take it.</p>
     </div>
   </div>
+  <br>
+  <br>
+</div>
+<hr>
+<div class="container center">
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <br>
+  <h4>Welcome to cyber <span class="red-text">•</span> Fund!</h4>
+  <br>
+  <br>
+  <br>
+    {{#if not currentUser}}
+        <a class="green waves-effect waves-light btn login-button">Dive In</a>
+    {{/if}}
+  {{! > atNavButton text='sign in' }}
+  <br>
+  <br>
+  <br>
+  <p class="center"> {{usersCount}} people already joined</p>
+  <br>
+  <br>
+  <br>
+  <br>
   <br>
   <br>
 </div>
@@ -114,18 +141,4 @@
 <br>
 <br>
 </div>
-<hr>
-<div class="container center">
-  <br>
-  <br>
-  <br>
-  <h4>Welcome to cyber <span class="red-text">•</span> Fund!</h4>
-    {{#if not currentUser}}
-        <a class="red waves-effect waves-light btn login-button">Sign Up</a>
-    {{/if}}
-  {{! > atNavButton text='sign in' }}
-  <br>
-  <br>
-</div>
-
 </template>
