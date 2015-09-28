@@ -29,20 +29,23 @@
 
 
                 {{#if isPastCrowdsale}}
-                    <div style="display: inline-block">
-                        <strong>Days
-                            ago: {{daysPassed crowdsales.end_date}}</strong>
-                    </div>
-                    <div>
+
+                    <div class="right right-align">
                         {{#if  metrics.cap.btc}}<strong>Current
-                            Cap: </strong>{{readableN metrics.cap.btc 0}}
-                            Ƀ{{else}}&nbsp;{{/if}}
+                            Cap:</strong><br/>
+                            {{readableN metrics.cap.btc 0}} Ƀ{{else}}&nbsp;{{/if}}
                     </div>
-                    <div>
+                    <div class="left left-align" >
                         {{#if crowdsales.btc_raised}}<strong>Raised amount:
-                        </strong>{{readableN  crowdsales.btc_raised 0}}
+                        </strong><br/>{{readableN  crowdsales.btc_raised 0}}
                             Ƀ{{else}}&nbsp;{{/if}}
                     </div>
+                    <div class="center center-align" style="margin: 0 auto;">
+                        <strong>Days
+                            ago:<br/>
+                            {{daysPassed crowdsales.end_date}}</strong>
+                    </div>
+                    <div style="height: 12px">&nbsp;</div>
                 {{/if}}
 
                 {{#if isActiveCrowdsale}}
