@@ -27,10 +27,6 @@
                         <strong>{{daysLeft crowdsales.start_date }} days left</strong>
                     {{/if}}
                 </div>
-                <br/><br/>
-
-                <div style="height: 4em; text-align: center">{{descriptions.headline}}
-                    &nbsp;</div>
 
                 {{#if isPastCrowdsale}}
                     <div style="display: inline-block">
@@ -42,7 +38,7 @@
                 {{/if}}
 
                 {{#if isActiveCrowdsale}}
-                    <div style="display: inline-block">
+                    <div>
                         {{#if crowdsales.tokens_sold}}
                             <strong>Tokens
                                 Sold: </strong>{{readableN crowdsales.tokens_sold 0}}
@@ -57,8 +53,7 @@
                 {{#if isPastCrowdsale}}
                     <div>
                         {{#if  metrics.cap.btc}}<strong>Current
-                            Cap: </strong>{{readableN metrics.cap.btc 0}}
-                            BTC{{else}}&nbsp;{{/if}}
+                            Cap: </strong>{{readableN metrics.cap.btc 0}} Ƀ{{else}}&nbsp;{{/if}}
                     </div>
                 {{/if}}
             </div>
