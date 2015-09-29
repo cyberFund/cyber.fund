@@ -2,9 +2,10 @@ CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
 CF.Profile.currentUid = new CF.Utils.SessionVariable('cfAssetsCurrentUid');
 
 Template['profile'].rendered = function () {
+  var options = CF.Profile.currentUid.get() == Meteor.userId() ? {privateAssets: true} : {};
   this.subscribe('friendlyUsers', CF.Profile.currentUid.get());
   this.subscribe('profilesSystems', CF.Profile.currentUid.get());
-  this.subscribe('portfolioSystems', CF.Profile.currentUid.get());
+  this.subscribe('portfolioSystems', CF.Profile.currentUid.get(), options);
 };
 
 Template['profile'].onCreated(function () {

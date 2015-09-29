@@ -229,6 +229,26 @@
                     </form>
                 </div>
             </div>
+
+            <div id="modal-toggle-private" class="modal">
+                <div class="modal-content">
+                    <form id="toggle-private-form">
+                        {{#if currentAccountKey}}
+                            <h4 class="center">Make account {{privacyOpposite currentAccountKey}}.</h4>
+
+                            <div class="row">
+                                <p> Confirm turning account {{currentAccount.name}}
+                                    into {{privacyOpposite currentAccountKey}}.</p>
+                            </div>
+                        {{/if}}
+                        <div class="row">
+                            <button type="submit" class="btn waves-effect">Ok</button>
+                            <a class="modal-action modal-close btn  waves-effect right grey">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         {{/if}}
     </section>
 </template>
