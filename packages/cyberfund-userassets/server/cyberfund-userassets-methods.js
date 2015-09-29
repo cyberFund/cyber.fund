@@ -13,36 +13,6 @@ CF.UserAssets.tokenCB2systemCG = function(cryptoBalanceToken){
   return matchingTable[cryptoBalanceToken] || false;
 };
 
-CF.UserAssets.accountsFields = {'accounts': 1, 'accountsPrivate': 1};
-/**
- * returns 'accounts' or 'accountsPrivate' or ''
- * @param userId
- * @param accountKey - key to check
- * @returns {String} that indicates account type (public or private)
- */
-
-CF.UserAssets.getAccountPrivacyType = function(userId, accountKey){
-  var user = Meteor.users.findOne({_id: userId}, {fields: CF.UserAssets.accountsFields});
-
-  var key = accountKey.toString();
-  var pri = user.accountsPrivate || {};
-  var pub = user.accounts || {};
-  var isPublic = _.keys(pub).indexOf(key) > -1;
-
-  var isPrivate = _.keys(pri).indexOf(key) > -1;
-  if ((isPublic && isPrivate) || (!isPrivate && !isPublic)) { // both cannot happen
-    var err = "Error with user accounts, userId: " + userId +' \n';
-    if (!isPublic) {
-      err += 'no account with key ' + key + ' found.'
-    } else {
-      err += 'duplicate accounts with key ' + key + ' found.'
-    }
-    console.warn(err);
-    return ''
-  }
-  return isPublic ? 'accounts' : 'accountsPrivate'
-};
-
 Meteor.methods({
   cfAssetsUpdateBalance: function (accountKey, address) {
     if (!this.userId) {
@@ -224,5 +194,22 @@ Meteor.methods({
     var key = [key0, accountKey,'addresses',address,'assets',asset].join(".");
     modify.$unset[key] = true;
     Meteor.users.update(sel, modify)
+  },
+  'cfAssetsTogglePrivacy': function(accountKey, fromKey) {
+    //{{! todo: add check if user is able using this feature}}
+    if (!this.userId) return false;
+
+    var toKey = fromKey == 'accounts' ? 'accountsPrivate' : 'accounts';
+
+    var user = Meteor.users.findOne({_id: this.userId});
+    var account = user[fromKey];
+    if (!account) return false;
+    account = account[accountKey];
+    if (!account) return false;
+    logger.info("user "+ this.userId + " ordered turning account " + account.name + " to " + toKey);
+    var unset = {}, set = {};
+    set[[toKey, accountKey].join(".")] = account;
+    unset[[fromKey, accountKey].join(".")] = true;
+    Meteor.users.update({_id: this.userId}, {$unset: unset, $set: set});
   }
 });

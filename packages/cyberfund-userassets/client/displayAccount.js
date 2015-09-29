@@ -2,7 +2,7 @@ CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddr
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 var isOwnAssets = function(){
   return CF.Profile.currentTwid.get() == CF.User.twid();
-}
+};
 
 Template['displayAccount'].rendered = function () {
   var t = this;
@@ -89,7 +89,7 @@ Template['displayAccount'].events({
   'click .per-address': function(e, t){
     var $asset = $(e.currentTarget).closest(".address-item");
     CF.UserAssets.currentAddress.set($asset.attr("address-id"));
-    CF.UserAssets.currentAccount.set($asset.closest(".account-item")
+    CF.UserAssets.currentAccountKey.set($asset.closest(".account-item")
       .attr("account-key"));
   },
   'click .req-delete-address': function(e, t) {
@@ -102,11 +102,11 @@ Template['displayAccount'].events({
   },
   'click .req-update-address': function(e, t){
     Meteor.call("cfAssetUpdateBalance",
-      CF.UserAssets.currentAccount.get(),
+      CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.currentAddress.get())
   },
   'click .req-delete-asset': function(e, t){
-    var $item = t.$(e.currentTarget).closest(".asset-item")
+    var $item = t.$(e.currentTarget).closest(".asset-item");
     CF.UserAssets.currentAsset.set(
       CurrentData.findOne(CF.CurrentData.selectors.system( $item.attr("asset-key")),
       {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
@@ -114,7 +114,7 @@ Template['displayAccount'].events({
       $item = $item.closest(".address-item");
       CF.UserAssets.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.UserAssets.currentAccount.set($item.attr("account-key"));
+      CF.UserAssets.currentAccountKey.set($item.attr("account-key"));
       $("#modal-delete-asset").openModal();
       $("button[type=submit]", "#delete-asset-form").focus();
     }
@@ -130,8 +130,16 @@ Template['displayAccount'].events({
       $item = $item.closest(".address-item");
       CF.UserAssets.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.UserAssets.currentAccount.set($item.attr("account-key"));
+      CF.UserAssets.currentAccountKey.set($item.attr("account-key"));
       $("#modal-edit-asset").openModal();
     }
+  },
+  'click .req-toggle-private': function(e, t){
+    //{{! todo: add check if user is able using this feature}}
+    var $item = t.$(e.currentTarget).closest(".account-item");
+    console.log($item);
+    console.log($item.attr("account-key"));
+      CF.UserAssets.currentAccountKey.set($item.attr("account-key"));
+    $("#modal-toggle-private").openModal();
   }
 });
