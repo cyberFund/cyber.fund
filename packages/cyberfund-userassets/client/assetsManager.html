@@ -3,16 +3,12 @@
     <section id="assets-manager" class="assets-manager row">
         {{#if isOwnAssets}}
             {{> addAccount}}
-            {{#if showAccountsAdvertise}}
-                <div class="enlarge" style="">add account
-                </div>
-            {{/if}}
             <a href="/portfolio">Portfolio View</a>
         {{else}}
             {{> portfolioWidget accountsData=_accounts}}
         {{/if}}
 
-        {{#if not keysLength _accounts}}
+        {{#if and isOwnAssets  showAccountsAdvertise}}
         <div>
           <div class="container center">
             <br>

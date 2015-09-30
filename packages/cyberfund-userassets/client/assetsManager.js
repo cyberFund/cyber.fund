@@ -116,7 +116,6 @@ Template['assetsManager'].events({
   },
   'submit #delete-account-form': function (e, t) {
     if (!isOwnAssets()) return false;
-    console.log(CF.UserAssets.currentAccountKey.get());
     analytics.track('Delete Account', {
       accountName: CF.UserAssets.currentAccountKey.get()
     });
@@ -330,7 +329,6 @@ Template['assetsManager'].events({
     if (!isOwnAssets()) return false;
     Meteor.call('cfAssetsTogglePrivacy', CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.getAccountPrivacyType(Meteor.userId(), CF.UserAssets.currentAccountKey.get()), function(err, ret){
-        console.log(ret);
         t.$("#modal-toggle-private").closeModal();
       } );
     return false;
