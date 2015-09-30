@@ -3,21 +3,30 @@
     <section id="assets-manager" class="assets-manager row">
         {{#if isOwnAssets}}
             {{> addAccount}}
-            {{#if showAccountsAdvertise}}
-                <div class="enlarge" style="">add account
-                </div>
-            {{/if}}
             <a href="/portfolio">Portfolio View</a>
         {{else}}
-            {{#if _accounts}}
-                {{> portfolioWidget accountsData=_accounts}}
-            {{/if}}
+            {{> portfolioWidget accountsData=_accounts}}
         {{/if}}
-        {{#if _accounts}}
-            {{#each keyValue _accounts}}
-                {{> displayAccount value=value key=key}}
-            {{/each}}
+
+        {{#if and isOwnAssets  showAccountsAdvertise}}
+        <div>
+          <div class="container center">
+            <br>
+            <br>
+            <h3> Welcome to cyber <span class="red-text">•</span> Fund!! Here is short video to help you get started.</h3>
+            <br>
+            <br>
+            <div class="video-container">
+                  <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
+                </div>
+          </div>
+        </div>
         {{/if}}
+
+        {{#each keyValue _accounts}}
+            {{> displayAccount value=value key=key}}
+        {{/each}}
+
 
         {{#if isOwnAssets}}
             <div id="modal-add-address" class="modal">
@@ -234,15 +243,20 @@
                 <div class="modal-content">
                     <form id="toggle-private-form">
                         {{#if currentAccountKey}}
-                            <h4 class="center">Make account {{privacyOpposite currentAccountKey}}.</h4>
+                            <h4 class="center">Make
+                                account {{privacyOpposite currentAccountKey}}
+                                .</h4>
 
                             <div class="row">
-                                <p> Confirm turning account {{currentAccount.name}}
-                                    into {{privacyOpposite currentAccountKey}}.</p>
+                                <p> Confirm turning
+                                    account {{currentAccount.name}}
+                                    into {{privacyOpposite currentAccountKey}}
+                                    .</p>
                             </div>
                         {{/if}}
                         <div class="row">
-                            <button type="submit" class="btn waves-effect">Ok</button>
+                            <button type="submit" class="btn waves-effect">Ok
+                            </button>
                             <a class="modal-action modal-close btn  waves-effect right grey">Cancel</a>
                         </div>
                     </form>
