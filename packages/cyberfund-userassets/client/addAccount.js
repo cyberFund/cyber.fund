@@ -69,11 +69,13 @@ Template['addAccount'].rendered = function () {
 
   Tracker.autorun(function () {
     var user = Meteor.user();
-    var accountsExist = user && user.accounts && !_.isEmpty(user.accounts);
+    var accountsExist = user && ((user.accounts && !_.isEmpty(user.accounts)) || (user.accountsPrivate && !_.isEmpty(user.accountsPrivate)));
     if (!accountsExist) {
       t.$newAccountCheckbox.prop("checked", true).prop("disabled", true);
+      t.$newAccountCheckbox.closest("label").removeClass("black-text");
     } else {
       t.$newAccountCheckbox.prop("checked", false).prop("disabled", false);
+      t.$newAccountCheckbox.closest("label").addClass("black-text");
     }
     t.toggleAccountGroup(!accountsExist);
   })
@@ -179,7 +181,6 @@ Template['addAccount'].events({
     t.toggleAccountGroup(isNew);
   },
   'click .close-account-dialog': function(e, t){
-
     analytics.track('Closed Account Dialog');
   }
 });
