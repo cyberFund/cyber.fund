@@ -14,6 +14,7 @@ Template['assetsManager'].helpers({
   isOwnAssets: function () {
     return isOwnAssets()
   },
+
   _accounts: function () {
     var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()}) || {};
     var accounts = user.accounts || {};

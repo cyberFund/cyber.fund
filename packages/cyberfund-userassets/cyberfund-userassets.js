@@ -130,7 +130,9 @@ CF.UserAssets.getAccountPrivacyType = function(userId, accountKey){
     } else {
       err += 'duplicate accounts with key ' + key + ' found.'
     }
-    console.warn(err);
+    if (Meteor.isServer) {
+      console.warn(err);
+    }
     return ''
   }
   return isPublic ? 'accounts' : 'accountsPrivate'

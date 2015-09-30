@@ -87,6 +87,9 @@ var helpers = {
   concat: function (value1, value2) {
     return value1.toString() + value2.toString();
   },
+  keysLength: function(obj) {
+    return (_.isObject(obj) && _.keys(obj).length ) || 0
+  },
   values_of: function (arr_or_obj) {
     var arr = arr_or_obj;
     if (typeof arr == "object") {
