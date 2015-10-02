@@ -123,6 +123,7 @@ var esParsers = {
         if (_.isEmpty(sNow)) return;
 
         var cd = CurrentData.findOne(_searchSelector(bucket.key));
+        var supplyDataSource = (cd && cd.token && cd.token.supply_from) || 'cmc';
 
         // try using existing supply value if none here
         if (!sNow.supply_current) {
@@ -130,6 +131,11 @@ var esParsers = {
             sNow.supply_current = cd.metrics ? cd.metrics.supply : 0;
             if (!sNow.supply_current) sNow.supply_current = cd.specs ? cd.specs.supply : 0;
           }
+        }
+
+        if (supplyDataSource != "cmc") { //leave off cmc value if there s other source
+          sNow.supply_current = (cd.metrics && cd.metrics.supply) || 0 ;
+          if (sDayAgo && sDayAgo.supply_current) sDayAgo.supply_current = undefined;
         }
 
         // if supply value is here
