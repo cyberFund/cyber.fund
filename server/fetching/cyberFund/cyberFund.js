@@ -94,7 +94,7 @@ var fetch = function () {
                   system.crowdsales.end_date = moment.utc(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
                 }
               }
-              var set = _.omit(system, ['system', 'symbol']);
+              var set = _.omit(system, ['system']); //system:
               // push supply & caps to metrics
               if (system.specs) {
                 if (system.specs.supply) {
