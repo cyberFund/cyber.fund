@@ -193,7 +193,7 @@ Template['systemBasic'].events({
   'click #charts-ctl a.btn.act': function (e, t) {
     var val = t.$(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
-    analytics.track('buttonClick', {
+    analytics.track('Discovered Charts', {
       section: 'graphs',
       role: 'timespan select',
       value: val
@@ -202,7 +202,7 @@ Template['systemBasic'].events({
   'click #charts-ctl a.btn.mock': function (e, t) {
     var val = t.$(e.currentTarget).data("span");
     Materialize.toast('Coming soon!', 2500);
-    analytics.track('buttonClick', {
+    analytics.track('Discovered Charts', {
       section: 'graphs',
       role: 'timespan select',
       value: val
@@ -213,7 +213,7 @@ Template['systemBasic'].events({
     if (!user) Router.go('/welcome'); //return;
     var exists = user && user.profile && user.profile.starredSystems &&
       _.contains(user.profile.starredSystems, t._system.system);
-    analytics.track(exists ? 'Unfollowed system' : 'Followed system', {
+    analytics.track(exists ? 'UnFollowed System' : 'Followed System', {
       systemName: t._system.system
     });
     Meteor.call('toggleStarSys', t._system.system);
