@@ -17,9 +17,19 @@ Accounts.onCreateUser(function(options, user) {
     options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
     options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
   }
+  options.profile.firstLogin = true;
   if (options.profile)
     user.profile = options.profile;
   return user;
+});
+
+Meteor.methods({
+  afterFirstLogin: function(){
+    if (!Meteor.userId()) return;
+    Meteor.users.update({
+      _id: Meteor.userId()
+    },{$unset: {'profile.firstLogin': true}})
+  }
 });
 
 CF.Profile.patch = function(user){
