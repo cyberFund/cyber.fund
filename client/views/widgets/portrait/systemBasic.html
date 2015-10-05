@@ -82,6 +82,7 @@
                     </div>
                 {{/each}}
             </div>
+            {{#if not isProject}}
             <div id="market" class="row scrollspy center">
                 {{#if and metrics metrics.price}}
                     {{#if or metrics.price.usd metrics.price.btc}}
@@ -218,7 +219,7 @@
                     Month</a>
                 <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
             </div>
-
+            {{/if}}
             <div id="code" class="section scrollspy row">
                 {{#if existLinksWith links 'News'}}
                     <h3 class="center">News</h3>
@@ -486,14 +487,14 @@
 
             </div>
         </div>
-        {{#if currentUser}}
+        {{! #if currentUser}}
             <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
                 <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}">
                     <i class="material-icons"
                        style="font-size: 3.8rem">stars</i>
                 </a>
             </div>
-        {{/if}}
+        {{! /if}}
     {{/with}}
     <!--a class="btn-floating btn-large waves-effect waves-light red">
 	  <i class="stars"></i></a-->

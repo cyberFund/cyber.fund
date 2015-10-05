@@ -78,7 +78,6 @@ Template['systemBasic'].helpers({
   mainTags: function () {
     return ['Wallet', "Exchange", "Analytics", "Magic"]
   },
-
   linksWithoutTags: function (links, tags) {
     if (!_.isArray(links)) return [];
 
@@ -99,8 +98,12 @@ Template['systemBasic'].helpers({
     return 0;
   },
 
+  isProject: function(){
+    return this.descriptions && this.descriptions.state == 'Project'
+  },
+
   // todo: currently, those are using current price to estimate yesterday' trade volume.
-  // not good. must be fixed soon.
+  // not good. must be fixed.
   todayVolumeUsd: function () {
     if (this.metrics && this.metrics.tradeVolume && this.metrics.price) {
       return this.metrics.tradeVolume * this.metrics.price.usd / this.metrics.price.btc;
@@ -207,7 +210,7 @@ Template['systemBasic'].events({
   },
   'click .btn-star-system': function (e, t) {
     var user = Meteor.user();
-    if (!user) return;
+    if (!user) Router.go('/welcome'); //return;
     var exists = user && user.profile && user.profile.starredSystems &&
       _.contains(user.profile.starredSystems, t._system.system);
     analytics.track(exists ? 'Unfollowed system' : 'Followed system', {

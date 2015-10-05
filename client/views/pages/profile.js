@@ -25,6 +25,7 @@ Template['profile'].helpers({
   },
   'following': function () {
     var user = Meteor.user();
+    if (!user) return false;
     return user.profile && user.profile.followingUsers &&
       _.contains(user.profile.followingUsers, CF.Profile.currentUid.get());
   },
@@ -58,12 +59,14 @@ Template['profile'].events({
     analytics.track('Followed Person', {
       personName: CF.Profile.currentTwid.get()
     });
+    if (!Meteor.user()) Router.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid.get())
   },
   'click .btn-unfollow': function (e, t) {
     analytics.track('Unfollowed Person', {
       personName: CF.Profile.currentTwid.get()
     });
+    if (!Meteor.user()) Router.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid.get(), {unfollow: true})
   }
 });
