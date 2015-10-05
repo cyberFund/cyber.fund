@@ -7,7 +7,7 @@ Template['navbar'].rendered = function () {
 Tracker.autorun(function(c){
   var user = Meteor.user();
   if (user && user.profile && user.profile.firstLogin) {
-    analytics.track('firstlogin',
+    analytics.track('Sign up',
       {userId: Meteor.userId()});
     Meteor.call("afterFirstLogin");
     c.stop();

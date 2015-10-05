@@ -68,7 +68,7 @@ Meteor.publish('coinsCount', function() {
 Meteor.publish('dependentCoins', function (system) {
   return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
     fields: {
-      "system": 1, "icon": 1, "dependencies": 1, "aliases": 1
+      "system": 1, "icon": 1, "dependencies": 1, "aliases": 1, 'token': 1
     }
   })
 });
@@ -82,22 +82,21 @@ Meteor.publish('fastData', function (systemName) {
 Meteor.publish('dependencies', function (deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
-      "system": 1, "icon": 1, "dependencies": 1, "aliases": 1
+      "system": 1, "icon": 1, "dependencies": 1, "aliases": 1, 'token': 1
     }
   })
 });
 
 
 Meteor.publish('search-sys', function (selector, options, collname) {
-  var s = selector["aliases.CurrencyName"];
+  var s = selector["token.token_name"];
   if (s) {
-
     selector = {
       $or: [
         {'token.token_symbol': s},
         {"system": s},
         {"aliases.nickname": s},
-        {"aliases.CurrencyName": s}
+        {"token.token_name": s}
       ]
     };
   } else {
