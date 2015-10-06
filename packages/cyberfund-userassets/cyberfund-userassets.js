@@ -1,18 +1,18 @@
 CF.UserAssets = {};
-CF.UserAssets.accountNameIsValid = function(name, accounts, oldName){
+CF.UserAssets.accountNameIsValid = function (name, accounts, oldName) {
   if (!name || !_.isString(name)) return false;
   if (oldName && name == oldName) return true;
   var ret = true;
-  _.each(accounts, function(account){
+  _.each(accounts, function (account) {
     if (name == account.name) ret = false;
   });
   return ret;
 };
 
-CF.UserAssets.nextKey = function(accounts){
+CF.UserAssets.nextKey = function (accounts) {
   var keys = _.keys(accounts || {});
   if (!keys.length) return 1;
-  _.each(keys, function(v, k){
+  _.each(keys, function (v, k) {
     if (_.isString(v)) keys[k] = parseInt(v);
   });
   return (_.max(keys) + 1).toString();
@@ -25,19 +25,23 @@ CF.UserAssets.nextKey = function(accounts){
  * @returns {Array} of system names
  */
 
-CF.UserAssets.getSystemsFromAccountsObject = function(assetsObject) {
+CF.UserAssets.getSystemsFromAccountsObject = function (assetsObject) {
   if (!assetsObject) return [];
   var systems = _.values(assetsObject);
   if (systems) {
     systems = _.flatten(_.map(systems, function (account) {
       return _.values(account.addresses)
     }));
-  } else return [];
+  } else {
+    return [];
+  }
   if (systems) {
     systems = _.uniq(_.flatten(_.map(systems, function (address) {
       return (_.keys(address.assets))
     })));
-  } else return [];
+  } else {
+    return [];
+  }
   return _.uniq(systems);
 };
 
@@ -49,7 +53,7 @@ CF.UserAssets.getSystemsFromAccountsObject = function(assetsObject) {
  *
  * same as getQuantitiesFromAccountsObject - but to work account-wise, not totaling..
  */
-CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) {
+CF.UserAssets.getQuantitiesFromAddressesObject = function (addressesObject, key) {
   var sum = 0.0;
   if (addressesObject && key) {
     var rets = _.values(addressesObject);
@@ -67,18 +71,21 @@ CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) 
 /**
  * return quantity of specified coins in specified accountsObject
  * @param accountsObject - accounts object provided
- * @param key - system name to check against
+ * @param key - system name to check against (or system object)
  * @returns {number} quantity of specified coins from accountsObject
  */
-CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
+CF.UserAssets.getQuantitiesFromAccountsObject = function (accountsObject, key) {
   var sum = 0.0;
+  if (_.isObject(key) && _.isString(key.system)) key = key.system;
   if (accountsObject && key) {
     var rets = _.values(accountsObject);
     if (rets) {
       rets = _.flatten(_.map(rets, function (account) {
         return _.values(account.addresses)
       }));
-    } else return sum;
+    } else {
+      return sum;
+    }
 
     _.each(rets, function (assetsObject) {
       assetsObject = assetsObject.assets;
@@ -96,7 +103,7 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
  * and we later will need this to be not flag, but have some time limits there..
  * @param user - user object.
  */
-CF.UserAssets.isPrivateAccountsEnabled = function(user) {
+CF.UserAssets.isPrivateAccountsEnabled = function (user) {
   return true;
   //return !!(user && user.services && user.services.privateAccountsEnabled)
 };
@@ -110,9 +117,9 @@ CF.UserAssets.accountsFields = {'accounts': 1, 'accountsPrivate': 1};
  * @returns {String} that indicates account type (public or private)
  */
 
-CF.UserAssets.getAccountPrivacyType = function(userId, accountKey){
+CF.UserAssets.getAccountPrivacyType = function (userId, accountKey) {
   if (Meteor.isClient) {
-    if (userId != Meteor.userId()) return  ''
+    if (userId != Meteor.userId()) return ''
   }
   if (!userId || !accountKey) return '';
 
@@ -124,7 +131,7 @@ CF.UserAssets.getAccountPrivacyType = function(userId, accountKey){
     isPrivate = _.keys(pri).indexOf(key) > -1;
 
   if ((isPublic && isPrivate) || (!isPrivate && !isPublic)) { // both cannot happen
-    var err = "Error with user accounts, userId: " + userId +' \n';
+    var err = "Error with user accounts, userId: " + userId + ' \n';
     if (!isPublic) {
       err += 'no account with key ' + key + ' found.'
     } else {

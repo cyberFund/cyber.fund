@@ -2,7 +2,7 @@ Template['portfolioWidget'].onCreated(function () {
   Session.set('folioWidgetSort', {"f|byValue": -1});
 
   // todo: control this from UI
-  Session.set('portfolioOptions',{privateAssets: true} )
+  Session.set('portfolioOptions', {privateAssets: true})
 });
 
 Template['portfolioWidget'].rendered = function () {
@@ -31,7 +31,7 @@ var getSumB = function (accountsData) {
   return sum;
 };
 
-var getSumU = function(accountsData) {
+var getSumU = function (accountsData) {
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
     sum = 0;
   _.each(systems, function (sys) {
@@ -74,7 +74,7 @@ var _getSumU = function (accountsData, addressesObject) {
 };
 
 Template['portfolioWidget'].helpers({
-  values: function(obj){
+  values: function (obj) {
     return _.values(obj || {});
   },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
@@ -82,6 +82,7 @@ Template['portfolioWidget'].helpers({
       accounts = Template.instance().data && Template.instance().data.accountsData,
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
+    // display starred systems for own portfolio
     if (CF.Profile.currentUid.get() == Meteor.userId()) {
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
@@ -93,6 +94,8 @@ Template['portfolioWidget'].helpers({
         systems = _.uniq(_.union(systems, plck))
       }
     }
+
+    // mobile chrome can not into Math.sign itself
     Math.sign = Math.sign || function (x) {
         x = +x;
         if (x === 0 || isNaN(x)) {
@@ -100,6 +103,7 @@ Template['portfolioWidget'].helpers({
         }
         return x > 0 ? 1 : -1;
       };
+
     var sort = {
       // sort portfolio items by their cost, from higher to lower.
       // return -1 if x > y; return 1 if y > x
@@ -115,18 +119,26 @@ Template['portfolioWidget'].helpers({
         return Math.sign(q2 - q1);
       },
       byEquity: function (x, y) {
-        var s1 = CF.CurrentData.getSystem(x),
-          s2 = CF.CurrentData.getSystem(y),
-          q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s1),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, s2),
-          a1 = s1 && s1.metrics && s1.metrics.supply,
-          a2 = s2 && s2.metrics && s2.metrics.supply;
-        if (a1 && a2) return Math.sign(q1 / a1 - q2 / a2);
-        if (!a1 && !a2) return 0; // no supply for both systems
-        if (a1) return 1; //equity defined for 1 system, not for 2
-        return -1; // vice versa
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y);
+        if (x.metrics && x.metrics.supply) {
+          q1 = q1 / x.metrics.supply;
+        } else {
+          q1 = 0;
+        }
+
+        if (y.metrics && y.metrics.supply) {
+          q2 = q2 / y.metrics.supply;
+        } else {
+          q2 = 0;
+        }
+        return Math.sign(q2 - q1);
       }
     };
+
+    // for sorter values, see template file. 'f|' is for sorting by system field
+    // like "by daily price change", no prefix is for using some sort function
+    // from above
     var sorter = Session.get('folioWidgetSort'),
       _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
       _split = (_sorter || '').split('|');
@@ -136,6 +148,7 @@ Template['portfolioWidget'].helpers({
         var r = CurrentData.find(CF.CurrentData.selectors.system(systems))
           .fetch()
           .sort(sort[_split[1]]);
+
         var val = sorter && _.isObject(sorter) && _.values(sorter)
           && _.values(sorter)[0];
         if (val == 1) r = r.reverse();
