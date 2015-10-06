@@ -1,20 +1,22 @@
-Template['portfolioWidget'].onCreated(function () {
-  Session.set('folioWidgetSort', {"f|byValue": -1});
+Meteor.startup(function(){
+  _Session.default('folioWidgetSort', {"f|byValue": -1});
 
   // todo: control this from UI
-  Session.set('portfolioOptions', {privateAssets: true})
+  _Session.default('portfolioOptions', {privateAssets: true})
 });
 
-Template['portfolioWidget'].rendered = function () {
-  this.subscribe('portfolioSystems', Meteor.userId(), Session.get('portfolioOptions'));
-};
+Template['portfolioWidget'].onCreated(function () {
+  var instance = this;
+  instance.autorun(function(){
+    instance.subscribe('portfolioSystems', Meteor.userId(), _Session.get('portfolioOptions'));
+  });
+});
 
 /**
  *
  * @param accountsData - accounts object
  * @returns {number} assets value in bitcoins
  */
-
 
 // TODO: DEFLATE
 var getSumB = function (accountsData) {
@@ -78,7 +80,11 @@ Template['portfolioWidget'].helpers({
     return _.values(obj || {});
   },
   'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
-    var options = Session.get("portfolioOptions") || {},
+
+    // not used here, as we already have emplate.instance().data.accountsData,
+    // either with or without private accounts. so,d be moved up the river
+    var options = _Session.get("portfolioOptions") || {},
+
       accounts = Template.instance().data && Template.instance().data.accountsData,
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
@@ -139,7 +145,7 @@ Template['portfolioWidget'].helpers({
     // for sorter values, see template file. 'f|' is for sorting by system field
     // like "by daily price change", no prefix is for using some sort function
     // from above
-    var sorter = Session.get('folioWidgetSort'),
+    var sorter = _Session.get('folioWidgetSort'),
       _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
       _split = (_sorter || '').split('|');
 
@@ -265,7 +271,7 @@ Template['portfolioWidget'].helpers({
     return 0;
   },
   sorter: function (field) {
-    var sorter = Session.get("folioWidgetSort");
+    var sorter = _Session.get("folioWidgetSort");
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
@@ -277,7 +283,7 @@ Template['portfolioWidget'].events({
 
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
-    var sort = Session.get("folioWidgetSort");
+    var sort = _Session.get("folioWidgetSort");
     // same sorting criteria - reverse order
     if (sort[newSorter]) {
       sort[newSorter] = -sort[newSorter];
@@ -288,6 +294,6 @@ Template['portfolioWidget'].events({
     analytics.track("Sorted Portfolio", {
       sort: sort
     });
-    Session.set('folioWidgetSort', sort);
+    _Session.set('folioWidgetSort', sort);
   }
 });

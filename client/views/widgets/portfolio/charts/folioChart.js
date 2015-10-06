@@ -7,7 +7,7 @@ Template['folioChart'].onCreated(function () {
     var ticks = [], labels = [];
 
     var accounts = Template.instance().data && Template.instance().data.accountsData;
-    var options = Session.get("portfolioOptions") || {},
+    var options = _Session.get("portfolioOptions") || {},
 
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
     var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
