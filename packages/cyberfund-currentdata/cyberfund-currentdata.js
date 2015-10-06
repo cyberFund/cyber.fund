@@ -19,10 +19,10 @@ CF.CurrentData = {
       }
       return {"token.token_symbol": symbol}
     },
-    dependents: function (system) {
-      return {"dependencies": system};
+    dependents: function (system) {  //systems that depend on current
+      return {"dependencies": {$in:  [system]}};
     },
-    dependencies: function (list) {
+    dependencies: function (list) { //return system
       if (!_.isArray(list)) {
         list = [list];
       }

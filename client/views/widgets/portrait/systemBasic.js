@@ -11,12 +11,6 @@ Template['systemBasic'].rendered = function () {
   }
   $('ul.tabs').tabs();
 
-  var t = this;
-  Tracker.autorun(function () {
-    t._system = t.data.curData.fetch()[0];
-    if (t._system && t._system._usersStarred)
-      Meteor.subscribe('avatars', t._system._usersStarred)
-  })
 };
 
 Template['systemBasic'].helpers({
@@ -33,9 +27,11 @@ Template['systemBasic'].helpers({
   },
   depends_on: function () {
     var self = this;
+    console.log(self.dependencies);
     if (!self.dependencies) return [];
     var deps = self.dependencies;
     if (!_.isArray(deps)) deps = [deps];
+    console.log(CF.CurrentData.selectors.dependencies(deps));
     return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
   },
   'dependentsExist': function () {
@@ -211,29 +207,34 @@ Template['systemBasic'].events({
   'click .btn-star-system': function (e, t) {
     var user = Meteor.user();
     if (!user) Router.go('/welcome'); //return;
+    var system = t.$(e.currentTarget).attr("system-name");
     var exists = user && user.profile && user.profile.starredSystems &&
-      _.contains(user.profile.starredSystems, t._system.system);
+      _.contains(user.profile.starredSystems, system);
     analytics.track(exists ? 'Unfollowed system' : 'Followed system', {
-      systemName: t._system.system
+      systemName: system
     });
-    Meteor.call('toggleStarSys', t._system.system);
+
+    Meteor.call('toggleStarSys', system);
   }
 });
 
 Template['systemBasic'].onCreated(function () {
   var instance = this;
   instance.autorun(function () {
+    console.log(systemName());
     instance.subscribe('dependentCoins', systemName());
-
 
     instance.subscribe('fastData', systemName());
 
-    var data = instance._system;
+    var data = instance.data.curData.fetch()[0]
 
     if (data && data.dependencies) {
       var d = data.dependencies;
       if (!_.isArray(d)) d = [d];
-      if (d.indexOf("independent") == -1) instance.subscribe('dependencies', d);
+      if (d.indexOf("independent") == -1) {
+        console.log(d);
+        instance.subscribe('dependencies', d);
+      }
     }
   });
 });
