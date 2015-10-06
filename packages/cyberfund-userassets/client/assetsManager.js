@@ -116,7 +116,7 @@ Template['assetsManager'].events({
   },
   'submit #delete-account-form': function (e, t) {
     if (!isOwnAssets()) return false;
-    analytics.track('Delete Account', {
+    analytics.track('Deleted Account', {
       accountName: CF.UserAssets.currentAccountKey.get()
     });
     Meteor.call("cfAssetsRemoveAccount", CF.UserAssets.currentAccountKey.get());
@@ -186,7 +186,7 @@ Template['assetsManager'].events({
   },
   'submit #delete-address-form': function (e, t) {
     if (!isOwnAssets()) return false;
-    analytics.track('Delete Address', {
+    analytics.track('Deleted Address', {
       accountName: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get()
     });
@@ -232,7 +232,7 @@ Template['assetsManager'].events({
       address: CF.UserAssets.currentAddress.get(),
       accountName: CF.UserAssets.currentAccountKey.get()
     });
-    analytics.track('Followed system', {
+    analytics.track('Followed System', {
       systemName: key,
       mode: 'auto'
     });
@@ -293,7 +293,7 @@ Template['assetsManager'].events({
       return false;
     }
     $form.find("#asset-quantity-edit").val('');
-    analytics.track('Changed Amount', {
+    analytics.track('Updated Amount Manually', {
       amount: qua,
       systemName: key,
       address: CF.UserAssets.currentAddress.get(),
@@ -312,7 +312,7 @@ Template['assetsManager'].events({
       t.$("#modal-delete-asset").closeModal();
       return false;
     }
-    analytics.track('Delete Asset', {
+    analytics.track('Deleted Asset', {
       accountName: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get(),
       systemName: sys

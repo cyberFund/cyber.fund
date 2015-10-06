@@ -10,7 +10,7 @@ Template['systemBasic'].rendered = function () {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
   $('ul.tabs').tabs();
-
+  
 };
 
 Template['systemBasic'].helpers({
@@ -27,11 +27,9 @@ Template['systemBasic'].helpers({
   },
   depends_on: function () {
     var self = this;
-    console.log(self.dependencies);
     if (!self.dependencies) return [];
     var deps = self.dependencies;
     if (!_.isArray(deps)) deps = [deps];
-    console.log(CF.CurrentData.selectors.dependencies(deps));
     return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
   },
   'dependentsExist': function () {
@@ -189,7 +187,7 @@ Template['systemBasic'].events({
   'click #charts-ctl a.btn.act': function (e, t) {
     var val = t.$(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
-    analytics.track('buttonClick', {
+    analytics.track('Discovered Charts', {
       section: 'graphs',
       role: 'timespan select',
       value: val
@@ -198,7 +196,7 @@ Template['systemBasic'].events({
   'click #charts-ctl a.btn.mock': function (e, t) {
     var val = t.$(e.currentTarget).data("span");
     Materialize.toast('Coming soon!', 2500);
-    analytics.track('buttonClick', {
+    analytics.track('Discovered Charts', {
       section: 'graphs',
       role: 'timespan select',
       value: val
@@ -221,7 +219,6 @@ Template['systemBasic'].events({
 Template['systemBasic'].onCreated(function () {
   var instance = this;
   instance.autorun(function () {
-    console.log(systemName());
     instance.subscribe('dependentCoins', systemName());
 
     instance.subscribe('fastData', systemName());
@@ -232,7 +229,6 @@ Template['systemBasic'].onCreated(function () {
       var d = data.dependencies;
       if (!_.isArray(d)) d = [d];
       if (d.indexOf("independent") == -1) {
-        console.log(d);
         instance.subscribe('dependencies', d);
       }
     }
