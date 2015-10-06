@@ -1,3 +1,5 @@
+// this file describes fetching of data from chaingear
+
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchInterval = 5 * 60 * 1000;
 

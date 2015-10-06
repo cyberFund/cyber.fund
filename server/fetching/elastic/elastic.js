@@ -1,3 +1,6 @@
+// this file describes fetching data from our elasticsearch servers
+// (currently, it s coinmarketcap data)
+
 //var currentData = {meta: {}};
 var logger = log4js.getLogger("meteor-fetching-es");
 
@@ -142,12 +145,12 @@ var esParsers = {
         if (sNow.supply_current) {
 
           // try count cap (if none) using price and supply
-          if (!sNow.cap_usd && sNow.price_usd) {
+          if (sNow.price_usd) {
             sNow.cap_usd = sNow.supply_current * sNow.price_usd;
           }
 
           // try count cap (if none) using price and suuply
-          if (!sNow.cap_btc && sNow.price_btc) {
+          if (sNow.price_btc) {
             sNow.cap_btc = sNow.supply_current * sNow.price_btc;
           }
 
