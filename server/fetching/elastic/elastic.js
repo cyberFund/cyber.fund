@@ -124,8 +124,8 @@ var esParsers = {
           // what we use as a data source. is set in chaingear, per-coin/per-asset
           var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
 
-
-          if (supplyDataSource != "cmc") { //leave off cmc value if there s other source
+          //leave off cmc value if there s other source
+          if (supplyDataSource != "cmc") {
             sNow.supply_current = (curDoc.metrics && curDoc.metrics.supply) || 0;
             if (sDayAgo) sDayAgo.supply_current = sNow.supply_current;
           }
@@ -209,6 +209,13 @@ var esParsers = {
             }
           }
 
+          if (sNow.cap_usd) {
+            set['metrics.cap.usd'] = sNow.cap_usd;
+          }
+          if (sNow.cap_btc) {
+            set['metrics.cap.btc'] = sNow.cap_btc;
+          }
+
           if (sNow.volume24_btc) {
             set["metrics.tradeVolume"] = sNow.volume24_btc;
             capBtc = sNow.cap_btc || (curDoc && curDoc.metrics && curDoc.metrics.cap && curDoc.metrics.cap.btc);
@@ -272,8 +279,8 @@ var esParsers = {
         var findSel = _searchSelector(bucket.key),
           set = {};
 
-        if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
-        if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
+       // if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
+       // if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
         if (!_.isEmpty(set)) {
           try {
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
