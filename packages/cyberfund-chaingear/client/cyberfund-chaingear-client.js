@@ -7,7 +7,7 @@ CF.Chaingear.helpers = {
     "cgSystemLogo": function (that) {
         var icon = (that.icon ? that.icon : that.system) || '';
         icon = icon.toString().toLowerCase();
-        return "http://dev.cyber.fund/logos/" + icon + ".png";
+        return "https://cyber.fund/logos/" + icon + ".png";
     }
 };
 
