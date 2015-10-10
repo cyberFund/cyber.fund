@@ -13,12 +13,15 @@ Meteor.startup(function () {
   Meteor.subscribe('coinsCount');
 });
 
+// track pages
 if (Package['iron:router']) {
-
   Package['iron:router'].Router.onRun(function () {
+    var exceptions = ['ProfileOld']
     var router = this;
     Tracker.afterFlush(function () {
-      analytics.page(router.route.getName());
+      var page = router.route.getName();
+      if (exceptions.indexOf(page) > -1)
+        analytics.page();
     });
     this.next();
   });

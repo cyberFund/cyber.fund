@@ -1,3 +1,5 @@
+// this file describes fetching of data from chaingear
+
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchInterval = 5 * 60 * 1000;
 
@@ -75,13 +77,17 @@ var fetch = function () {
             var selector = CF.CurrentData.selectors.system_symbol(system.system, system.token.token_symbol);
             var doc = CurrentData.findOne(selector);
             if (!doc) {
-              if (system.specs && (system.specs.supply || system.specs.cap)) {
+              if (system.specs) {
                 // push supply & caps to metrics
                 system.metrics = system.metrics || {};
-                system.metrics.supply = system.specs.supply;
-                system.metrics.cap = system.specs.cap
-
+                if (system.specs.supply) {
+                  system.metrics.supply = system.specs.supply;
+                }
+                if (system.specs.cap) {
+                  system.metrics.cap = system.specs.cap;
+                }
               }
+
               console.log("inserting system " + system.system);
               CurrentData.insert(system);
             }
@@ -94,7 +100,7 @@ var fetch = function () {
                   system.crowdsales.end_date = moment.utc(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
                 }
               }
-              var set = _.omit(system, ['system', 'symbol']);
+              var set = _.omit(system, ['system']); //system:
               // push supply & caps to metrics
               if (system.specs) {
                 if (system.specs.supply) {
@@ -106,7 +112,7 @@ var fetch = function () {
                 }
 
                 // check if we can hotfix price
-                if (system.specs.cap && system.specs.supply ) {
+                if (system.specs.cap && system.specs.supply) {
                   // check if need hotfixing price
                   if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
                     if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {

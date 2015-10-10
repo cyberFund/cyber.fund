@@ -211,8 +211,8 @@ var helpers = {
   },
   displayCurrencyName: function (system) {
     var ret;
-    if (system.aliases) {
-      ret = system.aliases.CurrencyName;
+    if (system.token) {
+      ret = system.token.token_name;
     }
     if (!ret) ret = system.system;
     return ret;

@@ -20,7 +20,7 @@ Template['searchItem1'].helpers({
         {
           token: '',
           collection: 'CurrentData',
-          field: "aliases.CurrencyName",
+          field: "token.token_name",
           subscription: "search-sys",
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
@@ -33,7 +33,7 @@ Template['searchItem1'].helpers({
 
 Template['searchItem1'].events({
   "autocompleteselect input#search": function(event, template, doc) {
-    analytics.track("Searched Data Redirect", {
+    analytics.track("Searched", {
       systemName: doc.system
     });
     Router.current().router.go("System", {name_: Blaze._globalHelpers._toU(doc.system) })
@@ -50,7 +50,7 @@ Template['searchItem2'].helpers({
         {
           token: '',
           collection: 'CurrentData',
-          field: "aliases.CurrencyName",
+          field: "token.token_name",
           subscription: "search-sys",
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,

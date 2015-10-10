@@ -18,37 +18,6 @@
             </a>
 
             <div class="card-content">
-
-                {{#if isUpcomingCrowdsale}}
-                    <div class="left">
-                        <strong>{{daysLeft crowdsales.start_date }} days
-                            left</strong>
-                    </div>
-                    <div style="height: 12px">&nbsp;</div>
-                {{/if}}
-
-
-                {{#if isPastCrowdsale}}
-                    <div style="position: absolute; bottom: 2.4em; width: 100%; text-align: center">
-                        <strong>
-                            {{daysPassed crowdsales.end_date}} days
-                            ago</strong>
-                    </div>
-                    <br>
-                    <div style="position: absolute; bottom: 1em; left: 12px;">
-                        {{#if crowdsales.btc_raised}}<strong>
-                            {{readableN crowdsales.btc_raised 0}}
-                            Ƀ raised</strong>{{else}}&nbsp;{{/if}}
-                    </div>
-
-                    <div style="position: absolute; bottom: 1em; right: 12px;">
-                        {{#if  metrics.cap.btc}}<strong>
-                            {{readableN metrics.cap.btc 0}} Ƀ
-                            cap</strong>{{else}}&nbsp;{{/if}}
-                    </div>
-
-                {{/if}}
-
                 {{#if isActiveCrowdsale}}
                     <div class="left">
                         <strong>{{daysLeft crowdsales.end_date}} days
@@ -63,6 +32,35 @@
                     </div>
                     <div style="height: 12px">&nbsp;</div>
                 {{/if}}
+
+                {{#if isUpcomingCrowdsale}}
+                    <div class="left">
+                        <strong>{{daysLeft crowdsales.start_date }} days
+                            left</strong>
+                    </div>
+                    <div style="height: 12px">&nbsp;</div>
+                {{/if}}
+
+
+                {{#if isPastCrowdsale}}
+                    <div class="center-align" style="margin-bottom: 1.6em">
+                        {{daysPassed crowdsales.end_date}} days ago
+                    </div>
+
+                    <div style="position: absolute; bottom: 0.3em; left: 12px;">
+                        {{#if crowdsales.btc_raised}}<strong>
+                            {{readableN crowdsales.btc_raised 0}}
+                            Ƀ raised</strong>{{else}}&nbsp;{{/if}}
+                    </div>
+
+                    <div style="position: absolute; bottom: 0.3em; right: 12px;">
+                        {{#if  metrics.cap.btc}}<strong>
+                            {{readableN metrics.cap.btc 0}} Ƀ
+                            cap</strong>{{else}}&nbsp;{{/if}}
+                    </div>
+                {{/if}}
+
+
             </div>
 
             {{#if crowdsales}}

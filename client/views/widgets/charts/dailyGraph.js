@@ -7,7 +7,7 @@ Template['dailyGraph'].rendered = function () {
     if (!self.data || !self.data.graphData) return;
     var current = moment.utc().startOf("minute");
 
-    current.subtract(current.minutes()%10, "minutes");
+    current.subtract(current.minutes()%15, "minutes");
 
     var iterate = moment.utc(current).subtract(1, 'days');
     while (iterate <= current) {
@@ -24,7 +24,7 @@ Template['dailyGraph'].rendered = function () {
         needKey: s["stamp.minute"] == 0//current.minutes()
       };
       ticks.push(tick);
-      iterate = iterate.add(5, "minutes");
+      iterate = iterate.add(15, "minutes");
     }
 
     var data = ns.fn.daily.getData(ticks);
