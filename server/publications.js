@@ -149,7 +149,7 @@ Meteor.publish('userProfileByTwid', function (twid) {
 
 Meteor.publish('portfolioUser', function (userId) {
   var isOwn = this.userId == userId;
-  var fields = fields: {
+  var fields = {
     'profile': 1, accounts: 1, createdAt: 1
   }
   if (isOwn) _.extend(fields, { accountsPrivate: 1});

@@ -124,7 +124,7 @@ CF.UserAssets.getAccountPrivacyType = function (userId, accountKey) {
 
   if (!userId || !accountKey) return '';
   if (!userId == Meteor.userId()) {
-    console.log "CF.UserAssets.getAccountPrivacyType - called for non-own."
+    console.log ("CF.UserAssets.getAccountPrivacyType - called for non-own.")
   }
 
   var user = Meteor.users.findOne({_id: userId}, {fields: CF.UserAssets.accountsFields}),
