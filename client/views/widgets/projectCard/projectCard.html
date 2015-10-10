@@ -2,12 +2,14 @@
     <div class="col s12 m6 l4">
         <div class="card project-card">
             <a href="{{pathFor 'System' name_=name_}}">
-            <div class="center-align">
-                {{> cgSystemLogo data=this style="width:150px; height: 150px;  margin:24px auto;"}}
-            </div>
-            <div class="card-title black-text center-align"
-                 style="font-weight: 700">{{displaySystemName this}}</div>
+                <div class="center-align"
+                     style="width:150px; height: 150px; margin:24px auto">
+                    {{> cgSystemLogo data=this style="width:100%; height: 100%;  "}}
+                </div>
+                <div class="card-title black-text center-align"
+                     style="font-weight: 700">{{displaySystemName this}}</div>
             </a>
+
             <div class="card-content">
                 <div style="text-align: center">
                     {{descriptions.headline}}
