@@ -147,12 +147,14 @@ Meteor.publish('userProfileByTwid', function (twid) {
   });
 });
 
-Meteor.publish('portfolioUser', function () {
-  if (!this.userId) return this.ready();
+Meteor.publish('portfolioUser', function (userId) {
+  var isOwn = this.userId == userId;
+  var fields = fields: {
+    'profile': 1, accounts: 1, createdAt: 1
+  }
+  if (isOwn) _.extend(fields, { accountsPrivate: 1});
   return Meteor.users.find({_id: this.userId}, {
-    fields: {
-      'profile': 1, accounts: 1, accountsPrivate: 1, createdAt: 1
-    }
+    fields: fields
   });
 });
 
