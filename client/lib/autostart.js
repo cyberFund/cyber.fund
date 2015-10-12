@@ -21,7 +21,7 @@ if (Package['iron:router']) {
     Tracker.afterFlush(function () {
       var page = router.route.getName();
       if (exceptions.indexOf(page) > -1)
-        analytics.page();
+        analytics.page(page);
     });
     this.next();
   });
