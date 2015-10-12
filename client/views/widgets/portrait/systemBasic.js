@@ -220,10 +220,12 @@ Template['systemBasic'].onCreated(function () {
   var instance = this;
   instance.autorun(function () {
     instance.subscribe('dependentCoins', systemName());
-
     instance.subscribe('fastData', systemName());
 
-    var data = instance.data.curData.fetch()[0]
+
+    var data = instance.data.curData.fetch()[0];
+if (data)
+    instance.subscribe('avatars', data._usersStarred);
 
     if (data && data.dependencies) {
       var d = data.dependencies;
