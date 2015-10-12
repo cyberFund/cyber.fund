@@ -19,9 +19,9 @@ if (Package['iron:router']) {
     var exceptions = ['ProfileOld']
     var router = this;
     Tracker.afterFlush(function () {
-      var page = router.route.getName();
-      if (exceptions.indexOf(page) == -1)
-        analytics.page(page);
+      //var page = router.route.getName();
+      //if (exceptions.indexOf(page) == -1)
+        analytics.page( router.route.getName());
     });
     this.next();
   });
