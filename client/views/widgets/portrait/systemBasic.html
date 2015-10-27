@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
     {{#with curData}}
-        <div class="nar-row">
+        <div itemscope itemtype="http://schema.org/Product" class="nar-row">
             <p class="center">
                 {{#if neq descriptions.page_state 'ready'}}
                     This page is not ready yet. Follow <a
@@ -15,7 +15,7 @@
             <div id="about" class="row scrollspy">
                 <div class="col s4 m4 l4 center valign-wrapper">
                     <div style="height: 8em; width: 100%;">
-                        {{> hitryImage img_url=img_url class='logo-sys'}}
+                        {{> hitryImage itemprop=”logo” img_url=img_url class='logo-sys'}}
                     </div>
                 </div>
                 <div class="col s5 m4 l4 center valign-wrapper">
@@ -44,8 +44,7 @@
                                     {{#each depends_on}}
                                         <a href="{{pathFor 'System' name_=name_}}">
 
-                                    <span class="enlarge"
-                                          style="display: inline; white-space: nowrap;">
+                                    <span class="enlarge no-wrap">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     </span>
                                         </a>
@@ -91,10 +90,11 @@
                             <div class="card markt">
                                 <h5>Price</h5>
                                 {{#if metrics.price.usd}}
-                                    <p><span class="enlarge">$&nbsp;
+                                    <p><span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+                                        <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                                        <span itemprop="price" content="{{metrics.price.usd}}">
                                         {{#if gte  metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}}
-                                        {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}
-                                </span>
+                                        {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span></span>
                                         <br>
                                         {{#if metrics.priceChangePercents.day.usd}}
 
@@ -103,8 +103,10 @@
                                         {{else}}&nbsp;
                                         {{/if}}</p>
                                 {{/if}}{{#if metrics.price.btc}}
-                                <p><span
-                                        class="enlarge">Ƀ&nbsp;{{satoshi_decimals metrics.price.btc 8}}</span>
+                                <p><span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+                                        <span itemprop="priceCurrency" content="BTC">
+                                    Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
+                                        {{satoshi_decimals metrics.price.btc 8}}</span></span>
                                     <br>
                                     {{#if metrics.priceChangePercents.day.btc}}
                                         <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
@@ -334,8 +336,8 @@
                                      style="padding: 10px 0; margin: 2px 0">
                                     {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
                                     <span
-                                            class="enlarge"
-                                            style="vertical-align: middle; margin-left: 10px; display: inline; white-space: nowrap;">
+                                            class="enlarge no-wrap"
+                                            style="vertical-align: middle; margin-left: 10px">
 
                                         {{displaySystemName this}}
                                     </span>
