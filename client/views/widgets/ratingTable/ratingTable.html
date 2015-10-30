@@ -54,21 +54,23 @@
       </thead>
         <tbody>
         {{#each rows}}
-            <tr style="vertical-align: middle">
+            <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
                 <td class="left-align" >
-                    <a href="{{pathFor 'System' name_=name_}}" class="enlarge" style="display: inline; white-space: nowrap;">
-                        {{> cgSystemLogo data=this class='cg-system-logo'}}{{displaySystemName this}}
-                    </a>
+                    <a href="{{pathFor 'System' name_=name_}}" class="enlarge no-wrap"
+                       title="{{descriptions.headline}}">
+                        {{> cgSystemLogo data=this class='cg-system-logo'}}<span class="no-wrap" itemprop="name">{{displaySystemName this}}</span>
+                    </a><span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
                 </td>
 
-                <td class="center-align hide-on-small-and-down">
+                <td class="center-align hide-on-small-and-down" itemprop="aggregateRating"
+                    content="{{ratings.rating_cyber}}">
                         {{>cfRating rating=ratings.rating_cyber}}</td>
                 <td class="center-align hide-on-small-and-down">{{# withTooltip}}
                     <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
                     {{#tooltip}}
 
                       <div>Ticker:
-                        <b>{{symbol}}</b>
+                        <b itemprop="alternateName">{{symbol}}</b>
                       </div>
                       <div>Currency name:
                         <b>{{displayCurrencyName this}}</b>
@@ -112,7 +114,11 @@
                     {{#if metrics.price.btc}}
                         {{#tooltip}}
                             <div>Price per 1 {{displaySystemName this}}:<br/>
-                                <b>Ƀ&nbsp;{{metrics.price.btc}}</b>
+                                <b itemprop="offers" itemscope
+                                    itemtype="http://schema.org/Offer"
+                                    class="no-wrap">
+                                    <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
+                                    <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
                             </div>
                         {{/tooltip}}
                     {{/if}}
@@ -135,7 +141,10 @@
                     {{#if metrics.price.usd}}
                         {{#tooltip}}
                             <div>Price per 1 {{displaySystemName this}}:<br/>
-                                <b>$&nbsp;{{metrics.price.usd}}</b>
+                                <b class="no-wrap" itemprop="offers" itemscope
+                                   itemtype="http://schema.org/Offer">
+                                    <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                                    <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
                             </div>
                         {{/tooltip}}
                     {{/if}}

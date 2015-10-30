@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
     {{#with curData}}
-        <div class="nar-row">
+        <div itemscope itemtype="http://schema.org/Product" class="nar-row">
             <p class="center">
                 {{#if neq descriptions.page_state 'ready'}}
                     This page is not ready yet. Follow <a
@@ -15,14 +15,16 @@
             <div id="about" class="row scrollspy">
                 <div class="col s4 m4 l4 center valign-wrapper">
                     <div style="height: 8em; width: 100%;">
-                        {{> hitryImage img_url=img_url class='logo-sys'}}
+                        {{> hitryImage img_url=img_url class='logo-sys' itemprop='logo'}}
                     </div>
                 </div>
                 <div class="col s5 m4 l4 center valign-wrapper">
                     <div style="display: inline-block; margin: auto"
                          class="valign">
-                        <div class="header-sys center">{{displaySystemName this}}</div>
-                        <div class="symbol-sys center">{{symbol}}</div>
+                        <div class="header-sys center"
+                             itemprop="name">{{displaySystemName this}}</div>
+                        <div class="symbol-sys center"
+                             itemprop="alternateName">{{symbol}}</div>
                     </div>
                 </div>
                 <div class="col s3 hide-on-med-and-up">&nbsp;</div>
@@ -30,7 +32,10 @@
                     <div style="display: inline-block; margin: auto"
                          class="valign-wrapper">
                         <div class="valign">
-                            <div class="rating-sys" style="margin-top: 1.5rem">
+                            <div itemprop="aggregateRating"
+                                 content="{{ratings.rating_cyber}}"
+                                 class="rating-sys"
+                                 style="margin-top: 1.5rem">
                                 {{>cfRating rating=ratings.rating_cyber}}
                             </div>
                             {{#if independent this}}
@@ -40,12 +45,12 @@
                                     <div>{{_system_type_ descriptions.system_type}}</div>
                                 {{/if}}
                                 <br>
+
                                 <div>Built with
                                     {{#each depends_on}}
                                         <a href="{{pathFor 'System' name_=name_}}">
 
-                                    <span class="enlarge"
-                                          style="display: inline; white-space: nowrap;">
+                                    <span class="enlarge no-wrap">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
                                     </span>
                                         </a>
@@ -54,12 +59,16 @@
                             {{/if}}
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
+
+
             <div id="headline" class="row scrollspy center">
                 {{#if and descriptions descriptions.headline}}
-                    <p>{{descriptions.headline}} used
+                    <p><span
+                            itemprop="description">{{descriptions.headline}}</span>
+                        used
                         in {{countWithTag links 'Apps'}}
                         apps and created {{dependents.count}} decentralized
                         apps</p>
@@ -69,6 +78,7 @@
             {{#if _usersStarred}}
                 <div id="users-starred" class="center">
                     <h5 style="margin-bottom: 3px;">Starred by</h5>
+
                     <div>
                         {{>usersList1 data=usersStarred style="margin: 6px 3px; width=40px; height=40px;"}}
                     </div>
@@ -83,142 +93,154 @@
                 {{/each}}
             </div>
             {{#if not isProject}}
-            <div id="market" class="row scrollspy center">
-                {{#if and metrics metrics.price}}
-                    {{#if or metrics.price.usd metrics.price.btc}}
-                        <div class="col s12 m6 l3 center valign"
-                             style="padding:10px">
-                            <div class="card markt">
-                                <h5>Price</h5>
-                                {{#if metrics.price.usd}}
-                                    <p><span class="enlarge">$&nbsp;
-                                        {{#if gte  metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}}
-                                        {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}
-                                </span>
-                                        <br>
-                                        {{#if metrics.priceChangePercents.day.usd}}
+                <div id="market" class="row scrollspy center">
+                    {{#if and metrics metrics.price}}
+                        {{#if or metrics.price.usd metrics.price.btc}}
+                            <div class="col s12 m6 l3 center valign"
+                                 style="padding:10px">
+                                <div class="card markt">
+                                    <h5>Price</h5>
+                                    {{#if metrics.price.usd}}
+                                        <p><span itemprop="offers" itemscope
+                                                 itemtype="http://schema.org/Offer"
+                                                 class="enlarge no-wrap">
+                                        <span itemprop="priceCurrency"
+                                              content="USD">$&nbsp;</span>
+                                        <span itemprop="price"
+                                              content="{{metrics.price.usd}}">
+                                            {{#if gte  metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}}
+                                            {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span></span>
+                                            <br>
+                                            {{#if metrics.priceChangePercents.day.usd}}
 
-                                            <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
-                                                {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+                                                <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+                                                    {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+                                            {{else}}&nbsp;
+                                            {{/if}}</p>
+                                    {{/if}}{{#if metrics.price.btc}}
+                                    <p><span itemprop="offers" itemscope
+                                             itemtype="http://schema.org/Offer"
+                                             class="enlarge no-wrap">
+                                        <span itemprop="priceCurrency"
+                                              content="BTC">
+                                    Ƀ&nbsp;</span><span itemprop="price"
+                                                        content="{{metrics.price.btc}}">
+                                        {{satoshi_decimals metrics.price.btc 8}}</span></span>
+                                        <br>
+                                        {{#if metrics.priceChangePercents.day.btc}}
+                                            <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+                                                {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+                                        {{else}}&nbsp;
+                                        {{/if}}</p>{{/if}}
+                                </div>
+                            </div>
+                        {{/if}}
+                    {{/if}}
+                    {{#if and metrics metrics.cap}}
+                        {{#if or metrics.cap.btc metrics.cap.usd}}
+                            <div class="col s12 m6 l3 center valign"
+                                 style="padding:10px">
+                                <div class="card markt">
+                                    <h5>Cap</h5>
+                                    {{#if metrics.cap.usd}}
+                                        <p><span
+                                                class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+                                            <br>
+                                            {{#if metrics.capChangePercents.day.usd}}
+
+                                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+                                            {{else}}
+                                                &nbsp;
+                                            {{/if}}</p>
+                                    {{/if}}{{#if metrics.cap.btc}}
+                                    <p><span
+                                            class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+                                        <br>
+                                        {{#if metrics.capChangePercents.day.btc}}
+
+                                            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+                                                {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
                                         {{else}}&nbsp;
                                         {{/if}}</p>
-                                {{/if}}{{#if metrics.price.btc}}
-                                <p><span
-                                        class="enlarge">Ƀ&nbsp;{{satoshi_decimals metrics.price.btc 8}}</span>
-                                    <br>
-                                    {{#if metrics.priceChangePercents.day.btc}}
-                                        <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-                                            {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
-                                    {{else}}&nbsp;
-                                    {{/if}}</p>{{/if}}
+                                {{/if}}
+                                </div>
                             </div>
-                        </div>
+                        {{/if}}
                     {{/if}}
-                {{/if}}
-                {{#if and metrics metrics.cap}}
-                    {{#if or metrics.cap.btc metrics.cap.usd}}
-                        <div class="col s12 m6 l3 center valign"
-                             style="padding:10px">
-                            <div class="card markt">
-                                <h5>Cap</h5>
-                                {{#if metrics.cap.usd}}
-                                    <p><span
-                                            class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                                        <br>
-                                        {{#if metrics.capChangePercents.day.usd}}
+                    <div class="col s12 m6 l3 center valign"
+                         style="padding:10px">
+                        <div class="card markt">
+                            <h5>Trade</h5>
 
-                                            <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                                                {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
-                                        {{else}}
-                                            &nbsp;
-                                        {{/if}}</p>
-                                {{/if}}{{#if metrics.cap.btc}}
-                                <p><span
-                                        class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
-                                    <br>
-                                    {{#if metrics.capChangePercents.day.btc}}
-
-                                        <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-                                            {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-                                    {{else}}&nbsp;
-                                    {{/if}}</p>
-                            {{/if}}
-                            </div>
-                        </div>
-                    {{/if}}
-                {{/if}}
-                <div class="col s12 m6 l3 center valign"
-                     style="padding:10px">
-                    <div class="card markt">
-                        <h5>Trade</h5>
-
-                        <p><span
-                                class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
-                            <br>
-                            {{#if yesterdayVolumeUsd}}
-                                <span class="{{greenRedNumber usdVolumeChange }}">
-                                    {{percentsToTextUpDown usdVolumeChange }}</span>
-                            {{else}}&nbsp;
-                            {{/if}}</p>
-
-                        <p><span
-                                class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
-                            <br>
-                            {{#if yesterdayVolumeBtc}}
-                                <span class="{{greenRedNumber btcVolumeChange }}">
-                                    {{percentsToTextUpDown btcVolumeChange }}</span>
-                            {{else}}&nbsp;
-                            {{/if}}</p>
-                    </div>
-                </div>
-                <div class="col s12 m6 l3 center valign"
-                     style="padding:10px">
-                    <div class="card markt">
-                        <h5>Supply</h5>
-
-                        <p style="line-height: 80%;">&nbsp;</p>
-
-                        <p><span
-                                class="enlarge">{{readableN metrics.supply 0}}
-                            <br> {{displayCurrencyName this}}s</span>
-                            {{#if metrics.supplyChangePercents.day}}
+                            <p><span
+                                    class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
                                 <br>
-                                <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
-                            {{/if}}</p>
+                                {{#if yesterdayVolumeUsd}}
+                                    <span class="{{greenRedNumber usdVolumeChange }}">
+                                        {{percentsToTextUpDown usdVolumeChange }}</span>
+                                {{else}}&nbsp;
+                                {{/if}}</p>
 
-                        <p>&nbsp;</p>
+                            <p><span
+                                    class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+                                <br>
+                                {{#if yesterdayVolumeBtc}}
+                                    <span class="{{greenRedNumber btcVolumeChange }}">
+                                        {{percentsToTextUpDown btcVolumeChange }}</span>
+                                {{else}}&nbsp;
+                                {{/if}}</p>
+                        </div>
+                    </div>
+                    <div class="col s12 m6 l3 center valign"
+                         style="padding:10px">
+                        <div class="card markt">
+                            <h5>Supply</h5>
+
+                            <p style="line-height: 80%;">&nbsp;</p>
+
+                            <p><span
+                                    class="enlarge">{{readableN metrics.supply 0}}
+                                <br> {{displayCurrencyName this}}s</span>
+                                {{#if metrics.supplyChangePercents.day}}
+                                    <br>
+                                    <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
+                                {{/if}}</p>
+
+                            <p>&nbsp;</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="margin-top: -20px">
-                <div class="col s12 center">
-                    Changes given for 24h
+                <div class="row" style="margin-top: -20px">
+                    <div class="col s12 center">
+                        Changes given for 24h
+                    </div>
                 </div>
-            </div>
-            <div class="row"></div>
-            <div id="charts" class="row scrollspy center">
-                {{#if _selectedGraph 'week'}}
-                    {{> weeklyGraph this}}
-                {{/if}}
-                {{#if _selectedGraph 'month'}}
-                    {{> monthlyGraph this}}
-                {{/if}}
-                {{#if _selectedGraph 'all' }}
-                    {{> fulltimeGraph this}}
-                {{/if}}
-                {{#if _selectedGraph 'day' }}
-                    {{> dailyGraph graphData=dailyData currencyId=_id }}
-                {{/if}}
-            </div>
-            <div id="charts-ctl" class="row scrollspy center">
-                <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
-                    Day</a>
-                <a class="btn act {{selectedGraph 'week'}}"
-                   data-span="week">Last Week</a>
-                <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last
-                    Month</a>
-                <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
-            </div>
+                <div class="row"></div>
+                <div id="charts" class="row scrollspy center">
+                    {{#if _selectedGraph 'week'}}
+                        {{> weeklyGraph this}}
+                    {{/if}}
+                    {{#if _selectedGraph 'month'}}
+                        {{> monthlyGraph this}}
+                    {{/if}}
+                    {{#if _selectedGraph 'all' }}
+                        {{> fulltimeGraph this}}
+                    {{/if}}
+                    {{#if _selectedGraph 'day' }}
+                        {{> dailyGraph graphData=dailyData currencyId=_id }}
+                    {{/if}}
+                </div>
+                <div id="charts-ctl" class="row scrollspy center">
+                    <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
+                        Day</a>
+                    <a class="btn act {{selectedGraph 'week'}}"
+                       data-span="week">Last Week</a>
+                    <a class="btn act {{selectedGraph 'month'}}"
+                       data-span="month">Last
+                        Month</a>
+                    <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
+                </div>
             {{/if}}
             <div id="code" class="section scrollspy row">
                 {{#if existLinksWith links 'News'}}
@@ -334,8 +356,8 @@
                                      style="padding: 10px 0; margin: 2px 0">
                                     {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
                                     <span
-                                            class="enlarge"
-                                            style="vertical-align: middle; margin-left: 10px; display: inline; white-space: nowrap;">
+                                            class="enlarge no-wrap"
+                                            style="vertical-align: middle; margin-left: 10px">
 
                                         {{displaySystemName this}}
                                     </span>
@@ -460,43 +482,22 @@
                         href="http://cybertalks.org/t/do-cyber-fund-better-together/322">
                     any proposals
                 </a>
-                for customizing displayed data and layout to make {{system}}
+                for customizing displayed data and layout to make <span itemprop="brand">{{system}}</span>
                 more transparent and understandable
                 <br>for investors, developers and usual people.
 
             </div>
-
-            <!--div class="col hide-on-small-only m3 l2">
-                {{#pageContents class='fixed _scroller push_down'}}
-                    <li><a href="#about" class="">About</a></li>
-                    <li><a href="#market" class="">Market</a></li>
-                    <li><a href="#apps" class="">Apps</a></li>
-                    {{#if false}}
-                        <li><a href="#hashtag"
-                               class="">{{descriptions.hashtag}}</a></li>
-                    {{/if}}
-                {{#if dependentsExist}}
-                        <li><a href="#dapps" class="">Dapps</a></li>
-                    {{/if}}
-                    <li><a href="#code" class="">Code</a></li>
-                    <li><a href="#science" class="">Science</a></li>
-                    <li><a href="#specs" class="">Specs</a></li>
-                {{/pageContents}}
-            </div-->
             <div class="col l1 m1 hide-on-small-and-down">
 
             </div>
         </div>
-        {{! #if currentUser}}
-            <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
-                <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}" system-name="{{system}}">
-                    <i class="material-icons"
-                       style="font-size: 3.8rem">stars</i>
-                </a>
-            </div>
-        {{! /if}}
+        <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+            <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}"
+               system-name="{{system}}">
+                <i class="material-icons"
+                   style="font-size: 3.8rem">stars</i>
+            </a>
+        </div>
     {{/with}}
-    <!--a class="btn-floating btn-large waves-effect waves-light red">
-	  <i class="stars"></i></a-->
 
 </template>
