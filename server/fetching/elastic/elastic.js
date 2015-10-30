@@ -119,7 +119,7 @@ var esParsers = {
           if (_.isEmpty(sNow)) return;
 
           // current document, so we can take some values if none in fetched data
-          var curDoc = CurrentData.findOne(_searchSelector(bucket.key));
+          var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {fields: {dailyData: 0, hourlyData: 0}});
 
           // what we use as a data source. is set in chaingear, per-coin/per-asset
           var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
@@ -251,9 +251,14 @@ var esParsers = {
           if (!_.isEmpty(set)) {
             set.updatedAt = new Date();
             // console.log(set);
+            if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
+              set['metrics.supply'] = curDoc.specs.supply;
+              set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
+              set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
+            }
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
             var fastMetric = _.pick(sNow, [
-              "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"])
+              "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"]);
             fastMetric.systemId = _id;
             fastMetric.timestamp = timestamp;
             fastMetric.stamp = stamp;
