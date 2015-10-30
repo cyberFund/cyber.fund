@@ -130,11 +130,23 @@ var esParsers = {
           // current document, so we can take some values if none in fetched data
           var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {fields: {dailyData: 0, hourlyData: 0}});
 
+          //console.log(_.keys(curDoc))
+
+          if (curDoc.flags) {
+            //console.log(curDoc.flags);
+            //console.log(curDoc.system);
+          } else {
+
+            //console.log("---"+curDoc.system);
+          }
           // what we use as a data source. is set in chaingear, per-coin/per-asset
           var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
 
           // overriding supply data source.
-          if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) supplyDataSource = 'chg';
+          if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
+            console.log(curDoc.system + " supply from chg");
+            supplyDataSource = 'chg';
+          }
 
           // 1.
           // sNow.supply_current
@@ -152,6 +164,11 @@ var esParsers = {
               if (!sNow.supply_current) sNow.supply_current = curDoc.specs && curDoc.specs.supply || 0;
             }
           }
+
+          if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
+            console.log(curDoc.system + " supply: " +  sNow.supply_current);
+          }
+
 
           // 2. sNow.prices
           //
@@ -277,7 +294,7 @@ var esParsers = {
           if (!_.isEmpty(set)) {
             set.updatedAt = new Date();
             // console.log(set);
-            /*if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
+            /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
               set['metrics.supply'] = curDoc.specs.supply;
               set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
               set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
