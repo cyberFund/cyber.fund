@@ -9,8 +9,10 @@ Meteor.publish("currentDataRP", function (options) {
   if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
-    "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1
+    "aliases": 1, "metrics": 1, "system": 1, "token": 1, "icon": 1, "ratings": 1,
+    "descriptions.headline": 1
   };
+  console.log(options);
   var keys = _.keys(options.sort);
   selector[keys[0]] = {$exists: true};
   return CurrentData.find(selector, options);
