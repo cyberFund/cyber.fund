@@ -45,6 +45,7 @@ Meteor.startup(function() {
 	CurrentData._ensureIndex({"crowdsales": 1}, {sparse: true});
 
 	CurrentData._ensureIndex({"descriptions.state": 1}, {sparse: true});
+	CurrentData._ensureIndex({"aliases.quantum": 1}, {sparse: true});
 
 	CurrentData._ensureIndex({"flags.suplly_from_here": 1}, {sparse: true});
 	CurrentData._ensureIndex({"flags.rating_do_not_display": 1}, {sparse: true});

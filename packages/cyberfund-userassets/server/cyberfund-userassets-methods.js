@@ -5,13 +5,18 @@ var logger = log4js.getLogger("assets-tracker");
  * @param cryptoBalanceToken - token received from crypto-balance library
  * @returns {CG system name OR false - if autoupdate is disabled.}
  */
+
 CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
   var matchingTable = {
     'BTC': 'Bitcoin',
     'MAID': 'MaidSafeCoin',
     'OA/CFUND': 'cyberFund'
   };
-  return matchingTable[cryptoBalanceToken] || false;
+  var ret =  matchingTable[cryptoBalanceToken] || false;
+  if (!ret) {
+    var record = CurrentData.findOne({"aliases.quantum": cryptoBalanceToken});
+    return record ? record.system : false;
+  }
 };
 
 var checkForFixedMissingItems_Cryptobalance = function() {
@@ -87,11 +92,6 @@ Meteor.methods({
                   domain: "cryptobalance",
                   sampleAddress: address
                 }
-              });
-              console.log({
-                type: "report",
-                domain: "cryptobalance",
-                sampleAddress: address
               });
               return;
             }
