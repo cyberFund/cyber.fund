@@ -12,11 +12,14 @@ CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
     'MAID': 'MaidSafeCoin',
     'OA/CFUND': 'cyberFund'
   };
+  // todo: just recalculate matchingTable if chaingear reloads.
+  // todo: so to avoid constand db poll here
   var ret =  matchingTable[cryptoBalanceToken] || false;
   if (!ret) {
     var record = CurrentData.findOne({"aliases.quantum": cryptoBalanceToken});
-    return record ? record.system : false;
+    ret = record ? record.system : false;
   }
+  return ret
 };
 
 var checkForFixedMissingItems_Cryptobalance = function() {
