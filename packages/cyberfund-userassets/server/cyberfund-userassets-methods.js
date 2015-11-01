@@ -5,13 +5,39 @@ var logger = log4js.getLogger("assets-tracker");
  * @param cryptoBalanceToken - token received from crypto-balance library
  * @returns {CG system name OR false - if autoupdate is disabled.}
  */
-CF.UserAssets.tokenCB2systemCG = function(cryptoBalanceToken){
+CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
   var matchingTable = {
     'BTC': 'Bitcoin',
+    'MAID': 'MaidSafeCoin',
     'OA/CFUND': 'cyberFund'
   };
   return matchingTable[cryptoBalanceToken] || false;
 };
+
+var checkForFixedMissingItems_Cryptobalance = function() {
+  var missing_items = Extras.find({
+    "meta.type": "report",
+    "meta.domain": "cryptobalance"
+  }).fetch();
+
+  var list = [];
+  _.each(missing_items, function (item) {
+    if (!item._id) {
+      console.log(item); return;
+    }
+    var id = item._id.split('_cryptoasset_missing');
+    if (id.length != 2) return;
+    if (CF.UserAssets.tokenCB2systemCG(id[0])) list.push(id[0]+"_cryptoasset_missing");
+  });
+
+  if (list.length) {
+    Extras.remove({_id: {$in: list}})
+  }
+};
+
+Meteor.startup(function () {
+  checkForFixedMissingItems_Cryptobalance();
+});
 
 Meteor.methods({
   cfAssetsUpdateBalance: function (accountKey, address) {
@@ -20,9 +46,10 @@ Meteor.methods({
     }
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
-    var fields = {}; fields[key0] = 1;
+    var fields = {};
+    fields[key0] = 1;
     var sel = {_id: this.userId};
-    var accounts = Meteor.users.findOne(sel, {fields: fields})[key0]|| {};
+    var accounts = Meteor.users.findOne(sel, {fields: fields})[key0] || {};
 
     if (!accountKey) { //todo: update all balances for user
       //
@@ -38,10 +65,10 @@ Meteor.methods({
     if (!addressObj) return;
     var modify = {$set: {}, $unset: {}};
 
-    var key =  [key0, accountKey, 'addresses', address, 'assets'].join(".");
-    _.each(addressObj.assets, function(asset, assetKey){
+    var key = [key0, accountKey, 'addresses', address, 'assets'].join(".");
+    _.each(addressObj.assets, function (asset, assetKey) {
       if (asset.update === 'auto') {
-        modify.$unset[[key,assetKey].join('.')] = "true"
+        modify.$unset[[key, assetKey].join('.')] = "true"
       }
     });
 
@@ -50,8 +77,24 @@ Meteor.methods({
           _.each(result, function (item) {
             if (item.status != 'success') return;
 
-            item.asset = CF.UserAssets.tokenCB2systemCG(item.asset);
-            if (!item.asset) return;
+            // resolve cryptobalance ticker into chaingear ticker
+            item.Asset = CF.UserAssets.tokenCB2systemCG(item.asset);
+
+            if (!item.Asset) {
+              Extras.upsert({_id: item.asset + "_cryptoasset_missing"}, {
+                meta: {
+                  type: "report",
+                  domain: "cryptobalance",
+                  sampleAddress: address
+                }
+              });
+              console.log({
+                type: "report",
+                domain: "cryptobalance",
+                sampleAddress: address
+              });
+              return;
+            }
 
             var q;
             try {
@@ -59,11 +102,11 @@ Meteor.methods({
             } catch (e) {
               q = item.quantity;
             }
-            var k = [key, item.asset].join(".");
+            var k = [key, item.Asset].join(".");
             modify.$set[k] = {
               update: 'auto',
               quantity: q,
-              asset: item.asset,
+              asset: item.Asset,
               updatedAt: new Date(),
               service: item.service,
               address: item.address
@@ -91,7 +134,7 @@ Meteor.methods({
     var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey);
     if (!key0) return;
     var key = [key0, accountKey, "addresses", address].join(".");
-    var set = {$set :{}};
+    var set = {$set: {}};
     set.$set[key] = {assets: {}};
     //push account to dictionary of accounts, so can use in autocomplete later
     Meteor.users.update({_id: userId}, set);
@@ -104,30 +147,32 @@ Meteor.methods({
 
     var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey);
     if (!key0) return;
-    var fields = {}; fields[key0] = 1;
+    var fields = {};
+    fields[key0] = 1;
     var sel = {_id: this.userId};
-    var accounts = Meteor.users.findOne(sel, {fields: fields})[key0]|| {};
+    var accounts = Meteor.users.findOne(sel, {fields: fields})[key0] || {};
 
     var key = [key0, accountKey, "addresses", asset].join(".");
-    var unset = {$unset:{}};
+    var unset = {$unset: {}};
     unset.$unset[key] = true;
     Meteor.users.update({_id: userId}, unset);
   },
 
-  cfAssetsAddAccount: function(obj){
-    if (!this.userId) return {err:"no userid"};
+  cfAssetsAddAccount: function (obj) {
+    if (!this.userId) return {err: "no userid"};
     var sel = {_id: this.userId};
-    check (obj, Match.ObjectIncluding({isPublic: Boolean, name: String}) );
+    check(obj, Match.ObjectIncluding({isPublic: Boolean, name: String}));
     var user = Meteor.users.findOne(sel);
 
     var key0 = obj.isPublic ? 'accounts' : 'accountsPrivate';
 
-    var set = {}; set[key0] = {};
-    if (!user[key0]) Meteor.users.update(sel, {$set:  set});
+    var set = {};
+    set[key0] = {};
+    if (!user[key0]) Meteor.users.update(sel, {$set: set});
 
     var privates = user.accountsPrivate || {};
 
-    if (!CF.UserAssets.accountNameIsValid(obj.name, user[key0])) return {err:"invalid acc name"};
+    if (!CF.UserAssets.accountNameIsValid(obj.name, user[key0])) return {err: "invalid acc name"};
 
     // find next account #
     var key = CF.UserAssets.nextKey(_.extend(user.accounts || {}, privates));
@@ -143,7 +188,7 @@ Meteor.methods({
     return {newAccountKey: key};
   },
 
-  cfAssetsRenameAccount: function(accountKey, newName){
+  cfAssetsRenameAccount: function (accountKey, newName) {
     if (!this.userId) return;
     var sel = {_id: this.userId};
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
@@ -161,7 +206,7 @@ Meteor.methods({
       Meteor.users.update(sel, set);
     }
   },
-  cfAssetsRemoveAccount: function(accountKey) {
+  cfAssetsRemoveAccount: function (accountKey) {
     if (!this.userId) return;
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
@@ -171,31 +216,31 @@ Meteor.methods({
     Meteor.users.update({_id: this.userId}, unset);
   },
 
-  cfAssetsAddAsset: function(accountKey, address, asset, q){
+  cfAssetsAddAsset: function (accountKey, address, asset, q) {
     if (!this.userId) return;
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
     var sel = {_id: this.userId};
     var modify = {$set: {}};
-    var key = [key0, accountKey,'addresses',address,'assets',asset].join(".");
+    var key = [key0, accountKey, 'addresses', address, 'assets', asset].join(".");
     modify.$set[key] = {
       asset: asset,
       quantity: q,
-      update:'manual'
+      update: 'manual'
     };
     Meteor.users.update(sel, modify)
   },
-  cfAssetsDeleteAsset: function(accountKey, address, asset) {
+  cfAssetsDeleteAsset: function (accountKey, address, asset) {
     if (!this.userId) return;
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
     var sel = {_id: this.userId};
     var modify = {$unset: {}};
-    var key = [key0, accountKey,'addresses',address,'assets',asset].join(".");
+    var key = [key0, accountKey, 'addresses', address, 'assets', asset].join(".");
     modify.$unset[key] = true;
     Meteor.users.update(sel, modify)
   },
-  'cfAssetsTogglePrivacy': function(accountKey, fromKey) {
+  'cfAssetsTogglePrivacy': function (accountKey, fromKey) {
     //{{! todo: add check if user is able using this feature}}
     if (!this.userId) return false;
 
@@ -206,7 +251,7 @@ Meteor.methods({
     if (!account) return false;
     account = account[accountKey];
     if (!account) return false;
-    logger.info("user "+ this.userId + " ordered turning account " + account.name + " to " + toKey);
+    logger.info("user " + this.userId + " ordered turning account " + account.name + " to " + toKey);
     var unset = {}, set = {};
     set[[toKey, accountKey].join(".")] = account;
     unset[[fromKey, accountKey].join(".")] = true;

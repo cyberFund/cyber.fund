@@ -131,7 +131,13 @@ var fetch = function () {
             }
           });
         });
-        Extras.upsert({_id: 'chaingear_etag'}, {etag: res.headers.etag});
+        Extras.upsert({_id: 'chaingear_etag'}, {
+          etag: res.headers.etag,
+          meta: {
+            type: "synchronization",
+            domain: "chaingear"
+          }
+        });
       }
       else {
         console.log("chaingear not changed..")
