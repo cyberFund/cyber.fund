@@ -228,6 +228,20 @@ var esParsers = {
           }
 
 
+          // if supply value is here
+          if (sDayAgo.supply_current) {
+
+            // try count cap using price and supply
+           // if (sDayAgo.price_usd) {
+              sDayAgo.cap_usd = sDayAgo.supply_current * (sDayAgo.price_usd || sNow.price_usd) ;
+           // }
+
+            // try count cap using price and suuply
+          //  if (sDayAgo.price_btc) {
+              sDayAgo.cap_btc = sDayAgo.supply_current * (sDayAgo.price_btc || sNow.price_usd);
+           // }
+          }
+
 
           // if supply value is here
           if (sNow.supply_current) {
@@ -250,6 +264,7 @@ var esParsers = {
               set["metrics.supplyChange.day"] = sNow.supply_current - supplyDayAgo;
             }
           }
+
 
           if (sNow.cap_usd) {
             set['metrics.cap.usd'] = sNow.cap_usd;
@@ -276,6 +291,7 @@ var esParsers = {
               (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
             set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
           }
+
           if (sNow.cap_btc && sDayAgo.cap_btc) {
             set["metrics.capChangePercents.day.btc"] = 100.0 *
               (sNow.cap_btc - sDayAgo.cap_btc) / sNow.cap_btc;
@@ -332,6 +348,7 @@ var esParsers = {
           try {
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
           } catch (e) {
+            console.log('could not update currentData: ')
             console.log(e);
             console.log(_searchSelector(bucket.key));
             console.log(set)
