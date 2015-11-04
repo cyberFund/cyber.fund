@@ -1,4 +1,4 @@
-var getDecimals = function(str){
+var getDecimals = function (str) {
   var decimals = 6;
   var test = parseFloat(str);
   if (test > 0.1) decimals = 3;
@@ -12,7 +12,7 @@ CF.MarketData.tooltipFncT = function (meta, value) {
     meta = meta.split("|"); // point date to be passed there, too
     var decimals = getDecimals(meta[0]);
     ret += "<br/>Ƀ " + Blaze._globalHelpers.satoshi_decimals(meta[0], decimals) + " per 1";
-    if (meta[1]) ret += "<br/>"+meta[1];
+    if (meta[1]) ret += "<br/>" + meta[1];
   }
   return ret.replace(/\&nbsp\;/g, " ");
 };
@@ -23,7 +23,7 @@ CF.MarketData.tooltipFncB = function (meta, value) {
     meta = meta.split("|"); // point date to be passed there, too
     var decimals = getDecimals(meta[0]);
     ret += "<br/>Ƀ " + Blaze._globalHelpers.satoshi_decimals(meta[0], decimals) + " per 1";
-    if (meta[1]) ret += "<br/>"+meta[1].replace("&nbsp;", " ");
+    if (meta[1]) ret += "<br/>" + meta[1].replace("&nbsp;", " ");
   }
   return ret.replace("&nbsp;", " ");
 };
@@ -36,7 +36,7 @@ CF.MarketData.tooltipFncS = function (meta, value) {
       var decimals = getDecimals(meta[0]);
       ret += "<br/>$ " + Blaze._globalHelpers.satoshi_decimals(meta, decimals) + " per 1";
     }
-    if (meta[1]) ret += "<br/>"+meta[1];
+    if (meta[1]) ret += "<br/>" + meta[1];
   }
   return ret;
 };
@@ -68,10 +68,12 @@ _.extend(CF.Chartist, {
     tickString: function (tick, key) {
       return (tick && tick.value) ? tick.value[key] || "" : "";
     },
-    dataStencil: function(){return  {labels: [], capB: [], capU: [], trade: []}},
-    pushTick: function(tick, data, dte, format) {
+    dataStencil: function () {
+      return {labels: [], capB: [], capU: [], trade: []}
+    },
+    pushTick: function (tick, data, dte, format) {
       data.labels.push(tick.needKey ? dte.format(format) : "");
-      if (_.contains([ns.dateformats.weekly, ns.dateformats.daily], format) ) {
+      if (_.contains([ns.dateformats.weekly, ns.dateformats.daily], format)) {
         format += "[ UTC]";
       }
       data.capB.push(
@@ -92,7 +94,39 @@ _.extend(CF.Chartist, {
           meta: [ns.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join("|")
         });
     },
-    daily: {}, weekly:{}, monthly: {}, fulltime:{}
+    daily: {}, weekly: {}, monthly: {}, fulltime: {},
+    interpolate: function (datasetsArray) {
+      _.each(datasetsArray, function (dta) {
+        for (var i = 0; i < dta.length; i++) {
+          if (dta[i] == null || dta[i].value == null) {
+            var point = i;
+            var j = point;
+            console.log('gap');
+            // # find max element
+            while (j < dta.length && (dta[j] == null || dta[j].value == null)) j++;
+            i = j;
+            if (!(j >= dta.length)) {
+              var max = j, maxval = dta[j].value;
+
+              // # find closest value on left
+              j = point;
+              while (j >= 0 && (dta[j] == null || dta[j].value == null))j--;
+              if (!(j < 0)) {
+
+
+                var min = j, minval = dta[j].value, step = (maxval - minval) / (max - min);
+                j = point;
+
+                for (j = min + 1; j < max; j++) {
+                  dta[j].value = minval + (j - min) * step;
+                  dta[j].meta = 'interpolated ' + dta[j].meta;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
   },
   options: {
     axisX: {},
@@ -184,14 +218,13 @@ _.extend(CF.Chartist, {
 });
 
 
-
 _.extend(CF.Chartist.fn.daily, {
   getData: function (ticks) {
     var data = ns.fn.dataStencil();
     _.each(ticks, function (tick) {
 
       var dta = tick.key.split(".");
-      var format =ns.dateformats.daily;
+      var format = ns.dateformats.daily;
       var dte = moment.utc({
         day: dta[0],
         hour: dta[1],
@@ -209,7 +242,7 @@ _.extend(CF.Chartist.fn.weekly, {
     _.each(ticks, function (tick) {
 
       var dta = tick.key.split(".");
-      var format =ns.dateformats.weekly;
+      var format = ns.dateformats.weekly;
       var dte = moment.utc({
         year: dta[0],
         month: dta[1],
@@ -241,12 +274,12 @@ _.extend(CF.Chartist.fn.monthly, {
   }
 });
 
-_.extend (CF.Chartist.fn.fulltime, {
-  getData: function(ticks){
+_.extend(CF.Chartist.fn.fulltime, {
+  getData: function (ticks) {
     var data = ns.fn.dataStencil();
     _.each(ticks, function (tick) {
       var dta = tick.key.split(".");
-      var format = (dta[1] == 11) ? ns.dateformats.fulltimeLong: ns.dateformats.fulltime;
+      var format = (dta[1] == 11) ? ns.dateformats.fulltimeLong : ns.dateformats.fulltime;
       var dte = moment.utc({
         year: dta[0],
         month: dta[1],

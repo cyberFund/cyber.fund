@@ -348,7 +348,7 @@ var esParsers = {
           try {
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
           } catch (e) {
-            console.log('could not update currentData: ')
+            console.log('could not update currentData: ');
             console.log(e);
             console.log(_searchSelector(bucket.key));
             console.log(set)
