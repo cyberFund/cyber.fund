@@ -55,6 +55,8 @@ Template['dailyGraph'].rendered = function () {
       if (data.trade[i] == null) data.trade[i] = 0;
     }
 
+    ns.fn.interpolate([data.capB, data.capU]);
+
     self.$(".ct-chart-cap-btc").css("height", ns.heights.cap);
     new Chartist.Line('.ct-chart-cap-btc', {labels: data.labels, series: [data.capB]}, {
       chartPadding: ns.options.chartPadding.cap,

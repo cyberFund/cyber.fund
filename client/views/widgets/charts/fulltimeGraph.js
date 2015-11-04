@@ -52,6 +52,9 @@ Template['fulltimeGraph'].rendered = function () {
           meta: [self.data.metrics.price.btc, dta].join("|")
         });
     }
+
+    ns.fn.interpolate([data.capB, data.capU]);
+
     /*if (self.data.metrics) {
       data.labels.push("");//current.format("D HH"));
       if (self.data.metrics.cap  && self.data.metrics.price) {

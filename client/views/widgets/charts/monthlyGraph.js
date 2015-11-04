@@ -59,6 +59,8 @@ Template['monthlyGraph'].rendered = function () {
     for (i = 0; i< data.trade.length; i++){ //pathcing bug in chartist
       if (data.trade[i] == null) data.trade[i] = 0;
     }
+
+    ns.fn.interpolate([data.capB, data.capU]);
     // Create a new line chart object where as first parameter we pass in a selector
     // that is resolving to our chart container element. The Second parameter
     // is the actual data object.
