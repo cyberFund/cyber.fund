@@ -10,7 +10,7 @@ Template['systemBasic'].rendered = function () {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
   $('ul.tabs').tabs();
-  
+
 };
 
 Template['systemBasic'].helpers({
@@ -208,7 +208,7 @@ Template['systemBasic'].events({
     var system = t.$(e.currentTarget).attr("system-name");
     var exists = user && user.profile && user.profile.starredSystems &&
       _.contains(user.profile.starredSystems, system);
-    analytics.track(exists ? 'Unfollowed system' : 'Followed system', {
+    analytics.track(exists ? 'Unfollowed System' : 'Followed System', {
       systemName: system
     });
 
@@ -220,7 +220,6 @@ Template['systemBasic'].onCreated(function () {
   var instance = this;
   instance.autorun(function () {
     instance.subscribe('dependentCoins', systemName());
-
     instance.subscribe('fastData', systemName());
 
 

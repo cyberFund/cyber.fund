@@ -359,3 +359,7 @@ footer.page-footer {
 .radar-card .card-title, .project-card .card-title {
   margin-bottom: 20px;
 }
+
+.no-wrap {
+  display: inline; white-space: nowrap
+}

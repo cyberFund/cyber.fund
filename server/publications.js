@@ -15,6 +15,7 @@ Meteor.publish("currentDataRP", function (options) {
 
   var keys = _.keys(options.sort);
   selector[keys[0]] = {$exists: true};
+  selector['flags.rating_do_not_display'] = {$ne: true};
   return CurrentData.find(selector, options);
 });
 

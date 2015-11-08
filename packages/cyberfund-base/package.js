@@ -24,6 +24,7 @@ Package.onUse(function(api) {
   'server/cf-social-server.js'], s);
   api.addFiles(['client/utils-client.js', 'client/helpers.js'], c);
   api.export("CF");
+  api.export("Extras");
 });
 
 Package.onTest(function(api) {

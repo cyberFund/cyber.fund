@@ -25,11 +25,11 @@ Meteor.publish("friendlyUsers", function(userId){
     return this.ready();
   }
   if (!user.profile) return this.ready;
-  var uids = _.union(user.profile["followedBy"] || [], user.profile["followingUsers"] || [])
+  var uids = _.union(user.profile["followedBy"] || [], user.profile["followingUsers"] || []);
   return Meteor.users.find({_id: {$in: uids}}, {fields: {
     "profile.name": 1,
     "profile.twitterName": 1,
     "profile.twitterIconUrlHttps": 1,
     "profile.twitterIconUrl": 1
   }})
-})
+});
