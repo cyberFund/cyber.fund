@@ -1,10 +1,6 @@
 var currency = new ReactiveVar();
 currency.set('usd');
 
-Meteor.startup(function(){
-  Meteor.subscribe('fresh-price');
-});
-
 Template['btcPrice'].rendered = function () {
   var self = this;
   Tracker.autorun(function () {

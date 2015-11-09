@@ -131,6 +131,8 @@ var fetch = function () {
             }
           });
         });
+
+        // mark current version so we won't download it again. todo: use github webhook instead
         Extras.upsert({_id: 'chaingear_etag'}, {
           etag: res.headers.etag,
           meta: {
