@@ -12,8 +12,23 @@ are `profile.twitterName` && `profile.twitterIconUrl`
 -->
 <template name="usersList1">
     {{#each data}}
-        <a href="{{pathFor 'Profile' twid=profile.twitterName}}" title="{{profile.name}}">
+        <a href="{{pathFor 'Profile' twid=profile.twitterName}}"
+           title="{{profile.name}}">
             {{>hitryImage img_url=profile.twitterIconUrlHttps class=../class style=../style}}
         </a>
+    {{/each}}
+</template>
+
+<template name="usersList2">
+    {{#each data}}
+        <div style="display: inline-block; margin: 0; padding: 0"
+             itemprop="{{itemprop}}" itemscope
+             itemtype="http://schema.org/Person">
+            <span itemprop="name" content="{{profile.name}}"></span>
+            <a itemprop="url" href="{{pathFor 'Profile' twid=profile.twitterName}}"
+               title="{{profile.name}}">
+                {{>hitryImage img_url=profile.twitterIconUrlHttps class=../class style=../style}}
+            </a>
+        </div>
     {{/each}}
 </template>

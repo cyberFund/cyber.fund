@@ -1,16 +1,16 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
     <div class="row" style="margin-top: 12px">
-        <div class="col s12 m12 l3">
+        <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
                 <div>
                     {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=biggerTwitterImg}}
                 </div>
                 <div>
-                    <h4>{{profile.name}}</h4>
+                    <h4 itemprop="name">{{profile.name}}</h4>
                 </div>
                 <div class="grey-text">
-                    <a class="grey-text"
+                    <a itemprop="alternateName" class="grey-text"
                        href="https://twitter.com/@{{profile.twitterName}}">@{{profile.twitterName}}</a>
 
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
@@ -25,13 +25,13 @@
                     <h5>Followers</h5>
                 </div>
                 <div>
-                    {{> usersList1 data=followedByUsers style="margin: 0 3px 6px"}}
+                    {{> usersList2 itemprop="followee" data=followedByUsers style="margin: 0 3px 6px"}}
                 </div>
                 <div>
                     <h5>Following</h5>
                 </div>
                 <div>
-                    {{> usersList1 data=followingUsers style="margin: 0 3px 6px"}}
+                    {{> usersList2 itemprop="follows" data=followingUsers style="margin: 0 3px 6px"}}
                 </div>
 
             {{/with}}
