@@ -1,5 +1,20 @@
 Template['invest'].rendered = function () {
-  Meteor.call("getInvestData")
+  Meteor.call("getInvestData");
+  Meteor.setInterval(function(){
+    var sT = moment("2016-01-01 00:00:00").diff(moment(), "seconds"),
+      s = sT%60;
+    sT= (sT-s)/60;
+    var m = sT%60;
+    sT= (sT-m)/60;
+    var h = sT%24,
+    d= (sT-h)/24;
+    Session.set("timeleft", {
+      days: d,
+      hours: h,
+      minutes:m,
+      seconds: s
+    })
+  }, 1000)
 };
 
 function _raised(dataobj) {
@@ -22,6 +37,9 @@ Template['invest'].helpers({
     var rev = Math.round(1/share/10000)*10000;
 
     return "1/"+rev
+  },
+  'timeleft': function(){
+    return Session.get("timeleft")
   }
 });
 
