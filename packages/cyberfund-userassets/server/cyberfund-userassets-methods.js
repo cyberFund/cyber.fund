@@ -84,7 +84,7 @@ Meteor.methods({
         if (!err && result) {
           _.each(result, function (item) {
             if (item.status != 'success') return;
-
+console.log(item)
             // resolve cryptobalance ticker into chaingear ticker
             item.Asset = CF.UserAssets.tokenCB2systemCG(item.asset);
 
