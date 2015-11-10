@@ -1,16 +1,28 @@
-sitemaps.add('/sitemap.xml', function() {
-  var out = [],
-    coins = CurrentData.find({}, {fields: {updatedAt:1, system:1}}).fetch();
-  out.push({
+sitemaps.add('/sitemap.xml', function () {
+  var ret = [];
+  ret.push({
     page: '',
     changefreq: 'hourly'
   });
-  _.each(coins, function(coin) {
-    out.push({
-      page: 'system/' + coin.system.replace(/\ /g, "_"),
-      lastmod: coin.updatedAt
-    });
+
+  ret.push({
+    page: 'radar',
+    changefreq: 'weekly'
   });
-  console.log(out.length);
-  return out;
+
+  CurrentData.find({}, {fields: {updatedAt: 1, system: 1}})
+    .forEach(function (coin) {
+      ret.push({
+        page: 'system/' + coin.system.replace(/\ /g, "_"),
+        lastmod: coin.updatedAt
+      });
+    });
+  Meteor.users.find({}, {fields: {"profile.twitterName": 1}})
+    .forEach(function(user){
+      if (user.profile && user.profile.twitterName)
+      ret.push({
+        page: '@' + user.profile.twitterName
+      });
+    });
+  return ret;
 });
