@@ -15,7 +15,7 @@ Meteor.methods({
    currently let s just
    */
   "getInvestData": function () {
-    var dasAddress = "19w5VB8cPZmQg4VqiNMWqo8mZRNVAC6PxG";
+    var dasAddress = "3FvBgYaZV9347L863L4sQx75R6FQDReZKR";
     var result = HTTP.get("https://blockchain.info/rawaddr/" + dasAddress);
     try {
       var ret = JSON.parse(result.content);
