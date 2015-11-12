@@ -1,0 +1,17 @@
+{
+  "asset_ids": [
+    "AbhBFwWFpZzFMsBakZbDzUTYv67t9rThaK"
+  ],
+  "contract_url": "https://cyber.fund/cyberFund_Genesis_Agreement.pdf",
+  "name_short": "CFUND",
+  "name": "cyber•Fund Investment Service",
+  "issuer": "cyber•Fund",
+  "description": "cyber•Fund is a private blockchain entity defined by <a href="https://cyber.fund/cyberFund_Genesis_Agreement.pdf">Genesis Agreement</a>. Our mission is to make digital investments comprehensible, accessible, easy and safe". Recently we announced a placement of 3% to early investors and angels who are interested in our services. Follow <a href="https:/cyber.fund/invest">invest page</a> to get details.
+  "description_mime": "text/x-markdown; charset=UTF-8",
+  "type": "CryptoToken",
+  "divisibility": 6,
+  "link_to_website": true,
+  "icon_url": "https://cyber.fund/images/cyberfund_icon.png",
+  "image_url": "https://cyber.fund/images/cyberfund_icon.png",
+  "version": "1.0"
+}
