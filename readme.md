@@ -6,10 +6,13 @@
 
 See live dev version at http://dev.cyber.fund/. Sometimes don't work
 
-# How to launch the app
-
-- `export SEGMENT_KEY="12345"`
-- `meteor`
+# How to launch the app using CLI
+```
+cd yourdirectory/cyber.fund
+npm install
+export SEGMENT_KEY="stub"
+meteor
+```
 
 
  In lieu of a formal styleguide, take care to maintain the existing coding style.

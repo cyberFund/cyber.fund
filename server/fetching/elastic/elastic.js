@@ -5,7 +5,7 @@
 var logger = log4js.getLogger("meteor-fetching-es");
 
 function _normKey(str) { //thing is, elasticsearch by default returns long string as (first 15 symbols + '...')
-  // not sure yet how to force it returning full key, so for now just cutting result + searching by "starts_with"
+                         // not sure yet how to force it returning full key, so for now just cutting result + searching by "starts_with"
   return str.slice(0, 15);
 }
 
@@ -572,22 +572,39 @@ SyncedCron.add({
 });
 
 
-var saveTotalCap = function(){
+var saveTotalCap = function () {
 
-  var calcTotalCap = function() {
+  var calcTotalCap = function () {
+    function isAutonomous(item){
+      return !item.dependencies || item.dependencies == 'independent' || item.dependencies.indexOf('independent')>=0
+    }
     var cap = 0;
-    CurrentData.find({}, {'metrics.cap': 1}).forEach(function (sys) {
+    var autonomous = 0;
+    var dependent = 0;
+    CurrentData.find({}, {
+      'metrics.cap': 1,
+      'dependencies': 1
+    }).forEach(function (sys) {
       if (sys.metrics && sys.metrics.cap && sys.metrics.cap.btc) {
         cap += sys.metrics.cap.btc;
+        if (isAutonomous(sys)) {
+          autonomous++;
+        } else {
+          dependent++;
+        }
       }
-    })
-    return cap;
-  }
+    });
+    return {btc: cap, autonomous: autonomous, dependent: dependent}
+  };
   var cap = calcTotalCap();
-  if (cap) {Extras.upsert({_id: 'total_cap'}, {btc: cap})}
-}
+  var btcPrice = CurrentData.findOne({system:"Bitcoin"}, {fields: {"metrics": 1}});
+  if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
+  if (cap) {
+    Extras.upsert({_id: 'total_cap'}, _.extend(cap, { usd: cap.btc * btcPrice}));
+  }
+};
 
-Meteor.startup(function(){
+Meteor.startup(function () {
   saveTotalCap();
 })
 
