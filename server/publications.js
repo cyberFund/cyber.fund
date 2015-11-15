@@ -93,6 +93,7 @@ Meteor.publish('fastData', function (systemName) {
   var _id = CurrentData.findOne({system: systemName});
   if (!_id) return this.ready();
   _id = _id._id;
+  console.log(FastData.find({systemId: _id}).count()); //should be 12*24 = 288
   return FastData.find({systemId: _id});
 });
 
