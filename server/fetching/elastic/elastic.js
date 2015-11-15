@@ -112,7 +112,6 @@ var esParsers = {
             sNow = {}, // current day
             sDayAgo = {}, // past day data
             sWeekAgo = {}; // not used so far
-
           // 0.
           // calculating sNow, sDayAgo
           //
@@ -140,7 +139,6 @@ var esParsers = {
 
           // overriding supply data source.
           if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
-            console.log(curDoc.system + " supply from chg");
             supplyDataSource = 'chg';
           }
 
@@ -160,11 +158,6 @@ var esParsers = {
               if (!sNow.supply_current) sNow.supply_current = curDoc.specs && curDoc.specs.supply || 0;
             }
           }
-
-          if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
-            console.log(curDoc.system + " supply: " + sNow.supply_current);
-          }
-
 
           // 2. sNow.prices
           //
@@ -295,16 +288,8 @@ var esParsers = {
             set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
           }
 
-          //get corresponding CurrentData _id to fill fastdata collection.
-          var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
-          if (!_id) {
-            notFounds.push(bucket.key);
-          } else {
-            _id = _id._id;
-          }
-
           // those are used to build daily charts
-          if (!_.isEmpty(set)) {
+          if (!_.isEmpty(set) && curDoc) {
             set.updatedAt = new Date();
             // console.log(set);
             /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
@@ -315,7 +300,7 @@ var esParsers = {
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
             var fastMetric = _.pick(sNow, [
               "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"]);
-            fastMetric.systemId = _id;
+            fastMetric.systemId = curDoc._id;
             fastMetric.timestamp = timestamp;
             fastMetric.stamp = stamp;
             FastData.insert(fastMetric)
@@ -560,7 +545,7 @@ SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('0/5 * * * *', false);
+    return parser.cron('1/5 * * * *', false);
   },
   job: function () {
     try {
