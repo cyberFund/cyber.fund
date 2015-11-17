@@ -1,6 +1,6 @@
 Template['welcome'].events({
   'click .login-button': function (e, t) {
-      analytics.track('Sign in', {
+      analytics.track('Sign In', {
         from: 'welcome'
       });
       Meteor.loginWithTwitter({

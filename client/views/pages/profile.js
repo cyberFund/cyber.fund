@@ -76,5 +76,10 @@ Template['profile'].events({
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid.get(), {unfollow: true})
+  },
+  'click #at-nav-button': function(e, t){
+    analytics.track('Sign Out', {
+      from: 'profile'
+    })
   }
 });

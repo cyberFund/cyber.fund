@@ -245,10 +245,10 @@ Template['assetsManager'].events({
   },
   "autocompleteselect input#search2": function (event, template, doc) {
     if (!isOwnAssets()) return;
-    CF.UserAssets.currentAsset.set(doc ? doc : null)
+    CF.UserAssets.currentAsset.set(doc ? doc : null);
     template.$("input#search2").val("");
     //Meteor.setTimeout(function () {
-    $("#asset-quantity-input").focus()
+    $("#asset-quantity-input").focus();
     //}, 40)
   },
   //todo move into dedicated template?

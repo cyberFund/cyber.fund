@@ -108,8 +108,12 @@ Template['addAccount'].events({
   'click .btn-add-account': function (e, t) {
     t.$("#modal-add-account").openModal();
     //t.$selectAccount.material_select('destroy');
-    t.$selectAccount.material_select();
-    t.$("#existing-account-group > span.caret").remove();
+    //Meteor.setTimeout(function(){
+
+      //t.$selectAccount.material_select();
+      //t.$("#existing-account-group > span.caret").remove();
+    //}, 1000);
+
   },
   'keyup #account-name, change #account-name': function (e, t) {
     t.uiAccountNameExists(t.$newAccountName.val());
