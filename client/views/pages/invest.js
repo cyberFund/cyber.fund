@@ -1,3 +1,7 @@
+Template['invest'].onCreated(function(){
+  this.subscribe('investData');
+});
+
 Template['invest'].rendered = function () {
   Meteor.call("getInvestData");
   Meteor.setInterval(function(){
@@ -18,30 +22,47 @@ Template['invest'].rendered = function () {
 };
 
 function _raised(dataobj) {
-  return dataobj.total_received ? dataobj.total_received/100000000 : 0
+  return dataobj.final_balance ? dataobj.final_balance/100000000 : 0
 }
 
+function _invest() {return Extras.findOne({_id: "invest_balance"})}
+function _cap() {return Extras.findOne({_id: "total_cap"})}
+
 Template['invest'].helpers({
+  'invest': function(){
+    console.log(_invest());
+    return _invest();
+  },
+  'cap': function(){
+    return _cap()
+  },
   'raised': function (){
-    return this.invest ? _raised(this.invest) : 0
+    var invest = _invest();
+    return invest ? _raised(invest) : 0
   },
   'left': function(){
-    return this.invest ? 42 - _raised(this.invest) : 0
+    var invest = _invest();
+    return invest ? 42 - _raised(invest) : 0
   },
   'invcap': function(){
-    return this.invest ? 100/3 * _raised(this.invest) : 0
+    var invest = _invest();
+    return invest ? 100/3 * _raised(invest) : 0
   },
   cap_btc_mln: function(){
-    return this.cap.btc/1000000
+    var cap = _cap();
+    return cap.btc/1000000
   },
   cap_usd_bln: function(){
-    return this.cap.usd/1000000000
+    var cap = _cap();
+    return cap.usd/1000000000
   },
   cap_btc_div_200k: function(){
-    return this.cap.btc/200000
+    var cap = _cap();
+    return cap.btc/200000
   },
   'nicheShare': function(){
-    var share = (this.invest && this.cap) ? (100/ 3 *_raised(this.invest)) / (this.cap.btc / 200): 0;
+    var invest = _invest(), cap = _cap();
+    var share = (invest && cap) ? (100/ 3 *_raised(invest) / (cap.btc / 200)): 0;
     if (share == 0) return 0;
     var rev = Math.round(1/share);
 
