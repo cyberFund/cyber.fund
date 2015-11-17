@@ -48,7 +48,7 @@
 
                                 <div>Built with
                                     {{#each depends_on}}
-                                        <a href="{{pathFor 'System' name_=name_}}">
+                                        <a href="{{pathFor '/system/:name_' name_=name_}}">
 
                                     <span class="enlarge no-wrap">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
@@ -351,7 +351,7 @@
                     {{#each dependents}}
                         <div class="col s6 m6 l3"
                              style="padding:0 10px; margin: 6px 0;">
-                            <a href="{{pathFor 'System' name_=name_}}">
+                            <a href="{{pathFor '/system/:name_' name_=name_}}">
                                 <div class="card"
                                      style="padding: 10px 0; margin: 2px 0">
                                     {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}

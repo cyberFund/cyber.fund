@@ -16,7 +16,7 @@ Template['pageContents'].events({
     if (href.indexOf("#") > -1) { //#hash link at all
 
       href = href.split("#");
-      var path = Router.current().location.get().pathname;
+      var path = FlowRouter.getPath();
       if (!href[0] || (href[0] == path)) { // #hash link at localpage
         var body = $("html, body");
         var elem = $("#" + href[1]);

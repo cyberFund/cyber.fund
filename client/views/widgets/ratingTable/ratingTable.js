@@ -72,7 +72,7 @@ Template['ratingTable'].helpers({
   },
   // underscored currency name
   name_: function () {
-    return Blaze._globalHelpers._toU(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);
   },
   dailyTradeVolumeToText: function (volumeDaily, absolute) {
     //<0.1% - Illiquid

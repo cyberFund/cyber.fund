@@ -1,11 +1,26 @@
 function systemName() {
-  return Blaze._globalHelpers._toS(Router.current().params.name_);
+  return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
 }
+
+function curData(){
+  return CurrentData.findOne({
+    system: systemName()
+  });
+}
+
+Template['systemBasic'].onCreated(function () {
+  var instance = this;
+  instance.autorun(function () {
+    var name = FlowRouter.getParam('name_').replace(/_/g, " ");
+    instance.subscribe('systemData', {name: name})
+  })
+
+});
 
 Template['systemBasic'].rendered = function () {
 
   $('.scrollspy').scrollSpy();
-  var curDataDoc = this.data.curData.fetch()[0];
+  var curDataDoc = curData();
   if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
@@ -15,9 +30,7 @@ Template['systemBasic'].rendered = function () {
 
 Template['systemBasic'].helpers({
   'curData': function () {
-    return CurrentData.findOne({
-      system: systemName()
-    });
+    return curData();
   },
   'img_url': function () {
     return CF.Chaingear.helpers.cgSystemLogo(this);
@@ -39,7 +52,7 @@ Template['systemBasic'].helpers({
     return this.token ? this.token.token_symbol : ""
   },
   name_: function () {
-    return Blaze._globalHelpers._toU(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);
   },
   hashtag: function () {
     return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : ""
@@ -92,7 +105,7 @@ Template['systemBasic'].helpers({
     return 0;
   },
 
-  isProject: function(){
+  isProject: function () {
     return this.descriptions && this.descriptions.state == 'Project'
   },
 
@@ -173,11 +186,11 @@ Template['systemBasic'].helpers({
     }
     return ret ? 'yellow' : 'grey';
   },
-  usersStarred: function(){
+  usersStarred: function () {
     var uS = this._usersStarred;
     return Meteor.users.find({_id: {$in: uS}});
   },
-  dailyData: function(){
+  dailyData: function () {
     var _id = this._id;
     return FastData.find({systemId: _id}, {sort: {timestamp: 1}})
   }
@@ -204,7 +217,7 @@ Template['systemBasic'].events({
   },
   'click .btn-star-system': function (e, t) {
     var user = Meteor.user();
-    if (!user) Router.go('/welcome'); //return;
+    if (!user) FlowRouter.go('/welcome'); //return;
     var system = t.$(e.currentTarget).attr("system-name");
     var exists = user && user.profile && user.profile.starredSystems &&
       _.contains(user.profile.starredSystems, system);
@@ -223,9 +236,10 @@ Template['systemBasic'].onCreated(function () {
     instance.subscribe('fastData', systemName());
 
 
-    var data = instance.data.curData.fetch()[0];
-if (data)
-    instance.subscribe('avatars', data._usersStarred);
+    var data = curData();
+    if (data) {
+      instance.subscribe('avatars', data._usersStarred);
+    }
 
     if (data && data.dependencies) {
       var d = data.dependencies;
