@@ -6,7 +6,10 @@ SyncedCron.config({
 });
 //if (!process.env.GO_AWAY_SYNCED_CRON)
 {
-  console.log("starting synced cron");
-  SyncedCron.start();
+
+  if (!Meteor.settings.noFetch) {
+    console.log("starting synced cron");
+    SyncedCron.start();
+  }
 }
 

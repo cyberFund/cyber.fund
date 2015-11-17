@@ -1,6 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
-  <div class="navbar-fixed z-depth-1">
+  <!--div class="navbar-fixed z-depth-1">
     <nav class="white" role="navigation">
       <div class="nav-wrapper w90">
         <a href="/" class="waves-effect brand-logo center">
@@ -47,7 +47,7 @@
             class="mdi-navigation-menu"></i></a>
       </div>
     </nav>
-  </div>
+  </div-->
 </template>
 
 <template name="navbarItem">
@@ -59,14 +59,14 @@
   {{#if currentUser}}
     {{#if currentUser.profile.twitterName}}
 
-      <a href="{{pathFor 'Profile' twid=ownTwid}}" style="vertical-align: middle">
+      <a href="{{pathFor '/@:twid' twid=ownTwid}}" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrlHttps}}
         {{currentUser.profile.twitterName}}
       </a>
 
     {{else}}
       {{#if not loggingIn}}
-        <a href="{{pathFor 'Profile' twid=ownTwid}}">
+        <a href="{{pathFor '/@:twid' twid=ownTwid}}">
           {{#if currentUser.profile.name}}
             {{currentUser.profile.name}}
           {{else}}
