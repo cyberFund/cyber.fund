@@ -60,14 +60,14 @@
   {{#if currentUser}}
     {{#if currentUser.profile.twitterName}}
 
-      <a href="{{pathFor 'Profile' twid=ownTwid}}" style="vertical-align: middle">
+      <a href="{{pathFor '/@:twid' twid=ownTwid}}" style="vertical-align: middle">
         {{> hitryImage style="vertical-align: middle" img_url=currentUser.profile.twitterIconUrlHttps}}
         {{currentUser.profile.twitterName}}
       </a>
 
     {{else}}
       {{#if not loggingIn}}
-        <a href="{{pathFor 'Profile' twid=ownTwid}}">
+        <a href="{{pathFor '/@:twid' twid=ownTwid}}">
           {{#if currentUser.profile.name}}
             {{currentUser.profile.name}}
           {{else}}

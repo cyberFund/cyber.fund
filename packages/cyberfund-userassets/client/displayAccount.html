@@ -57,7 +57,7 @@
                                 {{#each keyValue value.assets}}
                                     <li class="collection-item asset-item"
                                         asset-key="{{key}}">
-                                        <a href="{{pathFor 'System' name_=name_of_system}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                        <a href="{{pathFor '/system/:name_' name_=name_of_system}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                                         {{displaySystemName systemData}}</a>
                                         : {{value.quantity}} {{displayCurrencyName systemData}}s
                                         {{#if isOwn}}

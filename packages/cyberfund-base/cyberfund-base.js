@@ -11,7 +11,6 @@ CF = {
     },
     Utils: {},
     Profile: {}
-
 };
 
 Extras = new Meteor.Collection("extras");

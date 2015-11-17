@@ -1,16 +1,48 @@
+Template['radarPage'].onCreated(function() {
+  var self = this;
+  self.autorun(function() {
+    //var postId = FlowRouter.getParam('postId');
+    self.subscribe('crowdsale')
+  });
+});
 
 Template['radarPage'].helpers({
-  isActiveCrowdsale: function(){
+  crowdsale: function () {
+    return CurrentData.find(CF.Chaingear.selector.crowdsales)
+  },
+  crowdsalePast: function () {
+    return CurrentData.find({
+      $and: [CF.Chaingear.selector.crowdsales,
+        {'crowdsales.end_date': {$lt: new Date()}}]
+    }, {sort: {'crowdsales.end_date': -1}})
+  },
+  crowdsaleUpcoming: function () {
+    return CurrentData.find({
+      $and: [CF.Chaingear.selector.crowdsales,
+        {'crowdsales.start_date': {$gt: new Date()}}]
+    })
+  },
+  crowdsaleActive: function () {
+    return CurrentData.find({
+      $and: [CF.Chaingear.selector.crowdsales,
+        {'crowdsales.end_date': {$gt: new Date()}},
+        {'crowdsales.start_date': {$lt: new Date()}}]
+    })
+  },
+  project: function () {
+    return CurrentData.find(CF.Chaingear.selector.projects)
+  },
+
+  isActiveCrowdsale: function () {
     return this.crowdsales && this.crowdsales.start_date < new Date() &&
       this.crowdsales.end_date > new Date()
   },
-  isUpcomingCrowdsale: function(){
+  isUpcomingCrowdsale: function () {
     return this.crowdsales && this.crowdsales.start_date > new Date()
   },
-  isPastCrowdsale: function(){
+  isPastCrowdsale: function () {
     return this.crowdsales && this.crowdsales.end_date < new Date()
   }
 });
 
-Template['radarPage'].events({
-});
+Template['radarPage'].events({});

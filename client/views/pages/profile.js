@@ -9,10 +9,18 @@ Template['profile'].rendered = function () {
 };
 
 Template['profile'].onCreated(function () {
-
+  var instance = this;
+  instance.autorun(function(){
+    instance.subscribe('userProfileByTwid',  FlowRouter.getParam('twid'))
+  });
 });
 
 Template['profile'].helpers({
+  userData: function(){
+    var twitterId = FlowRouter.getParam('twid');
+    return Meteor.users.find({"profile.twitterNane": twitterId})
+  },
+
   'userRegistracionCount': function () {
     return Session.get("userRegistracionCount")
   },
@@ -59,14 +67,14 @@ Template['profile'].events({
     analytics.track('Followed Person', {
       personName: CF.Profile.currentTwid.get()
     });
-    if (!Meteor.user()) Router.go("/welcome");
+    if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid.get())
   },
   'click .btn-unfollow': function (e, t) {
     analytics.track('Unfollowed Person', {
       personName: CF.Profile.currentTwid.get()
     });
-    if (!Meteor.user()) Router.go("/welcome");
+    if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid.get(), {unfollow: true})
   }
 });

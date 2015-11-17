@@ -36,8 +36,8 @@ Template['searchItem1'].events({
     analytics.track("Searched", {
       systemName: doc.system
     });
-    Router.current().router.go("System", {name_: Blaze._globalHelpers._toU(doc.system) })
     template.$("input#search").val("");
+    FlowRouter.go("system/:name_", {name_: Blaze._globalHelpers._toUnderscores(doc.system) })
   }
 });
 

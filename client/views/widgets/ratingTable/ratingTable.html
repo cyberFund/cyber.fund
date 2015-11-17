@@ -1,6 +1,5 @@
 ﻿<!-- originally created for cyber.fund project-->
 <template name="ratingTable">
-
   <div class="card" style="padding:10px">
     <table class="hoverable-my" align="center" id="rating-table">
 
@@ -56,7 +55,7 @@
         {{#each rows}}
             <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
                 <td class="left-align" >
-                    <a href="{{pathFor 'System' name_=name_}}" class="enlarge no-wrap"
+                    <a href="{{pathFor '/system/:name_' name_=name_}}" class="enlarge no-wrap"
                        title="{{descriptions.headline}}">
                         {{> cgSystemLogo data=this class='cg-system-logo'}}<span class="no-wrap" itemprop="name">{{displaySystemName this}}</span>
                     </a><span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
@@ -99,9 +98,6 @@
 
                               <div>Turnover:<b>{{readableN turnover 2}}</b> %
                               </div>
-                                <!--div>Median
-                                    deviation:<b>{{readableN metrics.tradeVolumeMedianDeviation.week 2}}</b>BTC
-                                </div-->
                             {{/tooltip}}
                         {{/withTooltip}}
                     {{else}}

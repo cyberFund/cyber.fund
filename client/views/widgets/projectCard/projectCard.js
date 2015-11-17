@@ -4,7 +4,7 @@ Template['projectCard'].rendered = function () {
 
 Template['projectCard'].helpers({
   name_: function () {
-    return Blaze._globalHelpers._toU(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);
   }
 });
 

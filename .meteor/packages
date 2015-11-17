@@ -4,14 +4,11 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 mquandalle:bower
 http
 momentjs:moment
 
 # percolatestudio:segment.io@=1.1.1_1
-
-zimme:active-route
 
 reactive-var
 amplify
@@ -24,7 +21,6 @@ accounts-twitter
 ermlab:log4js-silos
 
 gwendall:body-events
-useraccounts:materialize
 
 service-configuration
 meteorhacks:kadira
@@ -42,5 +38,24 @@ mizzao:autocomplete
 meteorhacks:fast-render
 cyberfund:cyberfund-userassets
 #kadira:flow-router
-iron:router
 gadicohen:sitemaps
+kadira:flow-router
+kadira:blaze-layout
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+useraccounts:flow-routing
+useraccounts:materialize
+arillo:flow-router-helpers
+zimme:active-route

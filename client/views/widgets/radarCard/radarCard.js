@@ -10,7 +10,7 @@ Template['radarCard'].helpers({
     return  moment().diff(moment(date), 'days');
   },
   name_: function () {
-    return Blaze._globalHelpers._toU(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);
   },
   isActiveCrowdsale: function(){
     return this.crowdsales && this.crowdsales.start_date < new Date() &&

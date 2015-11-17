@@ -11,6 +11,13 @@ CF.UserAssets.getAccountsObject = function () {
   return accounts;
 };
 
+Template['portfolioPage'].onCreated(function() {
+  var self = this;
+  self.autorun(function() {
+    //var postId = FlowRouter.getParam('postId');
+    self.subscribe('portfolioUser', Meteor.userId())
+  });
+});
 
 Template['portfolioPage'].rendered = function () {
 
