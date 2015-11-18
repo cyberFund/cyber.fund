@@ -42,7 +42,7 @@
                                         {{log key}}
                                         {{#if autoUpdateAvailable key}}
                                             <a class="btn-floating btn-tiny blue per-address req-update-balance btn-margin-left">
-                                                <i class="material-icons small" title="last updated at {{dateFormat value.updatedAt "llll"}}">loop</i>
+                                                <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
                                             </a>
                                         {{/if}}
                                         <a class="btn-floating btn-small green per-address req-add-asset-to-address">
