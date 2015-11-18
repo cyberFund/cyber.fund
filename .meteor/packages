@@ -58,4 +58,4 @@ useraccounts:flow-routing
 useraccounts:materialize
 arillo:flow-router-helpers
 zimme:active-route
-materialize:materialize
+materialize:materialize@=0.97.0

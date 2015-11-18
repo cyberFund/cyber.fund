@@ -22,7 +22,6 @@ Template['invest'].onCreated(function () {
 
 Template['invest'].rendered = function () {
   Meteor.call("getInvestData");
-  console.log(FlowRouter.current().context.hash);
   var h = FlowRouter.current().context.hash;
   if (h) {
     if ($('#'+ h))
