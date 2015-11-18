@@ -230,6 +230,7 @@
                     {{#if _selectedGraph 'day' }}
                         {{> dailyGraph graphData=dailyData currencyId=_id }}
                     {{/if}}
+                    {{> hcChart this}}
                 </div>
                 <div id="charts-ctl" class="row scrollspy center">
                     <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last

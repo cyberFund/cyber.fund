@@ -4,7 +4,7 @@ var getDecimals = function (str) {
   if (test > 0.1) decimals = 3;
   if (test < 0.0001) decimals = 8;
   return decimals;
-}
+};
 
 CF.MarketData.tooltipFncT = function (meta, value) {
   var ret = "Daily trade: Ƀ " + CF.Utils.readableN(value, 2);
@@ -289,4 +289,4 @@ _.extend(CF.Chartist.fn.fulltime, {
     });
     return data
   }
-})
+});
