@@ -7,11 +7,15 @@ Template['fulltimeGraph'].rendered = function () {
     //comp.stop();
     var current = moment.utc().startOf('day');
     //calc first data point
-    var minyear = _.min(_.keys(self.data.dailyData));
-    var minmonth = _.min(_.keys(self.data.dailyData[minyear]));
-    var minday = _.min(_.keys(self.data.dailyData[minyear][minmonth]));
+    var minFunc = function(it){
+      return parseInt(it);
+    };
+    var minyear = _.min(_.keys(self.data.dailyData), minFunc);
+    var minmonth = _.min(_.keys(self.data.dailyData[minyear]), minFunc);
+    var minday = _.min(_.keys(self.data.dailyData[minyear][minmonth]), minFunc);
     var iterate = moment.utc({year: minyear, month: minmonth, day: minday});
 
+    console.log(iterate);
     console.log(iterate);
 
     //do the rest

@@ -52,6 +52,7 @@ Meteor.methods({
     if (!this.userId) {
       return;
     }
+    //
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
     var fields = {};
