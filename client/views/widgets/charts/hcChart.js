@@ -118,10 +118,8 @@ Template['hcChart'].rendered = function () {
         ]
       })
     }
-  )
-  ;
-}
-;
+  );
+};
 
 Template['hcChart'].helpers({
   'foo': function () {

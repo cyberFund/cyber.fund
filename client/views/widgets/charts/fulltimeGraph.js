@@ -4,7 +4,7 @@ Template['fulltimeGraph'].rendered = function () {
   var self = this;
   Tracker.autorun(function (comp) {
     if (!self.data || !self.data.dailyData) return;
-    comp.stop();
+    //comp.stop();
     var current = moment.utc().startOf('day');
     //calc first data point
     var minyear = _.min(_.keys(self.data.dailyData));
