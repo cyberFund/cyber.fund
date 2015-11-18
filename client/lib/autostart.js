@@ -20,9 +20,7 @@ if (Package['iron:router']) {
   Package['iron:router'].Router.onRun(function () {
     var router = this;
     Tracker.afterFlush(function () {
-      //var page = router.route.getName();
-      //if (exceptions.indexOf(page) == -1)
-        analytics.page( router.route.getName());
+        analytics.page(router.route.getName());
     });
     this.next();
   });
