@@ -4,7 +4,7 @@ Template['monthlyGraph'].rendered = function () {
   var self = this;
   Tracker.autorun(function (comp) {
     if (!self.data || !self.data.dailyData) return;
-    comp.stop();
+    //comp.stop();
     var current = moment.utc();
     for (var i = 30; i > 0; i--) {
       var iterate = moment.utc().subtract(i, "days");
