@@ -124,6 +124,8 @@ console.log(item)
 
           // if modifier not empty
           if (_.keys(modify).length) {
+            var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
+            modify.$set[k0] = new Date();
             Meteor.users.update(sel, modify);
           }
         }
