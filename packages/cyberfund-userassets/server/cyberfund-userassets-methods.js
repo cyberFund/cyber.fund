@@ -52,6 +52,7 @@ Meteor.methods({
     if (!this.userId) {
       return;
     }
+    //
     var key0 = CF.UserAssets.getAccountPrivacyType(this.userId, accountKey);
     if (!key0) return;
     var fields = {};
@@ -84,7 +85,7 @@ Meteor.methods({
         if (!err && result) {
           _.each(result, function (item) {
             if (item.status != 'success') return;
-
+console.log(item)
             // resolve cryptobalance ticker into chaingear ticker
             item.Asset = CF.UserAssets.tokenCB2systemCG(item.asset);
 
@@ -123,6 +124,8 @@ Meteor.methods({
 
           // if modifier not empty
           if (_.keys(modify).length) {
+            var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
+            modify.$set[k0] = new Date();
             Meteor.users.update(sel, modify);
           }
         }

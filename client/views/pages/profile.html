@@ -1,17 +1,17 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
     <div class="row" style="margin-top: 12px">
-        <div class="col s12 m12 l3">
+        <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
                 <div>
                     {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=biggerTwitterImg}}
                 </div>
                 <div>
-                    <h4>{{profile.name}}</h4>
+                    <h4 itemprop="name">{{profile.name}}</h4>
                 </div>
                 <div class="grey-text">
                     <a class="grey-text"
-                       href="https://twitter.com/@{{profile.twitterName}}">@{{profile.twitterName}}</a>
+                       href="https://twitter.com/@{{profile.twitterName}}"><span itemprop="alternateName">@{{profile.twitterName}}</span></a>
 
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
                 </div>

@@ -37,10 +37,10 @@
 
 
                 <div id="existing-account-group">
-                    <select id="account-id-select">
+                    <select id="account-id-select" class="browser-default">
                         <option value="">Select account</option>
                         {{#each keyValue currentUserAccounts}}
-                            <option value="{{key}}">{{value.name}}{{#if value.isPrivate}}<sub class="grey-text">(private)</sub>{{/if}}</option>
+                            <option value="{{key}}">{{value.name}}</option>
                         {{/each}}
                     </select>
                 </div>

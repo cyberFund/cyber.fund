@@ -1,9 +1,10 @@
 Meteor.methods({
+  // handles clicking on 'star'
   toggleStarSys: function (sys) {
     var uid = this.userId;
     if (!uid) return;
     var sel = {_id: uid};
-    var user = Meteor.users.findOne(sel)
+    var user = Meteor.users.findOne(sel);
     if (!user.profile.starredSystems ||
       user.profile.starredSystems.indexOf(sys) == -1) {
       Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
@@ -13,6 +14,8 @@ Meteor.methods({
       CurrentData.update({system: sys}, {$pull: {'_usersStarred': uid}});
     }
   },
+
+  // is used internally. to star a system when user adds its balance
   starSysBySys: function (sys) {
     var uid = this.userId;
     if (!uid) return;

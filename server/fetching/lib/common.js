@@ -25,19 +25,3 @@ CF.fetching.get = function (url, options, callback) {
     }
   });
 };
-
-CF.fetching.getCollection = function () {
-  return MarketData;
-};
-
-CF.fetching.saveToDb = function (data, callback) {
-  CF.fetching.getCollection().rawCollection().insert(data, {
-    w: 1
-  }, function (error, result) {
-    if (error) {
-      callback(error);
-    } else {
-      callback(null, true);
-    }
-  });
-};

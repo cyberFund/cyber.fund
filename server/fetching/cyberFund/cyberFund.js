@@ -131,6 +131,8 @@ var fetch = function () {
             }
           });
         });
+
+        // mark current version so we won't download it again. todo: use github webhook instead
         Extras.upsert({_id: 'chaingear_etag'}, {
           etag: res.headers.etag,
           meta: {
@@ -154,7 +156,7 @@ SyncedCron.add({
   name: 'fetch chaingear data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('1/5 * * * *', false);
+    return parser.cron('0/5 * * * *', false);
   },
   job: function () {
     fetch();

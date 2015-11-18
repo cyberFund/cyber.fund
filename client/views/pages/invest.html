@@ -1,226 +1,433 @@
 <template name="invest">
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h3>cyber <span style="color:red">•</span> Fund</h3>
-      <p><a href="">Genesis Agreement</a></p>
-      <br>
-      <h4>Decentralized Investment Service</h4>
-      <br>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col l4 center">
-      <h4>0.005 BTC</h4>
-      <p>Current price per 1 CFUND token</p>
-    </div>
-    <div class="col l4 center">
-      <h4>10 BTC</h4>
-      <p>Already funded by 6 peoples</p>
-    </div>
-    <div class="col l4 center">
-      <h4>300 BTC</h4>
-      <p>Current Cap based on amount invested</p>
-    </div>
-  </div>
-  <br>
-  <p class="center">Private placement in accordance with <a href="">decision of BoD</a> will be finished </p>
-  <h4 class="center">in 35 days</h4>
-  <br>
-  <div class="row">
-    <div class="col l4 center">
-      <p>1 BTC <br> is minimal investment</p>
-    </div>
-    <div class="col l4 center">
-      <p>Price is defined based on o</p>
-    </div>
-    <div class="col l4 center">
-      <p>1 000 000 tokens issued <br> using Open Assets Protocol</p>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>Project Introduction</h4>
-      <br>
-      <br>
-    </div>
-  </div>
+<style>
+ .round {
+  border-radius: 100px;
+  width: 200px;
+  height: 200px;
+ }
+</style>
+    <div class="row center">
+            <br>
 
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>Team</h4>
-      <br>
-      <br>
+            <h3>cyber <span style="color:red">•</span> Fund</h3>
+            <p>Decentralized Investment Service</p>
+            <br>
+
+            <h3>{{readableN raised 2}} BTC</h3>
+            <!-- Amount of incoming tx for this address: 3FvBgYaZV9347L863L4sQx75R6FQDReZKR -->
+            <p>Already
+              <a href="https://blockchain.info/address/3FvBgYaZV9347L863L4sQx75R6FQDReZKR">funded</a>
+            by {{invest.n_tx}} people</p>
+            <!-- Number of incoming tx for this address: 3FvBgYaZV9347L863L4sQx75R6FQDReZKR -->
+            <br>
+            <a class="red waves-effect waves-light btn" href="#inv">Invest</a>
     </div>
     <div class="row">
-      <div class="col l4 center">
-        <h4>Dima Starodubcev</h4>
-        <p>Architecture</p>
-      </div>
-      <div class="col l4 center">
-        <h4>Vitaly Lvov</h4>
-        <p>Data Science</p>
-      </div>
-      <div class="col l4 center">
-        <h4>Marina Guryeva</h4>
-        <p>Investments</p>
-      </div>
-      <div class="col l4 center">
-        <h4>Kosta Lomashuk</h4>
-        <p>Marketing</p>
-      </div>
-      <div class="col l4 center">
-        <h4>Aleksey Frumin</h4>
-        <p>Development</p>
-      </div>
-      <div class="col l4 center">
-        <h4>You</h4>
-        <p>Join us on Cybertalks</p>
-      </div>
-    </div>
-  </div>
+        <div class="col l4 center">
+            <h5>{{readableN left 2}} BTC</h5>
+            <!-- 42 minus Amount of incoming tx for this address: 3FvBgYaZV9347L863L4sQx75R6FQDReZKR -->
+            <p>Left for reaching a minimal goal. <br>
+                If campaign is not successful the funds will be refunded.</p>
+        </div>
+        <div class="col l4 center">
+            <h5>1 BTC</h5>
 
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>Fund Management</h4>
-      <br>
-      <br>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <div class="row">
-    <div class="col l4 center">
-      <h4>3% of CFUND tokens</h4>
-      <p>Is being sold with 1 bitcoin minimum investment reqirement</p>
-    </div>
-    <div class="col l4 center">
-      <h4>10 bitcoins</h4>
-      <p>Already funded by 6 peoples</p>
-    </div>
-    <div class="col l4 center">
-      <h4>300 bitcoins</h4>
-      <p>Current Cap based on amount invested </p>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
+            <p>Minimal accepted amount<br>
+                of funds with a 3% share of cyber•Fund on sale</p>
+        </div>
+        <div class="col l4 center">
+            <h5>{{readableN invcap 2}} BTC</h5>
 
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>Fund Allocation</h4>
-      <br>
-      <br>
+            <p>Current cap is based on amount of funds received and is {{nicheShare}} of niche where cyber•Fund operates
+              <!-- Amount of incoming tx for this address: 3FvBgYaZV9347L863L4sQx75R6FQDReZKR /
+				30000 * 1000000 --></p>
+            <!-- Amount of incoming tx for this address: 3FvBgYaZV9347L863L4sQx75R6FQDReZKR /
+			Total economy cap / 200 -->
+        </div>
     </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <div class="row">
-    <div class="col l4 center">
-      <h4>3% of CFUND tokens</h4>
-      <p>Is being sold with 1 bitcoin minimum investment reqirement</p>
-    </div>
-    <div class="col l4 center">
-      <h4>10 bitcoins</h4>
-      <p>Already funded by 6 peoples</p>
-    </div>
-    <div class="col l4 center">
-      <h4>300 bitcoins</h4>
-      <p>Current Cap based on amount invested </p>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
+    <p class="center">Private placement in accordance with <a
+            href="/cyberFund_Placement.pdf" target="_blank">decision of BoD</a> will be finished
+    </p>
+    <br>
+    <h4 class="center">in {{timeleft.days}} days {{timeleft.hours}}
+        hours {{timeleft.minutes}} minutes {{timeleft.seconds}} seconds</h4>
+    <br>
+    <!-- Time left until 31 Dec 2015 23:59 -->
 
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>Token Distribution</h4>
-      <br>
-      <br>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <div class="row">
-    <div class="col l4 center">
-      <h4>3% of CFUND tokens</h4>
-      <p>Is being sold with 1 bitcoin minimum investment reqirement</p>
-    </div>
-    <div class="col l4 center">
-      <h4>10 bitcoins</h4>
-      <p>Already funded by 6 peoples</p>
-    </div>
-    <div class="col l4 center">
-      <h4>300 bitcoins</h4>
-      <p>Current Cap based on amount invested </p>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
+    <p class="center">cyber•Fund created by <a
+            href="/cyberFund_Genesis_Agreement.pdf" target="_blank">Genesis Agreement</a> as a
+        private blockchain entity and issued 1 000 000 tokens using <a href="https://github.com/OpenAssets/open-assets-protocol" target="_blank">Open Assets
+        Protocol</a>
+    </p>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col offset-l2 l8">
+            <br>
+            <h4 class="center">Project Introduction</h4>
+            <br>
 
-  <div class="row">
-    <div class="col l12 center">
-      <br>
-      <h4>FAQ</h4>
-      <br>
-      <br>
-    </div>
-  </div>
+            <p>The existing blockchain economy has market capitalization of {{readableN cap_btc_mln 1}} M
+               <!-- Calculate precise total cap in BTC --> bitcoins or {{readableN cap_usd_bln 2}} B
+               <!-- Calculate precise total cap in USD --> US dollars. It is
+                a result of the evaluation of {{cap.autonomous}} <!-- Calculate total DAOs -->
+                decentralized systems and of {{cap.dependent}} <!-- Calculate total DAppss -->
+                decentralized applications that are built upon them. We call this
+                new blockchain economy cybernomics. This economy is permissionless, global,
+                tax-free, and could be programmed to perform autonomously
+                and at low costs any operations. Any type of values could be created in it, any kind
+                of organizations could be programmed. The traditional world economy
+                has more than 1B business entities. The blockchain technology
+                could be easily adopted by majority of them in 10 years
+                as there is no need for special hardware, and adoption costs are low.
+                The low-level similar to public infrastructure blockchain systems such as
+                <a href="https://cyber.fund/system/Ethereum" target="_blank">Ethereum</a>,
+                <a href="https://cyber.fund/system/BitShares" target="_blank">BitShares</a>
+                and <a href="https://cyber.fund/system/Factom" target="_blank">Factom</a> have been launched recently.
+                <a href="https://cyber.fund/system/MaidSafeCoin" target="_blank">SAFE Network</a>
+                is coming. <a href="http://cybertalks.org/t/exausted-list-of-permissioned-blockchain-solutions/330" target="_blank">Private blockhains</a> are to take off.</p>
 
-  <div class="row">
-    <div class="col l12 center">
-      <h3>How to invest?</h3>
-    </div>
-    <div class="col l4 center">
-      <h4>Create Coinprism Account</h4>
-      <p>Please, don't send us bitcoins from services that lock your private keys as Coinbase, Circle, etc. Tokens. For simplicity and your convinience we recomend well tested Coinprism wallet</p>
-    </div>
-    <div class="col l4 center">
-      <h4>Send bitcoins from Coinprism to address</h4>
-      <p>Your tokens will be sent to address from which bitcoins has been recieved. Once transaction confirmed by Bitcoin network No other conformation is required</p>
-    </div>
-    <div class="col l4 center">
-      <h4>You'll recieve your tokens at 1 January 2016</h4>
-      <p>Once placement is finished we will calculate amount of tokens to be distributed</p>
-    </div>
-  </div>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
-  <br>
+            <p>In 3 years we expect an explosive interest to decentralized
+                systems and decentralized applications from developers and
+                investors. This will open doors to huge investment opportunities that have never existed before. We think that now a market share of blockchain investment
+                services is roughly 1/200 of cybernomics that is {{readableN cap_btc_div_200k 0}}k
+                <!-- Calculate total Cap in BTC / 200 and round to thousands-->
+                bitcoins. However, there is a huge growth potential.
+                Today there is no entities that focus on professional
+                services in this niche. Meanwhile, we think that in the future
+                all existing public companies that are listed on
+                traditional exchanges and have a cap of roughly $100T (yeah, we like huge sums) will be re-engineered using
+                blockchains. That is approximately $500B niche of investment services that we want to serve and that doesn’t
+                exist yet. Today cyber•Fund cap is unknown but if we reach our goal that will be not more {nicheShare}}
+                <!-- Current share in niche --> of the existing niche. The proportion reflects a potential for our growth in case of doing what we like — providing superior services to our users — in the best and most efficient manner.</p>
 
-  <div class="row">
-    <div class="col l4 center">
-      <i class="large material-icons deep-orange-text">directions_walk</i>
-      <h4>Internal Value</h4>
-      <p>1 month of private acoount cost 1 cyber•Fund token. Services to be extended</p>
+            <p>cyber•Fund founders have unique experience in blockchain
+                investments. Two of us as many of you were early bitcoin miners in 2011. In 2013
+                we decided to invest our bitcoins into promising blockchain
+                projects. Since then we created first and unique private crypto-equity
+                funds — <a href="https://cyber.fund/@satoshi_fund" target="_blank">Satoshi•Fund
+                    2013</a> and <a href="https://cyber.fund/@satoshi_fund_14" target="_blank">Satoshi•Fund
+                    2014</a>. This year we have been working on cyber•Fund, the investment
+                service, that are designed and built to solve problems of those who invested in cryptoassets, blockchain systems and applications.</p>
+
+            <p>In the next 6 months we are going to focus on lean, open source development of
+                the tools for blockchain developers as we want to give investors
+                in cryptoassets the most relevant, and high quality data that
+                will enable them to make smart investment decisions.
+                We will deliver accurate, real-time and exhausted data and provide
+                individual  recommendations. If our assumptions prove viable we
+                will focus on developing a decentralized investment protocol on top of
+                the existing service and community. It will be time for us
+                to make a public offering.</p>
+
+            <p>Eventually we are dreaming of backing all analytical data by advanced machine
+                intelligence that will use a decentralized computational
+                network which will maximize earnings for you.</p>
+
+            <p>Dima Starodubcev, cyber•Fund architect</p>
+        </div>
     </div>
-    <div class="col l4 center">
-      <i class="large material-icons yellow-text">directions_run</i>
-      <h4>Parthership Revenue</h4>
-      <p>Sharing partnership revenue from bridges like Shapeshift and referral programms like Coinbase or BitShares</p>
+    <br>
+    <hr>
+    <br>
+        <div class="row">
+          <br>
+          <h4 class="center">Team</h4>
+          <br>
+          <br>
+            <div class="col l4 center">
+              <a href="https://www.linkedin.com/in/starodubcev/ru" target="_blank"> <img src="http://cybertalks.org/uploads/default/original/1X/030ac77e9acf90f897ac450059ba1c15caedf472.jpeg" class="round"> </a>
+              <p><a href="https://keybase.io/21xhipster" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/60faf8916a53c42d2d64a217aeb8bca5c42ce508.png"></a>
+              <a href="https://twitter.com/21xhipster" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/optimized/1X/257af19295653389ff2808030fa3ca5e5c7188cc_1_670x670.png"></a>
+              <a href="https://github.com/21xhipster" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/a52b84696ffc4101965098f708ecd9138515e3b0.png"></a>
+              <a href="https://cyber.fund/@21xhipster" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/d2033a33771bdc8aabd79bcd05568c16e8394e43.png"></a></p>
+                <h5>Dima Starodubcev</h5>
+
+                <p>Architecture</p>
+            </div>
+            <div class="col l4 center">
+               <a href="https://www.linkedin.com/in/vitaly-lvov-84959512/ru" target="_blank"> <img src="http://cybertalks.org/uploads/default/original/1X/6c01f254536a119d70fd9b60c1673cd266317654.jpg" class="round"></a>
+               <p><a href="https://keybase.io/cybermonetarist" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/60faf8916a53c42d2d64a217aeb8bca5c42ce508.png"></a>
+               <a href="https://twitter.com/VitalyLvov" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/optimized/1X/257af19295653389ff2808030fa3ca5e5c7188cc_1_670x670.png"></a>
+               <a href="https://github.com/vitalylvov" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/a52b84696ffc4101965098f708ecd9138515e3b0.png"></a>
+               <a href="https://cyber.fund/@VitalyLvov" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/d2033a33771bdc8aabd79bcd05568c16e8394e43.png"></a></p>
+                <h5>Vitaly Lvov</h5>
+
+                <p>Data Science</p>
+            </div>
+            <div class="col l4 center">
+              <a href="https://fr.linkedin.com/in/marina-guryeva-1390a03b" target="_blank"> <img src="http://cybertalks.org/uploads/default/optimized/1X/ea8987b2e862bfbf5eebc8b34a2f4fb5e2b19254_1_670x670.jpeg" class="round"></a>
+              <p><a href="https://keybase.io/mgureva" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/60faf8916a53c42d2d64a217aeb8bca5c42ce508.png"></a>
+              <a href="https://twitter.com/Marina_Guryeva" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/optimized/1X/257af19295653389ff2808030fa3ca5e5c7188cc_1_670x670.png"></a>
+              <a href="https://github.com/mguryeva" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/a52b84696ffc4101965098f708ecd9138515e3b0.png"></a>
+              <a href="https://cyber.fund/@Marina_Guryeva" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/d2033a33771bdc8aabd79bcd05568c16e8394e43.png"></a></p>
+                <h5>Marina Guryeva</h5>
+
+                <p>Investments</p>
+            </div>
+            <div class="col l4 center">
+              <a href="https://ru.linkedin.com/in/lomashuk" target="_blank"> <img src="http://cybertalks.org/uploads/default/original/1X/4e8502fa867df161a1f9f0378341824a0b5c21eb.jpg" class="round"></a>
+              <p><a href="https://keybase.io/creator" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/60faf8916a53c42d2d64a217aeb8bca5c42ce508.png"></a>
+              <a href="https://twitter.com/Lomashuk" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/optimized/1X/257af19295653389ff2808030fa3ca5e5c7188cc_1_670x670.png"></a>
+              <a href="https://github.com/lomashuk" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/a52b84696ffc4101965098f708ecd9138515e3b0.png"></a>
+              <a href="https://cyber.fund/@Lomashuk" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/d2033a33771bdc8aabd79bcd05568c16e8394e43.png"></a></p>
+                <h5>Konstantin Lomashuk</h5>
+
+                <p>Marketing</p>
+            </div>
+            <div class="col l4 center">
+              <a href="https://github.com/tomarcafe" target="_blank"> <img src="http://cybertalks.org/uploads/default/original/1X/054b3d0e0772d91d6fdff5636ed9c63ad256a5f6.jpg" class="round"></a>
+              <p><a href="https://github.com/tomarcafe" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/a52b84696ffc4101965098f708ecd9138515e3b0.png"></a>
+              <a href="https://cyber.fund/@bratushka" target="_blank"> <img width="30px" height="30px" src="http://cybertalks.org/uploads/default/original/1X/d2033a33771bdc8aabd79bcd05568c16e8394e43.png"></a></p>
+                <h5>Homer Simpson</h5>
+
+                <p>Development</p>
+            </div>
+            <div class="col l4 center">
+              <img src="http://cybertalks.org/uploads/default/original/1X/a9dcc9cae853eb22068d7dc13c96305cacc81f1d.jpg" class="round">
+                <h5>You</h5>
+
+                <p>Join us on <a href="http://cybertalks.org/" target="_blank">cyber•Talks</a></p>
+            </div>
+        </div>
+    <br>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col offset-l2 l8">
+            <br>
+            <h4 class="center">Fund's Management</h4>
+            <br>
+            <br>
+
+            <p>Funds are secured by 2-of-3 multisig. Real-time valuation of
+                funds could be audited  on cyber•Fund: <a href="http://cyber.fund/@cyberfundio">http://cyber.fund/@cyberfundio</a>.
+                Funds' managers are responsible to hedge against currency risks
+                in order to be able to execute project and deliver results.
+                Funds' managers are Dima Starodubcev, Kostya Lomashuk and Vitaly Lvov.</p>
+            <br>
+            <br>
+        </div>
     </div>
-    <div class="col l4 center">
-      <i class="large material-icons lime-text">directions_bike</i>
-      <h4>Protoshares</h4>
-      <p>All software cyber•Licensed.<br> Shareholders get 10% from all future protocols and services</p>
+    <hr>
+    <br>
+    <div class="row">
+      <br>
+      <h4 class="center">Funds Allocation</h4>
+      <br>
+        <div class="col l4 center">
+            <h4>36 BTC</h4>
+
+            <p>Full time developers: @21xhipster, @tomarcafe, @creat0r and
+                @cybermonetarist</p>
+        </div>
+        <div class="col l4 center">
+            <h4>6 BTC</h4>
+
+            <p>Operations: Digital Ocean, Intercom, Segment.com, Slack, Google
+                Apps</p>
+        </div>
+        <div class="col l4 center">
+            <h4>Extra</h4>
+
+            <p>Extension of  the development team and testing of the marketing
+              channels</p>
+        </div>
     </div>
-  </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+
+    <div class="row">
+      <br>
+      <h4 class="center">Tokens' Distribution</h4>
+      <br>
+        <div class="col l4 center">
+            <h4>3%</h4>
+
+            <p>Early Investors</p>
+        </div>
+        <div class="col l4 center">
+            <h4>12%</h4>
+
+            <p>Development Fund</p>
+        </div>
+        <div class="col l4 center">
+            <h4>85%</h4>
+
+            <p>Founders</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div class="row">
+        <h4 class="center">Why will tokens have value?</h4>
+        <br>
+        <br>
+        <br>
+        <div class="col l4 center">
+            <i class="large material-icons deep-orange-text">directions_walk</i>
+            <h4>Internal Value</h4>
+
+            <p>1 month of usage of a private account on cyberFund costs CFUND tokens.</p>
+        </div>
+        <div class="col l4 center">
+            <i class="large material-icons yellow-text">directions_run</i>
+            <h4>Partnership Revenue</h4>
+
+            <p>Sharing revenue from potential partners -  Shapeshift,
+                Metaexchange and referral programs with Coinbase or BitShares</p>
+        </div>
+        <div class="col l4 center">
+            <i class="large material-icons lime-text">directions_bike</i>
+            <h4>Protoshares</h4>
+
+            <p>Experimental! <br>
+            All software that we build is cyber•Licensed. Shareholders will
+            get 10% from all future protocols and services built on top of it.</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col offset-l2 l8">
+            <br>
+            <h4 class="center">FAQ</h4>
+            <br>
+
+            <h5>Is cyber•Fund just another cryptocurrency?</h5>
+
+            <p>Definitely not. cyber•Fund is a private blockchain entity that
+              operates under domain cyber.fund. There are shareholders rights
+              assigned to those who owns tokens specified in the Genesis
+              Agreement. Please, read this 1-page document carefully before
+              investing.</p>
+            <h5>How I can check that you don't cheat on me with a revenue?</h5>
+
+            <p>Simple enough! We call it proof-of-revenue mechanism. All
+                revenue addresses will be embedded in site’s code. All code is
+                open source. <a href="https://github.com/cyberFund"
+                             target="_blank">Check it</a>. So you can be sure
+                that any time somebody sends us some bitcoins for services,
+                money will not pass by. They just simply could not.</p>
+            <h5>Is your entity centralized?</h5>
+
+            <p>Kind of. Majority of tokens are under control of the co-founders.
+                Like in traditional startups. But tokens are accounted on
+                Bitcoin blockchain using Open Assets protocol. Our code is
+                open source.</p>
+            <p>But the truth is that domain-based businesses cannot be
+                decentralized as domain names are managed centrally by ICANN.
+                And business of any internet company are bound to domain. It is
+                a brand, a source of organic traffic, etc. A lot of operations
+                we do can’t be decentralized. However, once we will figure out 
+                — with help of Ethereum, IPFS, SAFE Network, etc. — how to
+                decentralized them we will make the next step! And you will be
+                with us!</p>
+            <h5>But why do you call your service decentralized?</h5>
+
+            <p>We don't put our hands on yours money. And we want to attract
+                users who will prove for each other that they own funds and
+                addresses. This approach will allow us to gather a huge amount of
+                assets under management on the platform without dependence on any
+                technology except for public/private key cryptography. So a
+                service would be able to help with investments in a truly
+                decentralized fashion, but with efficiency that is unachievable
+                for any centralized funds or entities that exist today . You can
+                think of cyber•Fund as fund of funds. If cyber.fund domain one
+                day disappears all investors will stay with the money that they
+                own. Cool! Decentralized, doesn’t it?</p>
+            <h5>Why are you selling so few?</h5>
+
+            <p>Because at this point of time we don’t want to sell more than 3%
+                of our equity. We already put a lot of efforts and resources in
+                this project and were self-funded for several times. We are
+                quite lean, and our burn rate is modest, but we need to test
+                revenue hypothesis and thus prove that we could be profitable
+                in the long run. So, we don’t want to sell more as we want to
+                earn our own fair share of profits and we want our shareholders
+                to understand that we are here to stay and do business. Best
+                practices for startups in so called pre-seed stage are to find
+                business angels, the guys who give money needed to reach
+                product/market fit. So by this placement we are putting a
+                traditional approach on a new blockchain crowdfunding rails.
+                We want to attract not many but few those who are interested
+                in our product as users, partners, and investors. We believe
+                that you guys could help us to reach product/market fit earlier
+                than any angel from a Silicon Valley.</p>
+            <h5>Why is a minimal investment 1 BTC?</h5>
+
+            <p>We don’t start this campaign just for money. As mentioned before
+                we want to attract people who are seriously interested in
+                cyber•Fund project.</p>
+            <h5>When will CFUNDs be tradable?</h5>
+
+            <p>We are not going to do anything to put CFUND on exchange until
+                much later when we will do public offering mentioned above.
+                Remember, that after placement cyber•Fund remains private.
+                However, we cannot stop you from trading CFUNDs if you want.</p>
+            <h5>How long will a private phase last?</h5>
+
+            <p>We don't know. To make a successful public offering we need at
+                least 2k+ happy users. Moreover, we need to deliver a prototype
+                of the decentralized investment platform that we want finally
+                create. According to our estimates, a year from now is a
+                reasonable time-frame.</p>
+            <h5>I have more questions!</h5>
+
+            <p>Please, drop us a line on our community forum —  <a href="http://cybertalks.org/" target="_blank">cyber•Talks</a>!
+                We are happy to discuss everything about blockchains and
+                decentralized consensus technologies!</p>
+        </div>
+    </div>
+    <div class="row center" id="inv">
+        <br>
+        <br>
+        <hr>
+        <br>
+        <br>
+        <h3 class="center">How to invest?</h3>
+        <br>
+        <br>
+        <p class="center">To invest you should send at least 1 bitcoin to the
+          following address 3FvBgYaZV9347L863L4sQx75R6FQDReZKR.<br>
+          By sending bitcoins to this address you accept the <a href="/cyberFund_Placement.pdf" target="_blank">terms of placement</a>.
+        </p>
+        <br>
+
+        <div class="col l4 center">
+            <h4>Get Account on <a href="https://www.coinprism.com/"
+                           target="_blank">Coinprism</a></h4>
+
+            <p>Please, do not send us bitcoins from services that lock your
+              private keys such as Coinbase, Circle, etc.  We recommend you a
+              very well-tested Coinprism wallet that does not lock private keys.</p>
+        </div>
+        <div class="col l4 center">
+            <h4>Send bitcoins from your Coinprism account to</h4>
+            <img width="200px" height="200px" src="http://cybertalks.org/uploads/default/original/1X/4cc11bc63a1a589d5aeb98d022cd2377f4687596.png">
+            <h6><b>3FvBgYaZV9347L863L4sQx75R6FQDReZKR</b></h6>
+
+            <p>Your CFUND tokens will be sent to the address from which we will
+                got  your bitcoins. You will get a confirmation for this
+                transaction from the Bitcoin network.</p>
+        </div>
+        <div class="col l4 center">
+            <h4>You will get CFUND tokens after 1. January 2016</h4>
+
+            <p>When the placement is finished we will calculate the amount of
+              CFUNDs that are to be distributed.</p>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
 </template>

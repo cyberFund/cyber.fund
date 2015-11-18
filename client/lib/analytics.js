@@ -32,10 +32,7 @@ Template.body.events({
 Meteor.startup(function () {
 
   Tracker.autorun(function (c) {
-    // waiting for user subscription to load
-    if (!Router.current() || !Router.current().ready()) {
-      return;
-    }
+
     var user = Meteor.user();
     if (!user) {
       return;

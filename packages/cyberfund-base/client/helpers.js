@@ -145,10 +145,10 @@ var helpers = {
     m2 = /*format ? moment(date2, format) : */moment(date2);
     return moment().isBetween(m1, m2, 'day');
   },
-  _toU: function (str) {
+  _toUnderscores: function (str) {
     return str.replace(/\ /g, "_")
   },
-  _toS: function (str) {
+  _toSpaces: function (str) {
     return str.replace(/_/g, " ")
   },
   usersCount: function () {

@@ -4,7 +4,7 @@ Template['weeklyGraph'].rendered = function () {
   var self = this;
   Tracker.autorun(function (comp) {
     if (!self.data || !self.data.hourlyData) return;
-    comp.stop();
+    //comp.stop();
     var current = moment.utc();
     for (var i = 7*24; i > 0; i=i-3) {
       var iterate = moment.utc().subtract(i, "hours");

@@ -112,7 +112,6 @@ var esParsers = {
             sNow = {}, // current day
             sDayAgo = {}, // past day data
             sWeekAgo = {}; // not used so far
-
           // 0.
           // calculating sNow, sDayAgo
           //
@@ -128,23 +127,18 @@ var esParsers = {
           if (_.isEmpty(sNow)) return; // no need to update if no new data
 
           // current document, so we can take some values if none in fetched data
-          var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {fields: {dailyData: 0, hourlyData: 0}});
+          var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {
+            fields: {
+              dailyData: 0,
+              hourlyData: 0
+            }
+          });
 
-          //console.log(_.keys(curDoc))
-
-          if (curDoc.flags) {
-            //console.log(curDoc.flags);
-            //console.log(curDoc.system);
-          } else {
-
-            //console.log("---"+curDoc.system);
-          }
           // what we use as a data source. is set in chaingear, per-coin/per-asset
           var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
 
           // overriding supply data source.
           if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
-            console.log(curDoc.system + " supply from chg");
             supplyDataSource = 'chg';
           }
 
@@ -164,11 +158,6 @@ var esParsers = {
               if (!sNow.supply_current) sNow.supply_current = curDoc.specs && curDoc.specs.supply || 0;
             }
           }
-
-          if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
-            console.log(curDoc.system + " supply: " +  sNow.supply_current);
-          }
-
 
           // 2. sNow.prices
           //
@@ -232,14 +221,14 @@ var esParsers = {
           if (sDayAgo.supply_current) {
 
             // try count cap using price and supply
-           // if (sDayAgo.price_usd) {
-              sDayAgo.cap_usd = sDayAgo.supply_current * (sDayAgo.price_usd || sNow.price_usd) ;
-           // }
+            // if (sDayAgo.price_usd) {
+            sDayAgo.cap_usd = sDayAgo.supply_current * (sDayAgo.price_usd || sNow.price_usd);
+            // }
 
             // try count cap using price and suuply
-          //  if (sDayAgo.price_btc) {
-              sDayAgo.cap_btc = sDayAgo.supply_current * (sDayAgo.price_btc || sNow.price_usd);
-           // }
+            //  if (sDayAgo.price_btc) {
+            sDayAgo.cap_btc = sDayAgo.supply_current * (sDayAgo.price_btc || sNow.price_usd);
+            // }
           }
 
 
@@ -282,8 +271,9 @@ var esParsers = {
               set["metrics.turnover"] = 0.0;
             }
 
-            if (sDayAgo.volume24_btc)
+            if (sDayAgo.volume24_btc) {
               set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
+            }
           }
 
           if (sNow.cap_usd && sDayAgo.cap_usd) {
@@ -298,27 +288,19 @@ var esParsers = {
             set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
           }
 
-          //get corresponding CurrentData _id to fill fastdata collection.
-          var _id = CurrentData.findOne(_searchSelector(bucket.key), {_id: 1});
-          if (!_id) {
-            notFounds.push(bucket.key);
-          } else {
-            _id = _id._id;
-          }
-
           // those are used to build daily charts
-          if (!_.isEmpty(set)) {
+          if (!_.isEmpty(set) && curDoc) {
             set.updatedAt = new Date();
             // console.log(set);
             /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
-              set['metrics.supply'] = curDoc.specs.supply;
-              set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
-              set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
-            }*/
+             set['metrics.supply'] = curDoc.specs.supply;
+             set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
+             set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
+             }*/
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
             var fastMetric = _.pick(sNow, [
               "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"]);
-            fastMetric.systemId = _id;
+            fastMetric.systemId = curDoc._id;
             fastMetric.timestamp = timestamp;
             fastMetric.stamp = stamp;
             FastData.insert(fastMetric)
@@ -342,8 +324,8 @@ var esParsers = {
         var findSel = _searchSelector(bucket.key),
           set = {};
 
-       // if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
-       // if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
+        // if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
+        // if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
         if (!_.isEmpty(set)) {
           try {
             CurrentData.update(_searchSelector(bucket.key), {$set: set});
@@ -563,11 +545,63 @@ SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('0/5 * * * *', false);
+    return parser.cron('1/5 * * * *', false);
   },
   job: function () {
     try {
       fetchLatest();
+    } catch (e) {
+      console.log('could not fetch elastic data (latest)')
+    }
+  }
+});
+
+
+var saveTotalCap = function () {
+
+  var calcTotalCap = function () {
+    function isAutonomous(item){
+      return !item.dependencies || item.dependencies == 'independent' || item.dependencies.indexOf('independent')>=0
+    }
+    var cap = 0;
+    var autonomous = 0;
+    var dependent = 0;
+    CurrentData.find({}, {
+      'metrics.cap': 1,
+      'dependencies': 1
+    }).forEach(function (sys) {
+      if (sys.metrics && sys.metrics.cap && sys.metrics.cap.btc) {
+        cap += sys.metrics.cap.btc;
+        if (isAutonomous(sys)) {
+          autonomous++;
+        } else {
+          dependent++;
+        }
+      }
+    });
+    return {btc: cap, autonomous: autonomous, dependent: dependent}
+  };
+  var cap = calcTotalCap();
+  var btcPrice = CurrentData.findOne({system:"Bitcoin"}, {fields: {"metrics": 1}});
+  if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
+  if (cap) {
+    Extras.upsert({_id: 'total_cap'}, _.extend(cap, { usd: cap.btc * btcPrice}));
+  }
+};
+
+Meteor.startup(function () {
+  saveTotalCap();
+})
+
+SyncedCron.add({
+  name: 'total btc cap',
+  schedule: function (parser) {
+    // parser is a later.parse object
+    return parser.cron('* 1 * * *', false);
+  },
+  job: function () {
+    try {
+      saveTotalCap()
     } catch (e) {
       console.log('could not fetch elastic data (latest)')
     }

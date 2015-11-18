@@ -33,11 +33,15 @@ Template['searchItem1'].helpers({
 
 Template['searchItem1'].events({
   "autocompleteselect input#search": function(event, template, doc) {
+    var system = doc.system;
+    console.log(doc.system);
+    console.log(Blaze._globalHelpers._toUnderscores(doc.system));
     analytics.track("Searched", {
       systemName: doc.system
     });
-    Router.current().router.go("System", {name_: Blaze._globalHelpers._toU(doc.system) })
+
     template.$("input#search").val("");
+    FlowRouter.go("/system/:name_", {name_: Blaze._globalHelpers._toUnderscores(doc.system) })
   }
 });
 

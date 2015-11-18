@@ -38,9 +38,11 @@
                                 </div>
                                 {{#if isOwn}}
                                     <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
+                                        {{log ..}}
+                                        {{log key}}
                                         {{#if autoUpdateAvailable key}}
                                             <a class="btn-floating btn-tiny blue per-address req-update-balance btn-margin-left">
-                                                <i class="material-icons small">loop</i>
+                                                <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
                                             </a>
                                         {{/if}}
                                         <a class="btn-floating btn-small green per-address req-add-asset-to-address">
@@ -57,7 +59,7 @@
                                 {{#each keyValue value.assets}}
                                     <li class="collection-item asset-item"
                                         asset-key="{{key}}">
-                                        <a href="{{pathFor 'System' name_=name_of_system}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                        <a href="{{pathFor '/system/:name_' name_=name_of_system}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                                         {{displaySystemName systemData}}</a>
                                         : {{value.quantity}} {{displayCurrencyName systemData}}s
                                         {{#if isOwn}}

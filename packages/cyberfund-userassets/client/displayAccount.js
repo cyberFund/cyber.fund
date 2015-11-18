@@ -40,6 +40,7 @@ Template['displayAccount'].helpers({
   },
   autoUpdateAvailable: function(address){
     if (!isOwnAssets()) return false;
+    return true;// for all.
     var re = new RegExp();
     return (address || '').match(/^[13]/) ? true : false;
   },

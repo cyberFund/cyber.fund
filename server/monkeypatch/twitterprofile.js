@@ -11,8 +11,9 @@ Accounts.onCreateUser(function(options, user) {
   //var d6 = function () { return Math.floor(Random.fraction() * 6) + 1; };
   //user.dexterity = d6() + d6() + d6();
   // We still want the default hook's 'profile' behavior.
+
   if (user.services && user.services.twitter) {
-    options.profile = options.profile || {}
+    options.profile = options.profile || {};
     options.profile.twitterName = user.services.twitter.screenName;
     options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
     options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
@@ -32,6 +33,8 @@ Meteor.methods({
   }
 });
 
+// reason for that is user.services.twitter.screenName is delivered by subscriptions,
+// while we also want avatar url and name
 CF.Profile.patch = function(user){
   if (!user) return;
   if (!user.services.twitter) return;
@@ -46,7 +49,7 @@ CF.Profile.patch = function(user){
   };
   if (_.keys(set).length)
     Meteor.users.update({_id: user._id}, {$set: set})
-}
+};
 
 SyncedCron.add({
   name: 'update profiles',
@@ -58,4 +61,4 @@ SyncedCron.add({
       CF.Profile.patch(user)
     });
   }
-})
+});

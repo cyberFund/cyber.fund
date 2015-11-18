@@ -19,13 +19,7 @@ Meteor.publish("currentDataRP", function (options) {
   return CurrentData.find(selector, options);
 });
 
-Meteor.publish("fresh-price", function () {
-  //return MarketData.find({"token.token_symbol": 'BTC', 'metrics.price': {$exists: true}},
-  //{sort: {timestamp: -1}, limit: 1});
-  return []; // no marketdata as of now
-});
-
-
+/* own user details */
 Meteor.publish('userDetails', function () {
   return Meteor.users.find({_id: this.userId}, {
     fields: {
@@ -55,19 +49,34 @@ Meteor.publish('systemData', function (options) {
   return [];
 });
 
+
+/*
+  fetch systems that are displayed at radar page.
+ */
 Meteor.publish('crowdsale', function () {
   var sel = {$or: [CF.Chaingear.selector.crowdsales, CF.Chaingear.selector.projects]};
   return CurrentData.find(sel);
 });
 
+
+/*
+  only needed to display users count on profile page
+ */
 Meteor.publish("usersCount", function () {
   Counts.publish(this, 'usersCount', Meteor.users.find());
 });
 
+/*
+  needed to know are there systems left, or we subscribed with limit >=
+  number of coins. i.e. allows to hide button "show more systems" when there s nothing left
+ */
 Meteor.publish('coinsCount', function() {
   Counts.publish(this, 'coinsCounter', CurrentData.find({"metrics.cap.btc": {$gt: 0}}));
 });
 
+/*
+  provide enough details to render dependent coins at system page
+ */
 Meteor.publish('dependentCoins', function (system) {
   return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
     fields: {
@@ -75,13 +84,22 @@ Meteor.publish('dependentCoins', function (system) {
     }
   })
 });
+
+/*
+  provides data to draw daily chart
+   - this currently is stored apart from CurrentData documents
+ */
 Meteor.publish('fastData', function (systemName) {
   var _id = CurrentData.findOne({system: systemName});
   if (!_id) return this.ready();
   _id = _id._id;
   return FastData.find({systemId: _id});
-})
+});
 
+/*
+ provides details on coins   that current coin depends on . accepts
+ list of system names
+ */
 Meteor.publish('dependencies', function (deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
@@ -90,7 +108,9 @@ Meteor.publish('dependencies', function (deps) {
   })
 });
 
-
+/*
+  provides means for autocomplete to work
+ */
 Meteor.publish('search-sys', function (selector, options, collname) {
   var s = selector["token.token_name"];
   if (s) {
@@ -120,6 +140,11 @@ Meteor.publish('search-sys', function (selector, options, collname) {
   this.ready();
 });
 
+
+/*
+  have to publish whole bitcoin document... too bad - as it s heavy.
+  would either split market data from docs, or manage subscriptions better
+ */
 Meteor.publish("BitcoinPrice", function () {
   return CurrentData.find({system: "Bitcoin"})
 });
@@ -136,6 +161,9 @@ Meteor.publish('avatars', function (uidArray) {
   });
 });
 
+/*
+  user profile by twitter screenname
+ */
 Meteor.publish('userProfileByTwid', function (twid) {
   var ownTwid = null;
   if (this.userId) {
@@ -150,23 +178,36 @@ Meteor.publish('userProfileByTwid', function (twid) {
   });
 });
 
+/*
+  return fields to display portfolio
+  probably buggy as tends to load private accounts
+   for a moment after switching from "own" user to another
+ */
 Meteor.publish('portfolioUser', function (userId) {
   var isOwn = this.userId == userId;
   var fields = {
     'profile': 1, accounts: 1, createdAt: 1
-  }
+  };
   if (isOwn) _.extend(fields, { accountsPrivate: 1});
   return Meteor.users.find({_id: this.userId}, {
     fields: fields
   });
 });
 
+/*
+  support subscription for assets manager, loads info to display,
+   currency links in portfolio, depends on list of systems
+ */
 Meteor.publish('assetsSystems', function (tokens) {
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {system: 1, token: 1, aliases: 1, icon: 1}
   })
 });
 
+/*
+  support subscription for profile page, loads info to display currency links
+  resolves needed list by userId
+ */
 Meteor.publish('profilesSystems', function (userId) {
   var user = Meteor.users.findOne({_id: userId});
   var tokens = user && user.profile && user.profile.starredSystems || [];
@@ -174,6 +215,10 @@ Meteor.publish('profilesSystems', function (userId) {
     fields: {system: 1, token: 1, aliases: 1, icon: 1}
   }); //todo: fieldsets => resp. packages
 });
+
+/*
+  loads systems data for portfolio
+ */
 
 Meteor.publish("portfolioSystems", function (userId, options) {
   options = options || {};

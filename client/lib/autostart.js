@@ -1,3 +1,5 @@
+BlazeLayout.setRoot('body');
+
 Tracker.autorun(function () {
   Meteor.subscribe('userDetails');
   Meteor.subscribe("BitcoinPrice")
