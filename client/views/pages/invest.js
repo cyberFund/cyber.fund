@@ -24,10 +24,19 @@ Template['invest'].rendered = function () {
   Meteor.call("getInvestData");
   var h = FlowRouter.current().context.hash;
   if (h) {
-    if ($('#'+ h))
-    $('html, body').animate({
-      scrollTop: $('#' + h).offset().top
-    }, 400);
+    h = $('#'+ h);
+    if (h) {
+      h = h.offset().top;
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)) {
+        window.setTimeout(function() {
+          window.scrollTo(0, h);
+        }, 0);
+      } else {
+        $('html, body').animate({
+          scrollTop: h
+        }, 400);
+      }
+    }
   }
 };
 
