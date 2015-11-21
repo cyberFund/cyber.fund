@@ -1,6 +1,6 @@
 CF.UserAssets.currentAccountKey = new CF.Utils.SessionVariable('cfAssetsCurrentAccount');
 var isOwnAssets = function () {
-  return CF.Profile.currentUid.get() == Meteor.userId();
+  return CF.Profile.currentUid() == Meteor.userId();
 };
 
 Template['assetsManager'].rendered = function () {
@@ -16,7 +16,7 @@ Template['assetsManager'].helpers({
   },
 
   _accounts: function () {
-    var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()}) || {};
+    var user = Meteor.users.findOne({_id: CF.Profile.currentUid()}) || {};
     var accounts = user.accounts || {};
     if (user._id == Meteor.userId()) {
       _.extend(accounts, user.accountsPrivate || {});
@@ -71,7 +71,7 @@ Template['assetsManager'].helpers({
   },
   showAccountsAdvertise: function () {
     if (CF.Profile.currentTwid.get() == CF.User.twid()) {
-      var user = Meteor.users.findOne({_id: CF.Profile.currentUid.get()});
+      var user = Meteor.users.findOne({_id: CF.Profile.currentUid()});
       return !( (user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length) )
     }
     return false;
