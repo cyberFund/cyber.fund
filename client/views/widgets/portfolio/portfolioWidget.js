@@ -89,7 +89,7 @@ Template['portfolioWidget'].helpers({
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
     // display starred systems for own portfolio
-    if (CF.Profile.currentUid.get() == Meteor.userId()) {
+    if (CF.Profile.currentUid() == Meteor.userId()) {
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
       if (stars && stars.length) {
