@@ -363,3 +363,7 @@ footer.page-footer {
 .no-wrap {
   display: inline; white-space: nowrap
 }
+
+.avatar-round {
+  border-radius: 50%;
+}
