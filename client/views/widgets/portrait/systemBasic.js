@@ -17,16 +17,14 @@ Template['systemBasic'].onCreated(function () {
 
 });
 
-Template['systemBasic'].rendered = function () {
-
+Template['systemBasic'].onRendered(function () {
+  console.log(FlowRouter.getParam('name_'));
   $('.scrollspy').scrollSpy();
   var curDataDoc = curData();
   if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
     Meteor.call("initAverageValues", curDataDoc._id);
   }
-  $('ul.tabs').tabs();
-
-};
+});
 
 Template['systemBasic'].helpers({
   'curData': function () {

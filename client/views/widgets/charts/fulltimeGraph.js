@@ -15,9 +15,6 @@ Template['fulltimeGraph'].rendered = function () {
     var minday = _.min(_.keys(self.data.dailyData[minyear][minmonth]), minFunc);
     var iterate = moment.utc({year: minyear, month: minmonth, day: minday});
 
-    console.log(iterate);
-    console.log(iterate);
-
     //do the rest
     while (iterate < current) {
       var year = iterate.year();

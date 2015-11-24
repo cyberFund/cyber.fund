@@ -60,7 +60,6 @@ Template['hcChart'].rendered = function () {
         return Math.sign(a[0] > b[0]);
       });
 
-      console.log(data);
       $('#hc-chart').highcharts({
         series: [{
           name: 'price BTC', data: data.price_btc, color: '#b0a080'

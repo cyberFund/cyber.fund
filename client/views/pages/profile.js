@@ -22,6 +22,7 @@ Template['profile'].onCreated(function () {
   instance.autorun(function () {
     var uid = CF.Profile.currentUid();
     if (!uid) {
+      console.log("gotcha")
       instance._unregisterSub('1');
       instance._unregisterSub('2');
       instance._unregisterSub('3');

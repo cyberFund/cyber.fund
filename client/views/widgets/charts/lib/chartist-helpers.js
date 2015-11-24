@@ -101,7 +101,6 @@ _.extend(CF.Chartist, {
           if (dta[i] == null || dta[i].value == null) {
             var point = i;
             var j = point;
-            console.log('gap');
             // # find max element
             while (j < dta.length && (dta[j] == null || dta[j].value == null)) j++;
             i = j;
