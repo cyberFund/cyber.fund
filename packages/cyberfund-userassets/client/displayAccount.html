@@ -38,8 +38,6 @@
                                 </div>
                                 {{#if isOwn}}
                                     <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
-                                        {{log ..}}
-                                        {{log key}}
                                         {{#if autoUpdateAvailable key}}
                                             <a class="btn-floating btn-tiny blue per-address req-update-balance btn-margin-left">
                                                 <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>

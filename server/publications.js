@@ -46,7 +46,7 @@ Meteor.publish('systemData', function (options) {
   if (symbol) {
     return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
   }
-  return [];
+  return this.ready();
 });
 
 
@@ -129,7 +129,7 @@ Meteor.publish('search-sys', function (selector, options, collname) {
   if (collname == "CurrentData") {
     collection = CurrentData;
   }
-  if (!collection) return [];
+  if (!collection) return this.ready();
 
   options.fields = {"system": 1, "icon": 1, "aliases": 1, "token": 1};
   options.sort = {
