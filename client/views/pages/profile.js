@@ -17,7 +17,6 @@ Template['profile'].onCreated(function () {
       instance._subs[name].stop();
     }
     delete instance._subs[name];
-
   };
 
   instance.autorun(function () {
@@ -28,7 +27,6 @@ Template['profile'].onCreated(function () {
       instance._unregisterSub('3');
       return;
     }
-    console.log(uid);
     var options = uid == Meteor.userId() ? {privateAssets: true} : {};
     instance._registerSub('1', instance.subscribe('friendlyUsers', uid));
     instance._registerSub('2', instance.subscribe('profilesSystems', uid));
@@ -61,14 +59,15 @@ Template['profile'].helpers({
   user: function () {
     return _user();
   },
-  'following': function () {
+  'following': function () { //whether current user is followed by client user
     var user = Meteor.user();
     if (!user) return false;
     return user.profile && user.profile.followingUsers &&
       _.contains(user.profile.followingUsers, CF.Profile.currentUid());
   },
-  'followingCount': function () {
-    return this.profile && this.profile.followingUsers && this.profile.followingUsers.length || 0
+  'followingCount': function () { //
+    var user = _user();
+    return user.profile && user.profile.followingUsers && user.profile.followingUsers.length || 0
   },
   'starred': function () {
     var user = _user();
