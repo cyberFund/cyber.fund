@@ -37,7 +37,7 @@
                     </div>
                 </div>
             {{/with}}
-            {{#if ownProfile}}
+            {{#if isOwnProfile}}
                 {{#if userRegistracionCount}}
                     <div>
                         <br>
@@ -56,7 +56,7 @@
                     {{/if}}
                 {{/if}}
             {{/if}}
-            {{#if ownProfile}}
+            {{#if isOwnProfile}}
                 {{> atNavButton}}
             {{/if}}
         </div>
@@ -65,7 +65,7 @@
         </div>
 
         {{! #if currentUser}}
-        {{#if not ownProfile}}
+        {{#if not isOwnProfile}}
             <div class="fixed-action-btn"
                  style="bottom: 24px; right: 24px;">
                 {{#if following}}
