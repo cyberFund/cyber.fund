@@ -11,29 +11,31 @@
                 </div>
                 <div class="grey-text">
                     <a class="grey-text"
-                       href="https://twitter.com/@{{profile.twitterName}}"><span itemprop="alternateName">@{{profile.twitterName}}</span></a>
+                       href="https://twitter.com/@{{profile.twitterName}}"><span
+                            itemprop="alternateName">@{{profile.twitterName}}</span></a>
 
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
                 </div>
-                <div>
-                    <h5>Starred</h5>
+                <div class="profile-lists">
+                    <div>
+                        <h5>Starred</h5>
+                    </div>
+                    <div>
+                        {{> systemsList1 data=starred style="width: 40px; height: 40px; margin: 0 3px 6px"}}
+                    </div>
+                    <div>
+                        <h5>Followers</h5>
+                    </div>
+                    <div>
+                        {{> usersList1 data=followedByUsers class="avatar-round" style="margin: 0 3px 6px"}}
+                    </div>
+                    <div>
+                        <h5>Following</h5>
+                    </div>
+                    <div>
+                        {{> usersList1 data=followingUsers class="avatar-round" style="margin: 0 3px 6px"}}
+                    </div>
                 </div>
-                <div>
-                    {{> systemsList1 data=starred style="width: 40px; height: 40px; margin: 0 3px 6px"}}
-                </div>
-                <div>
-                    <h5>Followers</h5>
-                </div>
-                <div>
-                    {{> usersList1 data=followedByUsers class="avatar-round" style="margin: 0 3px 6px"}}
-                </div>
-                <div>
-                    <h5>Following</h5>
-                </div>
-                <div>
-                    {{> usersList1 data=followingUsers class="avatar-round" style="margin: 0 3px 6px"}}
-                </div>
-
             {{/with}}
             {{#if ownProfile}}
                 {{#if userRegistracionCount}}
@@ -63,22 +65,22 @@
         </div>
 
         {{! #if currentUser}}
-            {{#if not ownProfile}}
-                <div class="fixed-action-btn"
-                     style="bottom: 24px; right: 24px;">
-                    {{#if following}}
-                        <a class="btn-floating btn-large btn-unfollow blue"
-                           title="Unfollow">
-                            <i class="large material-icons">thumb_down</i>
-                        </a>
-                    {{else}}
-                        <a class="btn-floating btn-large btn-follow green"
-                           title="Follow">
-                            <i class="large material-icons">thumb_up</i>
-                        </a>
-                    {{/if}}
-                </div>
-            {{/if}}
+        {{#if not ownProfile}}
+            <div class="fixed-action-btn"
+                 style="bottom: 24px; right: 24px;">
+                {{#if following}}
+                    <a class="btn-floating btn-large btn-unfollow blue"
+                       title="Unfollow">
+                        <i class="large material-icons">thumb_down</i>
+                    </a>
+                {{else}}
+                    <a class="btn-floating btn-large btn-follow green"
+                       title="Follow">
+                        <i class="large material-icons">thumb_up</i>
+                    </a>
+                {{/if}}
+            </div>
+        {{/if}}
         {{! /if}}
     </div>
 </template>
