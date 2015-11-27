@@ -5,42 +5,10 @@
     <table class="hoverable-my" align="center" id="rating-table">
 
       <thead id="fixed-thead" class="fixed-thead z20">
-        <th class="left-align">
-          <span class="th-sys">&nbsp;&nbsp;System</span>
-        </th>
-
-        <th class="center hide-on-small-and-down sorter" data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
-
-        <th class="center hide-on-small-and-down sorter" data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
-
-        <th class="right-align hide-on-med-and-down sorter" data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
-
-        <th class="right-align hide-on-med-and-down sorter" data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
-
-        <th class="right-align sorter" data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
-
-        <th class="right-align sorter" data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
-
-        <th class="center hide-on-small-and-down sorter" data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
+        {{> thea_d}}
       </thead>
       <thead id="normal-thead">
-        <th class="left-align">
-          <span class="th-sys">&nbsp;&nbsp;System</span>
-        </th>
-
-        <th class="center hide-on-small-and-down sorter" data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
-
-        <th class="center hide-on-small-and-down sorter" data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
-
-        <th class="right-align hide-on-med-and-down sorter" data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
-
-        <th class="right-align hide-on-med-and-down sorter" data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
-
-        <th class="right-align sorter" data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
-
-        <th class="right-align sorter" data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
-        
-        <th class="center hide-on-small-and-down sorter" data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
+        {{> thea_d}}
       </thead>
       <tbody>
         {{#each rows}}
@@ -131,6 +99,10 @@
               <b>{{readableN metrics.capChange.day.usd 2}} $</b>
             </div>
             {{/tooltip}} {{/withTooltip}}
+          </td>
+
+          <td class="center">
+            {{_usersStarred.length}}
           </td>
 
           <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">
