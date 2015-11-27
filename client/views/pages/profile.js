@@ -1,17 +1,17 @@
 CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
-CF.Profile.currentUid = function () {
+CF.Profile.currentUid = function() {
   var u = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
   return u ? u._id : undefined;
 };
 
-Template['profile'].onCreated(function () {
+Template['profile'].onCreated(function() {
   var instance = this;
   instance._subs = {};
-  instance._registerSub = function (name, handler) {
+  instance._registerSub = function(name, handler) {
     if (!name || !handler) return;
     instance._subs[name] = handler;
   };
-  instance._unregisterSub = function (name) {
+  instance._unregisterSub = function(name) {
     if (!name) return;
     if (instance._subs[name] && instance._subs[name].stop) {
       instance._subs[name].stop();
@@ -19,7 +19,7 @@ Template['profile'].onCreated(function () {
     delete instance._subs[name];
   };
 
-  instance.autorun(function () {
+  instance.autorun(function() {
     var uid = CF.Profile.currentUid();
     if (!uid) {
       console.log("gotcha")
@@ -28,91 +28,104 @@ Template['profile'].onCreated(function () {
       instance._unregisterSub('3');
       return;
     }
-    var options = uid == Meteor.userId() ? {privateAssets: true} : {};
+    var options = uid == Meteor.userId() ? {
+      privateAssets: true
+    } : {};
     instance._registerSub('1', instance.subscribe('friendlyUsers', uid));
     instance._registerSub('2', instance.subscribe('profilesSystems', uid));
     instance._registerSub('3', instance.subscribe('portfolioSystems', uid, options));
   });
 });
 
-Template['profile'].onCreated(function () {
+Template['profile'].onCreated(function() {
   var instance = this;
-  instance.autorun(function () {
+  instance.autorun(function() {
     instance.subscribe('userProfileByTwid', FlowRouter.getParam('twid'))
   });
 });
 
 var _user = function getUserByCurrentUid() {
-  return Meteor.users.findOne({_id: CF.Profile.currentUid()});
+  return Meteor.users.findOne({
+    _id: CF.Profile.currentUid()
+  });
 };
 
 Template['profile'].helpers({
-  'profileName': function () {
+  'profileName': function() {
     return this.profile && this.profile.name
   },
-  'userRegistracionCount': function () {
+  'userRegistracionCount': function() {
     return Session.get("userRegistracionCount")
   },
-  "isOwnProfile": function () {
+  "isOwnProfile": function() {
     if (!Meteor.userId()) return false;
     return (CF.Profile.currentTwid.get() == CF.User.twid()); //todo: get rid of twid, use user._id instead
   },
-  user: function () {
+  user: function() {
     return _user();
   },
-  'following': function () { //whether current user is followed by client user
+  'following': function() { //whether current user is followed by client user
     var user = Meteor.user();
     if (!user) return false;
     return user.profile && user.profile.followingUsers &&
       _.contains(user.profile.followingUsers, CF.Profile.currentUid());
   },
-  'followingCount': function () { //
+  'followingCount': function() { //
     var user = _user();
     return user.profile && user.profile.followingUsers && user.profile.followingUsers.length || 0
   },
-  'starred': function () {
+  'starred': function() {
     var user = _user();
     return user.profile && user.profile.starredSystems &&
       CurrentData.find(CF.CurrentData.selectors.system(user.profile.starredSystems)) || []
   },
-  'followingUsers': function () {
+  'followingUsers': function() {
     var user = _user();
     return user.profile && user.profile.followingUsers &&
-      Meteor.users.find({_id: {$in: user.profile.followingUsers}}) || []
+      Meteor.users.find({
+        _id: {
+          $in: user.profile.followingUsers
+        }
+      }) || []
   },
-  'followedByUsers': function () {
+  'followedByUsers': function() {
     var user = _user();
     return user.profile && user.profile.followedBy &&
-      Meteor.users.find({_id: {$in: user.profile.followedBy}}) || []
+      Meteor.users.find({
+        _id: {
+          $in: user.profile.followedBy
+        }
+      }) || []
   },
-  'followedByCount': function () {
+  'followedByCount': function() {
     var user = _user();
     return user.profile && user.profile.followedBy && user.profile.followedBy.length || 0
   },
 
-  biggerTwitterImg: function () {
+  biggerTwitterImg: function() {
     var user = _user();
-    return user.profile && user.profile.twitterIconUrlHttps
-      && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrlHttps) || ''
+    return user.profile && user.profile.twitterIconUrlHttps && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrlHttps) || ''
   }
 });
 
 Template['profile'].events({
-  'click .btn-follow': function (e, t) {
+  'click .btn-follow': function(e, t) {
     analytics.track('Followed Person', {
       personName: CF.Profile.currentTwid.get()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid())
   },
-  'click .btn-unfollow': function (e, t) {
+  'click .btn-unfollow': function(e, t) {
     analytics.track('Unfollowed Person', {
       personName: CF.Profile.currentTwid.get()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
-    Meteor.call('followUser', CF.Profile.currentUid(), {unfollow: true})
+    Meteor.call('followUser', CF.Profile.currentUid(), {
+      unfollow: true
+    })
   },
-  'click #at-nav-button': function (e, t) {
+  'click #at-nav-button': function(e, t) {
     analytics.track('Sign Out', {
       from: 'profile'
     })

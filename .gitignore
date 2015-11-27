@@ -17,3 +17,4 @@ _temp.py
 .idea/
 .deploy/
 tmp/
+settings.json

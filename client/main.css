@@ -34,7 +34,8 @@ p {
   min-height: 380px;
   line-height: 0;
   height: auto;
-  color: rgba(255, 255, 255, .9);
+  color: #ffffff;
+  color: rgba(255, 255, 255, .9)
 }
 
 .parallax-container .section {
@@ -42,7 +43,7 @@ p {
 }
 
 .team{
-	background:url("/images/blockchain.jpg") no-repeat 0px 0px;
+	background:url("/images/blockchain.jpg") no-repeat 0 0;
 	background-size:cover;
 	-webkit-background-size: cover;
 	-o-background-size: cover;
@@ -58,13 +59,13 @@ p {
     top: 40%;
   }
 
-  #index-banner .section {
+  .index-banner .section {
     top: 10%;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  #index-banner .section {
+  .index-banner .section {
     top: 0;
   }
 
@@ -78,13 +79,13 @@ p {
 }
 
 
-#nav-mobile li {
+.nav-mobile li {
   display: block
 }
 
-a.tooltip {
+/*a.tooltip {
   outline: none;
-}
+}*/
 
 a.tooltip strong {
   line-height: 30px;
@@ -97,7 +98,6 @@ a.tooltip:hover {
 a.tooltip span {
   z-index: 10;
   display: none;
-  padding: 14px 20px;
   margin-top: 60px;
   margin-left: -160px;
   width: 300px;
@@ -135,12 +135,11 @@ a.tooltip:hover span {
   right: 80%;
   bottom: 0;
   border-radius: 6px;
-  padding: 6px;
   width: 200px;
   line-height: 1rem;
   font-size: 0.8rem;
   z-index: 40;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 2px 10px 0px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 2px 10px 0;
 }
 
 body {
@@ -273,7 +272,8 @@ hr{
 }
 
 
-table.hoverable-my tr:hover {
+.hoverable-my tr:hover {
+  background-color: #eeeeee;
   background-color: rgba(0, 0, 0, 0.05);
 }
 
@@ -310,31 +310,30 @@ body {
   padding:0;
   height:100%;
 }
-#contain-all {
+.contain-all {
   margin-top: 60px;
   min-height:100%;
   position:relative;
 }
 
-footer.page-footer {
-
+.page-footer {
   bottom:0;
-
   width:100%;
 }
-#assets-manager .collection {
+
+.assets-manager .collection {
   border: 0;
-  margin-top: 0rem;
+  margin-top: 0;
   margin-bottom: 0.5rem;
 }
 
-#assets-manager .collection .collection-item {
+.assets-manager .collection .collection-item {
   padding-top: 6px;
   padding-bottom: 6px;
   border: 0
 }
 
-#assets-manager .address-item.collection-item {
+.assets-manager .address-item {
   padding-left: 20px;
 }
 
@@ -346,12 +345,12 @@ footer.page-footer {
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s linear;
-  transiotion-delay: 0.1s
+  transition-delay: 0.1s
 }
 
 .account-item:hover > div > .hoverie,
-.collection-item.address-item:hover > div > .hoverie,
-.collection-item.asset-item:hover > .hoverie {
+.collection-item:hover > div > .hoverie,
+.collection-item:hover > .hoverie {
   visibility: visible;
   opacity: 1;
 }
