@@ -36,7 +36,6 @@ _.extend CF.CurrentData.calculatables,
 
       # iterate over selector
       cursor = @getCursor selector
-      console.log cursor.fetch().length
       cursor.forEach (item)->
         return if not (item or item._id)
         $set = {}
@@ -47,6 +46,5 @@ _.extend CF.CurrentData.calculatables,
         # mark a timestamp - to be changed..?
         $set[updatedAtKey] = new Date();
         CurrentData.update({_id: item._id}, {$set: $set});
-        console.log('a')
         true;
   }
