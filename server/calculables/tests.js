@@ -1,20 +1,20 @@
-CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system){
+CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
   var n = system._usersStarred ? system._usersStarred.length : 0;
   return n;
 })
 
-Meteor.startup(function(){
-  CF.CurrentData.calculatables.triggerCalc ('numOfStarred');
-  CF.CurrentData.calculatables.triggerCalc ('firstDatePrice');
+Meteor.startup(function() {
+  CF.CurrentData.calculatables.triggerCalc('numOfStarred');
+  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
 })
 
-CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system){
+CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
   if (!system) return;
 
   var data = system.dailyData;
   if (!data) return;
 
-  var minFunc = function(it){
+  var minFunc = function(it) {
     return parseInt(it);
   };
   var minyear = _.min(_.keys(data), minFunc);
@@ -26,8 +26,14 @@ CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system){
   var minday = _.min(_.keys(data[minyear][minmonth]), minFunc);
   if (minday != 0 && !minday) return;
 
-  var firstData = data[minyear]? data[minyear][minmonth]
-  ? data[minyear][minmonth][minday] : null : null
+  var firstData = data[minyear] ? data[minyear][minmonth] ? data[minyear][minmonth][minday] : null : null
 
-  return firstData;
+  return {
+    market: firstData,
+    date: moment.utc({
+      year: minyear,
+      month: minmonth,
+      day: minday
+    })
+  };
 })
