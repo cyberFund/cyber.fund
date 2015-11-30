@@ -12,9 +12,10 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.use("cyberfund:cyberfund-base");
+  api.use(["coffeescript", "underscore"]);
   api.versionsFrom('1.1.0.2');
   api.addFiles('cyberfund-currentdata.js');
-  api.addFiles('server/currentdata-server.js', 'server');
+  api.addFiles(['server/currentdata-server.js', 'server/calculatables.coffee'], 'server');
 });
 
 Package.onTest(function(api) {
