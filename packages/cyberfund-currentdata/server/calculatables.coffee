@@ -35,16 +35,18 @@ _.extend CF.CurrentData.calculatables,
         selector = {system: {$in: selector}}
 
       # iterate over selector
-      @getCursor selector
-        .forEach (item)->
-          return if not (item or item._id)
-          $set = {}
-          key = [i.calculatables.fieldName, name].join '.'
-          updatedAtKey = [i.calculatables.timestamps.fieldName, name].join '.'
-          # calculate value
-          $set[key] = i._calculatables[name](item);
-          # mark a timestamp - to be changed..? 
-          $set[updatedAtKey] = new Date();
-          CurrentData.update({_id: item._id}, {$set: $set});
-          true;
+      cursor = @getCursor selector
+      console.log cursor.fetch().length
+      cursor.forEach (item)->
+        return if not (item or item._id)
+        $set = {}
+        key = [CF.CurrentData.calculatables.fieldName, name].join '.'
+        updatedAtKey = [CF.CurrentData.calculatables.timestamps.fieldName, name].join '.'
+        # calculate value
+        $set[key] = i._calculatables[name](item);
+        # mark a timestamp - to be changed..?
+        $set[updatedAtKey] = new Date();
+        CurrentData.update({_id: item._id}, {$set: $set});
+        console.log('a')
+        true;
   }
