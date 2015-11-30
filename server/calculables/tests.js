@@ -34,6 +34,6 @@ CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) 
       year: minyear,
       month: minmonth,
       day: minday
-    })
+    })._d
   };
 })
