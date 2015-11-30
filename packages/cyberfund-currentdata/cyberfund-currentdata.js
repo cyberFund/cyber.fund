@@ -1,5 +1,15 @@
 // Write your package code here!
 CF.CurrentData = {
+  calculatables: {
+    fields: { "calculatable": 1 },
+    fieldsExclude: {'calculatable': 0},
+    fieldName: "calculatable",
+    timestamps: {
+      fieldName: '_t_calc',
+      fields: {'_t_calc': 1},
+      fieldsExclude: {'_t_calc': 0}
+    }
+  }
   selectors: {
     system_symbol: function (name, symbol) {
       return {
