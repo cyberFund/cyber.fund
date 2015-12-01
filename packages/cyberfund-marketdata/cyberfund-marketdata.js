@@ -1,2 +1,2 @@
 CF.MarketData = {}
-CF.MarketData._collection = MarketData = new Mongo.Collection('MarketData');
+CF.MarketData._collection = MarketData = new Meteor.Collection('MarketData');
