@@ -16,6 +16,7 @@ Meteor.publish("currentDataRP", function(options) {
     "icon": 1,
     "ratings": 1,
     "_usersStarred": 1,
+    "calculatable": 1,
     "descriptions.headline": 1
   };
 
