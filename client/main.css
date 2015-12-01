@@ -181,6 +181,13 @@ hr{
   vertical-align: middle
 }
 
+.cg-system-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
+  vertical-align: middle
+}
+
 .th-sys {
   margin-left: 40px
 }
@@ -230,6 +237,12 @@ hr{
     margin-right: 4px;
   }
 
+  .cg-system-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+  }
+
   .th-sys {
     margin-left: 32px
   }
@@ -264,6 +277,12 @@ hr{
     width: 54px;
     height: 54px;
     margin-right: 9px;
+  }
+
+  .cg-system-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
   }
 
   .th-sys {
