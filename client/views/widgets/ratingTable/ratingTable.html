@@ -1,173 +1,124 @@
-﻿<!-- originally created for cyber.fund project-->
+
+<!-- originally created for cyber.fund project-->
 <template name="ratingTable">
   <div class="card" style="padding:10px">
     <table class="hoverable-my" align="center" id="rating-table">
 
-        <thead  id="fixed-thead" class="fixed-thead z20">
-        <th class="left-align"><span  class="th-sys">&nbsp;&nbsp;System</span></th>
-
-        <th class="center hide-on-small-and-down sorter"
-            data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
-
-        <th class="center hide-on-small-and-down sorter"
-            data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
-
-        <th class="center hide-on-small-and-down sorter"
-            data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
-
-        <th class="right-align hide-on-med-and-down sorter"
-                data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
-
-        <th class="right-align hide-on-med-and-down sorter"
-                data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
-
-        <th class="right-align sorter"
-            data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
-
-        <th class="right-align sorter"
-                data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
-        </thead>
-      <thead id="normal-thead">
-      <th class="left-align"><span  class="th-sys">&nbsp;&nbsp;System</span></th>
-
-      <th class="center hide-on-small-and-down sorter"
-          data-sorter="ratings.rating_cyber">{{sorter "ratings.rating_cyber"}}Rating</th>
-
-      <th class="center hide-on-small-and-down sorter"
-          data-sorter="metrics.supplyChangePercents.day">{{sorter "metrics.supplyChangePercents.day"}}Token</th>
-
-      <th class="center hide-on-small-and-down sorter"
-          data-sorter="metrics.turnover">{{sorter "metrics.turnover"}}Trade</th>
-
-      <th class="right-align hide-on-med-and-down sorter"
-          data-sorter="metrics.cap.btc">{{sorter "metrics.cap.btc"}}Cap in Ƀ</th>
-
-      <th class="right-align hide-on-med-and-down sorter"
-          data-sorter="metrics.capChangePercents.day.btc">{{sorter "metrics.capChangePercents.day.btc"}}1d&nbsp;Change</th>
-
-      <th class="right-align sorter"
-          data-sorter="metrics.cap.usd">{{sorter "metrics.cap.usd"}}Cap in $</th>
-
-      <th class="right-align sorter"
-          data-sorter="metrics.capChangePercents.day.usd">{{sorter "metrics.capChangePercents.day.usd"}}1d&nbsp;Change</th>
+      <thead id="fixed-thead" class="fixed-thead z20">
+        {{> thea_d}}
       </thead>
-        <tbody>
+      <thead id="normal-thead">
+        {{> thea_d}}
+      </thead>
+      <tbody>
         {{#each rows}}
-            <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
-                <td class="left-align" >
-                    <a href="{{pathFor '/system/:name_' name_=name_}}" class="enlarge no-wrap"
-                       title="{{descriptions.headline}}">
+        <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
+          <td class="left-align">
+            <a href="{{pathFor '/system/:name_' name_=name_}}" class="enlarge no-wrap" title="{{descriptions.headline}}">
                         {{> cgSystemLogo data=this class='cg-system-logo'}}<span class="no-wrap" itemprop="name">{{displaySystemName this}}</span>
-                    </a><span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
-                </td>
+                    </a>
+            <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
+          </td>
 
-                <td class="center-align hide-on-small-and-down" itemprop="aggregateRating"
-                    content="{{ratings.rating_cyber}}">
-                        {{>cfRating rating=ratings.rating_cyber}}</td>
-                <td class="center-align hide-on-small-and-down">{{# withTooltip}}
-                    <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
-                    {{#tooltip}}
+          <td class="center-align hide-on-small-and-down">{{# withTooltip}}
+            <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
+            {{#tooltip}}
 
-                      <div>Ticker:
-                        <b itemprop="alternateName">{{symbol}}</b>
-                      </div>
-                      <div>Currency name:
-                        <b>{{displayCurrencyName this}}</b>
-                      </div>
+            <div>Ticker:
+              <b itemprop="alternateName">{{symbol}}</b>
+            </div>
+            <div>Currency name:
+              <b>{{displayCurrencyName this}}</b>
+            </div>
 
-                      <div>Current supply:
-                            <b>{{readableN metrics.supply 0}}</b>
-                        </div>
-                        <div>Absolute change:
-                            <b>{{readableN metrics.supplyChange.day 0}}</b>
-                        </div>
+            <div>Current supply:
+              <b>{{readableN metrics.supply 0}}</b>
+            </div>
+            <div>Absolute change:
+              <b>{{readableN metrics.supplyChange.day 0}}</b>
+            </div>
 
-                    {{/tooltip}}
-                {{/withTooltip}}</td>
+            {{/tooltip}} {{/withTooltip}}
+          </td>
 
-                <td class="center-align hide-on-small-and-down">
-                    {{#if tradeVolumeOk metrics.tradeVolume}}
-                        {{# withTooltip}}
-                            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
-                            {{#tooltip}}
-                              <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
-                              </div>
+          <td class="center-align hide-on-small-and-down">
+            {{#if tradeVolumeOk metrics.tradeVolume}} {{# withTooltip}}
+            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
+            {{#tooltip}}
+            <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+            </div>
 
-                              <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
-                              </div>
+            <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
+            </div>
 
-                              <div>Turnover:<b>{{readableN turnover 2}}</b> %
-                              </div>
-                            {{/tooltip}}
-                        {{/withTooltip}}
-                    {{else}}
-                        <span>Illiquid</span>
-                    {{/if}}
-                </td>
+            <div>Turnover:<b>{{readableN turnover 2}}</b> %
+            </div>
+            {{/tooltip}} {{/withTooltip}} {{else}}
+            <span>Illiquid</span>
+            {{/if}}
+          </td>
 
-                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    Ƀ&nbsp;{{readableN metrics.cap.btc 0}}
-                    {{#if metrics.price.btc}}
-                        {{#tooltip}}
-                            <div>Price per 1 {{displaySystemName this}}:<br/>
-                                <b itemprop="offers" itemscope
-                                    itemtype="http://schema.org/Offer"
-                                    class="no-wrap">
+          <td class="right-align hide-on-med-and-down">{{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} {{#tooltip}}
+            <div>Price per 1 {{displaySystemName this}}:
+              <br/>
+              <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
                                     <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
                                     <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
-                            </div>
-                        {{/tooltip}}
-                    {{/if}}
-                {{/withTooltip}}</td>
+            </div>
+            {{/tooltip}} {{/if}} {{/withTooltip}}
+          </td>
 
-                <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-                    <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-                        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-                    {{#if metrics.capChange.day.btc}}
-                        {{#tooltip}}
-                            <div>Real change:
-                                <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
-                            </div>
-                        {{/tooltip}}
-                    {{/if}}
-                {{/withTooltip}}</td>
+          <td class="right-align hide-on-med-and-down">{{# withTooltip}}
+            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+              {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+            {{#if metrics.capChange.day.btc}} {{#tooltip}}
+            <div>Real change:
+              <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
+            </div>
+            {{/tooltip}} {{/if}} {{/withTooltip}}
+          </td>
 
-                <td class="right-align">{{# withTooltip}}
-                    <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                    {{#if metrics.price.usd}}
-                        {{#tooltip}}
-                            <div>Price per 1 {{displaySystemName this}}:<br/>
-                                <b class="no-wrap" itemprop="offers" itemscope
-                                   itemtype="http://schema.org/Offer">
+          <td class="right-align">{{# withTooltip}}
+            <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+            {{#if metrics.price.usd}} {{#tooltip}}
+            <div>Price per 1 {{displaySystemName this}}:
+              <br/>
+              <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
                                     <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
-                            </div>
-                        {{/tooltip}}
-                    {{/if}}
-                {{/withTooltip}}</td>
+            </div>
+            {{/tooltip}} {{/if}} {{/withTooltip}}
+          </td>
 
-                <td class="right-align">{{#withTooltip}}
-                    <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                        {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+          <td class="right-align">{{#withTooltip}}
+            <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+              {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
 
-                    {{#tooltip}}
-                        <div>Real change:
-                            <b>{{readableN metrics.capChange.day.usd 2}} $</b>
-                        </div>
-                    {{/tooltip}}
-                {{/withTooltip}}</td>
-            </tr>
+            {{#tooltip}}
+            <div>Real change:
+              <b>{{readableN metrics.capChange.day.usd 2}} $</b>
+            </div>
+            {{/tooltip}} {{/withTooltip}}
+          </td>
+
+          <td class="center">
+            {{_usersStarred.length}}
+          </td>
+
+          <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">
+            {{>cfRating rating=ratings.rating_cyber}}
+          </td>
+        </tr>
         {{/each}}
-        </tbody>
+      </tbody>
     </table>
   </div>
-    {{#if hasMore}}
-        <div class="center">
-            <a class="waves-effect waves-light btn show-more deep-orange">
-                <i class="mdi-navigation-expand-more left"></i>
-                <i class="mdi-navigation-expand-more right"></i>
-                Discover more opportunities</a>
-        </div>
-    {{/if}}
-    <div style="padding-bottom: 40px"></div>
+  {{#if hasMore}}
+  <div class="center">
+    <a class="waves-effect waves-light btn show-more deep-orange">
+      <i class="mdi-navigation-expand-more left"></i>
+      <i class="mdi-navigation-expand-more right"></i> Discover more opportunities</a>
+  </div>
+  {{/if}}
+  <div style="padding-bottom: 40px"></div>
 </template>

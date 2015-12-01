@@ -10,11 +10,25 @@ function curData(){
 
 Template['systemBasic'].onCreated(function () {
   var instance = this;
-  instance.autorun(function () {
-    var name = FlowRouter.getParam('name_').replace(/_/g, " ");
-    instance.subscribe('systemData', {name: name})
-  })
+  instance.subscribe('systemData', {name: FlowRouter.getParam('name_').replace(/_/g, " ")});
+  instance.subscribe('dependentCoins', systemName());
+  instance.subscribe('fastData', systemName());
 
+  instance.autorun(function () {
+
+    var data = curData();
+    if (data) {
+      instance.subscribe('avatars', data._usersStarred);
+    }
+
+    if (data && data.dependencies) {
+      var d = data.dependencies;
+      if (!_.isArray(d)) d = [d];
+      if (d.indexOf("independent") == -1) {
+        instance.subscribe('dependencies', d);
+      }
+    }
+  });
 });
 
 Template['systemBasic'].onRendered(function () {
@@ -31,13 +45,13 @@ Template['systemBasic'].helpers({
     return curData();
   },
   'img_url': function () {
-    return CF.Chaingear.helpers.cgSystemLogo(this);
+    return CF.Chaingear.helpers.cgSystemLogo(curData());
   },
   'dependents': function () {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {sort: {system: 1}})
   },
   depends_on: function () {
-    var self = this;
+    var self = curData();
     if (!self.dependencies) return [];
     var deps = self.dependencies;
     if (!_.isArray(deps)) deps = [deps];
@@ -225,26 +239,4 @@ Template['systemBasic'].events({
 
     Meteor.call('toggleStarSys', system);
   }
-});
-
-Template['systemBasic'].onCreated(function () {
-  var instance = this;
-  instance.autorun(function () {
-    instance.subscribe('dependentCoins', systemName());
-    instance.subscribe('fastData', systemName());
-
-
-    var data = curData();
-    if (data) {
-      instance.subscribe('avatars', data._usersStarred);
-    }
-
-    if (data && data.dependencies) {
-      var d = data.dependencies;
-      if (!_.isArray(d)) d = [d];
-      if (d.indexOf("independent") == -1) {
-        instance.subscribe('dependencies', d);
-      }
-    }
-  });
 });

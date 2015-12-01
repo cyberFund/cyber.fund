@@ -4,7 +4,7 @@ SyncedCron.config({
   collectionTTL: 604800,
   utc: true
 });
-//if (!process.env.GO_AWAY_SYNCED_CRON)
+
 {
 
   if (!Meteor.settings.noFetch) {
@@ -12,4 +12,3 @@ SyncedCron.config({
     SyncedCron.start();
   }
 }
-

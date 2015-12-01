@@ -35,7 +35,7 @@ function updateCrowdsales() {
       else {
         Meteor.clearInterval(interval);
       }
-    }, 12000); // 12 seconds per query
+    }, 120*1000); // 120 seconds per query
 }
 
 SyncedCron.add({

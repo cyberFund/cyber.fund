@@ -129,15 +129,10 @@ Template['ratingTable'].helpers({
           return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
       }
     return 0;
-  },
-  sorter: function (field) {
-    var sorter = _Session.get("ratingPageSort");
-    if (!_.isObject(sorter)) return "";
-    if (sorter[field] == -1) return "↓ ";
-    if (sorter[field] == 1) return "↑ ";
-    return "";
   }
 });
+
+
 
 Template['ratingTable'].events({
   'click .show-more': function (e, t) {
@@ -153,19 +148,5 @@ Template['ratingTable'].events({
   },
   'click .no-click a': function () {
     return false;
-  },
-  'click th.sorter': function (e, t) {
-    var newSorter = $(e.currentTarget).data('sorter');
-    var sort = _Session.get("ratingPageSort");
-      if (sort[newSorter]) {
-          sort[newSorter] = -sort[newSorter];
-      } else {
-          sort = {};
-          sort[newSorter] = -1;
-      }
-    analytics.track("Sorted Rating", {
-      sort: sort
-    });
-    _Session.set('ratingPageSort', sort);
   }
 });

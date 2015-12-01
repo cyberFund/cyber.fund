@@ -61,31 +61,32 @@ Template['invest'].rendered = function () {
     },
     'raised': function () {
       var invest = _invest();
-      return invest ? _raised(invest) : 0
+      return invest ? _raised(invest) : '...loading...'
     },
     'left': function () {
       var invest = _invest();
-      return invest ? 42 - _raised(invest) : 0
+      return invest ? 42 - _raised(invest) : '...loading...'
     },
     'invcap': function () {
       var invest = _invest();
-      return invest ? 100 / 3 * _raised(invest) : 0
+      return invest ? 100 / 3 * _raised(invest) : '...loading...'
     },
     cap_btc_mln: function () {
       var cap = _cap();
-      return cap ? cap.btc / 1000000 : 0
+      return cap ? cap.btc / 1000000 : '...loading...'
     },
     cap_usd_bln: function () {
       var cap = _cap();
-      return cap ? cap.usd / 1000000000 : 0
+      return cap ? cap.usd / 1000000000 : '...loading...'
     },
     cap_btc_div_200k: function () {
       var cap = _cap();
-      return cap ? cap.btc / 200000 : 0
+      return cap ? cap.btc / 200000 : '...loading...'
     },
     'nicheShare': function () {
       var invest = _invest(), cap = _cap();
-      var share = (invest && cap) ? (100 / 3 * _raised(invest) / (cap.btc / 200)) : 0;
+      var share = (invest && cap) ? (100 / 3 * _raised(invest) / (cap.btc / 200)) : '...loading...';
+      if (_.isString(share)) return "...loading...";
       if (share == 0) return 0;
       var rev = Math.round(1 / share);
 

@@ -1,46 +1,71 @@
 Template['radarPage'].onCreated(function() {
   var self = this;
-  self.autorun(function() {
-    //var postId = FlowRouter.getParam('postId');
-    self.subscribe('crowdsale')
-  });
+  self.subscribe('crowdsalesList');
+  self.subscribe('projectsList');
 });
 
-Template['radarPage'].helpers({
-  crowdsale: function () {
-    return CurrentData.find(CF.Chaingear.selector.crowdsales)
-  },
-  crowdsalePast: function () {
-    return CurrentData.find({
-      $and: [CF.Chaingear.selector.crowdsales,
-        {'crowdsales.end_date': {$lt: new Date()}}]
-    }, {sort: {'crowdsales.end_date': -1}})
-  },
-  crowdsaleUpcoming: function () {
-    return CurrentData.find({
-      $and: [CF.Chaingear.selector.crowdsales,
-        {'crowdsales.start_date': {$gt: new Date()}}]
-    })
-  },
-  crowdsaleActive: function () {
-    return CurrentData.find({
-      $and: [CF.Chaingear.selector.crowdsales,
-        {'crowdsales.end_date': {$gt: new Date()}},
-        {'crowdsales.start_date': {$lt: new Date()}}]
-    })
-  },
-  project: function () {
-    return CurrentData.find(CF.Chaingear.selector.projects)
-  },
+function _crowdsale() {
+  return CurrentData.find(CF.Chaingear.selector.crowdsales);
+}
 
-  isActiveCrowdsale: function () {
+function _project() {
+  return CurrentData.find(CF.Chaingear.selector.project);
+}
+
+function _crowdsalePast() {
+  return CurrentData.find({
+    $and: [CF.Chaingear.selector.crowdsales, {
+      'crowdsales.end_date': {
+        $lt: new Date()
+      }
+    }]
+  }, {
+    sort: {
+      'crowdsales.end_date': -1
+    }
+  })
+}
+
+function _crowdsaleUpcoming() {
+  return CurrentData.find({
+    $and: [CF.Chaingear.selector.crowdsales, {
+      'crowdsales.start_date': {
+        $gt: new Date()
+      }
+    }]
+  })
+}
+
+function _crowdsaleActive() {
+  return CurrentData.find({
+    $and: [CF.Chaingear.selector.crowdsales, {
+      'crowdsales.end_date': {
+        $gt: new Date()
+      }
+    }, {
+      'crowdsales.start_date': {
+        $lt: new Date()
+      }
+    }]
+  })
+}
+
+Template['radarPage'].helpers({
+  crowdsale: function() { return _crowdsale() },
+  crowdsalePast: function() { return _crowdsalePast() },
+  crowdsaleUpcoming: function() { return _crowdsaleUpcoming() },
+  crowdsaleActive: function() { return _crowdsaleActive(); },
+  project: function() { return _project() },
+  nothing: function() { return !( _project().count() + _crowdsale().count() ) },
+
+  isActiveCrowdsale: function() {
     return this.crowdsales && this.crowdsales.start_date < new Date() &&
       this.crowdsales.end_date > new Date()
   },
-  isUpcomingCrowdsale: function () {
+  isUpcomingCrowdsale: function() {
     return this.crowdsales && this.crowdsales.start_date > new Date()
   },
-  isPastCrowdsale: function () {
+  isPastCrowdsale: function() {
     return this.crowdsales && this.crowdsales.end_date < new Date()
   }
 });
