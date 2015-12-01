@@ -68,16 +68,6 @@
             {{/tooltip}} {{/if}} {{/withTooltip}}
           </td>
 
-          <td class="right-align hide-on-med-and-down">{{# withTooltip}}
-            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-              {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-            {{#if metrics.capChange.day.btc}} {{#tooltip}}
-            <div>Real change:
-              <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
-            </div>
-            {{/tooltip}} {{/if}} {{/withTooltip}}
-          </td>
-
           <td class="right-align">{{# withTooltip}}
             <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
             {{#if metrics.price.usd}} {{#tooltip}}
@@ -88,17 +78,6 @@
                                     <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
             </div>
             {{/tooltip}} {{/if}} {{/withTooltip}}
-          </td>
-
-          <td class="right-align">{{#withTooltip}}
-            <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-              {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
-
-            {{#tooltip}}
-            <div>Real change:
-              <b>{{readableN metrics.capChange.day.usd 2}} $</b>
-            </div>
-            {{/tooltip}} {{/withTooltip}}
           </td>
 
           <td class="center">
