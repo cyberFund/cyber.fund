@@ -9,11 +9,7 @@ CF.CurrentData = {
       fields: {'_t_calc': 1},
       fieldsExclude: {'_t_calc': 0}
     }
-<<<<<<< HEAD
-  }
-=======
   },
->>>>>>> origin/develop
   selectors: {
     system_symbol: function (name, symbol) {
       return {
