@@ -58,18 +58,8 @@
             {{/if}}
           </td>
 
-          <td class="right-align hide-on-med-and-down">{{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} {{#tooltip}}
-            <div>Price per 1 {{displaySystemName this}}:
-              <br/>
-              <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
-                                    <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
-                                    <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
-            </div>
-            {{/tooltip}} {{/if}} {{/withTooltip}}
-          </td>
-
           <td class="right-align">{{# withTooltip}}
-            <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+            <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
             {{#if metrics.price.usd}} {{#tooltip}}
             <div>Price per 1 {{displaySystemName this}}:
               <br/>
@@ -79,6 +69,16 @@
             </div>
             {{/tooltip}} {{/if}} {{/withTooltip}}
           </td>
+          <td class="center">
+            {{_usersStarred.length}}
+          </td>
+          <td class="center">
+            {{_usersStarred.length}}
+          </td>
+          <td class="center">
+            {{_usersStarred.length}}
+          </td>
+
 
           <td class="center">
             {{_usersStarred.length}}
