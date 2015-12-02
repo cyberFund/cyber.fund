@@ -6,25 +6,27 @@ CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
 Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('numOfStarred');
   CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
+  CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
+  CF.CurrentData.calculatables.triggerCalc('months');
 })
 
 CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
-  if (!system) return;
+  if (!system) return undefined;
 
   var data = system.dailyData;
-  if (!data) return;
+  if (!data) return  undefined;
 
   var minFunc = function(it) {
     return parseInt(it);
   };
   var minyear = _.min(_.keys(data), minFunc);
-  if (!minyear) return;
+  if (!minyear) return  undefined;
 
   var minmonth = _.min(_.keys(data[minyear]), minFunc);
-  if (minmonth != 0 && !minmonth) return;
+  if (minmonth != 0 && !minmonth) return  undefined;
 
   var minday = _.min(_.keys(data[minyear][minmonth]), minFunc);
-  if (minday != 0 && !minday) return;
+  if (minday != 0 && !minday) return  undefined;
 
   var firstData = data[minyear] ? data[minyear][minmonth] ? data[minyear][minmonth][minday] : null : null
 
@@ -36,4 +38,52 @@ CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) 
       day: minday
     })._d
   };
+})
+
+
+CF.CurrentData.calculatables.addCalculatable('months', function(system) {
+  if (!system) return undefined;
+  var nm = CF.CurrentData.calculatables.fieldName;
+
+  var firstPrice = system[nm].firstDatePrice;
+  var firstDate;
+  if (firstPrice) {
+    firstDate = firstPrice.date;
+    firstPrice = firstPrice.market;
+  } else {
+    return undefined;
+  }
+
+  return moment().diff(moment(firstDate), 'months', true)
+})
+
+CF.CurrentData.calculatables.addCalculatable('monthlyGrowth', function(system) {
+  if (!system) return undefined;
+  var nm = CF.CurrentData.calculatables.fieldName;
+
+  var firstPrice = system[nm].firstDatePrice;
+  var firstDate;
+  if (firstPrice) {
+    firstDate = firstPrice.date;
+    firstPrice = firstPrice.market;
+  } else {
+    return undefined;
+  }
+
+  if (firstPrice && firstPrice.price_usd) {
+    firstPrice = firstPrice.price_usd;
+  } else {
+    return undefined;
+  }
+
+  var currentPrice = system.metrics ? system.metrics.price ? system.metrics.price.usd
+  : null : null;
+  var timeDiff = moment().diff(moment(firstDate), 'months', true)
+
+  if (firstPrice && currentPrice && timeDiff) {
+    return Math.pow(currentPrice/firstPrice, 1/timeDiff)-1;
+  }
+  else {
+    return undefined
+  }
 })
