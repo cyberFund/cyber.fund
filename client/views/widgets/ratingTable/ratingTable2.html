@@ -78,35 +78,21 @@
             {{/tooltip}} {{/if}} {{/withTooltip}}
           </td>
           <td class="center">
+            {{readableN firstPrice 2}}
+          </td>
+          <td class="center">
+            {{readableN currentPrice 2}}
+          </td>
+          <td class="center">
             {{readableN calculatable.monthlyGrowth 2}}
           </td>
           <td class="center">
-            {{readableN calculatable.months 1}}
+            {{readableN calculatable.months 0}}
 
           </td>
-          <td class="center">
 
-          </td>
           <td class="center">
             {{_usersStarred.length}}
-          </td>
-          <td class="center">
-
-          </td>
-          <td class="center">
-
-          </td>
-          <td class="center">
-
-          </td>
-          <td class="center">
-
-          </td>
-          <td class="center">
-
-          </td>
-          <td class="center">
-
           </td>
 
           <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">

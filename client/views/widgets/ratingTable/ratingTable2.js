@@ -53,6 +53,14 @@ Template['ratingTable2'].rendered = function () {
 };
 
 Template['ratingTable2'].helpers({
+  firstPrice: function(){
+    return this.calculatable && this.calculatable.firstDatePrice &&
+    this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd
+    || 0
+  },
+  currentPrice: function() {
+    return this.metrics && this.metrics.price && this.metrics.price.usd || 0
+  },
   'rows': function () {
     var sort = _Session.get("ratingPageSort");
       if (sort["ratings.rating_cyber"]) {
