@@ -15,7 +15,7 @@ Template['ratingTable2'].onCreated(function () {
 });
 
 Template['ratingTable2'].rendered = function () {
-  Session.set('ratingPageLimit', initialLimit);
+  Session.set('ratingPageLimit', 500);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
