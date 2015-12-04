@@ -53,7 +53,7 @@ Template['ratingTable2'].rendered = function () {
 };
 
 Template['ratingTable2'].helpers({
-  _cg: function(){
+  _cs: function(){
     var c = this.metrics.cap.usd;
     var k = 1000, M = 1000000
     if (c < 10*k) return 0;

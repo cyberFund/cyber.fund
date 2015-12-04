@@ -385,3 +385,7 @@ body {
 .avatar-round {
   border-radius: 50%;
 }
+
+.tooltip.z-depth-1.black.white-text {
+  padding: 4px;
+}
