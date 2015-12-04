@@ -73,7 +73,7 @@
 
           <td class="center-align hide-on-small-and-down">
             {{#if tradeVolumeOk metrics.tradeVolume}} {{# withTooltip}}
-            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc}}</span>
+            <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
             {{#tooltip}}
             <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
             </div>
