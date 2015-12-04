@@ -228,7 +228,29 @@ var helpers = {
   },
   dateFormat: function(date, format){
     return moment(date).format(format);
-  }
+  },
+
+  dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
+    //<0.1% - Illiquid
+    //<0.3% - Very Low
+    //< 0.5% - Low
+    //< 1% - Normal
+    //< 2% - High
+    //`> 3% - Very High (edited)
+
+    if (!absolute) {
+      return needDigit ? 0 : "Normal";
+    }
+
+    if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0 : "Illiquid";
+    if (Math.abs(volumeDaily / absolute) < 0.003) return needDigit ? 0.25 : "Very Low";
+    if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.5 : "Low";
+    if (Math.abs(volumeDaily / absolute) < 0.01) return needDigit ? 0.75 : "Normal";
+    if (Math.abs(volumeDaily / absolute) < 0.025) return needDigit ? 2*0.5 : "High";
+    return "Very High";
+
+
+  },
 
 };
 

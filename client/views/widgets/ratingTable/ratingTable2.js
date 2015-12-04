@@ -64,7 +64,19 @@ Template['ratingTable2'].helpers({
     return 0.5;
   },
   _lv: function(){
-    return 'lv'
+    return 'lv' // i.e. stars normalized at maxStars, weighted.
+  },
+  _wl: function(){
+
+  },
+  _br: function(){
+    return 0;
+  },
+  _am: function(){
+    return 0;
+  },
+  _gr: function(){
+    return 0;
   },
   firstPrice: function(){
     return this.calculatable && this.calculatable.firstDatePrice &&
@@ -94,27 +106,6 @@ Template['ratingTable2'].helpers({
   // underscored currency name
   name_: function () {
     return Blaze._globalHelpers._toUnderscores(this.system);
-  },
-  dailyTradeVolumeToText: function (volumeDaily, absolute) {
-    //<0.1% - Illiquid
-    //<0.3% - Very Low
-    //< 0.5% - Low
-    //< 1% - Normal
-    //< 2% - High
-    //`> 3% - Very High (edited)
-
-    if (!absolute) {
-      return "Normal";
-    }
-
-    if (Math.abs(volumeDaily / absolute) < 0.001) return "Illiquid";
-    if (Math.abs(volumeDaily / absolute) < 0.003) return "Very Low";
-    if (Math.abs(volumeDaily / absolute) < 0.005) return "Low";
-    if (Math.abs(volumeDaily / absolute) < 0.01) return "Normal";
-    if (Math.abs(volumeDaily / absolute) < 0.025) return "High";
-    return "Very High";
-
-
   },
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);
