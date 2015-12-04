@@ -243,11 +243,11 @@ var helpers = {
     }
 
     if (Math.abs(volumeDaily / absolute) === 0) return needDigit ? 0 : "Illiquid";
-    if (Math.abs(volumeDaily / absolute) < 0.0001) return needDigit ? 0.25 : "Very Low";
-    if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.5 : "Low";
-    if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.75 : "Normal";
-    if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 2*0.5 : "High";
-    return "Very High";
+    if (Math.abs(volumeDaily / absolute) < 0.0001) return needDigit ? 0.1 : "Very Low";
+    if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.2 : "Low";
+    if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.3 : "Normal";
+    if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
+    return needDigit ? 0.5 "Very High";
 
 
   },
