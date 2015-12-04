@@ -15,7 +15,7 @@ Template['ratingTable2'].onCreated(function () {
 });
 
 Template['ratingTable2'].rendered = function () {
-  Session.set('ratingPageLimit', 500);
+  Session.set('ratingPageLimit', 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -53,6 +53,19 @@ Template['ratingTable2'].rendered = function () {
 };
 
 Template['ratingTable2'].helpers({
+  _cg: function(){
+    var c = this.metrics.cap.usd;
+    var k = 1000, M = 1000000
+    if (c < 10*k) return 0;
+    if (c < 100*k) return 0.1;
+    if (c < 1*M) return 0.2;
+    if (c < 10*M) return 0.3;
+    if (c < k*M) return 0.4;
+    return 0.5;
+  },
+  _lv: function(){
+    return 'lv'
+  },
   firstPrice: function(){
     return this.calculatable && this.calculatable.firstDatePrice &&
     this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd

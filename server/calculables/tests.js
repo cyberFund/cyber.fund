@@ -5,7 +5,7 @@ CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
 
 Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('numOfStarred');
-  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
+  //CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
   CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
   CF.CurrentData.calculatables.triggerCalc('months');
 })
@@ -81,7 +81,7 @@ CF.CurrentData.calculatables.addCalculatable('monthlyGrowth', function(system) {
   var timeDiff = moment().diff(moment(firstDate), 'months', true)
 
   if (firstPrice && currentPrice && timeDiff) {
-    return Math.pow(currentPrice/firstPrice, 1/timeDiff)-1;
+    return 100*(Math.pow(currentPrice/firstPrice, 1/timeDiff)-1);
   }
   else {
     return undefined

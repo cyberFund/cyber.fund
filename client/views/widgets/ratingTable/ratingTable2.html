@@ -21,11 +21,11 @@
           </td>
 
           <td class="center">
-
+            {{descriptions.state}}
           </td>
 
           <td class="center">
-
+            {{descriptions.system_type}}
           </td>
 
           <td class="center-align hide-on-small-and-down">{{# withTooltip}}
@@ -84,7 +84,28 @@
             {{readableN currentPrice 2}}
           </td>
           <td class="center">
-            {{readableN calculatable.monthlyGrowth 2}}
+            {{readableN calculatable.monthlyGrowth 1}}%
+          </td>
+          <td class="center">
+            {{readableN calculatable.months 0}}
+          </td>
+          <td class="center">
+            {{_cg}}
+          </td>
+          <td class="center">
+            {{_lv}}
+          </td>
+          <td class="center">
+            wl
+          </td>
+          <td class="center">
+            br
+          </td>
+          <td class="center">
+            am
+          </td>
+          <td class="center">
+            gr
           </td>
           <td class="center">
             {{readableN calculatable.months 0}}
