@@ -3,8 +3,9 @@ Meteor.startup(function () {
   _Session.default("ratingPageSort", {"metrics.cap.btc": -1});
 });
 
-Template['ratingTable'].onCreated(function () {
+Template['ratingTable2'].onCreated(function () {
   var instance = this;
+  instance.subscribe("maxLove");
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
@@ -14,8 +15,8 @@ Template['ratingTable'].onCreated(function () {
 
 });
 
-Template['ratingTable'].rendered = function () {
-  Session.set('ratingPageLimit', initialLimit);
+Template['ratingTable2'].rendered = function () {
+  Session.set('ratingPageLimit', 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -52,7 +53,50 @@ Template['ratingTable'].rendered = function () {
   $(window).trigger("resize");
 };
 
-Template['ratingTable'].helpers({
+Template['ratingTable2'].helpers({
+  _cs: function(){
+    var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
+    var k = 1000, M = 1000000
+    if (c < 10*k) return 0;
+    if (c < 100*k) return 0.1;
+    if (c < 1*M) return 0.2;
+    if (c < 10*M) return 0.3;
+    if (c < k*M) return 0.4;
+    return 0.5;
+  },
+  _lv: function(){
+    if (!this._usersStarred || !this._usersStarred.length) return 0;
+
+    var maxLove = Extras.findOne({_id: 'maxLove'});
+    if (maxLove) {
+      maxLove = maxLove.value;
+    }
+    else {
+      return 0;
+    }
+
+    return this._usersStarred.length / maxLove;
+  },
+  _wl: function(){
+
+  },
+  _br: function(){
+    return 0;
+  },
+  _am: function(){
+    return 0;
+  },
+  _gr: function(){
+    return 0;
+  },
+  firstPrice: function(){
+    return this.calculatable && this.calculatable.firstDatePrice &&
+    this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd
+    || 0
+  },
+  currentPrice: function() {
+    return this.metrics && this.metrics.price && this.metrics.price.usd || 0
+  },
   'rows': function () {
     var sort = _Session.get("ratingPageSort");
       if (sort["ratings.rating_cyber"]) {
@@ -113,7 +157,7 @@ Template['ratingTable'].helpers({
 
 
 
-Template['ratingTable'].events({
+Template['ratingTable2'].events({
   'click .show-more': function (e, t) {
     var step = CF.Rating.step;
     var limit = Session.get("ratingPageLimit");

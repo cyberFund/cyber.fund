@@ -1,0 +1,138 @@
+<template name="thea_d2">
+
+  <th class="left-align">
+    <span class="th-sys">&nbsp;&nbsp;System</span>
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.numOfStarred">
+    {{sorter "calculatable.numOfStarred"}}
+    Stars
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.numOfStarred">
+    {{# withTooltip}}
+      Stage
+      {{#tooltip}}
+        Systems in cybernomics have very simmilar to traditional economy lifecycle. They are born and die. On diferent stages of lifecicle they have very different properties that could define risks and growth potential. So scoring and evaluation criteria is very different for stages. Details could be found in
+        <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Scoring document</a>
+      {{/tooltip}}
+    {{/withTooltip}}
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.numOfStarred">
+    {{# withTooltip}}
+      Type
+      {{#tooltip}}
+        As defined in a paper <a href="https://github.com/cyberFund/cyberrating/blob/master/paper.md#2-approaching-problem-of-definitions">cyber•Rating: Cryptoproperty Evaluation</a> there are two types of systems in cybernomics: DAOs are driven by tokens that we use to call cryptocurrency and DApps are driven by tokens that we use to call cryptoassets. Key difference between this two types of organizations are in phisical network of computing, storing and transmiting nodes. DAOs have its phisical network infrustructer, though Dapps don't and use infrustructure of parent system, so they kinda of virtual. Good analogy is States that have legal systems and Companies that depend on it. Thus evaulation criteria and risks are differs
+      {{/tooltip}}
+    {{/withTooltip}}
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="metrics.supplyChangePercents.day">
+    {{sorter "metrics.supplyChangePercents.day"}}
+    Token
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="metrics.turnover">
+    {{sorter "metrics.turnover"}}
+    Trade
+  </th>
+
+  <th
+    class="right-align sorter"
+    data-sorter="metrics.cap.usd">
+    {{sorter "metrics.cap.usd"}}
+    Cap in $
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter" data-sorter="calculatable.firstDatePrice.market.price_usd">
+    {{sorter "calculatable.firstDatePrice.market.price_usd"}}
+    AIP in $
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="metrics.price.usd">
+    {{sorter "metrics.price.usd"}}
+    Price in $
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.monthlyGrowth">
+    {{sorter "calculatable.monthlyGrowth"}}
+    CMGR
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.months">
+    {{sorter "calculatable.months"}}
+    Months
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    {{# withTooltip}}
+      CS
+      {{#tooltip}}
+        ChainGear Score. Is calculted based on static metadata from <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+      {{/tooltip}}
+    {{/withTooltip}}
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    {{# withTooltip}}LV
+      {{#tooltip}}
+        LoVe Score. Is calculted based. Detailed methodlogoy is defined in cyber•Rating spec <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+      {{/tooltip}}
+    {{/withTooltip}}
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    WL
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    BR
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    AM
+  </th>
+
+  <th
+    class="center hide-on-small-and-down">
+    GR
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="ratings.rating_cyber">
+    {{sorter "ratings.rating_cyber"}}
+    NedoRating
+  </th>
+
+  <th
+    class="center hide-on-small-and-down sorter"
+    data-sorter="ratings.rating_cyber">
+    {{sorter "ratings.rating_cyber"}}
+    Rating
+  </th>
+
+</template>

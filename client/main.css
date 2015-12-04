@@ -133,13 +133,14 @@ a.tooltip:hover span {
   display: block;
   text-align: left;
   right: 80%;
-  bottom: 0;
+  top: 0;
   border-radius: 6px;
   width: 200px;
   line-height: 1rem;
   font-size: 0.8rem;
   z-index: 40;
   box-shadow: rgba(0, 0, 0, 0.16) 0 2px 10px 0;
+  padding: 4px;
 }
 
 body {
@@ -178,6 +179,13 @@ hr{
   width: 40px;
   height: 40px;
   margin-right: 6px;
+  vertical-align: middle
+}
+
+.cg-system-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 4px;
   vertical-align: middle
 }
 
@@ -230,6 +238,12 @@ hr{
     margin-right: 4px;
   }
 
+  .cg-system-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 3px;
+  }
+
   .th-sys {
     margin-left: 32px
   }
@@ -264,6 +278,12 @@ hr{
     width: 54px;
     height: 54px;
     margin-right: 9px;
+  }
+
+  .cg-system-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
   }
 
   .th-sys {
