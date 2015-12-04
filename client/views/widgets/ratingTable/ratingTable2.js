@@ -5,6 +5,7 @@ Meteor.startup(function () {
 
 Template['ratingTable2'].onCreated(function () {
   var instance = this;
+  instance.subscribe("maxLove");
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
@@ -54,7 +55,7 @@ Template['ratingTable2'].rendered = function () {
 
 Template['ratingTable2'].helpers({
   _cs: function(){
-    var c = this.metrics.cap.usd;
+    var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
     var k = 1000, M = 1000000
     if (c < 10*k) return 0;
     if (c < 100*k) return 0.1;
@@ -64,7 +65,17 @@ Template['ratingTable2'].helpers({
     return 0.5;
   },
   _lv: function(){
-    return 'lv' // i.e. stars normalized at maxStars, weighted.
+    if (!this._usersStarred || !this._usersStarred.length) return 0;
+
+    var maxLove = Extras.findOne({_id: 'maxLove'});
+    if (maxLove) {
+      maxLove = maxLove.value;
+    }
+    else {
+      return 0;
+    }
+
+    return this._usersStarred.length / maxLove;
   },
   _wl: function(){
 
