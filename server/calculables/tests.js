@@ -53,13 +53,114 @@ Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
   CF.CurrentData.calculatables.triggerCalc('months');
   CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
+  CF.CurrentData.calculatables.triggerCalc('CS');
 })
+
+CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
+  // to reload this - db.CurrentData.distinct("descriptions.state");
+  var stages = [ "Dead", "Pre-Public", "Project", "Public", "Running", "live"];
+  var stage = system.descriptions && system.descriptions.state;
+  if (!stage || !_.contains(stages, stage)) return undefined;
+
+  var types = ['cryptocurrentcy', 'cryptoasset'];
+  var type = system.descriptions && system.descriptions.system_type;
+  if (!stage || !_.contains(stages, stage)) return undefined;
+
+  // convert from links to 1/0
+  var wt = system.calculatable.nLinksWithTag;
+  if (!wt) {
+    console.log ("CS calculation: no links calculated for "+system.system);
+    return undefined;
+  }
+
+  var mandatory = {
+    site: wt['Main'] ? 1 : 0,
+    community: wt['Community'] ? 1 : 0,
+    updates: wt['News'] ? 1 : 0,
+    code: (wt['Code'] || wt['code']) ? 1 : 0,
+    science: wt['Science'] ? 1 : 0,
+    knowledge: (wt['Publictaions'] || wt['paper']) ? 1 : 0,
+  }
+
+  var basic = "stub";
+  var extended = "stub"; // see https://docs.google.com/spreadsheets/d/1YkrIitYD6FS2a4IEmBlfwAuCMgMwIKgU5JMHQzsfg-k/edit#gid=755429566&vpid=A1
+
+  var keys = ['site', 'community', 'updates', 'code', 'science', 'knowledge'];
+
+  weights = {
+    "cryptocurrency": {
+      "Public": {
+        site: .05, community: .05, updates: .05,  code: .05,  science: .05, knowledge: .05
+      },
+      "Pre-Public": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Project": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Dead": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "live": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Running": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+    },
+    "cryptoasset": {
+      "Public": {
+        site: .05, community: .05, updates: .10,  code: .20,  science: .05, knowledge: .05
+      },
+      "Pre-Public": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Project": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Dead": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "live": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+      "Running": {
+        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+      },
+    }
+  }
+
+  // weight 1/0 (exits/not)
+  function mandatoryScore(type, stage, mandatory, weights){
+
+    // convolution of 2 objects, for provided keys only
+    // expects _keys_ to be an array, and v1, v2 objects.
+    function convolution(keys, v1, v2) {
+      var sum = _.reduce(_.map(keys, function(key){
+        return (v1[key] || 0) * (v2[key] || 0);
+      }),
+        function(memo, num){ return memo + num; }, 0);
+      return sum;
+    }
+
+
+    var v = weights[type];
+    if (!v) return undefined;
+    v = v[stage];
+    if (!v) return undefined;
+
+    return convolution(keys, v, mandatory);
+  };
+
+  return mandatoryScore(type, stage, mandatory, weights);
+});
 
 
 CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
   if (!system) return undefined;
-  var tags = ['Science', 'News', 'Apps', 'Wallet', 'Exchange', 'Analytics',
-      'Magic', 'Code'],
+  var tags = [ 'Apps', 'Code',  'Main',  'publications',  'News',
+  'Science',  'Analytics',  'Exchange',  'Wallet',  'Publications',
+  'Explorer',  'code',  'DAO',  'App',  'API',  'paper',  'wallet', 'Community' ];
     links = system.links,
     ret = {};
   if (!links || !links.length) return undefined;
