@@ -18,7 +18,7 @@
       Stage
       {{#tooltip}}
         Systems in cybernomics have very simmilar to traditional economy lifecycle. They are born and die. On diferent stages of lifecicle they have very different properties that could define risks and growth potential. So scoring and evaluation criteria is very different for stages. Details could be found in
-        <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Scoring document</a>
+        <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Scoring document</a>
       {{/tooltip}}
     {{/withTooltip}}
   </th>
@@ -29,7 +29,7 @@
     {{# withTooltip}}
       Type
       {{#tooltip}}
-        As defined in a paper <a href="https://github.com/cyberFund/cyberrating/blob/master/paper.md#2-approaching-problem-of-definitions">cyber•Rating: Cryptoproperty Evaluation</a> there are two types of systems in cybernomics: DAOs are driven by tokens that we use to call cryptocurrency and DApps are driven by tokens that we use to call cryptoassets. Key difference between this two types of organizations are in phisical network of computing, storing and transmiting nodes. DAOs have its phisical network infrustructer, though Dapps don't and use infrustructure of parent system, so they kinda of virtual. Good analogy is States that have legal systems and Companies that depend on it. Thus evaulation criteria and risks are differs
+        As defined in a paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md#2-approaching-problem-of-definitions">cyber•Rating: Cryptoproperty Evaluation</a> there are two types of systems in cybernomics: DAOs are driven by tokens that we use to call cryptocurrency and DApps are driven by tokens that we use to call cryptoassets. Key difference between this two types of organizations is in phisical network of computing, storing and transmiting nodes. DAOs have its phisical network infrustructer, though Dapps don't and use infrustructure of parent system, so they kinda of virtual. Good analogy is States that have legal systems and Companies that depend on it. Thus evaulation criteria and risks are differs
       {{/tooltip}}
     {{/withTooltip}}
   </th>
@@ -38,48 +38,103 @@
     class="center hide-on-small-and-down sorter"
     data-sorter="metrics.supplyChangePercents.day">
     {{sorter "metrics.supplyChangePercents.day"}}
-    Token
+    {{# withTooltip}}
+      Token
+      {{#tooltip}}
+        Weekly inflation rate. Don't participate in Rating calculation yet
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="metrics.turnover">
     {{sorter "metrics.turnover"}}
-    Trade
+    {{sorter "metrics.supplyChangePercents.day"}}
+    {{# withTooltip}}
+      Trade
+      {{#tooltip}}
+          Turnover based on daily trade volumes
+          Turnover calcalated as Daily Trady Volume / Cap
+          Turnover grade is a key component of Rating calculation
+          We use the following grade system: <br>
+          - Illiquid grade if daily turnover is 0%<br>
+          - Very Low grade if daily turnover is less 0.01%<br>
+          - Low grade if daily turnover is greater 0.01% and less 0.1%<br>
+          - Normal grade if daily turnover is greater 0.1% and less 0.5%<br>
+          - High grade if daily turnover is greater 0.5% and less 2%<br>
+          - Very High grade if daily turnover is greater 2%
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="right-align sorter"
     data-sorter="metrics.cap.usd">
     {{sorter "metrics.cap.usd"}}
-    Cap in $
+    {{# withTooltip}}
+      Cap in $
+      {{#tooltip}}
+          Cap is calculated as Tokens Outstanding * Last Price
+          Token Outstanding are tokens created without difference who control them: founders, users or an organization itself. That is approach simmilar to how existing finance works.
+          Cap is a key component of ratingCap. We use the following grade system:<br>
+          - Pico grade if cap is less $10k<br>
+          - Nano grade if cap is less $100k<br>
+          - Micro grade if cap is less $1M<br>
+          - Kilo grade if cap is less $10M<br>
+          - Mega grade if cap is less $1B<br>
+          - Giga grade if cap is less $1B
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter" data-sorter="calculatable.firstDatePrice.market.price_usd">
     {{sorter "calculatable.firstDatePrice.market.price_usd"}}
-    AIP in $
+    {{# withTooltip}}
+      AIP in $
+      {{#tooltip}}
+          Avarage Initial Price. Used as initial spot for calculating Compound Monthly Growth Rate.
+          If initial price has been appeared during public transparent crowdfunding capmaign avarage Crowdfunding price used as AIP. If the first price appeared as result of a placment to an exchange avarage price of the first trading week is being used for AIP calculation.
+          In case of Bitcoin we use Coindesk BPI index. In case of Crowdfunding we use our personal tracking. In case of other currencies and assets we use Coinmarketcap data and if data is incorrent we use historical data from an exchange of a first placement.
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="metrics.price.usd">
     {{sorter "metrics.price.usd"}}
-    Price in $
+    {{# withTooltip}}
+      VWAP in $
+      {{#tooltip}}
+          Volume Weigted Avarage Price is calculated based on last 24h of trading
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="calculatable.monthlyGrowth">
     {{sorter "calculatable.monthlyGrowth"}}
-    CMGR
+    {{# withTooltip}}
+      CMGR
+      {{#tooltip}}
+          Compound Monthly Growth Rate. Key indicator that show long term profitability of investments. We use monthly calculation in opposite to annual in traditional finance as blockchain markets are faster than tradational thus should be evaulated more frequently
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="calculatable.months">
     {{sorter "calculatable.months"}}
-    Months
+    {{# withTooltip}}
+      CMGR
+      {{#tooltip}}
+          Number of periods CMGR has been calculated. Less a number of periods the more risk that CMGR will float
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
@@ -89,7 +144,8 @@
     {{# withTooltip}}
       CS
       {{#tooltip}}
-        ChainGear Score. Is calculted based on static metadata from <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+        ChainGear Score. Is calculted based on static metadata from <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+        Score show spreading of basic services and infrustrcture. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#chaingear">Details</a> of calculation
       {{/tooltip}}
     {{/withTooltip}}
   </th>
@@ -98,33 +154,53 @@
     class="center hide-on-small-and-down">
     {{# withTooltip}}LV
       {{#tooltip}}
-        LoVe Score. Is calculted based. Detailed methodlogoy is defined in cyber•Rating spec <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+        LoVe Score. Is calculted based on user generated stars. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
       {{/tooltip}}
     {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down">
+    {{# withTooltip}}
     WL
+      {{#tooltip}}
+        Weighted Liquidity. Compound score that reflects Liquidity weighted on capitalzation grade. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#weighted-liquidity">Chaingear</a>
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="calculatable.BR.sum">
     {{sorter "calculatable.BR.sum"}}
+    {{# withTooltip}}
     BR
+      {{#tooltip}}
+        Blockchain Reporting. This score in development. At this point in time it is calculated based in availablity infromation about supply of tokens outstanding. In future this score will reflect transactional perfomance <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#blockchain-reporting">Details</a>
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down sorter"
     data-sorter="calculatable.AM.sum">
     {{sorter "calculatable.AM.sum"}}
+    {{# withTooltip}}
     AM
+      {{#tooltip}}
+        cyber•Fund's Automation. The score reglects how deep a system is integrated in cyber•Fund core functionality. Now we evaulate balance autoupdate implementation only. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
     class="center hide-on-small-and-down">
+    {{# withTooltip}}
     GR
+      {{#tooltip}}
+        Growth Rate score. In development and don't partcipated in rating calculations yet.<a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
   <th
@@ -138,7 +214,12 @@
     class="center hide-on-small-and-down sorter"
     data-sorter="ratings.rating_cyber">
     {{sorter "ratings.rating_cyber"}}
+    {{# withTooltip}}
     Rating
+      {{#tooltip}}
+        Compaund evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a> and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
+      {{/tooltip}}
+    {{/withTooltip}}
   </th>
 
 </template>
