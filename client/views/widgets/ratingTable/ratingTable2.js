@@ -77,12 +77,6 @@ Template['ratingTable2'].helpers({
 
     return this._usersStarred.length / maxLove;
   },
-  _br: function(){
-    return 0;
-  },
-  _am: function(){
-    return 0;
-  },
   _gr: function(){
     return 0;
   },

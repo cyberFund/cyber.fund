@@ -1,3 +1,4 @@
+// number of people who starred system
 CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
   var sel = {
     _id: 'maxLove'
