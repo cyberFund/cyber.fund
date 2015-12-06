@@ -35,6 +35,12 @@ Meteor.startup(function() {
   //CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
   CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
   CF.CurrentData.calculatables.triggerCalc('months');
+  CF.CurrentData.calculatables.triggerCalc('linksWithTag');
+})
+
+
+CF.CurrentData.calculatables.addCalculatable('linksWithTag', function(system) {
+  if (!system) return undefined;
 })
 
 CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
