@@ -82,6 +82,15 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
     knowledge: (wt['Publictaions'] || wt['paper']) ? 1 : 0,
   }
 
+  if (stage == "Public") {
+    _.extend(mandatory, {
+      buy: wt['Exchange'] ? 1: 0,
+      hold: (wt['Wallet'] || wt['wallet'] ) ? 1: 0,
+      analyze: (wt['Analytics'] || wt['Exporer']) ? 1: 0,
+      earn: true ? 1: 0
+    });
+  }
+
   var basic = "stub";
   var extended = "stub"; // see https://docs.google.com/spreadsheets/d/1YkrIitYD6FS2a4IEmBlfwAuCMgMwIKgU5JMHQzsfg-k/edit#gid=755429566&vpid=A1
 
@@ -90,7 +99,8 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   weights = {
     "cryptocurrency": {
       "Public": {
-        site: .05, community: .05, updates: .05,  code: .05,  science: .05, knowledge: .05
+        site: .05, community: .05, updates: .05,  code: .05,  science: .05, knowledge: .05,
+        buy: .3, hold: .1, analyze: .1,  earn: .1
       },
       "Pre-Public": {
         site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
@@ -110,7 +120,8 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
     },
     "cryptoasset": {
       "Public": {
-        site: .05, community: .05, updates: .10,  code: .20,  science: .05, knowledge: .05
+        site: .05, community: .05, updates: .10,  code: .20,  science: .05, knowledge: .05,
+        buy: .4, hold: .05, analyze: .05,  earn: 0
       },
       "Pre-Public": {
         site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
