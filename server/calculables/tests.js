@@ -54,7 +54,44 @@ Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('months');
   CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
   CF.CurrentData.calculatables.triggerCalc('CS');
+  CF.CurrentData.calculatables.triggerCalc('AM');
+  CF.CurrentData.calculatables.triggerCalc('BR');
+  CF.CurrentData.calculatables.triggerCalc('BR');
+});
+
+
+CF.CurrentData.calculatables.addCalculatable('AM', function(system) {
+  var cs = system.calculatable.CS;
+  // todo: check for 'type' and 'stage', use them in counting sum from flag.
+  // this all probably will merge to `Calculatable('Rating')`
+  var flag = _.contains(_.values(CF.UserAssets.qMatchingTable), system.system);
+  return {
+      flag: flag,
+      sum: flag ? 0.5 : 0
+  }
 })
+
+CF.CurrentData.calculatables.addCalculatable('BR', function(system) {
+  function getFlag(){
+      if (!system.metrics || !system.metrics.supply) {
+      return false;
+    }
+
+    if (!system.specs || !system.specs.supply) return true;
+    if (system.specs.supply != system.metrics.supply) return true;
+    return false;
+  }
+
+  var cs = system.calculatable.CS;
+  // todo: check for 'type' and 'stage', use them in counting sum from flag.
+  // this all probably will merge to `Calculatable('Rating')`
+
+  var flag = getFlag()
+  return {
+      flag: flag,
+      sum: flag ? 0.5 : 0
+  }
+});
 
 CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   // to reload this - db.CurrentData.distinct("descriptions.state");
@@ -73,7 +110,7 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
     return undefined;
   }
 
-  var mandatory = {
+  var flags = {
     site: wt['Main'] ? 1 : 0,
     community: wt['Community'] ? 1 : 0,
     updates: wt['News'] ? 1 : 0,
@@ -83,7 +120,7 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   }
 
   if (stage == "Public") {
-    _.extend(mandatory, {
+    _.extend(flags, {
       buy: wt['Exchange'] ? 1: 0,
       hold: (wt['Wallet'] || wt['wallet'] ) ? 1: 0,
       analyze: (wt['Analytics'] || wt['Exporer']) ? 1: 0,
@@ -142,7 +179,7 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   }
 
   // weight 1/0 (exits/not)
-  function mandatoryScore(type, stage, mandatory, weights){
+  function calcScore(type, stage, flags, weights){
 
     // convolution of 2 objects, for provided keys only
     // expects _keys_ to be an array, and v1, v2 objects.
@@ -160,10 +197,18 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
     v = v[stage];
     if (!v) return undefined;
 
-    return convolution(keys, v, mandatory);
+    return convolution(keys, v, flags);
   };
+  var sum = calcScore(type, stage, flags, weights);
+  if (sum == undefined) return undefined;
 
-  return mandatoryScore(type, stage, mandatory, weights);
+  return {
+    details: flags,
+    sum: sum,
+    weights: sum == undefined  ? {} : weights[type][stage],
+    type: type,
+    stage: stage
+  }
 });
 
 
