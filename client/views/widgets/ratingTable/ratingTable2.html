@@ -112,13 +112,13 @@
             {{readableN calculatable.months 0}}
           </td>
           <td class="center">
-            {{_cs}}
+            ChG
           </td>
           <td class="center">
-            {{_lv}}
+            {{readableN _lv 2}}
           </td>
           <td class="center">
-            {{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc true}}
+            {{readableN (sum _wl_cs (dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc true)) 2}}
           </td>
 
           <td class="center">

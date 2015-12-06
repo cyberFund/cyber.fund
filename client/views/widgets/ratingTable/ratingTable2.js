@@ -54,7 +54,7 @@ Template['ratingTable2'].rendered = function () {
 };
 
 Template['ratingTable2'].helpers({
-  _cs: function(){
+  _wl_cs: function(){
     var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
     var k = 1000, M = 1000000
     if (c < 10*k) return 0;
@@ -76,9 +76,6 @@ Template['ratingTable2'].helpers({
     }
 
     return this._usersStarred.length / maxLove;
-  },
-  _wl: function(){
-
   },
   _br: function(){
     return 0;
