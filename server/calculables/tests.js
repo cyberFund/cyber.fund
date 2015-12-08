@@ -1,5 +1,145 @@
-// number of people who starred system
-CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
+// convolution of 2 objects, for provided keys only
+// expects _keys_ to be an array, and v1, v2 objects.
+function convolution(keys, v1, v2) {
+  var sum = _.reduce(_.map(keys, function(key) {
+      return (v1[key] || 0) * (v2[key] || 0);
+    }),
+    function(memo, num) {
+      return memo + num;
+    }, 0);
+  return sum;
+}
+
+Meteor.startup(function() {
+  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
+  CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
+  CF.CurrentData.calculatables.triggerCalc('months');
+  CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
+  CF.CurrentData.calculatables.triggerCalc('CS');
+  CF.CurrentData.calculatables.triggerCalc('AM');
+  CF.CurrentData.calculatables.triggerCalc('BR');
+  CF.CurrentData.calculatables.triggerCalc('LV');
+  CF.CurrentData.calculatables.triggerCalc('WL');
+  CF.CurrentData.calculatables.triggerCalc('GR');
+  CF.CurrentData.calculatables.triggerCalc('RATING');
+});
+
+CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
+
+  // same thing as in "CS" calculation. all calcs would be merged
+  var stages = ["Dead", "Pre-Public", 'Private', "Project", "Public", "Running", "live"];
+  var stage = system.descriptions && system.descriptions.state;
+  if (!stage || !_.contains(stages, stage)) return undefined;
+
+  /*  var types = ['cryptocurrentcy', 'cryptoasset', 'cryptoproject'];
+    var type = system.descriptions && system.descriptions.system_type;
+    if (!stage || !_.contains(stages, stage)) return undefined; */
+
+  var weights = {
+    'Project': {
+      CS: 1,
+      LV: 4,
+      WL: 0,
+      BR: 0,
+      AM: 0
+    },
+    'Pre-Public': {
+      CS: 1,
+      LV: 2.5,
+      WL: 0.5,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Private': {
+      CS: 1,
+      LV: 3,
+      WL: 0,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Public': {
+      CS: 1,
+      LV: 2,
+      WL: 1,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Dead': {
+
+    },
+    'live': {
+
+    }
+  }
+
+  var cl = system.calculatable;
+  var keys = ['CS', 'LV', 'WL', 'BR', 'AM', 'GR']
+  var vector = {
+    CS: cl.CS ? cl.CS.sum : 0,
+    LV: cl.CS ? cl.LV.sum : 0,
+    WL: cl.WL ? cl.WL.sum : 0,
+    BR: cl.BR ? cl.BR.sum : 0,
+    AM: cl.AM ? cl.AM.sum : 0,
+    GR: cl.GR ? cl.GR.sum : 0,
+  }
+
+  return {
+    vector: vector,
+    weights: weights[stage],
+    sum: convolution(keys, vector, weights[stage])
+  }
+});
+
+CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
+  return {
+    sum: 0.1
+  }
+});
+
+CF.CurrentData.calculatables.addCalculatable('WL', function(system) {
+  // weighted liquidity
+  if (!system.metrics || !system.metrics.cap) return 0;
+  var cap = system.metrics.cap.usd;
+
+  var volumeDaily = system.metrics.tradeVolume;
+  var absolute = system.metrics.cap.btc
+
+  function getTradeScore(absolute, volumeDaily) {
+    if (!absolute) {
+      return 0;
+    }
+    var r = Math.abs(volumeDaily / absolute);
+    if (r == 0) return 0;
+    if (r < 0.0001) return 0.1;
+    if (r < 0.001) return 0.2;
+    if (r < 0.005) return 0.3;
+    if (r < 0.02) return 0.4;
+    return 0.5;
+    return 0;
+  }
+
+  function getCapScore(c) {
+    if (!c) return 0;
+    var k = 1000,
+      M = 1000000
+    if (c < 10 * k) return 0;
+    if (c < 100 * k) return 0.1;
+    if (c < 1 * M) return 0.2;
+    if (c < 10 * M) return 0.3;
+    if (c < k * M) return 0.4;
+    return 0.5;
+  }
+
+  ts = getTradeScore(absolute, volumeDaily);
+  cs = getCapScore(cap);
+  return {
+    sum: cs + ts,
+    cap: cs,
+    trade: ts
+  }
+});
+
+CF.CurrentData.calculatables.addCalculatable('LV', function(system) {
   var sel = {
     _id: 'maxLove'
   };
@@ -44,20 +184,10 @@ CF.CurrentData.calculatables.addCalculatable('numOfStarred', function(system) {
   if (maxLove.system == system.system && n < maxLove.value) {
     getMax()
   }
-  return n;
-});
-
-
-Meteor.startup(function() {
-  CF.CurrentData.calculatables.triggerCalc('numOfStarred');
-  //CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
-  CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
-  CF.CurrentData.calculatables.triggerCalc('months');
-  CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
-  CF.CurrentData.calculatables.triggerCalc('CS');
-  CF.CurrentData.calculatables.triggerCalc('AM');
-  CF.CurrentData.calculatables.triggerCalc('BR');
-  CF.CurrentData.calculatables.triggerCalc('BR');
+  return {
+    num: n,
+    sum: n / maxLove.value
+  }
 });
 
 
@@ -67,14 +197,14 @@ CF.CurrentData.calculatables.addCalculatable('AM', function(system) {
   // this all probably will merge to `Calculatable('Rating')`
   var flag = _.contains(_.values(CF.UserAssets.qMatchingTable), system.system);
   return {
-      flag: flag,
-      sum: flag ? 0.5 : 0
+    flag: flag,
+    sum: flag ? 0.5 : 0
   }
 })
 
 CF.CurrentData.calculatables.addCalculatable('BR', function(system) {
-  function getFlag(){
-      if (!system.metrics || !system.metrics.supply) {
+  function getFlag() {
+    if (!system.metrics || !system.metrics.supply) {
       return false;
     }
 
@@ -89,14 +219,14 @@ CF.CurrentData.calculatables.addCalculatable('BR', function(system) {
 
   var flag = getFlag()
   return {
-      flag: flag,
-      sum: flag ? 0.5 : 0
+    flag: flag,
+    sum: flag ? 0.5 : 0
   }
 });
 
 CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   // to reload this - db.CurrentData.distinct("descriptions.state");
-  var stages = [ "Dead", "Pre-Public", "Project", "Public", "Running", "live"];
+  var stages = ["Dead", "Pre-Public", "Project", "Public", "Running", "live"];
   var stage = system.descriptions && system.descriptions.state;
   if (!stage || !_.contains(stages, stage)) return undefined;
 
@@ -107,7 +237,7 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   // convert from links to 1/0
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
-    console.log ("CS calculation: no links calculated for "+system.system);
+    console.log("CS calculation: no links calculated for " + system.system);
     return undefined;
   }
 
@@ -122,10 +252,10 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
 
   if (stage == "Public") {
     _.extend(flags, {
-      buy: wt['Exchange'] ? 1: 0,
-      hold: (wt['Wallet'] || wt['wallet'] ) ? 1: 0,
-      analyze: (wt['Analytics'] || wt['Exporer']) ? 1: 0,
-      earn: true ? 1: 0
+      buy: wt['Exchange'] ? 1 : 0,
+      hold: (wt['Wallet'] || wt['wallet']) ? 1 : 0,
+      analyze: (wt['Analytics'] || wt['Exporer']) ? 1 : 0,
+      earn: true ? 1 : 0
     });
   }
 
@@ -137,62 +267,116 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   weights = {
     "cryptocurrency": {
       "Public": {
-        site: .05, community: .05, updates: .05,  code: .05,  science: .05, knowledge: .05,
-        buy: .3, hold: .1, analyze: .1,  earn: .1
+        site: .05,
+        community: .05,
+        updates: .05,
+        code: .05,
+        science: .05,
+        knowledge: .05,
+        buy: .3,
+        hold: .1,
+        analyze: .1,
+        earn: .1
       },
       "Pre-Public": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Project": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Dead": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "live": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Running": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
     },
     "cryptoasset": {
       "Public": {
-        site: .05, community: .05, updates: .10,  code: .20,  science: .05, knowledge: .05,
-        buy: .4, hold: .05, analyze: .05,  earn: 0
+        site: .05,
+        community: .05,
+        updates: .10,
+        code: .20,
+        science: .05,
+        knowledge: .05,
+        buy: .4,
+        hold: .05,
+        analyze: .05,
+        earn: 0
       },
       "Pre-Public": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Project": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Dead": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "live": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
       "Running": {
-        site: .15, community: .15, updates: .20,  code: .20,  science: .15, knowledge: .15
+        site: .15,
+        community: .15,
+        updates: .20,
+        code: .20,
+        science: .15,
+        knowledge: .15
       },
     }
   }
 
   // weight 1/0 (exits/not)
-  function calcScore(type, stage, flags, weights){
-
-    // convolution of 2 objects, for provided keys only
-    // expects _keys_ to be an array, and v1, v2 objects.
-    function convolution(keys, v1, v2) {
-      var sum = _.reduce(_.map(keys, function(key){
-        return (v1[key] || 0) * (v2[key] || 0);
-      }),
-        function(memo, num){ return memo + num; }, 0);
-      return sum;
-    }
-
-
+  function calcScore(type, stage, flags, weights) {
     var v = weights[type];
     if (!v) return undefined;
     v = v[stage];
@@ -206,7 +390,7 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
   return {
     details: flags,
     sum: sum,
-    weights: sum == undefined  ? {} : weights[type][stage],
+    weights: sum == undefined ? {} : weights[type][stage],
     type: type,
     stage: stage
   }
@@ -215,10 +399,11 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
 
 CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
   if (!system) return undefined;
-  var tags = [ 'Apps', 'Code',  'Main',  'publications',  'News',
-  'Science',  'Analytics',  'Exchange',  'Wallet',  'Publications',
-  'Explorer',  'code',  'DAO',  'App',  'API',  'paper',  'wallet', 'Community' ];
-    links = system.links,
+  var tags = ['Apps', 'Code', 'Main', 'publications', 'News',
+    'Science', 'Analytics', 'Exchange', 'Wallet', 'Publications',
+    'Explorer', 'code', 'DAO', 'App', 'API', 'paper', 'wallet', 'Community'
+  ];
+  links = system.links,
     ret = {};
   if (!links || !links.length) return undefined;
   _.each(tags, function(tag) {

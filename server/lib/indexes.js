@@ -52,5 +52,8 @@ Meteor.startup(function() {
 	CurrentData._ensureIndex({"flags.rating_do_not_display": 1}, {sparse: true});
 	CurrentData._ensureIndex({"calculatable.BR.sum": 1}, {sparse: true});
 	CurrentData._ensureIndex({"calculatable.CS.sum": 1}, {sparse: true});
-	CurrentData._ensureIndex({"calculatable.AM.sum": 1}, {sparse: true});
+	CurrentData._ensureIndex({"calculatable.GR.sum": 1}, {sparse: true});
+	CurrentData._ensureIndex({"calculatable.WL.sum": 1}, {sparse: true});
+	CurrentData._ensureIndex({"calculatable.LV.sum": 1}, {sparse: true});
+	CurrentData._ensureIndex({"calculatable.RATING.sum": 1}, {sparse: true});
 });

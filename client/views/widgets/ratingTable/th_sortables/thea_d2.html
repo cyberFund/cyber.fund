@@ -6,14 +6,13 @@
 
   <th
     class="center hide-on-small-and-down sorter"
-    data-sorter="calculatable.numOfStarred">
-    {{sorter "calculatable.numOfStarred"}}
+    data-sorter="calculatable.LV.sum">
+    {{sorter "calculatable.LV.num"}}
     Stars
   </th>
 
   <th
-    class="center hide-on-small-and-down sorter"
-    data-sorter="calculatable.numOfStarred">
+    class="center hide-on-small-and-down">
     {{# withTooltip}}
       Stage
       {{#tooltip}}
@@ -24,8 +23,7 @@
   </th>
 
   <th
-    class="center hide-on-small-and-down sorter"
-    data-sorter="calculatable.numOfStarred">
+    class="center hide-on-small-and-down">
     {{# withTooltip}}
       Type
       {{#tooltip}}
@@ -95,7 +93,9 @@
   </th>
 
   <th
-    class="center hide-on-small-and-down">
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.LV.sum">
+    {{sorter "calculatable.LV.sum"}}
     {{# withTooltip}}LV
       {{#tooltip}}
         LoVe Score. Is calculted based. Detailed methodlogoy is defined in cyber•Rating spec <a href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
@@ -104,7 +104,9 @@
   </th>
 
   <th
-    class="center hide-on-small-and-down">
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.WL.sum">
+    {{sorter "calculatable.WL.sum"}}
     WL
   </th>
 
@@ -123,7 +125,9 @@
   </th>
 
   <th
-    class="center hide-on-small-and-down">
+    class="center hide-on-small-and-down sorter"
+    data-sorter="calculatable.GR.sum">
+    {{sorter "calculatable.GR.sum"}}
     GR
   </th>
 
@@ -136,8 +140,8 @@
 
   <th
     class="center hide-on-small-and-down sorter"
-    data-sorter="ratings.rating_cyber">
-    {{sorter "ratings.rating_cyber"}}
+    data-sorter="calculatable.RATING.sum">
+    {{sorter "calculatable.RATING.sum"}}
     Rating
   </th>
 
