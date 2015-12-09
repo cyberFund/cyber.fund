@@ -18,8 +18,10 @@ _.extend CF.CurrentData.calculatables,
     getCursor: (selector) ->
       CurrentData.find selector
   }, {
-    # run needed calculation agains all or soe of systems.
-    # selector going to be list of system names.
+    # run needed calculation against all or some of systems.
+    # selector expected to be list (Array) of system names.
+    # or selector expected to be a string of comma-separated system names
+    # system names are as in CurrentData.system fields
     triggerCalc: (name, selector) ->
       i = @
       if not @_calculatables[name]

@@ -12,8 +12,6 @@ function convolution(keys, v1, v2) {
 
 Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
-  CF.CurrentData.calculatables.triggerCalc('monthlyGrowth');
-  CF.CurrentData.calculatables.triggerCalc('months');
   CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
   CF.CurrentData.calculatables.triggerCalc('CS');
   CF.CurrentData.calculatables.triggerCalc('AM');
@@ -90,9 +88,83 @@ CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
   }
 });
 
-CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
+CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
+  if (!system) return undefined;
+
+  var data = system.dailyData;
+  if (!data) return undefined;
+
+  var minFunc = function(it) {
+    return parseInt(it);
+  };
+  var minyear = _.min(_.keys(data), minFunc);
+  if (!minyear) return undefined;
+
+  var minmonth = _.min(_.keys(data[minyear]), minFunc);
+  if (minmonth != 0 && !minmonth) return undefined;
+
+  var minday = _.min(_.keys(data[minyear][minmonth]), minFunc);
+  if (minday != 0 && !minday) return undefined;
+
+  var firstData = data[minyear] ? data[minyear][minmonth] ? data[minyear][minmonth][minday] : null : null
+
   return {
-    sum: 0.1
+    market: firstData,
+    date: moment.utc({
+      year: minyear,
+      month: minmonth,
+      day: minday
+    })._d
+  };
+})
+
+CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
+  if (!system) return undefined;
+  var nm = CF.CurrentData.calculatables.fieldName;
+
+  var fp = system.first_price,
+    fpb = fp ? fp.btc : null,
+    fpd = fp ? fp.usd : null,
+    fd = fp && fp.date ? new Date(fp.date) : null;
+
+  function getMonths() {
+    if (!system) return undefined;
+    if (!fd) {
+      fd = system[nm] && system[nm].firstDatePrice && system[nm].firstDatePrice.date;
+    }
+    return moment().diff(moment(fd), 'months', true)
+  }
+
+  var timeDiff = getMonths()
+
+  function getMonthlyGrowth() {
+    var currentPriceB = system.metrics ? system.metrics.price ? system.metrics.price.btc : null : null;
+    var currentPriceD = system.metrics ? system.metrics.price ? system.metrics.price.usd : null : null;
+    var ret = {}
+
+    if (!fpb || !fpd) {
+      var firstPrice = system[nm] && system[nm].firstDatePrice && system[nm].firstDatePrice.market;
+      if (firstPrice) {
+        if (!fpd) fpd = firstPrice.price_usd;
+        if (!fpb) fpb = firstPrice.price_btc;
+      }
+    }
+
+    if (timeDiff) {
+      if (currentPriceD && fpd) ret['d'] = 100 *
+        (Math.pow(currentPriceD / fpd, 1 / timeDiff) - 1);
+      if (currentPriceB && fpb) ret['b'] = 100 *
+        (Math.pow(currentPriceB / fpb, 1 / timeDiff) - 1);
+    }
+    return ret;
+  }
+
+  var mg = getMonthlyGrowth();
+
+  return {
+    months: timeDiff,
+    monthlyGrowthB: mg.b,
+    monthlyGrowthD: mg.d
   }
 });
 
@@ -410,80 +482,4 @@ CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
     ret[tag] = CF.CurrentData.linksWithTag(links, tag).length;
   });
   return ret;
-})
-
-CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
-  if (!system) return undefined;
-
-  var data = system.dailyData;
-  if (!data) return undefined;
-
-  var minFunc = function(it) {
-    return parseInt(it);
-  };
-  var minyear = _.min(_.keys(data), minFunc);
-  if (!minyear) return undefined;
-
-  var minmonth = _.min(_.keys(data[minyear]), minFunc);
-  if (minmonth != 0 && !minmonth) return undefined;
-
-  var minday = _.min(_.keys(data[minyear][minmonth]), minFunc);
-  if (minday != 0 && !minday) return undefined;
-
-  var firstData = data[minyear] ? data[minyear][minmonth] ? data[minyear][minmonth][minday] : null : null
-
-  return {
-    market: firstData,
-    date: moment.utc({
-      year: minyear,
-      month: minmonth,
-      day: minday
-    })._d
-  };
-})
-
-
-CF.CurrentData.calculatables.addCalculatable('months', function(system) {
-  if (!system) return undefined;
-  var nm = CF.CurrentData.calculatables.fieldName;
-
-  var firstPrice = system[nm].firstDatePrice;
-  var firstDate;
-  if (firstPrice) {
-    firstDate = firstPrice.date;
-    firstPrice = firstPrice.market;
-  } else {
-    return undefined;
-  }
-
-  return moment().diff(moment(firstDate), 'months', true)
-})
-
-CF.CurrentData.calculatables.addCalculatable('monthlyGrowth', function(system) {
-  if (!system) return undefined;
-  var nm = CF.CurrentData.calculatables.fieldName;
-
-  var firstPrice = system[nm].firstDatePrice;
-  var firstDate;
-  if (firstPrice) {
-    firstDate = firstPrice.date;
-    firstPrice = firstPrice.market;
-  } else {
-    return undefined;
-  }
-
-  if (firstPrice && firstPrice.price_usd) {
-    firstPrice = firstPrice.price_usd;
-  } else {
-    return undefined;
-  }
-
-  var currentPrice = system.metrics ? system.metrics.price ? system.metrics.price.usd : null : null;
-  var timeDiff = moment().diff(moment(firstDate), 'months', true)
-
-  if (firstPrice && currentPrice && timeDiff) {
-    return 100 * (Math.pow(currentPrice / firstPrice, 1 / timeDiff) - 1);
-  } else {
-    return undefined
-  }
 })
