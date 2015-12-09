@@ -164,7 +164,8 @@ CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
   return {
     months: timeDiff,
     monthlyGrowthB: mg.b,
-    monthlyGrowthD: mg.d
+    monthlyGrowthD: mg.d,
+    sum: 0.1
   }
 });
 
