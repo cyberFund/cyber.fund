@@ -6,12 +6,14 @@ var logger = log4js.getLogger("assets-tracker");
  * @returns {CG system name OR false - if autoupdate is disabled.}
  */
 
+CF.UserAssets.qMatchingTable = {
+  'BTC': 'Bitcoin',
+  'MAID': 'MaidSafeCoin',
+  'OA/CFUND': 'cyberFund'
+};
+
 CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
-  var matchingTable = {
-    'BTC': 'Bitcoin',
-    'MAID': 'MaidSafeCoin',
-    'OA/CFUND': 'cyberFund'
-  };
+  var matchingTable = CF.UserAssets.qMatchingTable;
   // todo: just recalculate matchingTable if chaingear reloads.
   // todo: so to avoid constand db poll here
   var ret =  matchingTable[cryptoBalanceToken] || false;

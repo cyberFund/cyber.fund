@@ -48,5 +48,18 @@ CF.CurrentData = {
   getSystem: function (system) {
     if (!system.system) return '';
     return system.system;
-  }
+  },
+  linksWithTag: function (links, tag) {
+    if (!_.isArray(links)) return [];
+    return _.filter(links, function (link) {
+      return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
+    });
+  },
+  /* not needed yet..
+  linksWithType: function (links, type) {
+    if (!_.isArray(links)) return [];
+    return _.filter(links, function (link) {
+      return (link.type == type);
+    });
+  },*/
 };

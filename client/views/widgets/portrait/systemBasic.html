@@ -248,12 +248,8 @@
                     <h3 class="center">News</h3>
 
                     <div class="row">
-                        {{#each links}}
-                            {{#if tagMatchesTags "News" tags}}
-
-                                {{> cgLinkCard this}}
-
-                            {{/if}}
+                        {{#each linksWithTag this "News"}}
+                            {{> cgLinkCard this}}
                         {{/each}}
                     </div>
                 {{else}}
@@ -368,12 +364,10 @@
             <div id="code" class="section scrollspy row">
                 {{#if existLinksWith links 'Code'}}
                     <h3 class="center">Developers Dimension</h3>
-                    {{#each links}}
-                        {{#if tagMatchesTags "Code" tags}}
-                            <div class="row">
-                                {{> cgLink this}}
-                            </div>
-                        {{/if}}
+                    {{#each linksWithTag links "Code"}}
+                        <div class="row">
+                            {{> cgLink this}}
+                        </div>
                     {{/each}}
                 {{else}}
 
@@ -382,12 +376,10 @@
             <div id="science" class="section scrollspy row">
                 {{#if existLinksWith links 'Science'}}
                     <h3 class="center">Scientific Roots</h3>
-                    {{#each links}}
-                        {{#if tagMatchesTags "Science" tags}}
-                            <div class="row">
-                                {{> cgLink this}}
-                            </div>
-                        {{/if}}
+                    {{#each linksWithTag links "Science"}}
+                        <div class="row">
+                            {{> cgLink this}}
+                        </div>
                     {{/each}}
                 {{/if}}
             </div>
