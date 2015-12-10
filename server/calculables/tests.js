@@ -1,8 +1,19 @@
 // convolution of 2 objects, for provided keys only
 // expects _keys_ to be an array, and v1, v2 objects.
-function convolution(keys, v1, v2) {
+// can also drill deeper into objects if subkN s provided
+function _getValue(v, k, subk){
+  if (!v) return 0;
+  var i = v[k];
+  if (!i) return 0;
+  if (subk) return i[subk] || 0;
+  return i || 0;
+}
+
+function convolution(keys, v1, v2, subk1, subk2) {
   var sum = _.reduce(_.map(keys, function(key) {
-      return (v1[key] || 0) * (v2[key] || 0);
+      var m1 = _getValue(v1, key, subk1);
+      var m2 = _getValue(v2, key, subk2);
+      return m1 * m2;
     }),
     function(memo, num) {
       return memo + num;
@@ -10,81 +21,229 @@ function convolution(keys, v1, v2) {
   return sum;
 }
 
-Meteor.startup(function() {
-  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
-  CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
-  CF.CurrentData.calculatables.triggerCalc('CS');
-  CF.CurrentData.calculatables.triggerCalc('AM');
-  CF.CurrentData.calculatables.triggerCalc('BR');
-  CF.CurrentData.calculatables.triggerCalc('LV');
-  CF.CurrentData.calculatables.triggerCalc('WL');
-  CF.CurrentData.calculatables.triggerCalc('GR');
-  CF.CurrentData.calculatables.triggerCalc('RATING');
-});
+function multiplication(keys, v1, v2, subk1, subk2) {
+  var ret = {}
+  _.each(keys, function(key) {
+    var m1 = _getValue(v1, key, subk1);
+    var m2 = _getValue(v2, key, subk2);
+    ret[key] = m1 * m2;
+  })
+  return ret;
+}
 
-CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
 
-  // same thing as in "CS" calculation. all calcs would be merged
+function _getStage(system) {
+  // to reload this - db.CurrentData.distinct("descriptions.state");
   var stages = ["Dead", "Pre-Public", 'Private', "Project", "Public", "Running", "live"];
   var stage = system.descriptions && system.descriptions.state;
   if (!stage || !_.contains(stages, stage)) return undefined;
+  return stage;
+}
 
-  /*  var types = ['cryptocurrentcy', 'cryptoasset', 'cryptoproject'];
-    var type = system.descriptions && system.descriptions.system_type;
-    if (!stage || !_.contains(stages, stage)) return undefined; */
+function _geTType(system) {
+  var types = ['cryptocurrentcy', 'cryptoasset'];
+  var t = system.descriptions && system.descriptions.system_type;
+//  if (system.system == 'Bitcoin')
+//    console.log(t)
+//  if (!t || !_.contains(types, t)) return undefined;
+  return t;
+}
 
-  var weights = {
-    'Project': {
-      CS: 1,
-      LV: 4,
-      WL: 0,
-      BR: 0,
-      AM: 0
-    },
-    'Pre-Public': {
-      CS: 1,
-      LV: 2.5,
-      WL: 0.5,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Private': {
-      CS: 1,
-      LV: 3,
-      WL: 0,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Public': {
-      CS: 1,
-      LV: 2,
-      WL: 1,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Dead': {
+var weightsRATING = {
+  'Project': {
+    CS: 1,
+    LV: 4,
+    WL: 0,
+    BR: 0,
+    AM: 0
+  },
+  'Pre-Public': {
+    CS: 1,
+    LV: 2.5,
+    WL: 0.5,
+    BR: 0.5,
+    AM: 0.5
+  },
+  'Private': {
+    CS: 1,
+    LV: 3,
+    WL: 0,
+    BR: 0.5,
+    AM: 0.5
+  },
+  'Public': {
+    CS: 1,
+    LV: 2,
+    WL: 1,
+    BR: 0.5,
+    AM: 0.5
+  },
+  'Dead': {
 
-    },
-    'live': {
+  },
+  'live': {
 
-    }
   }
+}
 
-  var cl = system.calculatable;
+var weightsCS = {
+  "cryptocurrency": {
+    "Public": {
+      site: .05,
+      community: .05,
+      updates: .05,
+      code: .05,
+      science: .05,
+      knowledge: .05,
+      buy: .3,
+      hold: .1,
+      analyze: .1,
+      earn: .1
+    },
+    "Pre-Public": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Project": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Dead": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "live": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Running": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+  },
+  "cryptoasset": {
+    "Public": {
+      site: .05,
+      community: .05,
+      updates: .10,
+      code: .20,
+      science: .05,
+      knowledge: .05,
+      buy: .4,
+      hold: .05,
+      analyze: .05,
+      earn: 0
+    },
+    "Pre-Public": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Project": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Dead": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "live": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+    "Running": {
+      site: .15,
+      community: .15,
+      updates: .20,
+      code: .20,
+      science: .15,
+      knowledge: .15
+    },
+  }
+}
+
+Meteor.startup(function() {
+  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
+  CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
+  //CF.CurrentData.calculatables.triggerCalc('CS');
+  //CF.CurrentData.calculatables.triggerCalc('AM');
+  //CF.CurrentData.calculatables.triggerCalc('BR');
+  //CF.CurrentData.calculatables.triggerCalc('LV');
+  //CF.CurrentData.calculatables.triggerCalc('WL');
+  //CF.CurrentData.calculatables.triggerCalc('GR');
+  CF.CurrentData.calculatables.triggerCalc('RATING');
+});
+
+
+CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
+  var stage = _getStage(system);
+  var t = _geTType(system);
+
   var keys = ['CS', 'LV', 'WL', 'BR', 'AM', 'GR']
-  var vector = {
-    CS: cl.CS ? cl.CS.sum : 0,
-    LV: cl.CS ? cl.LV.sum : 0,
-    WL: cl.WL ? cl.WL.sum : 0,
-    BR: cl.BR ? cl.BR.sum : 0,
-    AM: cl.AM ? cl.AM.sum : 0,
-    GR: cl.GR ? cl.GR.sum : 0,
-  }
+
+  var weights = weightsRATING[stage],
+    vector = {
+      CS: calcCS(system),
+      LV: calcLV(system),
+      WL: calcWL(system),
+      BR: calcBR(system),
+      AM: calcAM(system),
+      GR: calcGR(system)
+    };
+
+  var weigths = weightsRATING[stage] || {},
+    weighted = multiplication(keys, vector, weights, 'sum');
+
+  var sum = _.reduce(_.map(keys, function(key) {
+      return (weighted[key]);
+    }),
+    function(memo, num) {
+      return memo + num;
+    }, 0);
+
 
   return {
     vector: vector,
-    weights: weights[stage],
-    sum: convolution(keys, vector, weights[stage])
+    weights: weights,
+    weighted: weighted,
+    sum: sum,
+    tip: t,
+    stage: stage
   }
 });
 
@@ -118,7 +277,7 @@ CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) 
   };
 })
 
-CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
+function calcGR(system) {
   if (!system) return undefined;
   var nm = CF.CurrentData.calculatables.fieldName;
 
@@ -167,11 +326,16 @@ CF.CurrentData.calculatables.addCalculatable('GR', function(system) {
     monthlyGrowthD: mg.d,
     sum: 0.1
   }
-});
+};
 
-CF.CurrentData.calculatables.addCalculatable('WL', function(system) {
+function calcWL(system) {
   // weighted liquidity
-  if (!system.metrics || !system.metrics.cap) return 0;
+  var ret = {
+    sum: 0,
+    cap: 0,
+    trade: 0
+  }
+  if (!system.metrics || !system.metrics.cap) return ret;
   var cap = system.metrics.cap.usd;
 
   var volumeDaily = system.metrics.tradeVolume;
@@ -205,14 +369,15 @@ CF.CurrentData.calculatables.addCalculatable('WL', function(system) {
 
   ts = getTradeScore(absolute, volumeDaily);
   cs = getCapScore(cap);
-  return {
+  ret = {
     sum: cs + ts,
     cap: cs,
     trade: ts
   }
-});
+  return ret;
+};
 
-CF.CurrentData.calculatables.addCalculatable('LV', function(system) {
+function calcLV(system) {
   var sel = {
     _id: 'maxLove'
   };
@@ -259,23 +424,21 @@ CF.CurrentData.calculatables.addCalculatable('LV', function(system) {
   }
   return {
     num: n,
-    sum: n / maxLove.value
+    sum: (n / maxLove.value) || 0
   }
-});
+}
 
 
-CF.CurrentData.calculatables.addCalculatable('AM', function(system) {
-  var cs = system.calculatable.CS;
-  // todo: check for 'type' and 'stage', use them in counting sum from flag.
-  // this all probably will merge to `Calculatable('Rating')`
+function calcAM(system) {
+
   var flag = _.contains(_.values(CF.UserAssets.qMatchingTable), system.system);
   return {
     flag: flag,
-    sum: flag ? 0.5 : 0
+    sum: flag ? 1 : 0
   }
-})
+}
 
-CF.CurrentData.calculatables.addCalculatable('BR', function(system) {
+function calcBR(system) {
   function getFlag() {
     if (!system.metrics || !system.metrics.supply) {
       return false;
@@ -286,27 +449,16 @@ CF.CurrentData.calculatables.addCalculatable('BR', function(system) {
     return false;
   }
 
-  var cs = system.calculatable.CS;
-  // todo: check for 'type' and 'stage', use them in counting sum from flag.
-  // this all probably will merge to `Calculatable('Rating')`
-
   var flag = getFlag()
   return {
     flag: flag,
-    sum: flag ? 0.5 : 0
+    sum: flag ? 1 : 0
   }
-});
+};
 
-CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
-  // to reload this - db.CurrentData.distinct("descriptions.state");
-  var stages = ["Dead", "Pre-Public", "Project", "Public", "Running", "live"];
-  var stage = system.descriptions && system.descriptions.state;
-  if (!stage || !_.contains(stages, stage)) return undefined;
-
-  var types = ['cryptocurrentcy', 'cryptoasset'];
-  var type = system.descriptions && system.descriptions.system_type;
-  if (!stage || !_.contains(stages, stage)) return undefined;
-
+function calcCS(system) {
+  var stage = _getStage(system);
+  var t = _geTType(system);
   // convert from links to 1/0
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
@@ -337,137 +489,24 @@ CF.CurrentData.calculatables.addCalculatable('CS', function(system) {
 
   var keys = ['site', 'community', 'updates', 'code', 'science', 'knowledge'];
 
-  weights = {
-    "cryptocurrency": {
-      "Public": {
-        site: .05,
-        community: .05,
-        updates: .05,
-        code: .05,
-        science: .05,
-        knowledge: .05,
-        buy: .3,
-        hold: .1,
-        analyze: .1,
-        earn: .1
-      },
-      "Pre-Public": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Project": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Dead": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "live": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Running": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-    },
-    "cryptoasset": {
-      "Public": {
-        site: .05,
-        community: .05,
-        updates: .10,
-        code: .20,
-        science: .05,
-        knowledge: .05,
-        buy: .4,
-        hold: .05,
-        analyze: .05,
-        earn: 0
-      },
-      "Pre-Public": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Project": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Dead": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "live": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      "Running": {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-    }
+  var v = {};
+
+  if (t && stage) {
+    v = weightsCS[t] || {};
+    v = v[stage] || {}
   }
+  var sum = convolution(keys, v, flags);
 
-  // weight 1/0 (exits/not)
-  function calcScore(type, stage, flags, weights) {
-    var v = weights[type];
-    if (!v) return undefined;
-    v = v[stage];
-    if (!v) return undefined;
-
-    return convolution(keys, v, flags);
-  };
-  var sum = calcScore(type, stage, flags, weights);
-  if (sum == undefined) return undefined;
+  //if (sum == undefined) return undefined;
 
   return {
     details: flags,
     sum: sum,
-    weights: sum == undefined ? {} : weights[type][stage],
-    type: type,
-    stage: stage
+    weights: v,
+    tip: t,
+    stage:stage
   }
-});
+};
 
 
 CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
