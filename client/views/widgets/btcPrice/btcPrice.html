@@ -1,5 +1,5 @@
 <template name="btcPriceSimple">
-    <div class="{{class}}">
-        ${{price}} per Ƀ
-    </div>
+    <div class="{{class}}">{{#if price}}${{price}} per Ƀ{{else}}
+      {{> Template.dynamic template=loadingWidget}}
+      {{/if}}</div>
 </template>
