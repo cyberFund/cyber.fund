@@ -67,12 +67,12 @@ Template['ratingTable'].helpers({
     if (this.token && this.token.token_symbol) {
       return this.token.token_symbol
     }
-    //console.log("not found symbol for `" + this.system + '` system');
     return "";
   },
+
   // underscored currency name
   name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);//Migration 1: + move to global helpers
   },
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);

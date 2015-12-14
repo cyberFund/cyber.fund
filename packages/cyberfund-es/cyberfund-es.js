@@ -138,11 +138,11 @@ _.extend(ns, {
       }
 
       var q;
-      if (params.system) { // we thus able accepting single query. yet, not sure if it is effective..
+      if (params.system) { 
         q = {"term": {"sym_sys": params.system}};
         return _extendQuery(qObj, q);
       }
-      if (params.systems) { // we thus able accepting single query. yet, not sure if it is effective..
+      if (params.systems) {
         q = {"bool": {"should": []}};
         _.each(params.systems, function (item) {
           q.bool.should.push({"term": {"sym_sys": item}});

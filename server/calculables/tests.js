@@ -43,9 +43,7 @@ function _getStage(system) {
 function _geTType(system) {
   var types = ['cryptocurrentcy', 'cryptoasset'];
   var t = system.descriptions && system.descriptions.system_type;
-//  if (system.system == 'Bitcoin')
-//    console.log(t)
-//  if (!t || !_.contains(types, t)) return undefined;
+
   return t;
 }
 
@@ -413,17 +411,18 @@ function calcLV(system) {
     maxLove = {
       _id: 'maxLove',
       value: n,
-      system: system.system
+      system: system.system //Migration 1: system._id
     };
     Extras.insert(maxLove);
   }
   if (maxLove.value < n) {
     Extras.update(sel, {
-      system: system.system,
+      system: system.system, //Migration 1: system._id
       value: n
     });
   }
-  if (maxLove.system == system.system && n < maxLove.value) {
+  if (maxLove.system == system.system //Migration 1: system._id
+    && n < maxLove.value) {
     getMax()
   }
   return {
@@ -435,7 +434,8 @@ function calcLV(system) {
 
 function calcAM(system) {
 
-  var flag = _.contains(_.values(CF.UserAssets.qMatchingTable), system.system);
+  var flag = _.contains(_.values(CF.UserAssets.qMatchingTable),
+  system.system); //Migration 1: system._id
   return {
     flag: flag,
     sum: flag ? 1 : 0
@@ -466,7 +466,8 @@ function calcCS(system) {
   // convert from links to 1/0
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
-    console.log("CS calculation: no links calculated for " + system.system);
+    console.log("CS calculation: no links calculated for "
+     + system.system); //Migration 1: system._id
     return undefined;
   }
 

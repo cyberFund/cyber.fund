@@ -51,8 +51,7 @@ Template['displayAccount'].helpers({
     return CurrentData.findOne(CF.CurrentData.selectors.system(this.value.asset)) || {};
   },
   name_of_system: function(){
-    return this.value.asset;//}) || {};
-    //return sys.system || ''
+    return this.value.asset;
   }
 });
 
@@ -110,7 +109,7 @@ Template['displayAccount'].events({
     var $item = t.$(e.currentTarget).closest(".asset-item");
     CF.UserAssets.currentAsset.set(
       CurrentData.findOne(CF.CurrentData.selectors.system( $item.attr("asset-key")),
-      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
+      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));//Migration 1: system field not needed
     if (CF.UserAssets.currentAsset.get()) {
       $item = $item.closest(".address-item");
       CF.UserAssets.currentAddress.set($item.attr("address-id"));
@@ -126,7 +125,7 @@ Template['displayAccount'].events({
 
     CF.UserAssets.currentAsset.set(
       CurrentData.findOne(CF.CurrentData.selectors.system($item.attr("asset-key")),
-      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));
+      {fields: {system: 1, token: 1, aliases: 1, icon: 1}}));//Migration 1: system field not needed
     if (CF.UserAssets.currentAsset.get()) {
       $item = $item.closest(".address-item");
       CF.UserAssets.currentAddress.set($item.attr("address-id"));

@@ -31,7 +31,7 @@ function _searchSelector(bucketKey) {
     };
   } else {
   }
-  selector = {"system": bucketKey};
+  selector = {"system": bucketKey}; //Migration 1: {"_id": bucketKey}
 
   selector["token.token_symbol"] = symbol;
   return selector;
@@ -582,7 +582,8 @@ var saveTotalCap = function () {
     return {btc: cap, autonomous: autonomous, dependent: dependent}
   };
   var cap = calcTotalCap();
-  var btcPrice = CurrentData.findOne({system:"Bitcoin"}, {fields: {"metrics": 1}});
+  var btcPrice = CurrentData.findOne({system:"Bitcoin"}, //Migration 1: _id: 'Bitcoin'
+    {fields: {"metrics": 1}});
   if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
   if (cap) {
     Extras.upsert({_id: 'total_cap'}, _.extend(cap, { usd: cap.btc * btcPrice}));

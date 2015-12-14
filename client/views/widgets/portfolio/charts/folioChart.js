@@ -28,8 +28,8 @@ Template['folioChart'].onCreated(function () {
     };
     _.each(data, function (system) {
       var point = {
-        symbol: system.system,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system)
+        symbol: system.system, //Migration 1: system._id
+        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system)//Migration 1:  system._id
       };
       point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
       point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;

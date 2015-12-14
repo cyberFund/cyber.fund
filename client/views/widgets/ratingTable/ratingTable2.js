@@ -102,7 +102,6 @@ Template['ratingTable2'].helpers({
     if (this.token && this.token.token_symbol) {
       return this.token.token_symbol
     }
-    //console.log("not found symbol for `" + this.system + '` system');
     return "";
   },
   // underscored currency name

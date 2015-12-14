@@ -206,7 +206,7 @@ var helpers = {
     var ret;
     if (system.aliases)
       ret = system.aliases.nickname;
-    if (!ret) ret = system.system;
+    if (!ret) ret = system.system; //Migration 1: system._id
     return ret;
   },
   displayCurrencyName: function (system) {
@@ -214,7 +214,7 @@ var helpers = {
     if (system.token) {
       ret = system.token.token_name;
     }
-    if (!ret) ret = system.system;
+    if (!ret) ret = system.system; //Migration 1: system._id
     return ret;
   },
   ownTwid: function(){

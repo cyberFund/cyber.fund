@@ -71,10 +71,11 @@ var fetch = function () {
           //if (CurrentData.find().count() < 1000) {
           _.each(getResult, function (system) {
             if (!system.token) {
-              logger.info("no .token for system '" + system.system + "'");
+              logger.info("no .token for system '" + system.system + "'");//Migration 1: system._id
               return;
             }
-            var selector = CF.CurrentData.selectors.system_symbol(system.system, system.token.token_symbol);
+            var selector = CF.CurrentData.selectors.system_symbol(system.system, //Migration 1: system._id
+              system.token.token_symbol);
             var doc = CurrentData.findOne(selector);
             if (!doc) {
               if (system.specs) {
@@ -88,8 +89,9 @@ var fetch = function () {
                 }
               }
 
-              console.log("inserting system " + system.system);
-              CurrentData.insert(system);
+              console.log("inserting system " + system.system);//Migration 1: system._id
+              system._id = system.system;
+              CurrentData.insert( system );
             }
             else {
               if (system.crowdsales) {
@@ -162,4 +164,3 @@ SyncedCron.add({
     fetch();
   }
 });
-

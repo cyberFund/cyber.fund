@@ -48,7 +48,8 @@ Template['systemBasic'].helpers({
     return CF.Chaingear.helpers.cgSystemLogo(curData());
   },
   'dependents': function () {
-    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {sort: {system: 1}})
+    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()),
+    {sort: {system: 1}}) //Migration 1:   {sort: {_id: 1}}
   },
   depends_on: function () {
     var self = curData();
@@ -64,7 +65,7 @@ Template['systemBasic'].helpers({
     return this.token ? this.token.token_symbol : ""
   },
   name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);
+    return Blaze._globalHelpers._toUnderscores(this.system);//Migration 1: this._id
   },
   hashtag: function () {
     return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : ""
@@ -194,7 +195,7 @@ Template['systemBasic'].helpers({
     var ret = false;
     var user = Meteor.user();
     if (user && user.profile && user.profile.starredSystems) {
-      ret = user.profile.starredSystems.indexOf(this.system) > -1;
+      ret = user.profile.starredSystems.indexOf(this.system) > -1; //Migration 1:  this.system -> this._id
     }
     return ret ? 'yellow' : 'grey';
   },

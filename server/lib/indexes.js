@@ -20,7 +20,7 @@ Meteor.startup(function() {
 	//CurrentData._ensureIndex({ name: 1, symbol: 1 });
 
 	CurrentData._ensureIndex({
-		"system": 1,
+		"system": 1,//Migration 1: "_id"
 		"token.token_symbol": 1
 	}, {
 		unique: true,

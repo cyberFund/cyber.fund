@@ -27,7 +27,7 @@ CF.processing = {
       }
 
       if (system) {
-        query.system = system.system;
+        query.system = system.system; 
         query["token.token_symbol"] = system.symbol;
       }
 

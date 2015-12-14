@@ -1,5 +1,5 @@
 Template['radarCard'].rendered = function () {
-  
+
 };
 
 Template['radarCard'].helpers({
@@ -9,7 +9,7 @@ Template['radarCard'].helpers({
   daysPassed: function (date) {
     return  moment().diff(moment(date), 'days');
   },
-  name_: function () {
+  name_: function () { //TODO: move to global helpers ?
     return Blaze._globalHelpers._toUnderscores(this.system);
   },
   isActiveCrowdsale: function(){
@@ -26,6 +26,6 @@ Template['radarCard'].helpers({
 
 Template['radarCard'].events({
   'click .bar': function (e, t) {
-    
+
   }
 });
