@@ -14,6 +14,7 @@ Package.onUse(function(api) {
   api.use('cyberfund:cyberfund-base');
   api.use('underscore');
   api.versionsFrom('1.1.0.2');
+  api.export("MarketData");
   api.addFiles('cyberfund-marketdata.js');
   api.addFiles('client/cf-marketdata-client.js', 'client');
 });

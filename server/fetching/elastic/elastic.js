@@ -370,39 +370,48 @@ var esParsers = {
           return;
         }
         id = id._id;
-        if (daily) _key = "dailyData";
-        if (hourly) _key = "hourlyData";
+        //if (daily) _key = "dailyData";
+        //if (hourly) _key = "hourlyData";
         if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
           return;
         }
 
         // apply changes to currentData
-        var set = {};
+        // var set = {};
+
+        function grab(timeBucket) {
+          var ret = {};
+          _.each(["cap_usd", "cap_btc", "volume24_btc",
+            "price_usd", "volume24_usd", "price_btc"], function (k) {
+            ret[k] = timeBucket[k].value;
+          });
+          return ret;
+        }
 
         _.each(sysBucket.over_time.buckets, function (timeBucket) {
           if (!timeBucket.key_as_string) return;
           var utc = moment.utc(timeBucket.key_as_string);
           if (!utc) return;
 
-          function grab(timeBucket) {
-            var ret = {};
-            _.each(["cap_usd", "cap_btc", "volume24_btc",
-              "price_usd", "volume24_usd", "price_btc"], function (k) {
-              ret[k] = timeBucket[k].value;
-            });
-            return ret;
+          //var key;
+          var doc = grab(timeBucket);
+          if (!_.isEmpty(doc)) {
+            var interval = {
+              interval: daily ? 'daily' : (hourly ? 'hourly' : '')
+            }
+            _extend(doc, interval, {systemId: id});
+            MarketData.insert(doc);
           }
 
-          var key;
-          if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
-          if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
-          set[key] = grab(timeBucket);
+          //if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
+          //if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
+          //set[key] = grab(timeBucket);
 
         });
-        if (!_.isEmpty(set)) {
+        /*if (!_.isEmpty(set)) {
           CurrentData.update({_id: id}, {$set: set});
         } else {
-        }
+        }*/
       });
     }
   }
