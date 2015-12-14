@@ -1,11 +1,6 @@
 Template['systemLinksTabs'].rendered = function () {
-  console.log($('ul.tabs'));
-  console.log($('ul.tabs').tabs);
   var system = FlowRouter.getParam('name_');
-  console.log(system);
-
   $('ul.tabs').tabs();
-
 };
 
 Template['systemLinksTabs'].helpers ({

@@ -15,14 +15,14 @@ CF.CurrentData = {
     system_symbol: function (name, symbol) {
       return {
         "token.token_symbol": symbol,
-        system: name //MIGRATION 1: _id: name
+        _id: name
       }
     },
     system: function (name) {
       if (_.isArray(name)) {
-        return {system: {$in: name}} //MIGRATION 1: return {_id: {$in: name}}
+        return {_id: {$in: name}}
       }
-      return {system: name} //MIGRATION 1: return {_id: {$in: name}}
+      return {_id: name}
     },
     symbol: function (symbol) {
       if (_.isArray(symbol)) {
@@ -37,16 +37,12 @@ CF.CurrentData = {
       if (!_.isArray(list)) {
         list = [list];
       }
-      return {"system": {$in: list}} //MIGRATION 1: return {_id: {$in: list}}
+      return {"_id": {$in: list}}
     }
   },
   getPrice: function (system) {
     return system.metrics && system.metrics.price
     && system.metrics.price.btc || 0;
-  },
-  getSystem: function (system) { //Migration 1: obsolete
-    if (!system.system) return '';
-    return system.system;
   },
   linksWithTag: function (links, tag) {
     if (!_.isArray(links)) return [];

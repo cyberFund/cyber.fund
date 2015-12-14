@@ -64,7 +64,7 @@ Template['assetsManager'].helpers({
     amount = amount.assets;
     if (!amount) return '';
     key = CF.UserAssets.currentAsset.get();
-    if (key) key = key.system;//<!-- Migration 1: ?-> query currentAsset-->
+    if (key) key = key._id;
     if (amount) amount = (key ? amount[key] : '');
     if (!amount) return '';
     return amount.quantity || '';
@@ -207,7 +207,7 @@ Template['assetsManager'].events({
     var $target = $form.find("#asset-quantity-input");
     var key = CF.UserAssets.currentAsset.get();
     if (key) {
-      key = key.system//<!-- Migration 1: ?-> query currentAsset-->
+      key = key._id
     }
     if (!key) {
       Materialize.toast("please pick a coin", 4000);
@@ -274,7 +274,7 @@ Template['assetsManager'].events({
     var $target = $form.find("#asset-quantity-edit");
     var key = CF.UserAssets.currentAsset.get();
     if (key) {
-      key = key.system//<!-- Migration 1: ?-> query currentAsset-->
+      key = key._id
     }
     if (!key) {
       $form.closest(".modal").closeModal();
@@ -307,8 +307,8 @@ Template['assetsManager'].events({
   'submit #delete-asset-form': function (e, t) {
     if (!isOwnAssets()) return false;
     var sys = CF.UserAssets.currentAsset.get();
-    if (sys) sys = sys.system; //todo: provide getter.
-    //<!-- Migration 1: ?-> query currentAsset-->
+    if (sys) sys = sys._id; //todo: provide getter.
+    
     if (!sys) {
       t.$("#modal-delete-asset").closeModal();
       return false;

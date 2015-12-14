@@ -24,15 +24,15 @@ Template['searchItem1'].helpers({
 
 Template['searchItem1'].events({
   "autocompleteselect input#search": function(event, template, doc) {
-    var system = doc.system; //Migration 1: var system = doc._id;
+    var system = doc._id;
 
     analytics.track("Searched", {
-      systemName: doc.system //Migration 1: systemName: doc._id
+      systemName: system
     });
 
     template.$("input#search").val("");
-    FlowRouter.go("/system/:name_", {name_: 
-      Blaze._globalHelpers._toUnderscores(doc.system) }) //Migration 1: doc._id
+    FlowRouter.go("/system/:name_", {name_:
+      Blaze._globalHelpers._toUnderscores(system) })
   }
 });
 

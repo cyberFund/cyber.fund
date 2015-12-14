@@ -70,10 +70,6 @@ Template['ratingTable'].helpers({
     return "";
   },
 
-  // underscored currency name
-  name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);//Migration 1: + move to global helpers
-  },
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";

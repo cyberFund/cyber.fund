@@ -11,7 +11,6 @@ Meteor.publish("currentDataRP", function(options) {
   options.fields = {
     "aliases": 1,
     "metrics": 1,
-    "system": 1, //Migration 1: x
     "token": 1,
     "icon": 1,
     "ratings": 1,
@@ -113,7 +112,6 @@ Meteor.publish('coinsCount', function() {
 Meteor.publish('dependentCoins', function(system) {
   return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
     fields: {
-      "system": 1, //Migration 1: x
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
@@ -128,7 +126,7 @@ Meteor.publish('dependentCoins', function(system) {
  */
 Meteor.publish('fastData', function(systemName) {
   var _id = CurrentData.findOne({
-    system: systemName //Migration 1: _id: ..
+    _id: systemName
   });
   if (!_id) return this.ready();
   _id = _id._id;
@@ -144,7 +142,6 @@ Meteor.publish('fastData', function(systemName) {
 Meteor.publish('dependencies', function(deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
-      "system": 1, //Migration 1: x
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
@@ -163,7 +160,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
       $or: [{
         'token.token_symbol': s
       }, {
-        "system": s //Migration 1: _id: s
+        "_id": s
       }, {
         "aliases.nickname": s
       }, {
@@ -180,7 +177,6 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   if (!collection) return this.ready();
 
   options.fields = {
-    "system": 1, //Migration 1: x
     "icon": 1,
     "aliases": 1,
     "token": 1
@@ -200,7 +196,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
  */
 Meteor.publish("BitcoinPrice", function() {
   return CurrentData.find({
-    system: "Bitcoin" //Migration 1: system -> _id
+    _id: "Bitcoin"
   })
 });
 
@@ -272,7 +268,6 @@ Meteor.publish('portfolioUser', function(userId) {
 Meteor.publish('assetsSystems', function(tokens) {
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {
-      system: 1, //Migration 1: x
       token: 1,
       aliases: 1,
       icon: 1
@@ -291,7 +286,6 @@ Meteor.publish('profilesSystems', function(userId) {
   var tokens = user && user.profile && user.profile.starredSystems || [];
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {
-      system: 1, //Migration 1: x
       token: 1,
       aliases: 1,
       icon: 1
@@ -319,19 +313,7 @@ Meteor.publish("portfolioSystems", function(userId, options) {
     }
     var stars = user.profile.starredSystems;
     if (stars && stars.length) {
-
-      var plck = _.map(CurrentData.find({
-        system: { //Migration 1: _id: {
-          $in: stars
-        }
-      }, {
-        fields: {
-          'system': 1 //Migration 1: _id: 1. 
-        }
-      }).fetch(), function(it) {
-        return it.system; //Migration 1: it._id
-      });
-      systems = _.union(systems, plck)
+      systems = _.union(systems, stars)
     }
   }
 
@@ -339,7 +321,6 @@ Meteor.publish("portfolioSystems", function(userId, options) {
     fields: {
       "aliases": 1,
       "metrics": 1,
-      "system": 1, //Migration 1: x
       "token": 1,
       "icon": 1,
       "ratings": 1

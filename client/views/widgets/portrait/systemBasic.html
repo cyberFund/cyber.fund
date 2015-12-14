@@ -6,7 +6,7 @@
                 {{#if neq descriptions.page_state 'ready'}}
                     This page is not ready yet. Follow <a
                         target="_blank"
-                        href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml">fan<!-- //Migration 1: {{system}} -> {{_id}} -->
+                        href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">fan
                     zone</a> to help us improve it faster!
                 {{else}}&nbsp;
                 {{/if}}
@@ -48,7 +48,7 @@
 
                                 <div>Built with
                                     {{#each depends_on}}
-                                        <a href="{{pathFor '/system/:name_' name_=name_}}">
+                                        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
 
                                     <span class="enlarge no-wrap">
                                         {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
@@ -323,7 +323,7 @@
                     {{#each dependents}}
                         <div class="col s6 m6 l3"
                              style="padding:0 10px; margin: 6px 0;">
-                            <a href="{{pathFor '/system/:name_' name_=name_}}">
+                            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
                                 <div class="card"
                                      style="padding: 10px 0; margin: 2px 0">
                                     {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
@@ -435,8 +435,8 @@
 
                 <p>You can
                     <a target="_blank"
-                       href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{system}}/{{system}}.toml"><!-- //Migration 1: {{system}} -> {{_id}} -->
-                        improve {{system}}'s page<!-- //Migration 1: {{system}} -> {{_id}} -->
+                       href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
+                        improve {{_id}}'s page
                     </a>
                     on Github.
                 </p>
@@ -461,7 +461,7 @@
         </div>
         <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
             <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}"
-               system-name="{{system}}"><!-- //Migration 1: {{system}} -> {{_id}} -->
+               system-name="{{_id}}">
                 <i class="material-icons"
                    style="font-size: 3.8rem">stars</i>
             </a>

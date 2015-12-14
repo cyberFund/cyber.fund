@@ -8,11 +8,11 @@ Meteor.methods({
     if (!user.profile.starredSystems ||
       user.profile.starredSystems.indexOf(sys) == -1) {
       Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
-      CurrentData.update({system: sys}, //Migration 1: _id: sys
+      CurrentData.update({_id: sys},
         {$push: {'_usersStarred': uid}});
     } else {
       Meteor.users.update(sel, {$pull: {'profile.starredSystems': sys}});
-      CurrentData.update({system: sys}, //Migration 1: _id: sys
+      CurrentData.update({_id: sys},
         {$pull: {'_usersStarred': uid}});
     }
     CF.CurrentData.calculatables.triggerCalc ('LV', sys);
@@ -29,7 +29,7 @@ Meteor.methods({
         var starred = user.profile.starredSystems;
         if (!starred || starred.indexOf(sys) == -1) {
           Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
-          CurrentData.update({system: sys}, //Migration 1: _id: syss
+          CurrentData.update({_id: sys}, 
             {$push: {'_usersStarred': uid}});
         }
       }

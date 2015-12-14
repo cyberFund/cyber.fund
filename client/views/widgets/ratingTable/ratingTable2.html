@@ -25,7 +25,7 @@
           <td
             class="left-align">
             <a
-              href="{{pathFor '/system/:name_' name_=name_}}"
+              href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
               class="enlarge no-wrap"
               title="{{descriptions.headline}}">
               {{> cgSystemLogo data=this class='cg-system-icon'}}

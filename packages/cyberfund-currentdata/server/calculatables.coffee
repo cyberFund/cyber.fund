@@ -34,7 +34,7 @@ _.extend CF.CurrentData.calculatables,
       if _.isString selector
         selector = selector.split ','
         _.each selector, (item) -> item = item.trim()
-        selector = {system: {$in: selector}} #Migration 1: {_id: {$in: selector}}
+        selector = {_id: {$in: selector}} 
 
       # iterate over selector
       cursor = @getCursor selector

@@ -71,10 +71,10 @@ var fetch = function () {
           //if (CurrentData.find().count() < 1000) {
           _.each(getResult, function (system) {
             if (!system.token) {
-              logger.info("no .token for system '" + system.system + "'");//Migration 1: system._id
+              logger.info("no .token for system '" + system._id + "'");
               return;
             }
-            var selector = CF.CurrentData.selectors.system_symbol(system.system, //Migration 1: system._id
+            var selector = CF.CurrentData.selectors.system_symbol(system._id,
               system.token.token_symbol);
             var doc = CurrentData.findOne(selector);
             if (!doc) {
@@ -89,7 +89,7 @@ var fetch = function () {
                 }
               }
 
-              console.log("inserting system " + system.system);//Migration 1: system._id
+              console.log("inserting system " + system._id);
               system._id = system.system;
               CurrentData.insert( system );
             }

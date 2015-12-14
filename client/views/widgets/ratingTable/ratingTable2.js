@@ -104,10 +104,7 @@ Template['ratingTable2'].helpers({
     }
     return "";
   },
-  // underscored currency name
-  name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);
-  },
+
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";

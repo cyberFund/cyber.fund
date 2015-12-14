@@ -412,17 +412,17 @@ function calcLV(system) {
     maxLove = {
       _id: 'maxLove',
       value: n,
-      system: system.system //Migration 1: system._id
+      system: system._id
     };
     Extras.insert(maxLove);
   }
   if (maxLove.value < n) {
     Extras.update(sel, {
-      system: system.system, //Migration 1: system._id
+      system: system._id,
       value: n
     });
   }
-  if (maxLove.system == system.system //Migration 1: system._id
+  if (maxLove.system == system._id
     && n < maxLove.value) {
     getMax()
   }
@@ -436,7 +436,7 @@ function calcLV(system) {
 function calcAM(system) {
 
   var flag = _.contains(_.values(CF.UserAssets.qMatchingTable),
-  system.system); //Migration 1: system._id
+  system._id); 
   return {
     flag: flag,
     sum: flag ? 1 : 0
@@ -468,7 +468,7 @@ function calcCS(system) {
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
     console.log("CS calculation: no links calculated for "
-     + system.system); //Migration 1: system._id
+     + system._id);
     return undefined;
   }
 

@@ -93,13 +93,7 @@ Template['portfolioWidget'].helpers({
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
       if (stars && stars.length) {
-
-        var plck = _.map(CurrentData.find({system: {$in: stars}},
-          {fields: {'system': 1}}).fetch(), function (it) {
-          return it.system; //Migration 1: just use 'stars' array
-        });
-
-        systems = _.uniq(_.union(systems, plck))
+        systems = _.uniq(_.union(systems, stars))
       }
     }
 
@@ -117,18 +111,18 @@ Template['portfolioWidget'].helpers({
       // return -1 if x > y; return 1 if y > x
       byValue: function (x, y) {
 
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
       },
       byAmount: function (x, y) {
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 - q1);
       },
       byEquity: function (x, y) {
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y);
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
+          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
         if (x.metrics && x.metrics.supply) {
           q1 = q1 / x.metrics.supply;
         } else {
@@ -171,27 +165,25 @@ Template['portfolioWidget'].helpers({
     return Template.instance().data && Template.instance().data.accountsData;
   },
   quantity: function (system) {
-    if (!system.system) return NaN;  //Migration 1: system._id
+    if (!system._id) return NaN;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
-      accounts, system.system), 3); //Migration 1: system._id
+      accounts, system._id), 3);
   },
   btcCost: function (system) {
-    if (!system.system) return "no token for that system"; //Migration 1: bypass
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
     var accounts = Template.instance().data && Template.instance().data.accountsData;
     return (CF.UserAssets.getQuantitiesFromAccountsObject(
-      accounts, system.system) * system.metrics.price.btc).toFixed(3); //Migration 1: system._id
+      accounts, system._id) * system.metrics.price.btc).toFixed(3);
   },
   usdCost: function (system) {
-    if (!system.system) return "no token for that system"; //Migration 1: bypass
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
-        accounts, system.system) * system.metrics.price.usd, 2);  //Migration 1: system._id
+        accounts, system._id) * system.metrics.price.usd, 2);
   },
   sumB: function () {
     var accounts = Template.instance().data && Template.instance().data.accountsData;
@@ -214,15 +206,14 @@ Template['portfolioWidget'].helpers({
     return CF.Utils.readableN(sumU, 0)
   },
   name_of_system: function () {
-    var sys = CurrentData.findOne({_id: this._id}) || {};
-    return sys.system || '' //Migration 1: return this._id
+    return this._id
   },
   equity: function (system) {
     var q = 0.0;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
-    if (system.system) { //Migration 1:
-      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system);  //Migration 1:
+    if (system._id) {
+      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
       q = 10000 * q / system.metrics.supply
@@ -236,8 +227,8 @@ Template['portfolioWidget'].helpers({
     var system = this;
     var q = 0.0;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
-    if (system.system) {  //Migration 1:
-      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system);  //Migration 1: 
+    if (system._id) {
+      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     var accountsData = Template.instance().data &&
       Template.instance().data.accountsData;
