@@ -74,10 +74,13 @@ var fetch = function () {
               logger.info("no .token for system '" + system._id + "'");
               return;
             }
-            var selector = CF.CurrentData.selectors.system_symbol(system._id,
+            var selector = CF.CurrentData.selectors.system_symbol(system.system,
               system.token.token_symbol);
             var doc = CurrentData.findOne(selector);
+
             if (!doc) {
+              console.log("no doc for selector" )
+              console.log(selector )
               if (system.specs) {
                 // push supply & caps to metrics
                 system.metrics = system.metrics || {};
@@ -89,8 +92,8 @@ var fetch = function () {
                 }
               }
 
-              console.log("inserting system " + system._id);
               system._id = system.system;
+              console.log("inserting system " + system._id);
               CurrentData.insert( system );
             }
             else {
