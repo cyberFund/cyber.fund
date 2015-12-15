@@ -138,7 +138,7 @@ _.extend(ns, {
       }
 
       var q;
-      if (params.system) { 
+      if (params.system) {
         q = {"term": {"sym_sys": params.system}};
         return _extendQuery(qObj, q);
       }
@@ -265,7 +265,7 @@ _.extend(ns, {
           }
         };
         if (params.system || params.systems)
-        ret = CF.ES.queries._parametrize(ret, params);
+          ret = CF.ES.queries._parametrize(ret, params);
         return ret;
       }
     },
