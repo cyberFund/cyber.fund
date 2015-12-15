@@ -3,7 +3,7 @@ Meteor.startup(function () {
   _Session.default("ratingPageSort", {"metrics.cap.btc": -1});
 });
 
-Template['ratingTable2'].onCreated(function () {
+Template['tracking'].onCreated(function () {
   var instance = this;
   instance.subscribe("maxLove");
   instance.autorun(function () {
@@ -15,7 +15,7 @@ Template['ratingTable2'].onCreated(function () {
 
 });
 
-Template['ratingTable2'].rendered = function () {
+Template['tracking'].rendered = function () {
   Session.set('ratingPageLimit', 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
@@ -53,7 +53,7 @@ Template['ratingTable2'].rendered = function () {
   $(window).trigger("resize");
 };
 
-Template['ratingTable2'].helpers({
+Template['tracking'].helpers({
   _wl_cs: function(){
     var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
     var k = 1000, M = 1000000
@@ -144,7 +144,7 @@ Template['ratingTable2'].helpers({
 
 
 
-Template['ratingTable2'].events({
+Template['tracking'].events({
   'click .show-more': function (e, t) {
     var step = CF.Rating.step;
     var limit = Session.get("ratingPageLimit");
