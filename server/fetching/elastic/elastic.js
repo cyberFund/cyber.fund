@@ -564,7 +564,7 @@ SyncedCron.add({
   name: 'fetch avegares 15m elasticsearch data',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('1/5 * * * *', false);
+    return parser.cron('20 0/5 * * * *', true);
   },
   job: function() {
     try {
