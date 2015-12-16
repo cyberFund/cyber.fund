@@ -286,7 +286,8 @@ var esParsers = {
       // those are used to build daily charts
       if (!_.isEmpty(set) && curDoc) {
         set.updatedAt = new Date();
-        // console.log(set);
+        //
+        le.log(set);
         /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
          set['metrics.supply'] = curDoc.specs.supply;
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
@@ -532,7 +533,6 @@ SyncedCron.add({
   job: function() {
     try {
       var s = gatherSymSys({})
-      console.log(s);
       fetchAverage15m({
         systems: s
       });
@@ -552,7 +552,6 @@ SyncedCron.add({
   job: function() {
     try {
       var s = gatherSymSys({})
-      console.log(s);
       fetchLatest({
         systems: s
       });
@@ -636,7 +635,6 @@ function gatherSymSys(selector) {
     var s = symSys(item);
     if (s) ret.push(s);
   });
-  console.log(ret.length);
   return ret;
 }
 
