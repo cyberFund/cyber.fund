@@ -287,7 +287,6 @@ var esParsers = {
       if (!_.isEmpty(set) && curDoc) {
         set.updatedAt = new Date();
         //
-        le.log(set);
         /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
          set['metrics.supply'] = curDoc.specs.supply;
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
@@ -352,7 +351,8 @@ var esParsers = {
       console.log();
     }
 
-    if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {
+    if (!result || !result.aggregations || !result.aggregations.by_system
+      || !result.aggregations.by_system.buckets) {
       this.errorLogger(result);
       return;
     }
@@ -361,6 +361,7 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
+    console.log(buckets.length+ " :len of buckets.")
     _.each(buckets, function(sysBucket) {
       var systemKey = sysBucket.key;
       var id = CurrentData.findOne(_searchSelector(systemKey));
@@ -371,7 +372,8 @@ var esParsers = {
       id = id._id;
       //if (daily) _key = "dailyData";
       //if (hourly) _key = "hourlyData";
-      if (!sysBucket.over_time || !sysBucket.over_time.buckets || !_.isArray(sysBucket.over_time.buckets)) {
+      if (!sysBucket.over_time || !sysBucket.over_time.buckets ||
+         !_.isArray(sysBucket.over_time.buckets)) {
         return;
       }
 
@@ -387,7 +389,6 @@ var esParsers = {
         });
         return ret;
       }
-
       _.each(sysBucket.over_time.buckets, function(timeBucket) {
         if (!timeBucket.key_as_string) return;
         var utc = moment.utc(timeBucket.key_as_string);
@@ -396,13 +397,18 @@ var esParsers = {
         //var key;
         var doc = grab(timeBucket);
         if (!_.isEmpty(doc)) {
-          var interval = {
-            interval: daily ? 'daily' : (hourly ? 'hourly' : '')
-          }
-          _extend(doc, interval, {
-            systemId: id
+          var interval =  daily ? 'daily' : hourly ? 'hourly' : 'unknown';
+          _.extend(doc, {
+            interval: interval,
+            timestamp: utc._d,
+            systemId: id,
+            source: "2015" //TODO: comprehensive source resolver.
           });
-          MarketData.insert(doc);
+          try { // for some reason, there s unique index over. indexing of market data is a separate task
+            MarketData.insert(doc);
+          } catch (e) {
+            console.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"))
+          }
         }
 
         //if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
@@ -442,7 +448,7 @@ function fetchAverages(params) {
   esParsers.averages_date_hist(result);
 }
 
-SyncedCron.add({
+var hourlyAves = {
   name: 'fetch last hour averages',
   schedule: function(parser) {
     return parser.cron('4 * * * *', false);
@@ -453,10 +459,21 @@ SyncedCron.add({
       to: "now/h",
       interval: "hour"
     };
+    _.extend(params, {
+      systems: gatherSymSys()
+    })
+    console.log ("average hour")
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
-});
+}
+
+Meteor.startup(function(){
+//  hourlyAves.job();
+})
+SyncedCron.add(hourlyAves)
+
+
 
 SyncedCron.add({
   name: 'fetch last day averages',
