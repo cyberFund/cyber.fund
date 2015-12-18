@@ -8,25 +8,24 @@ ns.lib.calcs.calcCS = function calcCS(system) {
   // convert from links to 1/0
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
-    console.log("CS calculation: no links calculated for "
-     + system._id);
+    console.log("CS calculation: no links calculated for %s", system._id);
     return undefined;
   }
 
   var flags = {
-    site: wt['Main'] ? 1 : 0,
-    community: wt['Community'] ? 1 : 0,
-    updates: wt['News'] ? 1 : 0,
-    code: (wt['Code'] || wt['code']) ? 1 : 0,
-    science: wt['Science'] ? 1 : 0,
-    knowledge: (wt['Publictaions'] || wt['paper']) ? 1 : 0,
+    site: helpers.linksScoreWeight( wt['Main'], params.linkWeightsCS.d0),
+    community: helpers.linksScoreWeight( wt['Community'], params.linkWeightsCS.d0),
+    updates: helpers.linksScoreWeight( wt['News'], params.linkWeightsCS.d0),
+    code: helpers.linksScoreWeight( (wt['Code'] + wt['code']), params.linkWeightsCS.d0),
+    science: helpers.linksScoreWeight( wt['Science'], params.linkWeightsCS.d0),
+    knowledge: helpers.linksScoreWeight( (wt['Publictaions'] + wt['paper']), params.linkWeightsCS.d0),
   }
 
   if (stage == "Public") {
     _.extend(flags, {
-      buy: wt['Exchange'] ? 1 : 0,
-      hold: (wt['Wallet'] || wt['wallet']) ? 1 : 0,
-      analyze: (wt['Analytics'] || wt['Exporer']) ? 1 : 0,
+      buy: helpers.linksScoreWeight( wt['Exchange'], params.linkWeightsCS.d1),
+      hold: helpers.linksScoreWeight( (wt['Wallet'] + wt['wallet']), params.linkWeightsCS.d1),
+      analyze: helpers.linksScoreWeight( (wt['Analytics'] + wt['Exporer']), params.linkWeightsCS.d1),
       earn: true ? 1 : 0
     });
   }
@@ -51,6 +50,6 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     sum: sum,
     weights: v,
     tip: t,
-    stage:stage
+    stage: stage
   }
 };

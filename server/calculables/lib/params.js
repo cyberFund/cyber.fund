@@ -144,6 +144,21 @@ params = {
         knowledge: .15
       }
     }
+  },
+  linkWeightsCS: {
+    s0: function (n){
+      return n===0 ? 0 : 1
+    },
+    s1: function (n){
+      if (n===0) return 0;
+      if (n<=1) return 0.2;
+      if (n<=3) return 0.4;
+      if (n<=5) return 0.6;
+      if (n<=9) return 0.8;
+    },
+    // ordered by [i][0]. score weight is [i][1]
+    d0: [[0, 0]],
+    d1: [[0, 0], [1, 0.2], [3, 0.4], [5, 0.6], [9, 0.8]],
   }
 };
 
