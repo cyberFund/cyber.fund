@@ -3,8 +3,8 @@ var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
 ns.lib.calcs.calcCS = function calcCS(system) {
-  var stage = helpers._getStage(system);
-  var t = helpers._getType(system);
+  var state = helpers._getState(system);
+  var type = helpers._getType(system);
   // convert from links to 1/0
   var wt = system.calculatable.nLinksWithTag;
   if (!wt) {
@@ -12,20 +12,25 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     return undefined;
   }
 
+  var linkWeights = params.linkWeightsCS[type];
+try {
   var flags = {
-    site: helpers.linksScoreWeight( wt['Main'], params.linkWeightsCS.d0),
-    community: helpers.linksScoreWeight( wt['Community'], params.linkWeightsCS.d0),
-    updates: helpers.linksScoreWeight( wt['News'], params.linkWeightsCS.d0),
-    code: helpers.linksScoreWeight( (wt['Code'] + wt['code']), params.linkWeightsCS.d0),
-    science: helpers.linksScoreWeight( wt['Science'], params.linkWeightsCS.d0),
-    knowledge: helpers.linksScoreWeight( (wt['Publictaions'] + wt['paper']), params.linkWeightsCS.d0),
+    site: helpers.linksScoreWeight( wt['Main'], linkWeights.d0),
+    community: helpers.linksScoreWeight( wt['Community'], linkWeights.d0),
+    updates: helpers.linksScoreWeight( wt['News'], linkWeights.d0),
+    code: helpers.linksScoreWeight( (wt['Code'] + wt['code']), linkWeights.d0),
+    science: helpers.linksScoreWeight( wt['Science'], linkWeights.d0),
+    knowledge: helpers.linksScoreWeight( (wt['Publictaions'] + wt['paper']), linkWeights.d0),
   }
+} catch (e) {
+  console.log(type)
+}
 
-  if (stage == "Public") {
+  if (state == "Public") {
     _.extend(flags, {
-      buy: helpers.linksScoreWeight( wt['Exchange'], params.linkWeightsCS.d1),
-      hold: helpers.linksScoreWeight( (wt['Wallet'] + wt['wallet']), params.linkWeightsCS.d1),
-      analyze: helpers.linksScoreWeight( (wt['Analytics'] + wt['Exporer']), params.linkWeightsCS.d1),
+      buy: helpers.linksScoreWeight( wt['Exchange'], linkWeights.d1),
+      hold: helpers.linksScoreWeight( (wt['Wallet'] + wt['wallet']), linkWeights.d1),
+      analyze: helpers.linksScoreWeight( (wt['Analytics'] + wt['Exporer']), linkWeights.d1),
       earn: true ? 1 : 0
     });
   }
@@ -37,9 +42,9 @@ ns.lib.calcs.calcCS = function calcCS(system) {
 
   var v = {};
 
-  if (t && stage) {
-    v = params.weightsCS[t] || {};
-    v = v[stage] || {}
+  if (type && state) {
+    v = params.weightsCS[type] || {};
+    v = v[state] || {}
   }
   var sum = helpers.convolution(keys, v, flags);
 
@@ -49,7 +54,7 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     details: flags,
     sum: sum,
     weights: v,
-    tip: t,
-    stage: stage
+    tip: type,
+    state: state
   }
 };

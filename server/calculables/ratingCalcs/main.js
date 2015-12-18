@@ -4,12 +4,12 @@ var params = ns.lib.params;
 var calcs = ns.lib.calcs;
 
 CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
-  var stage = helpers._getStage(system);
-  var t = helpers._getType(system);
+  var state = helpers._getState(system);
+  var type = helpers._getType(system);
 
   var keys = ['CS', 'LV', 'WL', 'BR', 'AM', 'GR']
 
-  var weights = params.weightsRATING[stage],
+  var weights = params.weightsRATING[state],
     vector = {
       CS: calcs.calcCS(system),
       LV: calcs.calcLV(system),
@@ -19,7 +19,7 @@ CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
       GR: calcs.calcGR(system)
     };
 
-  var weigths = params.weightsRATING[stage] || {},
+  var weigths = params.weightsRATING[state] || {},
     weighted = helpers.multiplication(keys, vector, weights, 'sum');
 
   var sum = _.reduce(_.map(keys, function(key) {
@@ -34,7 +34,7 @@ CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
     weights: weights,
     weighted: weighted,
     sum: sum,
-    tip: t,
-    stage: stage
+    tip: type,
+    state: state
   }
 });

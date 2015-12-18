@@ -42,18 +42,19 @@ helpers = {
     });
     return ret;
   },
-  _getStage: function(system) {
-    var stage, stages;
-    stages = ['Dead', 'Pre-Public', 'Private', 'Project', 'Public', 'Running', 'live'];
-    stage = system.descriptions && system.descriptions.state;
-    if (!stage || !_.contains(stages, stage)) {
+  _getState: function(system) {
+    states = ['Pre-Public', 'Private', 'Project', 'Public', 'Running'];
+    var state, states;
+    state = system.descriptions && system.descriptions.state;
+    if (!state || !_.contains(states, state)) {
       return undefined;
     }
-    return stage;
+    return state;
   },
   _getType: function(system) {
     var types;
-    types = ['cryptocurrentcy', 'cryptoasset'];
+    // todo: throw if type not in types?
+    types = ['cryptocurrentcy', 'cryptoasset', 'cryptoservice', 'cryptoproject'];
     return system.descriptions && system.descriptions.system_type;
   },
 
