@@ -6,33 +6,36 @@ ns.lib.calcs.calcCS = function calcCS(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);
   // convert from links to 1/0
-  var wt = system.calculatable.nLinksWithTag;
-  if (!wt) {
+  var withTag = system.calculatable.nLinksWithTag;
+  var withType = system.calculatable.nLinksWithType;
+
+  if (!withTag) {
     console.log("CS calculation: no links calculated for %s", system._id);
     return undefined;
   }
 
-  var linkWeights = params.linkWeightsCS[type];
-try {
-  var flags = {
-    site: helpers.linksScoreWeight( wt['Main'], linkWeights.d0),
-    community: helpers.linksScoreWeight( wt['Community'], linkWeights.d0),
-    updates: helpers.linksScoreWeight( wt['News'], linkWeights.d0),
-    code: helpers.linksScoreWeight( (wt['Code'] + wt['code']), linkWeights.d0),
-    science: helpers.linksScoreWeight( wt['Science'], linkWeights.d0),
-    knowledge: helpers.linksScoreWeight( (wt['Publictaions'] + wt['paper']), linkWeights.d0),
-  }
-} catch (e) {
-  console.log(type)
-}
+  // see `/server/calculables/lib/params.js: Line 156`
+  var linkWeights = params.linkWeightsCS(state, type);
+  var scoreWeight = helpers.linksScoreWeight;
 
-  if (state == "Public") {
-    _.extend(flags, {
-      buy: helpers.linksScoreWeight( wt['Exchange'], linkWeights.d1),
-      hold: helpers.linksScoreWeight( (wt['Wallet'] + wt['wallet']), linkWeights.d1),
-      analyze: helpers.linksScoreWeight( (wt['Analytics'] + wt['Exporer']), linkWeights.d1),
-      earn: true ? 1 : 0
-    });
+  try {
+    var flags = {
+
+              // can use withType here as well
+      site: scoreWeight (withTag['Main'], linkWeights.site),
+      community: scoreWeight(withTag['Community'], linkWeights.community),
+      updates: scoreWeight(withTag['News'], linkWeights.updates),
+      code: scoreWeight((withTag['Code'] + withTag['code']), linkWeights.code),
+      science: scoreWeight(withTag['Science'], linkWeights.science),
+      knowledge: scoreWeight((withTag['Publicaions'] + withTag['paper']), linkWeights.knoweledge),
+      buy: scoreWeight(withTag['Exchange'], linkWeights.buy),
+      hold: scoreWeight((withTag['Wallet'] + withTag['wallet']), linkWeights.hold),
+      analyze: scoreWeight((withTag['Analytics'] + withTag['Exporer']), linkWeights.analyze),
+      earn: true ? 1 : 0 // ? VL any changes?
+    }
+  } catch (e) {
+    console.log(type);
+    throw(e)
   }
 
   var basic = "stub";

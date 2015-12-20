@@ -60,6 +60,7 @@ helpers = {
 
   // score weight is between 0 and 1. see params.linkWeightsCS
   linksScoreWeight: function (n, weightsD){
+    weightsD = weightsD || []
     for (var i=0; i <= weightsD.length-1; i++){
       if (n<=weightsD[i][0]) return weightsD[i][1];
     }

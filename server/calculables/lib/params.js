@@ -2,6 +2,45 @@ var params;
 
 CF.CurrentData.calculatables.lib = CF.CurrentData.calculatables.lib || {};
 
+var clone = function _clone(item) {
+  return _.clone(item);
+}
+
+var scoreWeightsPerLinksCount = {
+  baseBoolean: [
+    [0, 0]
+  ],
+  base10: [
+    [0, 0],
+    [1, 0.2],
+    [3, 0.4],
+    [5, 0.6],
+    [9, 0.8]
+  ],
+  neverMind: [
+    [1000, 0]
+  ],
+  fiveSteps: [
+    [0, 0],
+    [1, 0.2],
+    [2, 0.4],
+    [3, 0.6],
+    [4, 0, 8]
+  ],
+  tenSteps: [
+    [0, 0],
+    [1, 0.1],
+    [2, 0.2],
+    [3, 0.3],
+    [4, 0, 4],
+    [5, 0, 5],
+    [6, 0.6],
+    [7, 0.7],
+    [8, 0.8],
+    [9, 0, 9]
+  ]
+}
+
 params = {
   weightsRATING: {
     'Project': {
@@ -65,22 +104,6 @@ params = {
         science: .15,
         knowledge: .15
       },
-      'Dead': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      'live': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
       'Running': {
         site: .15,
         community: .15,
@@ -119,22 +142,6 @@ params = {
         science: .15,
         knowledge: .15
       },
-      'Dead': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
-      'live': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
-      },
       'Running': {
         site: .15,
         community: .15,
@@ -145,36 +152,28 @@ params = {
       }
     }
   },
-  linkWeightsCS: {
-    'cryptocurrency': {
-      // ordered by [i][0]. score weight is [i][1]
-      d0: [[0, 0]],
-      d1: [[0, 0], [1, 0.2], [3, 0.4], [5, 0.6], [9, 0.8]],
-    },
+  
+  linkWeightsCS: function(state, type) {
+    var scores = scoreWeightsPerLinksCount;
+    var ret = {
+      site: clone(scores.baseBoolean),
+      community: clone(scores.baseBoolean),
+      updates: clone(scores.baseBoolean),
+      code: clone(scores.baseBoolean),
+      science: clone(scores.baseBoolean),
+      knowledge: clone(scores.baseBoolean),
+      buy: clone(scores.neverMind),
+      hold: clone(scores.neverMind),
+      analyze: clone(scores.neverMind),
+    };
 
-    'cryptoasset': {
-      s0: function (n){ // not used
-        return n===0 ? 0 : 1
-      },
-      s1: function (n){  // not used
-        if (n===0) return 0;
-        if (n<=1) return 0.2;
-        if (n<=3) return 0.4;
-        if (n<=5) return 0.6;
-        if (n<=9) return 0.8;
-      },
-      // ordered by [i][0]. score weight is [i][1]
-      d0: [[0, 0]],
-      d1: [[0, 0], [1, 0.2], [3, 0.4], [5, 0.6], [9, 0.8]],
-    },
-    'cryptoservice': {
-      d0: [[0, 0]],
-      d1: [[0, 0], [1, 0.2], [3, 0.4], [5, 0.6], [9, 0.8]],
-    },
-    'cryptoproject': {
-      d0: [[0, 0]],
-      d1: [[0, 0], [1, 0.2], [3, 0.4], [5, 0.6], [9, 0.8]],
+    if (state === "Public") {
+      ret.buy = clone (scores.base10)
+      ret.hold = clone (scores.base10)
+      ret.analyze = clone (scores.base10)
     }
+
+    return ret;
   }
 };
 
