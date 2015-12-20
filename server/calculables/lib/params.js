@@ -77,78 +77,78 @@ params = {
   weightsCS: {
     'cryptocurrency': {
       'Public': {
-        site: .05,
-        community: .05,
-        updates: .05,
-        code: .05,
-        science: .05,
-        knowledge: .05,
-        buy: .3,
-        hold: .1,
-        analyze: .1,
-        earn: .1
+        site: 0.05,
+        community: 0.05,
+        updates: 0.05,
+        code: 0.05,
+        science: 0.05,
+        knowledge: 0.05,
+        buy: 0.3,
+        hold: 0.1,
+        analyze: 0.1,
+        earn: 0.1
       },
       'Pre-Public': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       },
       'Project': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       },
       'Running': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       }
     },
     'cryptoasset': {
       'Public': {
-        site: .05,
-        community: .05,
-        updates: .10,
-        code: .20,
-        science: .05,
-        knowledge: .05,
-        buy: .4,
-        hold: .05,
-        analyze: .05,
+        site: 0.05,
+        community: 0.05,
+        updates: 0.10,
+        code: 0.20,
+        science: 0.05,
+        knowledge: 0.05,
+        buy: 0.4,
+        hold: 0.05,
+        analyze: 0.05,
         earn: 0
       },
       'Pre-Public': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       },
       'Project': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       },
       'Running': {
-        site: .15,
-        community: .15,
-        updates: .20,
-        code: .20,
-        science: .15,
-        knowledge: .15
+        site: 0.15,
+        community: 0.15,
+        updates: 0.20,
+        code: 0.20,
+        science: 0.15,
+        knowledge: 0.15
       }
     }
   },
