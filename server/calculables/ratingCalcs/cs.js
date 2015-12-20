@@ -41,7 +41,9 @@ ns.lib.calcs.calcCS = function calcCS(system) {
   var basic = "stub";
   var extended = "stub"; // see https://docs.google.com/spreadsheets/d/1YkrIitYD6FS2a4IEmBlfwAuCMgMwIKgU5JMHQzsfg-k/edit#gid=755429566&vpid=A1
 
-  var keys = ['site', 'community', 'updates', 'code', 'science', 'knowledge'];
+  var keys = ['site', 'community', 'updates', //todo: move to ../lib/params ?
+  'code', 'science', 'knowledge',
+  'buy', 'hold', 'analyze', 'earn'];
 
   var v = {};
 
@@ -50,8 +52,6 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     v = v[state] || {}
   }
   var sum = helpers.convolution(keys, v, flags);
-
-  //if (sum == undefined) return undefined;
 
   return {
     details: flags,

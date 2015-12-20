@@ -25,19 +25,19 @@ var scoreWeightsPerLinksCount = {
     [1, 0.2],
     [2, 0.4],
     [3, 0.6],
-    [4, 0, 8]
+    [4, 0.8]
   ],
   tenSteps: [
     [0, 0],
     [1, 0.1],
     [2, 0.2],
     [3, 0.3],
-    [4, 0, 4],
-    [5, 0, 5],
+    [4, 0.4],
+    [5, 0.5],
     [6, 0.6],
     [7, 0.7],
     [8, 0.8],
-    [9, 0, 9]
+    [9, 0.9]
   ]
 }
 
@@ -152,7 +152,7 @@ params = {
       }
     }
   },
-  
+
   linkWeightsCS: function(state, type) {
     var scores = scoreWeightsPerLinksCount;
     var ret = {
