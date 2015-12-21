@@ -15,17 +15,17 @@ var scoreWeightsPerLinksCount = {
     [1, 0.2],
     [3, 0.4],
     [5, 0.6],
-    [9, 0.8]
+    [9, 0.8] //6,7,8,9 links => 0.8,   10, 10+links => 1
   ],
   neverMind: [
-    [1000, 0]
+    [1000, 0] // number of links <= 1000 results in 0, 1001+links results in 1
   ],
   fiveSteps: [
     [0, 0],
     [1, 0.2],
     [2, 0.4],
     [3, 0.6],
-    [4, 0.8]
+    [4, 0.8] // 5+ links => 1
   ],
   tenSteps: [
     [0, 0],
@@ -42,38 +42,30 @@ var scoreWeightsPerLinksCount = {
 }
 
 params = {
-  weightsRATING: {
-    'Project': {
-      CS: 1,
-      LV: 4,
-      WL: 0,
-      BR: 0,
-      AM: 0
-    },
-    'Pre-Public': {
-      CS: 1,
-      LV: 2.5,
-      WL: 0.5,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Private': {
-      CS: 1,
-      LV: 3,
-      WL: 0,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Public': {
-      CS: 1,
-      LV: 2,
-      WL: 1,
-      BR: 0.5,
-      AM: 0.5
-    },
-    'Dead': {},
-    'live': {}
+  linkWeightsCS: function(state, type) {
+    var scores = scoreWeightsPerLinksCount;
+    var ret = {
+      site: clone(scores.baseBoolean),
+      community: clone(scores.baseBoolean),
+      updates: clone(scores.baseBoolean),
+      code: clone(scores.baseBoolean),
+      science: clone(scores.baseBoolean),
+      knowledge: clone(scores.baseBoolean),
+      buy: clone(scores.neverMind),
+      hold: clone(scores.neverMind),
+      analyze: clone(scores.neverMind),
+    };
+
+    if (state === "Public") {
+      ret.buy = clone (scores.base10)
+      ret.hold = clone (scores.base10)
+      ret.analyze = clone (scores.base10)
+    }
+
+    return ret;
   },
+  
+  
   weightsCS: {
     'cryptocurrency': {
       'Public': {
@@ -152,28 +144,38 @@ params = {
       }
     }
   },
-
-  linkWeightsCS: function(state, type) {
-    var scores = scoreWeightsPerLinksCount;
-    var ret = {
-      site: clone(scores.baseBoolean),
-      community: clone(scores.baseBoolean),
-      updates: clone(scores.baseBoolean),
-      code: clone(scores.baseBoolean),
-      science: clone(scores.baseBoolean),
-      knowledge: clone(scores.baseBoolean),
-      buy: clone(scores.neverMind),
-      hold: clone(scores.neverMind),
-      analyze: clone(scores.neverMind),
-    };
-
-    if (state === "Public") {
-      ret.buy = clone (scores.base10)
-      ret.hold = clone (scores.base10)
-      ret.analyze = clone (scores.base10)
-    }
-
-    return ret;
+  
+  weightsRATING: {
+    'Project': {
+      CS: 1,
+      LV: 4,
+      WL: 0,
+      BR: 0,
+      AM: 0
+    },
+    'Pre-Public': {
+      CS: 1,
+      LV: 2.5,
+      WL: 0.5,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Private': {
+      CS: 1,
+      LV: 3,
+      WL: 0,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Public': {
+      CS: 1,
+      LV: 2,
+      WL: 1,
+      BR: 0.5,
+      AM: 0.5
+    },
+    'Dead': {},
+    'live': {}
   }
 };
 
