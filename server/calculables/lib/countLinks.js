@@ -42,7 +42,7 @@ var types = { // NB: mongo query: db.CurrentData.distinct("links.type")
   "21" : "BTT Thread",
   "22" : "bitbucket",
   "23" : "GitHub Organization",
-  "24" : "News"
+  "24" : "News",
   "25" : "earn"
 };
 
