@@ -31,7 +31,7 @@ ns.lib.calcs.calcCS = function calcCS(system) {
       buy: scoreWeight(withTag['Exchange'], linkWeights.buy),
       hold: scoreWeight((withTag['Wallet'] + withTag['wallet']), linkWeights.hold),
       analyze: scoreWeight((withTag['Analytics'] + withTag['Exporer']), linkWeights.analyze),
-      earn: scoreWeight( withType['earn'], linkWeights.earn );
+      earn: scoreWeight( withType['earn'], linkWeights.earn )
     }
   } catch (e) {
     console.log(type);
