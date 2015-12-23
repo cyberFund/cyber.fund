@@ -60,5 +60,13 @@ CF.CurrentData = {
     return _.filter(links, function (link) {
       return (link.type === type);
     });
+  },
+
+  linksOfUpdate: function(links) {
+    if (!_.isArray(links)) return [];    // calc amount of links of given type.
+    var types = ['blog', 'reddit'];
+    return _.filter(links, function (link) {
+      return (_.contains (types, link.type) && link.rss )
+    })
   }
 };

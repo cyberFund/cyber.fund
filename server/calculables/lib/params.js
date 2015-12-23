@@ -54,12 +54,14 @@ params = {
       buy: clone(scores.neverMind),
       hold: clone(scores.neverMind),
       analyze: clone(scores.neverMind),
+      earn: clone(scores.neverMind)
     };
 
     if (state === "Public") {
       ret.buy = clone (scores.base10)
       ret.hold = clone (scores.base10)
       ret.analyze = clone (scores.base10)
+      ret.earn = clone(scores.tenSteps)
     }
 
     return ret;

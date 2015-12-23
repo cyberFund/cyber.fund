@@ -43,6 +43,7 @@ var types = { // NB: mongo query: db.CurrentData.distinct("links.type")
   "22" : "bitbucket",
   "23" : "GitHub Organization",
   "24" : "News"
+  "25" : "earn"
 };
 
 CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
@@ -69,5 +70,6 @@ CF.CurrentData.calculatables.addCalculatable('nLinksWithType', function(system) 
   _.each(types, function(type) {
     ret[type] = CF.CurrentData.linksWithType(links, type).length;
   });
+  ret['_update_'] = CF.CurrentData.linksOfUpdate(links);
   return ret;
 });
