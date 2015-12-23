@@ -13,8 +13,7 @@ var scoreWeightsPerLinksCount = {
   base10: [
     [0, 0],
     [1, 0.2],
-    [3, 0.4],
-    [5, 0.6],
+    [5, 0.5],
     [9, 0.8] //6,7,8,9 links => 0.8,   10, 10+links => 1
   ],
   neverMind: [
@@ -38,30 +37,6 @@ var scoreWeightsPerLinksCount = {
     [7, 0.7],
     [8, 0.8],
     [9, 0.9]
-  ],
-  max005: [
-    [0, 0],
-    [1, 0.01],
-    [5, 0.025],
-    [9, 0.04],
-  ],
-  max01: [
-    [0, 0],
-    [1, 0.02],
-    [5, 0.05],
-    [9, 0.08],
-  ],
-  max03: [
-    [0, 0],
-    [1, 0.06],
-    [5, 0.15],
-    [9, 0.24],
-  ],
-  max04: [
-    [0, 0],
-    [1, 0.08],
-    [5, 0.2],
-    [9, 0.32],
   ]
 }
 
@@ -85,7 +60,7 @@ params = {
       ret.buy = clone (scores.base10)
       ret.hold = clone (scores.base10)
       ret.analyze = clone (scores.base10)
-      ret.earn = clone(scores.tenSteps)
+      ret.earn = clone(scores.base10)
     }
 
     return ret;
@@ -121,14 +96,6 @@ params = {
         code: 0.20,
         science: 0.15,
         knowledge: 0.15
-      },
-      'Running': {
-        site: 0.15,
-        community: 0.15,
-        updates: 0.20,
-        code: 0.20,
-        science: 0.15,
-        knowledge: 0.15
       }
     },
     'cryptoasset': {
@@ -153,14 +120,6 @@ params = {
         knowledge: 0.15
       },
       'Project': {
-        site: 0.15,
-        community: 0.15,
-        updates: 0.20,
-        code: 0.20,
-        science: 0.15,
-        knowledge: 0.15
-      },
-      'Running': {
         site: 0.15,
         community: 0.15,
         updates: 0.20,
@@ -199,9 +158,7 @@ params = {
       WL: 1,
       BR: 0.5,
       AM: 0.5
-    },
-    'Dead': {},
-    'live': {}
+    }
   }
 };
 
