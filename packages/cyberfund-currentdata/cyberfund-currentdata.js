@@ -1,5 +1,5 @@
 
-CF.CurrentData = {
+CF.CurrentData = {                // helpers related to collection CurrentData
   calculatables: {                          // some field names, selectors etc
     fields: { "calculatable": 1 },
     fieldsExclude: {'calculatable': 0},
