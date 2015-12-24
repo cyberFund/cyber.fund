@@ -43,13 +43,12 @@ Template['systemBasic'].helpers({
   'curData': function () {
     return curData();
   },
-  'img_url': function () {
-    return CF.Chaingear.helpers.cgSystemLogo(curData());
-  },
+
   'dependents': function () {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()),
     {sort: {_id: 1}})
   },
+
   depends_on: function () {
     var self = curData();
     if (!self.dependencies) return [];
@@ -57,12 +56,15 @@ Template['systemBasic'].helpers({
     if (!_.isArray(deps)) deps = [deps];
     return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
   },
+
   'dependentsExist': function () {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
   },
+
   'symbol': function () {
     return this.token ? this.token.token_symbol : ""
   },
+
   hashtag: function () {
     return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : ""
   },
@@ -72,28 +74,11 @@ Template['systemBasic'].helpers({
       return (_.isArray(link.tags) && link.tags.indexOf(tag) > -1);
     });
   },
-  countWithTag: function (links, tag) {
-    if (!_.isArray(links)) return 0;
-    var f = _.filter(links, function (link) {
-      return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
-    });
-    return f.length;
-  },
-  independent: function (system) {
-    var deps = system.dependencies;
-    if (!deps) return true;
-    if (!_.isArray(deps)) deps = [deps];
-    return deps.indexOf('independent') > -1;
-  },
-  linksWithTag: function (links, tag) {
-    if (!_.isArray(links)) return [];
-    return _.filter(links, function (link) {
-      return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
-    });
-  },
+
   mainTags: function () {
     return ['Wallet', "Exchange", "Analytics", "Magic"]
   },
+
   linksWithoutTags: function (links, tags) {
     if (!_.isArray(links)) return [];
 
@@ -204,6 +189,29 @@ Template['systemBasic'].helpers({
     return FastData.find({systemId: _id}, {sort: {timestamp: 1}})
   }
 });
+
+Template['systemBasicAbout'].helpers({
+  img_url: function () {
+    return CF.Chaingear.helpers.cgSystemLogo(curData());
+  },
+
+  independent: function (system) {
+    var deps = system.dependencies;
+    if (!deps) return true;
+    if (!_.isArray(deps)) deps = [deps];
+    return deps.indexOf('independent') > -1;
+  }
+})
+
+Template['systemBasicHeadline'].helpers({
+  countWithTag: function (links, tag) {
+    if (!_.isArray(links)) return 0;
+    var f = _.filter(links, function (link) {
+      return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
+    });
+    return f.length;
+  }
+})
 
 Template['systemBasic'].events({
   'click #charts-ctl a.btn.act': function (e, t) {

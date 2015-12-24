@@ -41,9 +41,7 @@ ns.lib.calcs.calcCS = function calcCS(system) {
   var basic = "stub";
   var extended = "stub"; // see https://docs.google.com/spreadsheets/d/1YkrIitYD6FS2a4IEmBlfwAuCMgMwIKgU5JMHQzsfg-k/edit#gid=755429566&vpid=A1
 
-  var keys = ['site', 'community', 'updates', //todo: move to ../lib/params ?
-  'code', 'science', 'knowledge',
-  'buy', 'hold', 'analyze', 'earn'];
+  var keys = params.CSkeys;
 
   var v = {};
 

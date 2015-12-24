@@ -10,12 +10,7 @@ Template['systemLinksTabs'].helpers ({
       return (_.isArray(link.tags) && link.tags.indexOf(tag) > -1);
     });
   },
-  linksWithTag: function (links, tag) {
-    if (!_.isArray(links)) return [];
-    return _.filter(links, function (link) {
-      return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
-    });
-  },
+
   linksWithoutTags: function (links, tags) {
     if (!_.isArray(links)) return [];
 
@@ -27,11 +22,5 @@ Template['systemLinksTabs'].helpers ({
 
       return ret;
     });
-  }
-});
-
-Template['systemLinksTabs'].events ({
-  'click .bar': function (e, t) {
-
   }
 });

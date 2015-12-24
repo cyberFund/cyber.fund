@@ -2,6 +2,7 @@
 <template name="systemBasic">
     {{#with curData}}
         <div itemscope itemtype="http://schema.org/Product" class="nar-row">
+
             <p class="center">
                 {{#if neq descriptions.page_state 'ready'}}
                     This page is not ready yet. Follow <a
@@ -12,75 +13,17 @@
                 {{/if}}
             </p>
 
-            <div id="about" class="row scrollspy">
-                <div class="col s4 m4 l4 center valign-wrapper">
-                    <div style="height: 8em; width: 100%;">
-                        {{> hitryImage img_url=img_url class='logo-sys' itemprop='logo'}}
-                    </div>
-                </div>
-                <div class="col s5 m4 l4 center valign-wrapper">
-                    <div style="display: inline-block; margin: auto"
-                         class="valign">
-                        <div class="header-sys center"
-                             itemprop="name">{{displaySystemName this}}</div>
-                        <div class="symbol-sys center"
-                             itemprop="alternateName">{{symbol}}</div>
-                    </div>
-                </div>
-                <div class="col s3 hide-on-med-and-up">&nbsp;</div>
-                <div class="col s12 m4 l4 center">
-                    <div style="display: inline-block; margin: auto"
-                         class="valign-wrapper">
-                        <div class="valign">
-                            <div itemprop="aggregateRating"
-                                 content="{{ratings.rating_cyber}}"
-                                 class="rating-sys"
-                                 style="margin-top: 1.5rem">
-                                {{>cfRating rating=ratings.rating_cyber}}
-                            </div>
-                            {{#if independent this}}
-                                <div> Independent System</div>
-                            {{else}}
-                                {{#if descriptions}}
-                                    <div>{{_system_type_ descriptions.system_type}}</div>
-                                {{/if}}
-                                <br>
+            {{> systemBasicAbout this}}
 
-                                <div>Built with
-                                    {{#each depends_on}}
-                                        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
-
-                                    <span class="enlarge no-wrap">
-                                        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
-                                    </span>
-                                        </a>
-                                    {{/each}}
-                                </div>
-                            {{/if}}
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-
-            <div id="headline" class="row scrollspy center">
-                {{#if and descriptions descriptions.headline}}
-                    <p><span
-                            itemprop="description">{{descriptions.headline}}</span>
-                        used
-                        in {{countWithTag links 'Apps'}}
-                        apps and created {{dependents.count}} decentralized
-                        apps</p>
-                {{/if}}
-            </div>
+            {{> systemBasicHeadline this}}
 
             {{#if _usersStarred}}
                 <div id="users-starred" class="center">
                     <h5 style="margin-bottom: 3px;">Starred by</h5>
 
                     <div>
-                        {{>usersList1 data=usersStarred class="avatar-round" style="margin: 6px 3px; width=40px; height=40px;"}}
+                        {{>usersList1 data=usersStarred class="avatar-round"
+                        style="margin: 6px 3px; width=40px; height=40px;"}}
                     </div>
                 </div>
             {{/if}}
@@ -468,4 +411,70 @@
         </div>
     {{/with}}
 
+</template>
+
+<template name="systemBasicAbout">
+<div id="about" class="row scrollspy">
+    <div class="col s4 m4 l4 center valign-wrapper">
+        <div style="height: 8em; width: 100%;">
+            {{> hitryImage img_url=img_url class='logo-sys' itemprop='logo'}}
+        </div>
+    </div>
+    <div class="col s5 m4 l4 center valign-wrapper">
+        <div style="display: inline-block; margin: auto"
+             class="valign">
+            <div class="header-sys center"
+                 itemprop="name">{{displaySystemName this}}</div>
+            <div class="symbol-sys center"
+                 itemprop="alternateName">{{symbol}}</div>
+        </div>
+    </div>
+    <div class="col s3 hide-on-med-and-up">&nbsp;</div>
+    <div class="col s12 m4 l4 center">
+        <div style="display: inline-block; margin: auto"
+             class="valign-wrapper">
+            <div class="valign">
+                <div itemprop="aggregateRating"
+                     content="{{ratings.rating_cyber}}"
+                     class="rating-sys"
+                     style="margin-top: 1.5rem">
+                    {{>cfRating rating=ratings.rating_cyber}}
+                </div>
+                {{#if independent this}}
+                    <div> Independent System</div>
+                {{else}}
+                    {{#if descriptions}}
+                        <div>{{_system_type_ descriptions.system_type}}</div>
+                    {{/if}}
+                    <br>
+
+                    <div>Built with
+                        {{#each depends_on}}
+                            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+
+                        <span class="enlarge no-wrap">
+                            {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+                        </span>
+                            </a>
+                        {{/each}}
+                    </div>
+                {{/if}}
+            </div>
+        </div>
+
+    </div>
+</div>
+</template>
+
+<template name="systemBasicHeadline">
+<div id="headline" class="row scrollspy center">
+    {{#if and descriptions descriptions.headline}}
+        <p><span
+                itemprop="description">{{descriptions.headline}}</span>
+            used
+            in {{countWithTag links 'Apps'}}
+            apps and created {{dependents.count}} decentralized
+            apps</p>
+    {{/if}}
+</div>
 </template>

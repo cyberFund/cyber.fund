@@ -4,7 +4,6 @@ Meteor.startup(function() {
       "disabled from meteor settings");
     return;
   }
-  
   CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
   CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
   CF.CurrentData.calculatables.triggerCalc('nLinksWithType');

@@ -41,6 +41,9 @@ var scoreWeightsPerLinksCount = {
 }
 
 params = {
+  CSkeys: ['site', 'community', 'updates', 'code', 'science', 'knowledge',
+  'buy', 'hold', 'analyze', 'earn'],
+
   linkWeightsCS: function(state, type) {
     var scores = scoreWeightsPerLinksCount;
     var ret = {
@@ -65,8 +68,8 @@ params = {
 
     return ret;
   },
-  
-  
+
+
   weightsCS: {
     'cryptocurrency': {
       'Public': {
@@ -129,7 +132,7 @@ params = {
       }
     }
   },
-  
+
   weightsRATING: {
     'Project': {
       CS: 1,

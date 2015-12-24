@@ -110,12 +110,15 @@ var helpers = {
   },
   readableNumbers: CF.Utils.readableNumbers,
   readableN: CF.Utils.readableN,
+
   isNumber: function (value) {
     return _.isNumber(value)
   },
+
   isObject: function (value) {
     return _.isObject(value)
   },
+
   satoshi_decimals: function (value, precision) {
     if (!precision && precision != 0) precision = 8;
     try {
@@ -129,9 +132,7 @@ var helpers = {
     if (out[1]) ret += "." + group3decimal(out[1], " ");
     return ret;
   },
-  tagMatchesTags: function (tag, tags) {
-    return tags.indexOf(tag) > -1;
-  },
+
   isBeforeNow: function (date) {
     var m = /*format ? moment(date, format) : */moment(date);
     return m.isBefore(moment(), 'day');
@@ -145,6 +146,7 @@ var helpers = {
     m2 = /*format ? moment(date2, format) : */moment(date2);
     return moment().isBetween(m1, m2, 'day');
   },
+
   _toUnderscores: function (str) {
     return str.replace(/\ /g, "_")
   },
@@ -154,6 +156,7 @@ var helpers = {
   usersCount: function () {
     return Counts.get('usersCount')
   },
+
   greenRedNumber: function (value) {
     return (value < 0) ? "red-text" : "green-text";
   },
@@ -175,6 +178,7 @@ var helpers = {
       return "= 0%";
     }
   },
+
   _system_type_: function(key){
     var types = {
       dapp: "Decentralized application"
@@ -214,7 +218,7 @@ var helpers = {
     if (system.token) {
       ret = system.token.token_name;
     }
-    if (!ret) ret = system._id; 
+    if (!ret) ret = system._id;
     return ret;
   },
   ownTwid: function(){
@@ -249,12 +253,11 @@ var helpers = {
     if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
     return needDigit ? 0.5 : "Very High";
   },
-
+  linksWithTag: function(links, tag){  //todo: move to cyberfund-currentdata ?
+    return CF.CurrentData.linksWithTag(links, tag)
+  }
 };
 
 _.each(helpers, function (helper, key) {
   Template.registerHelper(key, helper);
 });
-/**
- * Created by angelo on 6/9/15.
- */

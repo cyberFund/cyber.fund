@@ -1,6 +1,6 @@
 
 CF.CurrentData = {
-  calculatables: { // some field names, selectors etc
+  calculatables: {                          // some field names, selectors etc
     fields: { "calculatable": 1 },
     fieldsExclude: {'calculatable': 0},
     fieldName: "calculatable",
@@ -11,31 +11,31 @@ CF.CurrentData = {
     }
   },
 
-  selectors: { // selectors to return elements of CurrentData collection
-    system_symbol: function (name, symbol) { // by system ChG name and token
+  selectors: {       // selectors to return elements of CurrentData collection
+    system_symbol: function (name, symbol) {   // by system ChG name and token
       return {
         "token.token_symbol": symbol,
         _id: name
       }
     },
-    system: function (name) { // by ChG system name
+    system: function (name) {                            // by ChG system name
       if (_.isArray(name)) {
         return {_id: {$in: name}}
       }
       return {_id: name}
     },
-    symbol: function (symbol) { // by token of ChG
+    symbol: function (symbol) {                             // by token of ChG
       if (_.isArray(symbol)) {
         return {"token.token_symbol": {$in: symbol}}
       }
       return {"token.token_symbol": symbol}
     },
 
-    dependents: function (system) {  // systems that depend on current.
-      return {"dependencies": {$in: [system]}}; // single not plural.
+    dependents: function (system) {          // systems that depend on current.
+      return {"dependencies": {$in: [system]}};           // single not plural.
     },
 
-    dependencies: function (list) { //return systems
+    dependencies: function (list) {                           //return systems
       if (!_.isArray(list)) {
         list = [list];
       }
@@ -48,14 +48,14 @@ CF.CurrentData = {
       && system.metrics.price.btc || 0;
   },
 
-  linksWithTag: function (links, tag) { // among CurrentData structures,
+  linksWithTag: function (links, tag) {        // among CurrentData structures,
     if (!_.isArray(links)) return [];   // calc amount of links with given tag.
     return _.filter(links, function (link) {
       return _.isArray(link.tags) && _.contains (link.tags, tag);
     });
   },
 
-  linksWithType: function (links, type) { // among CurrentData structures,
+  linksWithType: function (links, type) {      // among CurrentData structures,
     if (!_.isArray(links)) return [];    // calc amount of links of given type.
     return _.filter(links, function (link) {
       return (link.type === type);

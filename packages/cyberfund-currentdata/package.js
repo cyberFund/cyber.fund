@@ -16,6 +16,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   api.addFiles('cyberfund-currentdata.js');
   api.addFiles(['server/currentdata-server.js', 'server/calculatables.coffee'], 'server');
+  api.addFiles(['client/helpers.js'], 'client');
 });
 
 Package.onTest(function(api) {
