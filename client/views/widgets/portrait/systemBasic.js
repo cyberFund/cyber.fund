@@ -2,24 +2,23 @@ function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
 }
 
-function curData(){
+function curData() {
   return CurrentData.findOne({
     system: systemName()
   });
 }
 
-Template['systemBasic'].onCreated(function () {
+Template['systemBasic'].onCreated(function() {
   var instance = this;
-  instance.subscribe('systemData', {name: FlowRouter.getParam('name_').replace(/_/g, " ")});
+  instance.subscribe('systemData', {
+    name: FlowRouter.getParam('name_').replace(/_/g, " ")
+  });
   instance.subscribe('dependentCoins', systemName());
   instance.subscribe('fastData', systemName());
 
-  instance.autorun(function () {
+  instance.autorun(function() {
 
     var data = curData();
-    if (data) {
-      instance.subscribe('avatars', data._usersStarred);
-    }
 
     if (data && data.dependencies) {
       var d = data.dependencies;
@@ -31,7 +30,20 @@ Template['systemBasic'].onCreated(function () {
   });
 });
 
-Template['systemBasic'].onRendered(function () {
+
+Template['systemBasicUsersStarred'].onCreated(function() {
+  var instance = this;
+
+  instance.autorun(function() {
+    var data = curData();
+    if (data) {
+      instance.subscribe('avatars', data._usersStarred);
+    }
+  });
+});
+
+
+Template['systemBasic'].onRendered(function() {
   $('.scrollspy').scrollSpy();
   var curDataDoc = curData();
   if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
@@ -40,16 +52,19 @@ Template['systemBasic'].onRendered(function () {
 });
 
 Template['systemBasic'].helpers({
-  'curData': function () {
+  'curData': function() {
     return curData();
   },
 
-  'dependents': function () {
-    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()),
-    {sort: {_id: 1}})
+  'dependents': function() {
+    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {
+      sort: {
+        _id: 1
+      }
+    })
   },
 
-  depends_on: function () {
+  depends_on: function() {
     var self = curData();
     if (!self.dependencies) return [];
     var deps = self.dependencies;
@@ -57,41 +72,41 @@ Template['systemBasic'].helpers({
     return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
   },
 
-  'dependentsExist': function () {
+  'dependentsExist': function() {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
   },
 
-  'symbol': function () {
+  'symbol': function() {
     return this.token ? this.token.token_symbol : ""
   },
 
-  hashtag: function () {
+  hashtag: function() {
     return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : ""
   },
-  existLinksWith: function (links, tag) {
+  existLinksWith: function(links, tag) {
     if (!_.isArray(links)) return false;
-    return !!_.find(links, function (link) {
+    return !!_.find(links, function(link) {
       return (_.isArray(link.tags) && link.tags.indexOf(tag) > -1);
     });
   },
 
-  mainTags: function () {
+  mainTags: function() {
     return ['Wallet', "Exchange", "Analytics", "Magic"]
   },
 
-  linksWithoutTags: function (links, tags) {
+  linksWithoutTags: function(links, tags) {
     if (!_.isArray(links)) return [];
 
-    return _.filter(links, function (link) {
+    return _.filter(links, function(link) {
       var ret = _.isArray(link.tags);
-      _.each(tags, function (tag) {
+      _.each(tags, function(tag) {
         if (link.tags.indexOf(tag) > -1) ret = false;
       });
 
       return ret;
     });
   },
-  dayToDayTradeVolumeChange: function () {
+  dayToDayTradeVolumeChange: function() {
     var metrics = this.metrics;
     if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
       return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
@@ -99,80 +114,78 @@ Template['systemBasic'].helpers({
     return 0;
   },
 
-  isProject: function () {
+  isProject: function() {
     return this.descriptions && this.descriptions.state == 'Project'
   },
 
   // todo: currently, those are using current price to estimate yesterday' trade volume.
   // not good. must be fixed.
-  todayVolumeUsd: function () {
+  todayVolumeUsd: function() {
     if (this.metrics && this.metrics.tradeVolume && this.metrics.price) {
       return this.metrics.tradeVolume * this.metrics.price.usd / this.metrics.price.btc;
     }
     return 0;
   },
-  yesterdayVolumeUsd: function () {
+  yesterdayVolumeUsd: function() {
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.price) {
       return metrics.price.usd / metrics.price.btc * metrics.tradeVolumePrevious.day;
     }
   },
-  todayVolumeBtc: function () {
+  todayVolumeBtc: function() {
     if (this.metrics && this.metrics.tradeVolume && this.metrics.price) {
       return this.metrics.tradeVolume;
     }
     return 0;
   },
-  yesterdayVolumeBtc: function () {
+  yesterdayVolumeBtc: function() {
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.price) {
       return metrics.tradeVolumePrevious.day;
     }
   },
-  usdVolumeChange: function () {
+  usdVolumeChange: function() {
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
-      metrics.tradeVolumePrevious.day && metrics.price
-      && metrics.tradeVolume && metrics.price) {
+      metrics.tradeVolumePrevious.day && metrics.price && metrics.tradeVolume && metrics.price) {
 
       return CF.Utils.deltaPercents(metrics.price.usd / metrics.price.btc * metrics.tradeVolume,
         metrics.price.usd / metrics.price.btc * metrics.tradeVolumePrevious.day);
     }
   },
-  btcVolumeChange: function () {
+  btcVolumeChange: function() {
     var metrics = this.metrics;
     if (metrics && metrics.tradeVolumePrevious &&
-      metrics.tradeVolumePrevious.day
-      && metrics.tradeVolume) {
+      metrics.tradeVolumePrevious.day && metrics.tradeVolume) {
 
       return CF.Utils.deltaPercents(metrics.tradeVolume,
         metrics.tradeVolumePrevious.day);
     }
   },
-  main_links: function () {
+  main_links: function() {
     if (!this.links || !_.isArray(this.links)) {
       return [];
     }
 
-    return _.first(_.filter(this.links, function (link) {
+    return _.first(_.filter(this.links, function(link) {
       return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
     }), 4);
   },
-  hasSpecs: function () {
+  hasSpecs: function() {
     return (this.specs && !_.isEmpty(this.specs));
   },
-  ___join: function (k1, k2) {
+  ___join: function(k1, k2) {
     return k1 + "_" + k2;
   },
-  selectedGraph: function (key) {
+  selectedGraph: function(key) {
     return CF.MarketData.graphTime.get() == key ? "orange" : "green";
   },
-  _selectedGraph: function (key) {
+  _selectedGraph: function(key) {
     return CF.MarketData.graphTime.get() == key
   },
-  systemIsStarredColor: function () {
+  systemIsStarredColor: function() {
     var ret = false;
     var user = Meteor.user();
     if (user && user.profile && user.profile.starredSystems) {
@@ -180,22 +193,24 @@ Template['systemBasic'].helpers({
     }
     return ret ? 'yellow' : 'grey';
   },
-  usersStarred: function () {
-    var uS = this._usersStarred;
-    return Meteor.users.find({_id: {$in: uS}});
-  },
-  dailyData: function () {
+  dailyData: function() {
     var _id = this._id;
-    return FastData.find({systemId: _id}, {sort: {timestamp: 1}})
+    return FastData.find({
+      systemId: _id
+    }, {
+      sort: {
+        timestamp: 1
+      }
+    })
   }
 });
 
 Template['systemBasicAbout'].helpers({
-  img_url: function () {
+  img_url: function() {
     return CF.Chaingear.helpers.cgSystemLogo(curData());
   },
 
-  independent: function (system) {
+  independent: function(system) {
     var deps = system.dependencies;
     if (!deps) return true;
     if (!_.isArray(deps)) deps = [deps];
@@ -204,17 +219,19 @@ Template['systemBasicAbout'].helpers({
 })
 
 Template['systemBasicHeadline'].helpers({
-  countWithTag: function (links, tag) {
+  countWithTag: function(links, tag) {
     if (!_.isArray(links)) return 0;
-    var f = _.filter(links, function (link) {
+    var f = _.filter(links, function(link) {
       return _.isArray(link.tags) && (link.tags.indexOf(tag) > -1);
     });
     return f.length;
   }
-})
+});
+
+
 
 Template['systemBasic'].events({
-  'click #charts-ctl a.btn.act': function (e, t) {
+  'click #charts-ctl a.btn.act': function(e, t) {
     var val = t.$(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
     analytics.track('Discovered Charts', {
@@ -223,7 +240,7 @@ Template['systemBasic'].events({
       value: val
     })
   },
-  'click #charts-ctl a.btn.mock': function (e, t) {
+  'click #charts-ctl a.btn.mock': function(e, t) {
     var val = t.$(e.currentTarget).data("span");
     Materialize.toast('Coming soon!', 2500);
     analytics.track('Discovered Charts', {
@@ -232,7 +249,7 @@ Template['systemBasic'].events({
       value: val
     })
   },
-  'click .btn-star-system': function (e, t) {
+  'click .btn-star-system': function(e, t) {
     var user = Meteor.user();
     if (!user) FlowRouter.go('/welcome'); //return;
     var system = t.$(e.currentTarget).attr("system-name");

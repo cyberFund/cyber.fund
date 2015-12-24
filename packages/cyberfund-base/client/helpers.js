@@ -213,6 +213,9 @@ var helpers = {
   },
   linksWithTag: function(links, tag){  //todo: move to cyberfund-currentdata ?
     return CF.CurrentData.linksWithTag(links, tag)
+  },
+  usersListFromIds: function(listFromIds) {
+    return CF.User.listFromIds(listFromIds)
   }
 };
 
