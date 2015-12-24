@@ -1,7 +1,22 @@
 CF.MarketData = CF.MarketData || {};
-CF.MarketData.graphTime = new CF.Utils.SessionVariable("CF.MarketData.graphTime");
+CF.MarketData.graphTime = {
+  key: "CF.MarketData.graphTime",
+  set: function(value) {
+    if (!_Session) throw("no _Session");
+    _Session.set(this.key, value)
+  },
+  get: function() {
+    if (!_Session) throw("no _Session");
+    return _Session.get(this.key);
+  },
+  default: function(value){
+    if (!_Session) throw("no _Session");
+    _Session.default(this.key, value);
+  }
+}
+
 Meteor.startup(function(){
-  if (!Session.get('CF.MarketData.graphTime')) CF.MarketData.graphTime.set("all");
+  CF.MarketData.graphTime.default("month");
 });
 
 var helpers = {

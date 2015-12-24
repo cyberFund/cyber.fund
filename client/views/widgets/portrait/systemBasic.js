@@ -173,17 +173,14 @@ Template['systemBasic'].helpers({
       return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
     }), 4);
   },
-  hasSpecs: function() {
-    return (this.specs && !_.isEmpty(this.specs));
-  },
   ___join: function(k1, k2) {
     return k1 + "_" + k2;
   },
   selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() == key ? "orange" : "green";
+    return CF.MarketData.graphTime.get() === key ? "orange" : "green";
   },
   _selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() == key
+    return CF.MarketData.graphTime.get() === key
   },
   systemIsStarredColor: function() {
     var ret = false;
