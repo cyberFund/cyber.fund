@@ -22,8 +22,8 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     var flags = {
 
               // can use withType here as well
-      site: scoreWeight (WithType['website'], linkWeights.site),
-      community: scoreWeight(WithType['forum'], linkWeights.community),
+      site: scoreWeight (withType['website'], linkWeights.site),
+      community: scoreWeight(withType['forum'], linkWeights.community),
       updates: scoreWeight(withType['_update_'], linkWeights.updates),
       code: scoreWeight((withType['github'] + withType['bitbucket']), linkWeights.code),
       science: scoreWeight(withType['paper'], linkWeights.science),
