@@ -119,6 +119,10 @@ var helpers = {
     return _.isObject(value)
   },
 
+  isEmpty: function (value) {
+    return _.isEmpty(value)
+  },
+
   satoshi_decimals: function (value, precision) {
     if (!precision && precision != 0) precision = 8;
     try {
@@ -211,9 +215,7 @@ var helpers = {
   dateFormat: function(date, format){
     return moment(date).format(format);
   },
-  linksWithTag: function(links, tag){  //todo: move to cyberfund-currentdata ?
-    return CF.CurrentData.linksWithTag(links, tag)
-  },
+
   usersListFromIds: function(listFromIds) {
     return CF.User.listFromIds(listFromIds)
   }
