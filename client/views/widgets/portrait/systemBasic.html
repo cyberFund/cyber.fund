@@ -17,16 +17,7 @@
 
             {{> systemBasicHeadline this}}
 
-            {{#if _usersStarred}}
-                <div id="users-starred" class="center">
-                    <h5 style="margin-bottom: 3px;">Starred by</h5>
-
-                    <div>
-                        {{>usersList1 data=usersStarred class="avatar-round"
-                        style="margin: 6px 3px; width=40px; height=40px;"}}
-                    </div>
-                </div>
-            {{/if}}
+            {{> systemBasicUsersStarred this}}
 
             <div id="main" class="section scrollspy row">
                 {{#each main_links}}
@@ -478,3 +469,17 @@
     {{/if}}
 </div>
 </template>
+
+<Template name="systemBasicUsersStarred">
+  {{log _usersStarred}}
+{{#if _usersStarred}}
+    <div id="users-starred" class="center">
+        <h5 style="margin-bottom: 3px;">Starred by</h5>
+
+        <div>
+            {{>usersList1 data=(usersListFromIds _usersStarred) class="avatar-round"
+            style="margin: 6px 3px; width=40px; height=40px;"}}
+        </div>
+    </div>
+{{/if}}
+</Template>
