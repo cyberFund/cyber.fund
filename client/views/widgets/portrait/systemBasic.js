@@ -14,7 +14,6 @@ Template['systemBasic'].onCreated(function() {
     name: FlowRouter.getParam('name_').replace(/_/g, " ")
   });
   instance.subscribe('dependentCoins', systemName());
-  instance.subscribe('fastData', systemName());
 
   instance.autorun(function() {
 
@@ -176,12 +175,6 @@ Template['systemBasic'].helpers({
   ___join: function(k1, k2) {
     return k1 + "_" + k2;
   },
-  selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() === key ? "orange" : "green";
-  },
-  _selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() === key
-  },
   systemIsStarredColor: function() {
     var ret = false;
     var user = Meteor.user();
@@ -225,9 +218,37 @@ Template['systemBasicHeadline'].helpers({
   }
 });
 
-
-
 Template['systemBasic'].events({
+
+  'click .btn-star-system': function(e, t) {
+    var user = Meteor.user();
+    if (!user) FlowRouter.go('/welcome'); //return;
+    var system = t.$(e.currentTarget).attr("system-name");
+    var exists = user && user.profile && user.profile.starredSystems &&
+      _.contains(user.profile.starredSystems, system);
+    analytics.track(exists ? 'Unfollowed System' : 'Followed System', {
+      systemName: system
+    });
+
+    Meteor.call('toggleStarSys', system);
+  }
+});
+
+Template['systemBasicCharts'].onCreated(function(){
+  var instance = this;
+  instance.subscribe('fastData', systemName());
+});
+
+Template['systemBasicCharts'].helpers({
+  selectedGraph: function(key) {
+    return CF.MarketData.graphTime.get() === key ? "orange" : "green";
+  },
+  _selectedGraph: function(key) {
+    return CF.MarketData.graphTime.get() === key
+  },
+})
+
+Template['systemBasicCharts'].events({
   'click #charts-ctl a.btn.act': function(e, t) {
     var val = t.$(e.currentTarget).data("span");
     CF.MarketData.graphTime.set(val);
@@ -246,16 +267,4 @@ Template['systemBasic'].events({
       value: val
     })
   },
-  'click .btn-star-system': function(e, t) {
-    var user = Meteor.user();
-    if (!user) FlowRouter.go('/welcome'); //return;
-    var system = t.$(e.currentTarget).attr("system-name");
-    var exists = user && user.profile && user.profile.starredSystems &&
-      _.contains(user.profile.starredSystems, system);
-    analytics.track(exists ? 'Unfollowed System' : 'Followed System', {
-      systemName: system
-    });
-
-    Meteor.call('toggleStarSys', system);
-  }
 });

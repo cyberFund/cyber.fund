@@ -27,10 +27,10 @@ ns.lib.calcs.calcCS = function calcCS(system) {
       updates: scoreWeight(withType['_update_'], linkWeights.updates),
       code: scoreWeight((withType['github'] + withType['bitbucket']), linkWeights.code),
       science: scoreWeight(withType['paper'], linkWeights.science),
-      knowledge: scoreWeight((withType['wiki'], linkWeights.knoweledge),
+      knowledge: scoreWeight(withType['wiki'], linkWeights.knoweledge),
       buy: scoreWeight(withType['exchange'], linkWeights.buy),
-      hold: scoreWeight((withType['wallet'], linkWeights.hold),
-      analyze: scoreWeight((withType['explorer'] + withTag['Exporer']), linkWeights.analyze),
+      hold: scoreWeight(withType['wallet'], linkWeights.hold),
+      analyze: scoreWeight( withType['explorer'], linkWeights.analyze),
       earn: scoreWeight( withType['earn'], linkWeights.earn )
     }
   } catch (e) {

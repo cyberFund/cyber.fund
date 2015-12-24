@@ -1,490 +1,400 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
-    {{#with curData}}
-        <div itemscope itemtype="http://schema.org/Product" class="nar-row">
+  {{#with curData}}
+  <div itemscope itemtype="http://schema.org/Product" class="nar-row">
 
-            <p class="center">
-                {{#if neq descriptions.page_state 'ready'}}
-                    This page is not ready yet. Follow <a
-                        target="_blank"
-                        href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">fan
-                    zone</a> to help us improve it faster!
-                {{else}}&nbsp;
-                {{/if}}
-            </p>
+    <p class="center">
+      {{#if neq descriptions.page_state 'ready'}} This page is not ready yet. Follow <a target="_blank" href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">fan
+                    zone</a> to help us improve it faster! {{else}}&nbsp; {{/if}}
+    </p>
 
-            {{> systemBasicAbout this}}
+    {{> systemBasicAbout this}} {{> systemBasicHeadline this}} {{> systemBasicUsersStarred this}}
 
-            {{> systemBasicHeadline this}}
+    <div id="main" class="section scrollspy row">
+      {{#each main_links}}
+      <div class="col m6 s12 l3 center">
+        {{> cgLink this}}
+      </div>
+      {{/each}}
+    </div>
 
-            {{> systemBasicUsersStarred this}}
+    {{#if not isProject}}
+    <div id="market" class="row scrollspy center">
+      {{#if and metrics metrics.price}} {{#if or metrics.price.usd metrics.price.btc}}
+      <div class="col s12 m6 l3 center valign" style="padding:10px">
+        <div class="card markt">
+          <h5>Price</h5>
+          {{#if metrics.price.usd}}
+          <p>
+            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+              <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+              <span itemprop="price" content="{{metrics.price.usd}}">
+                {{#if gte metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
+            </span>
+            <br> {{#if metrics.priceChangePercents.day.usd}}
 
-            <div id="main" class="section scrollspy row">
-                {{#each main_links}}
-                    <div class="col m6 s12 l3 center">
-                        {{> cgLink this}}
-                    </div>
-                {{/each}}
-            </div>
-            {{#if not isProject}}
-                <div id="market" class="row scrollspy center">
-                    {{#if and metrics metrics.price}}
-                        {{#if or metrics.price.usd metrics.price.btc}}
-                            <div class="col s12 m6 l3 center valign"
-                                 style="padding:10px">
-                                <div class="card markt">
-                                    <h5>Price</h5>
-                                    {{#if metrics.price.usd}}
-                                        <p><span itemprop="offers" itemscope
-                                                 itemtype="http://schema.org/Offer"
-                                                 class="enlarge no-wrap">
-                                        <span itemprop="priceCurrency"
-                                              content="USD">$&nbsp;</span>
-                                        <span itemprop="price"
-                                              content="{{metrics.price.usd}}">
-                                            {{#if gte  metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}}
-                                            {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span></span>
-                                            <br>
-                                            {{#if metrics.priceChangePercents.day.usd}}
+            <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+              {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
+            {{else}}&nbsp; {{/if}}
+          </p>
+          {{/if}}{{#if metrics.price.btc}}
+          <p>
+            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+              <span itemprop="priceCurrency" content="BTC">
+                Ƀ&nbsp;</span>
+              <span itemprop="price" content="{{metrics.price.btc}}">
+                {{satoshi_decimals metrics.price.btc 8}}</span>
+            </span>
+            <br> {{#if metrics.priceChangePercents.day.btc}}
+            <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+              {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
+            {{else}}&nbsp; {{/if}}
+          </p>{{/if}}
+        </div>
+      </div>
+      {{/if}} {{/if}} {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
+      <div class="col s12 m6 l3 center valign" style="padding:10px">
+        <div class="card markt">
+          <h5>Cap</h5>
+          {{#if metrics.cap.usd}}
+          <p>
+            <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+            <br> {{#if metrics.capChangePercents.day.usd}}
 
-                                                <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
-                                                    {{percentsToTextUpDown metrics.priceChangePercents.day.usd}}</span>
-                                            {{else}}&nbsp;
-                                            {{/if}}</p>
-                                    {{/if}}{{#if metrics.price.btc}}
-                                    <p><span itemprop="offers" itemscope
-                                             itemtype="http://schema.org/Offer"
-                                             class="enlarge no-wrap">
-                                        <span itemprop="priceCurrency"
-                                              content="BTC">
-                                    Ƀ&nbsp;</span><span itemprop="price"
-                                                        content="{{metrics.price.btc}}">
-                                        {{satoshi_decimals metrics.price.btc 8}}</span></span>
-                                        <br>
-                                        {{#if metrics.priceChangePercents.day.btc}}
-                                            <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-                                                {{percentsToTextUpDown metrics.priceChangePercents.day.btc}}</span>
-                                        {{else}}&nbsp;
-                                        {{/if}}</p>{{/if}}
-                                </div>
-                            </div>
-                        {{/if}}
-                    {{/if}}
-                    {{#if and metrics metrics.cap}}
-                        {{#if or metrics.cap.btc metrics.cap.usd}}
-                            <div class="col s12 m6 l3 center valign"
-                                 style="padding:10px">
-                                <div class="card markt">
-                                    <h5>Cap</h5>
-                                    {{#if metrics.cap.usd}}
-                                        <p><span
-                                                class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-                                            <br>
-                                            {{#if metrics.capChangePercents.day.usd}}
+            <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+              {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+            {{else}} &nbsp; {{/if}}
+          </p>
+          {{/if}}{{#if metrics.cap.btc}}
+          <p>
+            <span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+            <br> {{#if metrics.capChangePercents.day.btc}}
 
-                                                <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-                                                    {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
-                                            {{else}}
-                                                &nbsp;
-                                            {{/if}}</p>
-                                    {{/if}}{{#if metrics.cap.btc}}
-                                    <p><span
-                                            class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
-                                        <br>
-                                        {{#if metrics.capChangePercents.day.btc}}
+            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+              {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+            {{else}}&nbsp; {{/if}}
+          </p>
+          {{/if}}
+        </div>
+      </div>
+      {{/if}} {{/if}}
+      <div class="col s12 m6 l3 center valign" style="padding:10px">
+        <div class="card markt">
+          <h5>Trade</h5>
 
-                                            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-                                                {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-                                        {{else}}&nbsp;
-                                        {{/if}}</p>
-                                {{/if}}
-                                </div>
-                            </div>
-                        {{/if}}
-                    {{/if}}
-                    <div class="col s12 m6 l3 center valign"
-                         style="padding:10px">
-                        <div class="card markt">
-                            <h5>Trade</h5>
+          <p>
+            <span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
+            <br> {{#if yesterdayVolumeUsd}}
+            <span class="{{greenRedNumber usdVolumeChange }}">
+              {{percentsToTextUpDown usdVolumeChange }}</span>
+            {{else}}&nbsp; {{/if}}
+          </p>
 
-                            <p><span
-                                    class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
-                                <br>
-                                {{#if yesterdayVolumeUsd}}
-                                    <span class="{{greenRedNumber usdVolumeChange }}">
-                                        {{percentsToTextUpDown usdVolumeChange }}</span>
-                                {{else}}&nbsp;
-                                {{/if}}</p>
+          <p>
+            <span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+            <br> {{#if yesterdayVolumeBtc}}
+            <span class="{{greenRedNumber btcVolumeChange }}">
+              {{percentsToTextUpDown btcVolumeChange }}</span>
+            {{else}}&nbsp; {{/if}}
+          </p>
+        </div>
+      </div>
+      <div class="col s12 m6 l3 center valign" style="padding:10px">
+        <div class="card markt">
+          <h5>Supply</h5>
 
-                            <p><span
-                                    class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
-                                <br>
-                                {{#if yesterdayVolumeBtc}}
-                                    <span class="{{greenRedNumber btcVolumeChange }}">
-                                        {{percentsToTextUpDown btcVolumeChange }}</span>
-                                {{else}}&nbsp;
-                                {{/if}}</p>
-                        </div>
-                    </div>
-                    <div class="col s12 m6 l3 center valign"
-                         style="padding:10px">
-                        <div class="card markt">
-                            <h5>Supply</h5>
+          <p style="line-height: 80%;">&nbsp;</p>
 
-                            <p style="line-height: 80%;">&nbsp;</p>
+          <p>
+            <span class="enlarge">{{readableN metrics.supply 0}}
+              <br> {{displayCurrencyName this}}s</span>
+            {{#if metrics.supplyChangePercents.day}}
+            <br>
+            <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
+            {{/if}}</p>
 
-                            <p><span
-                                    class="enlarge">{{readableN metrics.supply 0}}
-                                <br> {{displayCurrencyName this}}s</span>
-                                {{#if metrics.supplyChangePercents.day}}
-                                    <br>
-                                    <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
-                                {{/if}}</p>
+          <p>&nbsp;</p>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin-top: -20px">
+      <div class="col s12 center">
+        Changes given for 24h
+      </div>
+    </div>
+    <div class="row"></div>
 
-                            <p>&nbsp;</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-top: -20px">
-                    <div class="col s12 center">
-                        Changes given for 24h
-                    </div>
-                </div>
-                <div class="row"></div>
-                <div id="charts" class="row scrollspy center">
-                    {{#if _selectedGraph 'week'}}
-                        {{> weeklyGraph this}}
-                    {{/if}}
-                    {{#if _selectedGraph 'month'}}
-                        {{> monthlyGraph this}}
-                    {{/if}}
-                    {{#if _selectedGraph 'all' }}
-                        {{> fulltimeGraph this}}
-                    {{/if}}
-                    {{#if _selectedGraph 'day' }}
-                        {{> dailyGraph graphData=dailyData currencyId=_id }}
-                    {{/if}}
-                    {{! > hcChart this}}
-                </div>
-                <div id="charts-ctl" class="row scrollspy center">
-                    <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
-                        Day</a>
-                    <a class="btn act {{selectedGraph 'week'}}"
-                       data-span="week">Last Week</a>
-                    <a class="btn act {{selectedGraph 'month'}}"
-                       data-span="month">Last
-                        Month</a>
-                    <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
-                </div>
-            {{/if}}
-            <div id="code" class="section scrollspy row">
-                {{#if existLinksWith links 'News'}}
-                    <h3 class="center">News</h3>
+    {{> systemBasicCharts this}} {{/if}}
 
-                    <div class="row">
-                        {{#each linksWithTag this "News"}}
-                            {{> cgLinkCard this}}
-                        {{/each}}
-                    </div>
-                {{else}}
+    <div id="code" class="section scrollspy row">
+      {{#if existLinksWith links 'News'}}
+      <h3 class="center">News</h3>
 
-                {{/if}}
-            </div>
+      <div class="row">
+        {{#each linksWithTag this "News"}} {{> cgLinkCard this}} {{/each}}
+      </div>
+      {{else}} {{/if}}
+    </div>
 
-            <div id="apps" class="section scrollspy row">
-                {{#if existLinksWith links 'Apps'}}
-                    <h3 class="center">Apps</h3>
-                    {{! #if isFewApps}}
-                    {{#with linksWithTag links "Apps"}}
-                        {{#if gte this.length 8}}
-                            <div class="row">
-                                <div class="col s12">
-                                    {{> systemLinksTabs this}}
-                                </div>
-                                {{#if existLinksWith this "Wallet"}}
-                                    <div id="tag-wallet" class="col s12">
-                                        {{#each linksWithTag this "Wallet"}}
-                                            {{> cgLinkCard this}}
-                                        {{/each}}
-                                    </div>
-                                {{/if}}
+    <div id="apps" class="section scrollspy row">
+      {{#if existLinksWith links 'Apps'}}
+      <h3 class="center">Apps</h3>
 
-                                {{#if existLinksWith this "Exchange"}}
-                                    <div id="tag-exchange" class="col s12">
-                                        {{#each linksWithTag this "Exchange"}}
-                                            {{> cgLinkCard this}}
-                                        {{/each}}
-                                    </div>
-                                {{/if}}
-                                {{#if existLinksWith this "Analytics"}}
-                                    <div id="tag-analytics" class="col s12">
-                                        {{#each linksWithTag this "Analytics"}}
-                                            {{> cgLinkCard this}}
-                                        {{/each}}
-                                    </div>
-                                {{/if}}
+      {{#with linksWithTag links "Apps"}} {{#if gte this.length 8}}
+      <div class="row">
+        <div class="col s12">
+          {{> systemLinksTabs this}}
+        </div>
 
-                                {{#if existLinksWith this "Magic"}}
-                                    <div id="tag-magic" class="col s12">
-                                        {{#each linksWithTag this "Magic"}}
-                                            {{> cgLinkCard this}}
-                                        {{/each}}
-                                    </div>
-                                {{/if}}
+        {{#if existLinksWith this "Wallet"}}
+        <div id="tag-wallet" class="col s12">
+          {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
+        </div>
+        {{/if}} {{#if existLinksWith this "Exchange"}}
+        <div id="tag-exchange" class="col s12">
+          {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
+        </div>
+        {{/if}} {{#if existLinksWith this "Analytics"}}
+        <div id="tag-analytics" class="col s12">
+          {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
+        </div>
+        {{/if}} {{#if existLinksWith this "Magic"}}
+        <div id="tag-magic" class="col s12">
+          {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
+        </div>
+        {{/if}}
+        <div id="tag-other" class="col s12">
+          {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
+        </div>
 
-                                <div id="tag-other" class="col s12">
-                                    {{#each linksWithoutTags this mainTags}}
-                                        {{> cgLinkCard this}}
-                                    {{/each}}
-                                </div>
+      </div>
+      {{else}}
+      <div class="row">
+        {{#each this}} {{> cgLinkCard this}} {{/each}}
+      </div>
+      {{/if}} {{/with}} {{/if}}
+    </div>
 
-                            </div>
-                        {{else}}
-                            <div class="row">
-                                {{#each this}}
-                                    {{> cgLinkCard this}}
-                                {{/each}}
-                            </div>
-                        {{/if}}
-                    {{/with}}
-                {{/if}}
-            </div>
-            <div id="dapps" class="section scrollspy row">
-                {{#if dependentsExist}} {{! todo: extract widget}}
+    <div id="dapps" class="section scrollspy row">
+      {{#if dependentsExist}} {{! todo: extract widget}}
 
-                    <h3 class="center">Dapps</h3>
+      <h3 class="center">Dapps</h3>
 
-                    {{#each dependents}}
-                        <div class="col s6 m6 l3"
-                             style="padding:0 10px; margin: 6px 0;">
-                            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
-                                <div class="card"
-                                     style="padding: 10px 0; margin: 2px 0">
-                                    {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
-                                    <span
-                                            class="enlarge no-wrap"
-                                            style="vertical-align: middle; margin-left: 10px">
+      {{#each dependents}}
+      <div class="col s6 m6 l3" style="padding:0 10px; margin: 6px 0;">
+        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
+          <div class="card" style="padding: 10px 0; margin: 2px 0">
+            {{> cgSystemLogo data=this style="margin-left: 10px; width: 40px; height: 40px; margin-right: -4px; vertical-align:middle"}}
+            <span class="enlarge no-wrap" style="vertical-align: middle; margin-left: 10px">
 
-                                        {{displaySystemName this}}
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    {{/each}}
+              {{displaySystemName this}}
+            </span>
+          </div>
+        </a>
+      </div>
+      {{/each}} {{/if}}
+    </div>
 
-                {{/if}}
-            </div>
-            {{#if false}}
-                <div id="hashtag" class="row scrollspy center">
-                    {{! #if hashtag}}
-                    <a class="twitter-timeline"
-                       href="https://twitter.com/hashtag/{{hashtag}}"
-                       data-widget-id="615439140906233857">{{descriptions.hashtag}}
+    {{#if false}}
+    <div id="hashtag" class="row scrollspy center">
+      {{! #if hashtag}}
+      <a class="twitter-timeline" href="https://twitter.com/hashtag/{{hashtag}}" data-widget-id="615439140906233857">{{descriptions.hashtag}}
                         Tweets</a>
-                    <script>
-                        !function (d, s, id) {
-                            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
-                            if (!d.getElementById(id)) {
-                                js = d.createElement(s);
-                                js.id = id;
-                                js.src = p + '://platform.twitter.com/widgets.js';
-                                fjs.parentNode.insertBefore(js, fjs);
-                            }
-                        }(document, 'script', 'twitter-wjs');
-                    </script>
-                    {{! /if}}
-                </div>
-            {{/if}}
-            <div id="code" class="section scrollspy row">
-                {{#if existLinksWith links 'Code'}}
-                    <h3 class="center">Developers Dimension</h3>
-                    {{#each linksWithTag links "Code"}}
-                        <div class="row">
-                            {{> cgLink this}}
-                        </div>
-                    {{/each}}
-                {{else}}
+      <script>
+        ! function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0],
+            p = /^http:/.test(d.location) ? 'http' : 'https';
+          if (!d.getElementById(id)) {
+            js = d.createElement(s);
+            js.id = id;
+            js.src = p + '://platform.twitter.com/widgets.js';
+            fjs.parentNode.insertBefore(js, fjs);
+          }
+        }(document, 'script', 'twitter-wjs');
+      </script>
+      {{! /if}}
+    </div>
+    {{/if}}
 
-                {{/if}}
-            </div>
-            <div id="science" class="section scrollspy row">
-                {{#if existLinksWith links 'Science'}}
-                    <h3 class="center">Scientific Roots</h3>
-                    {{#each linksWithTag links "Science"}}
-                        <div class="row">
-                            {{> cgLink this}}
-                        </div>
-                    {{/each}}
-                {{/if}}
-            </div>
-            <div id="description" class="row scrollspy center">
-                <p>{{description}}</p>
-            </div>
+    <div id="code" class="section scrollspy row">
+      {{#if existLinksWith links 'Code'}}
+      <h3 class="center">Developers Dimension</h3>
 
-            {{> systemBasicSpecs this}}
+      {{#each linksWithTag links "Code"}}
+      <div class="row">
+        {{> cgLink this}}
+      </div>
+      {{/each}} {{/if}}
+    </div>
 
-            <div id="improve" class="row scrollspy center">
-                <h3 class="center">Fans Edge</h3>
+    <div id="science" class="section scrollspy row">
+      {{#if existLinksWith links 'Science'}}
+      <h3 class="center">Scientific Roots</h3>
 
-                <p>You can
-                    <a target="_blank"
-                       href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
+      {{#each linksWithTag links "Science"}}
+      <div class="row">
+        {{> cgLink this}}
+      </div>
+      {{/each}} {{/if}}
+    </div>
+
+    <div id="description" class="row scrollspy center">
+      <p>{{description}}</p>
+    </div>
+
+    {{> systemBasicSpecs this}}
+
+    <div id="improve" class="row scrollspy center">
+      <h3 class="center">Fans Edge</h3>
+
+      <p>You can
+        <a target="_blank" href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
                         improve {{_id}}'s page
-                    </a>
-                    on Github.
-                </p>
+                    </a> on Github.
+      </p>
 
-                <p class="center-align"><img src="/images/r2d2-girl2.jpg"
-                                             alt="R2-D2" width="180px"
-                                             height="270px"></p>
-                I consider
-                <a
-                        target="_blank"
-                        href="http://cybertalks.org/t/do-cyber-fund-better-together/322">
+      <p class="center-align">
+        <img src="/images/r2d2-girl2.jpg" alt="R2-D2" width="180px" height="270px">
+      </p>
+      I consider
+      <a target="_blank" href="http://cybertalks.org/t/do-cyber-fund-better-together/322">
                     any proposals
-                </a>
-                for customizing displayed data and layout to make <span itemprop="brand">{{system}}</span>
-                more transparent and understandable
-                <br>for investors, developers and usual people.
+                </a> for customizing displayed data and layout to make
+      <span itemprop="brand">{{system}}</span>
+      more transparent and understandable
+      <br>for investors, developers and usual people.
 
-            </div>
-            <div class="col l1 m1 hide-on-small-and-down">
+    </div>
+    <div class="col l1 m1 hide-on-small-and-down">
 
-            </div>
-        </div>
-        <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
-            <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}"
-               system-name="{{_id}}">
-                <i class="material-icons"
-                   style="font-size: 3.8rem">stars</i>
-            </a>
-        </div>
-    {{/with}}
-
+    </div>
+  </div>
+  <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+    <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}" system-name="{{_id}}">
+      <i class="material-icons" style="font-size: 3.8rem">stars</i>
+    </a>
+  </div>
+  {{/with}}
 </template>
 
 <template name="systemBasicAbout">
-<div id="about" class="row scrollspy">
+  <div id="about" class="row scrollspy">
     <div class="col s4 m4 l4 center valign-wrapper">
-        <div style="height: 8em; width: 100%;">
-            {{> hitryImage img_url=img_url class='logo-sys' itemprop='logo'}}
-        </div>
+      <div style="height: 8em; width: 100%;">
+        {{> hitryImage img_url=img_url class='logo-sys' itemprop='logo'}}
+      </div>
     </div>
     <div class="col s5 m4 l4 center valign-wrapper">
-        <div style="display: inline-block; margin: auto"
-             class="valign">
-            <div class="header-sys center"
-                 itemprop="name">{{displaySystemName this}}</div>
-            <div class="symbol-sys center"
-                 itemprop="alternateName">{{symbol}}</div>
-        </div>
+      <div style="display: inline-block; margin: auto" class="valign">
+        <div class="header-sys center" itemprop="name">{{displaySystemName this}}</div>
+        <div class="symbol-sys center" itemprop="alternateName">{{symbol}}</div>
+      </div>
     </div>
     <div class="col s3 hide-on-med-and-up">&nbsp;</div>
     <div class="col s12 m4 l4 center">
-        <div style="display: inline-block; margin: auto"
-             class="valign-wrapper">
-            <div class="valign">
-                <div itemprop="aggregateRating"
-                     content="{{ratings.rating_cyber}}"
-                     class="rating-sys"
-                     style="margin-top: 1.5rem">
-                    {{>cfRating rating=ratings.rating_cyber}}
-                </div>
-                {{#if independent this}}
-                    <div> Independent System</div>
-                {{else}}
-                    {{#if descriptions}}
-                        <div>{{_system_type_ descriptions.system_type}}</div>
-                    {{/if}}
-                    <br>
+      <div style="display: inline-block; margin: auto" class="valign-wrapper">
+        <div class="valign">
+          <div itemprop="aggregateRating" content="{{ratings.rating_cyber}}" class="rating-sys" style="margin-top: 1.5rem">
+            {{>cfRating rating=ratings.rating_cyber}}
+          </div>
+          {{#if independent this}}
+          <div> Independent System</div>
+          {{else}} {{#if descriptions}}
+          <div>{{_system_type_ descriptions.system_type}}</div>
+          {{/if}}
+          <br>
 
-                    <div>Built with
-                        {{#each depends_on}}
-                            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+          <div>Built with {{#each depends_on}}
+            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
 
-                        <span class="enlarge no-wrap">
-                            {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
-                        </span>
-                            </a>
-                        {{/each}}
-                    </div>
-                {{/if}}
-            </div>
+              <span class="enlarge no-wrap">
+                {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+              </span>
+            </a>
+            {{/each}}
+          </div>
+          {{/if}}
         </div>
+      </div>
 
     </div>
-</div>
+  </div>
 </template>
 
 <template name="systemBasicHeadline">
-<div id="headline" class="row scrollspy center">
+  <div id="headline" class="row scrollspy center">
     {{#if and descriptions descriptions.headline}}
-        <p><span
-                itemprop="description">{{descriptions.headline}}</span>
-            used
-            in {{countWithTag links 'Apps'}}
-            apps and created {{dependents.count}} decentralized
-            apps</p>
+    <p>
+      <span itemprop="description">{{descriptions.headline}}</span>
+      used in {{countWithTag links 'Apps'}} apps and created {{dependents.count}} decentralized apps
+    </p>
     {{/if}}
-</div>
+  </div>
 </template>
 
 <Template name="systemBasicUsersStarred">
-{{#if _usersStarred}}
-    <div id="users-starred" class="center">
-        <h5 style="margin-bottom: 3px;">Starred by</h5>
+  {{#if _usersStarred}}
+  <div id="users-starred" class="center">
+    <h5 style="margin-bottom: 3px;">Starred by</h5>
 
-        <div>
-            {{>usersList1 data=(usersListFromIds _usersStarred) class="avatar-round"
-            style="margin: 6px 3px; width=40px; height=40px;"}}
-        </div>
+    <div>
+      {{>usersList1 data=(usersListFromIds _usersStarred) class="avatar-round" style="margin: 6px 3px; width=40px; height=40px;"}}
     </div>
-{{/if}}
+  </div>
+  {{/if}}
 </Template>
 
+<template name="systemBasicCharts">
+  <div id="charts" class="row scrollspy center">
+    {{#if _selectedGraph 'week'}} {{> weeklyGraph this}} {{/if}}
+    {{#if _selectedGraph 'month'}} {{> monthlyGraph this}} {{/if}}
+    {{#if _selectedGraph 'all' }} {{> fulltimeGraph this}} {{/if}}
+    {{#if _selectedGraph 'day' }} {{> dailyGraph graphData=dailyData
+    currencyId=_id }} {{/if}} {{! > hcChart this}}
+    <div id="charts-ctl" class="row scrollspy center">
+      <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
+                        Day</a>
+      <a class="btn act {{selectedGraph 'week'}}" data-span="week">Last Week</a>
+      <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last
+                        Month</a>
+      <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
+    </div>
+  </div>
+</template>
 
 <Template name="systemBasicSpecs">
   <div id="specs" class="row center scrollspy  striped">
-      {{#if and (isObject(specs)) (not (isEmpty(specs))) }}
-          <div class="col offset-l3 l6 offset-m1 m10 s12">
-              <h3 class="center">Specification</h3>
-              <table>
-                  <thead>
-                  <tr>
-                      <th data-field="property">Property</th>
-                      <th data-field="value">Value</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {{#each keyValue specs}}
-                      {{#if isObject value}}
-                          {{#each keyValue value}}
-                              <tr>
-                                  <td>{{_specs__ ../key key}}</td>
-                                  <td> {{#if isNumber value}}
-                                      {{readableNumbers value}}
-                                  {{else}}
-                                      {{value}}
-                                  {{/if}}
-                                  </td>
-                              </tr>
-                          {{/each}}
-                      {{else}}
-                          <tr>
-                              <td>{{_specs_ key}}</td>
-                              <td> {{#if isNumber value}}
-                                  {{readableNumbers value}}
-                              {{else}}
-                                  {{value}}
-                              {{/if}}
-                              </td>
-                          </tr>
-                      {{/if}}
-                  {{/each}}
-                  </tbody>
-              </table>
-          </div>
-      {{/if}}
-      <div class="col l3 m1 hide-"></div>
+    {{#if and (isObject(specs)) (not (isEmpty(specs))) }}
+    <div class="col offset-l3 l6 offset-m1 m10 s12">
+      <h3 class="center">Specification</h3>
+      <table>
+
+        <thead>
+          <tr>
+            <th data-field="property">Property</th>
+            <th data-field="value">Value</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {{#each keyValue specs}} {{#if isObject value}} {{#each keyValue value}}
+          <tr>
+            <td>{{_specs__ ../key key}}</td>
+            <td> {{#if isNumber value}} {{readableNumbers value}} {{else}} {{value}} {{/if}}
+            </td>
+          </tr>
+          {{/each}} {{else}}
+          <tr>
+            <td>{{_specs_ key}}</td>
+            <td> {{#if isNumber value}} {{readableNumbers value}} {{else}} {{value}} {{/if}}
+            </td>
+          </tr>
+          {{/if}} {{/each}}
+        </tbody>
+
+      </table>
+    </div>
+    {{/if}}
+    <div class="col l3 m1 hide-"></div>
   </div>
 </Template>
