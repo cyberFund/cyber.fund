@@ -320,49 +320,8 @@
             <div id="description" class="row scrollspy center">
                 <p>{{description}}</p>
             </div>
-            <div id="specs" class="row center scrollspy  striped">
-                {{#if hasSpecs}}
-                    <div class="col offset-l3 l6 offset-m1 m10 s12">
-                        <h3 class="center">Specification</h3>
-                        <table>
-                            <thead>
-                            <tr>
-                                <th data-field="property">Property</th>
-                                <th data-field="value">Value</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {{#each keyValue specs}}
-                                {{#if isObject value}}
-                                    {{#each keyValue value}}
-                                        <tr>
-                                            <td>{{_specs__ ../key key}}</td>
-                                            <td> {{#if isNumber value}}
-                                                {{readableNumbers value}}
-                                            {{else}}
-                                                {{value}}
-                                            {{/if}}
-                                            </td>
-                                        </tr>
-                                    {{/each}}
-                                {{else}}
-                                    <tr>
-                                        <td>{{_specs_ key}}</td>
-                                        <td> {{#if isNumber value}}
-                                            {{readableNumbers value}}
-                                        {{else}}
-                                            {{value}}
-                                        {{/if}}
-                                        </td>
-                                    </tr>
-                                {{/if}}
-                            {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                {{/if}}
-                <div class="col l3 m1 hide-"></div>
-            </div>
+
+            {{> systemBasicSpecs this}}
 
             <div id="improve" class="row scrollspy center">
                 <h3 class="center">Fans Edge</h3>
@@ -471,7 +430,6 @@
 </template>
 
 <Template name="systemBasicUsersStarred">
-  {{log _usersStarred}}
 {{#if _usersStarred}}
     <div id="users-starred" class="center">
         <h5 style="margin-bottom: 3px;">Starred by</h5>
@@ -482,4 +440,51 @@
         </div>
     </div>
 {{/if}}
+</Template>
+
+
+<Template name="systemBasicSpecs">
+  <div id="specs" class="row center scrollspy  striped">
+      {{#if and (isObject(specs)) (not (isEmpty(specs))) }}
+          <div class="col offset-l3 l6 offset-m1 m10 s12">
+              <h3 class="center">Specification</h3>
+              <table>
+                  <thead>
+                  <tr>
+                      <th data-field="property">Property</th>
+                      <th data-field="value">Value</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {{#each keyValue specs}}
+                      {{#if isObject value}}
+                          {{#each keyValue value}}
+                              <tr>
+                                  <td>{{_specs__ ../key key}}</td>
+                                  <td> {{#if isNumber value}}
+                                      {{readableNumbers value}}
+                                  {{else}}
+                                      {{value}}
+                                  {{/if}}
+                                  </td>
+                              </tr>
+                          {{/each}}
+                      {{else}}
+                          <tr>
+                              <td>{{_specs_ key}}</td>
+                              <td> {{#if isNumber value}}
+                                  {{readableNumbers value}}
+                              {{else}}
+                                  {{value}}
+                              {{/if}}
+                              </td>
+                          </tr>
+                      {{/if}}
+                  {{/each}}
+                  </tbody>
+              </table>
+          </div>
+      {{/if}}
+      <div class="col l3 m1 hide-"></div>
+  </div>
 </Template>
