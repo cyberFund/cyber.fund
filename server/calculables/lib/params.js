@@ -85,12 +85,16 @@ params = {
         earn: 0.1
       },
       'Pre-Public': {
-        site: 0.15,
-        community: 0.15,
-        updates: 0.20,
-        code: 0.20,
-        science: 0.15,
-        knowledge: 0.15
+        site: 0.05,
+        community: 0.05,
+        updates: 0.05,
+        code: 0.05,
+        science: 0.05,
+        knowledge: 0.05,
+        buy: 0.3,
+        hold: 0.1,
+        analyze: 0.1,
+        earn: 0.1
       },
       'Project': {
         site: 0.15,
@@ -115,12 +119,16 @@ params = {
         earn: 0
       },
       'Pre-Public': {
-        site: 0.15,
-        community: 0.15,
-        updates: 0.20,
+        site: 0.05,
+        community: 0.05,
+        updates: 0.10,
         code: 0.20,
-        science: 0.15,
-        knowledge: 0.15
+        science: 0.05,
+        knowledge: 0.05,
+        buy: 0.4,
+        hold: 0.05,
+        analyze: 0.05,
+        earn: 0
       },
       'Project': {
         site: 0.15,
