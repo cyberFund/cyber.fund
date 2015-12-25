@@ -83,7 +83,7 @@ params = {
         buy: 0.3,
         hold: 0.1,
         analyze: 0.1,
-        earn: 0.1
+        earn: 0.1,
         dapp: 0.1
       },
       'Pre-Public': {
@@ -95,7 +95,7 @@ params = {
         knowledge: 0.1,
         hold: 0.1,
         analyze: 0.1,
-        earn: 0.1
+        earn: 0.1,
         dapp: 0.1
       },
       'Project': {

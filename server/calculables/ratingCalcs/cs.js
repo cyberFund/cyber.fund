@@ -32,6 +32,7 @@ ns.lib.calcs.calcCS = function calcCS(system) {
       hold: scoreWeight(withType['wallet'], linkWeights.hold),
       analyze: scoreWeight( withType['explorer'], linkWeights.analyze),
       earn: scoreWeight( withType['earn'], linkWeights.earn)
+    
       // ToDo - dapp: scoreWeight(??? ,linkWeights.dapp)
     }
   } catch (e) {
