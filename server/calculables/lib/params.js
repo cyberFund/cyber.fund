@@ -52,7 +52,7 @@ params = {
       updates: clone(scores.baseBoolean),
       code: clone(scores.baseBoolean),
       science: clone(scores.baseBoolean),
-      knowledge: clone(scores.baseBoolean),
+      knoweledge: clone(scores.baseBoolean),
       buy: clone(scores.neverMind),
       hold: clone(scores.neverMind),
       analyze: clone(scores.neverMind),

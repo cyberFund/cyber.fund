@@ -55,10 +55,10 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     });
   },
 
-  linksWithType: function (links, type) {      // among CurrentData structures,
+  linksWithType: function (links, t) {      // among CurrentData structures,
     if (!_.isArray(links)) return [];    // calc amount of links of given type.
     return _.filter(links, function (link) {
-      return (link.type === type);
+      return (link.type === t);
     });
   },
 

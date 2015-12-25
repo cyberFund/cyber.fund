@@ -2,6 +2,8 @@ var ns = CF.CurrentData.calculatables;
 var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
+
+var onsole = CF.Utils.onsole;
 ns.lib.calcs.calcCS = function calcCS(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);
@@ -13,11 +15,9 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     console.log("CS calculation: no links calculated for %s", system._id);
     return undefined;
   }
-
   // see `/server/calculables/lib/params.js: Line 156`
   var linkWeights = params.linkWeightsCS(state, type);
   var scoreWeight = helpers.linksScoreWeight;
-
   try {
     var flags = {
 
@@ -32,7 +32,7 @@ ns.lib.calcs.calcCS = function calcCS(system) {
       hold: scoreWeight(withType['wallet'], linkWeights.hold),
       analyze: scoreWeight( withType['explorer'], linkWeights.analyze),
       earn: scoreWeight( withType['earn'], linkWeights.earn)
-    
+
       // ToDo - dapp: scoreWeight(??? ,linkWeights.dapp)
     }
   } catch (e) {

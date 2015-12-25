@@ -70,6 +70,6 @@ CF.CurrentData.calculatables.addCalculatable('nLinksWithType', function(system) 
   _.each(types, function(type) {
     ret[type] = CF.CurrentData.linksWithType(links, type).length;
   });
-  ret['_update_'] = CF.CurrentData.linksOfUpdate(links);
+  ret['_update_'] = CF.CurrentData.linksOfUpdate(links).length;
   return ret;
 });
