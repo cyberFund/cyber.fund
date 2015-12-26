@@ -460,7 +460,7 @@ var hourlyAves = {
       interval: "hour"
     };
     _.extend(params, {
-      systems: gatherSymSys()
+      //systems: gatherSymSys()
     })
     console.log ("average hour")
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
@@ -551,7 +551,7 @@ SyncedCron.add({
     try {
       var s = gatherSymSys({})
       fetchAverage15m({
-        systems: s
+        //systems: s
       });
     } catch (e) {
       console.log('could not fetch elastic data (15m averages)')
@@ -570,7 +570,7 @@ SyncedCron.add({
     try {
       var s = gatherSymSys({})
       fetchLatest({
-        systems: s
+        //systems: s
       });
     } catch (e) {
       console.log('could not fetch elastic data (latest)')
