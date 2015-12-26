@@ -477,7 +477,7 @@ SyncedCron.add({
       from: "now-1d/d",
       to: "now/d",
       interval: "day"
-    };
+    }; 
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
