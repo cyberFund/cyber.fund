@@ -1,7 +1,6 @@
 /**
  * currentData, just fields enough to draw rating table..
  */
-var onsole = CF.Utils.onsole
 Meteor.publish("currentDataRP", function(options) {
   options = options || {};
   onsole.print("options", options);
@@ -29,9 +28,6 @@ Meteor.publish("currentDataRP", function(options) {
   selector['flags.rating_do_not_display'] = {
     $ne: true
   };
-  onsole.print("count", CurrentData.find(selector, options).count());
-  onsole.print("selector", selector)
-  onsole.print("OPTIONS", options)
 
   return CurrentData.find(selector, options);
 });
