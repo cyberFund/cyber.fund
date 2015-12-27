@@ -79,10 +79,9 @@ var helpers = {
   dif: function (v1, v2) {
     return parseInt(v1) - parseInt(v2)
   },
-  mathRound: function(v) {
-    return Math.round(v);
+  cfRatingRound: function(v) {
+    return Math.ceil(v);
   },
-
   session: function (key) {
     return Session.get(key);
   },

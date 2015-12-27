@@ -9,3 +9,9 @@
         {{> UI.contentBlock}}
     </div>
 </template>
+
+<template name="tooltipContainer">
+  <div class="tooltip-container">
+    {{ >Template.dynamic template=ttTemplate  data=this}}
+  </div>
+</template>
