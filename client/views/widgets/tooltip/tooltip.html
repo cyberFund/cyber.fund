@@ -12,6 +12,8 @@
 
 <template name="tooltipContainer">
   <div class="tooltip-container">
-    {{ >Template.dynamic template=ttTemplate  data=this}}
+    <div class="tooltip {{#if class}}tooltip-{{class}}{{else}}tooltip-default{{/if}}">
+      {{ >Template.dynamic template=ttName data=this}}
+    </div>
   </div>
 </template>

@@ -1,0 +1,36 @@
+.with-tooltip {
+  position: relative;
+}
+
+.with-tooltip .tooltip {
+  display: none;
+}
+
+.with-tooltip:hover .tooltip {
+  position: absolute;
+  display: block;
+  text-align: left;
+  right: 80%;
+  top: 0;
+  border-radius: 6px;
+  width: 200px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  z-index: 40;
+  box-shadow: rgba(0, 0, 0, 0.16) 0 2px 10px 0;
+}
+
+.tooltip-container {
+  font-style: italic;
+  background: blue;
+}
+
+.tooltip-default {
+  font-style: oblique;
+  background: red
+}
+
+.tooltip-contrast {
+  background: white;
+  color: #113315;
+}
