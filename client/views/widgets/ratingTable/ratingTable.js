@@ -1,6 +1,7 @@
 var initialLimit = CF.Rating.limit0;
 Meteor.startup(function () {
-  _Session.default("ratingPageSort", {"metrics.cap.btc": -1});
+  _Session.default("ratingPageSort", null);
+  _Session.default("coinSorter", "calculable.RATING.sum");
 });
 
 Template['ratingTable'].onCreated(function () {
@@ -8,7 +9,7 @@ Template['ratingTable'].onCreated(function () {
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('ratingPageSort')
+      sort: _Session.get('coinSorter')
     });
   });
 
@@ -54,7 +55,7 @@ Template['ratingTable'].rendered = function () {
 
 Template['ratingTable'].helpers({
   'rows': function () {
-    var sort = _Session.get("ratingPageSort");
+    var sort = _Session.get("coinSorter");
       if (sort["ratings.rating_cyber"]) {
           sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
       }

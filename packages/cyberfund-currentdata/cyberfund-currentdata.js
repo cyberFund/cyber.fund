@@ -1,3 +1,7 @@
+//#
+Meteor.startup(function(){
+  CF.CurrentData.calculatable( CurrentData.findOne({_id: "Bitcoin"}) );
+})
 
 CF.CurrentData = {                // helpers related to collection CurrentData
   calculatables: {                          // some field names, selectors etc
@@ -9,6 +13,18 @@ CF.CurrentData = {                // helpers related to collection CurrentData
       fields: {'_t_calc': 1},
       fieldsExclude: {'_t_calc': 0}
     }
+  },
+  calculatable: function getCalculatable (system){
+    CF.libsub.logger.print ("CF", CF);
+
+    if (typeof system == "string")
+      throw "please pass CurrentData document instead of string"
+
+    return system [CF.CurrentData.calculatables.fieldName] || function(){
+      var id = system._id || system.system || function(){
+         console.log( "` _ `" )
+       }();
+    }()
   },
 
   selectors: {       // selectors to return elements of CurrentData collection
