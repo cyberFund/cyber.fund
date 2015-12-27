@@ -3,7 +3,7 @@ var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
 
-var onsole = CF.Utils.onsole;
+var print = CF.Utils.logger.print;
 ns.lib.calcs.calcCS = function calcCS(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);

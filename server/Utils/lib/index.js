@@ -1,1 +1,0 @@
-CF.Utils = CF.Utils || {}

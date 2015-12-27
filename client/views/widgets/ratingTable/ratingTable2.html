@@ -132,7 +132,8 @@
           </td>
 
           <td class="center-align hide-on-small-and-down" itemprop="aggregateRating">
-            {{#withTooltip}}
+            {{#withTooltip ttName="ratingTooltip" data=calculatable}}
+
             {{>cfRating rating=calculatable.RATING.sum}}
             {{#tooltip}}
               <span>rating: {{readableN calculatable.RATING.sum 2}}</span>

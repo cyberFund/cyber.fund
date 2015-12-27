@@ -1,7 +1,7 @@
 var initialLimit = CF.Rating.limit0;
 Meteor.startup(function () {
   _Session.default("ratingPageSort", null);
-  _Session.default("coinSorter", "calculable.RATING.sum");
+  _Session.default("coinSorter", {"calculable.RATING.sum": 1});
 });
 
 Template['ratingTable'].onCreated(function () {

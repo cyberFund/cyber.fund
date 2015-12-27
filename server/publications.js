@@ -6,7 +6,18 @@ Meteor.publish("currentDataRP", function(options) {
   var defaultLimit = 1;
   var selector = {};
   options.sort = options.sort || {};
-  if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
+
+  var tmp = options.sort;
+  if (_.isString(tmp)){
+    var t = {}
+    t[tmp] = 1;
+    tmp = t;
+  }
+
+  tmp = _.keys(tmp);
+  tmp = tmp.length;
+
+  if (tmp) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1,

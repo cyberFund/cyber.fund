@@ -8,11 +8,9 @@ var logger = {
     console.log.apply(null, arguments)
   },
   emptyLine: function() {
-    var i = this;
-    i.log();
+    console.log();
   },
   print: function(label, value, condensed) {
-    var i = this
     if (typeof label === 'string') {
       if (typeof value === 'object') {
         console.log([label, util.inspect(value)].join(": "));
@@ -20,7 +18,7 @@ var logger = {
         console.log([label, value].join(": "));
       }
     }
-    if (!condensed) i.emptyLine()
+    if (!condensed) console.log();
   }
 }
 

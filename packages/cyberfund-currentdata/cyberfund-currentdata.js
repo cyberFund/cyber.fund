@@ -1,6 +1,9 @@
 //#
+
+
 Meteor.startup(function(){
-  CF.CurrentData.calculatable( CurrentData.findOne({_id: "Bitcoin"}) );
+  //var p = CF.CurrentData.calculatable( CurrentData.findOne({_id: "Bitcoin"}) );
+  //console.log(p);
 })
 
 CF.CurrentData = {                // helpers related to collection CurrentData
@@ -15,12 +18,10 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     }
   },
   calculatable: function getCalculatable (system){
-    CF.libsub.logger.print ("CF", CF);
-
     if (typeof system == "string")
       throw "please pass CurrentData document instead of string"
 
-    return system [CF.CurrentData.calculatables.fieldName] || function(){
+    return system['calculatable'] || function(){
       var id = system._id || system.system || function(){
          console.log( "` _ `" )
        }();
