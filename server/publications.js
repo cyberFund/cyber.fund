@@ -3,7 +3,6 @@
  */
 Meteor.publish("currentDataRP", function(options) {
   options = options || {};
-  onsole.print("options", options);
   var defaultLimit = 1;
   var selector = {};
   options.sort = options.sort || {};
