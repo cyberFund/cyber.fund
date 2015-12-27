@@ -8,15 +8,6 @@ Template['searchItem1'].helpers({
       position: "bottom",
       limit: 5,
       rules: [
-        /*{
-          token: '!',
-          collection: 'CurrentData_',
-          field: "token.token_symbol",
-          subscription: "search-sym",
-          matchAll: false,
-          template: Template.searchSystemBySymbolItem,
-          noMatchTemplate: Template.searchNoMatchedSearch
-        },*/
         {
           token: '',
           collection: 'CurrentData',
@@ -33,15 +24,15 @@ Template['searchItem1'].helpers({
 
 Template['searchItem1'].events({
   "autocompleteselect input#search": function(event, template, doc) {
-    var system = doc.system;
-    console.log(doc.system);
-    console.log(Blaze._globalHelpers._toUnderscores(doc.system));
+    var system = doc._id;
+
     analytics.track("Searched", {
-      systemName: doc.system
+      systemName: system
     });
 
     template.$("input#search").val("");
-    FlowRouter.go("/system/:name_", {name_: Blaze._globalHelpers._toUnderscores(doc.system) })
+    FlowRouter.go("/system/:name_", {name_:
+      Blaze._globalHelpers._toUnderscores(system) })
   }
 });
 

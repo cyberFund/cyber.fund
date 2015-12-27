@@ -13,8 +13,8 @@ Template['folioChart'].onCreated(function () {
     var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
 
     var data = r.fetch().sort(function(x, y){
-      var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(x)),
-        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, CF.CurrentData.getSystem(y));
+      var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
+        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
       return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
     });
 
@@ -28,8 +28,8 @@ Template['folioChart'].onCreated(function () {
     };
     _.each(data, function (system) {
       var point = {
-        symbol: system.system,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system.system)
+        symbol: system._id,
+        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id)
       };
       point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
       point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;

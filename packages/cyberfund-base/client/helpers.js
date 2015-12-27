@@ -79,7 +79,9 @@ var helpers = {
   dif: function (v1, v2) {
     return parseInt(v1) - parseInt(v2)
   },
-
+  cfRatingRound: function(v) {
+    return Math.ceil(v);
+  },
   session: function (key) {
     return Session.get(key);
   },
@@ -110,12 +112,19 @@ var helpers = {
   },
   readableNumbers: CF.Utils.readableNumbers,
   readableN: CF.Utils.readableN,
+
   isNumber: function (value) {
     return _.isNumber(value)
   },
+
   isObject: function (value) {
     return _.isObject(value)
   },
+
+  isEmpty: function (value) {
+    return _.isEmpty(value)
+  },
+
   satoshi_decimals: function (value, precision) {
     if (!precision && precision != 0) precision = 8;
     try {
@@ -129,9 +138,7 @@ var helpers = {
     if (out[1]) ret += "." + group3decimal(out[1], " ");
     return ret;
   },
-  tagMatchesTags: function (tag, tags) {
-    return tags.indexOf(tag) > -1;
-  },
+
   isBeforeNow: function (date) {
     var m = /*format ? moment(date, format) : */moment(date);
     return m.isBefore(moment(), 'day');
@@ -145,6 +152,7 @@ var helpers = {
     m2 = /*format ? moment(date2, format) : */moment(date2);
     return moment().isBetween(m1, m2, 'day');
   },
+
   _toUnderscores: function (str) {
     return str.replace(/\ /g, "_")
   },
@@ -154,27 +162,7 @@ var helpers = {
   usersCount: function () {
     return Counts.get('usersCount')
   },
-  greenRedNumber: function (value) {
-    return (value < 0) ? "red-text" : "green-text";
-  },
-  inflationToText: function (percents) {
-    if (percents < 0) {
-      return "Deflation " + (-percents).toFixed(2) + "%";
-    } else if (percents > 0) {
-      return "Inflation " + percents.toFixed(2) + "%";
-    } else {
-      return "Stable";
-    }
-  },
-  percentsToTextUpDown: function (percents) {
-    if (percents < 0) {
-      return "↓ " + (-percents.toFixed(2)) + "%";
-    } else if (percents > 0) {
-      return "↑ " + percents.toFixed(2) + "%";
-    } else {
-      return "= 0%";
-    }
-  },
+
   _system_type_: function(key){
     var types = {
       dapp: "Decentralized application"
@@ -206,7 +194,7 @@ var helpers = {
     var ret;
     if (system.aliases)
       ret = system.aliases.nickname;
-    if (!ret) ret = system.system;
+    if (!ret) ret = system._id;
     return ret;
   },
   displayCurrencyName: function (system) {
@@ -214,7 +202,7 @@ var helpers = {
     if (system.token) {
       ret = system.token.token_name;
     }
-    if (!ret) ret = system.system;
+    if (!ret) ret = system._id;
     return ret;
   },
   ownTwid: function(){
@@ -230,31 +218,11 @@ var helpers = {
     return moment(date).format(format);
   },
 
-  dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
-    //=0% - Illiquid
-    //<0.01% - Very Low
-    //< 0.1% - Low
-    //< 0.5% - Normal
-    //< 2% - High
-    //`> 2% - Very High
-
-    if (!absolute) {
-      return needDigit ? 0 : "Normal";
-    }
-
-    if (Math.abs(volumeDaily / absolute) === 0) return needDigit ? 0 : "Illiquid";
-    if (Math.abs(volumeDaily / absolute) < 0.0001) return needDigit ? 0.1 : "Very Low";
-    if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.2 : "Low";
-    if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.3 : "Normal";
-    if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
-    return needDigit ? 0.5 : "Very High";
-  },
-
+  usersListFromIds: function(listFromIds) {
+    return CF.User.listFromIds(listFromIds)
+  }
 };
 
 _.each(helpers, function (helper, key) {
   Template.registerHelper(key, helper);
 });
-/**
- * Created by angelo on 6/9/15.
- */

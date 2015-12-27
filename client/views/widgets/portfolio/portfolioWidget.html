@@ -62,7 +62,7 @@
             <tbody>
             {{#each pSystems}}
                 <tr>
-                    <td><a href="{{pathFor '/system/:name_' name_=name_of_system}}">
+                    <td><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
                         {{> cgSystemLogo data=this style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                         {{displaySystemName this}}</a></td>
                     <td class="right-align">{{quantity this}}</td>

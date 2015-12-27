@@ -18,3 +18,4 @@ _temp.py
 .deploy/
 tmp/
 settings.json
+lib/meta.js

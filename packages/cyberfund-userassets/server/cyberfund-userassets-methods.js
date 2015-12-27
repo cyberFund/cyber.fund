@@ -19,7 +19,7 @@ CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
   var ret =  matchingTable[cryptoBalanceToken] || false;
   if (!ret) {
     var record = CurrentData.findOne({"aliases.quantum": cryptoBalanceToken});
-    ret = record ? record.system : false;
+    ret = record ? record._id : false; 
   }
   return ret
 };

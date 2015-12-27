@@ -1,6 +1,6 @@
 Template['thea_d'].helpers({
   sorter: function (field) {
-    var sorter = _Session.get("ratingPageSort");
+    var sorter = _Session.get("coinSorter");
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
@@ -12,7 +12,7 @@ Template['thea_d'].events({
   'click th.sorter': function (e, t) {
     console.log('hhh');
     var newSorter = $(e.currentTarget).data('sorter');
-    var sort = _Session.get("ratingPageSort");
+    var sort = _Session.get("coinSorter");
       if (sort[newSorter]) {
           sort[newSorter] = -sort[newSorter];
       } else {
@@ -22,6 +22,6 @@ Template['thea_d'].events({
     analytics.track("Sorted Rating", {
       sort: sort
     });
-    _Session.set('ratingPageSort', sort);
+    _Session.set('coinSorter', sort);
   }
 });

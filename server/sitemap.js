@@ -10,10 +10,10 @@ sitemaps.add('/sitemap.xml', function () {
     changefreq: 'weekly'
   });
 
-  CurrentData.find({}, {fields: {updatedAt: 1, system: 1}})
+  CurrentData.find({}, {fields: {updatedAt: 1}})
     .forEach(function (coin) {
       ret.push({
-        page: 'system/' + coin.system.replace(/\ /g, "_"),
+        page: 'system/' + coin._id.replace(/\ /g, "_"),
         lastmod: coin.updatedAt
       });
     });

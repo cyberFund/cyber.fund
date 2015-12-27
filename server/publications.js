@@ -6,19 +6,29 @@ Meteor.publish("currentDataRP", function(options) {
   var defaultLimit = 1;
   var selector = {};
   options.sort = options.sort || {};
-  if (!_.keys(options.sort).length) options.sort = CF.Rating.sorter0;
+
+  var tmp = options.sort;
+  if (_.isString(tmp)){
+    var t = {}
+    t[tmp] = 1;
+    tmp = t;
+  }
+
+  tmp = _.keys(tmp);
+  tmp = tmp.length;
+
+  if (tmp) options.sort = CF.Rating.sorter0;
   if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1,
     "metrics": 1,
-    "system": 1,
     "token": 1,
     "icon": 1,
     "ratings": 1,
     "_usersStarred": 1,
     "calculatable": 1,
-
-    "descriptions": 1
+    "descriptions": 1,
+    "consensus": 1
   };
 
   var keys = _.keys(options.sort);
@@ -28,6 +38,7 @@ Meteor.publish("currentDataRP", function(options) {
   selector['flags.rating_do_not_display'] = {
     $ne: true
   };
+
   return CurrentData.find(selector, options);
 });
 
@@ -113,7 +124,6 @@ Meteor.publish('coinsCount', function() {
 Meteor.publish('dependentCoins', function(system) {
   return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
     fields: {
-      "system": 1,
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
@@ -128,7 +138,7 @@ Meteor.publish('dependentCoins', function(system) {
  */
 Meteor.publish('fastData', function(systemName) {
   var _id = CurrentData.findOne({
-    system: systemName
+    _id: systemName
   });
   if (!_id) return this.ready();
   _id = _id._id;
@@ -144,7 +154,6 @@ Meteor.publish('fastData', function(systemName) {
 Meteor.publish('dependencies', function(deps) {
   return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
     fields: {
-      "system": 1,
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
@@ -163,7 +172,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
       $or: [{
         'token.token_symbol': s
       }, {
-        "system": s
+        "_id": s
       }, {
         "aliases.nickname": s
       }, {
@@ -180,7 +189,6 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   if (!collection) return this.ready();
 
   options.fields = {
-    "system": 1,
     "icon": 1,
     "aliases": 1,
     "token": 1
@@ -200,7 +208,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
  */
 Meteor.publish("BitcoinPrice", function() {
   return CurrentData.find({
-    system: "Bitcoin"
+    _id: "Bitcoin"
   })
 });
 
@@ -272,7 +280,6 @@ Meteor.publish('portfolioUser', function(userId) {
 Meteor.publish('assetsSystems', function(tokens) {
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {
-      system: 1,
       token: 1,
       aliases: 1,
       icon: 1
@@ -291,7 +298,6 @@ Meteor.publish('profilesSystems', function(userId) {
   var tokens = user && user.profile && user.profile.starredSystems || [];
   return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
     fields: {
-      system: 1,
       token: 1,
       aliases: 1,
       icon: 1
@@ -319,19 +325,7 @@ Meteor.publish("portfolioSystems", function(userId, options) {
     }
     var stars = user.profile.starredSystems;
     if (stars && stars.length) {
-
-      var plck = _.map(CurrentData.find({
-        system: {
-          $in: stars
-        }
-      }, {
-        fields: {
-          'system': 1
-        }
-      }).fetch(), function(it) {
-        return it.system;
-      });
-      systems = _.union(systems, plck)
+      systems = _.union(systems, stars)
     }
   }
 
@@ -339,7 +333,6 @@ Meteor.publish("portfolioSystems", function(userId, options) {
     fields: {
       "aliases": 1,
       "metrics": 1,
-      "system": 1,
       "token": 1,
       "icon": 1,
       "ratings": 1

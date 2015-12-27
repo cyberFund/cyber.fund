@@ -1,6 +1,6 @@
 
 <!-- originally created for cyber.fund project-->
-<template name="ratingTable2">
+<template name="trackingWidget">
   <div class="card" style="padding:10px">
     <table id="rating-table"
       class="hoverable-my"
@@ -25,7 +25,7 @@
           <td
             class="left-align">
             <a
-              href="{{pathFor '/system/:name_' name_=name_}}"
+              href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
               class="enlarge no-wrap"
               title="{{descriptions.headline}}">
               {{> cgSystemLogo data=this class='cg-system-icon'}}
@@ -43,11 +43,10 @@
           </td>
 
           <td class="center">
-            {{descriptions.state}}
-          </td>
-
-          <td class="center">
-            {{descriptions.system_type}}
+            <span style="font-size:12px">
+              {{descriptions.state}} {{descriptions.system_type}}<br>
+              {{consensus.type}} {{consensus.algorithm}}
+            </span>
           </td>
 
           <td class="center-align hide-on-small-and-down">{{# withTooltip}}
@@ -105,39 +104,41 @@
           <td class="center">
             {{readableN currentPrice 2}}
           </td>
-          <td class="center">
+          <td class="center hide-on-med-and-down sorter">
             {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
           </td>
-          <td class="center">
+          <td class="center hide-on-med-and-down sorter">
             {{readableN calculatable.RATING.vector.GR.months 0}}
           </td>
-          <td class="center">
-            {{readableN calculatable.RATING.vector.CS.sum 2}}
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.CS 2}}
           </td>
-          <td class="center">
-            {{readableN calculatable.RATING.vector.LV.sum 2}}
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.LV 2}}
           </td>
-          <td class="center">
-            {{readableN calculatable.RATING.vector.WL.sum 2}}
-          </td>
-
-          <td class="center">
-            {{readableN calculatable.RATING.vector.BR.sum 2}}
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.WL 2}}
           </td>
 
-          <td class="center">
-            {{readableN calculatable.RATING.vector.AM.sum 2}}
-          </td>
-          <td class="center">
-            {{readableN calculatable.RATING.vector.GR.sum 2}}
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.BR 2}}
           </td>
 
-          <td class="center-align hide-on-small-and-down" content="{{ratings.rating_cyber}}">
-            {{>cfRating rating=ratings.rating_cyber}}
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.AM 2}}
+          </td>
+          <td class="center hide-on-med-and-down">
+            {{readableN calculatable.RATING.weighted.GR 2}}
           </td>
 
-          <td class="center-align hide-on-small-and-down" itemprop="aggregateRating">
-            {{readableN calculatable.RATING.sum 2}}
+          <td class="center-align" itemprop="aggregateRating">
+            {{#withTooltip ttName="ratingTooltip" data=calculatable}}
+
+            {{>cfRating rating=calculatable.RATING.sum}}
+            {{#tooltip}}
+              <span>rating: {{readableN calculatable.RATING.sum 2}}</span>
+            {{/tooltip}}
+            {{/withTooltip}}
           </td>
 
         </tr>

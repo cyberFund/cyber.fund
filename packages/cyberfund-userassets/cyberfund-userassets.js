@@ -76,7 +76,9 @@ CF.UserAssets.getQuantitiesFromAddressesObject = function (addressesObject, key)
  */
 CF.UserAssets.getQuantitiesFromAccountsObject = function (accountsObject, key) {
   var sum = 0.0;
-  if (_.isObject(key) && _.isString(key.system)) key = key.system;
+  if (_.isObject(key) && _.isString(key._id)) key = key._id;
+
+
   if (accountsObject && key) {
     var rets = _.values(accountsObject);
     if (rets) {

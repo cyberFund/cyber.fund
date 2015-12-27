@@ -1,21 +1,21 @@
 var initialLimit = CF.Rating.limit0;
 Meteor.startup(function () {
-  _Session.default("ratingPageSort", {"metrics.cap.btc": -1});
+  _Session.default("coinSorter", {"metrics.cap.btc": -1});
 });
 
-Template['ratingTable2'].onCreated(function () {
+Template['trackingWidget'].onCreated(function () {
   var instance = this;
   instance.subscribe("maxLove");
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('ratingPageSort')
+      sort: _Session.get('coinSorter')
     });
   });
 
 });
 
-Template['ratingTable2'].rendered = function () {
+Template['trackingWidget'].rendered = function () {
   Session.set('ratingPageLimit', 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
@@ -53,7 +53,7 @@ Template['ratingTable2'].rendered = function () {
   $(window).trigger("resize");
 };
 
-Template['ratingTable2'].helpers({
+Template['trackingWidget'].helpers({
   _wl_cs: function(){
     var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
     var k = 1000, M = 1000000
@@ -89,7 +89,7 @@ Template['ratingTable2'].helpers({
     return this.metrics && this.metrics.price && this.metrics.price.usd || 0
   },
   'rows': function () {
-    var sort = _Session.get("ratingPageSort");
+    var sort = _Session.get("coinSorter");
       if (sort["ratings.rating_cyber"]) {
           sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
       }
@@ -102,13 +102,9 @@ Template['ratingTable2'].helpers({
     if (this.token && this.token.token_symbol) {
       return this.token.token_symbol
     }
-    //console.log("not found symbol for `" + this.system + '` system');
     return "";
   },
-  // underscored currency name
-  name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);
-  },
+
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";
@@ -148,7 +144,7 @@ Template['ratingTable2'].helpers({
 
 
 
-Template['ratingTable2'].events({
+Template['trackingWidget'].events({
   'click .show-more': function (e, t) {
     var step = CF.Rating.step;
     var limit = Session.get("ratingPageLimit");

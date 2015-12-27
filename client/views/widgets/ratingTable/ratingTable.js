@@ -1,6 +1,7 @@
 var initialLimit = CF.Rating.limit0;
 Meteor.startup(function () {
-  _Session.default("ratingPageSort", {"metrics.cap.btc": -1});
+  _Session.default("ratingPageSort", null);
+  _Session.default("coinSorter", {"calculable.RATING.sum": 1});
 });
 
 Template['ratingTable'].onCreated(function () {
@@ -8,7 +9,7 @@ Template['ratingTable'].onCreated(function () {
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('ratingPageSort')
+      sort: _Session.get('coinSorter')
     });
   });
 
@@ -54,7 +55,7 @@ Template['ratingTable'].rendered = function () {
 
 Template['ratingTable'].helpers({
   'rows': function () {
-    var sort = _Session.get("ratingPageSort");
+    var sort = _Session.get("coinSorter");
       if (sort["ratings.rating_cyber"]) {
           sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
       }
@@ -67,13 +68,9 @@ Template['ratingTable'].helpers({
     if (this.token && this.token.token_symbol) {
       return this.token.token_symbol
     }
-    //console.log("not found symbol for `" + this.system + '` system');
     return "";
   },
-  // underscored currency name
-  name_: function () {
-    return Blaze._globalHelpers._toUnderscores(this.system);
-  },
+
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";
