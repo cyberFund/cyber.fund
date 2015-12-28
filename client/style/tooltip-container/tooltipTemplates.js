@@ -21,11 +21,7 @@ Template['withTooltip'].events({
   'click .with-tooltip': function(e, t) {},
 
   'mouseenter .with-tooltip': function(e, t) {
-    t.data && t.data.ttName || function() {
-      var print = CF.Utils.logger.print;
-      print("t.data", t.data);
-      return true;
-    }();
+    (t.data && t.data.ttName) || return true;
 
     CF.tooltip.timer && (CF.tooltip.timer.hostInstance = t) &&
     CF.tooltip.timer.reset(function() {
