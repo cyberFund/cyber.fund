@@ -4,26 +4,49 @@
 
 .with-tooltip .tooltip {
   display: none;
+  visibility: hidden;
 }
 
 .with-tooltip:hover .tooltip, .tooltip-v  {
   position: absolute;
   display: block;
+  visibility: visible;
+  z-index: 40;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.36) 0 3px 10px 0;
+}
+
+.tooltip {
   text-align: left;
   right: 80%;
+  top: 0;
+
+  width: 200px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+
+
+  background: #d4e4ff;
+  margin: 6px;
+}
+
+.tooltip-v {
+  text-align: left;
+  right: 90%;
+  top: -10%;
+}
+
+.tooltip-default {
+  background: white;
+  text-align: left;
+  left: 80%;
   top: 0;
   border-radius: 6px;
   width: 200px;
   line-height: 1rem;
   font-size: 0.8rem;
-  z-index: 40;
   box-shadow: rgba(0, 0, 0, 0.16) 0 2px 10px 0;
-  margin: 6px;
-}
-
-.tooltip-default {
-  margin: 6px;
-  background: red
+  margin: 1.5em;
 }
 
 .tooltip-contrast {
