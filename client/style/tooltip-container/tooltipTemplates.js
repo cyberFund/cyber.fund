@@ -21,9 +21,11 @@ Template['withTooltip'].events({
   'click .with-tooltip': function(e, t) {},
 
   'mouseenter .with-tooltip': function(e, t) {
-    (t.data && t.data.ttName) || return true;
+    if (!t.data || !t.data.ttName) return true;
+
 
     CF.tooltip.timer && (CF.tooltip.timer.hostInstance = t) &&
+
     CF.tooltip.timer.reset(function() {
       CF.tooltip.fire(function() {
         if (!CF.tooltip.instance) {
@@ -36,6 +38,7 @@ Template['withTooltip'].events({
         }
       }, 300);
     });
+
     return false;
   },
 
