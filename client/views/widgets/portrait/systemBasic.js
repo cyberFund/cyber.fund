@@ -105,13 +105,6 @@ Template['systemBasic'].helpers({
       return ret;
     });
   },
-  dayToDayTradeVolumeChange: function() {
-    var metrics = this.metrics;
-    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
-      return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
-    }
-    return 0;
-  },
 
   isProject: function() {
     return this.descriptions && this.descriptions.state == 'Project'

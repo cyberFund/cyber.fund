@@ -98,13 +98,6 @@ Template['ratingTable'].helpers({
           return 100.0 * metrics.turnover;
       }
     return 0;
-  },
-  dayToDayTradeVolumeChange: function () {
-    var metrics = this.metrics;
-      if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
-          return 100.0 * (metrics.tradeVolume - metrics.tradeVolumePrevious.day) / metrics.tradeVolume;
-      }
-    return 0;
   }
 });
 

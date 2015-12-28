@@ -5,7 +5,8 @@
 </template>
 
 <template name="tooltip">
-    <div class="tooltip z-depth-1 black white-text">
+    <div class="tooltip z-depth-1
+    tooltip-{{#if class}}{{class}}{{else}}default{{/if}}">
         {{> UI.contentBlock}}
     </div>
 </template>

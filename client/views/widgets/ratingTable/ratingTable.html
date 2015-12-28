@@ -1,5 +1,24 @@
+<template name="tvBTCTooltip">
+<div>Trade volume (24h):<b>
+{{readableN metrics.tradeVolume 2}}</b>BTC</div></template>
 
-<!-- originally created for cyber.fund project-->
+<template name="t001Tooltip">
+
+<div>Ticker:
+  <b itemprop="alternateName">{{symbol}}</b></div>
+
+<div>Currency name:
+  <b>{{displayCurrencyName this}}</b></div>
+
+<div>Current supply:
+  <b>{{readableN metrics.supply 0}}</b></div>
+
+<div>Absolute change:<b>
+  {{readableN metrics.supplyChange.day 0}}</b></div></template>
+
+
+
+
 <template name="ratingTable">
   <div class="card" style="padding:10px">
     <table class="hoverable-my" align="center" id="rating-table">
@@ -20,43 +39,20 @@
             <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
           </td>
 
-          <td class="center-align hide-on-small-and-down">{{# withTooltip}}
+          <td class="center-align hide-on-small-and-down">{{# withTooltip data=this ttName="t001Tooltip" class="contrast"}}
             <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
-            {{#tooltip}}
-
-            <div>Ticker:
-              <b itemprop="alternateName">{{symbol}}</b>
-            </div>
-            <div>Currency name:
-              <b>{{displayCurrencyName this}}</b>
-            </div>
-
-            <div>Current supply:
-              <b>{{readableN metrics.supply 0}}</b>
-            </div>
-            <div>Absolute change:
-              <b>{{readableN metrics.supplyChange.day 0}}</b>
-            </div>
-
-            {{/tooltip}} {{/withTooltip}}
+             {{/withTooltip}}
           </td>
 
           <td class="center-align hide-on-small-and-down">
-            {{#if tradeVolumeOk metrics.tradeVolume}} {{# withTooltip}}
+            {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this class="revert"}}
             <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
-            {{#tooltip}}
-            <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
-            </div>
 
-            <div>Daily change :<b>{{readableN dayToDayTradeVolumeChange 2}}</b> %
-            </div>
-
-            <div>Turnover:<b>{{readableN turnover 2}}</b> %
-            </div>
-            {{/tooltip}} {{/withTooltip}} {{else}}
+            {{/withTooltip}} {{else}}
             <span>Illiquid</span>
             {{/if}}
           </td>
+
 
           <td class="right-align hide-on-med-and-down">{{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} {{#tooltip}}
             <div>Price per 1 {{displaySystemName this}}:

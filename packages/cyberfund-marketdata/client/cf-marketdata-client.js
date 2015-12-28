@@ -59,7 +59,14 @@ var helpers = {
     } else {
       return "= 0%";
     }
-  }
+  },
+  dayToDayTradeVolumeChange: function(system) {
+    var metrics = system.metrics;
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
+      return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
+    }
+    return 0;
+  },
 }
 
 _.each(helpers, function(helper, key) {
