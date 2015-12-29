@@ -1,17 +1,16 @@
-<template name="withTooltip"> <!-- outer border  -->
-<div class="with-tooltip">
-        {{> UI.contentBlock}}</div></template>
+<template name="withTooltip">
+  <div class="with-tooltip">
+    {{> UI.contentBlock}}</div>
+</template>
 
-<template name="tooltipContainer">  <!-- dynamic rendering container -->
+<template name="tooltipContainer">
   <div class="tooltip-container">
-    {{# tooltip dynamic=true class=class}}
-      {{>Template.dynamic template=ttName data=data}}
-    {{/tooltip}}</div></template>
+    {{# tooltip dynamic=true class=(tooltipStyleClass class)}} {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
+  </div>
+</template>
 
-<template name="tooltip"> <!-- static render, css based -->
-<div class="z-depth-1 tooltip{{#if dynamic}}-v tooltip-{{#if class}}{{class}}{{else}}default{{/if}}{{/if}}">
-        {{> UI.contentBlock}}</div></template>
-<!-- .tooltip is not visible within .with-tooltip wrapper  -->
-<!--  but is visible within .with-tooltip:hover            -->
-<!-- .tooltip-v is visible, no hovers -->
-<!-- see ./class.tooltip-.css         -->
+<template name="tooltip">
+  <div class="z-depth-1 tooltip{{#if dynamic}}-v{{/if}}
+{{#if class}}class{{else}}tooltip-default{{/if}}">
+    {{> UI.contentBlock}}</div>
+</template>

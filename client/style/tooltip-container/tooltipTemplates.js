@@ -2,16 +2,15 @@ Template['tooltipContainer'].onRendered(function() {
   console.log("rendered tooltip of class " + this.data.class || "");
 });
 
-Template['withTooltip'].helpers({ // "" => ".tooltip-default
+Template['tooltipContainer'].helpers({
   'tooltipStyleClass': CF.tooltip.styleClass
-});
+})
 
 Template['withTooltip'].events({
   'click .with-tooltip': function(e, t) {},
 
   'mouseenter .with-tooltip': function(e, t) {
     if (!t.data || !t.data.ttName) return true;
-
 
     CF.tooltip.timer && (CF.tooltip.timer.hostInstance = t) &&
 

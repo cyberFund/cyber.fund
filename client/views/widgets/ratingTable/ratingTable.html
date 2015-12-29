@@ -54,7 +54,11 @@
           </td>
 
 
-          <td class="right-align hide-on-med-and-down">{{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} {{#tooltip}}
+          <td class="right-align hide-on-med-and-down">
+            {{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} 
+
+
+            {{#tooltip}}
             <div>Price per 1 {{displaySystemName this}}:
               <br/>
               <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">

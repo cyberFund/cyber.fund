@@ -30,9 +30,7 @@ Template.body.events({
 });
 
 Meteor.startup(function () {
-
   Tracker.autorun(function (c) {
-
     var user = Meteor.user();
     if (!user) {
       return;
