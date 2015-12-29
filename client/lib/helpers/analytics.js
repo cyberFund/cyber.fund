@@ -1,9 +1,9 @@
 var helpers = {
   segmentIoPublicKey: function() {
-    return Meteor.settings
-    && Meteor.settings.public
-    && Meteor.settings.public["Segment.io"]
-    && Meteor.settings.public["Segment.io"].apiKey
+    return Meteor.settings.public
+    && Meteor.settings.public.analytics
+    && Meteor.settings.public.analytics["Segment.io"]
+    && Meteor.settings.public.analytics["Segment.io"].apiKey
     || "not found";
   }
 };
