@@ -1,13 +1,14 @@
 var helpers = {
   segmentIoPublicKey: function() {
-    return Meteor.settings.public
-    && Meteor.settings.public.analytics
-    && Meteor.settings.public.analytics["Segment.io"]
-    && Meteor.settings.public.analytics["Segment.io"].apiKey
-    || "not found";
+    try {
+      return Meteor.settings.public
+        .analyticsSettings["Segment.io"].apiKey
+    } catch (e) {
+      return "not found";
+    }
   }
 };
 
-_.each(helpers, function (helper, key) {
+_.each(helpers, function(helper, key) {
   Template.registerHelper(key, helper);
 });
