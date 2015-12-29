@@ -14,8 +14,8 @@ ns.tooltip .getParentInstance = function() {return ns; }
 // lol this makes ns CIRCULAR thru ns.tooltip.parent
 // however is pretty illustration for caching function call results
 Meteor.startup(function(){
-  ns.tooltip .parent = ns.tooltip.getParentInstance()
-  delete ns.tooltip.parent
+  //ns.tooltip .parent = ns.tooltip.getParentInstance()
+  //delete ns.tooltip.parent
   console.log( "CF: ", CF);  
 })
 

@@ -19,6 +19,11 @@ Template['withTooltip'].helpers({ // "" => ".tooltip-default
   'tooltipStyleClass': CF.tooltip.styleClass
 })
 
+CF.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
+ kla = kla | 'default';
+ return ['tooltip', kla].join("-");
+}
+
 Template['withTooltip'].events({
   'click .with-tooltip': function(e, t) {},
 
