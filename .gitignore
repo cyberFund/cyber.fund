@@ -4,6 +4,7 @@ dist
 .sass-cache
 public/components
 Thumbs.db
+live-settings.json
 Desktop.ini
 *.py[co]
 .coverage
