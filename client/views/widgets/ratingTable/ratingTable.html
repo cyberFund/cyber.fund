@@ -1,9 +1,10 @@
 <template name="tvBTCTooltip">
-<div>Trade volume (24h):<b>
-{{readableN metrics.tradeVolume 2}}</b>BTC</div></template>
+<div>Trade volume (24h):
+  <b>{{readableN metrics.tradeVolume 2}}</b>BTC</div></template>
+
+
 
 <template name="t001Tooltip">
-
 <div>Ticker:
   <b itemprop="alternateName">{{symbol}}</b></div>
 
@@ -13,9 +14,14 @@
 <div>Current supply:
   <b>{{readableN metrics.supply 0}}</b></div>
 
-<div>Absolute change:<b>
-  {{readableN metrics.supplyChange.day 0}}</b></div></template>
+<div>Absolute change:
+  <b>{{readableN metrics.supplyChange.day 0}}</b></div></template>
 
+
+
+<template name="capChangeTooltip">
+<div>Real change:
+  <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ</div></template>
 
 
 
@@ -49,13 +55,13 @@
             <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
 
             {{/withTooltip}} {{else}}
-            <span>Illiquid</span>
+            <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
             {{/if}}
           </td>
 
 
           <td class="right-align hide-on-med-and-down">
-            {{# withTooltip}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}} 
+            {{# withTooltip }} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
 
 
             {{#tooltip}}
@@ -68,14 +74,14 @@
             {{/tooltip}} {{/if}} {{/withTooltip}}
           </td>
 
-          <td class="right-align hide-on-med-and-down">{{# withTooltip}}
+          <td class="right-align hide-on-med-and-down">{{# withTooltip data=this ttName="capChangeTooltip"}}
             <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
               {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-            {{#if metrics.capChange.day.btc}} {{#tooltip}}
-            <div>Real change:
-              <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ
-            </div>
-            {{/tooltip}} {{/if}} {{/withTooltip}}
+            {{#if metrics.capChange.day.btc}}
+
+
+
+             {{/if}} {{/withTooltip}}
           </td>
 
           <td class="right-align">{{# withTooltip}}
@@ -102,7 +108,9 @@
           </td>
 
           <td class="center">
-            {{_usersStarred.length}}
+            {{#withTooltip }} {{_usersStarred.length}} {{#tooltip}}
+            How many users have starred this system
+            {{/tooltip}} {{/withTooltip}}
           </td>
 
           <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">
