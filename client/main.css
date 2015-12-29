@@ -83,35 +83,6 @@ p {
   display: block
 }
 
-/*a.tooltip {
-  outline: none;
-}*/
-
-a.tooltip strong {
-  line-height: 30px;
-}
-
-a.tooltip:hover {
-  text-decoration: none;
-}
-
-a.tooltip span {
-  z-index: 10;
-  display: none;
-  margin-top: 60px;
-  margin-left: -160px;
-  width: 300px;
-  line-height: 16px;
-}
-
-a.tooltip:hover span {
-  display: inline;
-  position: absolute;
-  border: 2px solid #FFF;
-  color: #EEE;
-  background: #333;
-}
-
 .callout {
   z-index: 20;
   position: absolute;
@@ -132,18 +103,6 @@ body {
 
 main {
   flex: 1 0 auto;
-}
-
-.w90 {
-  width: 90%;
-  margin: 0 auto;
-  position: relative;
-}
-
-.w100 {
-  width: 100%;
-  margin: 0 auto;
-  position: relative;
 }
 
 hr{
