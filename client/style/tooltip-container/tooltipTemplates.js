@@ -1,28 +1,10 @@
 Template['tooltipContainer'].onRendered(function() {
-  //dynamic render, see .with-tooltip class
   console.log("rendered tooltip of class " + this.data.class || "");
-});
-
-var ww = 0
-Template['withTooltip'].onRendered(function() {
-  console.log("tooltips: " + ww++ );
-});
-
-var ttt = 0;
-Template['tooltip'].onRendered(function() {
-  // dynamic only renders per hover, i.e. one template instance is present
-
-  console.log("static tooltips: " + ttt++);
 });
 
 Template['withTooltip'].helpers({ // "" => ".tooltip-default
   'tooltipStyleClass': CF.tooltip.styleClass
-})
-
-CF.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
- kla = kla | 'default';
- return ['tooltip', kla].join("-");
-}
+});
 
 Template['withTooltip'].events({
   'click .with-tooltip': function(e, t) {},

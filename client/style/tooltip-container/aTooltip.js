@@ -9,22 +9,6 @@ ns.tooltip .fire = function(action) {
   action();
 }
 
-ns.tooltip .getParentInstance = function() {return ns; }
-
-// lol this makes ns CIRCULAR thru ns.tooltip.parent
-// however is pretty illustration for caching function call results
-Meteor.startup(function(){
-  //ns.tooltip .parent = ns.tooltip.getParentInstance()
-  //delete ns.tooltip.parent
-  console.log( "CF: ", CF);  
-})
-
-
-
-ns.tooltip .analysis = function(){
-  return _.keys [ns.parent];
-}
-
 //S: Stylesheet
 ns.tooltip .styleClass = function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
   kla = kla | 'default'; // "" => "tooltip-default"
@@ -61,4 +45,10 @@ ns.tooltip .timer = {
     }, timeLeft);
   },
   getParentInstance: function() { return ns.tooltip; }
+}
+
+
+ns.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
+ kla = kla | 'default';
+ return ['tooltip', kla].join("-");
 }
