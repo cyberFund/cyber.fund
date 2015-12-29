@@ -10,9 +10,10 @@ ns.tooltip .fire = function(action) {
 }
 
 //S: Stylesheet
-ns.tooltip .styleClass = function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
-  kla = kla | 'default'; // "" => "tooltip-default"
-  return ['tooltip', kla].join("-");
+
+ns.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
+ kla = kla || 'default'; // "" => ".tooltip-default"
+ return ['tooltip', kla].join("-");
 }
 
 //T: Timer
@@ -37,18 +38,10 @@ ns.tooltip .timer = {
 
   reset: function(action, timeLeft) {
     this.stop();
-
     var i = this, p = i.getParentInstance();
-
     this.keeper = Meteor.setTimeout(function() {
        p.fire (action);
     }, timeLeft);
   },
   getParentInstance: function() { return ns.tooltip; }
-}
-
-
-ns.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
- kla = kla | 'default';
- return ['tooltip', kla].join("-");
 }

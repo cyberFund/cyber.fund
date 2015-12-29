@@ -4,13 +4,13 @@
 </template>
 
 <template name="tooltipContainer">
-  <div class="tooltip-container">
-    {{# tooltip dynamic=true class=(tooltipStyleClass class)}} {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
-  </div>
+  <!--div class="tooltip-container"-->
+    {{# tooltip dynamic=true class=(tooltipStyleClass this.class)}} {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
+  <!--/div-->
 </template>
 
 <template name="tooltip">
   <div class="z-depth-1 tooltip{{#if dynamic}}-v{{/if}}
-{{#if class}}class{{else}}tooltip-default{{/if}}">
+{{#if class}}{{class}}{{else}}tooltip-default{{/if}}">
     {{> UI.contentBlock}}</div>
 </template>
