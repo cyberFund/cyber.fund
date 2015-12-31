@@ -1,6 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="ratingPage">
-  <p class="center">cyber <span style="color:red">•</span> Fund Placement will be finished in {{timeleft.days}} days {{timeleft.hours}}
-      hours {{timeleft.minutes}} minutes {{timeleft.seconds}} seconds <a href="{{pathFor '/invest' hash='#inv'}}">Invest Now</a></p>
+  <p class="center">cyber <span style="color:red">•</span> Fund Placement was finished {{timeright.days}} days {{timeright.hours}}
+      hours {{timeright.minutes}} minutes ago. <a href="{{pathFor '/invest' hash='#inv'}}">Visit 'Invest Now' page</a></p>
     {{> ratingTable }}
 </template>

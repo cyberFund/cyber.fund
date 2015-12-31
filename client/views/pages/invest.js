@@ -1,13 +1,13 @@
 Meteor.startup(function () {
   Meteor.setInterval(function () {
-    var sT = moment("2016-01-01 00:00:00").diff(moment(), "seconds"),
-      s = sT % 60;
+    var sT = moment().diff( moment("2016-01-01 00:00:00"), "seconds");
+    var s = sT % 60;
     sT = (sT - s) / 60;
     var m = sT % 60;
     sT = (sT - m) / 60;
-    var h = sT % 24,
-      d = (sT - h) / 24;
-    Session.set("timeleft", {
+    var h = sT % 24;
+    var d = (sT - h) / 24;
+    Session.set("timeright", {
       days: d,
       hours: h,
       minutes: m,
@@ -92,14 +92,14 @@ Template['invest'].rendered = function () {
 
       return "1/" + rev
     },
-    'timeleft': function () {
-      return Session.get("timeleft")
+    'timeright': function () {
+      return Session.get("timeright")
     }
   });
 
   Template['ratingPage'].helpers({
-    'timeleft': function () {
-      return Session.get("timeleft")
+    'timeright': function () {
+      return Session.get("timeright")
     }
   });
 
