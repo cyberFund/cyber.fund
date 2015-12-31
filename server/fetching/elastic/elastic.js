@@ -57,34 +57,42 @@ var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
     logger.error(rejection);
   },
-  latest_values: function parseLatestValues(result) {
-    if (!result || !result.aggregations || !result.aggregations.by_system || !result.aggregations.by_system.buckets) {
-      this.errorLogger(result);
-      return;
+
+  latest_values: function parseLatestValues(today, yesterday) {
+    function getBuckets (day) {
+      // could probably check for some es flags.
+      return today.aggregations && today.aggregations.by_system
+      && today.aggregations.by_system.buckets || null;
     }
 
-    var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
-    if (!_.isArray(buckets)) return;
-    logger.info("latest values fetched: total of " + buckets.length + " buckets");
+    function getHit(bucket) {
+      // get the data
+      return bucket && bucket.latest && bucket.latest.hits &&
+      bucket.latest.hits.hits[0]
+      && bucket.latest.hits.hits[0]._source || null;
+    }
+
+    function getSameBucket(dayBuckets, key){
+      // search by key in results of another timerange
+      return _.find(dayBuckets, function(dB){ return dB.key === key})
+    }
+
+    var todayBuckets = getBuckets (today);
+    console.log ("total of " + tpdayBuckets.length + " buckets")
+    var yesterdayBuckets = getBuckets (yesterday);
 
     var notFounds = [];
-    _.each(buckets, function(bucket) {
 
-      var set = {}, // changes object, to be used within doc update
-        sNow = {}, // current day
-        sDayAgo = {}, // past day data
-        sWeekAgo = {}; // not used so far
+    _.each(todayBuckets, function(bucket) {
 
-      var current = bucket.now;
-
-      if (current.latest && current.latest.hits &&
-        _.isArray(current.latest.hits.hits) &&
-        current.latest.hits.hits.length > 0) {
-        sNow = current.latest.hits.hits[0]._source;
-      }
+      var sNow = getHit(bucket);
       if (_.isEmpty(sNow)) return; // no need to update if no new data
 
-      var m = moment(sNow.timestampm);
+      var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
+      //  sWeekAgo = {}; // not used so far
+
+      var set = {}; // changes object, to be used within doc update
+      var m = moment(sNow.timestamp);
       var timestamp = m._d;
 
       var stamp = { // no need after switching from chartist to highcharts..
@@ -92,14 +100,6 @@ var esParsers = {
         hour: m.hours(),
         minute: m.minutes()
       };
-
-      var dayAgo = bucket.yesterday;
-
-      if (dayAgo.latest && dayAgo.latest.hits &&
-        _.isArray(dayAgo.latest.hits.hits) && dayAgo.latest.hits.hits.length > 0) {
-        sDayAgo = dayAgo.latest.hits.hits[0]._source;
-      }
-
       // current document, so we can take some values if none in fetched data
       var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {
         fields: {
@@ -400,15 +400,27 @@ var esParsers = {
   }
 };
 Meteor.startup(function(){
-  fetchLatest ({systems: gatherSymSys({})})
+  Meteor.setTimeout(function(){
+    fetchLatest ({systems: gatherSymSys({}).slice(5, 7)})
+  }, 5000)
+
 })
 function fetchLatest(params) {
   try {
+    _.extend(params, {"from": "now-15m", "to": "now"});
     var d = moment();
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
+    var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", params));
     var n = moment();
-    console.log(" received response to query 'latest_values' after "+ n.diff(d, "milliseconds")+" milliseconds" );
-    esParsers.latest_values(result)
+    console.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+
+    _.extend(params, {"from": "now-1d-15m", "to": "now-1d"});
+    d = moment();
+    var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", params));
+    n = moment();
+    console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+
+
+    esParsers.latest_values(today, yesterday)
   } catch (e) {
     logger.warn("could not fetch latest values");
     logger.warn(e);

@@ -274,9 +274,36 @@ _.extend(ns, {
 
     latest_values: {
       //client_allowed: true,
-      getQueryObj: function (params) {
-
-        var ret = latest_values;
+      getQueryObj: function (params) { //not "latest" anymore
+        if (!params.from || !params.to) {
+          console.warn("average_values_date_histogram was called with missing parameters");
+          console.warn("please provide 'from' and 'to' ");
+          return;
+        }
+        var ret = {
+          "index": 'marketcap-read',
+          "type": 'market',
+          "size": 0,
+          "body": {
+            "query": {
+              "range": {
+                "timestamp": {
+                  "gte": params.from, //gte-lt are used to force desired behavior:
+                  "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
+                }
+              }
+            },
+            "aggs": {
+              "by_system": {
+                "terms": {
+                  "field": "sym_sys",
+                  "size": 0
+                },
+                "aggs": most_recent_values
+              }
+            }
+          }
+        };
         if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
