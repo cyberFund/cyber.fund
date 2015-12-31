@@ -78,7 +78,7 @@ var esParsers = {
     }
 
     var todayBuckets = getBuckets (today);
-    console.log ("total of " + tpdayBuckets.length + " buckets")
+    console.log ("total of " + todayBuckets.length + " buckets")
     var yesterdayBuckets = getBuckets (yesterday);
 
     var notFounds = [];
