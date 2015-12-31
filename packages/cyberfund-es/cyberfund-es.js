@@ -90,15 +90,15 @@ var latest_values = {
           "now": {
             "filter": {
               "range": {
-                "field": "timestamp",
-                "ranges": [
-                  // NOTE: resulting ranges seem being influenced by timestamp sorting we do in nested
-                  // 'most_recent_values' aggregation. thus, re-indexing of `by_time` buckets is needed.
-
-                  {"from": "now-30m", "to": "now"}, // latest goes from here
-                  {"from": "now-1d-30m", "to": "now-1d"} //yesterday's goes from here.
-                  //{"from": "now-7d-8h", "to": "now-7d"} //week ago..
-                ]
+                "timestamp": {"from": "now-30m", "to": "now"}, // latest goes from here
+              }
+            },
+            "aggs": most_recent_values
+          },
+          "yesterday": {
+            "filter": {
+              "range": {
+                "timestamp": {"from": "now-1d-30m", "to": "now-1d"}
               }
             },
             "aggs": most_recent_values
