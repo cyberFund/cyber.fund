@@ -423,7 +423,10 @@ var esParsers = {
 
 function fetchLatest(params) {
   try {
+    var d = moment();
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("latest_values", params));
+    var n = moment();
+    console.log(" received response to query 'latest_values' after " + n.diff(d) );
     esParsers.latest_values(result)
   } catch (e) {
     logger.warn("could not fetch latest values");
@@ -434,7 +437,10 @@ function fetchLatest(params) {
 
 function fetchAverage15m(params) {
   try {
+    var d = moment();
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
+    var n = moment();
+    console.log(" received response to query 'averages_last_15m' after " + n.diff(d) );
     esParsers.averages_l15(result);
   } catch (e) {
     logger.warn("could not fetch latest_!5m_averages");
@@ -444,7 +450,10 @@ function fetchAverage15m(params) {
 }
 
 function fetchAverages(params) {
+  var d = moment();
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  var n = moment();
+  console.log(" received response to query 'average_values_date_histogram' after " + n.diff(d) );
   esParsers.averages_date_hist(result);
 }
 
