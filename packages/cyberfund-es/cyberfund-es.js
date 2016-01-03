@@ -269,15 +269,11 @@ _.extend(ns, {
           "size": 0,
           "body": {
             "query": {
-              //"filtered": {
-                //"filter": {
-                  "range": {
-                    "timestamp": {
-                      "gt": params.from, //gte-lt are used to force desired behavior:
-                      "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
-                    }
-                  //}
-                //}
+              "range": {
+                "timestamp": {
+                  "gt": params.from, //gte-lt are used to force desired behavior:
+                  "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
+                }
               }
             },
             "aggs": {
