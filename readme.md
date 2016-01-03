@@ -8,6 +8,8 @@ See live dev version at http://dev.cyber.fund/. Sometimes don't work
 
 # How to launch the app
 
+[![Join the chat at https://gitter.im/cyberFund/cyber.fund](https://badges.gitter.im/cyberFund/cyber.fund.svg)](https://gitter.im/cyberFund/cyber.fund?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 - `export SEGMENT_KEY="12345"`
 - `meteor`
 
