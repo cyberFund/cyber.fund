@@ -53,6 +53,8 @@ JSON.unflatten = function(data) {
   return resultholder[""] || resultholder;
 };
 
+var print = CF.Utils.logger.print
+
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
     logger.error(rejection);
@@ -61,8 +63,8 @@ var esParsers = {
   latest_values: function parseLatestValues(today, yesterday) {
     function getBuckets (day) {
       // could probably check for some es flags.
-      return today.aggregations && today.aggregations.by_system
-      && today.aggregations.by_system.buckets || null;
+      return day.aggregations && day.aggregations.by_system
+      && day.aggregations.by_system.buckets || null;
     }
 
     function getHit(bucket) {
@@ -78,8 +80,21 @@ var esParsers = {
     }
 
     var todayBuckets = getBuckets (today);
-    console.log ("total of " + todayBuckets.length + " buckets")
     var yesterdayBuckets = getBuckets (yesterday);
+
+
+    //print("hello", "there")
+    console.log ("total of " + todayBuckets.length + " buckets")
+
+
+
+
+//    print("t", today);//.aggregations.by_system, true);
+//    print("y", yesterday);//.aggregations.by_system);
+
+
+//    print("tt", todayBuckets[0].latest.hits.hits, true);
+//    print("yy", yesterdayBuckets[0].latest.hits.hits);
 
     var notFounds = [];
 
@@ -90,7 +105,13 @@ var esParsers = {
 
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
       //  sWeekAgo = {}; // not used so far
+      if (!sDayAgo) {
+        //print("no yesterday bucket for", bucket.key)
+        //print("lengths of today and yesterday are",
+        //todayBuckets.length + ", " + yesterdayBuckets.length )
+      } else {
 
+      }
       var set = {}; // changes object, to be used within doc update
       var m = moment(sNow.timestamp);
       var timestamp = m._d;
@@ -251,6 +272,12 @@ var esParsers = {
       }
 
       if (sNow.cap_usd && sDayAgo.cap_usd) {
+      /*  print ('in set["metrics.capChangePercents.day.usd"]');
+        print ('bucketKey', bucket.key)
+        print ('cap_usd now', sNow.cap_usd);
+        print ('cap_usd yest',  sDayAgo.cap_usd);
+        print ('timestamp yest', sDayAgo.timestamp);
+        print ('timestamp curr', sNow.timestamp); */
         set["metrics.capChangePercents.day.usd"] = 100.0 *
           (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
         set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
@@ -271,6 +298,8 @@ var esParsers = {
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
          set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
          }*/
+      /*   print("selector", _searchSelector(bucket.key));
+         print("set", set); */
         CurrentData.update(_searchSelector(bucket.key), {
           $set: set
         });
@@ -399,28 +428,33 @@ var esParsers = {
     });
   }
 };
+
 Meteor.startup(function(){
   Meteor.setTimeout(function(){
-    fetchLatest ({systems: gatherSymSys({}).slice(5, 7)})
-  }, 5000)
-
+    fetchLatest ({systems: gatherSymSys({}) })
+  }, 5000);
 })
+
 function fetchLatest(params) {
   try {
-    _.extend(params, {"from": "now-15m", "to": "now"});
+    var p1 = {"from": "now-15m", "to": "now"};
+    _.extend(p1, params)
+
     var d = moment();
-    var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", params));
+    var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p1));
     var n = moment();
     console.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    _.extend(params, {"from": "now-1d-15m", "to": "now-1d"});
+    var p2 = {"from": "now-1d-15m", "to": "now-1d"}
+    _.extend(p2, params);
+
     d = moment();
-    var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", params));
+    var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p2));
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-
     esParsers.latest_values(today, yesterday)
+
   } catch (e) {
     logger.warn("could not fetch latest values");
     logger.warn(e);
@@ -462,7 +496,7 @@ var hourlyAves = {
       interval: "hour"
     };
     _.extend(params, {
-      systems: gatherSymSys()
+      systems: gatherSymSys({})
     })
     console.log ("average hour")
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
