@@ -1,5 +1,7 @@
 Template['hcChart'].rendered = function () {
-  var ticks = [];
+  console.log("in hcChart debugger");
+  console.log(this);
+  /*var ticks = [];
   var self = this;
   Tracker.autorun(function (comp) {
       if (!self.data) return;
@@ -117,17 +119,17 @@ Template['hcChart'].rendered = function () {
         ]
       })
     }
-  );
+  );*/
 };
 
 Template['hcChart'].helpers({
   'foo': function () {
-    
+
   }
 });
 
 Template['hcChart'].events({
   'click .bar': function (e, t) {
-    
+
   }
 });
