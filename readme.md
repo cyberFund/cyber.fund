@@ -19,3 +19,19 @@ See live dev version at http://dev.cyber.fund/. Sometimes don't work
 
 
  In lieu of a formal styleguide, take care to maintain the existing coding style.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ [started writing docs](https://cyber.fund/meta/api/docs/paths.json).
+ 
