@@ -1,5 +1,5 @@
 var ns = CF
-var nsn = "CF"
+// for reporting purpose. var nsn = "CF"
 
 //I: Isolation
 
@@ -11,7 +11,7 @@ ns.tooltip .fire = function(action) {
 
 //S: Stylesheet
 
-ns.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
+ns.tooltip .styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
  kla = kla || 'default'; // "" => ".tooltip-default"
  return ['tooltip', kla].join("-");
 }
@@ -23,7 +23,7 @@ ns.tooltip.styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
 
 ns.tooltip .timer = {
 
-  state: 'idle',
+  // too old for this stuff   state: 'idle',
   keeper: null,
   hostInstance: null,
 
@@ -33,15 +33,16 @@ ns.tooltip .timer = {
       this.state = "clearing timeout on stop"
       Meteor.clearTimeout(this.keeper);
     }
-    this.state = 'idle';
+    // this.state = 'idle';
   },
+
+  getParentObject: function() { return ns.tooltip; },
 
   reset: function(action, timeLeft) {
     this.stop();
-    var i = this, p = i.getParentInstance();
+    var i = this, p = i.getParentObject();
     this.keeper = Meteor.setTimeout(function() {
        p.fire (action);
     }, timeLeft);
-  },
-  getParentInstance: function() { return ns.tooltip; }
+  }
 }
