@@ -67,7 +67,7 @@ Template['radarPage'].helpers({
   },
   isPastCrowdsale: function() {
     return this.crowdsales && this.crowdsales.end_date < new Date()
-  }
+  },
+  templateIsInDevelopmentMode: function TRUE(){ return true; }
 });
-
 Template['radarPage'].events({});

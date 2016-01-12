@@ -124,14 +124,9 @@
     </div>
     <div class="row"></div>
 
+    {{> newChart this}}
+
     {{! > systemBasicCharts this}} {{/if}}
-
-    {{#if this._id}}
-    {{> hcChart system=this}}
-    {{else}}
-    {{> Template.dynamic template=loadingWidget}}
-    {{/if}}
-
 
     <div id="code" class="section scrollspy row">
       {{#if existLinksWith links 'News'}}

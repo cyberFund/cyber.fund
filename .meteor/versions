@@ -25,6 +25,7 @@ cyberfund:cyberfund-currentdata@0.0.1
 cyberfund:cyberfund-es@0.0.1
 cyberfund:cyberfund-marketdata@0.0.1
 cyberfund:cyberfund-userassets@0.0.1
+d3js:d3@3.5.8
 dandv:caret-position@2.1.1
 ddp@1.2.2
 ddp-client@1.2.1
