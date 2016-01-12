@@ -1,16 +1,10 @@
-Template['thea_d'].helpers({
-  sorter: function (field) {
-    var sorter = _Session.get("coinSorter");
-    if (!_.isObject(sorter)) return "";
-    if (sorter[field] == -1) return "↓ ";
-    if (sorter[field] == 1) return "↑ ";
-    return "";
-  }
+Template['ratingTableHead'].helpers({
+  __sorter: function () { return "coinSorter";}
 });
 
-Template['thea_d'].events({
+Template['ratingTableHead'].events({
   'click th.sorter': function (e, t) {
-    console.log('hhh');
+
     var newSorter = $(e.currentTarget).data('sorter');
     var sort = _Session.get("coinSorter");
       if (sort[newSorter]) {

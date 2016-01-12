@@ -7,6 +7,7 @@ Meteor.publish("currentDataRP", function(options) {
   var selector = {};
   options.sort = options.sort || {};
 
+  // if sorting, fetch only those having defined value for sorted column
   var tmp = options.sort;
   if (_.isString(tmp)){
     var t = {}
@@ -39,7 +40,15 @@ Meteor.publish("currentDataRP", function(options) {
     $ne: true
   };
 
-  return CurrentData.find(selector, options);
+  var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id")
+
+  return [
+    CurrentData.find(selector, options),
+    MarketData.find({
+      systemId: {$in: list},
+      timestamp: {$gte: moment.utc().subtract(30, "days")._d },
+      interval: 'hourly'})
+  ];
 });
 
 /* own user details */

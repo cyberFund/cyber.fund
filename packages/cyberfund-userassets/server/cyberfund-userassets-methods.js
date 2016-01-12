@@ -19,7 +19,7 @@ CF.UserAssets.tokenCB2systemCG = function (cryptoBalanceToken) {
   var ret =  matchingTable[cryptoBalanceToken] || false;
   if (!ret) {
     var record = CurrentData.findOne({"aliases.quantum": cryptoBalanceToken});
-    ret = record ? record._id : false; 
+    ret = record ? record._id : false;
   }
   return ret
 };
@@ -50,6 +50,26 @@ Meteor.startup(function () {
 });
 
 Meteor.methods({
+  quantumCheck: function(address){
+    check(address, String);
+    console.log(address)
+    var s = "http://quantum.cyber.fund:3001?address="+address;
+
+    var r = HTTP.call("GET", s, {},
+    function(err, result, body){
+      console.log(err);
+      console.log(result);
+      console.log(body);
+      try {
+
+      } catch (e) {
+
+        return e;
+      }
+    });
+
+
+  },
   cfAssetsUpdateBalance: function (accountKey, address) {
     if (!this.userId) {
       return;

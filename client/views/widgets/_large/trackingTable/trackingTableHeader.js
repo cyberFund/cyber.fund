@@ -1,14 +1,8 @@
-Template['thea_d2'].helpers({
-  sorter: function (field) {
-    var sorter = _Session.get("coinSorter");
-    if (!_.isObject(sorter)) return "";
-    if (sorter[field] == -1) return "↓ ";
-    if (sorter[field] == 1) return "↑ ";
-    return "";
-  }
+Template['trackingTableHeader'].helpers({
+  __sorter: function() {return "coinSorter";}
 });
 
-Template['thea_d2'].events({
+Template['trackingTableHeader'].events({
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
     var sort = _Session.get("coinSorter");

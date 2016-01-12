@@ -1,0 +1,10 @@
+<template name="thSortable">
+  <th class="{{class}} sorter" data-sorter="{{s}}">
+    {{> thSorter field=s sorting=o}}
+    {{> UI.contentBlock}}
+  </th>
+</template>
+
+<template name="thSorter">
+  {{grok sorting field}}
+</Template>
