@@ -52,24 +52,11 @@ Meteor.startup(function () {
 Meteor.methods({
   quantumCheck: function(address){
     check(address, String);
-    console.log(address)
     var s = "http://quantum.cyber.fund:3001?address="+address;
-
-    var r = HTTP.call("GET", s, {},
-    function(err, result, body){
-      console.log(err);
-      console.log(result);
-      console.log(body);
-      try {
-
-      } catch (e) {
-
-        return e;
-      }
-    });
-
-
+    var r = HTTP.call("GET", s);
+    return r.data;
   },
+
   cfAssetsUpdateBalance: function (accountKey, address) {
     if (!this.userId) {
       return;
