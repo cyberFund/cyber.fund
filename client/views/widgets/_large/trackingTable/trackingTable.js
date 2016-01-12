@@ -15,7 +15,7 @@ Template['trackingWidget'].onCreated(function () {
 
 });
 
-Template['trackingWidget'].rendered = function () {
+Template['trackingWidget'].onRendered ( function () {
   Session.set('ratingPageLimit', 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
@@ -51,7 +51,7 @@ Template['trackingWidget'].rendered = function () {
   $(window).scroll(t);
   $(window).resize(recalcWidths);
   $(window).trigger("resize");
-};
+});
 
 Template['trackingWidget'].helpers({
   _wl_cs: function(){
@@ -122,20 +122,8 @@ Template['trackingWidget'].helpers({
   },
   hasMore: function () {
     return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
-  },
-  tradeVolumeOk: function (tv) {
-    return tv && (tv >= 0.2);
-  },
-  turnover: function () {
-    var metrics = this.metrics;
-      if (metrics.cap && metrics.cap.btc) {
-          return 100.0 * metrics.turnover;
-      }
-    return 0;
   }
 });
-
-
 
 Template['trackingWidget'].events({
   'click .show-more': function (e, t) {
