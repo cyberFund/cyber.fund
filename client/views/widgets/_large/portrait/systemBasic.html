@@ -124,7 +124,9 @@
     </div>
     <div class="row"></div>
 
-    {{> systemBasicCharts this}} {{/if}}
+    {{> newChart this}}
+
+    {{! > systemBasicCharts this}} {{/if}}
 
     <div id="code" class="section scrollspy row">
       {{#if existLinksWith links 'News'}}
