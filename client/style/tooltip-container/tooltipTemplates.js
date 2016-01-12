@@ -29,10 +29,6 @@ Template['withTooltip'].events({
   }
 })
 
-Template['tooltipContainer'].onRendered(function() {
-  console.log("rendered tooltip of class " + this.data.class || "");
-});
-
 Template['tooltipContainer'].helpers({
   'tooltipStyleClass': function(kls) {
     return CF.tooltip.styleClass(kls)

@@ -27,30 +27,6 @@ a.tooltip:hover span {
   background: #333;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .with-tooltip {
   position: relative;
 }
@@ -69,47 +45,23 @@ a.tooltip:hover span {
 
 .tooltip-default {
   background: white;
-  text-align: left;
   right: 80%;
   top: 0;
+}
+
+.tooltip-default, .tooltip-table-head {
+  text-align: left;
   border-radius: 6px;
   width: 200px;
   line-height: 1rem;
   font-size: 0.8rem;
-  box-shadow: rgba(0, 0, 0, 0.16) 0 2px 10px 0;
-  margin: 1.5em;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
+  padding: 1.2em;
 }
 
-.tooltip-contrast {
-  text-align: left;
-  right: 90%;
-  top: -10%;
-  background: white;
-  color: #113315;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.36) 0 3px 10px 0;
-
-}
-
-.tooltip-revert {
-  text-align: left;
-  right: 90%;
-  top: -10%;
-  color: white;
-  background: #113315;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.36) 0 3px 10px 0;
-}
-
-.tooltip-itemprop {
-  text-align: center;
-  right: 90%;
-  top: -10%;
-  border: 3px solid black;
-  padding: 2em;
-  background: darkgreen;
-  color: white;
-  border-radius: 1em;
-  font-weight: 800;
-  box-shadow: rgba(0, 0, 0, 0.36) 0 3px 10px 0;
+.tooltip-table-head {
+  background: #f0d092;
+  font-variant: small-caps;
+  top: 80%;
+  right: 0;
 }

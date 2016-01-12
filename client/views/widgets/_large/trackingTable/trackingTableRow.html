@@ -26,13 +26,13 @@
   </td>
 
   <td class="center-align hide-on-small-and-down">
-    {{# withTooltip ttName="tickerTooltip" class="" data=this}}
+    {{# withTooltip ttName="tickerTooltip" data=this}}
     <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
     {{/withTooltip}}
   </td>
 
   <td class="center-align hide-on-small-and-down">
-    {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this class="revert"}}
+    {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this}}
     <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
 
     {{/withTooltip}} {{else}}
@@ -40,7 +40,7 @@
     {{/if}}
   </td>
 
-  <td class="right-align">{{# withTooltip data=this ttName="itemPropTooltip" class="itemprop"}}
+  <td class="right-align">{{# withTooltip data=this ttName="itemPropTooltip" }}
     <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
     {{#if metrics.price.usd}} {{/if}} {{/withTooltip}}
   </td>
@@ -78,7 +78,7 @@
   </td>
 
   <td class="center-align" itemprop="aggregateRating">
-    {{#withTooltip ttName="ratingTooltip" data=calculatable class="contrast"}} {{>cfRating rating=calculatable.RATING.sum}} {{/withTooltip}}
+    {{#withTooltip ttName="ratingTooltip" data=calculatable}} {{>cfRating rating=calculatable.RATING.sum}} {{/withTooltip}}
   </td>
 
 </tr>
