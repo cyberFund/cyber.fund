@@ -4,9 +4,8 @@
 </template>
 
 <template name="tooltipContainer">
-  <!--div class="tooltip-container"-->
-    {{# tooltip dynamic=true class=(tooltipStyleClass this.class)}} {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
-  <!--/div-->
+    {{# tooltip dynamic=true class=(tooltipStyleClass this.class)}}
+    {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
 </template>
 
 <template name="tooltip">
