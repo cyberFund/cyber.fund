@@ -1,0 +1,9 @@
+.quickchart {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 120px;
+  background: #eef;
+  height: 18px;
+  font-size: 10px;
+}
