@@ -73,17 +73,17 @@ ns .updateBalance = function(userId, accountKey, address){
       updatedAt: new Date(),
     };
     delete modify.$unset[k];
-
-    if (_.isEmpty(modify.$unset)) delete(modify.$unset);
-    if (_.isEmpty(modify.$set)) delete(modify.$set);
-
-    // if modifier not empty
-    if (_.keys(modify).length) {
-      var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
-      modify.$set[k0] = new Date();
-      Meteor.users.update(sel, modify);
-    }
   });
+  
+  if (_.isEmpty(modify.$unset)) delete(modify.$unset);
+  if (_.isEmpty(modify.$set)) delete(modify.$set);
+
+  // if modifier not empty
+  if (_.keys(modify).length) {
+    var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
+    modify.$set[k0] = new Date();
+  }
+  Meteor.users.update(sel, modify);
 }
 
 // depending on options - per single address or per account or per user

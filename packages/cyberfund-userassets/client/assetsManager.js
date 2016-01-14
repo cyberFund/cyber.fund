@@ -120,6 +120,22 @@ Template['assetsManager'].events({
     });
   },
 
+  'click .req-update-balance-account': {
+    function(e, t) { //todo: add checker per account/ per user
+      if (!isOwnAssets()) return;
+
+      var $t = t.$(e.currentTarget);
+      $t.addClass("disabled");
+      Meteor.call("cfAssetsUpdateBalances", {
+        accountKey: CF.UserAssets.currentAccountKey.get(),
+        //  address: CF.UserAssets.currentAddress.get()
+      }, function(er, re) {
+        $t.removeClass("disabled");
+      });
+    }
+  },
+  
+
   'submit #delete-account-form': function(e, t) {
     if (!isOwnAssets()) return false;
     analytics.track('Deleted Account', {
