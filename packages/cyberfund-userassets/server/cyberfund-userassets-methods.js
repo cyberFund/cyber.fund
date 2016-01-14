@@ -58,11 +58,6 @@ ns .updateBalance = function(userId, accountKey, address){
     var asset = balance.asset;
     if (!asset) return
 
-    // have to migrate.. previously used symbols as asset keys.
-    // and now going to use chG names instead..
-//    var Asset = CurrentData.findOne({_id: asset},
-//      {fields: {"token": 1}}).token.token_symbol
-
     var quantity;// = parseFloat (balance.quantity);
     try {
       quantity = parseFloat(balance.quantity)
