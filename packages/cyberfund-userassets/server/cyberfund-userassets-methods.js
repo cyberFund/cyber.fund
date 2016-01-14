@@ -74,15 +74,15 @@ ns .updateBalance = function(userId, accountKey, address){
     };
     delete modify.$unset[k];
   });
-  
+
   if (_.isEmpty(modify.$unset)) delete(modify.$unset);
-  if (_.isEmpty(modify.$set)) delete(modify.$set);
 
   // if modifier not empty
   if (_.keys(modify).length) {
     var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
     modify.$set[k0] = new Date();
   }
+  if (_.isEmpty(modify.$set)) delete(modify.$set);
   Meteor.users.update(sel, modify);
 }
 
@@ -106,18 +106,21 @@ ns .updateBalances = function(options){
     var accounts = Meteor.users.findOne(sel, {fields: fields})[key0] || {};
     */
 
+  if (!accountKey || !address) {
+    var accounts = Meteor.users.findOne({_id: userId},
+      {fields: ns.accountsFields(isOwn)}) || {};
+  }
+
   if (!accountKey) {
     // get accounts object, call per every account with its key
-    var sel = {_id: userId}
-
-    var accounts = Meteor.users.findOne(sel,
-      {fields: ns.accountsFields(isOwn)}) || {};
-
     console.log("LALALALALA") // check all public or all if own
   }
   else {
     if (!address) {
-      console.log("LALALA") //addresses = all addresses
+      var key0 = CF.UserAssets. getAccountPrivacyType(userId, accountKey)
+      var addresses = accounts[key0] && accounts[key0].addresses
+      && _.keys(accounts[key0].addresses)
+      console.log(addresses);
     }
     else {
       return ns.updateBalance( userId, accountKey, address)
