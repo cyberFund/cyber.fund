@@ -15,6 +15,10 @@ Template['assetsManager'].helpers({
     return isOwnAssets()
   },
 
+  assetsOwnerId: function() {
+    return CF.Profile.currentUid()
+  },
+
   _accounts: function() {
     var user = Meteor.users.findOne({
       _id: CF.Profile.currentUid()
@@ -107,18 +111,50 @@ Template['assetsManager'].onCreated(function() {
 });
 
 Template['assetsManager'].events({
-  'click .req-update-balance': function(e, t) { //todo: add checker per account/ per user
-    if (!isOwnAssets()) return;
+  'click .req-update-balance.per-address': function(e, t) { //todo: add checker per account/ per user
+    //if (!isOwnAssets()) return;
 
     var $t = t.$(e.currentTarget);
+    var uid = $t.closest(".assets-manager").attr("owner");
     $t.addClass("disabled");
+
     Meteor.call("cfAssetsUpdateBalances", {
+      userId: uid,
       accountKey: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get()
     }, function(er, re) {
       $t.removeClass("disabled");
     });
   },
+  'click .per-account': function(e, t) {
+    //if (!isOwnAssets()) return;
+    var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
+    CF.UserAssets.currentAccountKey.set(accountKey.toString());
+  },
+
+  'click .req-update-balance.per-account': function(e, t) {
+    //todo: add checker per account/ per user
+      //if (!isOwnAssets()) return;
+      var print = CF.Utils.logger.print
+
+      var $t = t.$(e.currentTarget);
+
+      var uid = $t.closest(".assets-manager").attr("owner");
+      $t.addClass("disabled");
+      $(".req-update-balance.per-address", $t.closest(".account-item"))
+        .addClass("disabled");
+
+      Meteor.call("cfAssetsUpdateBalances", {
+        userId: uid,
+        accountKey: CF.UserAssets.currentAccountKey.get()
+          //  address: CF.UserAssets.currentAddress.get()
+      }, function(er, re) {
+        $t.removeClass("disabled");
+        $ (".req-update-balance.per-address", $t.closest(".account-item"))
+          .removeClass("disabled");
+      });
+  },
+
 
   'submit #delete-account-form': function(e, t) {
     if (!isOwnAssets()) return false;
@@ -196,16 +232,12 @@ Template['assetsManager'].events({
       accountName: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get()
     });
+    console.log("here.....")
+    console.log(CF.UserAssets.currentAccountKey.get(), CF.UserAssets.currentAddress.get())
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.currentAddress.get());
     $("#modal-delete-address").closeModal();
     return false;
-  },
-
-  'click .per-account': function(e, t) {
-    if (!isOwnAssets()) return;
-    var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
-    CF.UserAssets.currentAccountKey.set(accountKey.toString());
   },
   'submit #add-asset-form': function(e, t) {
     if (!isOwnAssets()) return false;

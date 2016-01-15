@@ -1,6 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="assetsManager">
-    <section id="assets-manager" class="assets-manager row">
+    <section id="assets-manager" class="assets-manager row" owner={{assetsOwnerId}}>
         {{#if isOwnAssets}}
             {{> addAccount}}
             <a href="/portfolio">Portfolio View</a>

@@ -1,6 +1,7 @@
 var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
+
 //
 ns .quantumCheck = function(address) {
   var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
@@ -10,8 +11,8 @@ ns .quantumCheck = function(address) {
 }
 
 // per single address
-ns .updateBalance = function(userId, accountKey, address){
-  var print = CF.Utils.logger.print;
+ns .updateBalance = function(userId, accountKey, address, accounts){
+var print = CF.Utils.logger.print;
   if (! userId || !accountKey || !address) {
     console.log (nsn+"updateBalance: missing arguments. ",
       [userId, accountKey, address].join("; "))
@@ -73,17 +74,17 @@ ns .updateBalance = function(userId, accountKey, address){
       updatedAt: new Date(),
     };
     delete modify.$unset[k];
-
-    if (_.isEmpty(modify.$unset)) delete(modify.$unset);
-    if (_.isEmpty(modify.$set)) delete(modify.$set);
-
-    // if modifier not empty
-    if (_.keys(modify).length) {
-      var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
-      modify.$set[k0] = new Date();
-      Meteor.users.update(sel, modify);
-    }
   });
+
+  if (_.isEmpty(modify.$unset)) delete(modify.$unset);
+
+  // if modifier not empty
+  if (_.keys(modify).length) {
+    var k0 = [key0, accountKey, 'addresses', address, 'updatedAt'].join('.');
+    modify.$set[k0] = new Date();
+  }
+  if (_.isEmpty(modify.$set)) delete(modify.$set);
+  Meteor.users.update(sel, modify);
 }
 
 // depending on options - per single address or per account or per user
@@ -106,18 +107,30 @@ ns .updateBalances = function(options){
     var accounts = Meteor.users.findOne(sel, {fields: fields})[key0] || {};
     */
 
+  if (!accountKey || !address) {
+    var accounts = Meteor.users.findOne({_id: userId},
+      {fields: ns.accountsFields(isOwn)}) || {};
+  }
+
+  var print = CF.Utils.logger.print;
+
   if (!accountKey) {
     // get accounts object, call per every account with its key
-    var sel = {_id: userId}
-
-    var accounts = Meteor.users.findOne(sel,
-      {fields: ns.accountsFields(isOwn)}) || {};
-
     console.log("LALALALALA") // check all public or all if own
   }
   else {
     if (!address) {
-      console.log("LALALA") //addresses = all addresses
+      var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey)
+      var addresses = accounts[key0] && accounts[key0][accountKey]
+      && accounts[key0][accountKey].addresses
+      && _.keys(accounts[key0][accountKey].addresses)
+
+      _.each(addresses, function(addr){
+        console.log(addr)
+        ns.updateBalance( userId, accountKey, addr)
+      });
+
+      return {"a": "ok"}
     }
     else {
       return ns.updateBalance( userId, accountKey, address)

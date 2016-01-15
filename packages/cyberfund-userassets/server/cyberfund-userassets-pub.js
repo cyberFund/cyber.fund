@@ -7,7 +7,6 @@ Meteor.publish('profileAssets', function(twid) {
     if (user.profile && (user.profile.twitterName == twid)) isOwn = true;
   }
 
-  var fields = isOwn ? {accounts: 1, accountsPrivate: 1} : {accounts: 1}
-
-  return Meteor.users.find({'profile.twitterName' : twid}, {fields: fields});
+  return Meteor.users.find({'profile.twitterName' : twid},
+    {fields: CF.UserAssets.accountsFields (isOwn)});
 });
