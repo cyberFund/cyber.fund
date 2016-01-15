@@ -4,10 +4,17 @@ var nsn = "CF.UserAssets."
 
 //
 ns .quantumCheck = function(address) {
-  var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
-  if (r.statusCode == 200)
-    return r.data;
-  return [];
+  try {
+    var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
+    if (r.statusCode == 200)
+      return r.data;
+  } catch (e) {
+
+  } finally {
+    return [];
+  }
+
+
 }
 
 // per single address
@@ -114,7 +121,8 @@ ns .updateBalances = function(options){
 
   if (!accountKey) {
     var accountKeys = _.keys(accounts['accounts']);
-    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] )
+    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] ));
+
     _.each(accountKeys, function(ak){
       ns.updateBalances( userId, ak)
     });
