@@ -135,14 +135,13 @@ Template['assetsManager'].events({
   'click .req-update-balance.per-account': function(e, t) {
     //todo: add checker per account/ per user
       //if (!isOwnAssets()) return;
-      var print = CF.Utils.logger.print
 
       var $t = t.$(e.currentTarget);
 
       var uid = $t.closest(".assets-manager").attr("owner");
       $t.addClass("disabled");
-      $(".req-update-balance.per-address", $t.closest(".account-item"))
-        .addClass("disabled");
+      //$(".req-update-balance.per-address", $t.closest(".account-item"))
+        //.addClass("disabled");
 
       Meteor.call("cfAssetsUpdateBalances", {
         userId: uid,
@@ -150,11 +149,10 @@ Template['assetsManager'].events({
           //  address: CF.UserAssets.currentAddress.get()
       }, function(er, re) {
         $t.removeClass("disabled");
-        $ (".req-update-balance.per-address", $t.closest(".account-item"))
-          .removeClass("disabled");
+        //$ (".req-update-balance.per-address", $t.closest(".account-item"))
+          //.removeClass("disabled");
       });
   },
-
 
   'submit #delete-account-form': function(e, t) {
     if (!isOwnAssets()) return false;
@@ -232,8 +230,6 @@ Template['assetsManager'].events({
       accountName: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get()
     });
-    console.log("here.....")
-    console.log(CF.UserAssets.currentAccountKey.get(), CF.UserAssets.currentAddress.get())
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.currentAddress.get());
     $("#modal-delete-address").closeModal();
