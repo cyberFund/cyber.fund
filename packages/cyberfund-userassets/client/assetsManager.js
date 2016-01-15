@@ -232,6 +232,8 @@ Template['assetsManager'].events({
       accountName: CF.UserAssets.currentAccountKey.get(),
       address: CF.UserAssets.currentAddress.get()
     });
+    console.log("here.....")
+    console.log(CF.UserAssets.currentAccountKey.get(), CF.UserAssets.currentAddress.get())
     Meteor.call("cfAssetsRemoveAddress", CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.currentAddress.get());
     $("#modal-delete-address").closeModal();

@@ -1,6 +1,7 @@
 var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
+
 //
 ns .quantumCheck = function(address) {
   var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
@@ -10,8 +11,8 @@ ns .quantumCheck = function(address) {
 }
 
 // per single address
-ns .updateBalance = function(userId, accountKey, address){
-  var print = CF.Utils.logger.print;
+ns .updateBalance = function(userId, accountKey, address, accounts){
+var print = CF.Utils.logger.print;
   if (! userId || !accountKey || !address) {
     console.log (nsn+"updateBalance: missing arguments. ",
       [userId, accountKey, address].join("; "))
@@ -111,16 +112,25 @@ ns .updateBalances = function(options){
       {fields: ns.accountsFields(isOwn)}) || {};
   }
 
+  var print = CF.Utils.logger.print;
+
   if (!accountKey) {
     // get accounts object, call per every account with its key
     console.log("LALALALALA") // check all public or all if own
   }
   else {
     if (!address) {
-      var key0 = CF.UserAssets. getAccountPrivacyType(userId, accountKey)
-      var addresses = accounts[key0] && accounts[key0].addresses
-      && _.keys(accounts[key0].addresses)
-      console.log(addresses);
+      var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey)
+      var addresses = accounts[key0] && accounts[key0][accountKey]
+      && accounts[key0][accountKey].addresses
+      && _.keys(accounts[key0][accountKey].addresses)
+
+      _.each(addresses, function(addr){
+        console.log(addr)
+        ns.updateBalance( userId, accountKey, addr)
+      });
+
+      return {"a": "ok"}
     }
     else {
       return ns.updateBalance( userId, accountKey, address)
