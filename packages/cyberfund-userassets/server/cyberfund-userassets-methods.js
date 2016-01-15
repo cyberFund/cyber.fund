@@ -113,7 +113,7 @@ ns .updateBalances = function(options){
 
   if (!accountKey) {
     var accountKeys = _.keys(accounts['accounts']);
-    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] )
+    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] ))
     _.each(accountKeys, function(ak){
       ns.updateBalances( userId, ak)
     });
