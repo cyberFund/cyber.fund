@@ -112,11 +112,12 @@ ns .updateBalances = function(options){
       {fields: ns.accountsFields(isOwn)}) || {};
   }
 
-  var print = CF.Utils.logger.print;
-
   if (!accountKey) {
-    // get accounts object, call per every account with its key
-    console.log("LALALALALA") // check all public or all if own
+    var accountKeys = _.keys(accounts['accounts']);
+    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] )
+    _.each(accountKeys, function(ak){
+      ns.updateBalances( userId, ak)
+    });
   }
   else {
     if (!address) {
@@ -126,14 +127,13 @@ ns .updateBalances = function(options){
       && _.keys(accounts[key0][accountKey].addresses)
 
       _.each(addresses, function(addr){
-        console.log(addr)
         ns.updateBalance( userId, accountKey, addr)
       });
-
-      return {"a": "ok"}
+      return
     }
     else {
-      return ns.updateBalance( userId, accountKey, address)
+      ns.updateBalance( userId, accountKey, address)
+      return
     }
   }
 
