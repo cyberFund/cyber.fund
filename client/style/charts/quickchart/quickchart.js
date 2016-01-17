@@ -1,7 +1,5 @@
 var _chartdata = function(systemId) {
-  if (!systemId) return [];
-  console.log(systemId);
-
+  if (!systemId) return null;
   return MarketData.find({
     systemId: systemId
   }, {
@@ -20,7 +18,9 @@ Template['quickchart_tooltip'].helpers({
     return moment(timestamp).format("ddd D-MM");
   }
 });
-
+Template['quickchart'].helpers({
+  'chartdata': _chartdata,
+});
 
 Template['quickchart'].onRendered(function() {
   if (!this.data.system) return;

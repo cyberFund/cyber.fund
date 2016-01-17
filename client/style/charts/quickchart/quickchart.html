@@ -1,14 +1,14 @@
 <template name="quickchart">
-  {{# withTooltip ttName="quickchart_tooltip" data=this class="table-head "}}
-  <div class="quickchart" id="quickchart-{{system}}" title="hi there">
+  {{# withTooltip ttName="quickchart_tooltip" data=(chartdata system) class="table-head red-text black"}}
+  <div class="quickchart" id="quickchart-{{system}}">
   </div>
   {{/ withTooltip}}
 </template>
 
 <Template name="quickchart_tooltip">
-  <span class="red-text black"> hi tooltips </span>
-  {{# each (chartdata system)}}
-  <div>{{readableN price_usd 0}}</div>
-  <div>{{timestampino timestamp}}</div>
+  {{log this}}
+  {{# each this}}
+  <div>{{ readableN price_usd 0}}</div>
+  <div>{{ timestampino timestamp}}</div>
   {{/each}}
 </Template>
