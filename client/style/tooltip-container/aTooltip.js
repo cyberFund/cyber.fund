@@ -14,7 +14,7 @@ ns.tooltip .fire = function(action) {
 ns.tooltip .styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klaaz"
  kla = kla || 'default'; // "" => ".tooltip-default"
  return ['tooltip', kla].join("-");
-}
+} // note this only prepends _first_ klassname, and rest of them go unchanged //
 
 //T: Timer
 

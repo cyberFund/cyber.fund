@@ -13,9 +13,11 @@ var _chartdata = function(systemId) {
 
 Template['quickchart_tooltip'].helpers({
   'chartdata': _chartdata,
-  'timestampino':  function (timestamp){
-    console.log (timestamp)
-    return timestamp;
+  'timestampino':  function (timestamp){ // that too slow.
+    // should render only on subscription ready.
+    // and this should be OK for non realtime data.
+
+    return moment(timestamp).format("ddd D-MM");
   }
 });
 
