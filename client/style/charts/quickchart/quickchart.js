@@ -12,7 +12,11 @@ var _chartdata = function(systemId) {
 }
 
 Template['quickchart_tooltip'].helpers({
-  'chartdata': _chartdata
+  'chartdata': _chartdata,
+  'timestampino':  function (timestamp){
+    console.log (timestamp)
+    return timestamp;
+  }
 });
 
 
