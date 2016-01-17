@@ -4,7 +4,7 @@
       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" class="enlarge no-wrap" title="{{descriptions.headline}}">
                   {{> cgSystemLogo data=this class='cg-system-logo'}}<span class="no-wrap" itemprop="name">
                     <span style="position: relative">{{displaySystemName this}}
-                      {{> quickchart coin=_id}}
+                      {{> quickchart system=_id}}
                     </span>
                   </span>
               </a>

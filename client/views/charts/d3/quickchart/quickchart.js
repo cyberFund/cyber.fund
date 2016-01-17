@@ -1,25 +1,39 @@
+Template['quickchart'].helpers({
+  chartdata: function(){
+    var i = this;
+    if (!this.system) return [];
+    return MarketData.find(){
+        systemId: i.system
+    }, {sort: {timestamp: 1}}
+  }
+});
+
+
 Template['quickchart'].onRendered(function() {
-  if (!this.data.coin) return;
+  if (!this.data.system) return;
   var i = this;
   var selector = {
-    systemId: this.data.coin
+    systemId: this.data.system
   }
   var graph;
-  graph = new myGraph("#quickchart-" + this.data.coin);
+  graph = new myGraph("#quickchart-" + this.data.system);
 
   MarketData.find(selector).observe({
     added: function(doc) {
-      graph.addPoint(doc._id, doc.timestamp, doc.price_usd);
+//    graph.addPoint(doc._id, doc.timestamp, doc.price_usd);
     },
     removed: function(doc) {
-      graph.removePoint(doc._id);
+//      graph.removePoint(doc._id);
     }
   });
+
+
+
 
   function myGraph(el) {
     this.selectedNode = null;
     var graph = this;
-
+/*
     $(el).on('click', 'g.node', function(e) {
       var node = this;
       //graph.selectedNode = d3.select(node).data()[0].name;
@@ -57,11 +71,12 @@ Template['quickchart'].onRendered(function() {
     }
 
     this.addPoint = function(id, t, v){
-      //console.log(id, t, v, i.data.coin)
+      //console.log(id, t, v, i.data.system)
     }
 
     this.removePoint = function(id) {
-      //console.log(id,i.data.coin, "s")
+      //console.log(id,i.data.system, "s")
     }
+    */
   }
 })

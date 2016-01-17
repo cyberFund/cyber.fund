@@ -1,3 +1,11 @@
 <template name="quickchart">
-  <div class="quickchart" id="quickchart-{{_id}}"></div>
+  {{log chartdata}}
+  {{# withTooltip}}
+      {{# tooltip class="red-text black"}}
+        <span class="red-text black"> hi tooltips </span>
+        {{/ tooltip}}
+  <div class="quickchart" id="quickchart-{{system}}" title="hi there">
+  </div>
+  {{/ withTooltip}}
+
 </template>
