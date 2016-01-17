@@ -25,15 +25,8 @@
     </td>
 
     <td class="right-align hide-on-med-and-down">
-      {{# withTooltip }} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
-      {{#tooltip}}
-      <div>Price per 1 {{displaySystemName this}}:
-        <br/>
-        <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
-                              <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
-                              <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
-      </div>
-      {{/tooltip}} {{/if}} {{/withTooltip}}
+      {{# withTooltip ttName="btcPricePerUnitTooltip" data=this}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
+      {{/if}} {{/withTooltip}}
     </td>
 
     <td class="right-align hide-on-med-and-down">{{# withTooltip data=this ttName="capChangeTooltip"}}
@@ -86,3 +79,13 @@
   </td></tr-->
 
 </Template>
+
+
+<template name="btcPricePerUnitTooltip">
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
+                        <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
+</div>
+</template>

@@ -4,7 +4,7 @@ var _chartdata = function(systemId) {
     systemId: systemId
   }, {
     sort: {
-      timestamp: 1
+      timestamp: -1
     }
   })
 }
@@ -15,7 +15,9 @@ Template['quickchart_tooltip'].helpers({
     // should render only on subscription ready.
     // and this should be OK for non realtime data.
 
-    return moment(timestamp).format("ddd D-MM");
+    return moment(timestamp).format(Meteor.settings.public &&
+      Meteor.settings.public.manyData ?
+                       "ddd D-MM HH:" : "ddd D-MM");
   }
 });
 Template['quickchart'].helpers({

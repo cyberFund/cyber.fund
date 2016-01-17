@@ -7,8 +7,13 @@
 
 <Template name="quickchart_tooltip">
   {{log this}}
+  <span>
   {{# each this}}
-  <div>${{ readableN price_usd 2 }} per unit</div>
-  <div>{{ timestampino timestamp }}</div>
+  <div style="display: inline-block">
+    <div>${{ readableN price_usd 2 }} per unit</div>
+    <div>{{ timestampino timestamp }}</div>
+  </div>
+
   {{/each}}
+  </span>
 </Template>
