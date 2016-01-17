@@ -18,7 +18,7 @@
     </td>
 
     <td class="center-align hide-on-small-and-down">
-      {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this class="revert"}}
+      {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this}}
       <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
       {{/withTooltip}} {{else}}
       <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
@@ -37,16 +37,9 @@
        {{/if}} {{/withTooltip}}
     </td>
 
-    <td class="right-align">{{# withTooltip}}
+    <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
       <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
-      {{#if metrics.price.usd}} {{#tooltip}}
-      <div>Price per 1 {{displaySystemName this}}:
-        <br/>
-        <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                              <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
-                              <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
-      </div>
-      {{/tooltip}} {{/if}} {{/withTooltip}}
+      {{/withTooltip}}
     </td>
 
     <td class="right-align">{{#withTooltip}}
@@ -90,3 +83,12 @@
                         <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
 </div>
 </template>
+
+
+<template name="usdPricePerUnitTooltip"> {{#if metrics.price.usd}}
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
+</div>{{/if}}</template>
