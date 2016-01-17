@@ -67,6 +67,16 @@ var helpers = {
     }
     return 0;
   },
+  chartdata: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId});
+  },
+  chartdataOrdered: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}});
+  },
+  chartdataSubscriptionFetch: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
+  }
+
 }
 
 _.each(helpers, function(helper, key) {
