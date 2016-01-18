@@ -61,7 +61,7 @@ a.tooltip:hover span {
 
 .tooltip-table-head-lite {
   text-align: inherit;
-  padding: 1em;
+  padding: 0.5em;
   background: #f0d092;
   font-variant: small-caps;
   top: 80%;

@@ -6,35 +6,35 @@
   padding: 7px;
 }
 
-.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-line {
+.ct-chart-cap-btc .ct-series-a .ct-line {
   stroke: #FF9900;
   stroke-width: 4px;
 }
-.ct-chart.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
+.ct-chart-cap-btc .ct-series-a .ct-point{
   stroke: #eeeeee;
   stroke-width: 8px;
 }
 
-.ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-line{
+.ct-chart-cap-usd .ct-series-a .ct-line{
   stroke: #85BB65;
   stroke-width: 4px;
 }
-.ct-chart.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
+.ct-chart-cap-usd .ct-series-a .ct-point{
   stroke: #eeeeee;
   stroke-width: 8px;
 }
 
-.ct-chart.ct-chart-vol .ct-series.ct-series-a .ct-bar{
+.ct-chart-vol .ct-series-a .ct-bar{
   fill: grey;
   stroke: #80d8ff;
   stroke-width: 4px;
 }
 
-.ct-chart.ct-chart-time-full.ct-chart-cap-btc .ct-series.ct-series-a .ct-point{
+.ct-chart-cap-btc .ct-series-a .ct-point{
   stroke-width: 4px;
 }
 
-.ct-chart.ct-chart-time-full.ct-chart-cap-usd .ct-series.ct-series-a .ct-point{
+.ct-chart-cap-usd .ct-series-a .ct-point{
   stroke-width: 4px;
 }
 
