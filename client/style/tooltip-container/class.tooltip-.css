@@ -59,9 +59,12 @@ a.tooltip:hover span {
   padding: 1.2em;
 }
 
-.tooltip-table-head {
+.tooltip-table-head-lite {
+  text-align: inherit;
+  padding: 1em;
   background: #f0d092;
   font-variant: small-caps;
   top: 80%;
-  right: 0;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
+  left: 0;
 }
