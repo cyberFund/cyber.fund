@@ -32,7 +32,7 @@
 
   {{#thSortable o=__sorter class="center hide-on-small-and-down sorter"
     s="metrics.turnover"}}
-  {{# withTooltip}}
+  {{# withTooltip}} Trade
   {{# tooltip class="tooltip-table-head"}}
   Turnover based on daily trade volumes Turnover calcalated as Daily Trady Volume / Cap Turnover grade is a key component of Rating calculation We use the following grade system:
    <br> - Illiquid grade if daily turnover is 0%
@@ -41,10 +41,10 @@
    <br> - Normal grade if daily turnover is greater 0.1% and less 0.5%
    <br> - High grade if daily turnover is greater 0.5% and less 2%
    <br> - Very High grade if daily turnover is greater 2%
-  {{/ tooltip}} Trade {{/ withTooltip}} {{/ thSortable}}
+  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="right-align" s="metrics.cap.usd"}}
-  {{# withTooltip }} {{# tooltip class="tooltip-table-head" }}
+  {{# withTooltip }} Cap in $ {{# tooltip class="tooltip-table-head" }}
   Cap is calculated as Tokens Outstanding * Last Price Token Outstanding are tokens created without difference who control them: founders, users or an organization itself. That is approach simmilar to how existing finance works. Cap is a key component of
   ratingCap. We use the following grade system:
   <br> - Pico grade if cap is less $10k
@@ -53,7 +53,7 @@
   <br> - Kilo grade if cap is less $10M
   <br> - Mega grade if cap is less $1B
   <br> - Giga grade if cap is less $1B
-  {{/ tooltip}} Cap in $ {{/withTooltip}} {{/ thSortable}}
+  {{/ tooltip}} {{/withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center hide-on-small-and-down"
   s="calculatable.firstDatePrice.market.price_usd"}}
@@ -66,9 +66,6 @@
   {{#thSortable o=__sorter class="center hide-on-small-and-down"
   s="metrics.price.usd"}}
   {{# withTooltip}} VWAP in $
-  {{# tooltip class="tooltip-table-head"}}
-
-  {{/ tooltip}}
   {{/ withTooltip}} {{/ thSortable}}
 
   {{# thSortable o=__sorter class="center hide-on-med-and-down sorter"
@@ -124,7 +121,7 @@
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center" s="calculatable.RATING.sum"}}
-  {{# withTooltip}} {{# tooltip class="tooltip-table-head"}} Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a>  and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
-  {{/ tooltip }} Rating {{/withTooltip}}
+  {{# withTooltip}}  Rating  {{# tooltip class="tooltip-table-head"}} Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a>  and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
+  {{/ tooltip }} {{/withTooltip}}
   {{/ thSortable}}
 </template>

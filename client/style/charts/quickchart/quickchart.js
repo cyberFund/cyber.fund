@@ -52,7 +52,7 @@ Template['quickchart'].onRendered(function() {
 
     var data = _chartdata(i.data.system).fetch();
 
-    var w = 120;
+    var w = 124;
     var h = 18;
     var x = d3.time.scale()
       .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
