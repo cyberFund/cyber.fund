@@ -11,17 +11,20 @@ var _chartdata = function(systemId) {
 
 Template['quickchart_tooltip'].helpers({
   'chartdata': _chartdata,
-  'timestampino':  function (timestamp){ // that too slow.
+  'timestampino': function(timestamp) { // that too slow.
     // should render only on subscription ready.
     // and this should be OK for non realtime data.
 
     return moment(timestamp).format(Meteor.settings.public &&
       Meteor.settings.public.manyData ?
-                       "ddd D-MM HH:" : "ddd D-MM");
+      "ddd D-MM HH:" : "ddd D-MM");
   }
 });
 Template['quickchart'].helpers({
   'chartdata': _chartdata,
+  _ready: function() {
+    return CF.CurrentData._sub_.ready();
+  }
 });
 
 Template['quickchart'].onRendered(function() {
@@ -34,65 +37,56 @@ Template['quickchart'].onRendered(function() {
   var graph;
   graph = new myGraph("#quickchart-" + this.data.system);
 
-  MarketData.find(selector).observe({
-    added: function(doc) {
-      //    graph.addPoint(doc._id, doc.timestamp, doc.price_usd);
-    },
-    removed: function(doc) {
-      //      graph.removePoint(doc._id);
-    }
-  });
-
-
-
-
   function myGraph(el) {
+    var grab = {
+      t: function(fruit){ return fruit.timestamp},
+      sp: function(fruit){ return fruit.price_usd},
+      bp: function(fruit){ return fruit.price_btc},
+      sc: function(fruit){ return fruit.cap_usd},
+      bc: function(fruit){ return fruit.cap_btc},
+      bvd: function(fruit){ return fruit.volume24_btc},
+    }
+
     this.selectedNode = null;
     var graph = this;
-    /*
-        $(el).on('click', 'g.node', function(e) {
-          var node = this;
-          //graph.selectedNode = d3.select(node).data()[0].name;
-          update();
-        });
 
-        var svg = d3.select(el)
-        .append("svg:svg")
-        .attr("width", w)
-        .attr("height", h)
-        .attr("id","svg-" + i.data.coin)
-        .attr("pointer-events", "all")
-        .attr("viewBox","0 0 "+w+" "+h)
-        .attr('class', 'chart')
-        .attr("preserveAspectRatio","xMinYMid");
+    var data = _chartdata(i.data.system).fetch();
 
-        var vis = svg.append('rect');
-        vis.attr("kla", "klu");
+    var w = 120;
+    var h = 18;
+    var x = d3.time.scale()
+      .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
+      .range([0+2, w-2]);
+    var y = d3.scale.linear()
+      .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
+      .range([h-1, 0+1]);
+    var xAxis = d3.svg.axis().scale(x).orient('bottom');
+    var yAxis = d3.svg.axis().scale(y).orient('left');
 
-        var w = 120;
-        var h = 18;
-        var x = d3.time.scale().range([0, w]);
-        var y = d3.scale.linear().range([h, 0]);
-        var xAxis = d3.svg.axis().scale(x).orient('bottom');
-        var yAxis   = d3.svg.axis().scale(y).orient('left');
+    var svg = d3.select(el)
+      .append("svg:svg")
+      .attr("width", w)
+      .attr("height", h)
+      .attr("id", "svg-" + i.data.coin)
+      .attr("pointer-events", "all")
+      .attr("viewBox", "0 0 " + w + " " + h)
+      .attr('class', 'chart')
+      .attr("preserveAspectRatio", "xMinYMid");
 
-        var priceLine = d3.svg.line()
-           .interpolate('monotone')
-           .x(function(d) { return x(d.timestamp); })
-           .y(function(d) { return y(d.price_usd); });
+    var priceLine = d3.svg.line()
+      //.interpolate("monotone")
+      .x(function(d) {
+        return x(grab.t(d));
+      })
+      .y(function(d) {
+        return y(grab.sp(d));
+      });
 
+    var drawing = svg.append("path")
+      .attr("d", priceLine(data))
+      .attr("stroke", "blue")
+      .attr("stroke-width", 2)
+      .attr("fill", "none")
 
-        var update = function(){
-          console.log("u", i.data.coin)
-        }
-
-        this.addPoint = function(id, t, v){
-          //console.log(id, t, v, i.data.system)
-        }
-
-        this.removePoint = function(id) {
-          //console.log(id,i.data.system, "s")
-        }
-        */
   }
 })

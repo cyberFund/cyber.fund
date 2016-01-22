@@ -1,7 +1,15 @@
-.em-wid-12 {
-    width: 12em;
+.w12em {
+  width: 12em;
 }
-
-.em-wid-9 {
-    width: 9em;
+.w9em {
+  width: 9em;
+}
+.w55em {
+  width: 55em;
+}
+.w33em {
+  width: 33em;
+}
+.w42em {
+  width: 42em;
 }

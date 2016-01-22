@@ -5,9 +5,10 @@ Meteor.startup(function () {
 });
 
 Template['ratingTable'].onCreated(function () {
+  Session.set('ratingPageLimit', initialLimit);
   var instance = this;
   instance.autorun(function () {
-    instance.subscribe("currentDataRP", {
+    CF.CurrentData._sub_ = instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
       sort: _Session.get('coinSorter')
     });
@@ -16,7 +17,6 @@ Template['ratingTable'].onCreated(function () {
 });
 
 Template['ratingTable'].rendered = function () {
-  Session.set('ratingPageLimit', initialLimit);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 

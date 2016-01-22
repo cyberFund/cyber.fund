@@ -9,7 +9,9 @@
            {{> cgSystemLogo data=this class='cg-system-logo'}}
          <span style="position: relative">{{displaySystemName this}}
          </span></span></a>
-      {{> quickchart system=_id}}
+         {{#if _ready}}
+         {{> quickchart system=_id}}
+         {{/if}}
     </td>
 
     <td class="center-align hide-on-small-and-down">{{# withTooltip data=this ttName="t001Tooltip"}}
