@@ -8,5 +8,8 @@ Template['ratingTableRow'].helpers({
           return 100.0 * metrics.turnover;
       }
     return 0;
+  },
+  _ready: function(){
+    return CF.CurrentData._sub_.ready();
   }
 })
