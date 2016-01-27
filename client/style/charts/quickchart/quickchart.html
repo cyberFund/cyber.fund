@@ -1,13 +1,12 @@
 <template name="quickchart">
-  {{# withTooltip ttName="quickchart_tooltip" data=(chartdata system)
-  class="chartie-head-lite red-text black w33em"}}
+  {{! # withTooltip ttName="quickchart_tooltip" data=(chartdata system) class="chartie-head-lite red-text black w33em"}}
   <div class="quickchart" id="quickchart-{{system}}">
     {{#if _ready}}
     {{else}}
     LOADING
     {{/if}}
   </div>
-  {{/ withTooltip}}
+  {{! / withTooltip}}
 </template>
 
 <Template name="quickchart_tooltip">

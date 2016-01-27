@@ -1,9 +1,21 @@
 .quickchart {
   position: absolute;
-  top: 100%;
+  bottom: 0;
   left: 0;
   width: 124px;
   background: #eef;
   height: 18px;
   font-size: 10px;
+}
+
+.focus-horiz {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
+}
+
+.focus-vert {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
 }
