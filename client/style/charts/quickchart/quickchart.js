@@ -79,7 +79,6 @@ Template['quickchart'].onRendered(function() {
       data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
       })
-      console.log(data);
 
       var wf = 180;
       var w = 124;
