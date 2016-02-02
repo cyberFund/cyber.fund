@@ -30,6 +30,27 @@ Template['quickchart'].onCreated(function() {
 
 })
 
+var grab = {
+  t: function(fruit) {
+    return fruit.timestamp
+  },
+  sp: function(fruit) {
+    return fruit.price_usd
+  },
+  bp: function(fruit) {
+    return fruit.price_btc
+  },
+  sc: function(fruit) {
+    return fruit.cap_usd
+  },
+  bc: function(fruit) {
+    return fruit.cap_btc
+  },
+  bvd: function(fruit) {
+    return fruit.volume24_btc
+  },
+}
+
 Template['quickchart'].onRendered(function() {
   if (!this.data.system) return;
   var i = this;
@@ -47,37 +68,18 @@ Template['quickchart'].onRendered(function() {
     if (!i._ready_) return;
 
     var graph;
-    graph = new myGraph("#quickchart-" + i.data.system,  i.data.system);
+    graph = new myGraph("#quickchart-" + i.data.system);
 
-    function myGraph(el, sys) {
-      var grab = {
-        t: function(fruit) {
-          return fruit.timestamp
-        },
-        sp: function(fruit) {
-          return fruit.price_usd
-        },
-        bp: function(fruit) {
-          return fruit.price_btc
-        },
-        sc: function(fruit) {
-          return fruit.cap_usd
-        },
-        bc: function(fruit) {
-          return fruit.cap_btc
-        },
-        bvd: function(fruit) {
-          return fruit.volume24_btc
-        },
-      }
+    function myGraph(el) {
 
       this.selectedNode = null;
       var graph = this;
 
-      var data = _chartdata(sys).fetch();
+      var data = _chartdata(i.data.system).fetch();
       data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
       })
+      console.log(data);
 
       var wf = 180;
       var w = 124;
@@ -95,7 +97,7 @@ Template['quickchart'].onRendered(function() {
         .append("svg:svg")
         .attr("width", wf)
         .attr("height", h)
-        .attr("id", "svg-" + sys)
+        .attr("id", "svg-" + i.data.system)
         .attr("pointer-events", "all")
         .attr("viewBox", "0 0 " + wf + " " + h)
         .attr('class', 'chart')
