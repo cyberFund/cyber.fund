@@ -1,7 +1,7 @@
 <template name="quickchart">
   {{! # withTooltip ttName="quickchart_tooltip" data=(chartdata system) class="chartie-head-lite red-text black w33em"}}
   <div class="quickchart" id="quickchart-{{system}}">
-    {{#if _ready}}
+    {{#if __ready}}
     {{else}}
     LOADING
     {{/if}}
