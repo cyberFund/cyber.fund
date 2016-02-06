@@ -1,6 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="assetsManager">
-    <section id="assets-manager" class="assets-manager row">
+    <section id="assets-manager" class="assets-manager row" owner={{assetsOwnerId}}>
         {{#if isOwnAssets}}
             {{> addAccount}}
             <a href="/portfolio">Portfolio View</a>
@@ -26,7 +26,6 @@
         {{#each keyValue _accounts}}
             {{> displayAccount value=value key=key}}
         {{/each}}
-
 
         {{#if isOwnAssets}}
             <div id="modal-add-address" class="modal">

@@ -59,7 +59,24 @@ var helpers = {
     } else {
       return "= 0%";
     }
+  },
+  dayToDayTradeVolumeChange: function(system) {
+    var metrics = system.metrics;
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
+      return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
+    }
+    return 0;
+  },
+  chartdata: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId});
+  },
+  chartdataOrdered: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}});
+  },
+  chartdataSubscriptionFetch: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
   }
+
 }
 
 _.each(helpers, function(helper, key) {

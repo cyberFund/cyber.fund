@@ -15,7 +15,7 @@ Meteor.methods({
       CurrentData.update({_id: sys},
         {$pull: {'_usersStarred': uid}});
     }
-    CF.CurrentData.calculatables.triggerCalc ('LV', sys);
+    CF.CurrentData.calculatables.triggerCalc ('RATING', sys);
   },
 
   // is used internally. to star a system when user adds its balance
@@ -29,11 +29,11 @@ Meteor.methods({
         var starred = user.profile.starredSystems;
         if (!starred || starred.indexOf(sys) == -1) {
           Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
-          CurrentData.update({_id: sys}, 
+          CurrentData.update({_id: sys},
             {$push: {'_usersStarred': uid}});
         }
       }
     }
-    CF.CurrentData.calculatables.triggerCalc ('LV', sys);
+    CF.CurrentData.calculatables.triggerCalc ('RATING', sys);
   }
 });

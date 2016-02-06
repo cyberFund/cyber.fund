@@ -1,0 +1,90 @@
+<template name="ratingTableRow">
+  <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
+    <td class="left-align" style="position: relative;">
+      <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
+      <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
+         class="enlarge no-wrap"
+         title="{{descriptions.headline}}">
+         <span class="no-wrap" itemprop="name">
+           {{> cgSystemLogo data=this class='cg-system-logo'}}
+         <span style="position: relative">{{displaySystemName this}}
+         </span></span></a>
+         {{> quickchart system=_id}}
+    </td>
+
+    <td class="center-align hide-on-small-and-down">{{# withTooltip data=this ttName="t001Tooltip"}}
+      <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
+       {{/withTooltip}}
+    </td>
+
+    <td class="center-align hide-on-small-and-down">
+      {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this}}
+      <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
+      {{/withTooltip}} {{else}}
+      <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
+      {{/if}}
+    </td>
+
+    <td class="right-align hide-on-med-and-down">
+      {{# withTooltip ttName="btcPricePerUnitTooltip" data=this}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
+      {{/if}} {{/withTooltip}}
+    </td>
+
+    <td class="right-align hide-on-med-and-down">{{# withTooltip data=this ttName="capChangeTooltip"}}
+      <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
+      {{#if metrics.capChange.day.btc}}
+       {{/if}} {{/withTooltip}}
+    </td>
+
+    <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
+      <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+      {{/withTooltip}}
+    </td>
+
+    <td class="right-align">{{#withTooltip}}
+      <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+        {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
+      {{#tooltip}}
+      <div>Real change:
+        <b>{{readableN metrics.capChange.day.usd 2}} $</b>
+      </div>
+      {{/tooltip}} {{/withTooltip}}
+    </td>
+
+    <td class="center">
+      {{#withTooltip }} {{_usersStarred.length}} {{#tooltip}}
+      How many users have starred this system
+      {{/tooltip}} {{/withTooltip}}
+    </td>
+
+    <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">
+      {{#withTooltip}}
+      {{>cfRating rating=calculatable.RATING.sum}}
+      {{#tooltip}}
+        <span>rating: {{readableN calculatable.RATING.sum 2}}</span>
+      {{/tooltip}}
+      {{/withTooltip}}
+    </td>
+  </tr>
+
+</Template>
+
+
+<template name="btcPricePerUnitTooltip">
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
+                        <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
+</div>
+</template>
+
+
+<template name="usdPricePerUnitTooltip"> {{#if metrics.price.usd}}
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
+</div>{{/if}}</template>

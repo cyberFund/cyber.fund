@@ -1,0 +1,24 @@
+.fixed-thead {
+    background-color: white;
+    position: fixed;
+    top: -6rem;
+    /*-webkit-transition: all 0.5s ease;
+    //-moz-transition: all 0.5s ease;
+    //-ms-transition: all 0.5s ease;
+    //-o-transition: all 0.5s ease;
+    //transition: all 0.5s ease;
+
+    TODO: CSS!
+
+    */
+
+    padding-top: 0.6rem;
+}
+
+.fixed-thead.show {
+    top: 4.4rem;
+}
+
+.z20 {
+    z-index: 20;
+}

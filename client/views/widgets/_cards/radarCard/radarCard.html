@@ -1,0 +1,82 @@
+<!-- originally created for cyber.fund project-->
+<template name="radarCard">
+    <div class="col s12 m6 l4">
+        <div class="card radar-card">
+            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+                <div class="center-align" style="width:150px; height: 150px; margin:24px auto">
+                    {{> cgSystemLogo data=this style="width:100%; height: 100%;  "}}
+                </div>
+                <div class="card-title black-text center-align"
+                     style="font-weight: 700">{{displaySystemName this}}
+                </div>
+
+                <div class="black-text"
+                     style="height: 4em; text-align: center">{{descriptions.headline}}
+                    &nbsp;
+                </div>
+            </a>
+
+            <div class="card-content">
+                {{#if isActiveCrowdsale}}
+                    <div class="left">
+                        <strong>{{daysLeft crowdsales.end_date}} days
+                            left</strong>
+                    </div>
+                    <div class="right">
+                        {{#if metrics.currently_raised}}
+                            <strong>Currently
+                                raised: </strong>{{readableN metrics.currently_raised 1}}
+                            Ƀ
+                        {{/if}}
+                    </div>
+                    <div style="height: 12px">&nbsp;</div>
+                {{/if}}
+
+                {{#if isUpcomingCrowdsale}}
+                    <div class="left">
+                        <strong>{{daysLeft crowdsales.start_date }} days
+                            left</strong>
+                    </div>
+                    <div style="height: 12px">&nbsp;</div>
+                {{/if}}
+
+
+                {{#if isPastCrowdsale}}
+                    <div class="center-align" style="margin-bottom: 1.6em">
+                        {{daysPassed crowdsales.end_date}} days ago
+                    </div>
+
+                    <div style="position: absolute; bottom: 0.3em; left: 12px;">
+                        {{#if crowdsales.btc_raised}}<strong>
+                            {{readableN crowdsales.btc_raised 0}}
+                            Ƀ raised</strong>{{else}}&nbsp;{{/if}}
+                    </div>
+
+                    <div style="position: absolute; bottom: 0.3em; right: 12px;">
+                        {{#if  metrics.cap.btc}}<strong>
+                            {{readableN metrics.cap.btc 0}} Ƀ
+                            cap</strong>{{else}}&nbsp;{{/if}}
+                    </div>
+                {{/if}}
+
+
+            </div>
+
+            {{#if crowdsales}}
+                {{#if not isPastCrowdsale}}
+                    <div class="card-action">
+                        {{#if isAfterNow crowdsales.end_date}}
+                            <a href="{{crowdsales.funding_tems}}"
+                               target="_blank">Funding terms </a>
+                        {{/if}}
+                        {{#if isActiveCrowdsale}}
+                            <a href="{{crowdsales.funding_url}}"
+                               target="_blank">Invest</a>
+                        {{/if}}
+                    </div>
+                {{/if}}
+            {{/if}}
+
+        </div>
+    </div>
+</template>

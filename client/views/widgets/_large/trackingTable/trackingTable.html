@@ -1,0 +1,29 @@
+<!-- originally created for cyber.fund project-->
+<template name="trackingWidget">
+  <div class="card" style="padding:10px">
+    <table id="tracking-table" class="hoverable-my" align="center">
+
+      <thead id="fixed-thead" class="fixed-thead z20">
+        {{> trackingTableHeader}}
+      </thead>
+
+      <thead id="normal-thead">
+        {{> trackingTableHeader}}
+      </thead>
+
+      <tbody>
+        {{#each rows}}
+        {{> trackingTableRow}}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{#if hasMore}}
+  <div class="center">
+    <a class="waves-effect waves-light btn show-more deep-orange">
+      <i class="mdi-navigation-expand-more left"></i>
+      <i class="mdi-navigation-expand-more right"></i> Discover more opportunities</a>
+  </div>
+  {{/if}}
+  <div style="padding-bottom: 40px"></div>
+</template>

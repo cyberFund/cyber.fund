@@ -13,7 +13,7 @@ var logger = {
       if (typeof value === 'object') console.log(label + ": ", value);
       else console.log([label, value].join(": "));
       console.log("======================================================"
-        .slice(label.length+ 1));
+        );
     }
     if (!condensed) console.log();
   }

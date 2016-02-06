@@ -1,0 +1,83 @@
+<!-- originally created for cyber.fund project-->
+<template name="navbar">
+  <div class="navbar-fixed z-depth-1">
+    <nav class="white" role="navigation">
+      <div class="nav-wrapper w90">
+        <a href="/" class="waves-effect brand-logo center">
+          cyber&nbsp;
+              <span style="color: red; font-size:0.85em;">
+                <strong>•</strong>
+              </span>
+          &nbsp;Fund <small> β</small>
+        </a>
+        <ul class="hide-on-med-and-down">
+          {{> navbarItem path="/rating" text="Rating"}}
+          {{> navbarItem path="/portfolio" text="Portfolio"}}
+          {{> navbarItem path="/radar" text="Radar"}}
+          {{> navbarItem path="/invest" text="Invest"}}
+            <li class="search-wrap" style="height: 64px; display: inline">
+                {{> searchItem1}}
+            </li>
+        </ul>
+        <ul class="right hide-on-med-and-down">
+          <li class="waves-effect">
+            <a href="http://cyberep.cyber.fund" target="_blank">Cyberep</a></li>
+          <li class="waves-effect">
+            <a href="https://blog.cyber.fund" target="_blank">Blog</a></li>
+          <li>{{> btcPriceSimple class="w9em black-text center" loadingWidget="loadingWidget"}}</li>
+          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
+            {{> userDropdown}}
+          </li>
+        </ul>
+
+        <ul style="left: -250px" class="nav-mobile side-nav">
+          {{> navbarItem path="/rating" text="Rating"}}
+          {{> navbarItem path="/portfolio" text="Portfolio"}}
+          {{> navbarItem path="/radar" text="Radar"}}
+          <li class="waves-effect">
+            <a href="http://cyberep.cyber.fund" target="_blank">Cyberep</a></li>
+            <li class="search-wrap" style="height: 64px; display: inline">
+                {{> searchItem1}}
+            </li>
+            <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
+                {{> userDropdown}}
+            </li>
+        </ul>
+
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i
+            class="mdi-navigation-menu"></i></a>
+      </div>
+    </nav>
+  </div>
+</template>
+
+<template name="navbarItem">
+  <li class="waves-effect {{isActivePath path=path}}"><a
+      href="{{path}}">{{text}}</a></li>
+</template>
+
+<template name="userDropdown">
+  {{#if currentUser}}
+    {{#if currentUser.profile.twitterName}}
+
+      <a href="{{pathFor '/@:twid' twid=ownTwid}}" style="vertical-align: middle">
+        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.profile.twitterIconUrlHttps}}
+        {{currentUser.profile.twitterName}}
+      </a>
+
+    {{else}}
+      {{#if not loggingIn}}
+        <a href="{{pathFor '/@:twid' twid=ownTwid}}">
+          {{#if currentUser.profile.name}}
+            {{currentUser.profile.name}}
+          {{else}}
+            Profile
+          {{/if}}
+        </a>
+      {{/if}}
+    {{/if}}
+  {{else}}
+      <a class="red waves-effect waves-light btn" id="login-button">log in</a>
+    {{! > atNavButton text='sign in' }}
+  {{/if}}
+</template>

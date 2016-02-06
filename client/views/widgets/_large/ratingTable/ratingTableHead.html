@@ -1,0 +1,29 @@
+<template name="ratingTableHead">
+  <th class="left-align">
+    <span class="th-sys">&nbsp;&nbsp;System</span>
+  </th>
+
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+  s="metrics.supplyChangePercents.day"}}Token{{/ thSortable}}
+
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+    s="metrics.turnover"}}Trade{{/ thSortable}}
+
+  {{#thSortable class="right-align hide-on-med-and-down" o=__sorter
+  s="metrics.cap.btc"}}Cap in Ƀ{{/ thSortable}}
+
+  {{#thSortable class="right-align hide-on-med-and-down" o=__sorter
+  s="metrics.capChangePercents.day.btc"}}1d&nbsp;Change{{/ thSortable}}
+
+  {{#thSortable class="right-align" o=__sorter
+  s="metrics.cap.usd"}}Cap in ${{/ thSortable}}
+
+  {{#thSortable class="right-align" o=__sorter
+  s="metrics.capChangePercents.day.usd"}}1d&nbsp;Change{{/ thSortable}}
+
+  {{#thSortable class="center hide-on-small-and-down"
+  o=__sorter s="calculatable.RATING.vector.LV.num"}} Stars{{/ thSortable}}
+
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+  s="calculatable.RATING.sum"}}Rating{{/ thSortable}}
+</template>

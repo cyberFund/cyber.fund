@@ -1,7 +1,3 @@
-Template['cgLinkCard'].rendered = function () {
-  
-};
-
 Template['cgLinkCard'].helpers({
   "iconUrl": function () {
 
@@ -11,11 +7,5 @@ Template['cgLinkCard'].helpers({
     }
 
     return "";
-  }
-});
-
-Template['cgLinkCard'].events({
-  'click .bar': function (e, t) {
-    
   }
 });

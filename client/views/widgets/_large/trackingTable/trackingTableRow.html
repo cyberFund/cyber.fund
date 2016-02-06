@@ -1,0 +1,124 @@
+
+<template name="trackingTableRow">
+<tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
+
+  <td class="left-align">
+    <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" class="enlarge no-wrap" title="{{descriptions.headline}}">
+      {{> cgSystemLogo data=this class='cg-system-icon'}}
+        <span
+          class="no-wrap"
+          itemprop="name">
+          {{displaySystemName this}}
+        </span>
+    </a>
+    <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
+  </td>
+
+  <td class="center">
+    {{_usersStarred.length}}
+  </td>
+
+  <td class="center">
+    <span style="font-size:12px">
+      {{descriptions.state}} {{descriptions.system_type}}
+      <br> {{consensus.type}} {{consensus.algorithm}}
+    </span>
+  </td>
+
+  <td class="center-align hide-on-small-and-down">
+    {{# withTooltip ttName="tickerTooltip" data=this}}
+    <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
+    {{/withTooltip}}
+  </td>
+
+  <td class="center-align hide-on-small-and-down">
+    {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this}}
+    <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
+
+    {{/withTooltip}} {{else}}
+    <span>Illiquid</span>
+    {{/if}}
+  </td>
+
+  <td class="right-align">{{# withTooltip data=this ttName="itemPropTooltip" }}
+    <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+    {{#if metrics.price.usd}} {{/if}} {{/withTooltip}}
+  </td>
+  <td class="center">
+    {{readableN firstPrice 2}}
+  </td>
+  <td class="center">
+    {{readableN currentPrice 2}}
+  </td>
+  <td class="center hide-on-med-and-down sorter">
+    {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
+  </td>
+  <td class="center hide-on-med-and-down sorter">
+    {{readableN calculatable.RATING.vector.GR.months 0}}
+  </td>
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.CS 2}}
+  </td>
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.LV 2}}
+  </td>
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.WL 2}}
+  </td>
+
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.BR 2}}
+  </td>
+
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.AM 2}}
+  </td>
+  <td class="center hide-on-med-and-down">
+    {{readableN calculatable.RATING.weighted.GR 2}}
+  </td>
+
+  <td class="center-align" itemprop="aggregateRating">
+    {{#withTooltip ttName="ratingTooltip" data=calculatable}} {{>cfRating rating=calculatable.RATING.sum}} {{/withTooltip}}
+  </td>
+
+</tr>
+</template>
+
+
+<template name="tickerTooltip">
+  <div>Ticker:
+    <b itemprop="alternateName">{{token.token_symbol}}</b>
+  </div>
+  <div>Currency name:
+    <b>{{displayCurrencyName this}}</b>
+  </div>
+
+  <div>Current supply:
+    <b>{{readableN metrics.supply 0}}</b>
+  </div>
+  <div>Absolute change:
+    <b>{{readableN metrics.supplyChange.day 0}}</b>
+  </div>
+</template>
+
+<template name="tradeTooltip">
+  <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+  </div>
+
+  <div>Daily change :<b>{{readableN (dayToDayTradeVolumeChange this) 2}}</b> %
+  </div>
+
+  <div>Turnover:<b>{{readableN turnover 2}}</b> %
+  </div>
+</template>
+
+<template name="itemPropTooltip">
+  <div>
+    <h5>Price per 1 {{displaySystemName this}}:</h5>
+    <br/>
+    <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+ <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+ <span itemprop="price" content="{{metrics.price.usd}}">
+   {{metrics.price.usd}}</span></b>
+  </div>
+</template>

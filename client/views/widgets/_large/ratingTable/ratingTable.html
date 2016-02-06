@@ -1,0 +1,51 @@
+<template name="tvBTCTooltip">
+<div>Trade volume (24h):
+  <b>{{readableN metrics.tradeVolume 2}}</b>BTC</div></template>
+
+
+
+<template name="t001Tooltip">
+<div>Ticker:
+  <b itemprop="alternateName">{{symbol}}</b></div>
+
+<div>Currency name:
+  <b>{{displayCurrencyName this}}</b></div>
+
+<div>Current supply:
+  <b>{{readableN metrics.supply 0}}</b></div>
+
+<div>Absolute change:
+  <b>{{readableN metrics.supplyChange.day 0}}</b></div></template>
+
+<template name="capChangeTooltip">
+<div>Real change:
+  <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ</div></template>
+
+
+
+<template name="ratingTable">
+  <div class="card" style="padding:10px">
+    <table class="hoverable-my" align="center" id="rating-table">
+
+      <thead id="fixed-thead" class="fixed-thead z20">
+        {{> ratingTableHead}}
+      </thead>
+      <thead id="normal-thead">
+        {{> ratingTableHead}}
+      </thead>
+      <tbody>
+        {{#each rows}}
+        {{> ratingTableRow this }}
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{#if hasMore}}
+  <div class="center">
+    <a class="waves-effect waves-light btn show-more deep-orange">
+      <i class="mdi-navigation-expand-more left"></i>
+      <i class="mdi-navigation-expand-more right"></i> Discover more opportunities</a>
+  </div>
+  {{/if}}
+  <div style="padding-bottom: 40px"></div>
+</template>

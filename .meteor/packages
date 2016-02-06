@@ -23,8 +23,8 @@ ermlab:log4js-silos
 gwendall:body-events
 
 service-configuration
-meteorhacks:kadira
-meteorhacks:kadira-profiler
+#meteorhacks:kadira
+#meteorhacks:kadira-profiler
 
 twitter
 mfpierre:chartist-js
@@ -62,3 +62,5 @@ materialize:materialize@=0.97.0
 
 
 npm-container
+d3js:d3
+coffeescript
