@@ -1,10 +1,11 @@
 .quickchart {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 124px;
-  background: #eef;
-  height: 18px;
+  top: 4px;
+  right: 2px;
+  width: 140px;
+  background: #fff;
+  border: 1px solid #eef;
+  height: 40px;
   font-size: 10px;
 }
 
