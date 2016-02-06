@@ -112,11 +112,7 @@ Template['quickchart'].onRendered(function() {
 
       var drawing = svg.append("path")
         .attr("d", priceLine(data))
-        .attr("stroke", "blue")
-        .attr("stroke-width", 2)
-        .attr("fill", "none")
-
-
+        .attr("class", "qc-line-1")
 
       // FOCUS DOMAIN
       var bisectDate = d3.bisector(function(d) {
