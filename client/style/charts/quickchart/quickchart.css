@@ -20,3 +20,9 @@
   stroke: yellow;
   fill: none
 }
+
+.qc-line-1 {
+    stroke: red;
+    stroke-width: 2;
+    fill: none;
+}
