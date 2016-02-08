@@ -80,9 +80,9 @@ Template['quickchart'].onRendered(function() {
         return a.timestamp - b.timestamp
       })
 
-      var wf = 180;
-      var w = 124;
-      var h = 18;
+      var wf = 196;
+      var w = 140;
+      var h = 40;
       var x = d3.time.scale()
         .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
         .range([0 + 2, w - 2]);
@@ -112,11 +112,7 @@ Template['quickchart'].onRendered(function() {
 
       var drawing = svg.append("path")
         .attr("d", priceLine(data))
-        .attr("stroke", "blue")
-        .attr("stroke-width", 2)
-        .attr("fill", "none")
-
-
+        .attr("class", "qc-line-1")
 
       // FOCUS DOMAIN
       var bisectDate = d3.bisector(function(d) {

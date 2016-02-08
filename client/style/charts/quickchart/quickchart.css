@@ -1,10 +1,11 @@
 .quickchart {
-  position: absolute;
+  position: relative;
   bottom: 0;
-  left: 0;
-  width: 124px;
-  background: #eef;
-  height: 18px;
+  left: 4px;
+  width: 140px;
+  background: #fff;
+  border: 1px solid #eef;
+  height: 40px;
   font-size: 10px;
 }
 
@@ -18,4 +19,10 @@
   stroke-width: 0.9;
   stroke: yellow;
   fill: none
+}
+
+.qc-line-1 {
+    stroke: red;
+    stroke-width: 2;
+    fill: none;
 }

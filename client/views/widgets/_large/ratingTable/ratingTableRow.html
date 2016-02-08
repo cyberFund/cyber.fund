@@ -8,8 +8,12 @@
          <span class="no-wrap" itemprop="name">
            {{> cgSystemLogo data=this class='cg-system-logo'}}
          <span style="position: relative">{{displaySystemName this}}
-         </span></span></a>
-         {{> quickchart system=_id}}
+         </span></span>
+         <div>
+           {{> quickchart system=_id}}
+         </div>
+       </a>
+
     </td>
 
     <td class="center-align hide-on-small-and-down">{{# withTooltip data=this ttName="t001Tooltip"}}
