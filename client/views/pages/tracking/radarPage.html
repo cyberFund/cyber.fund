@@ -1,34 +1,7 @@
-<!-- originally created for cyber.fund project-->
-
-
-
-
-<!--{{! #loadWidget widgetName='testWidget'}}-->
-  <template name='testWidget'>
-    {{>UI.contents}}
-
-  </template>
-
-
-<!--{{! /loadWidget }}-->
-
 <template name="radarPage">
     {{#if nothing}}
       <h3>LOADING...</h3>
     {{/if}}
-
-    {{#if templateIsInDevelopmentMode}}
-    <div>
-      hi tester.
-    </div>
-    {{/if }}
-
-
-    {{# testWidget}}
-
-
-    {{/ testWidget}}
-
 
     {{#if crowdsaleActive.count}}
     <div class="row">
