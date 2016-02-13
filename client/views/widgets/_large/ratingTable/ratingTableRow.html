@@ -10,7 +10,7 @@
          <span style="position: relative">{{displaySystemName this}}
          </span></span>
          <div>
-           {{> quickchart system=_id}}
+           {{! > quickchart system=_id}}
          </div>
        </a>
 
@@ -91,4 +91,8 @@
   <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                         <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
                         <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
-</div>{{/if}}</template>
+</div>
+<div style="z-index: 10">
+  {{! > quickchart system=_id}}
+</div>
+{{/if}}</template>

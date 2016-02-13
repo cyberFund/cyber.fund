@@ -33,7 +33,9 @@ function _crowdsaleUpcoming() {
         $gt: new Date()
       }
     }]
-  })
+  }, {sort: {
+    'crowdsales.start_date': 1
+  }})
 }
 
 function _crowdsaleActive() {
