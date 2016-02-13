@@ -22,7 +22,7 @@ Template['quickchart_tooltip'].helpers({
 Template['quickchart'].helpers({
   'chartdata': _chartdata,
   __ready: function() {
-    return Template.instance()._ready_ || CF.CurrentData._sub_.ready();
+    return /*Template.instance()._ready_ ||*/ CF.CurrentData._sub_.ready();
   }
 });
 
@@ -32,22 +32,22 @@ Template['quickchart'].onCreated(function() {
 
 var grab = {
   t: function(fruit) {
-    return fruit.timestamp
+    return fruit && fruit.timestamp
   },
   sp: function(fruit) {
-    return fruit.price_usd
+    return fruit && fruit.price_usd
   },
   bp: function(fruit) {
-    return fruit.price_btc
+    return fruit && fruit.price_btc
   },
   sc: function(fruit) {
-    return fruit.cap_usd
+    return fruit && fruit.cap_usd
   },
   bc: function(fruit) {
-    return fruit.cap_btc
+    return fruit && fruit.cap_btc
   },
   bvd: function(fruit) {
-    return fruit.volume24_btc
+    return fruit && fruit.volume24_btc
   },
 }
 
@@ -61,12 +61,11 @@ Template['quickchart'].onRendered(function() {
   i.autorun(function(c) {
 
     if (CF.CurrentData._sub_.ready()) {
-      if (_chartdata(i.data.system).count()) {
+      if (_chartdata(i.data.system).count() ) {
         i._ready_ = true;
       }
     }
     if (!i._ready_) return;
-
     var graph;
     graph = new myGraph("#quickchart-" + i.data.system);
 
