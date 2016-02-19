@@ -5,7 +5,22 @@ var helpers = {
 
   linksWithTag: function(links, tag) { //todo: move to cyberfund-currentdata ?
     return CF.CurrentData.linksWithTag(links, tag)
-  }
+  },
+
+  cdTurnover: function turnover () {
+    var metrics = this.metrics;
+      if (metrics.cap && metrics.cap.btc) {
+          return 100.0 * metrics.turnover;
+      }
+    return 0;
+  },
+
+  cdSymbol: function symbol () {
+    if (this.token && this.token.token_symbol) {
+      return this.token.token_symbol
+    }
+    return "";
+  },
 }
 
 _.each(helpers, function(helper, key) {
