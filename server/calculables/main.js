@@ -16,3 +16,17 @@ Meteor.startup(function() {
   if (Meteor.settings.printCF) print ("CF", CF);
 
 });
+
+SyncedCron.add({
+  name: 'daily calculations',
+  schedule: function (parser) {
+    // parser is a later.parse object
+    return parser.text('at 5:40 am');
+  },
+  job: function () {
+    CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
+    CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
+    CF.CurrentData.calculatables.triggerCalc('nLinksWithType');
+    CF.CurrentData.calculatables.triggerCalc('RATING');
+  }
+})
