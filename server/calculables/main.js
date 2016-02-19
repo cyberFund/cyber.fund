@@ -21,7 +21,7 @@ SyncedCron.add({
   name: 'daily calculations',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.text('at 5:40 am');
+    return parser.cron('40 * * * *', false);
   },
   job: function () {
     CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
