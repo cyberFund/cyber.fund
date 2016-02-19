@@ -29,7 +29,14 @@
       {{/if}}
     </td>
 
-    <td class="right-align hide-on-med-and-down">
+    <td class="center hide-on-med-and-down sorter">
+      {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
+    </td>
+    <td class="center hide-on-med-and-down sorter">
+      {{readableN calculatable.RATING.vector.GR.months 0}}
+    </td>
+    
+    <!--td class="right-align hide-on-med-and-down">
       {{# withTooltip ttName="btcPricePerUnitTooltip" data=this}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
       {{/if}} {{/withTooltip}}
     </td>
@@ -39,7 +46,7 @@
         {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
       {{#if metrics.capChange.day.btc}}
        {{/if}} {{/withTooltip}}
-    </td>
+    </td-->
 
     <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
       <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
