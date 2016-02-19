@@ -44,9 +44,11 @@
     <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
     {{#if metrics.price.usd}} {{/if}} {{/withTooltip}}
   </td>
+
   <td class="center">
-    {{readableN firstPrice 2}}
+    {{readableN firstPrice.usd 4}}
   </td>
+
   <td class="center">
     {{readableN currentPrice 2}}
   </td>

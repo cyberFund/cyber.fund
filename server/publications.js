@@ -30,7 +30,8 @@ Meteor.publish("currentDataRP", function(options) {
     "_usersStarred": 1,
     "calculatable": 1,
     "descriptions": 1,
-    "consensus": 1
+    "consensus": 1,
+    "first_price": 1
   };
 
   var keys = _.keys(options.sort);
