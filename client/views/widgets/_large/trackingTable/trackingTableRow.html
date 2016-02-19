@@ -80,7 +80,10 @@
   </td>
 
   <td class="center-align" itemprop="aggregateRating">
-    {{#withTooltip ttName="ratingTooltip" data=calculatable}} {{>cfRating rating=calculatable.RATING.sum}} {{/withTooltip}}
+    {{#withTooltip ttName="ratingTooltip" data=calculatable}}
+      <div style="float: left; ">{{calculatable.RATING.index}}</div>
+      {{>cfRating rating=calculatable.RATING.sum}}
+    {{/withTooltip}}
   </td>
 
 </tr>

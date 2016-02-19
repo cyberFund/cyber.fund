@@ -35,7 +35,7 @@
     <td class="center hide-on-med-and-down sorter">
       {{readableN calculatable.RATING.vector.GR.months 0}}
     </td>
-    
+
     <!--td class="right-align hide-on-med-and-down">
       {{# withTooltip ttName="btcPricePerUnitTooltip" data=this}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
       {{/if}} {{/withTooltip}}
@@ -71,10 +71,12 @@
 
     <td class="center-align hide-on-small-and-down" itemprop="aggregateRating" content="{{ratings.rating_cyber}}">
       {{#withTooltip}}
-      {{>cfRating rating=calculatable.RATING.sum}}
+      <div style="float: left; ">{{calculatable.RATING.index}}</div>
+       {{>cfRating rating=calculatable.RATING.sum}}
       {{#tooltip}}
         <span>rating: {{readableN calculatable.RATING.sum 2}}</span>
       {{/tooltip}}
+
       {{/withTooltip}}
     </td>
   </tr>
