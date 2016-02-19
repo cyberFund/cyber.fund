@@ -5,6 +5,7 @@ Meteor.publish("currentDataRP", function(options) {
   options = options || {};
   var defaultLimit = 1;
   var selector = {};
+  _.extend(selector, options.selector)
   options.sort = options.sort || {};
 
   // if sorting, fetch only those having defined value for sorted column
@@ -35,9 +36,6 @@ Meteor.publish("currentDataRP", function(options) {
   var keys = _.keys(options.sort);
   selector[keys[0]] = {
     $exists: true
-  };
-  selector['flags.rating_do_not_display'] = {
-    $ne: true
   };
 
   var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id")

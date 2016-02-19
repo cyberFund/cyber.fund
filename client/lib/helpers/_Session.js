@@ -12,11 +12,14 @@ _Session = {
  * @param key
  */
 _Session.get = function (key) {
-  return amplify.store(_Session._prefixKey + key);
+  ret = amplify.store(_Session._prefixKey + key);
+  if (Session.get(key) != ret) Session.set(key, ret);
+  return ret;
 };
 
 _Session.set = function (key, value) {
   amplify.store(_Session._prefixKey + key, value);
+  Session.set(key, value)
 };
 
 _Session.default = function (key, value) {
