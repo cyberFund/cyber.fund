@@ -133,7 +133,7 @@ var esParsers = {
       var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
 
       // overriding supply data source.
-      if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
+      if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
         supplyDataSource = 'chg';
       }
 
@@ -293,7 +293,7 @@ var esParsers = {
       if (!_.isEmpty(set) && curDoc) {
         set.updatedAt = new Date();
         //
-        /*if (curDoc && curDoc.flags && curDoc.flags.suplly_from_here) {
+        /*if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
          set['metrics.supply'] = curDoc.specs.supply;
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
          set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
