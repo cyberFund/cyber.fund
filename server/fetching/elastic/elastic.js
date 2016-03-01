@@ -82,36 +82,15 @@ var esParsers = {
     var todayBuckets = getBuckets (today);
     var yesterdayBuckets = getBuckets (yesterday);
 
-
-    //print("hello", "there")
     console.log ("total of " + todayBuckets.length + " buckets")
-
-
-
-
-//    print("t", today);//.aggregations.by_system, true);
-//    print("y", yesterday);//.aggregations.by_system);
-
-
-//    print("tt", todayBuckets[0].latest.hits.hits, true);
-//    print("yy", yesterdayBuckets[0].latest.hits.hits);
-
     var notFounds = [];
 
     _.each(todayBuckets, function(bucket) {
-
       var sNow = getHit(bucket);
       if (_.isEmpty(sNow)) return; // no need to update if no new data
 
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
-      //  sWeekAgo = {}; // not used so far
-      if (!sDayAgo) {
-        //print("no yesterday bucket for", bucket.key)
-        //print("lengths of today and yesterday are",
-        //todayBuckets.length + ", " + yesterdayBuckets.length )
-      } else {
 
-      }
       var set = {}; // changes object, to be used within doc update
       var m = moment(sNow.timestamp);
       var timestamp = m._d;
@@ -121,6 +100,7 @@ var esParsers = {
         hour: m.hours(),
         minute: m.minutes()
       };
+
       // current document, so we can take some values if none in fetched data
       var curDoc = CurrentData.findOne(_searchSelector(bucket.key), {
         fields: {
@@ -171,7 +151,7 @@ var esParsers = {
       // if price - store it, calculate diffs
       if (sNow.price_usd) {
         set["metrics.price.usd"] = sNow.price_usd;
-        if (sDayAgo.price_usd) {
+        if (sDayAgo && sDayAgo.price_usd) {
           set["metrics.priceChangePercents.day.usd"] = 100.0 *
             (sNow.price_usd - sDayAgo.price_usd) / sNow.price_usd;
           set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
@@ -185,7 +165,7 @@ var esParsers = {
       // if price - store it, calculate diffs
       if (sNow.price_btc) {
         set["metrics.price.btc"] = sNow.price_btc;
-        if (sDayAgo.price_btc) {
+        if (sDayAgo && sDayAgo.price_btc) {
           set["metrics.priceChangePercents.day.btc"] = 100.0 *
             (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
           set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
@@ -213,7 +193,7 @@ var esParsers = {
 
 
       // if supply value is here
-      if (sDayAgo.supply_current) {
+      if (sDayAgo && sDayAgo.supply_current) {
 
         // try count cap using price and supply
         // if (sDayAgo.price_usd) {
@@ -240,7 +220,7 @@ var esParsers = {
         }
 
         set["metrics.supply"] = sNow.supply_current;
-        if (sDayAgo.supply_current) {
+        if (sDayAgo && sDayAgo.supply_current) {
           var supplyDayAgo = sDayAgo.supply_current // || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
             (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
@@ -266,12 +246,12 @@ var esParsers = {
           set["metrics.turnover"] = 0.0;
         }
 
-        if (sDayAgo.volume24_btc) {
+        if (sDayAgo && sDayAgo.volume24_btc) {
           set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
         }
       }
 
-      if (sNow.cap_usd && sDayAgo.cap_usd) {
+      if (sNow.cap_usd && sDayAgo && sDayAgo.cap_usd) {
       /*  print ('in set["metrics.capChangePercents.day.usd"]');
         print ('bucketKey', bucket.key)
         print ('cap_usd now', sNow.cap_usd);
@@ -283,7 +263,7 @@ var esParsers = {
         set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
       }
 
-      if (sNow.cap_btc && sDayAgo.cap_btc) {
+      if (sNow.cap_btc && sDayAgo && sDayAgo.cap_btc) {
         set["metrics.capChangePercents.day.btc"] = 100.0 *
           (sNow.cap_btc - sDayAgo.cap_btc) / sNow.cap_btc;
         set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
