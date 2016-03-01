@@ -8,8 +8,9 @@ Template['trackingWidget'].onCreated(function () {
   instance.subscribe("maxLove");
   instance.autorun(function () {
     instance.subscribe("currentDataRP", {
-      limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('coinSorter')
+      limit: 150,//Session.get('ratingPageLimit'),
+      sort: _Session.get('coinSorter'),
+      selector: {'flags.rating_do_not_display': {$ne: true}}
     });
   });
 

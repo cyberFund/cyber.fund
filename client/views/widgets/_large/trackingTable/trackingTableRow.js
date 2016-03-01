@@ -8,5 +8,8 @@ Template['trackingTableRow'].helpers({
       return 100.0 * metrics.turnover;
     }
     return 0;
+  },
+  firstPrice: function(){
+    return this.first_price || {  };
   }
 })

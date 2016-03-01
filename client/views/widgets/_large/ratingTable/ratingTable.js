@@ -1,8 +1,4 @@
 var initialLimit = CF.Rating.limit0;
-Meteor.startup(function () {
-  _Session.default("ratingPageSort", null);
-  _Session.default("coinSorter", {"calculable.RATING.sum": 1});
-});
 
 Template['ratingTable'].onCreated(function () {
   Session.set('ratingPageLimit', initialLimit);
@@ -10,7 +6,8 @@ Template['ratingTable'].onCreated(function () {
   instance.autorun(function () {
     CF.CurrentData._sub_ = instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('coinSorter')
+      sort: _Session.get('coinSorter'),
+      selector: {'flags.rating_do_not_display': {$ne: true}, "calculatable.RATING.sum": {$gte: 2}}
     });
   });
 
@@ -64,12 +61,7 @@ Template['ratingTable'].helpers({
   'img_url': function () {
     return CF.Chaingear.helpers.cgSystemLogo(this);
   },
-  symbol: function () {
-    if (this.token && this.token.token_symbol) {
-      return this.token.token_symbol
-    }
-    return "";
-  },
+
 
   capBtcToText: function (cap) {
     var ret = parseFloat(cap);

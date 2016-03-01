@@ -44,9 +44,11 @@
     <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
     {{#if metrics.price.usd}} {{/if}} {{/withTooltip}}
   </td>
+
   <td class="center">
-    {{readableN firstPrice 2}}
+    {{readableN firstPrice.usd 4}}
   </td>
+
   <td class="center">
     {{readableN currentPrice 2}}
   </td>
@@ -78,7 +80,10 @@
   </td>
 
   <td class="center-align" itemprop="aggregateRating">
-    {{#withTooltip ttName="ratingTooltip" data=calculatable}} {{>cfRating rating=calculatable.RATING.sum}} {{/withTooltip}}
+    {{#withTooltip ttName="ratingTooltip" data=calculatable}}
+      <div style="float: left; ">{{calculatable.RATING.index}}</div>
+      {{>cfRating rating=calculatable.RATING.sum}}
+    {{/withTooltip}}
   </td>
 
 </tr>
@@ -108,7 +113,7 @@
   <div>Daily change :<b>{{readableN (dayToDayTradeVolumeChange this) 2}}</b> %
   </div>
 
-  <div>Turnover:<b>{{readableN turnover 2}}</b> %
+  <div>Turnover:<b>{{readableN (cdTurnover) 2}}</b> %
   </div>
 </template>
 

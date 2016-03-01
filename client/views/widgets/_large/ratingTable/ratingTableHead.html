@@ -9,11 +9,28 @@
   {{#thSortable class="center hide-on-small-and-down" o=__sorter
     s="metrics.turnover"}}Trade{{/ thSortable}}
 
-  {{#thSortable class="right-align hide-on-med-and-down" o=__sorter
-  s="metrics.cap.btc"}}Cap in Ƀ{{/ thSortable}}
 
-  {{#thSortable class="right-align hide-on-med-and-down" o=__sorter
-  s="metrics.capChangePercents.day.btc"}}1d&nbsp;Change{{/ thSortable}}
+  {{# thSortable o=__sorter class="center hide-on-med-and-down sorter"
+  s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
+  {{# withTooltip}} CMGR
+  {{#tooltip class="tooltip-table-head"}} Compound Monthly Growth Rate. Key indicator that show long term profitability of investments. We use monthly calculation in opposite to annual in traditional
+  finance as blockchain markets are faster than tradational thus should be evaulated more frequently
+  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+
+  {{#thSortable o=__sorter class="center hide-on-med-and-down sorter"
+  s="calculatable.RATING.vector.GR.months"}}
+  {{# withTooltip}} Months
+  {{# tooltip class="tooltip-table-head"}} Number of periods CMGR has been calculated. Less a number of periods the more risk that CMGR will float
+  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+
+
+  {{! #thSortable class="right-align hide-on-med-and-down" o=__sorter
+  s="metrics.cap.btc"}}{{! Cap in Ƀ}}{{! / thSortable}}
+
+  {{! #thSortable class="right-align hide-on-med-and-down" o=__sorter
+  s="metrics.capChangePercents.day.btc"}}{{! 1d&nbsp;Change}}{{! / thSortable}}
+
+
 
   {{#thSortable class="right-align" o=__sorter
   s="metrics.cap.usd"}}Cap in ${{/ thSortable}}
