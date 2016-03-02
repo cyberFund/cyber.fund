@@ -33,7 +33,6 @@ Template['folioChart'].onCreated(function () {
       q: 0
     };
     _.each(data, function (system) {
-      console.log (system._id)
       var point = {
         symbol: system._id,
         q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id)
