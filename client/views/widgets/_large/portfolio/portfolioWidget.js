@@ -75,7 +75,7 @@ var _getSumU = function (accountsData, addressesObject) {
   return sum;
 };
 
-Template['portfolioWidget'].helpers({
+Template['portfolioWidgetTable'].helpers({
   values: function (obj) {
     return _.values(obj || {});
   },
@@ -185,26 +185,6 @@ Template['portfolioWidget'].helpers({
     return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
         accounts, system._id) * system.metrics.price.usd, 2);
   },
-  sumB: function () {
-    var accounts = Template.instance().data && Template.instance().data.accountsData;
-    var sumB = accounts ? getSumB(accounts) : 0;
-    return CF.Utils.readableN(sumB, 3)
-  },
-  _sumB: function (addressesObject) {
-    var accounts = Template.instance().data && Template.instance().data.accountsData;
-    var sumB = (accounts && addressesObject) ? _getSumB(accounts, addressesObject) : 0;
-    return CF.Utils.readableN(sumB, 3)
-  },
-  _sumU: function (addressesObject) {
-    var accounts = Template.instance().data && Template.instance().data.accountsData;
-    var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
-    return CF.Utils.readableN(sumB, 0)
-  },
-  sumU: function () {
-    var accounts = Template.instance().data && Template.instance().data.accountsData;
-    var sumU = accounts ? getSumU(accounts) : 0;
-    return CF.Utils.readableN(sumU, 0)
-  },
   name_of_system: function () {
     return this._id
   },
@@ -272,8 +252,30 @@ Template['portfolioWidget'].helpers({
   }
 });
 
-Template['portfolioWidget'].events({
+Template['portfolioWidgetView'].helpers({
+  sumB: function () {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumB = accounts ? getSumB(accounts) : 0;
+    return CF.Utils.readableN(sumB, 3)
+  },
+  _sumB: function (addressesObject) {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumB = (accounts && addressesObject) ? _getSumB(accounts, addressesObject) : 0;
+    return CF.Utils.readableN(sumB, 3)
+  },
+  _sumU: function (addressesObject) {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
+    return CF.Utils.readableN(sumB, 0)
+  },
+  sumU: function () {
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var sumU = accounts ? getSumU(accounts) : 0;
+    return CF.Utils.readableN(sumU, 0)
+  }
+})
 
+Template['portfolioWidgetTable'].events({
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
     var sort = _Session.get("folioWidgetSort");

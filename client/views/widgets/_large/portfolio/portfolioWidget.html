@@ -1,85 +1,85 @@
 <!-- originally created for cyber.fund project-->
 <template name="portfolioWidget">
-    <div class="row">
-        <div class="col s12 m6 l6">
-            <h1 class="center">Ƀ {{sumB}} </h1>
+  {{> portfolioWidgetView}}
+  {{#if hideTable}}{{else}}
+  {{> portfolioWidgetTable}}{{/if}}
+</template>
 
-            <h2 class="center">$ {{sumU}} </h2>
-
-            <div class="center black-text"><small>
-                Hint: go to <a href="{{pathFor '/@:twid' twid=ownTwid}}">Profile</a> page to add assets
-            </small>
-            </div>
-            <table>
-                <thead>
-                <th class="center">Account</th>
-                <th>Σ Ƀ</th>
-                <th>Σ $</th>
-                </thead>
-                <tbody>
-                {{#each values_of accountsData}}
-                    <tr>
-                        <td>{{name}}</td>
-                        <td>{{_sumB addresses}}</td>
-                        <td>{{_sumU addresses}}</td>
-                    </tr>
-                {{/each}}
-                </tbody>
-            </table>
-        </div>
-        <div class="col s12 m6 l6">
-            {{log accountsData}}
-            {{> folioChart accountsData=accountsData}}
-        </div>
-    </div>
-    <div class="row">
-        <table>
-            <thead>
-            <th class="center">System</th>
-            <th class="center sorter"
-                data-sorter="f|byAmount">{{sorter "f|byAmount"}}Amount
-            </th>
-            <th class="center sorter"
-                data-sorter="f|byEquity">{{sorter "f|byEquity"}}Equity
-            </th>
-            <th class="center sorter hide-on-small-and-down"
-                data-sorter="f|byValue">{{sorter "f|byValue"}}Portfolio Share
-            </th>
-            <th class="center sorter"
-                data-sorter="f|byValue">{{sorter "f|byValue"}}Value in BTC
-            </th>
-            <th class="center sorter hide-on-med-and-down "
-                data-sorter="f|byValue">{{sorter "f|byValue"}}Value in USD
-            </th>
-            <th class="right sorter hide-on-small-and-down "
-                data-sorter="metrics.priceChangePercents.day.usd">USD
-                Price<sup>{{sorter "metrics.priceChangePercents.day.usd"}}1d
+<template name="portfolioWidgetTable">
+  <div class="row">
+    <table>
+      <thead>
+        <th class="center">System</th>
+        <th class="center sorter" data-sorter="f|byAmount">{{sorter "f|byAmount"}}Amount
+        </th>
+        <th class="center sorter" data-sorter="f|byEquity">{{sorter "f|byEquity"}}Equity
+        </th>
+        <th class="center sorter hide-on-small-and-down" data-sorter="f|byValue">{{sorter "f|byValue"}}Portfolio Share
+        </th>
+        <th class="center sorter" data-sorter="f|byValue">{{sorter "f|byValue"}}Value in BTC
+        </th>
+        <th class="center sorter hide-on-med-and-down " data-sorter="f|byValue">{{sorter "f|byValue"}}Value in USD
+        </th>
+        <th class="right sorter hide-on-small-and-down " data-sorter="metrics.priceChangePercents.day.usd">USD Price
+          <sup>{{sorter "metrics.priceChangePercents.day.usd"}}1d
                     Change</sup></th>
-            <th class="center sorter hide-on-med-and-down "
-                data-sorter="metrics.cap.usd">{{sorter 'metrics.cap.usd'}}USD
-                Cap
-            </th>
-            </thead>
-            <tbody>
-            {{#each pSystems}}
-                <tr>
-                    <td><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+        <th class="center sorter hide-on-med-and-down " data-sorter="metrics.cap.usd">{{sorter 'metrics.cap.usd'}}USD Cap
+        </th>
+      </thead>
+      <tbody>
+        {{#each pSystems}}
+        <tr>
+          <td><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
                         {{> cgSystemLogo data=this style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                         {{displaySystemName this}}</a></td>
-                    <td class="right-align">{{quantity this}}</td>
-                    <td class="right-align">{{equity this}}</td>
-                    <td class="right-align hide-on-small-and-down">{{share}}</td>
-                    <td class="right-align">{{btcCost this}}</td>
-                    <td class="right-align hide-on-med-and-down ">
-                        {{usdCost this}}</td>
-                    <td class="right-align hide-on-small-and-down ">{{usdPrice}}
-                        <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
+          <td class="right-align">{{quantity this}}</td>
+          <td class="right-align">{{equity this}}</td>
+          <td class="right-align hide-on-small-and-down">{{share}}</td>
+          <td class="right-align">{{btcCost this}}</td>
+          <td class="right-align hide-on-med-and-down ">
+            {{usdCost this}}</td>
+          <td class="right-align hide-on-small-and-down ">{{usdPrice}}
+            <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
                             {{readableN usdPriceChange1d 2}}%</sup></td>
-                    <td class="right-align  hide-on-med-and-down ">{{usdCap this}}</td>
-                </tr>
-            {{! > portTableRow this}}
-            {{/each}}
-            </tbody>
-        </table>
+          <td class="right-align  hide-on-med-and-down ">{{usdCap this}}</td>
+        </tr>
+        {{! > portTableRow this}} {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<template name="portfolioWidgetView">
+  <div class="row">
+    <div class="col s12 m6 l6">
+      <h1 class="center">Ƀ {{sumB}} </h1>
+
+      <h2 class="center">$ {{sumU}} </h2>
+
+      <!--div class="center black-text">
+        <small>
+          Hint: go to <a href="{{pathFor '/@:twid' twid=ownTwid}}">Profile</a> page to add assets
+        </small>
+      </div-->
+      <table>
+        <thead>
+          <th class="center">Account</th>
+          <th>Σ Ƀ</th>
+          <th>Σ $</th>
+        </thead>
+        <tbody>
+          {{#each values_of accountsData}}
+          <tr>
+            <td>{{name}}</td>
+            <td>{{_sumB addresses}}</td>
+            <td>{{_sumU addresses}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
     </div>
+    <div class="col s12 m6 l6">
+      {{> folioChart accountsData=accountsData}}
+    </div>
+  </div>
 </template>
