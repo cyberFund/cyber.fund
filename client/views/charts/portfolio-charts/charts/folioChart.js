@@ -3,10 +3,16 @@ CF.UserAssets.graph.minimalShare = 0.015;
 
 Template['folioChart'].onCreated(function () {
   var self = this;
-  this.autorun(function (comp) {
+
+  self.autorun(function (comp) {
+    var dddd = Template.currentData()
+    var accounts = dddd && dddd.accountsData;
+
+    //var accounts = Template.instance().data && Template.instance().data.accountsData;
+    if (!accounts) return;
+
     var ticks = [], labels = [];
 
-    var accounts = Template.instance().data && Template.instance().data.accountsData;
     var options = _Session.get("portfolioOptions") || {},
 
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
@@ -73,8 +79,8 @@ Template['folioChart'].onCreated(function () {
 });
 
 Template['folioChart'].helpers({
-  'foo': function () {
-
+  dd: function () {
+    return Template.instance().data.accountsData
   }
 });
 

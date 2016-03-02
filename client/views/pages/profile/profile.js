@@ -51,6 +51,12 @@ var _user = function getUserByCurrentUid() {
 };
 
 Template['profile'].helpers({
+  currentUserAccounts: function(){
+    return CF.UserAssets.getAccountsObjectOther(Meteor.userId());
+  },
+  userAccounts: function(){
+    return CF.UserAssets.getAccountsObjectOther(CF.Profile.currentUid());
+  },
   'profileName': function() {
     return this.profile && this.profile.name
   },

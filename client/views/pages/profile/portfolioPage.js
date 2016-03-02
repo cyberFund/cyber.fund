@@ -1,4 +1,19 @@
 // this only works for current user.
+
+CF.UserAssets.getAccountsObjectOther = function (userId) {
+  userId = userId || Meteor.userId()
+  var user = Meteor.users.findOne({_id: userId})//,
+  //  options = {privateAssets: false}//Session.get("portfolioOptions") || {};//todo: factor out
+  if (!user) return {};
+  var accounts = user.accounts;
+
+  if (userId == Meteor.userId()) {
+     _.extend(accounts, user.accountsPrivate || {})
+   }
+  return accounts;
+};
+
+
 CF.UserAssets.getAccountsObject = function () {
   var user = Meteor.user(),
     options = Session.get("portfolioOptions") || {};//todo: factor out
@@ -25,7 +40,10 @@ Template['portfolioPage'].rendered = function () {
 
 Template['portfolioPage'].helpers({
   currentUserAccounts: function(){
-    return CF.UserAssets.getAccountsObject();
+    return CF.UserAssets.getAccountsObjectOther(Meteor.userId());
+  },
+  userAccounts: function(){
+    return CF.UserAssets.getAccountsObjectOther(CF.Profile.currentUid());
   }
 });
 
