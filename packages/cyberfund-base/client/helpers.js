@@ -90,7 +90,7 @@ var helpers = {
     return value1.toString() + value2.toString();
   },
   values_of: function (arr_or_obj) {
-    var arr = arr_or_obj;
+    var arr = _.clone(arr_or_obj);
     if (typeof arr == "object") {
       return $.map(arr, function (value, index) {
         return [value];

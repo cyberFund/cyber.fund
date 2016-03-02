@@ -1,5 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
+    {{> portfolioWidget accountsData=currentUserAccounts }}
     <div class="row" style="margin-top: 12px">
         <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
