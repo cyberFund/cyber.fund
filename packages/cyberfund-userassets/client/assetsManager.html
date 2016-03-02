@@ -3,11 +3,7 @@
     <section id="assets-manager" class="assets-manager row" owner={{assetsOwnerId}}>
         {{#if isOwnAssets}}
             {{> addAccount}}
-            <a href="/portfolio">Portfolio View</a>
-        {{else}}
-            {{> portfolioWidget accountsData=_accounts}}
         {{/if}}
-
         {{#if and isOwnAssets  showAccountsAdvertise}}
         <div>
           <div class="container center">
