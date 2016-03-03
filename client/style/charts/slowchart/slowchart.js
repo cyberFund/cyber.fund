@@ -18,7 +18,9 @@ _timestampino = function(timestamp) {
 Template['slowchart'].helpers({
   'chartdata': _chartdata,
   __ready: function() {
-    return Template.instance()._ready_ || (CF._sub_ && CF._sub_.ready());
+    return true;
+    return Template.instance()._ready_ ||
+    (CF._sub_ && CF._sub_.ready());
   }
 });
 
@@ -28,22 +30,22 @@ Template['slowchart'].onCreated(function() {
 
 var grab = {
   t: function(fruit) {
-    return fruit.timestamp
+    return fruit && fruit.timestamp
   },
   sp: function(fruit) {
-    return fruit.price_usd
+    return fruit && fruit.price_usd
   },
   bp: function(fruit) {
-    return fruit.price_btc
+    return fruit && fruit.price_btc
   },
   sc: function(fruit) {
-    return fruit.cap_usd
+    return fruit && fruit.cap_usd
   },
   bc: function(fruit) {
-    return fruit.cap_btc
+    return fruit && fruit.cap_btc
   },
   bvd: function(fruit) {
-    return fruit.volume24_btc
+    return fruit && fruit.volume24_btc
   },
 }
 
@@ -62,37 +64,49 @@ Template['slowchart'].onRendered(function() {
     }
     if (!i._ready_) return;
 
-    var graph;
-    graph = new myGraph("#slowchart-" + i.data.system);
+  var graph;
+  graph = new myGraph("#slowchart-" + i.data.system);
 
-    function myGraph(el) {
-      this.selectedNode = null;
-      var graph = this;
+  function myGraph(el) {
+    this.selectedNode = null;
+    var graph = this;
 
-      var data = _chartdata(i.data.system).fetch();
-      data = data.sort(function(a, b) {
+    var ww = d3.select(el).style("width");
+    var hh = d3.select(el).style("height");
+
+    var wf = ww.split('px')[0]; //widfull
+    var w = wf - 60;
+    var hf = hh.split('px')[0];
+    var h = hf - 30;
+
+    var data, x, y, xAxis, yAxis, svg, priceLine, drawing, bisectDate, formatValue, formatCurrency
+    init();
+    var obs = _chartdata(i.data.system).observe({
+      added: function(item) {
+        data.push(item);
+      }
+    })
+    interact();
+
+
+
+
+    function init() {
+      data = _chartdata(i.data.system).fetch();
+      /*data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
-      })
+      })*/
 
-      var ww = d3.select(el).style("width");
-      var hh = d3.select(el).style("height");
-
-      var wf = ww.split('px')[0]; //widfull
-      var w = wf - 60;
-      var hf = hh.split('px')[0];
-      var h = hf - 30;
-      var x = d3.time.scale()
+      x = d3.time.scale()
         .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
         .range([0 + 2, w - 2]);
-      var y = d3.scale.linear()
+      y = d3.scale.linear()
         .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
         .range([h - 1, 0 + 1]);
-      var xAxis = d3.svg.axis().scale(x).orient('bottom');
-      var yAxis = d3.svg.axis().scale(y).orient('left');
+      xAxis = d3.svg.axis().scale(x).orient('bottom');
+      yAxis = d3.svg.axis().scale(y).orient('left');
 
-
-
-      var svg = d3.select(el)
+      svg = d3.select(el)
         .append("svg:svg")
         //.attr("width", wf)
         //.attr("height", h)
@@ -102,7 +116,7 @@ Template['slowchart'].onRendered(function() {
         .attr('class', 'chart')
         .attr("preserveAspectRatio", "xMinYMid");
 
-      var priceLine = d3.svg.line()
+      priceLine = d3.svg.line()
         .x(function(d) {
           return x(grab.t(d));
         })
@@ -110,16 +124,23 @@ Template['slowchart'].onRendered(function() {
           return y(grab.sp(d));
         });
 
-      var drawing = svg.append("path")
+      drawing = svg.append("path")
         .attr("d", priceLine(data))
         .attr("class", "qc-line-1")
 
       // FOCUS DOMAIN
-      var bisectDate = d3.bisector(function(d) {
+      bisectDate = d3.bisector(function(d) {
         return d.timestamp;
       }).left;
 
-      var focus = svg.append("g")
+
+
+      formatValue = d3.format(",.4f");
+      formatCurrency = function(d) {
+        return "$" + formatValue(d);
+      };
+
+      focus = svg.append("g")
         .attr("class", "focus")
         .style("display", "none");
 
@@ -142,12 +163,9 @@ Template['slowchart'].onRendered(function() {
         .attr("class", "date")
         .attr("dx", w + 1)
         .attr("dy", "8");
+    }
 
-      var formatValue = d3.format(",.4f");
-      var formatCurrency = function(d) {
-        return "$" + formatValue(d);
-      };
-
+    function interact() {
       function mousemove() {
         var x0 = x.invert(d3.mouse(this)[0]);
         var i = bisectDate(data, x0, 1);
@@ -173,9 +191,6 @@ Template['slowchart'].onRendered(function() {
           .text(_timestampino(grab.t(d)));
       }
 
-
-
-
       svg
         .on("mouseover", function() {
           focus.style("display", null);
@@ -184,11 +199,10 @@ Template['slowchart'].onRendered(function() {
           focus.style("display", "none");
         })
         .on("mousemove", mousemove)
-
-
-
     }
-    if (i._ready_) {
+
+  }
+  if (i._ready_) {
       c.stop();
     }
   })
