@@ -75,16 +75,18 @@ Meteor.publish('userDetails', function() {
 Meteor.publish('systemData', function(options) {
   //still using name & symbol. probably got to refactor to avoid confusion in future
   var name = options.name;
-  var symbol = options.symbol;
-  if (symbol && name) {
+  //var symbol = options.symbol;
+  /*if (symbol && name) {
     return CurrentData.find(CF.CurrentData.selectors.system_symbol(name, symbol));
-  }
+  }*/
   if (name) {
-    return CurrentData.find(CF.CurrentData.selectors.system(name));
+    return [CurrentData.find(CF.CurrentData.selectors.system(name)),
+      MarketData.find({systemId: name})
+    ];
   }
-  if (symbol) {
+  /*if (symbol) {
     return CurrentData.find(CF.CurrentData.selectors.symbol(symbol));
-  }
+  }*/
   return this.ready();
 });
 
