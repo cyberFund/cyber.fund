@@ -80,22 +80,20 @@ Template['slowchart'].onRendered(function() {
     var h = hf - 30;
 
     var data, x, y, xAxis, yAxis, svg, priceLine, drawing, bisectDate, formatValue, formatCurrency
+    var xax, yax;
     init();
-    var obs = _chartdata(i.data.system).observe({
+    /*var obs = _chartdata(i.data.system).observe({
       added: function(item) {
         data.push(item);
       }
-    })
+    })*/
     interact();
-
-
-
 
     function init() {
       data = _chartdata(i.data.system).fetch();
-      /*data = data.sort(function(a, b) {
+      data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
-      })*/
+      })
 
       x = d3.time.scale()
         .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
@@ -103,8 +101,10 @@ Template['slowchart'].onRendered(function() {
       y = d3.scale.linear()
         .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
         .range([h - 1, 0 + 1]);
-      xAxis = d3.svg.axis().scale(x).orient('bottom');
-      yAxis = d3.svg.axis().scale(y).orient('left');
+      xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(5).tickSize(-6);
+      yAxis = d3.svg.axis().scale(y).orient('right').ticks(4).tickSize(-6);
+
+
 
       svg = d3.select(el)
         .append("svg:svg")
@@ -112,9 +112,20 @@ Template['slowchart'].onRendered(function() {
         //.attr("height", h)
         .attr("id", "svg-" + i.data.system)
         .attr("pointer-events", "all")
-        .attr("viewBox", "0 0 " + wf + " " + h)
+        .attr("viewBox", "-5 -5 " + wf+5 + " " + h+5)
         .attr('class', 'chart')
         .attr("preserveAspectRatio", "xMinYMid");
+
+      var xaxisdraw = svg.append("g")
+          .attr("class", "x axis")
+          .attr("transform", "translate(0," + h + ")")
+          .call(xAxis);
+
+      var yaxisdraw = svg.append("g")
+          .attr("class", "y axis")
+          .attr("transform", "translate(" + w + ",0)")
+          .call(yAxis);
+
 
       priceLine = d3.svg.line()
         .x(function(d) {
@@ -132,8 +143,6 @@ Template['slowchart'].onRendered(function() {
       bisectDate = d3.bisector(function(d) {
         return d.timestamp;
       }).left;
-
-
 
       formatValue = d3.format(",.4f");
       formatCurrency = function(d) {

@@ -9,6 +9,36 @@
   font-size: 10px;
 }
 
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+}
+
+.axis line {
+  stroke: #000;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+}
+
 .focus-horiz {
   stroke-width: 0.9;
   stroke: yellow;
