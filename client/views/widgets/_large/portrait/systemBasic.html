@@ -128,14 +128,15 @@
 
     {{! > systemBasicCharts this}} {{/if}}
 
-    <div id="code" class="section scrollspy row">
+    <div id="news" class="section scrollspy row">
       {{#if existLinksWith links 'News'}}
       <h3 class="center">News</h3>
 
+      {{#each linksWithTag links "Code"}}
       <div class="row">
-        {{#each linksWithTag this "News"}} {{> cgLinkCard this}} {{/each}}
+        {{> cgLink this}}
       </div>
-      {{else}} {{/if}}
+      {{/each}} {{/if}}
     </div>
 
     <div id="apps" class="section scrollspy row">
@@ -146,27 +147,6 @@
       <div class="row">
         <div class="col s12">
           {{> systemLinksTabs this}}
-        </div>
-
-        {{#if existLinksWith this "Wallet"}}
-        <div id="tag-wallet" class="col s12">
-          {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
-        </div>
-        {{/if}} {{#if existLinksWith this "Exchange"}}
-        <div id="tag-exchange" class="col s12">
-          {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
-        </div>
-        {{/if}} {{#if existLinksWith this "Analytics"}}
-        <div id="tag-analytics" class="col s12">
-          {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
-        </div>
-        {{/if}} {{#if existLinksWith this "Magic"}}
-        <div id="tag-magic" class="col s12">
-          {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
-        </div>
-        {{/if}}
-        <div id="tag-other" class="col s12">
-          {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
         </div>
 
       </div>
