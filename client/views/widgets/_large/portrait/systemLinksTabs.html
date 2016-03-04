@@ -25,4 +25,26 @@
             <a href="#tag-other">Other</a>
         </li>
     </ul>
+
+
+            {{#if existLinksWith this "Wallet"}}
+            <div id="tag-wallet" class="col s12">
+              {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
+            </div>
+            {{/if}} {{#if existLinksWith this "Exchange"}}
+            <div id="tag-exchange" class="col s12">
+              {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
+            </div>
+            {{/if}} {{#if existLinksWith this "Analytics"}}
+            <div id="tag-analytics" class="col s12">
+              {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
+            </div>
+            {{/if}} {{#if existLinksWith this "Magic"}}
+            <div id="tag-magic" class="col s12">
+              {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
+            </div>
+            {{/if}}
+            <div id="tag-other" class="col s12">
+              {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
+            </div>
 </template>
