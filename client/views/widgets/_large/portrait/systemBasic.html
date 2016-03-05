@@ -277,7 +277,7 @@
       <div style="display: inline-block; margin: auto" class="valign-wrapper">
         <div class="valign">
           <div itemprop="aggregateRating" content="{{ratings.rating_cyber}}" class="rating-sys" style="margin-top: 1.5rem">
-            {{>cfRating rating=ratings.rating_cyber}}
+            {{>cfRating rating=calculatable.RATING.sum}}
           </div>
           {{#if independent this}}
           <div> Independent System</div>
