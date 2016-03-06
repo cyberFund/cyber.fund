@@ -14,6 +14,6 @@ ns.lib.calcs.calcBR =  function calcBR(system) {
   var flag = getFlag()
   return {
     flag: flag,
-    sum: flag ? 1 : 0
+    sum: 0//flag ? 1 : 0
   }
 };

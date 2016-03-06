@@ -11,7 +11,7 @@ function curData() {
 Template['systemBasic'].onCreated(function() {
   var instance = this;
   CF._sub_ = instance.subscribe('systemData', {
-    name: FlowRouter.getParam('name_').replace(/_/g, " ")
+    name: systemName()
   });
   instance.subscribe('dependentCoins', systemName());
 
