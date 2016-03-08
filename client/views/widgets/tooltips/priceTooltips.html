@@ -1,0 +1,18 @@
+
+<template name="btcPricePerUnitTooltip">
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
+                        <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
+</div>
+</template>
+
+
+<template name="usdPricePerUnitTooltip"> {{#if metrics.price.usd}}
+<div>Price per 1 {{displaySystemName this}}:
+  <br/>
+  <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                        <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                        <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
+</div>{{/if}}</template>
