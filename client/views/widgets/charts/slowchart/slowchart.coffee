@@ -108,9 +108,37 @@ myGraph = (el, i) ->
     .attr 'class', 'tooltip-box'
   tooltip.attr('transform', 'translate(40,0)')
   tooltip.append('text').attr('class', 'price')
-  .attr('dx', 0).attr 'dy', '18'
+    .attr 'dx', '0'
+    .attr 'dy', '18'
   tooltip.append('text').attr('class', 'date')
-  .attr('dx', 0).attr 'dy', '8'
+    .attr 'dx', '0'
+    .attr 'dy', '8'
+
+  volumeChart = svg.append('g')
+  volumeChart.__top = mTop + mBetween + hM
+  volumeChart.append('rect')
+    .attr 'x', mLeft
+    .attr 'y', volumeChart.__top
+    .attr 'height', hV
+    .attr 'width', w
+    .attr 'class', 'tooltip-box'
+  volumeChart.append('text')
+    .attr 'dx', mLeft
+    .attr 'dy', volumeChart.__top + 9
+    .text 'volume'
+
+  zoomChart = svg.append('g')
+  zoomChart.__top = mTop + 2*mBetween + hM + hV
+  zoomChart.append('rect')
+    .attr 'x', mLeft
+    .attr 'y', zoomChart.__top
+    .attr 'height', hZ
+    .attr 'width', w
+    .attr 'class', 'tooltip-box'
+  zoomChart.append('text')
+    .attr 'dx', mLeft
+    .attr 'dy', zoomChart.__top + 9
+    .text 'zoom'
 
   svg.on('mouseover', ->
     focus.style 'display', null
