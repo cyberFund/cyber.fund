@@ -34,14 +34,16 @@ myGraph = (el, i) ->
   mRight = 40
   mTop = 20
   mBottom = 10
-  mBetween = 20
-  split = 1/3
+  mBetween = 15
+  split = [1, 1/3, 1/3]
+  splitsum = split[0] + split[1] + split[2]
 
   w = wf - mLeft - mRight
-  h = hf - mTop - mBottom - mBetween
+  h = hf - mTop - mBottom - mBetween*(split.length-1)
 
-  hM = h / (1+split)
-  hZ = h * split / (1+split)
+  hM = h*split[0] / splitsum
+  hV = h*split[1] / splitsum
+  hZ = h*split[2] / splitsum
 
   data = _chartdata(i.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
