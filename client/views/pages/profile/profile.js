@@ -1,8 +1,3 @@
-CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
-CF.Profile.currentUid = function() {
-  var u = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
-  return u ? u._id : undefined;
-};
 
 Template['profile'].onCreated(function() {
   var instance = this;
@@ -52,10 +47,10 @@ var _user = function getUserByCurrentUid() {
 
 Template['profile'].helpers({
   currentUserAccounts: function(){
-    return CF.UserAssets.getAccountsObjectOther(Meteor.userId());
+    return CF.UserAssets.getAccountsObject(Meteor.userId());
   },
   userAccounts: function(){
-    return CF.UserAssets.getAccountsObjectOther(CF.Profile.currentUid());
+    return CF.UserAssets.getAccountsObject(CF.Profile.currentUid());
   },
   'profileName': function() {
     return this.profile && this.profile.name

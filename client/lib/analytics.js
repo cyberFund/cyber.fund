@@ -1,4 +1,3 @@
-CF.Utils = CF.Utils || {};
 var ns = CF.Utils
 
 ns.segmentIoPublicKey = function() {
