@@ -8,7 +8,7 @@ myGraph = (el, i) ->
   mousemove = ->
     limitX = (v) -> Math.min(v, wf - tooltip.__w)
     limitY = (v) -> Math.min(v, mTop + hM - tooltip.__h)
-    x0 = x.invert(d3.mouse(this)[0])
+    x0 = x.invert(d3.mouse(this)[0]-mLeft)
     y0 = y.invert(d3.mouse(this)[1])
     i = bisectDate(data, x0, 1)
     d0 = data[i - 1]
@@ -20,6 +20,7 @@ myGraph = (el, i) ->
     focus.select('.focus-vert').attr('x1', xv).attr 'x2', xv
     tooltip.select('text.price').text formatCurrency(grab.sp(d))
     tooltip.select('text.date').text _timestampino(grab.t(d))
+    tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
     tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
     return
@@ -51,11 +52,11 @@ myGraph = (el, i) ->
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
     d3.max(data, grab.t)
-  ]).range [ mLeft, wf - mRight ]
+  ]).range [ 0, w ]
   y = d3.scale.linear().domain([
     d3.min(data, grab.sp)
     d3.max(data, grab.sp)
-  ]).range [ hM + mTop, mTop ]
+  ]).range [ hM + 0, 0 ]
 
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(5).tickSize(-6)
   yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-6)
@@ -69,13 +70,13 @@ myGraph = (el, i) ->
   mainChart = svg.append('g')
     #.attr('width', w)
     #//attr().height(hM)
-    #.attr('transform', 'translate(' + mLeft + ',' + mTop + ')')
+    .attr('transform', 'translate(' + mLeft + ',' + mTop + ')')
     .attr('class', 'main-chart')
 
   xaxisdraw = mainChart.append('g').attr('class', 'x axis')
-  .attr('transform', 'translate(0,' + (mTop + hM) + ')').call(xAxis)
+  .attr('transform', 'translate(0,' + hM + ')').call(xAxis)
   yaxisdraw = mainChart.append('g').attr('class', 'y axis')
-  .attr('transform', 'translate(' + mLeft + ',0)').call(yAxis)
+  .attr('transform', 'translate(' + 0 + ',0)').call(yAxis)
 
   priceLine = d3.svg.line()
   .x((d) -> x grab.t(d))
@@ -93,13 +94,13 @@ myGraph = (el, i) ->
 
   focus = mainChart.append('g').attr('class', 'focus').style('display', 'none')
   focus.append('line').attr('class', 'focus-horiz')
-  .attr('x1', mLeft).attr('x2', mLeft+w).attr('y1', mTop).attr 'y2', mTop
+  .attr('x1', 0).attr('x2', 0+w).attr('y1', 0).attr 'y2', 0
   focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', mLeft).attr('x2', mLeft).attr('y1', mTop).attr 'y2', mTop+hM
+  .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
 
   tooltip = focus.append('g')
-  tooltip.__w = 60
-  tooltip.__h = 20
+  tooltip.__w = 65
+  tooltip.__h = 35
   tooltip.append('rect')
     .attr 'x', 0
     .attr 'width', tooltip.__w
@@ -107,47 +108,104 @@ myGraph = (el, i) ->
     .attr 'height', tooltip.__h
     .attr 'class', 'tooltip-box'
   tooltip.attr('transform', 'translate(40,0)')
-  tooltip.append('text').attr('class', 'price')
-    .attr 'dx', '0'
-    .attr 'dy', '18'
   tooltip.append('text').attr('class', 'date')
-    .attr 'dx', '0'
-    .attr 'dy', '8'
+    .attr 'dx', '2'
+    .attr 'dy', '11'
+  tooltip.append('text').attr('class', 'price')
+    .attr 'dx', '2'
+    .attr 'dy', '22'
+  tooltip.append('text').attr('class', 'volume')
+    .attr 'dx', '2'
+    .attr 'dy', '33'
 
   volumeChart = svg.append('g')
   volumeChart.__top = mTop + mBetween + hM
-  volumeChart.append('rect')
-    .attr 'x', mLeft
-    .attr 'y', volumeChart.__top
-    .attr 'height', hV
-    .attr 'width', w
-    .attr 'class', 'tooltip-box'
+  volumeChart
+    .attr 'transform', "translate(#{mLeft}, #{volumeChart.__top})"
   volumeChart.append('text')
-    .attr 'dx', mLeft
-    .attr 'dy', volumeChart.__top + 9
+    .attr 'x', 0
+    .attr 'y', 9
     .text 'volume'
+
+  ###
+  ###
+  parseDate = d3.time.format('%Y-%m').parse
+
+  x2 = d3.time.scale()
+    .domain([
+      d3.min(data, grab.t)
+      d3.max(data, grab.t)
+    ])
+    .range [ 0, w ]
+
+
+  y2 = d3.scale.linear().range([ hV, 0])
+  xAxis2 = d3.svg.axis().scale(x2).orient('bottom').ticks(5)
+  yAxis2 = d3.svg.axis().scale(y2).orient('left').ticks(5).tickFormat(d3.format("s"))
+
+  #x2.domain data.map ((d) -> grab.t(d))
+  y2.domain [0, d3.max(data, (d) -> grab.bvd(d))]
+  volumeChart
+    .append('g')
+    .attr('class', 'x axis')
+    .attr('transform', 'translate(0,' + hV + ')')
+    .call(xAxis2)
+    ###
+    .selectAll('text')
+    .style('text-anchor', 'end')
+    .attr('dx', '-.8em')
+    .attr('dy', '-.55em')
+    .attr 'transform', 'rotate(-90)'
+    ###
+
+  volumeChart
+    .append('g')
+    .attr('class', 'y axis')
+    .call(yAxis2)
+    ###
+    .append('text')
+    .attr('transform', 'rotate(-90)')
+    .attr('y', 6)
+    .attr('dy', '.71em')
+    .style('text-anchor', 'end')
+    .text 'Volume 24 (BTC)'###
+
+  volumeChart
+    .selectAll('bar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .style('fill', 'steelblue')
+    .attr 'x', (d) -> x2 grab.t(d)
+    .attr('width', Math.min(10, Math.max(w/data.length, 1)))
+    .attr 'y', (d) -> y2 grab.bvd(d)
+    .attr 'height', (d)-> hV - y2( grab.bvd(d) )
+
+  ###
+  ###
+
 
   zoomChart = svg.append('g')
   zoomChart.__top = mTop + 2*mBetween + hM + hV
-  zoomChart.append('rect')
-    .attr 'x', mLeft
-    .attr 'y', zoomChart.__top
+  zoomChart
+    .attr 'transform', "translate(#{mLeft}, #{zoomChart.__top})"
+    .append('rect')
+    .attr 'x', 0
+    .attr 'y', 0
     .attr 'height', hZ
     .attr 'width', w
     .attr 'class', 'tooltip-box'
   zoomChart.append('text')
-    .attr 'dx', mLeft
-    .attr 'dy', zoomChart.__top + 9
+    .attr 'dx', 0
+    .attr 'dy', 9
     .text 'zoom'
 
   svg.on('mouseover', ->
     focus.style 'display', null
-    return
   ).on('mouseout', ->
     focus.style 'display', 'none'
-    return
   ).on 'mousemove', mousemove
-  return
+
 
 _timestampino = (timestamp) ->
   # date format. maybe better use d3-provided ?
@@ -181,7 +239,6 @@ Template['slowchart'].onRendered ->
       return
     graph = new myGraph('#slowchart-' + i.data.system, i)
     $(window).on 'resize', (e) ->
-      console.log('here')
       $('#slowchart-' + i.data.system).empty()
       graph = new myGraph('#slowchart-' + i.data.system, i)
     if i._ready_
