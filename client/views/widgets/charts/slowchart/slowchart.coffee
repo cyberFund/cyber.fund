@@ -6,9 +6,10 @@ _chartdata = (systemId) ->
 myGraph = (el, i) ->
 
   mousemove = ->
-    limitX = (v) -> Math.min(v, wf - mRight - tooltip.__w)
+    limitX = (v) -> Math.min(v, wf - tooltip.__w)
     limitY = (v) -> Math.min(v, mTop + hM - tooltip.__h)
     x0 = x.invert(d3.mouse(this)[0])
+    y0 = y.invert(d3.mouse(this)[1])
     i = bisectDate(data, x0, 1)
     d0 = data[i - 1]
     d1 = data[i]
@@ -19,7 +20,7 @@ myGraph = (el, i) ->
     focus.select('.focus-vert').attr('x1', xv).attr 'x2', xv
     tooltip.select('text.price').text formatCurrency(grab.sp(d))
     tooltip.select('text.date').text _timestampino(grab.t(d))
-    tooltip.attr('transform', "translate(#{limitX (xv+4)},#{limitY yv})")
+    tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
     return
 
