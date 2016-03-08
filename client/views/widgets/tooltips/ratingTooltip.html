@@ -1,3 +1,41 @@
 <template name="ratingTooltip">
     <span>rating: {{readableN RATING.sum 1}}</span>
 </template>
+
+<template name="tickerTooltip">
+  <div>Ticker:
+    <b itemprop="alternateName">{{token.token_symbol}}</b>
+  </div>
+  <div>Currency name:
+    <b>{{displayCurrencyName this}}</b>
+  </div>
+
+  <div>Current supply:
+    <b>{{readableN metrics.supply 0}}</b>
+  </div>
+  <div>Absolute change:
+    <b>{{readableN metrics.supplyChange.day 0}}</b>
+  </div>
+</template>
+
+<template name="tradeTooltip">
+  <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+  </div>
+
+  <div>Daily change :<b>{{readableN (dayToDayTradeVolumeChange this) 2}}</b> %
+  </div>
+
+  <div>Turnover:<b>{{readableN (cdTurnover) 2}}</b> %
+  </div>
+</template>
+
+<template name="itemPropTooltip">
+  <div>
+    <h5>Price per 1 {{displaySystemName this}}:</h5>
+    <br/>
+    <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+ <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+ <span itemprop="price" content="{{metrics.price.usd}}">
+   {{metrics.price.usd}}</span></b>
+  </div>
+</template>
