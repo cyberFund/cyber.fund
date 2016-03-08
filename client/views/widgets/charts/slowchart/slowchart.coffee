@@ -149,8 +149,11 @@ Template['slowchart'].onRendered ->
         i._ready_ = true
     if !i._ready_
       return
-    graph = undefined
     graph = new myGraph('#slowchart-' + i.data.system, i)
+    $(window).on 'resize', (e) ->
+      console.log('here')
+      $('#slowchart-' + i.data.system).empty()
+      graph = new myGraph('#slowchart-' + i.data.system, i)
     if i._ready_
       c.stop()
     return
