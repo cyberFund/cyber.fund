@@ -98,6 +98,9 @@ myGraph = (el, i) ->
   focus.append('line').attr('class', 'focus-vert')
   .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
 
+  focus.append('line').attr('class', 'focus-vert')
+  .attr('x1', 0).attr('x2', 0).attr('y1', hm+mTop+mBetween).attr 'y2', hm+mTop+mBetween+hV
+
   tooltip = focus.append('g')
   tooltip.__w = 65
   tooltip.__h = 35
@@ -113,7 +116,7 @@ myGraph = (el, i) ->
     .attr 'dy', '11'
   tooltip.append('text').attr('class', 'price')
     .attr 'dx', '2'
-    .attr 'dy', '22'
+    .attr 'dy', '2r2'
   tooltip.append('text').attr('class', 'volume')
     .attr 'dx', '2'
     .attr 'dy', '33'
@@ -195,10 +198,13 @@ myGraph = (el, i) ->
     .attr 'height', hZ
     .attr 'width', w
     .attr 'class', 'tooltip-box'
-  zoomChart.append('text')
-    .attr 'dx', 0
-    .attr 'dy', 9
-    .text 'zoom'
+  x3 = d3.time.scale().range([0, width])
+  y3 = d3.scale.linear().range([height2, 0])
+  brush = d3.svg.brush()
+    .x(x3)
+    .on("brush", brushed);
+  zoomChart
+    .append('path').attr('d', priceLine(data)).attr('class', 'qc-line-1')
 
   svg.on('mouseover', ->
     focus.style 'display', null
