@@ -4,7 +4,6 @@
   left: 4px;
   width: 80%;
   background: #fff;
-  outline: 1px solid blue;
   height: 500px;
   font-size: 10px;
   margin: 1em auto;
@@ -12,7 +11,6 @@
   transition: all 0.3s ease-in-out
 }
 .slowchart-svg {
-  background: #eee
 }
 
 .tooltip-box {

@@ -59,7 +59,7 @@ myGraph = (el, i) ->
   ]).range [ hM + 0, 0 ]
 
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(5).tickSize(-6)
-  yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-6)
+  yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-6).tickFormat(d3.format('s'))
   svg = d3.select(el).append('svg:svg')
     .attr('id', 'svg-' + i.data.system).attr('pointer-events', 'all')
     .attr('class', 'slowchart-svg')
@@ -183,7 +183,7 @@ myGraph = (el, i) ->
     .append('rect')
     .style('fill', 'steelblue')
     .attr 'x', (d) -> x2 grab.t(d)
-    .attr('width', Math.min(10, Math.max(w/data.length, 1)))
+    .attr('width', Math.min(10, Math.max(w/data.length-1, 1)))
     .attr 'y', (d) -> y2 grab.bvd(d)
     .attr 'height', (d)-> hV - y2( grab.bvd(d) )
 
@@ -216,11 +216,35 @@ myGraph = (el, i) ->
     .call(xAxis3);
 
   brushed = () ->
+
     x.domain( if brush.empty() then x3.domain() else brush.extent())
+    x2.domain( if brush.empty() then x3.domain() else brush.extent())
+
+    d = if brush.empty() then data else
+      data.slice(bisectDate(data, brush.extent()[0], 1), bisectDate(data, brush.extent()[1], 1))
+
+    y.domain [ d3.min(d, grab.sp), d3.max(d, grab.sp) ]
+    y2.domain [0, d3.max(d, grab.bvd)]
 
     mainChart.select(".x.axis").call(xAxis);
+    mainChart.select(".y.axis").call(yAxis);
     mainChart.select(".qc-line-1").attr("d", priceLine(data));
-    console.log (brush.extent())
+    zoomChart.select(".remove-on-brush").text('')
+
+    volumeChart.select(".x.axis").call(xAxis2);
+    volumeChart.select(".y.axis").call(yAxis2);
+
+    volumeChart.selectAll("rect").remove()
+    volumeChart
+      .selectAll('bar')
+      .data(d)
+      .enter()
+      .append('rect')
+      .style('fill', 'steelblue')
+      .attr 'x', (d) -> x2 grab.t(d)
+      .attr('width', Math.min(10, Math.max(w/d.length-1, 1)))
+      .attr 'y', (d) -> y2 grab.bvd(d)
+      .attr 'height', (d)-> hV - y2( grab.bvd(d) )
 
   brush = d3.svg.brush()
     .x(x3)
@@ -232,6 +256,12 @@ myGraph = (el, i) ->
     .selectAll("rect")
     .attr("y", -6)
     .attr("height", hZ + 7);
+
+  zoomChart
+    .append('text')
+    .attr('class', 'remove-on-brush')
+    .attr('text', "drag to zoom")
+    .attr('dx', 20).attr('dy', 20)
 
   svg.on('mouseover', ->
     focus.style 'display', null
