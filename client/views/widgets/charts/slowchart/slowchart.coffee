@@ -17,7 +17,7 @@ myGraph = (el, i) ->
     yv = y(grab.sp(d))
     xv = x(grab.t(d))
     focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
-    focus.select('.focus-vert').attr('x1', xv).attr 'x2', xv
+    focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
     tooltip.select('text.price').text formatCurrency(grab.sp(d))
     tooltip.select('text.date').text _timestampino(grab.t(d))
     tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
@@ -34,7 +34,7 @@ myGraph = (el, i) ->
   mLeft = 40
   mRight = 40
   mTop = 20
-  mBottom = 10
+  mBottom = 20
   mBetween = 15
   split = [1, 1/3, 1/3]
   splitsum = split[0] + split[1] + split[2]
@@ -72,10 +72,13 @@ myGraph = (el, i) ->
     #//attr().height(hM)
     .attr('transform', 'translate(' + mLeft + ',' + mTop + ')')
     .attr('class', 'main-chart')
+  mainChart
+  .append('defs').append("clipPath").attr("id", "clip")
+    .append('rect').attr('x', 0).attr('y', 0).attr('width', w).attr('height', hM)
 
-  xaxisdraw = mainChart.append('g').attr('class', 'x axis')
+  mainChart.append('g').attr('class', 'x axis')
   .attr('transform', 'translate(0,' + hM + ')').call(xAxis)
-  yaxisdraw = mainChart.append('g').attr('class', 'y axis')
+  mainChart.append('g').attr('class', 'y axis')
   .attr('transform', 'translate(' + 0 + ',0)').call(yAxis)
 
   priceLine = d3.svg.line()
@@ -99,7 +102,7 @@ myGraph = (el, i) ->
   .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
 
   focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', 0).attr('x2', 0).attr('y1', hm+mTop+mBetween).attr 'y2', hm+mTop+mBetween+hV
+  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop).attr 'y2', hM+mTop+hV
 
   tooltip = focus.append('g')
   tooltip.__w = 65
@@ -116,7 +119,7 @@ myGraph = (el, i) ->
     .attr 'dy', '11'
   tooltip.append('text').attr('class', 'price')
     .attr 'dx', '2'
-    .attr 'dy', '2r2'
+    .attr 'dy', '22'
   tooltip.append('text').attr('class', 'volume')
     .attr 'dx', '2'
     .attr 'dy', '33'
@@ -192,19 +195,43 @@ myGraph = (el, i) ->
   zoomChart.__top = mTop + 2*mBetween + hM + hV
   zoomChart
     .attr 'transform', "translate(#{mLeft}, #{zoomChart.__top})"
-    .append('rect')
-    .attr 'x', 0
-    .attr 'y', 0
-    .attr 'height', hZ
-    .attr 'width', w
-    .attr 'class', 'tooltip-box'
-  x3 = d3.time.scale().range([0, width])
-  y3 = d3.scale.linear().range([height2, 0])
+  x3 = d3.time.scale().range([0, w])
+  y3 = d3.scale.linear().range([hZ, 0])
+
+  x3.domain(x.domain());
+  y3.domain(y.domain());
+
+  xAxis3 = d3.svg.axis().scale(x3).orient("bottom")
+
+  priceLine3 = d3.svg.line()
+    .x((d) -> x3 grab.t(d))
+    .y((d) -> y3 grab.sp(d))
+
+  zoomChart
+    .append('path').attr('d', priceLine3(data)).attr('class', 'qc-line-1')
+  zoomChart
+    .append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + hZ + ")")
+    .call(xAxis3);
+
+  brushed = () ->
+    x.domain( if brush.empty() then x3.domain() else brush.extent())
+
+    mainChart.select(".x.axis").call(xAxis);
+    mainChart.select(".qc-line-1").attr("d", priceLine(data));
+    console.log (brush.extent())
+
   brush = d3.svg.brush()
     .x(x3)
     .on("brush", brushed);
-  zoomChart
-    .append('path').attr('d', priceLine(data)).attr('class', 'qc-line-1')
+
+  zoomChart.append("g")
+    .attr("class", "x brush")
+    .call(brush)
+    .selectAll("rect")
+    .attr("y", -6)
+    .attr("height", hZ + 7);
 
   svg.on('mouseover', ->
     focus.style 'display', null

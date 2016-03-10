@@ -71,4 +71,5 @@ path.area {
     stroke: red;
     stroke-width: 2;
     fill: none;
+    clip-path: url(#clip);
 }
