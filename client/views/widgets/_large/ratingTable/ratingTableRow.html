@@ -36,18 +36,6 @@
       {{readableN calculatable.RATING.vector.GR.months 0}}
     </td>
 
-    <!--td class="right-align hide-on-med-and-down">
-      {{# withTooltip ttName="btcPricePerUnitTooltip" data=this}} Ƀ&nbsp;{{readableN metrics.cap.btc 0}} {{#if metrics.price.btc}}
-      {{/if}} {{/withTooltip}}
-    </td>
-
-    <td class="right-align hide-on-med-and-down">{{# withTooltip data=this ttName="capChangeTooltip"}}
-      <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-        {{percentsToTextUpDown metrics.capChangePercents.day.btc}}</span>
-      {{#if metrics.capChange.day.btc}}
-       {{/if}} {{/withTooltip}}
-    </td-->
-
     <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
       <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
       {{/withTooltip}}
@@ -80,28 +68,4 @@
       {{/withTooltip}}
     </td>
   </tr>
-
-</Template>
-
-
-<template name="btcPricePerUnitTooltip">
-<div>Price per 1 {{displaySystemName this}}:
-  <br/>
-  <b itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="no-wrap">
-                        <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span>
-                        <span itemprop="price" content="{{metrics.price.btc}}">{{metrics.price.btc}}</span></b>
-</div>
 </template>
-
-
-<template name="usdPricePerUnitTooltip"> {{#if metrics.price.usd}}
-<div>Price per 1 {{displaySystemName this}}:
-  <br/>
-  <b class="no-wrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                        <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
-                        <span itemprop="price" content="{{metrics.price.usd}}">{{metrics.price.usd}}</span></b>
-</div>
-<div style="z-index: 10">
-  {{> quickchart system=_id}}
-</div>
-{{/if}}</template>

@@ -4,9 +4,17 @@
   left: 4px;
   width: 80%;
   background: #fff;
-  border: 1px solid #eef;
-  height: 300px;
+  height: 500px;
   font-size: 10px;
+  margin: 1em auto;
+
+  transition: all 0.3s ease-in-out
+}
+.slowchart-svg {
+}
+
+.tooltip-box {
+  fill: rgba(0, 200, 0, 0.8);
 }
 
 path.line {
@@ -28,6 +36,12 @@ path.area {
 }
 
 .x.axis path {
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
 }
 
 .axis line {
@@ -55,4 +69,5 @@ path.area {
     stroke: red;
     stroke-width: 2;
     fill: none;
+    clip-path: url(#clip);
 }

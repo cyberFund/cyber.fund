@@ -8,8 +8,6 @@ mquandalle:bower
 http
 momentjs:moment
 
-# percolatestudio:segment.io@=1.1.1_1
-
 reactive-var
 amplify
 
@@ -17,6 +15,7 @@ cyberfund:cyberfund-base
 cyberfund:cyberfund-marketdata
 cyberfund:cyberfund-chaingear
 cyberfund:cyberfund-es
+
 accounts-twitter
 ermlab:log4js-silos
 
@@ -29,17 +28,17 @@ service-configuration
 twitter
 mfpierre:chartist-js
 cyberfund:cyberfund-currentdata
-# okgrow:analytics
 tmeasday:publish-counts
 fortawesome:fontawesome
 percolate:synced-cron
 mizzao:autocomplete
 meteorhacks:fast-render
 cyberfund:cyberfund-userassets
-#kadira:flow-router
+
 gadicohen:sitemaps
 kadira:flow-router
 kadira:blaze-layout
+
 standard-minifiers
 meteor-base
 mobile-experience
@@ -59,7 +58,6 @@ useraccounts:materialize
 arillo:flow-router-helpers
 zimme:active-route
 materialize:materialize@=0.97.0
-
 
 npm-container
 d3js:d3

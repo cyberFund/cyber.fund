@@ -1,6 +1,5 @@
 Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
-
   // todo: control this from UI
   _Session.default('portfolioOptions', {privateAssets: true})
 });
