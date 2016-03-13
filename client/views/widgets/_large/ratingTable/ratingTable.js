@@ -7,7 +7,7 @@ Template['ratingTable'].onCreated(function () {
     CF.CurrentData._sub_ = instance.subscribe("currentDataRP", {
       limit: Session.get('ratingPageLimit'),
       sort: _Session.get('coinSorter'),
-      selector: {'flags.rating_do_not_display': {$ne: true}, "calculatable.RATING.sum": {$gte: 2}}
+      selector: {'flags.rating_do_not_display': {$ne: true}, "calculatable.RATING.sum": {$gte: 1}}
     });
   });
 

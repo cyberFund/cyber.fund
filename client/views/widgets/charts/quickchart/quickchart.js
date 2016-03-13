@@ -32,22 +32,22 @@ Template['quickchart'].onCreated(function() {
 
 var grab = {
   t: function(fruit) {
-    return fruit.timestamp
+    return fruit && fruit.timestamp
   },
   sp: function(fruit) {
-    return fruit.price_usd
+    return fruit && fruit.price_usd
   },
   bp: function(fruit) {
-    return fruit.price_btc
+    return fruit && fruit.price_btc
   },
   sc: function(fruit) {
-    return fruit.cap_usd
+    return fruit && fruit.cap_usd
   },
   bc: function(fruit) {
-    return fruit.cap_btc
+    return fruit && fruit.cap_btc
   },
   bvd: function(fruit) {
-    return fruit.volume24_btc
+    return fruit && fruit.volume24_btc
   },
 }
 
@@ -80,25 +80,27 @@ Template['quickchart'].onRendered(function() {
         return a.timestamp - b.timestamp
       })
 
-      var wf = 196;
+      var wf = 140;
       var w = 140;
-      var h = 40;
+      var hf = 50;
+      var mTop = 10;
+      var h = hf - mTop;
       var x = d3.time.scale()
         .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
         .range([0 + 2, w - 2]);
       var y = d3.scale.linear()
         .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
-        .range([h - 1, 0 + 1]);
+        .range([hf - 1, mTop + 1]);
       var xAxis = d3.svg.axis().scale(x).orient('bottom');
       var yAxis = d3.svg.axis().scale(y).orient('left');
 
       var svg = d3.select(el)
         .append("svg:svg")
         .attr("width", wf)
-        .attr("height", h)
+        .attr("height", hf)
         .attr("id", "svg-" + i.data.system)
         .attr("pointer-events", "all")
-        .attr("viewBox", "0 0 " + wf + " " + h)
+        .attr("viewBox", "0 0 " + wf + " " + hf)
         .attr('class', 'chart')
         .attr("preserveAspectRatio", "xMinYMid");
 
@@ -131,17 +133,18 @@ Template['quickchart'].onRendered(function() {
       focus.append("line")
         .attr("class", "focus-vert")
         .attr("x1", 1).attr("x2", 1)
-        .attr("y1", 0).attr("y2", h);
+        .attr("y1", mTop).attr("y2", hf);
 
       focus.append("text")
         .attr("class", "price")
-        .attr("dx", w + 1)
-        .attr("dy", "18");
+        .attr("dx", 1)
+        .attr("dy", "8");
 
       focus.append("text")
         .attr("class", "date")
-        .attr("dx", w + 1)
-        .attr("dy", "8");
+        .attr("x", 138)
+        .attr("text-anchor", "end")
+        .attr("y", "8");
 
       var formatValue = d3.format(",.4f");
       var formatCurrency = function(d) {

@@ -9,9 +9,6 @@
            {{> cgSystemLogo data=this class='cg-system-logo'}}
          <span style="position: relative">{{displaySystemName this}}
          </span></span>
-         <div>
-           {{> quickchart system=_id}}
-         </div>
        </a>
 
     </td>
@@ -41,8 +38,14 @@
       {{/withTooltip}}
     </td>
 
+    <td class="hide-on-small-and-down" style="width: 140px;">
+      <div>
+        {{> quickchart system=_id}}
+      </div>
+    </td>
+
     <td class="right-align">{{#withTooltip}}
-      <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+        <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
         {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
       {{#tooltip}}
       <div>Real change:
