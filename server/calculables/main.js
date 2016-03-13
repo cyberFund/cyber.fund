@@ -17,7 +17,6 @@ Meteor.startup(function() {
   CF.CurrentData.calculatables.triggerCalc('RATING');
   setRatingPlaces();
 
-
   var print = CF.Utils.logger.print
   print ("settings", Meteor.settings)
   if (Meteor.settings.printCF) print ("CF", CF);
