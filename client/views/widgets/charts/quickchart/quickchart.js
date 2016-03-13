@@ -1,5 +1,6 @@
 var _chartdata = function(systemId) {
   if (!systemId) return null;
+
   return MarketData.find({
     systemId: systemId
   }, {
@@ -68,7 +69,7 @@ Template['quickchart'].onRendered(function() {
     if (!i._ready_) return;
 
     var graph;
-    graph = new myGraph("#quickchart-" + i.data.system);
+    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(i.data.system));
 
     function myGraph(el) {
 
