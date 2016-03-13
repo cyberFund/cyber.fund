@@ -50,7 +50,7 @@ Meteor.publish("currentDataRP", function(options) {
     CurrentData.find(selector, options),
     MarketData.find({
       systemId: {$in: list},
-      timestamp: {$gte: moment.utc().subtract(90, "days")._d },
+      timestamp: {$gte: moment.utc().subtract(30, "days")._d },
       interval: intervalSelector()}) // 'daily' ! remove this, stick to daily everywhere, was only for dev
   ];
 });
