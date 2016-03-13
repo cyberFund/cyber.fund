@@ -290,6 +290,13 @@ var esParsers = {
         fastMetric.timestamp = timestamp;
         fastMetric.stamp = stamp;
         FastData.insert(fastMetric)
+        var marketData = _.omit(fastMetric, ['stamp'])
+        marketData.source = "2015"
+        marketData.interval = "hourly"
+        MarketData.upsert({_id: curDoc._id+"_"+"latestH"}, {$set: marketData})
+        marketData.interval = "daily"
+        MarketData.upsert({_id: curDoc._id+"_"+"latestD"}, {$set: marketData})
+
       }
 
     });
