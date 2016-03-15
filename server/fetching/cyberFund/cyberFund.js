@@ -70,17 +70,17 @@ var fetch = function () {
           }
           //if (CurrentData.find().count() < 1000) {
           _.each(getResult, function (system) {
+
+            system._id = system._id || system.system;
+
             if (!system.token) {
               logger.info("no .token for system '" + system._id + "'");
               return;
             }
-            var selector = CF.CurrentData.selectors.system_symbol(system.system,
-              system.token.token_symbol);
-            var doc = CurrentData.findOne(selector);
+            var doc = CurrentData.findOne({_id: system._id});
 
             if (!doc) {
-              console.log("no doc for selector" )
-              console.log(selector )
+              console.log("no doc for system '" + system._id + "'" )
               if (system.specs) {
                 // push supply & caps to metrics
                 system.metrics = system.metrics || {};
@@ -92,9 +92,8 @@ var fetch = function () {
                 }
               }
 
-              system._id = system.system;
               console.log("inserting system " + system._id);
-              CurrentData.insert( system );
+              CurrentData.insert( _.omit(system, ['system']) );
             }
             else {
               if (system.crowdsales) {
