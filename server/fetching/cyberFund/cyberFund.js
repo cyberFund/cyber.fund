@@ -131,7 +131,7 @@ var fetch = function () {
 
               var modifier = {$set: set};
 
-              CurrentData.upsert(selector, modifier);
+              CurrentData.upsert({_id: system._id}, modifier);
             }
           });
         });
