@@ -38,8 +38,14 @@
       {{/withTooltip}}
     </td>
 
+    <td class="hide-on-small-and-down" style="width: 140px;">
+      <div>
+        {{> quickchart system=_id}}
+      </div>
+    </td>
+
     <td class="right-align">{{#withTooltip}}
-      <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+        <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
         {{percentsToTextUpDown metrics.capChangePercents.day.usd}}</span>
       {{#tooltip}}
       <div>Real change:

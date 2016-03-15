@@ -1,5 +1,6 @@
 var _chartdata = function(systemId) {
   if (!systemId) return null;
+
   return MarketData.find({
     systemId: systemId
   }, {
@@ -67,7 +68,7 @@ Template['quickchart'].onRendered(function() {
     }
     if (!i._ready_) return;
     var graph;
-    graph = new myGraph("#quickchart-" + i.data.system);
+    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(i.data.system));
 
     function myGraph(el) {
 
@@ -79,25 +80,27 @@ Template['quickchart'].onRendered(function() {
         return a.timestamp - b.timestamp
       })
 
-      var wf = 196;
+      var wf = 140;
       var w = 140;
-      var h = 40;
+      var hf = 50;
+      var mTop = 10;
+      var h = hf - mTop;
       var x = d3.time.scale()
         .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
         .range([0 + 2, w - 2]);
       var y = d3.scale.linear()
         .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
-        .range([h - 1, 0 + 1]);
+        .range([hf - 1, mTop + 1]);
       var xAxis = d3.svg.axis().scale(x).orient('bottom');
       var yAxis = d3.svg.axis().scale(y).orient('left');
 
       var svg = d3.select(el)
         .append("svg:svg")
         .attr("width", wf)
-        .attr("height", h)
+        .attr("height", hf)
         .attr("id", "svg-" + i.data.system)
         .attr("pointer-events", "all")
-        .attr("viewBox", "0 0 " + wf + " " + h)
+        .attr("viewBox", "0 0 " + wf + " " + hf)
         .attr('class', 'chart')
         .attr("preserveAspectRatio", "xMinYMid");
 
@@ -118,6 +121,26 @@ Template['quickchart'].onRendered(function() {
         return d.timestamp;
       }).left;
 
+      var formatValue = d3.format(",.4f");
+      var formatCurrency = function(d) {
+        return "$" + formatValue(d);
+      };
+
+
+
+
+
+      var ficus = svg.append("g")
+        .attr("class", "ficus")
+
+      ficus.append("text")
+        .attr("class", "price")
+        .attr("dominant-baseline", "hanging")
+        .attr("text-anchor", "middle")
+        .attr("x", 70)
+        .attr("y", "0")
+        .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "")
+
       var focus = svg.append("g")
         .attr("class", "focus")
         .style("display", "none");
@@ -130,22 +153,20 @@ Template['quickchart'].onRendered(function() {
       focus.append("line")
         .attr("class", "focus-vert")
         .attr("x1", 1).attr("x2", 1)
-        .attr("y1", 0).attr("y2", h);
+        .attr("y1", mTop).attr("y2", hf);
 
       focus.append("text")
         .attr("class", "price")
-        .attr("dx", w + 1)
-        .attr("dy", "18");
+        .attr("dominant-baseline", "hanging")
+        .attr("x", 1)
+        .attr("y", "2");
 
       focus.append("text")
         .attr("class", "date")
-        .attr("dx", w + 1)
-        .attr("dy", "8");
-
-      var formatValue = d3.format(",.4f");
-      var formatCurrency = function(d) {
-        return "$" + formatValue(d);
-      };
+        .attr("x", 138)
+        .attr("dominant-baseline", "hanging")
+        .attr("text-anchor", "end")
+        .attr("y", "2");
 
       function mousemove() {
         var x0 = x.invert(d3.mouse(this)[0]);
@@ -172,19 +193,16 @@ Template['quickchart'].onRendered(function() {
           .text(_timestampino(grab.t(d)));
       }
 
-
-
-
       svg
         .on("mouseover", function() {
           focus.style("display", null);
+          ficus.style("display", "none");
         })
         .on("mouseout", function() {
           focus.style("display", "none");
+          ficus.style("display", null);
         })
         .on("mousemove", mousemove)
-
-
 
     }
     if (i._ready_) {

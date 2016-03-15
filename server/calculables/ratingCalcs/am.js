@@ -6,6 +6,6 @@ ns.lib.calcs.calcAM = function calcAM(system) {
   //system._id);
   return {
     flag: true,
-    sum: (system.quantum || (system.aliases && system.aliases.quantum)) ? 1 : 0
+    sum: (system.flags && system.flags.quantum) ? 1 : 0
   }
 }

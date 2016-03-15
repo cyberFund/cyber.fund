@@ -1,3 +1,8 @@
+Meteor.startup(function () {
+  _Session.default("coinSorter", {"metrics.cap.btc": -1});
+});
+
+
 var initialLimit = CF.Rating.limit0;
 
 Template['ratingTable'].onCreated(function () {
