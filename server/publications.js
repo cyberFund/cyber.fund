@@ -104,7 +104,7 @@ Meteor.publish('crowdsalesList', function() {
 });
 
 Meteor.publish('projectsList', function() {
-  var sel = CF.Chaingear.selector.projectsList;
+  var sel = CF.CurrentData.selectors.projects();
   return CurrentData.find(sel, {
     fields: {
       dailyData: 0,

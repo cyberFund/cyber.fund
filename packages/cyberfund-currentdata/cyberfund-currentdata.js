@@ -57,7 +57,9 @@ CF.CurrentData = {                // helpers related to collection CurrentData
         list = [list];
       }
       return {"_id": {$in: list}}
-    }
+    },
+    crowdsales: function(){ return {crowdsales: {$exists: true}} },
+    projects: function(){ return {'descriptions.state': 'Project'} }
   },
 
   getPrice: function (system) {      // return actual Bitcoin price for system.

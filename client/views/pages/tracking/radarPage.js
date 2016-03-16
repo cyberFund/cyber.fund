@@ -5,16 +5,16 @@ Template['radarPage'].onCreated(function() {
 });
 
 function _crowdsale() {
-  return CurrentData.find(CF.Chaingear.selector.crowdsales);
+  return CurrentData.find(CF.CurrentData.selectors.crowdsales());
 }
 
 function _project() {
-  return CurrentData.find(CF.Chaingear.selector.project);
+  return CurrentData.find(CF.CurrentData.selectors.projects());
 }
 
 function _crowdsalePast() {
   return CurrentData.find({
-    $and: [CF.Chaingear.selector.crowdsales, {
+    $and: [CF.CurrentData.selectors.crowdsales(), {
       'crowdsales.end_date': {
         $lt: new Date()
       }
@@ -28,7 +28,7 @@ function _crowdsalePast() {
 
 function _crowdsaleUpcoming() {
   return CurrentData.find({
-    $and: [CF.Chaingear.selector.crowdsales, {
+    $and: [CF.CurrentData.selectors.crowdsales(), {
       'crowdsales.start_date': {
         $gt: new Date()
       }
@@ -38,7 +38,7 @@ function _crowdsaleUpcoming() {
 
 function _crowdsaleActive() {
   return CurrentData.find({
-    $and: [CF.Chaingear.selector.crowdsales, {
+    $and: [CF.CurrentData.selectors.crowdsales(), {
       'crowdsales.end_date': {
         $gt: new Date()
       }
@@ -67,7 +67,6 @@ Template['radarPage'].helpers({
   },
   isPastCrowdsale: function() {
     return this.crowdsales && this.crowdsales.end_date < new Date()
-  },
-  templateIsInDevelopmentMode: function TRUE(){ return true; }
+  }
 });
 Template['radarPage'].events({});
