@@ -1,13 +1,14 @@
 <template name="trackingTableHeader">
-  <th class="left-align">
-    <span class="th-sys">&nbsp;&nbsp;System</span>
-  </th>
 
   {{#thSortable o=__sorter class="center" s="calculatable.RATING.sum"}}
   {{# withTooltip}}  Rank  {{# tooltip class="tooltip-table-head"}}
-  Based on <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating</a>  
+  Based on <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating</a>
   {{/ tooltip }} {{/withTooltip}}
   {{/ thSortable}}
+
+  <th class="left-align">
+    <span class="th-sys">&nbsp;&nbsp;System</span>
+  </th>
 
   {{# thSortable o=__sorter class="center hide-on-small-and-down"
   s="calculatable.RATING.vector.LV.num"}}Stars{{/ thSortable}}
