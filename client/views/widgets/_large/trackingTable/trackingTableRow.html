@@ -1,6 +1,9 @@
 
 <template name="trackingTableRow">
 <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
+  <td class="right-align">
+    {{calculatable.RATING.index}}
+  </td>
 
   <td class="left-align">
     <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" class="enlarge no-wrap" title="{{descriptions.headline}}">
@@ -68,20 +71,23 @@
     {{readableN calculatable.RATING.weighted.WL 2}}
   </td>
 
-  <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.BR 2}}
-  </td>
+  {{#if false}}
+    <td class="center hide-on-med-and-down">
+      {{readableN calculatable.RATING.weighted.BR 2}}
+    </td>
+  {{/if}}
 
   <td class="center hide-on-med-and-down">
     {{readableN calculatable.RATING.weighted.AM 2}}
   </td>
-  <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.GR 2}}
-  </td>
+  {{#if false}}
+    <td class="center hide-on-med-and-down">
+      {{readableN calculatable.RATING.weighted.GR 2}}
+    </td>
+  {{/if}}
 
   <td class="center-align" itemprop="aggregateRating">
     {{#withTooltip ttName="ratingTooltip" data=calculatable}}
-      <div style="float: left; ">{{calculatable.RATING.index}}</div>
       {{>cfRating rating=calculatable.RATING.sum}}
     {{/withTooltip}}
   </td>

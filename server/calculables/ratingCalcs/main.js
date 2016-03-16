@@ -14,7 +14,7 @@ CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
       CS: calcs.calcCS(system),
       LV: calcs.calcLV(system),
       WL: calcs.calcWL(system),
-      BR: calcs.calcBR(system),
+      //BR: calcs.calcBR(system),
       AM: calcs.calcAM(system),
       GR: calcs.calcGR(system)
     };

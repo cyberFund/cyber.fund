@@ -3,6 +3,12 @@
     <span class="th-sys">&nbsp;&nbsp;System</span>
   </th>
 
+  {{#thSortable o=__sorter class="center" s="calculatable.RATING.sum"}}
+  {{# withTooltip}}  Rank  {{# tooltip class="tooltip-table-head"}}
+  Based on <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating</a>  
+  {{/ tooltip }} {{/withTooltip}}
+  {{/ thSortable}}
+
   {{# thSortable o=__sorter class="center hide-on-small-and-down"
   s="calculatable.RATING.vector.LV.num"}}Stars{{/ thSortable}}
 
@@ -100,12 +106,14 @@
   {{#tooltip class="tooltip-table-head"}} Weighted Liquidity. Compound score that reflects Liquidity weighted on capitalzation grade. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#weighted-liquidity">Chaingear</a>
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
-  {{#thSortable o=__sorter class="center hide-on-med-and-down"
-  s="calculatable.RATING.weighted.BR"}}
-  {{# withTooltip}} BR
-  {{#tooltip class="tooltip-table-head"}} Blockchain Reporting. This score in development. At this point in time it is calculated based in availablity infromation about supply of tokens outstanding. In future this
-  score will reflect transactional perfomance <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#blockchain-reporting">Details</a>
-  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+  {{#if false}}
+    {{#thSortable o=__sorter class="center hide-on-med-and-down"
+    s="calculatable.RATING.weighted.BR"}}
+    {{# withTooltip}} BR
+    {{#tooltip class="tooltip-table-head"}} Blockchain Reporting. This score in development. At this point in time it is calculated based in availablity infromation about supply of tokens outstanding. In future this
+    score will reflect transactional perfomance <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#blockchain-reporting">Details</a>
+    {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+  {{/if}}
 
   {{#thSortable o=__sorter class="center hide-on-med-and-down"
   s="calculatable.RATING.weighted.AM"}}
@@ -114,11 +122,13 @@
     <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
-  {{#thSortable o=__sorter class="center hide-on-med-and-down"
-  s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
-  {{# withTooltip}} GR
-  {{#tooltip class="tooltip-table-head"}} Growth Rate score. In development and don't partcipated in rating calculations yet.<a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
-  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+  {{#if false}}
+    {{#thSortable o=__sorter class="center hide-on-med-and-down"
+    s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
+    {{# withTooltip}} GR
+    {{#tooltip class="tooltip-table-head"}} Growth Rate score. In development and don't partcipated in rating calculations yet.<a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
+    {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+  {{/if}}
 
   {{#thSortable o=__sorter class="center" s="calculatable.RATING.sum"}}
   {{# withTooltip}}  Rating  {{# tooltip class="tooltip-table-head"}} Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a>  and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
