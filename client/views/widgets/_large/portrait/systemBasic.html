@@ -131,11 +131,8 @@
     <div id="news" class="section scrollspy row">
       {{#if existLinksWith links 'News'}}
       <h3 class="center">News</h3>
-
       {{#each linksWithTag links "News"}}
-      <div class="row">
-        {{> cgLink this}}
-      </div>
+        {{> cgLinkCard this}}
       {{/each}} {{/if}}
     </div>
 
