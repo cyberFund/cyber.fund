@@ -94,7 +94,7 @@ Meteor.publish('systemData', function(options) {
   fetch systems that are displayed at radar page.
  */
 Meteor.publish('crowdsalesList', function() {
-  var sel = CF.Chaingear.selector.crowdsales;
+  var sel = CF.CurrentData.selectors.crowdsales();
   return CurrentData.find(sel, {
     fields: {
       dailyData: 0,
@@ -104,7 +104,7 @@ Meteor.publish('crowdsalesList', function() {
 });
 
 Meteor.publish('projectsList', function() {
-  var sel = CF.Chaingear.selector.projectsList;
+  var sel = CF.CurrentData.selectors.projectsList();
   return CurrentData.find(sel, {
     fields: {
       dailyData: 0,

@@ -1,6 +1,6 @@
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
-      $and: [CF.Chaingear.selector.crowdsales,
+      $and: [CF.CurrentData.selectors.crowdsales(),
         {'crowdsales.end_date': {$gt: new Date()}},
         {'crowdsales.start_date': {$lt: new Date()}}]
     }, {fields: {'crowdsales': 1, 'system': 1}}).fetch(),
