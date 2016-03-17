@@ -1,5 +1,5 @@
 <template name="slowchart">
-  <div class="slowchart card" id="slowchart-{{system}}">
+  <div class="slowchart card" id="slowchart-{{_toUnderscores system}}">
     {{#if __ready}}
     {{else}}
     LOADING
