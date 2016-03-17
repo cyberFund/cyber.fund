@@ -273,11 +273,12 @@ var esParsers = {
       if (!_.isEmpty(set) && curDoc) {
         set.updatedAt = new Date();
         //
-        /*if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
+        if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
          set['metrics.supply'] = curDoc.specs.supply;
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
          set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
-         }*/
+         }
+         
       /*   print("selector", _searchSelector(bucket.key));
          print("set", set); */
         CurrentData.update(_searchSelector(bucket.key), {
