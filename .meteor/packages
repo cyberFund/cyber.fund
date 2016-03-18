@@ -61,4 +61,3 @@ materialize:materialize@=0.97.0
 npm-container
 d3js:d3
 coffeescript
-meteorhacks:kadira
