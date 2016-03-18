@@ -1,6 +1,6 @@
 <template name="ratingTableRow">
   <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
-    <td> {{calculatable.RATING.index}} </td>
+    <td class="center-align"> {{calculatable.RATING.index}} </td>
     <td class="left-align" style="position: relative;">
       <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
@@ -65,7 +65,11 @@
       {{#withTooltip}}
        {{>cfRating rating=calculatable.RATING.sum}}
       {{#tooltip}}
-        <span>rating: {{readableN calculatable.RATING.sum 2}}</span>
+        <span>rating: {{readableN calculatable.RATING.sum 2}}
+          <p>
+            <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Methodology Draft</a>
+          </p>
+        </span>
       {{/tooltip}}
 
       {{/withTooltip}}
