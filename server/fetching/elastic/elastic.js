@@ -278,17 +278,21 @@ var esParsers = {
          set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
          set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
          }
-         
+
       /*   print("selector", _searchSelector(bucket.key));
          print("set", set); */
+        var fastMetric = _.pick(sNow, [
+         "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"
+        ]);
+        fastMetric.timestamp = timestamp;
+
+        set['lastData'] = fastMetric;
+
         CurrentData.update(_searchSelector(bucket.key), {
           $set: set
         });
-        var fastMetric = _.pick(sNow, [
-          "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"
-        ]);
+
         fastMetric.systemId = curDoc._id;
-        fastMetric.timestamp = timestamp;
         fastMetric.stamp = stamp;
         FastData.insert(fastMetric)
         //var marketData = _.omit(fastMetric, ['stamp'])
