@@ -52,7 +52,7 @@ a.tooltip:hover span {
 .tooltip-default, .tooltip-table-head {
   text-align: left;
   border-radius: 6px;
-  width: 200px;
+  width: 250px;
   line-height: 1rem;
   font-size: 0.8rem;
   box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
