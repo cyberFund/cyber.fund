@@ -22,8 +22,6 @@ ermlab:log4js-silos
 gwendall:body-events
 
 service-configuration
-#meteorhacks:kadira
-#meteorhacks:kadira-profiler
 
 twitter
 mfpierre:chartist-js
@@ -38,6 +36,7 @@ cyberfund:cyberfund-userassets
 gadicohen:sitemaps
 kadira:flow-router
 kadira:blaze-layout
+meteorhacks:kadira
 
 standard-minifiers
 meteor-base
