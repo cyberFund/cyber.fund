@@ -79,6 +79,8 @@ Template['quickchart'].onRendered(function() {
       data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
       })
+      var lastData = CurrentData.findOne({_id:i.data.system})
+      if (lastData && lastData.lastData) data.push(lastData.lastData)
 
       var wf = 140;
       var w = 140;
