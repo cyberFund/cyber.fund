@@ -1,7 +1,4 @@
 var initialLimit = CF.Rating.limit0;
-Meteor.startup(function () {
-  _Session.default("coinSorter", {"metrics.cap.btc": -1});
-});
 
 Template['trackingWidget'].onCreated(function () {
   var instance = this;

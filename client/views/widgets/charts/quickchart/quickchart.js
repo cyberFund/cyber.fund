@@ -52,7 +52,9 @@ Template['quickchart'].onRendered(function() {
   }
   function _system(){
     var r = i.$(".quickchart").attr('id').split('-')[1];
+
     if (r) return Blaze._globalHelpers._toSpaces(r);
+    console.log("NO R", i.data.system, i.$(".quickchart"))
     return i.data && i.data.system || ""
   }
 
@@ -68,7 +70,7 @@ Template['quickchart'].onRendered(function() {
     graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(system));
 
     function myGraph(el) {
-
+      d3.select(el).selectAll("*").remove()
       this.selectedNode = null;
       var graph = this;
 
@@ -200,8 +202,8 @@ Template['quickchart'].onRendered(function() {
         .on("mousemove", mousemove)
 
     }
-    if (i._ready_) {
+    /*if (i._ready_) {
       c.stop();
-    }
+    }*/
   })
 })
