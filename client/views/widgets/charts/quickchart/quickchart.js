@@ -19,7 +19,7 @@ _timestampino = function(timestamp) {
 Template['quickchart'].helpers({
   'chartdata': _chartdata,
   __ready: function() {
-    return /*Template.instance()._ready_ ||*/ CF.CurrentData._sub_.ready();
+    return Template.instance()._ready_ || CF.CurrentData._sub_.ready();
   }
 });
 
