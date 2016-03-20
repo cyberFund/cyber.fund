@@ -1,21 +1,8 @@
 <template name="quickchart">
-  {{! # withTooltip ttName="quickchart_tooltip" data=(chartdata system) class="chartie-head-lite red-text black w33em"}}
   <div class="quickchart" id="quickchart-{{_toUnderscores system}}">
     {{#if __ready}}
     {{else}}
     LOADING
     {{/if}}
   </div>
-  {{! / withTooltip}}
 </template>
-
-<Template name="quickchart_tooltip">
-  <span>
-  {{# each this}}
-  <div style="display: inline-block; padding: 0.2em">
-    <div>${{ readableN price_usd 2 }} per unit</div>
-    <div>{{ timestampino timestamp }}</div>
-  </div>
-  {{/each}}
-  </span>
-</Template>

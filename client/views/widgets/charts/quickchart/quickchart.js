@@ -16,20 +16,12 @@ _timestampino = function(timestamp) {
     "ddd D-MM HH:" : "ddd D-MM");
 }
 
-Template['quickchart_tooltip'].helpers({
-  'chartdata': _chartdata,
-  'timestampino': _timestampino
-});
 Template['quickchart'].helpers({
   'chartdata': _chartdata,
   __ready: function() {
     return /*Template.instance()._ready_ ||*/ CF.CurrentData._sub_.ready();
   }
 });
-
-Template['quickchart'].onCreated(function() {
-
-})
 
 var grab = {
   t: function(fruit) {
@@ -58,28 +50,33 @@ Template['quickchart'].onRendered(function() {
   var selector = {
     systemId: this.data.system
   }
+  function _system(){
+    var r = i.$(".quickchart").attr('id').split('-')[1];
+    if (r) return Blaze._globalHelpers._toSpaces(r);
+    return i.data && i.data.system || ""
+  }
 
   i.autorun(function(c) {
-
+    var system = _system();
     if (CF.CurrentData._sub_.ready()) {
-      if (_chartdata(i.data.system).count() ) {
+      if (_chartdata(system).count() ) {
         i._ready_ = true;
       }
     }
     if (!i._ready_) return;
     var graph;
-    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(i.data.system));
+    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(system));
 
     function myGraph(el) {
 
       this.selectedNode = null;
       var graph = this;
 
-      var data = _chartdata(i.data.system).fetch();
+      var data = _chartdata(system).fetch();
       data = data.sort(function(a, b) {
         return a.timestamp - b.timestamp
       })
-      var lastData = CurrentData.findOne({_id:i.data.system})
+      var lastData = CurrentData.findOne({_id:system})
       if (lastData && lastData.lastData) data.push(lastData.lastData)
 
       var wf = 140;
@@ -100,7 +97,7 @@ Template['quickchart'].onRendered(function() {
         .append("svg:svg")
         .attr("width", wf)
         .attr("height", hf)
-        .attr("id", "svg-" + i.data.system)
+        .attr("id", "svg-" + Blaze._globalHelpers._toUnderscores(system))
         .attr("pointer-events", "all")
         .attr("viewBox", "0 0 " + wf + " " + hf)
         .attr('class', 'chart')
@@ -127,10 +124,6 @@ Template['quickchart'].onRendered(function() {
       var formatCurrency = function(d) {
         return "$" + formatValue(d);
       };
-
-
-
-
 
       var ficus = svg.append("g")
         .attr("class", "ficus")
