@@ -1,5 +1,5 @@
 Meteor.startup(function() {
-  CurrentData.find({}).forEach(function(item) {
+/*  CurrentData.find({}).forEach(function(item) {
     if (item._id != item.system) {
       Extras.upsert({
         _id: "new_" + item.system
@@ -53,5 +53,5 @@ Meteor.startup(function() {
       })
       CurrentData.insert(cd);
     });
-  }, 10000)
+  }, 10000)*/
 });

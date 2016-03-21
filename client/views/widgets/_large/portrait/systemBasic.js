@@ -4,7 +4,7 @@ function systemName() {
 
 function curData() {
   return CurrentData.findOne({
-    system: systemName()
+    _id: systemName()
   });
 }
 
