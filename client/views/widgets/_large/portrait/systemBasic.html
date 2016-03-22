@@ -276,23 +276,12 @@
           <div itemprop="aggregateRating" content="{{ratings.rating_cyber}}" class="rating-sys" style="margin-top: 1.5rem">
             {{>cfRating rating=calculatable.RATING.sum}}
           </div>
-          {{#if independent this}}
-          <div> Independent System</div>
-          {{else}} {{#if descriptions}}
-          <div>{{_system_type_ descriptions.system_type}}</div>
-          {{/if}}
-          <br>
-
-          <div>Built with {{#each depends_on}}
-            <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
-
-              <span class="enlarge no-wrap">
-                {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
-              </span>
-            </a>
-            {{/each}}
+          <div class="center">
+            <span style="font-size:12px">
+              {{descriptions.state}} {{descriptions.system_type}}
+              <br> {{consensus.type}} {{consensus.algorithm}}
+            </span>
           </div>
-          {{/if}}
         </div>
       </div>
 
@@ -305,7 +294,6 @@
     {{#if and descriptions descriptions.headline}}
     <p>
       <span itemprop="description">{{descriptions.headline}}</span>
-      used in {{countWithTag links 'Apps'}} apps and created {{dependents.count}} decentralized apps
     </p>
     {{/if}}
   </div>
