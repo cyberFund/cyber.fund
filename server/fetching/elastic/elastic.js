@@ -88,7 +88,9 @@ var esParsers = {
     _.each(todayBuckets, function(bucket) {
       var sNow = getHit(bucket);
       if (_.isEmpty(sNow)) return; // no need to update if no new data
-
+      if (bucket.key.split("|").pop() == "Bytecoin") {
+        console.log (bucket.latest.hits.hits[0]._source)
+      }
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
 
       var set = {}; // changes object, to be used within doc update
@@ -139,12 +141,12 @@ var esParsers = {
 
       // if no price - used latest from doc
       if (!sNow.price_usd) {
-        sNow.price_usd = curDoc.metrics.price.usd;
+        sNow.price_usd = curDoc.metrics && curDoc.metrics.price && curDoc.metrics.price.usd;
       }
 
       // if no price - used latest from doc
       if (!sNow.price_btc) {
-        sNow.price_btc = curDoc.metrics.price.btc;
+        sNow.price_btc = curDoc.metrics && curDoc.metrics.price && curDoc.metrics.price.btc;
       }
 
 

@@ -77,47 +77,44 @@ var fetch = function () {
               logger.info("no .token for system '" + system._id + "'");
               return;
             }
+
+            if (system.crowdsales) { // format crowdsales dates
+              if (_.isString(system.crowdsales.start_date)) {
+                system.crowdsales.start_date = moment.utc(system.crowdsales.start_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
+              }
+              if (_.isString(system.crowdsales.end_date)) {
+                system.crowdsales.end_date = moment.utc(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
+              }
+            }
+
+            if (system.specs) { // push supply & caps from chaingear to metrics
+
+              system.metrics = system.metrics || {};
+              if (system.specs.supply) {
+                system.metrics.supply = system.specs.supply;
+              }
+              if (system.specs.cap) {
+                system.metrics.cap = system.specs.cap;
+              }
+            }
+
             var doc = CurrentData.findOne({_id: system._id});
 
             if (!doc) {
               console.log("no doc for system '" + system._id + "'" )
-              if (system.specs) {
-                // push supply & caps to metrics
-                system.metrics = system.metrics || {};
-                if (system.specs.supply) {
-                  system.metrics.supply = system.specs.supply;
-                }
-                if (system.specs.cap) {
-                  system.metrics.cap = system.specs.cap;
-                }
-              }
-
               console.log("inserting system " + system._id);
-              CurrentData.insert( _.omit(system, ['system']) );
+              CurrentData.insert (system) ( _.omit(system, ['system']) );
             }
+
             else {
-              if (system.crowdsales) {
-                if (_.isString(system.crowdsales.start_date)) {
-                  system.crowdsales.start_date = moment.utc(system.crowdsales.start_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
-                }
-                if (_.isString(system.crowdsales.end_date)) {
-                  system.crowdsales.end_date = moment.utc(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
-                }
-              }
-              var set = _.omit(system, ['system']); //system:
-              // push supply & caps to metrics
+              var set = system;//_.omit(system, ['system']); //system:
               if (system.specs) {
-                if (system.specs.supply) {
-                  set["metrics.supply"] = system.specs.supply;
-                }
-                if (system.specs.cap) {
-                  set["metrics.cap.usd"] = system.specs.cap.usd;
-                  set["metrics.cap.btc"] = system.specs.cap.btc;
-                }
 
                 // check if we can hotfix price
                 if (system.specs.cap && system.specs.supply) {
                   // check if need hotfixing price
+
+                  // if price missing
                   if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
                     if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
                       set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
