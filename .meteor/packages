@@ -38,7 +38,6 @@ kadira:flow-router
 kadira:blaze-layout
 meteorhacks:kadira
 
-standard-minifiers
 meteor-base
 mobile-experience
 mongo
@@ -56,8 +55,10 @@ useraccounts:flow-routing
 useraccounts:materialize
 arillo:flow-router-helpers
 zimme:active-route
-materialize:materialize@=0.97.0
+materialize:materialize
 
 npm-container
 d3js:d3
 coffeescript
+standard-minifier-css
+standard-minifier-js

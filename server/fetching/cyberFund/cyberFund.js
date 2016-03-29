@@ -103,7 +103,7 @@ var fetch = function () {
             if (!doc) {
               console.log("no doc for system '" + system._id + "'" )
               console.log("inserting system " + system._id);
-              CurrentData.insert (system) ( _.omit(system, ['system']) );
+              CurrentData.insert (system);
             }
 
             else {
