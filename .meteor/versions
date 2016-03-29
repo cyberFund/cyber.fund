@@ -58,7 +58,7 @@ launch-screen@1.0.8
 livedata@1.0.16
 localstorage@1.0.7
 logging@1.0.10
-materialize:materialize@0.97.5
+materialize:materialize@0.97.0
 meteor@1.1.12
 meteor-base@1.0.2
 meteorhacks:fast-render@2.13.0
