@@ -114,7 +114,7 @@ CF.UserAssets.isPrivateAccountsEnabled = function (user) {
 };
 
 
-CF.UserAssets .accountsFields = function(isOwn){
+CF.UserAssets.accountsFields = function(isOwn){
   return isOwn ? {'accounts': 1, 'accountsPrivate': 1} : {'accounts': 1}
 }
 
