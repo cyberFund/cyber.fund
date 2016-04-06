@@ -12,16 +12,10 @@ var logger = {
     if (typeof label === 'string') {
       if (typeof value === 'object') console.log(label + ": ", value);
       else console.log([label, value].join(": "));
-      console.log("======================================================"
         );
     }
     if (!condensed) console.log();
   }
 }
 
-CF.libsub = CF.libsub || {}
-CF.libsub.logger = logger
-
-Meteor.startup(function(){
-  CF.libsub.logger.test();
-})
+CF.Utils.logger = logger

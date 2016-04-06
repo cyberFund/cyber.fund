@@ -17,12 +17,9 @@ cyberfund:cyberfund-chaingear
 cyberfund:cyberfund-es
 
 accounts-twitter
-ermlab:log4js-silos
 
 gwendall:body-events
-
 service-configuration
-
 twitter
 mfpierre:chartist-js
 cyberfund:cyberfund-currentdata

@@ -3,7 +3,7 @@
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchInterval = 5 * 60 * 1000;
 
-var logger = log4js.getLogger("meteor-fetching");
+var logger = CF.Utils.logger.getLogger("meteor-fetching");
 
 CF.fetching.cyberFund = {};
 
@@ -123,7 +123,7 @@ var fetch = function () {
                       set.metrics.price.usd = system.specs.cap.usd / system.specs.supply;
                     }
                     if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
-                      set.metrics = set.metrics || {}; set.metrics.price = set.metrics.price || {}; 
+                      set.metrics = set.metrics || {}; set.metrics.price = set.metrics.price || {};
                       set.metrics.price.btc = system.specs.cap.btc / system.specs.supply;
                     }
                   }

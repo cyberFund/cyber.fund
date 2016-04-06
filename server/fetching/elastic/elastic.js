@@ -2,7 +2,7 @@
 // (currently, it s coinmarketcap data)
 
 //var currentData = {meta: {}};
-var logger = log4js.getLogger("meteor-fetching-es");
+var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
 
