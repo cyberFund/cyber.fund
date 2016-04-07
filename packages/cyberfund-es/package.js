@@ -11,7 +11,7 @@ Package.describe({
 });
 
 Npm.depends({
-  "elasticsearch": "5.0.0"//,
+  "elasticsearch": "10.1.2"//,
   //"request-promise": "^0.4.2"
 });
 
