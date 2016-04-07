@@ -64,7 +64,9 @@ Meteor.publish('userDetails', function() {
     fields: {
       "services.twitter.screenName": 1,
       "services.twitter.profile_image_url_https": 1,
-      "services.privateAccountsEnabled": 1
+      "services.privateAccountsEnabled": 1,
+      "username": 1,
+      "firstLogin": 1,
     }
   });
 });
@@ -277,6 +279,7 @@ Meteor.publish('portfolioUser', function(userId) {
   var isOwn = this.userId == userId;
   var fields = {
     'profile': 1,
+    'username': 1,
     username: 1,
     accounts: 1,
     createdAt: 1

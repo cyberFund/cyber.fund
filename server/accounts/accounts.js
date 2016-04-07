@@ -1,6 +1,6 @@
 Accounts.validateNewUser(function (user) {
   if (user.username)
-  return (user.username.length >= 6) &&  (!!Meteor.users.findOne({username: user.username}));
+  return (user.username.length >= 6) &&  (!Meteor.users.findOne({username: user.username}));
   return true;
 });
 
@@ -12,9 +12,6 @@ Accounts.onCreateUser(function(options, user) {
   //  1.2. if ok: add user.username field
   //  1.2.1. if not ok: try same with username+'_tw'
   //  1.2.2. if still not ok: try same with username +'random number or user first/last name'
-
-
-  var print = CF.Utils.logger.print;
 
   var isTwitter = !!(user.services && user.services.twitter)
 
@@ -28,9 +25,9 @@ Accounts.onCreateUser(function(options, user) {
     if (usernameExists(username)) {
       var tests = ['_tw', '_winner', '_1', '_10'];
       if (options.profile && options.profile.name) {
-        name = options.profile.name.split(' ');
-        if (name[0]) tests.unshift('_'+name[0]);
+        var name = options.profile.name.split(' ');
         if (name[1]) tests.unshift('_'+name[1]);
+        if (name[0]) tests.unshift('_'+name[0]);
       }
       var tail = _.find(tests, function(tail){
         return !usernameExists(username+tail)
@@ -56,7 +53,6 @@ Accounts.onCreateUser(function(options, user) {
     user.profile = options.profile;
   user.firstLogin = true;
   return user;
-
 });
 
 // this flag is used by client to call analytics signup track
