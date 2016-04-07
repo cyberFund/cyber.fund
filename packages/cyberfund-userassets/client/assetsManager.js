@@ -76,7 +76,7 @@ Template['assetsManager'].helpers({
     return amount.quantity || '';
   },
   showAccountsAdvertise: function() {
-    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
+    if (CF.Profile.currentUsername.get() == CF.User.username()) {
       var user = Meteor.users.findOne({
         _id: CF.Profile.currentUid()
       });
@@ -97,9 +97,9 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  instance.subscribe('profileAssets', CF.Profile.currentTwid.get());
+  instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
-    var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
+    var user = Meteor.users.findOneByUsername(CF.Profile.currentUsername.get());
 
     var systems = user && user.accounts;
     if (CF.Profile.currentUid == Meteor.userId()) {

@@ -5,7 +5,7 @@ Template['navbar'].rendered = function () {
 
 Tracker.autorun(function(c){
   var user = Meteor.user();
-  if (user && user.profile && user.profile.firstLogin) {
+  if (user && user.firstLogin) {
     analytics.track('Sign Up',
       {userId: Meteor.userId()});
     Meteor.call("afterFirstLogin");
@@ -30,11 +30,11 @@ Template['navbar'].events({
 
   },
   'click #login-button': function(e, t){
-    analytics.track('Sign In', {
+    analytics.track('redirect to Sign In', {
       from: 'navbar'
     });
-    Meteor.loginWithTwitter({
+    FlowRouter.go('/sign-in')/* Meteor.loginWithTwitter({
       loginStyle: 'redirect'
-    })
+    })*/
   }
 });

@@ -52,15 +52,15 @@ CF.Utils.SessionVariable = function(key) {
   };
 };
 
-CF.User.twid = function() {
+CF.User.username = function() {
   var user = Meteor.user();
   if (!user) return '';
-  return (user.profile && user.profile.twitterName) || '';
+  return (user.username) || '';
 };
 
 CF.User.linkToOwnProfile = function() {
-  var twid = CF.User.twid();
-  return twid ? '/@' + twid : '/'
+  var username = CF.User.username();
+  return username ? '/@' + username : '/welcome'
 }
 
 CF.User.listFromIds = function(listFromIds) {
@@ -76,28 +76,28 @@ CF.User.get = CF.User.get || function getUser() {
 }
 
 CF.User.selectors = CF.User.selectors || {}
-CF.User.selectors.userByTwid = CF.User.selectors.userByTwid ||
-function userByTwid(twid) {
+CF.User.selectors.userByUsername = CF.User.selectors.userByUsername ||
+function userByUsername(username) {
   return ({
-    "profile.twitterName": twid
+    "username": username
   });
 }
 
 
-Meteor.users.findOneByTwid = function(twid) {
+Meteor.users.findOneByUsername = function(username) {
   return Meteor.users.findOne({
-    "profile.twitterName": twid
+    "username": username
   });
 }
 
-CF.User.byTwid = function findUserByTwid (twid) {
-  return Meteor.users.findOneByTwid(twid)
+CF.User.byUsername = function findUserByUsername (username) {
+  return Meteor.users.findOneByUsername(username)
 }
 
 // WTF? use path segment here..
-CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
+CF.Profile.currentUsername = new CF.Utils.SessionVariable('cfAssetsCurrentUsername');
 
 CF.Profile.currentUid = function() {
-  var u = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
+  var u = Meteor.users.findOneByUsername(CF.Profile.currentUsername.get());
   return u ? u._id : undefined;
 };

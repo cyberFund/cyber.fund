@@ -62,6 +62,9 @@ Meteor.startup(function() {
     }
 
     var identity = {};
+    if (user.username) {
+      identity.username = user.username;
+    }
     if (user.profile) {
       identity.name = user.profile.name;
     }

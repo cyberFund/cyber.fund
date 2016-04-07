@@ -51,7 +51,7 @@ Template['systemBasic'].onRendered(function() {
 });
 
 Template['systemBasic'].helpers({
-  systemName: function(){ return systemName()}
+  systemName: function(){ return systemName()},
   'curData': function() {
     return curData();
   },

@@ -7,31 +7,6 @@ Meteor.methods({
   }
 });
 
-Accounts.onCreateUser(function(options, user) {
-  //var d6 = function () { return Math.floor(Random.fraction() * 6) + 1; };
-  //user.dexterity = d6() + d6() + d6();
-  // We still want the default hook's 'profile' behavior.
-
-  if (user.services && user.services.twitter) {
-    options.profile = options.profile || {};
-    options.profile.twitterName = user.services.twitter.screenName;
-    options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
-    options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
-  }
-  options.profile.firstLogin = true;
-  if (options.profile)
-    user.profile = options.profile;
-  return user;
-});
-
-Meteor.methods({
-  afterFirstLogin: function(){
-    if (!Meteor.userId()) return;
-    Meteor.users.update({
-      _id: Meteor.userId()
-    },{$unset: {'profile.firstLogin': true}})
-  }
-});
 
 // reason for that is user.services.twitter.screenName is delivered by subscriptions,
 // while we also want avatar url and name
@@ -57,8 +32,19 @@ SyncedCron.add({
     return parser.cron('19 * * * *', false);
   },
   job: function () {
-    Meteor.users.find({}).forEach(function(user){
+    Meteor.users.find({"services.twitter": {$exists: true}}).forEach(function(user){
       CF.Profile.patch(user)
     });
   }
 });
+
+
+Meteor.startup(function(){ //could not do this from mongo shell..
+  ids = Meteor.users.find({"profile.twitterName": {$exists: true},
+    'username': {$exists: false}}, {fields: {_id: 1, "profile.twitterName": 1} })
+  .fetch()
+  console.log(ids)
+  ids.forEach(function(id){
+    Meteor.users.update({_id: id._id}, {$set: {username: id.profile.twitterName}})
+  })
+})

@@ -1,7 +1,7 @@
 CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 var isOwnAssets = function(){
-  return CF.Profile.currentTwid.get() == CF.User.twid();
+  return CF.Profile.currentUsername.get() == CF.User.username();
 };
 
 Template['displayAccount'].rendered = function () {

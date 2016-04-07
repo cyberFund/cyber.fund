@@ -247,21 +247,22 @@ Meteor.publish('avatars', function(uidArray) {
 /*
   user profile by twitter screenname
  */
-Meteor.publish('userProfileByTwid', function(twid) {
-  var ownTwid = null;
+Meteor.publish('userProfileByUsername', function(username) {
+  var ownUsername = null;
   if (this.userId) {
-    ownTwid = Meteor.users.findOne({
+    ownUsername = Meteor.users.findOne({
       _id: this.userId
-    }).profile.twitterName
+    }).username
   }
   var fields = {
     'profile': 1,
+    username: 1,
     accounts: 1,
     createdAt: 1
   };
-  if (ownTwid == twid) fields.accountsPrivate = 1;
+  if (ownUsername == username) fields.accountsPrivate = 1;
   return Meteor.users.find({
-    "profile.twitterName": twid
+    "username": username
   }, {
     fields: fields
   });
@@ -276,6 +277,7 @@ Meteor.publish('portfolioUser', function(userId) {
   var isOwn = this.userId == userId;
   var fields = {
     'profile': 1,
+    username: 1,
     accounts: 1,
     createdAt: 1
   };
