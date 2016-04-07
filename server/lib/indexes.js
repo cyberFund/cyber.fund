@@ -27,7 +27,7 @@ Meteor.startup(function() {
 
 	Meteor.users._ensureIndex({
 		"profile.twitterName": 1
-	}, {unique: 1})
+	}, {unique: 1, sparse: 1})
 
 	FastData._ensureIndex({"timestamp": 1}, {expireAfterSeconds: 86400});
 	FastData._ensureIndex({"systemId": 1});
