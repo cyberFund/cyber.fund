@@ -9,7 +9,8 @@ Template['ratingTable'].onCreated(function () {
       sort: _Session.get('coinSorter'),
       selector: {
         "flags.rating_do_not_display": {$ne: true},
-        "calculatable.RATING.sum": {$gte: 1}
+        "calculatable.RATING.sum": {$gte: 1},
+        "metrics.tradeVolume": {$gte: 0.2}
       }
     });
   });

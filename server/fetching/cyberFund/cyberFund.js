@@ -3,7 +3,7 @@
 var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchInterval = 5 * 60 * 1000;
 
-var logger = log4js.getLogger("meteor-fetching");
+var logger = CF.Utils.logger.getLogger("meteor-fetching");
 
 CF.fetching.cyberFund = {};
 
@@ -80,10 +80,12 @@ var fetch = function () {
 
             if (system.crowdsales) { // format crowdsales dates
               if (_.isString(system.crowdsales.start_date)) {
-                system.crowdsales.start_date = moment.utc(system.crowdsales.start_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
+                system.crowdsales.start_date = moment.utc(system.crowdsales.start_date,
+                  "YYYY-MM-DD[T]HH:mm:ss")._d;
               }
               if (_.isString(system.crowdsales.end_date)) {
-                system.crowdsales.end_date = moment.utc(system.crowdsales.end_date, "YYYY-MM-DD[T]HH:mm:ss")._d;
+                system.crowdsales.end_date = moment.utc(system.crowdsales.end_date,
+                  "YYYY-MM-DD[T]HH:mm:ss")._d;
               }
             }
 
@@ -117,10 +119,12 @@ var fetch = function () {
                   // if price missing
                   if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
                     if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
-                      set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
+                      set.metrics = set.metrics || {}; set.metrics.price = set.metrics.price || {};
+                      set.metrics.price.usd = system.specs.cap.usd / system.specs.supply;
                     }
                     if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
-                      set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
+                      set.metrics = set.metrics || {}; set.metrics.price = set.metrics.price || {};
+                      set.metrics.price.btc = system.specs.cap.btc / system.specs.supply;
                     }
                   }
                 }

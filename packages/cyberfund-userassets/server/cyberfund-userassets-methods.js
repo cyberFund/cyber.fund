@@ -1,7 +1,7 @@
 var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
-var logger = log4js.getLogger("meteor-fetching");
+var logger = CF.Utils.logger.getLogger("meteor-fetching");
 //
 ns .quantumCheck = function(address) {
   var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
