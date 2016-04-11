@@ -244,7 +244,9 @@ Meteor.publish('search-sys', function(selector, options, collname) {
 Meteor.publish("BitcoinPrice", function() {
   return CurrentData.find({
     _id: "Bitcoin"
-  })
+  }, {fields: {
+    metrics: 1
+  }})
 });
 
 Meteor.publish('avatars', function(uidArray) {
