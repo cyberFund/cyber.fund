@@ -1,7 +1,8 @@
 Template['radarPage'].onCreated(function() {
   var self = this;
-  self.subscribe('crowdsalesList');
-  self.subscribe('projectsList');
+  self.subscribe('crowdsalesAndProjectsList');
+  //self.subscribe('crowdsalesList');
+  //self.subscribe('projectsList');
 });
 
 function _crowdsale() {

@@ -94,7 +94,22 @@ Meteor.publish('systemData', function(options) {
 /*
   fetch systems that are displayed at radar page.
  */
+ Meteor.publish('crowdsalesAndProjectsList', function() {
+   var doc = Extras.findOne({_id: 'radarList'})
+   if (!doc) return this.ready()
+   var ids = _.union(doc.crowdsales || [], doc.projects || []);
+   return CurrentData.find({_id: {$in: ids}}, {
+     fields: {
+       dailyData: 0,
+       hourlyData: 0
+     }
+   });
+ })
+
+
+ //obsoleters
 Meteor.publish('crowdsalesList', function() {
+
   var sel = CF.CurrentData.selectors.crowdsales();
   return CurrentData.find(sel, {
     fields: {

@@ -1,4 +1,4 @@
-// Write your package code here!
+// TODO: rename file
 CF.ES = {};
 var ns = CF.ES;
 var esLib = Npm.require("elasticsearch");
