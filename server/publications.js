@@ -100,8 +100,12 @@ Meteor.publish('systemData', function(options) {
    var ids = _.union(doc.crowdsales || [], doc.projects || []);
    return CurrentData.find({_id: {$in: ids}}, {
      fields: {
-       dailyData: 0,
-       hourlyData: 0
+       crowdsales: 1,
+       descriptions: 1,
+       _id: 1,
+       aliases: 1,
+       icon: 1,
+       metrics: 1
      }
    });
  })
