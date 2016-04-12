@@ -7,9 +7,7 @@
     <div class="row">
         <h4 class="center">Active Crowdsales</h4>
         {{#each crowdsaleActive}}
-            {{#if isNowBetween crowdsales.start_date crowdsales.end_date}}
-                {{> radarCard this}}
-            {{/if}}
+            {{> radarCard this}}
         {{/each}}
     </div>
     {{/if}}
@@ -23,7 +21,6 @@
     </div>
     {{/if}}
 
-    {{log project.count}}
     {{#if project.count}}
     <div class="row">
         <h4 class="center">Anticipated Projects</h4>
