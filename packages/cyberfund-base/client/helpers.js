@@ -141,16 +141,16 @@ var helpers = {
 
   isBeforeNow: function (date) {
     var m = /*format ? moment(date, format) : */moment(date);
-    return m.isBefore(moment(), 'day');
+    return m.isBefore(moment());
   },
   isAfterNow: function (date/*, format*/) {
     var m = /*format ? moment(date, format) :*/ moment(date);
-    return m.isAfter(moment(), 'day');
+    return m.isAfter(moment());
   },
   isNowBetween: function (date1, date2/*, format*/) {
     var m1 = /*format ? moment(date1, format) :*/ moment(date1),
     m2 = /*format ? moment(date2, format) : */moment(date2);
-    return moment().isBetween(m1, m2, 'day');
+    return moment().isBetween(m1, m2);
   },
 
   _toUnderscores: function (str) {

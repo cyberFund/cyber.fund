@@ -56,7 +56,7 @@ Template['radarPage'].helpers({
   crowdsale: function() { return _crowdsale() },
   crowdsalePast: function() { return _crowdsalePast() },
   crowdsaleUpcoming: function() { return _crowdsaleUpcoming() },
-  crowdsaleActive: function() { return _crowdsaleActive(); },
+  crowdsaleActive: function() { return _crowdsaleActive() },
   project: function() { return _project() },
   nothing: function() { return !( _project().count() + _crowdsale().count() ) },
 
