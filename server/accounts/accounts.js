@@ -44,6 +44,7 @@ Accounts.onCreateUser(function(options, user) {
 
   options.profile = options.profile || {};
   if (isTwitter) {
+
     options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
     options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
     options.profile.twitterName = user.services.twitter.screenName; // obsolete now

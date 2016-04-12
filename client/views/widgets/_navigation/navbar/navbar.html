@@ -58,7 +58,7 @@
     {{#if currentUser.profile.twitterName}}
 
       <a href="{{pathFor '/@:username' username=ownUsername}}" style="vertical-align: middle">
-        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.profile.twitterIconUrlHttps}}
+        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.avatar}}
         {{currentUser.profile.twitterName}}
       </a>
 
