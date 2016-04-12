@@ -300,7 +300,7 @@ Template['slowchart'].onRendered ->
         i._ready_ = true
     if !i._ready_
       return
-    graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toUnderscores(i.data.system), i)
+    graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(i.data.system), i)
     $(window).on 'resize', (e) ->
       $('#slowchart-' + i.data.system).empty()
       graph = new myGraph('#slowchart-' + i.data.system, i)

@@ -159,6 +159,9 @@ var helpers = {
   _toSpaces: function (str) {
     return str.replace(/_/g, " ")
   },
+  _toAttr: function (str) {
+    return str.replace(/\ /g, "_").replace(/\(/g, "_").replace(/\./g, "_")
+  },
   usersCount: function () {
     return Counts.get('usersCount')
   },

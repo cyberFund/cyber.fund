@@ -67,7 +67,7 @@ Template['quickchart'].onRendered(function() {
     }
     if (!i._ready_) return;
     var graph;
-    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toUnderscores(system));
+    graph = new myGraph("#quickchart-" + Blaze._globalHelpers._toAttr(system));
 
     function myGraph(el) {
       d3.select(el).selectAll("*").remove()
@@ -99,7 +99,7 @@ Template['quickchart'].onRendered(function() {
         .append("svg:svg")
         .attr("width", wf)
         .attr("height", hf)
-        .attr("id", "svg-" + Blaze._globalHelpers._toUnderscores(system))
+        .attr("id", "svg-" + Blaze._globalHelpers._toAttr(system))
         .attr("pointer-events", "all")
         .attr("viewBox", "0 0 " + wf + " " + hf)
         .attr('class', 'chart')
