@@ -210,9 +210,8 @@ var helpers = {
     if (!user) return '';
     return (user.username) || '';
   },
-  biggerTwitterImg: function(url){
-    if (!url) return '';
-    return url.replace('_normal', '');
+  _largeAvatar: function(user){
+    return user.largeAvatar || user.avatar || '';
   },
   dateFormat: function(date, format){
     return moment(date).format(format);

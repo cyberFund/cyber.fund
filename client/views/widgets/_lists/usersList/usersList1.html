@@ -4,7 +4,7 @@ parameters:
 
     @data: array or cursor of users.
 meaningful data item properties
-are `profile.twitterName` && `profile.twitterIconUrl`
+are `username` && `avatar`
 
     @style: style applied to single item' image
 
@@ -12,9 +12,9 @@ are `profile.twitterName` && `profile.twitterIconUrl`
 -->
 <template name="usersList1">
     {{#each data}}
-        <a href="{{pathFor '/@:username' username=profile.twitterName}}"
+        <a href="{{pathFor '/@:username' username=username}}"
            title="{{profile.name}}">
-            {{>hitryImage img_url=profile.twitterIconUrlHttps class=../class style=../style}}
+            {{>hitryImage img_url=avatar class=../class style=../style}}
         </a>
     {{/each}}
 </template>
@@ -25,9 +25,9 @@ are `profile.twitterName` && `profile.twitterIconUrl`
              itemprop="{{itemprop}}" itemscope
              itemtype="http://schema.org/Person">
             <span itemprop="name" content="{{profile.name}}"></span>
-            <a itemprop="url" href="{{pathFor '/@:username' username=profile.twitterName}}"
+            <a itemprop="url" href="{{pathFor '/@:username' username=username}}"
                title="{{profile.name}}">
-                {{>hitryImage img_url=profile.twitterIconUrlHttps class=../class style=../style}}
+                {{>hitryImage img_url=avatar class=../class style=../style}}
             </a>
         </div>
     {{/each}}

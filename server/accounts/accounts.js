@@ -1,12 +1,12 @@
 Accounts.validateNewUser(function (user) {
   if (user.username)
-  return (user.username.length >= 6) &&  (!Meteor.users.findOne({username: user.username}));
+  return (user.username.length >= 4) &&  (!Meteor.users.findOne({username: user.username}));
   return true;
 });
 
 Accounts.onCreateUser(function(options, user) {
 
-  //  TODO: 1. if using twitter:
+  //  1. if using twitter:
   //  1.0. username = twitter_id.
   //  1.1. username_exists: Meteor.users.findOne({username: username}
   //  1.2. if ok: add user.username field
@@ -14,9 +14,11 @@ Accounts.onCreateUser(function(options, user) {
   //  1.2.2. if still not ok: try same with username +'random number or user first/last name'
 
   var isTwitter = !!(user.services && user.services.twitter)
+  var isPassword = !!(user.services && user.services.password) && !isTwitter; // ?
 
   var username = isTwitter ? user.services.twitter.screenName : (user.username
     || options.username);
+
   function usernameExists (username) {
     return !!Meteor.users.findOne({username: username})
   }
@@ -41,13 +43,23 @@ Accounts.onCreateUser(function(options, user) {
   }
 
   user.username = username;
-
+  function biggerTwitterImg(url){
+    if (!url) return '';
+    return url.replace('_normal', '');
+  }
   options.profile = options.profile || {};
   if (isTwitter) {
-
-    options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
-    options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
-    options.profile.twitterName = user.services.twitter.screenName; // obsolete now
+    user.avatar = user.services.twitter.profile_image_url_https;
+    user.username = user.services.twitter.screenName; // obsolete now
+    user.largeAvatar = biggerTwitterImg(user.services.twitter.profile_image_url_https);
+  }
+  if (isPassword) {
+    user.avatar = Gravatar.imageUrl(user.emails[0].address, {
+      size: 48,
+      default: 'mm' });
+    user.largeAvatar = Gravatar.imageUrl(user.emails[0].address, {
+      size: 480,
+      default: 'mm' });
   }
   options.profile.firstLogin = true;
   if (options.profile)

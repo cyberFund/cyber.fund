@@ -279,7 +279,6 @@ Template['slowchart'].helpers
   __ready: ->
     # do not draw anything before data is loaded
     return Template.instance()._ready_ or CF._sub_ and CF._sub_.ready()
-    true
 
 grab =
   t: (fruit) -> fruit and fruit.timestamp

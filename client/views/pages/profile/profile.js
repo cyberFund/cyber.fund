@@ -60,7 +60,7 @@ Template['profile'].helpers({
   },
   "isOwnProfile": function() {
     if (!Meteor.userId()) return false;
-    return (CF.Profile.currentUsername.get() == CF.User.username()); 
+    return (CF.Profile.currentUsername.get() == CF.User.username());
   },
   user: function() {
     return _user();
@@ -101,11 +101,6 @@ Template['profile'].helpers({
   'followedByCount': function() {
     var user = _user();
     return user.profile && user.profile.followedBy && user.profile.followedBy.length || 0
-  },
-
-  biggerTwitterImg: function() {
-    var user = _user();
-    return user.profile && user.profile.twitterIconUrlHttps && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrlHttps) || ''
   }
 });
 
