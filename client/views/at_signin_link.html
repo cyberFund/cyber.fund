@@ -1,0 +1,13 @@
+<template name="atSigninLinkOur">
+  <div class="at-signin-link">
+    <p>Note that public functions are currently available for users registered via titter.
+      If you registering with email, you can only use private portfolio features.
+      Also, votes for coins are not counted for email users
+    </p>
+    <p>
+      {{preText}}
+      <a href="{{signInLink}}" id="at-signIn" class="at-link at-signin {{disabled}}">{{linkText}}</a>
+      {{suffText}}
+    </p>
+  </div>
+</template>

@@ -1,0 +1,1 @@
+Template.atSigninLinkOur.replaces("atSigninLink");

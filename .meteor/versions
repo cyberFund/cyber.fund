@@ -2,6 +2,7 @@ accounts-base@1.2.4
 accounts-oauth@1.1.10
 accounts-password@1.1.6
 accounts-twitter@1.0.7
+aldeed:template-extension@4.0.0
 allow-deny@1.0.2
 amplify@1.0.0
 arillo:flow-router-helpers@0.5.1
