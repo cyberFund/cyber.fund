@@ -152,7 +152,12 @@ var helpers = {
     m2 = /*format ? moment(date2, format) : */moment(date2);
     return moment().isBetween(m1, m2);
   },
-
+  daysLeft: function (date) {
+    return  moment(date).diff( moment() , 'days');
+  },
+  daysPassed: function (date) {
+    return  moment().diff(moment(date), 'days');
+  },
   _toUnderscores: function (str) {
     return str.replace(/\ /g, "_")
   },

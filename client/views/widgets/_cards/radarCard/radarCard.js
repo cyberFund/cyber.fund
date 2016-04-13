@@ -3,12 +3,6 @@ Template['radarCard'].rendered = function () {
 };
 
 Template['radarCard'].helpers({
-  'daysLeft': function (date) {
-    return  moment(date).diff( moment() , 'days');
-  },
-  daysPassed: function (date) {
-    return  moment().diff(moment(date), 'days');
-  },
   name_: function () { //TODO: move to global helpers ?
     return Blaze._globalHelpers._toUnderscores(this.system);
   },
