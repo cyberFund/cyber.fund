@@ -22,3 +22,4 @@ tmp/
 settings.json
 lib/meta.js
 run.sh
+merge_dev_into_master.sh
