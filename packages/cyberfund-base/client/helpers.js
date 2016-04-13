@@ -225,9 +225,13 @@ var helpers = {
   dateFormat: function(date, format){
     return moment(date).format(format);
   },
-
   usersListFromIds: function(listFromIds) {
     return CF.User.listFromIds(listFromIds)
+  },
+  _btcPrice: function(){
+    var btc = CurrentData.findOne({_id: "Bitcoin"});
+    if (btc && btc.metrics) return parseFloat(btc.metrics.price.usd)
+    return undefined
   }
 };
 

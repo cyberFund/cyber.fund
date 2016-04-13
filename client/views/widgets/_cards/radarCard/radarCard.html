@@ -17,7 +17,7 @@
             </a>
 
             <div class="card-content">
-                {{#if isActiveCrowdsale}}
+                {{#if cgIsActiveCrowdsale}}
                     <div class="left">
                         <strong>{{daysLeft crowdsales.end_date}} days
                             left</strong>
@@ -32,7 +32,7 @@
                     <div style="height: 12px">&nbsp;</div>
                 {{/if}}
 
-                {{#if isUpcomingCrowdsale}}
+                {{#if cgIsUpcomingCrowdsale}}
                     <div class="left">
                         <strong>{{daysLeft crowdsales.start_date }} days
                             left</strong>
@@ -41,7 +41,7 @@
                 {{/if}}
 
 
-                {{#if isPastCrowdsale}}
+                {{#if cgIsPastCrowdsale}}
                     <div class="center-align" style="margin-bottom: 1.6em">
                         {{daysPassed crowdsales.end_date}} days ago
                     </div>
@@ -63,13 +63,13 @@
             </div>
 
             {{#if crowdsales}}
-                {{#if not isPastCrowdsale}}
+                {{#if not cgIsPastCrowdsale}}
                     <div class="card-action">
                         {{#if isAfterNow crowdsales.end_date}}
                             <a href="{{crowdsales.funding_tems}}"
                                target="_blank">Funding terms </a>
                         {{/if}}
-                        {{#if isActiveCrowdsale}}
+                        {{#if cgIsActiveCrowdsale}}
                             <a href="{{crowdsales.funding_url}}"
                                target="_blank">Invest</a>
                         {{/if}}

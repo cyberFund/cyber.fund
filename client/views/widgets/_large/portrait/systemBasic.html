@@ -10,6 +10,23 @@
 
     {{> systemBasicAbout this}} {{> systemBasicHeadline this}} {{> systemBasicUsersStarred this}}
 
+    {{#if cgIsActiveCrowdsale}}
+
+    <div class="row">
+    <div class="col offset-s2 s8 center">
+      <div class="card light-green lighten-4" >
+        <div class="card-content">
+          <h6> This project is currently in crowdsale phase</h6>
+          <a href="{{crowdsales.funding_tems}}"
+             target="_blank" style="margin: 0 4em;"> Funding terms </a>
+          <a href="{{crowdsales.funding_url}}"
+             target="_blank" style="margin: 0 4em;"> Invest </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    {{/if}}
+
     <div id="main" class="section scrollspy row">
       {{#each main_links}}
       <div class="col m6 s12 l3 center">
