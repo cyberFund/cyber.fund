@@ -389,8 +389,8 @@ var esParsers = {
         return ret;
       }
       _.each(sysBucket.over_time.buckets, function(timeBucket) {
-        if (!timeBucket.key_as_string) return;
-        var utc = moment.utc(timeBucket.key_as_string);
+        if (!timeBucket.key) return;
+        var utc = moment.utc(timeBucket.key);
         if (!utc) return;
 
         //var key;
@@ -499,7 +499,9 @@ Meteor.startup(function(){
 //  hourlyAves.job();
 })
 SyncedCron.add(hourlyAves)
-
+Meteor.startup(function(){
+  hourlyAves.job()
+})
 
 
 SyncedCron.add({
