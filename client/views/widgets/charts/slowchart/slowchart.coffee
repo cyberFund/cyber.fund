@@ -182,7 +182,7 @@ myGraph = (el, i) ->
     .enter()
     .append('rect')
     .style('fill', 'steelblue')
-    .attr 'x', (d) -> x2 grab.t(d) - wid/2
+    .attr 'x', (d) -> (x2 grab.t(d)) - wid/2
     .attr('width', wid)
     .attr 'y', (d) -> y2 grab.bvd(d)
     .attr 'height', (d)-> hV - y2( grab.bvd(d) )
@@ -242,7 +242,7 @@ myGraph = (el, i) ->
       .enter()
       .append('rect')
       .style('fill', 'steelblue')
-      .attr 'x', (d) -> x2 grab.t(d) - wid/2
+      .attr 'x', (d) -> (x2 grab.t(d)) - wid/2
       .attr('width', wid)
       .attr 'y', (d) -> y2 grab.bvd(d)
       .attr 'height', (d)-> hV - y2( grab.bvd(d) )
