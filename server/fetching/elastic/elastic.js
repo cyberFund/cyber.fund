@@ -495,14 +495,7 @@ var hourlyAves = {
   }
 }
 
-Meteor.startup(function(){
-//  hourlyAves.job();
-})
 SyncedCron.add(hourlyAves)
-Meteor.startup(function(){
-  hourlyAves.job()
-})
-
 
 SyncedCron.add({
   name: 'fetch last day averages',

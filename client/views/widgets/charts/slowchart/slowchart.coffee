@@ -45,7 +45,6 @@ myGraph = (el, i) ->
   hM = h*split[0] / splitsum
   hV = h*split[1] / splitsum
   hZ = h*split[2] / splitsum
-  console.log i
   data = i.theData #_chartdata(i.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
 
@@ -290,17 +289,26 @@ grab =
   bvd: (fruit) -> fruit and fruit.volume24_btc
 
 Template['slowchart'].onRendered ->
-  if !@data.system
-    return
   i = this
-  selector = systemId: @data.system
-  Meteor.call "fetchMarketData1", @data.system, (err, res)->
-    if res
-      i.theData = res
-      graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(i.data.system), i)
-      $(window).on 'resize', (e) ->
-        $('#slowchart-' + i.data.system).empty()
-        graph = new myGraph('#slowchart-' + i.data.system, i)
+
+  onResize = (sys)->
+    (e) ->
+      $('#slowchart-' + Blaze._globalHelpers._toAttr(sys)).empty()
+      graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(sys), i)
+  onresize = null
+
+  i.autorun (c) ->
+    system = Blaze._globalHelpers._toSpaces (FlowRouter.getParam ('name_'))
+    if not system then return
+    Meteor.call "fetchMarketData1", system, (err, res)->
+      if res
+        i.theData = res
+        i.$(".slowchart").empty();
+        graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), i)
+        if onresize
+          $(window).off 'resize', onresize
+        onresize = onResize(system)
+        $(window).on 'resize', onresize
   ###i.autorun (c) ->
     if CF._sub_ and CF._sub_.ready()
       if _chartdata(i.data.system).count()
