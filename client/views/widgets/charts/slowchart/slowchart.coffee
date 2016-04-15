@@ -175,14 +175,15 @@ myGraph = (el, i) ->
     .style('text-anchor', 'end')
     .text 'Volume 24 (BTC)'###
 
+  wid = Math.min(10, Math.max(w/data.length-1, 1))
   volumeChart
     .selectAll('bar')
     .data(data)
     .enter()
     .append('rect')
     .style('fill', 'steelblue')
-    .attr 'x', (d) -> x2 grab.t(d)
-    .attr('width', Math.min(10, Math.max(w/data.length-1, 1)))
+    .attr 'x', (d) -> x2 grab.t(d) - wid/2
+    .attr('width', wid)
     .attr 'y', (d) -> y2 grab.bvd(d)
     .attr 'height', (d)-> hV - y2( grab.bvd(d) )
 
@@ -234,14 +235,15 @@ myGraph = (el, i) ->
     volumeChart.select(".y.axis").call(yAxis2);
 
     volumeChart.selectAll("rect").remove()
+    wid = Math.min(10, Math.max(w/d.length-1, 1))
     volumeChart
       .selectAll('bar')
       .data(d)
       .enter()
       .append('rect')
       .style('fill', 'steelblue')
-      .attr 'x', (d) -> x2 grab.t(d)
-      .attr('width', Math.min(10, Math.max(w/d.length-1, 1)))
+      .attr 'x', (d) -> x2 grab.t(d) - wid/2
+      .attr('width', wid)
       .attr 'y', (d) -> y2 grab.bvd(d)
       .attr 'height', (d)-> hV - y2( grab.bvd(d) )
 
