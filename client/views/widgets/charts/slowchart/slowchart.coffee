@@ -45,8 +45,8 @@ myGraph = (el, i) ->
   hM = h*split[0] / splitsum
   hV = h*split[1] / splitsum
   hZ = h*split[2] / splitsum
-
-  data = _chartdata(i.data.system).fetch()
+  console.log i
+  data = i.theData #_chartdata(i.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
 
   x = d3.time.scale().domain([
@@ -294,17 +294,21 @@ Template['slowchart'].onRendered ->
     return
   i = this
   selector = systemId: @data.system
-  i.autorun (c) ->
+  Meteor.call "fetchMarketData1", @data.system, (err, res)->
+    if res
+      i.theData = res
+      graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(i.data.system), i)
+      $(window).on 'resize', (e) ->
+        $('#slowchart-' + i.data.system).empty()
+        graph = new myGraph('#slowchart-' + i.data.system, i)
+  ###i.autorun (c) ->
     if CF._sub_ and CF._sub_.ready()
       if _chartdata(i.data.system).count()
         i._ready_ = true
     if !i._ready_
-      return
-    graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(i.data.system), i)
-    $(window).on 'resize', (e) ->
-      $('#slowchart-' + i.data.system).empty()
-      graph = new myGraph('#slowchart-' + i.data.system, i)
-    if i._ready_
+      return###
+
+  ###  if i._ready_
       c.stop()
-    return
+    return###
   return
