@@ -10,9 +10,7 @@ function curData() {
 
 Template['systemBasic'].onCreated(function() {
   var instance = this;
-  CF._sub_ = instance.subscribe('systemData', {
-    name: systemName()
-  });
+
   instance.subscribe('dependentCoins', systemName());
 
   instance.autorun(function() {
