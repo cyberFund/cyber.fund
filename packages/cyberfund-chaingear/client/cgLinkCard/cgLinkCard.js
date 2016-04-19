@@ -3,7 +3,7 @@ Template['cgLinkCard'].helpers({
 
     var link = this;
     if (link.icon) {
-      return "http://static.cyber.fund/logos/" + link.icon;
+      return "https://static.cyber.fund/logos/" + link.icon;
     }
 
     return "";
