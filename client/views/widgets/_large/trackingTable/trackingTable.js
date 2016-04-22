@@ -83,9 +83,6 @@ Template['trackingWidget'].helpers({
     this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd
     || 0
   },
-  currentPrice: function() {
-    return this.metrics && this.metrics.price && this.metrics.price.usd || 0
-  },
   'rows': function () {
     var sort = _Session.get("coinSorter");
       if (sort["ratings.rating_cyber"]) {

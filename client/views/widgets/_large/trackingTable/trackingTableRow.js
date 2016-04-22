@@ -11,5 +11,8 @@ Template['trackingTableRow'].helpers({
   },
   firstPrice: function(){
     return this.first_price || {  };
-  }
+  },
+  currentPrice: function() {
+    return this.metrics && this.metrics.price && this.metrics.price.usd || 0
+  },
 })
