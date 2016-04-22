@@ -77,15 +77,15 @@ Template['assetsManager'].helpers({
   },
   showAccountsAdvertise: function() {
     var instance = Template.instance();
-    if (instance.subscriptionAssets.ready()) {
-    if (CF.Profile.currentUsername.get() == CF.User.username()) {
-      var user = Meteor.users.findOne({
-        _id: CF.Profile.currentUid()
-      });
-      return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
-    }
-    return false;
-  } else return false
+    if (CF.subscriptionAssets.ready()) {
+      if (CF.Profile.currentUsername.get() == CF.User.username()) {
+        var user = Meteor.users.findOne({
+          _id: CF.Profile.currentUid()
+        });
+        return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
+      }
+      return false;
+    } else return false
   },
   privacyOpposite: function(key) {
     var key0 = CF.UserAssets.getAccountPrivacyType(Meteor.userId(), key);
@@ -100,7 +100,7 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  this.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
+  CF.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
     var user = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
 
