@@ -269,6 +269,12 @@ Meteor.publish('userProfileByTwid', function(twid) {
     accounts: 1,
     createdAt: 1
   };
+
+
+  var user = CF.User.findOneByTwid(twid);
+  if (user && user._id)
+    Meteor.call("cfAssetsUpdateBalances", {userId: user._id});
+
   if (ownTwid == twid) fields.accountsPrivate = 1;
   return Meteor.users.find({
     "profile.twitterName": twid

@@ -102,7 +102,7 @@ Template['assetsManager'].onCreated(function() {
   // this all going to be actual once we get to private accounts
   this.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentTwid.get());
   Tracker.autorun(function() {
-    var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
+    var user = CF.User.findOneByTwid(CF.Profile.currentTwid.get());
 
     var systems = user && user.accounts;
     if (CF.Profile.currentUid == Meteor.userId()) {

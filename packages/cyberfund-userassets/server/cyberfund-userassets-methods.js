@@ -2,19 +2,28 @@ var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
+var print = CF.Utils.logger.print;
+
 //
-ns .quantumCheck = function(address) {
-  var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
-  if (r.statusCode == 200)
-    return r.data;
-  return [];
+ns.quantumCheck = function(address) {
+  try {
+    var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
+    if (r.statusCode == 200)
+      return r.data;
+  } catch(e) {
+    print ("on checking address "+ address +" quantum returned code ",
+    e && e.response && e.response.statusCode, true)
+    return ['error'];
+  } finally {
+    return ['error'];
+  }
 }
 
+
 // per single address
-ns .updateBalance = function(userId, accountKey, address, accounts){
-var print = CF.Utils.logger.print;
+ns.updateBalance = function(userId, accountKey, address, accounts){
   if (! userId || !accountKey || !address) {
-    console.log (nsn+"updateBalance: missing arguments. ",
+    print ("updateBalance: missing arguments",
       [userId, accountKey, address].join("; "))
     return;
   }
@@ -52,9 +61,10 @@ var print = CF.Utils.logger.print;
   var balances = ns.quantumCheck(address);
 
   print("address", address, true)
-  print("balances", balances)
+  print("balances", balances, true)
 
-  if (!balances || !balances.length) return;
+  if (!balances || balances[0] == 'error') return;
+
   _.each(balances, function(balance){
     var asset = balance.asset;
     if (!asset) return
@@ -88,24 +98,16 @@ var print = CF.Utils.logger.print;
 }
 
 // depending on options - per single address or per account or per user
-ns .updateBalances = function(options){
+ns.updateBalances = function(options){
   check(options, Object);
   check(options.userId, String);
 
   var userId = options.userId;                           if (! userId) return;
-  var isOwn = userId === Meteor.userId();
-  var accountTypes = isOwn ? ['accounts', 'accountsPrivate'] : ['accounts'];
-  //var fields =
-
   var accountKey = options.accountKey;
   var address = options.address;
-
-
-  /*  var fields = {};
-    fields[key0] = 1;
-    var sel = {_id: userId};
-    var accounts = Meteor.users.findOne(sel, {fields: fields})[key0] || {};
-    */
+  var isOwn = userId === this.userId || (!accountKey); //dirty.
+                                          // yet, is used to update all.
+  var accountTypes = isOwn ? ['accounts', 'accountsPrivate'] : ['accounts'];
 
   if (!accountKey || !address) {
     var accounts = Meteor.users.findOne({_id: userId},
@@ -113,12 +115,15 @@ ns .updateBalances = function(options){
   }
 
   if (!accountKey) {
-    var accountKeys = _.keys(accounts['accounts']);
-    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] ))
+
+
+    var accountKeys = _.keys(accounts['accounts'] || {});
+    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] || {}) )
     _.each(accountKeys, function(ak){
-      ns.updateBalances( userId, ak)
+      ns.updateBalances( {userId: userId, accountKey: ak})
     });
   }
+
   else {
     if (!address) {
       var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey)
@@ -144,8 +149,9 @@ Meteor.methods({
     check(address, String);
     return ns.quantumCheck(address);
   },
-
   cfAssetsUpdateBalances: function (options) {
+
+    print("cfAssetsUpdateBalances was called with options", options, true)
     options.userId = options.userId || this.userId;
     if (!options.userId) return {error: "no userId passed"}
     this.unblock(); //? not sure this is what needed
