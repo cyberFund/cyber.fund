@@ -53,9 +53,9 @@ CF.Utils.SessionVariable = function(key) {
 };
 
 // WTF? use path segment here..
-CF.Profile.currentTwid = new CF.Utils.SessionVariable('cfAssetsCurrentTwid');
+CF.Profile.currentUsername = new CF.Utils.SessionVariable('cfAssetsCurrentUsername');
 
 CF.Profile.currentUid = function() {
-  var u = CF.User.findOneByTwid(CF.Profile.currentTwid.get());
+  var u = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
   return u ? u._id : undefined;
 };

@@ -1,0 +1,20 @@
+<template name="peekPrices">
+  <div class="peek-prices">
+    {{#if true}}
+    {{log systemId}}
+    <h4>Quotes</h4>
+    {{/if}}
+
+    {{#each _markets}}
+    <div class="market">
+      <h5> {{market}} </h5>
+      {{#each keyValue quotes}}
+      <div class="quote">
+        <span> Base: {{key}}; price: {{value}}</span>
+      </div>
+      {{/each}}
+    </div>
+    {{/each}}
+
+  </div>
+</template>

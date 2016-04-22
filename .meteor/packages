@@ -59,4 +59,9 @@ d3js:d3
 coffeescript
 standard-minifier-css
 standard-minifier-js
+
 email
+
+# accounts-password
+jparker:gravatar
+aldeed:template-extension

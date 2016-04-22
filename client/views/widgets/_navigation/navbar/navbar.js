@@ -5,7 +5,7 @@ Template['navbar'].rendered = function () {
 
 Tracker.autorun(function(c){
   var user = Meteor.user();
-  if (user && user.profile && user.profile.firstLogin) {
+  if (user && user.firstLogin) {
     analytics.track('Sign Up',
       {userId: Meteor.userId()});
     Meteor.call("afterFirstLogin");
@@ -27,7 +27,6 @@ Template['navbar'].events({
     Meteor.setTimeout(function triggerClick(){
       $('#sidenav-overlay').trigger('click');
     }, 280)
-
   },
   'click #login-button': function(e, t){
     analytics.track('Sign In', {
@@ -36,5 +35,11 @@ Template['navbar'].events({
     Meteor.loginWithTwitter({
       loginStyle: 'redirect'
     })
-  }
+  }/*
+  'click #login-button': function(e, t){
+    analytics.track('redirect to Sign In', {
+      from: 'navbar'
+    });
+    FlowRouter.go('/sign-in')
+  }*/
 });

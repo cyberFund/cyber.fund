@@ -195,6 +195,7 @@ Meteor.methods({
     check(obj, Match.ObjectIncluding({isPublic: Boolean, name: String}));
     var user = Meteor.users.findOne(sel);
 
+    if (!CF.User.hasPublicAccess(user)) obj.isPublic = false;
     var key0 = obj.isPublic ? 'accounts' : 'accountsPrivate';
 
     var set = {};
@@ -272,14 +273,12 @@ Meteor.methods({
     Meteor.users.update(sel, modify)
   },
   cfAssetsTogglePrivacy: function (accountKey, fromKey) {
-
     //{{! todo: add check if user is able using this feature}}
-
     if (!this.userId) return false;
-
-    var toKey = fromKey == 'accounts' ? 'accountsPrivate' : 'accounts';
-
+    var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts');
     var user = Meteor.users.findOne({_id: this.userId});
+    if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
+
     var account = user[fromKey];
     if (!account) return false;
     account = account[accountKey];

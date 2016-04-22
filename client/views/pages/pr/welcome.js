@@ -1,10 +1,10 @@
 Template['welcome'].events({
   'click .login-button': function (e, t) {
-      analytics.track('Sign In', {
+      analytics.track('redirect to Sign In', {
         from: 'welcome'
       });
-      Meteor.loginWithTwitter({
+      FlowRouter.go('/sign-in')/*Meteor.loginWithTwitter({
         loginStyle: 'redirect'
-      })
+      })*/
   }
 });

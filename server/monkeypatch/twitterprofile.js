@@ -7,46 +7,39 @@ Meteor.methods({
   }
 });
 
-Accounts.onCreateUser(function(options, user) {
-  //var d6 = function () { return Math.floor(Random.fraction() * 6) + 1; };
-  //user.dexterity = d6() + d6() + d6();
-  // We still want the default hook's 'profile' behavior.
-
-  if (user.services && user.services.twitter) {
-    options.profile = options.profile || {};
-    options.profile.twitterName = user.services.twitter.screenName;
-    options.profile.twitterIconUrl = user.services.twitter.profile_image_url;
-    options.profile.twitterIconUrlHttps = user.services.twitter.profile_image_url_https;
-  }
-  options.profile.firstLogin = true;
-  if (options.profile)
-    user.profile = options.profile;
-  return user;
-});
-
-Meteor.methods({
-  afterFirstLogin: function(){
-    if (!Meteor.userId()) return;
-    Meteor.users.update({
-      _id: Meteor.userId()
-    },{$unset: {'profile.firstLogin': true}})
-  }
-});
-
+function biggerTwitterImg(url){
+  if (!url) return '';
+  return url.replace('_normal', '');
+}
 // reason for that is user.services.twitter.screenName is delivered by subscriptions,
 // while we also want avatar url and name
 CF.Profile.patch = function(user){
   if (!user) return;
-  if (!user.services.twitter) return;
+
+  var isTwitter = !!(user.services && user.services.twitter)
+  var isPassword = !!(user.services && user.services.password) && !isTwitter; // ?
+
   var set = {}
-  if (user.profile.twitterName != user.services.twitter.screenName) {
-    set["profile.twitterName"] = user.services.twitter.screenName;
+  if (isTwitter) {
+    console.log("patching twitter")
+    if (user.username != user.services.twitter.screenName) {
+      set["username"] = user.services.twitter.screenName;
+    }
+    if (user.avatar != user.services.twitter.profile_image_url_https)
+    {
+      set["avatar"] = user.services.twitter.profile_image_url_https;
+      set["largeAvatar"] = biggerTwitterImg(user.services.twitter.profile_image_url_https);
+    };
   }
-  if (user.profile.twitterIconUrlHttps != user.services.twitter.profile_image_url_https)
-  {
-    set["profile.twitterIconUrl"] = user.services.twitter.profile_image_url;
-    set["profile.twitterIconUrlHttps"] = user.services.twitter.profile_image_url_https;
-  };
+  if (isPassword) {
+    set["avatar"] = Gravatar.imageUrl(user.emails[0].address, {
+      size: 48,
+      default: 'mm' });
+    set["largeAvatar"] = Gravatar.imageUrl(user.emails[0].address, {
+      size: 480,
+      default: 'mm' });
+  }
+
   if (_.keys(set).length)
     Meteor.users.update({_id: user._id}, {$set: set})
 };
@@ -54,9 +47,10 @@ CF.Profile.patch = function(user){
 SyncedCron.add({
   name: 'update profiles',
   schedule: function (parser) {
-    return parser.cron('19 * * * *', false);
+    return parser.cron('0/4 * * * *', false);
   },
   job: function () {
+    console.log("patching profiles started....")
     Meteor.users.find({}).forEach(function(user){
       CF.Profile.patch(user)
     });

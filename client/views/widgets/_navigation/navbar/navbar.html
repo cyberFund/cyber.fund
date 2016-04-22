@@ -55,18 +55,18 @@
 
 <template name="userDropdown">
   {{#if currentUser}}
-    {{#if currentUser.profile.twitterName}}
+    {{#if currentUser.username}}
 
-      <a href="{{pathFor '/@:twid' twid=ownTwid}}" style="vertical-align: middle">
-        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.profile.twitterIconUrlHttps}}
-        {{currentUser.profile.twitterName}}
+      <a href="{{pathFor '/@:username' username=ownUsername}}" style="vertical-align: middle">
+        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.avatar}}
+        {{currentUser.username}}
       </a>
 
     {{else}}
       {{#if not loggingIn}}
-        <a href="{{pathFor '/@:twid' twid=ownTwid}}">
-          {{#if currentUser.profile.name}}
-            {{currentUser.profile.name}}
+        <a href="{{pathFor '/@:username' username=ownUsername}}">
+          {{#if currentUser.username}}
+            {{currentUser.username}}
           {{else}}
             Profile
           {{/if}}
@@ -75,6 +75,6 @@
     {{/if}}
   {{else}}
       <a class="red waves-effect waves-light btn" id="login-button">log in</a>
-    {{! > atNavButton text='sign in' }}
+    {{! enable with accounts-password > atNavButton text='sign in' }}
   {{/if}}
 </template>
