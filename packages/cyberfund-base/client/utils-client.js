@@ -52,52 +52,10 @@ CF.Utils.SessionVariable = function(key) {
   };
 };
 
-CF.User.username = function() {
-  var user = Meteor.user();
-  if (!user) return '';
-  return (user.username) || '';
-};
-
-CF.User.linkToOwnProfile = function() {
-  var username = CF.User.username();
-  return username ? '/@' + username : '/welcome'
-}
-
-CF.User.listFromIds = function(listFromIds) {
-  return Meteor.users.find({
-    _id: {
-      $in: listFromIds
-    }
-  });
-}
-
-CF.User.get = CF.User.get || function getUser() {
-  return Meteor.user();
-}
-
-CF.User.selectors = CF.User.selectors || {}
-CF.User.selectors.userByUsername = CF.User.selectors.userByUsername ||
-function userByUsername(username) {
-  return ({
-    "username": username
-  });
-}
-
-
-Meteor.users.findOneByUsername = function(username) {
-  return Meteor.users.findOne({
-    "username": username
-  });
-}
-
-CF.User.byUsername = function findUserByUsername (username) {
-  return Meteor.users.findOneByUsername(username)
-}
-
 // WTF? use path segment here..
 CF.Profile.currentUsername = new CF.Utils.SessionVariable('cfAssetsCurrentUsername');
 
 CF.Profile.currentUid = function() {
-  var u = Meteor.users.findOneByUsername(CF.Profile.currentUsername.get());
+  var u = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
   return u ? u._id : undefined;
 };

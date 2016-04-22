@@ -82,12 +82,17 @@ Template['addAccount'].rendered = function () {
 };
 
 Template['addAccount'].helpers({
-  'disabledPrivates': function () {
+  'disabledTogglePrivacy': function () {
 // todo: check user has required thing marked.
 // not to keep this in profile, as profile intended to be user-modifiable
     var user = Meteor.user();
-    return CF.UserAssets.isPrivateAccountsEnabled(user) ?
-    '' : 'disabled'
+    var ret = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
+    return ( ret ? '' : 'disabled')
+  },
+  privacyState: function () {
+    var user = Meteor.user();
+    var ret = CF.User.hasPublicAccess(user)
+    return  (ret ? "checked" : '');
   },
   currentUserAccounts: function(){
     var user = Meteor.user();

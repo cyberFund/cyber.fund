@@ -99,7 +99,7 @@ Template['assetsManager'].onCreated(function() {
   // this all going to be actual once we get to private accounts
   instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
-    var user = Meteor.users.findOneByUsername(CF.Profile.currentUsername.get());
+    var user = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
 
     var systems = user && user.accounts;
     if (CF.Profile.currentUid == Meteor.userId()) {
@@ -362,6 +362,7 @@ Template['assetsManager'].events({
   'submit #toggle-private-form': function(e, t) {
     //{{! todo: add check if user is able using this feature}}
     if (!isOwnAssets()) return false;
+    
     Meteor.call('cfAssetsTogglePrivacy', CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.getAccountPrivacyType(Meteor.userId(), CF.UserAssets.currentAccountKey.get()),
       function(err, ret) {

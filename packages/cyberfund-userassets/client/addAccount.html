@@ -55,12 +55,12 @@
                     </div>
                     <div class="row">
                         <div class="switch">
-                            <label class="{{#if disabledPrivates}}{{else}}black-text{{/if}}">
+                            <label class="{{#if disabledTogglePrivacy}}{{else}}black-text{{/if}}">
                                 <label for="private-type">Account
                                     Type</label><br/>
                                 Public
-                                <input id="private-type" {{disabledPrivates}}
-                                       name="private-type" type="checkbox">
+                                <input id="private-type" {{disabledTogglePrivacy}}
+                                       name="private-type" checked="{{privacyState}}" type="checkbox">
                                 <span class="lever"></span>
                                 Private
                             </label>

@@ -224,6 +224,9 @@ var helpers = {
 
   usersListFromIds: function(listFromIds) {
     return CF.User.listFromIds(listFromIds)
+  },
+  userHasPublicAccess: function(user) {
+    return CF.User.hasPublicAccess(user)
   }
 };
 

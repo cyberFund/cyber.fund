@@ -135,10 +135,10 @@ Template['displayAccount'].events({
     }
   },
   'click .req-toggle-private': function(e, t){
+    var user = Meteor.user();
+    if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
-    console.log($item);
-    console.log($item.attr("account-key"));
       CF.UserAssets.currentAccountKey.set($item.attr("account-key"));
     $("#modal-toggle-private").openModal();
   }
