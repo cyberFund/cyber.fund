@@ -31,7 +31,7 @@ Template['trackingWidget'].onRendered ( function () {
   var t = _.throttle(function () {
     var $w = $(window);
     var scrolltop = $w.scrollTop();
-    if (scrolltop > 55 && scrolltop < ($("#rating-table").height() - $w.height() )) {
+    if (scrolltop > 55 && scrolltop < ($("#tracking-table").height() - $w.height() )) {
       if (!$thead.hasClass("show")) {
         //$thead.css("height", $thead0.height()+"px");
         recalcWidths()
