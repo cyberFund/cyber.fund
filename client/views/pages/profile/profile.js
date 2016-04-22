@@ -17,7 +17,6 @@ Template['profile'].onCreated(function() {
   instance.autorun(function() {
     var uid = CF.Profile.currentUid();
     if (!uid) {
-      console.log("gotcha")
       instance._unregisterSub('1');
       instance._unregisterSub('2');
       instance._unregisterSub('3');
@@ -35,7 +34,7 @@ Template['profile'].onCreated(function() {
 Template['profile'].onCreated(function() {
   var instance = this;
   instance.autorun(function() {
-    instance.subscribe('userProfileByTwid', FlowRouter.getParam('twid'))
+    instance.subscribe('userProfileByUsername', FlowRouter.getParam('username'))
   });
 });
 
@@ -60,7 +59,7 @@ Template['profile'].helpers({
   },
   "isOwnProfile": function() {
     if (!Meteor.userId()) return false;
-    return (CF.Profile.currentTwid.get() == CF.User.twid()); //todo: get rid of twid, use user._id instead
+    return (CF.Profile.currentUsername.get() == CF.User.username());
   },
   user: function() {
     return _user();
@@ -101,25 +100,20 @@ Template['profile'].helpers({
   'followedByCount': function() {
     var user = _user();
     return user.profile && user.profile.followedBy && user.profile.followedBy.length || 0
-  },
-
-  biggerTwitterImg: function() {
-    var user = _user();
-    return user.profile && user.profile.twitterIconUrlHttps && Blaze._globalHelpers.biggerTwitterImg(this.profile.twitterIconUrlHttps) || ''
   }
 });
 
 Template['profile'].events({
   'click .btn-follow': function(e, t) {
     analytics.track('Followed Person', {
-      personName: CF.Profile.currentTwid.get()
+      personName: CF.Profile.currentUsername.get()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid())
   },
   'click .btn-unfollow': function(e, t) {
     analytics.track('Unfollowed Person', {
-      personName: CF.Profile.currentTwid.get()
+      personName: CF.Profile.currentUsername.get()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
     Meteor.call('followUser', CF.Profile.currentUid(), {

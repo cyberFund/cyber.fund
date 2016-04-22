@@ -213,14 +213,13 @@ var helpers = {
     if (!ret) ret = system._id;
     return ret;
   },
-  ownTwid: function(){
+  ownUsername: function(){
     var user =  Meteor.user();
     if (!user) return '';
-    return (user.profile && user.profile.twitterName) || '';
+    return (user.username) || '';
   },
-  biggerTwitterImg: function(url){
-    if (!url) return '';
-    return url.replace('_normal', '');
+  _largeAvatar: function(user){
+    return user.largeAvatar || user.avatar || '';
   },
   dateFormat: function(date, format){
     return moment(date).format(format);
@@ -232,6 +231,9 @@ var helpers = {
     var btc = CurrentData.findOne({_id: "Bitcoin"});
     if (btc && btc.metrics) return parseFloat(btc.metrics.price.usd)
     return undefined
+  },
+  userHasPublicAccess: function(user) {
+    return CF.User.hasPublicAccess(user)
   }
 };
 

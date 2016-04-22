@@ -8,7 +8,7 @@ Meteor.methods({
    * @returns {*|promise}
    */
   cfCheckBalance: function (wallet_) { //obsolete, was only used for tests
-    return CF.Utils.extrctFromPromise(balance(wallet_));
+    return CF.Utils.extractFromPromise(balance(wallet_));
   },
 
   /*  retrieves our unique address balance, to display invest stats

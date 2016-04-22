@@ -1,6 +1,9 @@
 <!-- originally created for cyber.fund project-->
 <template name="portfolioWidget">
-  {{> portfolioWidgetView}}
+  {{#if subReady}}
+    {{> portfolioWidgetView}}
+  {{/if}}
+  
   {{#if hideTable}}{{else}}
   {{> portfolioWidgetTable}}{{/if}}
 </template>
@@ -58,7 +61,7 @@
 
       <!--div class="center black-text">
         <small>
-          Hint: go to <a href="{{pathFor '/@:twid' twid=ownTwid}}">Profile</a> page to add assets
+          Hint: go to <a href="{{pathFor '/@:username' username=ownUsername}}">Profile</a> page to add assets
         </small>
       </div-->
       <table>

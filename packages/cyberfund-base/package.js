@@ -18,7 +18,7 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   api.use(["underscore", "accounts-base"], cs);
   api.use(["templating"], c);
-  api.addFiles('cyberfund-base.js', cs);
+  api.addFiles(['cyberfund-base.js', 'cf-user.js'], cs);
   api.addFiles(['server/utils-server.js', 'server/assetsCryptoBalance.js',
   'server/cf-social-server.js'], s);
   api.addFiles(['client/utils-client.js', 'client/helpers.js'], c);

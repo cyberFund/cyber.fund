@@ -1,7 +1,7 @@
 CF.UserAssets.currentAddress = new CF.Utils.SessionVariable("cfAssetsCurrentAddress");
 CF.UserAssets.currentAsset = new CF.Utils.SessionVariable("cfAssetsCurrentAsset");
 var isOwnAssets = function(){
-  return CF.Profile.currentTwid.get() == CF.User.twid();
+  return CF.Profile.currentUsername.get() == CF.User.username();
 };
 
 Template['displayAccount'].rendered = function () {
@@ -135,10 +135,10 @@ Template['displayAccount'].events({
     }
   },
   'click .req-toggle-private': function(e, t){
+    var user = Meteor.user();
+    if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
-    console.log($item);
-    console.log($item.attr("account-key"));
       CF.UserAssets.currentAccountKey.set($item.attr("account-key"));
     $("#modal-toggle-private").openModal();
   }

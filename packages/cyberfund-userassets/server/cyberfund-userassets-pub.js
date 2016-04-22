@@ -1,12 +1,11 @@
-Meteor.publish('profileAssets', function(twid) {
+Meteor.publish('profileAssets', function(username) {
   // is own?
   var isOwn = false;
   var user = Meteor.users.findOne({_id: this.userId});
-
   if (user) {
-    if (user.profile && (user.profile.twitterName == twid)) isOwn = true;
+    if (user.username == username) isOwn = true;
   }
 
-  return Meteor.users.find({'profile.twitterName' : twid},
+  return Meteor.users.find({'username' : username},
     {fields: CF.UserAssets.accountsFields (isOwn)});
 });

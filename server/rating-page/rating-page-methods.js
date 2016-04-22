@@ -5,13 +5,17 @@ Meteor.methods({
     if (!uid) return;
     var sel = {_id: uid};
     var user = Meteor.users.findOne(sel);
+    var hasPublicAccess = CF.User.hasPublicAccess (user)
     if (!user.profile.starredSystems ||
       user.profile.starredSystems.indexOf(sys) == -1) {
       Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
-      CurrentData.update({_id: sys},
-        {$push: {'_usersStarred': uid}});
+      if (hasPublicAccess) {
+        CurrentData.update({_id: sys},
+          {$push: {'_usersStarred': uid}});
+      }
     } else {
       Meteor.users.update(sel, {$pull: {'profile.starredSystems': sys}});
+      //if (hasPublicAccess) \\system nippel
       CurrentData.update({_id: sys},
         {$pull: {'_usersStarred': uid}});
     }
@@ -25,12 +29,15 @@ Meteor.methods({
     var sel = {_id: uid};
     if (sys) {
       var user = Meteor.users.findOne(sel);
+      var hasPublicAccess = CF.User.hasPublicAccess (user)
       if (user) {
         var starred = user.profile.starredSystems;
         if (!starred || starred.indexOf(sys) == -1) {
           Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
-          CurrentData.update({_id: sys},
-            {$push: {'_usersStarred': uid}});
+          if (hasPublicAccess) {
+            CurrentData.update({_id: sys},
+              {$push: {'_usersStarred': uid}});
+          }
         }
       }
     }

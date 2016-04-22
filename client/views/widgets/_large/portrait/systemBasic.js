@@ -12,8 +12,10 @@ Template['systemBasic'].onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
+    CF._sub_ = instance.subscribe('systemData', {
+      name: systemName()
+    });
     instance.subscribe('dependentCoins', systemName());
-    instance.subscribe('systemData', systemName());
 
     var data = curData();
 
@@ -49,6 +51,7 @@ Template['systemBasic'].onRendered(function() {
 });
 
 Template['systemBasic'].helpers({
+  systemName: function(){ return systemName()},
   'curData': function() {
     return curData();
   },

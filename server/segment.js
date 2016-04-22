@@ -1,4 +1,4 @@
-Meteor.startup(function() {
+/*Meteor.startup(function() {
 
 	var SEGMENT_KEY = null;
 
@@ -15,7 +15,7 @@ Meteor.startup(function() {
 		}
 	});
 
-});
+});*/
 
 
 /*
@@ -26,4 +26,3 @@ Accounts.onCreateUser(function(options, user) {
 	return user;
 });
 */
-

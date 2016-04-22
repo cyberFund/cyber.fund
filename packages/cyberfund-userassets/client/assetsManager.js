@@ -76,13 +76,16 @@ Template['assetsManager'].helpers({
     return amount.quantity || '';
   },
   showAccountsAdvertise: function() {
-    if (CF.Profile.currentTwid.get() == CF.User.twid()) {
-      var user = Meteor.users.findOne({
-        _id: CF.Profile.currentUid()
-      });
-      return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
-    }
-    return false;
+    var instance = Template.instance();
+    if (CF.subscriptionAssets.ready()) {
+      if (CF.Profile.currentUsername.get() == CF.User.username()) {
+        var user = Meteor.users.findOne({
+          _id: CF.Profile.currentUid()
+        });
+        return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
+      }
+      return false;
+    } else return false
   },
   privacyOpposite: function(key) {
     var key0 = CF.UserAssets.getAccountPrivacyType(Meteor.userId(), key);
@@ -97,9 +100,9 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  instance.subscribe('profileAssets', CF.Profile.currentTwid.get());
+  CF.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
-    var user = Meteor.users.findOneByTwid(CF.Profile.currentTwid.get());
+    var user = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
 
     var systems = user && user.accounts;
     if (CF.Profile.currentUid == Meteor.userId()) {
@@ -134,24 +137,24 @@ Template['assetsManager'].events({
 
   'click .req-update-balance.per-account': function(e, t) {
     //todo: add checker per account/ per user
-      //if (!isOwnAssets()) return;
+    //if (!isOwnAssets()) return;
 
-      var $t = t.$(e.currentTarget);
+    var $t = t.$(e.currentTarget);
 
-      var uid = $t.closest(".assets-manager").attr("owner");
-      $t.addClass("disabled");
-      //$(".req-update-balance.per-address", $t.closest(".account-item"))
-        //.addClass("disabled");
+    var uid = $t.closest(".assets-manager").attr("owner");
+    $t.addClass("disabled");
+    //$(".req-update-balance.per-address", $t.closest(".account-item"))
+    //.addClass("disabled");
 
-      Meteor.call("cfAssetsUpdateBalances", {
-        userId: uid,
-        accountKey: CF.UserAssets.currentAccountKey.get()
-          //  address: CF.UserAssets.currentAddress.get()
-      }, function(er, re) {
-        $t.removeClass("disabled");
-        //$ (".req-update-balance.per-address", $t.closest(".account-item"))
-          //.removeClass("disabled");
-      });
+    Meteor.call("cfAssetsUpdateBalances", {
+      userId: uid,
+      accountKey: CF.UserAssets.currentAccountKey.get()
+        //  address: CF.UserAssets.currentAddress.get()
+    }, function(er, re) {
+      $t.removeClass("disabled");
+      //$ (".req-update-balance.per-address", $t.closest(".account-item"))
+      //.removeClass("disabled");
+    });
   },
 
   'submit #delete-account-form': function(e, t) {
@@ -362,6 +365,7 @@ Template['assetsManager'].events({
   'submit #toggle-private-form': function(e, t) {
     //{{! todo: add check if user is able using this feature}}
     if (!isOwnAssets()) return false;
+
     Meteor.call('cfAssetsTogglePrivacy', CF.UserAssets.currentAccountKey.get(),
       CF.UserAssets.getAccountPrivacyType(Meteor.userId(), CF.UserAssets.currentAccountKey.get()),
       function(err, ret) {

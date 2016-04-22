@@ -64,7 +64,11 @@ Meteor.publish('userDetails', function() {
     fields: {
       "services.twitter.screenName": 1,
       "services.twitter.profile_image_url_https": 1,
-      "services.privateAccountsEnabled": 1
+      "services.privateAccountsEnabled": 1,
+      "username": 1,
+      "avatar": 1,
+      "largeAvatar": 1,
+      "firstLogin": 1,
     }
   });
 });
@@ -247,9 +251,8 @@ Meteor.publish('avatars', function(uidArray) {
   }, {
     fields: {
       'profile.name': 1,
-      'profile.twitterIconUrlHttps': 1,
-      'profile.twitterIconUrl': 1,
-      'profile.twitterName': 1
+      'avatar': 1,
+      'profile.username': 1
     }
   });
 });
@@ -257,21 +260,29 @@ Meteor.publish('avatars', function(uidArray) {
 /*
   user profile by twitter screenname
  */
-Meteor.publish('userProfileByTwid', function(twid) {
-  var ownTwid = null;
+Meteor.publish('userProfileByUsername', function(username) {
+  var ownUsername = null;
   if (this.userId) {
-    ownTwid = Meteor.users.findOne({
+    ownUsername = Meteor.users.findOne({
       _id: this.userId
-    }).profile.twitterName
+    }).username
   }
   var fields = {
     'profile': 1,
+    username: 1,
+    avatar: 1,
+    largeAvatar: 1,
     accounts: 1,
     createdAt: 1
   };
-  if (ownTwid == twid) fields.accountsPrivate = 1;
+
+  var user = CF.User.findOneByUsername(username);
+  if (user && user._id)
+    Meteor.call("cfAssetsUpdateBalances", {userId: user._id});
+  if (ownUsername == username) fields.accountsPrivate = 1;
+
   return Meteor.users.find({
-    "profile.twitterName": twid
+    "username": username
   }, {
     fields: fields
   });
@@ -286,6 +297,10 @@ Meteor.publish('portfolioUser', function(userId) {
   var isOwn = this.userId == userId;
   var fields = {
     'profile': 1,
+    'username': 1,
+    avatar: 1,
+    largeAvatar: 1,
+    username: 1,
     accounts: 1,
     createdAt: 1
   };

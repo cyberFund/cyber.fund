@@ -251,6 +251,10 @@ Template['portfolioWidgetTable'].helpers({
   }
 });
 
+Template['portfolioWidget'].helpers({
+  subReady: function(){ return CF.subscriptionAssets.ready() }
+})
+
 Template['portfolioWidgetView'].helpers({
   sumB: function () {
     var accounts = Template.instance().data && Template.instance().data.accountsData;

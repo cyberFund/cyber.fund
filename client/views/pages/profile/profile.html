@@ -4,16 +4,18 @@
         <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
                 <div>
-                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=biggerTwitterImg}}
+                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=largeAvatar}}
                 </div>
                 <div>
                     <h4 itemprop="name">{{profile.name}}</h4>
                 </div>
                 <div class="grey-text">
+                    {{#if and services services.twitter}}
                     <a class="grey-text"
                        href="https://twitter.com/@{{profile.twitterName}}"><span
                             itemprop="alternateName">@{{profile.twitterName}}</span></a>
-
+                    {{else}} <span class="grey-text">{{username}}</span>
+                    {{/if}}
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
                 </div>
                 <div class="profile-lists">
