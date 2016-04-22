@@ -14,9 +14,7 @@ ns.quantumCheck = function(address) {
     print ("on checking address "+ address +" quantum returned code ",
     e && e.response && e.response.statusCode, true)
     return ['error'];
-  } finally {
-    return ['error'];
-  }
+  } 
 }
 
 
