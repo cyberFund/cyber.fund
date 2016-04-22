@@ -423,9 +423,9 @@ var esParsers = {
 };
 
 Meteor.startup(function(){
-  Meteor.setTimeout(function(){
+  /*Meteor.setTimeout(function(){
     fetchLatest ({systems: gatherSymSys({}) })
-  }, 5000);
+  }, 5000);*/
 })
 
 function fetchLatest(params) {
