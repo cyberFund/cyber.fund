@@ -398,7 +398,7 @@ var esParsers = {
         if (isNaN (timeBucket.key) || timeBucket.key < epoch) return;
 
         var timestamp = new Date(timeBucket.key);
-        if (!utc) return;
+        if (!timestamp) return;
 
         //var key;
         var doc = grab(timeBucket);

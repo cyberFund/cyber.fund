@@ -76,7 +76,11 @@ Meteor.publish('userDetails', function() {
 /**
  * fetch full currentData document
  */
-Meteor.publish('systemData', function(name) {
+Meteor.publish('systemData', function(options) {
+  options = options || {}
+  name = options.name
+  console.log (options)
+  console.log (name)
   if (name) {
     return CurrentData.find(CF.CurrentData.selectors.system(name));
   }
