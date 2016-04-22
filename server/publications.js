@@ -79,8 +79,7 @@ Meteor.publish('userDetails', function() {
 Meteor.publish('systemData', function(options) {
   options = options || {}
   name = options.name
-  console.log (options)
-  console.log (name)
+  console.log ("requested system "+ name);
   if (name) {
     return CurrentData.find(CF.CurrentData.selectors.system(name));
   }

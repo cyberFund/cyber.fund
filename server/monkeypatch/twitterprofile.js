@@ -21,7 +21,6 @@ CF.Profile.patch = function(user){
 
   var set = {}
   if (isTwitter) {
-    console.log("patching twitter")
     if (user.username != user.services.twitter.screenName) {
       set["username"] = user.services.twitter.screenName;
     }
@@ -47,7 +46,7 @@ CF.Profile.patch = function(user){
 SyncedCron.add({
   name: 'update profiles',
   schedule: function (parser) {
-    return parser.cron('0/4 * * * *', false);
+    return parser.cron('40 * * * *', false);
   },
   job: function () {
     console.log("patching profiles started....")
