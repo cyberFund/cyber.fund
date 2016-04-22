@@ -2,6 +2,8 @@
 // (currently, it s coinmarketcap data)
 
 //var currentData = {meta: {}};
+var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000
+
 var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
@@ -388,9 +390,14 @@ var esParsers = {
         });
         return ret;
       }
+
       _.each(sysBucket.over_time.buckets, function(timeBucket) {
+
         if (!timeBucket.key) return;
-        var utc = moment.utc(timeBucket.key);
+        if (typeof timeBucket.key === "string") timeBucket.key = parseInt(timeBucket.key)
+        if (isNaN (timeBucket.key) || timeBucket.key < epoch) return;
+
+        var timestamp = new Date(timeBucket.key);
         if (!utc) return;
 
         //var key;
@@ -399,9 +406,9 @@ var esParsers = {
           var interval =  daily ? 'daily' : hourly ? 'hourly' : 'unknown';
           _.extend(doc, {
             interval: interval,
-            timestamp: utc._d,
+            timestamp: timestamp,
             systemId: id,
-            source: "2015" //TODO: comprehensive source resolver.
+            source: "2015"
           });
           try { // for some reason, there s unique index over. indexing of market data is a separate task
             MarketData.insert(doc);
@@ -409,11 +416,6 @@ var esParsers = {
             console.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"))
           }
         }
-
-        //if (daily) key = [_key, utc.year(), utc.month(), utc.date()].join(".");
-        //if (hourly) key = [_key, utc.year(), utc.month(), utc.date(), utc.hour()].join(".");
-        //set[key] = grab(timeBucket);
-
       });
 
     });

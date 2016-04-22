@@ -298,7 +298,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_data: {
+    vwap_data: { //only for tests here.. 
       client_allowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         params = params || {}
@@ -346,28 +346,11 @@ _.extend(ns, {
                                 "timestamp": {
                                   "order": "desc"
                                 }
-                              }]/*,
-                              "script_fields": {
-                                "vp": {
-                                  "script": "doc['price'].value * doc['volume'].value "
-                                }
-                              }*/
+                              }]
                             }
                           }
                         }
-                      }/*,
-                      "weighted": {
-                        "meta": {
-                          "purpose": "vwap0"
-                        },
-                        "bucket_script": {
-                          "buckets_path": {
-                            "vp": "by_market>latest.vp",
-                            "v": "by_market>latest.v"
-                          },
-                          "script": "vp/v"
-                        }
-                      }*/
+                      }
                     }
                   }
                 }
