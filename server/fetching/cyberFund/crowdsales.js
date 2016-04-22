@@ -1,3 +1,4 @@
+// recalculate raised amount crutch
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
       $and: [CF.CurrentData.selectors.crowdsales(),
@@ -35,14 +36,14 @@ function updateCrowdsales() {
       else {
         Meteor.clearInterval(interval);
       }
-    }, 120*1000); // 120 seconds per query
+    }, 60*1000); // 120 seconds per query
 }
 
 SyncedCron.add({
   name: 'update active crowdsales',
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.text('every 10 minutes');
+    return parser.text('every 40 minutes');
   },
   job: function () {
     updateCrowdsales()

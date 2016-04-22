@@ -3,6 +3,8 @@ CF.ES = {};
 var ns = CF.ES;
 var esLib = Npm.require("elasticsearch");
 
+const LAST = "price"
+
 Meteor.startup(function() {
   if (!ns._client) ns._client = ns._getClient();
 });
@@ -291,6 +293,73 @@ _.extend(ns, {
         };
         var print = CF.Utils.logger.print;
         print("latest_values query", ret.body.query);
+        if (params) return CF.ES.queries._parametrize(ret, params);
+        return ret;
+      }
+    },
+
+    vwap_data: { //only for tests here.. 
+      client_allowed: true,
+      getQueryObj: function(params) { //not "latest" anymore
+        params = params || {}
+        if (!params.from || !params.to) {
+          params.from = "now-1h";
+          params.to = "now";
+        }
+
+        var ret = {
+          "index": 'xchange-read',
+          "type": 'point',
+          "size": 0,
+          "body": {
+            "query": {
+              "range": {
+                "timestamp": {
+                  "gt": params.from, //gte-lt are used to force desired behavior:
+                  "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
+                }
+              }
+            },
+            "aggs": {
+              "by_quote": {
+                "terms": {
+                  "field": "quote",
+                  "size": 0
+                },
+                "aggs": {
+                  "by_base": {
+                    "terms": {
+                      "field": "base",
+                      "size": 0
+                    },
+                    "aggs": {
+                      "by_market": {
+                        "terms": {
+                          "field": "market",
+                          "size": 0
+                        },
+                        "aggs": {
+                          "latest": {
+                            "top_hits": {
+                              "size": 1,
+                              "sort": [{
+                                "timestamp": {
+                                  "order": "desc"
+                                }
+                              }]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        var print = CF.Utils.logger.print;
+        print("vwap_data query", ret.body.query);
         if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
