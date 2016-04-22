@@ -59,10 +59,16 @@ path.area {
   fill: none
 }
 
-.focus-vert {
+.focus-vert, .focus-vert-full {
   stroke-width: 0.9;
   stroke: yellow;
   fill: none
+}
+
+.brush rect {
+  fill: rgba(0, 0, 0, 0.5);
+  stroke: none;
+  stroke-width: 0;
 }
 
 .qc-line-1 {

@@ -18,6 +18,10 @@ myGraph = (el, i) ->
     xv = x(grab.t(d))
     focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
     focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
+
+    focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
+
+
     tooltip.select('text.price').text formatCurrency(grab.sp(d))
     tooltip.select('text.date').text _timestampino(grab.t(d))
     tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
@@ -35,7 +39,7 @@ myGraph = (el, i) ->
   mRight = 40
   mTop = 20
   mBottom = 20
-  mBetween = 15
+  mBetween = 20
   split = [1, 1/3, 1/3]
   splitsum = split[0] + split[1] + split[2]
 
@@ -94,35 +98,6 @@ myGraph = (el, i) ->
   formatCurrency = (d) ->
     '$' + formatValue(d)
 
-  focus = mainChart.append('g').attr('class', 'focus').style('display', 'none')
-  focus.append('line').attr('class', 'focus-horiz')
-  .attr('x1', 0).attr('x2', 0+w).attr('y1', 0).attr 'y2', 0
-  focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
-
-  focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop).attr 'y2', hM+mTop+hV
-
-  tooltip = focus.append('g')
-  tooltip.__w = 65
-  tooltip.__h = 35
-  tooltip.append('rect')
-    .attr 'x', 0
-    .attr 'width', tooltip.__w
-    .attr 'y', 0
-    .attr 'height', tooltip.__h
-    .attr 'class', 'tooltip-box'
-  tooltip.attr('transform', 'translate(40,0)')
-  tooltip.append('text').attr('class', 'date')
-    .attr 'dx', '2'
-    .attr 'dy', '11'
-  tooltip.append('text').attr('class', 'price')
-    .attr 'dx', '2'
-    .attr 'dy', '22'
-  tooltip.append('text').attr('class', 'volume')
-    .attr 'dx', '2'
-    .attr 'dy', '33'
-
   volumeChart = svg.append('g')
   volumeChart.__top = mTop + mBetween + hM
   volumeChart
@@ -132,8 +107,6 @@ myGraph = (el, i) ->
     .attr 'y', 9
     .text 'volume'
 
-  ###
-  ###
   parseDate = d3.time.format('%Y-%m').parse
 
   x2 = d3.time.scale()
@@ -155,25 +128,11 @@ myGraph = (el, i) ->
     .attr('class', 'x axis')
     .attr('transform', 'translate(0,' + hV + ')')
     .call(xAxis2)
-    ###
-    .selectAll('text')
-    .style('text-anchor', 'end')
-    .attr('dx', '-.8em')
-    .attr('dy', '-.55em')
-    .attr 'transform', 'rotate(-90)'
-    ###
 
   volumeChart
     .append('g')
     .attr('class', 'y axis')
     .call(yAxis2)
-    ###
-    .append('text')
-    .attr('transform', 'rotate(-90)')
-    .attr('y', 6)
-    .attr('dy', '.71em')
-    .style('text-anchor', 'end')
-    .text 'Volume 24 (BTC)'###
 
   wid = Math.min(10, Math.max(w/data.length-1, 1))
   volumeChart
@@ -186,10 +145,6 @@ myGraph = (el, i) ->
     .attr('width', wid)
     .attr 'y', (d) -> y2 grab.bvd(d)
     .attr 'height', (d)-> hV - y2( grab.bvd(d) )
-
-  ###
-  ###
-
 
   zoomChart = svg.append('g')
   zoomChart.__top = mTop + 2*mBetween + hM + hV
@@ -214,6 +169,38 @@ myGraph = (el, i) ->
     .attr("class", "x axis")
     .attr("transform", "translate(0," + hZ + ")")
     .call(xAxis3);
+
+  focus = mainChart.append('g').attr('class', 'focus').style('display', 'none')
+  focus.append('line').attr('class', 'focus-horiz')
+  .attr('x1', 0).attr('x2', 0+w).attr('y1', 0).attr 'y2', 0
+  focus.append('line').attr('class', 'focus-vert')
+  .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
+
+  focus.append('line').attr('class', 'focus-vert')
+  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop).attr 'y2', hM+mTop+hV
+
+  focus.append('line').attr('class', 'focus-vert-full')
+  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop+hV+mBetween).attr 'y2', hM+mTop+hV+mBetween+hZ
+
+  tooltip = focus.append('g')
+  tooltip.__w = 65
+  tooltip.__h = 35
+  tooltip.append('rect')
+    .attr 'x', 0
+    .attr 'width', tooltip.__w
+    .attr 'y', 0
+    .attr 'height', tooltip.__h
+    .attr 'class', 'tooltip-box'
+  tooltip.attr('transform', 'translate(40,0)')
+  tooltip.append('text').attr('class', 'date')
+    .attr 'dx', '2'
+    .attr 'dy', '11'
+  tooltip.append('text').attr('class', 'price')
+    .attr 'dx', '2'
+    .attr 'dy', '22'
+  tooltip.append('text').attr('class', 'volume')
+    .attr 'dx', '2'
+    .attr 'dy', '33'
 
   brushed = () ->
 
@@ -255,8 +242,8 @@ myGraph = (el, i) ->
     .attr("class", "x brush")
     .call(brush)
     .selectAll("rect")
-    .attr("y", -6)
-    .attr("height", hZ + 7);
+    .attr("y", 0)
+    .attr("height", hZ );
 
   zoomChart
     .append('text')
