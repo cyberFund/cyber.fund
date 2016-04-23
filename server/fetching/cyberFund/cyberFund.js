@@ -135,18 +135,18 @@ var fetch = function() {
                   // check if need hotfixing price
 
                   // if price missing
-                  if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
-                    if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
+  //                if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
+    //                if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
                       //set.metrics = set.metrics || {};
                       //set.metrics.price = set.metrics.price || {};
                       set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
-                    }
-                    if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
+      //              }
+        //            if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
                       //set.metrics = set.metrics || {};
                       //set.metrics.price = set.metrics.price || {};
                       set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
-                    }
-                  }
+          //          }
+        //          }
                 }
               }
 
