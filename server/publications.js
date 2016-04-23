@@ -62,8 +62,6 @@ Meteor.publish('userDetails', function() {
     _id: this.userId
   }, {
     fields: {
-      "services.twitter.screenName": 1,
-      "services.twitter.profile_image_url_https": 1,
       "services.privateAccountsEnabled": 1,
       "username": 1,
       "avatar": 1,
@@ -253,9 +251,9 @@ Meteor.publish('avatars', function(uidArray) {
     }
   }, {
     fields: {
-      'profile.name': 1,
+      'profile': 1,
       'avatar': 1,
-      'profile.username': 1
+      'username': 1
     }
   });
 });
@@ -271,7 +269,7 @@ Meteor.publish('userProfileByUsername', function(username) {
     }).username
   }
   var fields = {
-    'profile': 1,
+    profile: 1,
     username: 1,
     avatar: 1,
     largeAvatar: 1,
@@ -299,8 +297,8 @@ Meteor.publish('userProfileByUsername', function(username) {
 Meteor.publish('portfolioUser', function(userId) {
   var isOwn = this.userId == userId;
   var fields = {
-    'profile': 1,
-    'username': 1,
+    profile: 1,
+    username: 1,
     avatar: 1,
     largeAvatar: 1,
     username: 1,
