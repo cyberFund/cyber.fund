@@ -10,7 +10,6 @@ function curData() {
 
 Template['systemBasic'].onCreated(function() {
   var instance = this;
-
   instance.autorun(function() {
     CF._sub_ = instance.subscribe('systemData', {
       name: systemName()
