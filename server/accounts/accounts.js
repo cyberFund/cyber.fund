@@ -65,7 +65,7 @@ Accounts.onCreateUser(function(options, user) {
   if (options.profile)
     user.profile = options.profile;
   user.firstLogin = true;
-  user.registerNumber = Meteor.users.find().count()
+  user.registerNumber = Meteor.users.find().count() + 1
   return user;
 });
 
