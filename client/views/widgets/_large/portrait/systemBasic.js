@@ -44,9 +44,9 @@ Template['systemBasicUsersStarred'].onCreated(function() {
 Template['systemBasic'].onRendered(function() {
   $('.scrollspy').scrollSpy();
   var curDataDoc = curData();
-  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
+/*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
     Meteor.call("initAverageValues", curDataDoc._id);
-  }
+  } */
 });
 
 Template['systemBasic'].helpers({
