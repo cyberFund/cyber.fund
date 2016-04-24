@@ -47,6 +47,7 @@ Meteor.publish("currentDataRP", function(options) {
     return Meteor.settings.public && Meteor.settings.public.manyData ?
      'hourly' : 'daily'
   }
+  delete options.limit;
   return [
     CurrentData.find(selector, options),
     MarketData.find({
@@ -67,6 +68,7 @@ Meteor.publish('userDetails', function() {
       "avatar": 1,
       "largeAvatar": 1,
       "firstLogin": 1,
+      "profile": 1
     }
   });
 });
@@ -106,6 +108,7 @@ Meteor.publish('systemData', function(options) {
 
 
  //obsoleters
+/*
 Meteor.publish('crowdsalesList', function() {
 
   var sel = CF.CurrentData.selectors.crowdsales();
@@ -125,7 +128,7 @@ Meteor.publish('projectsList', function() {
       hourlyData: 0
     }
   });
-})
+})*/
 
 
 /*
@@ -377,7 +380,7 @@ Meteor.publish("portfolioSystems", function(userId, options) {
       "metrics": 1,
       "token": 1,
       "icon": 1,
-      "ratings": 1
+      "calculatable": 1
     }
   })
 });
