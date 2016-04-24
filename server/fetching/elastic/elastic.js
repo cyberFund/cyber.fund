@@ -565,6 +565,19 @@ Meteor.methods({
   }
 });
 
+/*SyncedCron.add({
+  name: 'initAverageValues',
+  schedule: function(parser) {
+    // parser is a later.parse object
+    return parser.cron('14 1/2 * * *', false);
+  },
+  job: function() {
+    var doc = CurrentData.findOne({$not: {initializedAverages: true}});
+    if (doc) Meteor.call(initAverageValues(doc._id))
+  }
+});*/
+
+
 SyncedCron.add({
   name: 'fetch latest elasticsearch data',
   schedule: function(parser) {
