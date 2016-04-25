@@ -4,11 +4,8 @@ Template['profile'].onCreated(function() {
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
-
-    console.log("AUTORUN username", username)
     if (username)
       Meteor.call("cfAssetsUpdateBalances", {username: username});
-
     instance.subscribe('friendlyUsers', {username: username});
     instance.subscribe('portfolioSystems', {username: username});
     instance.subscribe('userProfile', {username: username});

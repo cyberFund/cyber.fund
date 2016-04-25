@@ -4,7 +4,7 @@ var nsn = "CF.UserAssets."
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
 var print = function(really){
   return (really ? CF.Utils.logger.print: function(){})
-}(false)
+}(true)
 
 //
 ns.quantumCheck = function(address) {
