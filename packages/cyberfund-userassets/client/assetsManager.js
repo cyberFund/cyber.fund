@@ -102,14 +102,15 @@ Template['assetsManager'].onCreated(function() {
   // this all going to be actual once we get to private accounts
   CF.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
-    var user = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
-
-    var systems = user && user.accounts;
-    if (CF.Profile.currentUid == Meteor.userId()) {
-      _.extend(systems, user.accountsPrivate);
+    var user = Meteor.user()
+    if (user && user.username && (user.username == FlowRouter.getParam('username'))) {
+      var systems = user && user.accounts;
+      if (CF.Profile.currentUid == Meteor.userId()) {
+        _.extend(systems, user.accountsPrivate);
+      }
+      systems = CF.UserAssets.getSystemsFromAccountsObject(systems);
+      Meteor.subscribe('assetsSystems', systems);
     }
-    systems = CF.UserAssets.getSystemsFromAccountsObject(systems);
-    Meteor.subscribe('assetsSystems', systems);
   });
 });
 

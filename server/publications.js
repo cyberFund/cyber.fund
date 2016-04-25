@@ -292,8 +292,8 @@ Meteor.publish('assetsSystems', function(tokens) {
       token: 1,
       aliases: 1,
       icon: 1,
-    /*  metrics: 1,
-      calculatable: 1 */
+      metrics: 1,
+      calculatable: 1
     }
   })
 });
