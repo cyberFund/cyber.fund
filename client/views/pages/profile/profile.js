@@ -4,6 +4,12 @@ Template['profile'].onCreated(function() {
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
+    if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie){ //crutch
+      CF.UserAssets.graph.folioPie.update({
+        labels: [],
+        series: []
+      })
+    }
     if (username)
       Meteor.call("cfAssetsUpdateBalances", {username: username});
     instance.subscribe('friendlyUsers', {username: username});
@@ -17,6 +23,8 @@ Template['profile'].onCreated(function() {
     var name = user && user.profile && user.profile.name || username;
     document.title = name + ' - ' + 'cyber•Fund';
   });
+
+
 });
 
 var _user = function getUserByCurrentUid() { //todo reduce

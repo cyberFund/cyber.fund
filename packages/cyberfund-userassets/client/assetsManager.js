@@ -103,7 +103,7 @@ Template['assetsManager'].onCreated(function() {
   CF.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
     var user = Meteor.user()
-    if (user && user.username && (user.username == FlowRouter.getParam('username'))) {
+    if (user && (user.username == FlowRouter.getParam('username'))) {
       var systems = user && user.accounts;
       if (CF.Profile.currentUid == Meteor.userId()) {
         _.extend(systems, user.accountsPrivate);

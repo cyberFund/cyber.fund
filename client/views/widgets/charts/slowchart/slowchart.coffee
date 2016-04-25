@@ -286,7 +286,7 @@ Template['slowchart'].onRendered ->
   onresize = null
 
   i.autorun (c) ->
-    system = Blaze._globalHelpers._toSpaces (FlowRouter.getParam ('name_'))
+    system = Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
     if not system then return
     Meteor.call "fetchMarketData1", system, (err, res)->
       if res

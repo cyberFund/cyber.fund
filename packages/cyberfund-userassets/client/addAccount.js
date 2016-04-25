@@ -24,7 +24,13 @@ CF.UserAssets.uiAddressExists = function (address) {
   return addresses.indexOf(address) > -1
 };
 
-Template['addAccount'].rendered = function () {
+function _accountsExist(){
+  var user = Meteor.user();
+  return user && ((user.accounts && !_.isEmpty(user.accounts))
+    || (user.accountsPrivate && !_.isEmpty(user.accountsPrivate)));
+}
+
+Template['addAccount'].onRendered( function () {
   this.$newAccountName = this.$("#account-name");
   this.$failLabelAccount = this.$("#account-name-exists");
 
@@ -69,7 +75,7 @@ Template['addAccount'].rendered = function () {
 
   Tracker.autorun(function () {
     var user = Meteor.user();
-    var accountsExist = user && ((user.accounts && !_.isEmpty(user.accounts)) || (user.accountsPrivate && !_.isEmpty(user.accountsPrivate)));
+    var accountsExist = _accountsExist();
     if (!accountsExist) {
       t.$newAccountCheckbox.prop("checked", true).prop("disabled", true);
       t.$newAccountCheckbox.closest("label").removeClass("black-text");
@@ -77,9 +83,8 @@ Template['addAccount'].rendered = function () {
       t.$newAccountCheckbox.prop("checked", false).prop("disabled", false);
       t.$newAccountCheckbox.closest("label").addClass("black-text");
     }
-    t.toggleAccountGroup(!accountsExist);
   })
-};
+});
 
 Template['addAccount'].helpers({
   'disabledTogglePrivacy': function () {
@@ -111,14 +116,8 @@ Template['addAccount'].helpers({
 
 Template['addAccount'].events({
   'click .btn-add-account': function (e, t) {
+    t.toggleAccountGroup ( !_accountsExist() );
     t.$("#modal-add-account").openModal();
-    //t.$selectAccount.material_select('destroy');
-    //Meteor.setTimeout(function(){
-
-      //t.$selectAccount.material_select();
-      //t.$("#existing-account-group > span.caret").remove();
-    //}, 1000);
-
   },
   'keyup #account-name, change #account-name': function (e, t) {
     t.uiAccountNameExists(t.$newAccountName.val());
@@ -176,8 +175,6 @@ Template['addAccount'].events({
       });
       Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
         t.$("#modal-add-account").closeModal();
-        console.log(t.$newAccountName.val());
-        console.log(t.$address.val());
         t.$newAccountName.val("");
         t.$address.val("");
         return false;

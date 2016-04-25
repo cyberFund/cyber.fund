@@ -4,13 +4,15 @@ Meteor.startup(function(){
   _Session.default('portfolioOptions', {privateAssets: true})
 });
 
-Template['portfolioWidget'].onCreated(function () {
-  var instance = this;
+//Template['portfolioWidget'].onCreated(function () {
+  //var instance = this;
   /* *** this currently is subscribed at 'profile' template
   instance.autorun(function(){
     instance.subscribe('portfolioSystems', {});
   });*/
-});
+//});
+
+var ns = CF.UserAssets
 
 /**
  *
@@ -20,10 +22,10 @@ Template['portfolioWidget'].onCreated(function () {
 
 // TODO: DEFLATE
 var getSumB = function (accountsData) {
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+  var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
   _.each(systems, function (sys) {
-    var q = CF.UserAssets.getQuantitiesFromAccountsObject(accountsData, sys);
+    var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
     var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
@@ -34,10 +36,10 @@ var getSumB = function (accountsData) {
 };
 
 var getSumU = function (accountsData) {
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+  var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
   _.each(systems, function (sys) {
-    var q = CF.UserAssets.getQuantitiesFromAccountsObject(accountsData, sys);
+    var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
     var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
@@ -48,10 +50,10 @@ var getSumU = function (accountsData) {
 };
 
 var _getSumB = function (accountsData, addressesObject) {
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+  var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
   _.each(systems, function (sys) {
-    var q = CF.UserAssets.getQuantitiesFromAddressesObject(addressesObject, sys);
+    var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
     var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
@@ -62,10 +64,10 @@ var _getSumB = function (accountsData, addressesObject) {
 };
 
 var _getSumU = function (accountsData, addressesObject) {
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(accountsData),
+  var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
   _.each(systems, function (sys) {
-    var q = CF.UserAssets.getQuantitiesFromAddressesObject(addressesObject, sys);
+    var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
     var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
@@ -75,21 +77,20 @@ var _getSumU = function (accountsData, addressesObject) {
   return sum;
 };
 
+function _isOwn(){
+  var user = Meteor.user();
+  return user && user.username && (user.username == FlowRouter.getParam('username'))
+}
+
 Template['portfolioWidgetTable'].helpers({
   values: function (obj) {
     return _.values(obj || {});
   },
-  'pSystems': function () { //  systems to display in portfolio table, including 'starred' systems
+  pSystems: function () { //  systems to display in portfolio table, including 'starred' systems
+    var accounts = Template.instance().data && Template.instance().data.accountsData;
+    var systems = ns.getSystemsFromAccountsObject(accounts);
 
-    // not used here, as we already have emplate.instance().data.accountsData,
-    // either with or without private accounts. so,d be moved up the river
-    var options = _Session.get("portfolioOptions") || {},
-
-      accounts = Template.instance().data && Template.instance().data.accountsData,
-      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
-
-    // display starred systems for own portfolio
-    if (CF.Profile.currentUid() == Meteor.userId()) {
+    if (_isOwn()) {
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
       if (stars && stars.length) {
@@ -97,43 +98,25 @@ Template['portfolioWidgetTable'].helpers({
       }
     }
 
-    // mobile chrome can not into Math.sign itself
-    Math.sign = Math.sign || function (x) {
-        x = +x;
-        if (x === 0 || isNaN(x)) {
-          return x;
-        }
-        return x > 0 ? 1 : -1;
-      };
-
     var sort = {
       // sort portfolio items by their cost, from higher to lower.
       // return -1 if x > y; return 1 if y > x
       byValue: function (x, y) {
-
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
+        var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
+        var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
       },
       byAmount: function (x, y) {
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
+        var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
+        var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 - q1);
       },
       byEquity: function (x, y) {
-        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
-          q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
-        if (x.metrics && x.metrics.supply) {
-          q1 = q1 / x.metrics.supply;
-        } else {
-          q1 = 0;
-        }
+        var q1 = (x.metrics && x.metrics.supply) ?
+          ns.getQuantitiesFromAccountsObject(accounts, x._id)/ x.metrics.supply : 0;
+        var q2 = (y.metrics && y.metrics.supply) ?
+          ns.getQuantitiesFromAccountsObject(accounts, y._id) / y.metrics.supply: 0;
 
-        if (y.metrics && y.metrics.supply) {
-          q2 = q2 / y.metrics.supply;
-        } else {
-          q2 = 0;
-        }
         return Math.sign(q2 - q1);
       }
     };
@@ -158,6 +141,7 @@ Template['portfolioWidgetTable'].helpers({
       }
       return CurrentData.find(CF.CurrentData.selectors.system(systems), {sort: sorter})
     }
+
     return CurrentData.find(CF.CurrentData.selectors.system(systems))
       .fetch().sort(sort.byValue);
   },
@@ -168,21 +152,21 @@ Template['portfolioWidgetTable'].helpers({
     if (!system._id) return NaN;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
-    return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
+    return CF.Utils.readableN(ns.getQuantitiesFromAccountsObject(
       accounts, system._id), 3);
   },
   btcCost: function (system) {
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
     var accounts = Template.instance().data && Template.instance().data.accountsData;
-    return (CF.UserAssets.getQuantitiesFromAccountsObject(
+    return (ns.getQuantitiesFromAccountsObject(
       accounts, system._id) * system.metrics.price.btc).toFixed(3);
   },
   usdCost: function (system) {
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
-    return CF.Utils.readableN(CF.UserAssets.getQuantitiesFromAccountsObject(
+    return CF.Utils.readableN(ns.getQuantitiesFromAccountsObject(
         accounts, system._id) * system.metrics.price.usd, 2);
   },
   name_of_system: function () {
@@ -193,7 +177,7 @@ Template['portfolioWidgetTable'].helpers({
     var accounts = Template.instance().data && Template.instance().data.accountsData;
 
     if (system._id) {
-      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
+      q = ns.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
       q = 10000 * q / system.metrics.supply
@@ -208,7 +192,7 @@ Template['portfolioWidgetTable'].helpers({
     var q = 0.0;
     var accounts = Template.instance().data && Template.instance().data.accountsData;
     if (system._id) {
-      q = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
+      q = ns.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     var accountsData = Template.instance().data &&
       Template.instance().data.accountsData;

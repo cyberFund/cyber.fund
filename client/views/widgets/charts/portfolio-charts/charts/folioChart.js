@@ -1,7 +1,7 @@
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.015;
 
-Template['folioChart'].onCreated(function () {
+Template['folioChart'].onRendered(function () {
   var self = this;
 
   self.autorun(function (comp) {
@@ -66,6 +66,8 @@ Template['folioChart'].onCreated(function () {
       })
     }
 
+    if (ticks.length && self.$('.ct-chart.folio-pie').length )
+    CF.UserAssets.graph.folioPie = // crutch
     new Chartist.Pie('.ct-chart.folio-pie', {
       labels: labels,
       series: ticks
@@ -81,11 +83,5 @@ Template['folioChart'].onCreated(function () {
 Template['folioChart'].helpers({
   dd: function () {
     return Template.instance().data.accountsData
-  }
-});
-
-Template['folioChart'].events({
-  'click .bar': function (e, t) {
-
   }
 });
