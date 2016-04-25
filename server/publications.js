@@ -264,13 +264,7 @@ Meteor.publish('avatars', function(uidArray) {
 /*
   user profile by twitter screenname
  */
-Meteor.publish('userProfileByUsername', function(username) {
-  var ownUsername = null;
-  if (this.userId) {
-    ownUsername = Meteor.users.findOne({
-      _id: this.userId
-    }).username
-  }
+Meteor.publish('userProfileById', function(uid){
   var fields = {
     profile: 1,
     username: 1,
@@ -279,10 +273,30 @@ Meteor.publish('userProfileByUsername', function(username) {
     accounts: 1,
     createdAt: 1
   };
+  var own = this.userId == uid;
+  if (own) fields.accountsPrivate = 1;
+  return Meteor.users.find({_id: uid}, {fields: fields});
+});
+
+Meteor.publish('userProfileByUsername', function(username) {
+  var fields = {
+    profile: 1,
+    username: 1,
+    avatar: 1,
+    largeAvatar: 1,
+    accounts: 1,
+    createdAt: 1
+  };
+  
+  var ownUsername = null;
+  if (this.userId) {
+    ownUsername = Meteor.users.findOne({
+      _id: this.userId
+    }).username
+  }
+
 
   var user = CF.User.findOneByUsername(username);
-  if (user && user._id)
-    Meteor.call("cfAssetsUpdateBalances", {userId: user._id});
   if (ownUsername == username) fields.accountsPrivate = 1;
 
   return Meteor.users.find({
@@ -333,24 +347,6 @@ Meteor.publish('assetsSystems', function(tokens) {
 });
 
 /*
-  support subscription for profile page, loads info to display currency links
-  resolves needed list by userId
- */
-Meteor.publish('profilesSystems', function(userId) {
-  var user = Meteor.users.findOne({
-    _id: userId
-  });
-  var tokens = user && user.profile && user.profile.starredSystems || [];
-  return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
-    fields: {
-      token: 1,
-      aliases: 1,
-      icon: 1
-    }
-  }); //todo: fieldsets => resp. packages
-});
-
-/*
   loads systems data for portfolio
  */
 
@@ -362,15 +358,14 @@ Meteor.publish("portfolioSystems", function(userId, options) {
     _id: userId
   });
   if (!user) return this.ready();
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(user.accounts);
+  var accounts = _.clone(user.accounts);
+  if (own) _.extend(accounts, user.accountsPrivate)
+
+  var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
   if (own) {
-    if (options.privateAssets) { //todo: unbind against this && user details subscriptions
-      systems = _.union(systems, CF.UserAssets.getSystemsFromAccountsObject(user.accountsPrivate))
-    }
-    var stars = user.profile.starredSystems;
-    if (stars && stars.length) {
-      systems = _.union(systems, stars)
+    if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
+      systems = _.union(systems, user.profile.starredSystems)
     }
   }
 

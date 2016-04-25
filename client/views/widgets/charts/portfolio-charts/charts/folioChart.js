@@ -9,7 +9,7 @@ Template['folioChart'].onCreated(function () {
     var accounts = dddd && dddd.accountsData;
 
     //var accounts = Template.instance().data && Template.instance().data.accountsData;
-    if (!accounts) return;
+    if (!accounts || !_.keys(accounts).length) return;
 
     var ticks = [], labels = [];
 

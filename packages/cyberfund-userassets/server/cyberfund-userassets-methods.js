@@ -7,6 +7,8 @@ var print = CF.Utils.logger.print;
 //
 ns.quantumCheck = function(address) {
   try {
+    print("checking address", address)
+    print("sending query to ", "http://quantum.cyber.fund:3001?address="+address)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
     if (r.statusCode == 200)
       return r.data;
@@ -14,9 +16,8 @@ ns.quantumCheck = function(address) {
     print ("on checking address "+ address +" quantum returned code ",
     e && e.response && e.response.statusCode, true)
     return ['error'];
-  } 
+  }
 }
-
 
 // per single address
 ns.updateBalance = function(userId, accountKey, address, accounts){
