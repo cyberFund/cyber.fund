@@ -12,8 +12,8 @@
                 <div class="grey-text">
                     {{#if and services services.twitter}}
                     <a class="grey-text"
-                       href="https://twitter.com/@{{profile.twitterName}}"><span
-                            itemprop="alternateName">@{{profile.twitterName}}</span></a>
+                       href="https://twitter.com/@{{username}}"><span
+                            itemprop="alternateName">@{{username}}</span></a>
                     {{else}} <span class="grey-text">{{username}}</span>
                     {{/if}}
                     <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>

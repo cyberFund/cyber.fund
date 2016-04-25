@@ -14,7 +14,7 @@ are `username` && `avatar`
     {{#each data}}
         <a href="{{pathFor '/@:username' username=username}}"
            title="{{profile.name}}">
-            {{>hitryImage img_url=avatar class=../class style=../style}}
+            {{>hitryImage img_url=avatar class=../class style=../style fallback='av'}}
         </a>
     {{/each}}
 </template>
@@ -27,7 +27,7 @@ are `username` && `avatar`
             <span itemprop="name" content="{{profile.name}}"></span>
             <a itemprop="url" href="{{pathFor '/@:username' username=username}}"
                title="{{profile.name}}">
-                {{>hitryImage img_url=avatar class=../class style=../style}}
+                {{>hitryImage img_url=avatar class=../class style=../style fallback='av'}}
             </a>
         </div>
     {{/each}}

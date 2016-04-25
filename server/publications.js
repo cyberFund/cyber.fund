@@ -256,7 +256,7 @@ Meteor.publish('avatars', function(uidArray) {
     fields: {
       'profile': 1,
       'avatar': 1,
-      'username': 1
+      'username': 1,
     }
   });
 });
@@ -275,7 +275,8 @@ Meteor.publish('userProfile', function(options){
     avatar: 1,
     largeAvatar: 1,
     accounts: 1,
-    createdAt: 1
+    createdAt: 1,
+    'services.twitter.screenName': 1
   };
   var own = this.userId == uid;
   if (own) fields.accountsPrivate = 1;
