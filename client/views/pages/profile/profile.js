@@ -10,16 +10,16 @@ Template['profile'].onCreated(function() {
     instance.subscribe('portfolioSystems', {username: username});
     instance.subscribe('userProfile', {username: username});
   });
-});
 
-Template['profile'].onCreated(function() {
-  var instance = this;
   instance.autorun(function() {
-
+    var username = FlowRouter.getParam('username');
+    var user = CF.User.findOneByUsername(username)
+    var name = user && user.profile && user.profile.name || username;
+    document.title = name + ' - ' + 'cyber•Fund';
   });
 });
 
-var _user = function getUserByCurrentUid() {
+var _user = function getUserByCurrentUid() { //todo reduce
   return Meteor.users.findOne({
     _id: CF.Profile.currentUid()
   });

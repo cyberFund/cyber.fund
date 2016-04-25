@@ -9,8 +9,13 @@ Tracker.autorun(function () {
   }
 });
 
+FlowRouter.wait();
 Meteor.startup(function () {
-  Meteor.subscribe('userDetails');
+  Meteor.subscribe('userDetails', {
+    onReady: function(){
+      FlowRouter.initialize();
+    }
+  });
   Meteor.subscribe("BitcoinPrice");
   Meteor.subscribe('usersCount');
   Meteor.subscribe('coinsCount');
