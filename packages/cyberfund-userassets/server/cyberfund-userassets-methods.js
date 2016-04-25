@@ -120,7 +120,6 @@ ns.updateBalances = function(options) { //todo: optimize
   }
 
   if (!accountKey) {
-    print ("isOwn", isOwn)
     if (!isOwn) {
       var lastUpdate = accounts.services && accounts.services.balanceUpdate
         && accounts.services.balanceUpdate.updatedAt;
@@ -137,7 +136,6 @@ ns.updateBalances = function(options) { //todo: optimize
 
     var accountKeys = _.keys(accounts['accounts'] || {});
     if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] || {}))
-    print("here, account keys are", accountKeys)
     _.each(accountKeys, function(ak) {
       ns.updateBalances({
         userId: userId,
