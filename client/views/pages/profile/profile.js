@@ -10,13 +10,18 @@ Template['profile'].onCreated(function() {
     instance.subscribe('portfolioSystems', {username: username});
     instance.subscribe('userProfile', {username: username});
   });
+
+  instance.autorun(function() {
+    var username = FlowRouter.getParam('username');
+    var user = CF.User.findOneByUsername(username)
+    var name = user && user.profile && user.profile.name || username;
+    document.title = name + ' - ' + 'cyber•Fund';
+  });
 });
 
 Template['profile'].onCreated(function() {
   var instance = this;
-  instance.autorun(function() {
-
-  });
+  
 });
 
 var _user = function getUserByCurrentUid() {

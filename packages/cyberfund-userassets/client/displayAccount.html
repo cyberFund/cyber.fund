@@ -67,14 +67,19 @@
                                         <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                                         {{displaySystemName systemData}}</a>
                                         : {{value.quantity}} {{displayCurrencyName systemData}}s
-                                        {{#if isOwn}}
                                             <div class="secondary-content hoverie"
                                                  style="margin-right: 12px;">
                                                 {{#if eq value.update 'auto'}}
                                                     <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
                                                           class="amber white-text">
                                                 Autoupdate</span>
-                                                {{else}}
+                                                {{/if}}
+                                                {{#if eq value.update 'manual'}}
+                                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
+                                                          class="green white-text">
+                                                Manually entered</span>
+                                                {{/if}}
+                                                {{#if isOwn}}
                                                     <a class="btn-floating btn-tiny req-edit-asset yellow"
                                                        title="Change quantity"
                                                        style="vertical-align: middle;"><i
@@ -85,7 +90,6 @@
                                                             class="material-icons tiny">delete</i></a>
                                                 {{/if}}
                                             </div>
-                                        {{/if}}
                                     </li>
                                 {{/each}}
                             </ul>

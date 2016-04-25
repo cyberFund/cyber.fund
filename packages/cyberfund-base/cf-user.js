@@ -5,6 +5,11 @@ CF.User.username = function() {
   return (user.username) || '';
 };
 
+CF.User.isSelf = function(options) {
+  options = CF.Utils.normalizeOptionsPerUser(options);
+  return options.userId == this.userId;
+}
+
 CF.User.linkToOwnProfile = function() {
   var username = CF.User.username();
   return username ? '/@' + username : '/welcome'
