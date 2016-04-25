@@ -13,12 +13,12 @@
         <ul class="hide-on-med-and-down">
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/radar" text="Crowdsales"}}
-          {{! > navbarItem path="/portfolio" text="My Portfolio"}}
 
-            <li class="search-wrap" style="height: 64px; display: inline">
-                {{> searchItem1}}
-            </li>
+          <li class="search-wrap" style="height: 64px; display: inline">
+              {{> searchItem1}}
+          </li>
         </ul>
+
         <ul class="right hide-on-med-and-down">
           <li class="waves-effect">
             <a href="https://blog.cyber.fund" target="_blank">Blog</a></li>
@@ -31,15 +31,17 @@
         <ul id="nav-mobile" style="left: -250px" class="side-nav">
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/radar" text="Crowdsales"}}
-          {{! > navbarItem path="/portfolio" text="My Portfolio"}}
-          <li class="waves-effect">
-            <li class="search-wrap" style="height: 64px; display: inline">
-                {{> searchItem1}}
-            </li>
-            <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
-                {{> userDropdown}}
-            </li>
+
+          <li class="search-wrap" style="height: 64px; display: inline">
+              {{> searchItem1}}
           </li>
+          <li class="waves-effect">
+            <a href="https://blog.cyber.fund" target="_blank">Blog</a></li>
+          
+          <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
+            {{> userDropdown}}
+          </li>
+
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i
             class="mdi-navigation-menu"></i></a>

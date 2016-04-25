@@ -19,12 +19,7 @@ Template['profile'].onCreated(function() {
   });
 });
 
-Template['profile'].onCreated(function() {
-  var instance = this;
-  
-});
-
-var _user = function getUserByCurrentUid() {
+var _user = function getUserByCurrentUid() { //todo reduce
   return Meteor.users.findOne({
     _id: CF.Profile.currentUid()
   });

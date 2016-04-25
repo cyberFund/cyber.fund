@@ -322,3 +322,7 @@ body {
 .avatar-round {
   border-radius: 50%;
 }
+
+.side-nav .waves-effect {
+  display: block
+}

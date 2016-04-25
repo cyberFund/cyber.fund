@@ -266,9 +266,7 @@ Meteor.publish('avatars', function(uidArray) {
  */
  var print = CF.Utils.logger.print;
 Meteor.publish('userProfile', function(options){
-  print ("called with options", options, true)
   options = CF.Utils.normalizeOptionsPerUser(options);
-  print ("transformed options", options)
   var uid = options.userId;
 
   var fields = {
