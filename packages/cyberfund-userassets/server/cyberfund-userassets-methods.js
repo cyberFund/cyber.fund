@@ -2,11 +2,15 @@ var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
-var print = CF.Utils.logger.print;
+var print = function(really){
+  return (really ? CF.Utils.logger.print: function(){})
+}(false)
 
 //
 ns.quantumCheck = function(address) {
   try {
+    print("checking address", address)
+    print("sending query to ", "http://quantum.cyber.fund:3001?address="+address)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address="+address);
     if (r.statusCode == 200)
       return r.data;
@@ -14,9 +18,8 @@ ns.quantumCheck = function(address) {
     print ("on checking address "+ address +" quantum returned code ",
     e && e.response && e.response.statusCode, true)
     return ['error'];
-  } 
+  }
 }
-
 
 // per single address
 ns.updateBalance = function(userId, accountKey, address, accounts){
@@ -148,6 +151,7 @@ Meteor.methods({
     return ns.quantumCheck(address);
   },
   cfAssetsUpdateBalances: function (options) {
+    options = CF.Utils.normalizeOptionsPerUser(options);
 
     print("cfAssetsUpdateBalances was called with options", options, true)
     options.userId = options.userId || this.userId;

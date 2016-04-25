@@ -233,8 +233,8 @@ var helpers = {
     if (btc && btc.metrics) return parseFloat(btc.metrics.price.usd)
     return undefined
   },
-  userHasPublicAccess: function(user) {
-    return CF.User.hasPublicAccess(user)
+  userHasPublicAccess: function() {
+    return CF.User.hasPublicAccess(Meteor.user())
   }
 };
 

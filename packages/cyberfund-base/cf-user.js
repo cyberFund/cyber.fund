@@ -23,13 +23,18 @@ CF.User.get = function getUser() {
 }
 
 CF.User.hasPublicAccess = function hasPublicAccess(user){
-  return user.services && user.services.twitter && user.services.twitter.screenName;
+  return user && user.services && user.services.twitter && user.services.twitter.screenName;
 }
 
 CF.User.findOneByUsername = function findOneByUsername(username) {
   return Meteor.users.findOne({
     "username": username
   });
+}
+
+CF.User.idByUsername = function idByUsername(username) {
+  var r = CF.User.findOneByUsername(username);
+  return r ? r._id : null
 }
 
 

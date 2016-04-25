@@ -1,40 +1,24 @@
 
 Template['profile'].onCreated(function() {
   var instance = this;
-  instance._subs = {};
-  instance._registerSub = function(name, handler) {
-    if (!name || !handler) return;
-    instance._subs[name] = handler;
-  };
-  instance._unregisterSub = function(name) {
-    if (!name) return;
-    if (instance._subs[name] && instance._subs[name].stop) {
-      instance._subs[name].stop();
-    }
-    delete instance._subs[name];
-  };
 
   instance.autorun(function() {
-    var uid = CF.Profile.currentUid();
-    if (!uid) {
-      instance._unregisterSub('1');
-      instance._unregisterSub('2');
-      instance._unregisterSub('3');
-      return;
-    }
-    var options = uid == Meteor.userId() ? {
-      privateAssets: true
-    } : {};
-    instance._registerSub('1', instance.subscribe('friendlyUsers', uid));
-    instance._registerSub('2', instance.subscribe('profilesSystems', uid));
-    instance._registerSub('3', instance.subscribe('portfolioSystems', uid, options));
+    var username = FlowRouter.getParam('username');
+
+    console.log("AUTORUN username", username)
+    if (username)
+      Meteor.call("cfAssetsUpdateBalances", {username: username});
+
+    instance.subscribe('friendlyUsers', {username: username});
+    instance.subscribe('portfolioSystems', {username: username});
+    instance.subscribe('userProfile', {username: username});
   });
 });
 
 Template['profile'].onCreated(function() {
   var instance = this;
   instance.autorun(function() {
-    instance.subscribe('userProfileByUsername', FlowRouter.getParam('username'))
+
   });
 });
 
@@ -123,6 +107,7 @@ Template['profile'].events({
   'click #at-nav-button': function(e, t) {
     analytics.track('Sign Out', {
       from: 'profile'
-    })
+    });
+    Meteor.logout()
   }
 });

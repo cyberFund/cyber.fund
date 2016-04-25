@@ -1,5 +1,3 @@
-// todo: move to dedicated package.
-// move /profile template there, too.
 Meteor.methods({
   followUser: function(targetId, options){
     options = options || {};
@@ -17,11 +15,14 @@ Meteor.methods({
   }
 })
 
-Meteor.publish("friendlyUsers", function(userId){
+Meteor.publish("friendlyUsers", function(options){
+  options = CF.Utils.normalizeOptionsPerUser(options)
+  var userId = options.userId;
+
   if (!userId) return this.ready();
   var user = Meteor.users.findOne({_id: userId});
   if (!user) {
-    console.log("no user by id: " +userId+ ".");
+    console.log("no user by id: " + userId);
     return this.ready();
   }
   if (!user.profile) return this.ready;
