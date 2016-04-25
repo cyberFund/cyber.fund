@@ -3,15 +3,15 @@ Template['profile'].onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
+    var username = FlowRouter.getParam('username');
 
-    var uid = CF.User.findOneByUsername(FlowRouter.getParam('username'));
-    uid = uid && uid._id;
-    console.log("AUTORUN uid", uid)
-    if (uid)
-      Meteor.call("cfAssetsUpdateBalances", {userId: uid});
-    instance.subscribe('friendlyUsers', uid);
-    instance.subscribe('portfolioSystems', uid);
-    instance.subscribe('userProfileById', uid)
+    console.log("AUTORUN username", username)
+    if (username)
+      Meteor.call("cfAssetsUpdateBalances", {username: username});
+
+    instance.subscribe('friendlyUsers', {username: username});
+    instance.subscribe('portfolioSystems', {username: username});
+    instance.subscribe('userProfile', {username: username});
   });
 });
 

@@ -2,7 +2,9 @@ var ns = CF.UserAssets;
 var nsn = "CF.UserAssets."
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
-var print = CF.Utils.logger.print;
+var print = function(really){
+  return (really ? CF.Utils.logger.print: function(){})
+}(false)
 
 //
 ns.quantumCheck = function(address) {
@@ -149,6 +151,7 @@ Meteor.methods({
     return ns.quantumCheck(address);
   },
   cfAssetsUpdateBalances: function (options) {
+    options = CF.Utils.normalizeOptionsPerUser(options);
 
     print("cfAssetsUpdateBalances was called with options", options, true)
     options.userId = options.userId || this.userId;

@@ -32,6 +32,11 @@ CF.User.findOneByUsername = function findOneByUsername(username) {
   });
 }
 
+CF.User.idByUsername = function idByUsername(username) {
+  var r = CF.User.findOneByUsername(username);
+  return r ? r._id : null
+}
+
 
 CF.User.selectors = {}
 CF.User.selectors.userByUsername = function userByUsername(username) {

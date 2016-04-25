@@ -262,9 +262,15 @@ Meteor.publish('avatars', function(uidArray) {
 });
 
 /*
-  user profile by twitter screenname
+  user profile by username or id
  */
-Meteor.publish('userProfileById', function(uid){
+ var print = CF.Utils.logger.print;
+Meteor.publish('userProfile', function(options){
+  print ("called with options", options, true)
+  options = CF.Utils.normalizeOptionsPerUser(options);
+  print ("transformed options", options)
+  var uid = options.userId;
+
   var fields = {
     profile: 1,
     username: 1,
@@ -276,60 +282,6 @@ Meteor.publish('userProfileById', function(uid){
   var own = this.userId == uid;
   if (own) fields.accountsPrivate = 1;
   return Meteor.users.find({_id: uid}, {fields: fields});
-});
-
-Meteor.publish('userProfileByUsername', function(username) {
-  var fields = {
-    profile: 1,
-    username: 1,
-    avatar: 1,
-    largeAvatar: 1,
-    accounts: 1,
-    createdAt: 1
-  };
-  
-  var ownUsername = null;
-  if (this.userId) {
-    ownUsername = Meteor.users.findOne({
-      _id: this.userId
-    }).username
-  }
-
-
-  var user = CF.User.findOneByUsername(username);
-  if (ownUsername == username) fields.accountsPrivate = 1;
-
-  return Meteor.users.find({
-    "username": username
-  }, {
-    fields: fields
-  });
-});
-
-/*
-  return fields to display portfolio
-  probably buggy as tends to load private accounts
-   for a moment after switching from "own" user to another
- */
-Meteor.publish('portfolioUser', function(userId) {
-  var isOwn = this.userId == userId;
-  var fields = {
-    profile: 1,
-    username: 1,
-    avatar: 1,
-    largeAvatar: 1,
-    username: 1,
-    accounts: 1,
-    createdAt: 1
-  };
-  if (isOwn) _.extend(fields, {
-    accountsPrivate: 1
-  });
-  return Meteor.users.find({
-    _id: this.userId
-  }, {
-    fields: fields
-  });
 });
 
 /*
