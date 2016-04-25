@@ -291,7 +291,9 @@ Meteor.publish('assetsSystems', function(tokens) {
     fields: {
       token: 1,
       aliases: 1,
-      icon: 1
+      icon: 1,
+    /*  metrics: 1,
+      calculatable: 1 */
     }
   })
 });
@@ -300,8 +302,9 @@ Meteor.publish('assetsSystems', function(tokens) {
   loads systems data for portfolio
  */
 
-Meteor.publish("portfolioSystems", function(userId, options) {
-  options = options || {};
+Meteor.publish("portfolioSystems", function(options) {
+  options = CF.Utils.normalizeOptionsPerUser(options);
+  var userId = options.userId;
 
   var own = this.userId == userId;
   var user = Meteor.users.findOne({

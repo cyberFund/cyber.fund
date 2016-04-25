@@ -6,9 +6,10 @@ Meteor.startup(function(){
 
 Template['portfolioWidget'].onCreated(function () {
   var instance = this;
+  /* *** this currently is subscribed at 'profile' template
   instance.autorun(function(){
-    instance.subscribe('portfolioSystems', Meteor.userId(), _Session.get('portfolioOptions'));
-  });
+    instance.subscribe('portfolioSystems', {});
+  });*/
 });
 
 /**
