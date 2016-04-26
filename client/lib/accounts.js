@@ -1,5 +1,5 @@
 Accounts.onLogin(function(){
-  analytics.track('Sign In', {
+  /*analytics.track('Sign In', {
     from: 'undefined'
-  });
+  });*/
 })
