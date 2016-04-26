@@ -159,14 +159,14 @@ var helpers = {
     return  moment().diff(moment(date), 'days');
   },
   _toUnderscores: function (str) {
-    return str.replace(/\ /g, "_")
+    return !!str ? str.replace(/\ /g, "_") : ''
   },
   _toSpaces: function (str) {
-    return str.replace(/_/g, " ")
+    return !!str ? str.replace(/_/g, " ") : ''
   },
   _toAttr: function (str) {
-    return str.replace(/\ /g, "_").replace(/\(/g, "_")
-    .replace(/\)/g, "_").replace(/\./g, "_")
+    return !!str ? str.replace(/\ /g, "_").replace(/\(/g, "_")
+    .replace(/\)/g, "_").replace(/\./g, "_") : ''
   },
   usersCount: function () {
     return Counts.get('usersCount')
