@@ -41,10 +41,12 @@
             {{/with}}
             {{#if isOwnProfile}}
                 {{#if userRegistracionCount}}
+                    {{#if lte userRegistracionCount 400}}
                     <div>
                         <br>
                         You are user #{{userRegistracionCount}}
                     </div>
+                    {{/if}}
                     {{#if lte userRegistracionCount 100}}
                         <div>
                             We have classified you as group A user

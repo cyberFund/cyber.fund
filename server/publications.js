@@ -296,7 +296,7 @@ Meteor.publish("portfolioSystems", function(options) {
     _id: userId
   });
   if (!user) return this.ready();
-  var accounts = _.clone(user.accounts);
+  var accounts = _.clone(user.accounts) || {};
   if (own) _.extend(accounts, user.accountsPrivate)
 
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
