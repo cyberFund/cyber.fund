@@ -237,7 +237,19 @@ Template['portfolioWidgetTable'].helpers({
 });
 
 Template['portfolioWidget'].helpers({
-  subReady: function(){ return CF.subs.Assets && CF.subs.Assets.ready() }
+  subReady: function(){ return CF.subs.Assets && CF.subs.Assets.ready() },
+  showAccountsAdvertise: function() {
+    var instance = Template.instance();
+    if (CF.subs.Assets.ready()) {
+        var user = Meteor.users.findOne({
+          _id: CF.Profile.currentUid()
+        });
+        return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
+    } else return false
+  },
+  isOwnAssets: function(){
+    return CF.Profile.currentUid() == Meteor.userId();
+  }
 })
 
 Template['portfolioWidgetView'].helpers({
