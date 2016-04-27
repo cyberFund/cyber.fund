@@ -31,8 +31,8 @@ myGraph = (el, i) ->
 
   @selectedNode = null
   graph = this
-  wf = d3.select(el).style('width').split('px')[0]
-  hf = d3.select(el).style('height').split('px')[0]
+  wf = d3.select(el).style('width')?.split('px')[0]
+  hf = d3.select(el).style('height')?.split('px')[0]
 
 
   mLeft = 40
