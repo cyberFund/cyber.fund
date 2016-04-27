@@ -10,10 +10,12 @@ function curData() {
 
 Template['systemBasic'].onCreated(function() {
   var instance = this;
+  instance.ready = new ReactiveVar();
   instance.autorun(function() {
-    CF._sub_ = instance.subscribe('systemData', {
+    var handle = CF.SubsMan.subscribe('systemData', {
       name: systemName()
     });
+    instance.ready.set(instance.ready.get() || handle.ready());
     instance.subscribe('dependentCoins', systemName());
 
     var data = curData();
@@ -51,11 +53,14 @@ Template['systemBasic'].onRendered(function() {
 
 Template['systemBasic'].helpers({
   systemName: function(){ return systemName()},
-  'curData': function() {
+  subReady: function(){
+     return Template.instance().ready.get();
+  },
+  curData: function() {
     return curData();
   },
 
-  'dependents': function() {
+  dependents: function() {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {
       sort: {
         _id: 1
@@ -71,11 +76,11 @@ Template['systemBasic'].helpers({
     return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
   },
 
-  'dependentsExist': function() {
+  dependentsExist: function() {
     return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
   },
 
-  'symbol': function() {
+  symbol: function() {
     return this.token ? this.token.token_symbol : ""
   },
 

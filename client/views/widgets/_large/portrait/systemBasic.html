@@ -1,5 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
+  {{#if subReady}}
   {{#with curData}}
   <div itemscope itemtype="http://schema.org/Product" class="nar-row">
 
@@ -271,6 +272,7 @@
     </a>
   </div>
   {{/with}}
+  {{/if}}
 </template>
 
 <template name="systemBasicAbout">

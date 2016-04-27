@@ -3,24 +3,9 @@
  */
 Meteor.publish("currentDataRP", function(options) {
   options = options || {};
-  var defaultLimit = 1;
-  var selector = {};
-  _.extend(selector, options.selector)
-  options.sort = options.sort || {};
+  var selector = options.selector;
 
   // if sorting, fetch only those having defined value for sorted column
-  var tmp = options.sort;
-  if (_.isString(tmp)){
-    var t = {}
-    t[tmp] = 1;
-    tmp = t;
-  }
-
-  tmp = _.keys(tmp);
-  tmp = tmp.length;
-
-  if (tmp) options.sort = CF.Rating.sorter0;
-  if (isNaN(options.limit)) options.limit = defaultLimit;
   options.fields = {
     "aliases": 1,
     "metrics": 1,
@@ -35,28 +20,26 @@ Meteor.publish("currentDataRP", function(options) {
     "lastData": 1 //wtf is going here
   };
 
-  var keys = _.keys(options.sort);
-  selector[keys[0]] = {
-    $exists: true
-  };
+  return CurrentData.find(selector, options)
+});
+
+Meteor.publish('marketDataRP', function(options) {
+  options = options || {};
+  var selector = options.selector;
 
   var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id")
-
 
   function intervalSelector(){
     return Meteor.settings.public && Meteor.settings.public.manyData ?
      'hourly' : 'daily'
   }
-  delete options.limit;
   var date = moment.utc().subtract(30, "days").startOf('day').toDate();
-  return [
-    CurrentData.find(selector, options),
-    MarketData.find({
+
+  return MarketData.find({
       systemId: {$in: list},
       timestamp: {$gte: date },
-      interval: intervalSelector()}) // 'daily' ! remove this, stick to daily everywhere, was only for dev
-  ];
-});
+      interval: intervalSelector()}); // 'daily' ! remove this, stick to daily everywhere, was only for dev
+})
 
 /* own user details */
 Meteor.publish('userDetails', function() {

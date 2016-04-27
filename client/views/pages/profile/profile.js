@@ -11,7 +11,7 @@ Template['profile'].onCreated(function() {
       })
     }
     if (username)
-      Meteor.call("cfAssetsUpdateBalances", {username: username});
+      Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
     instance.subscribe('friendlyUsers', {username: username});
     instance.subscribe('portfolioSystems', {username: username});
     instance.subscribe('userProfile', {username: username});

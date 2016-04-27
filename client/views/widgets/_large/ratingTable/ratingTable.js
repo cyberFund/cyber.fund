@@ -3,16 +3,31 @@ var initialLimit = CF.Rating.limit0;
 Template['ratingTable'].onCreated(function () {
   Session.set('ratingPageLimit', initialLimit);
   var instance = this;
+  instance.ready = new ReactiveVar();
+  var selector = {
+    "flags.rating_do_not_display": {$ne: true},
+    "calculatable.RATING.sum": {$gte: 1},
+    "metrics.tradeVolume": {$gte: 0.2}
+  }
+  if (_.keys(_Session.get('coinSorter')).length )
+    selector[ _.keys(_Session.get('coinSorter'))[0] ] = {$exists: true}
+  instance.autorun(function(){
+    CF.subs.MarketData = instance.subscribe("marketDataRP", {
+      selector: selector
+    });
+  })
+
   instance.autorun(function () {
-    CF.CurrentData._sub_ = instance.subscribe("currentDataRP", {
-      limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('coinSorter'),
+    var handle = CF.SubsMan.subscribe("currentDataRP", {
+      /*limit: Session.get('ratingPageLimit'),
+      sort: _Session.get('coinSorter'),*/
       selector: {
         "flags.rating_do_not_display": {$ne: true},
         "calculatable.RATING.sum": {$gte: 1},
         "metrics.tradeVolume": {$gte: 0.2}
       }
     });
+    instance.ready.set(instance.ready.get() || handle.ready());
   });
 });
 
@@ -81,9 +96,12 @@ Template['ratingTable'].helpers({
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
+  subReady: function(){
+     return Template.instance().ready.get();
+  }/*,
   hasMore: function () {
     return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
-  }
+  }*/
 });
 
 

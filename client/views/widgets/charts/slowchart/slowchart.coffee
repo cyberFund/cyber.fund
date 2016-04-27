@@ -266,7 +266,7 @@ Template['slowchart'].helpers
   'chartdata': _chartdata
   __ready: ->
     # do not draw anything before data is loaded
-    return Template.instance()._ready_ or CF._sub_ and CF._sub_.ready()
+    return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
 
 grab =
   t: (fruit) -> fruit and fruit.timestamp
@@ -298,7 +298,7 @@ Template['slowchart'].onRendered ->
         onresize = onResize(system)
         $(window).on 'resize', onresize
   ###i.autorun (c) ->
-    if CF._sub_ and CF._sub_.ready()
+    if CF.subs.systemData and CF.subs.systemData.ready()
       if _chartdata(i.data.system).count()
         i._ready_ = true
     if !i._ready_
