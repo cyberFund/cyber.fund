@@ -77,7 +77,7 @@ Template['assetsManager'].helpers({
   },
   showAccountsAdvertise: function() {
     var instance = Template.instance();
-    if (CF.subscriptionAssets.ready()) {
+    if (CF.subs.Assets.ready()) {
       if (CF.Profile.currentUsername.get() == CF.User.username()) {
         var user = Meteor.users.findOne({
           _id: CF.Profile.currentUid()
@@ -100,7 +100,7 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  CF.subscriptionAssets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
+  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
   Tracker.autorun(function() {
     var user = Meteor.user()
     if (user && (user.username == FlowRouter.getParam('username'))) {

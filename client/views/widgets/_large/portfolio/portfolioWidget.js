@@ -237,7 +237,7 @@ Template['portfolioWidgetTable'].helpers({
 });
 
 Template['portfolioWidget'].helpers({
-  subReady: function(){ return CF.subscriptionAssets && CF.subscriptionAssets.ready() }
+  subReady: function(){ return CF.subs.Assets && CF.subs.Assets.ready() }
 })
 
 Template['portfolioWidgetView'].helpers({

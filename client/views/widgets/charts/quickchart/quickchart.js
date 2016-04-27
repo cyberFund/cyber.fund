@@ -19,7 +19,7 @@ _timestampino = function(timestamp) {
 Template['quickchart'].helpers({
   'chartdata': _chartdata,
   __ready: function() {
-    return Template.instance()._ready_ || CF.CurrentData._sub_.ready();
+    return Template.instance._ready || CF.subs.MarketData.ready();
   }
 });
 
@@ -60,7 +60,7 @@ Template['quickchart'].onRendered(function() {
 
   i.autorun(function(c) {
     var system = _system();
-    if (CF.CurrentData._sub_.ready()) {
+    if (CF.subs.MarketData.ready()) {
       if (_chartdata(system).count() ) {
         i._ready_ = true;
       }

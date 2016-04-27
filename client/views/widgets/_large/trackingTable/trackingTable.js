@@ -3,12 +3,17 @@ var initialLimit = CF.Rating.limit0;
 Template['trackingWidget'].onCreated(function () {
   var instance = this;
   instance.subscribe("maxLove");
+  instance.ready = new ReactiveVar();
   instance.autorun(function () {
-    instance.subscribe("currentDataRP", {
-      limit: 150,//Session.get('ratingPageLimit'),
-      sort: _Session.get('coinSorter'),
-      selector: {'flags.rating_do_not_display': {$ne: true}}
+    var selector = {'flags.rating_do_not_display': {$ne: true}};
+    if (_.keys(_Session.get('coinSorter')).length )
+      selector[ _.keys(_Session.get('coinSorter'))[0] ] = {$exists: true}
+    var handle = CF.SubsMan.subscribe("currentDataRP", {
+      /*limit: 150,//Session.get('ratingPageLimit'),
+      sort: _Session.get('coinSorter'),*/
+      selector: selector
     });
+    instance.ready.set(instance.ready.get() || handle.ready());
   });
 
 });
@@ -114,10 +119,13 @@ Template['trackingWidget'].helpers({
     var ret = parseFloat(cap);
     if (isNaN(ret)) return "";
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
-  },
+  }/*,
   hasMore: function () {
     return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
-  }
+  }*/,
+  subReady: function(){
+     return Template.instance().ready.get();
+  },
 });
 
 Template['trackingWidget'].events({

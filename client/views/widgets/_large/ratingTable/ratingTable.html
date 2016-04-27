@@ -22,6 +22,7 @@
   <b>{{readableN metrics.capChange.day.btc 2}}</b>Ƀ</div></template>
 
 <template name="ratingTable">
+  {{#if subReady}}
   <div class="card" style="padding:10px">
     <table class="hoverable-my" align="center" id="rating-table">
 
@@ -38,13 +39,14 @@
       </tbody>
     </table>
   </div>
-  {{#if hasMore}}
+  {{! #if hasMore}}
   <div class="center">
     <br>
     <a class="waves-effect waves-light btn show-more deep-orange" href="tracking">
       View all opportunities
     </a>
   </div>
+  {{! /if}}
   {{/if}}
   <div style="padding-bottom: 40px"></div>
 </template>

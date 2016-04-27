@@ -11,6 +11,8 @@ Tracker.autorun(function () {
 
 FlowRouter.wait();
 Meteor.startup(function () {
+  CF.SubsMan = new SubsManager();
+  CF.subs = {}
   Meteor.subscribe('userDetails', {
     onReady: function(){
       FlowRouter.initialize();
