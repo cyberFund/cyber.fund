@@ -14,17 +14,27 @@
     {{#if cgIsActiveCrowdsale}}
 
     <div class="row">
-    <div class="col offset-s2 s8 center">
-      <div class="card light-green lighten-4" >
-        <div class="card-content">
-          <h6> This project is currently in crowdsale phase</h6>
-          <a href="{{crowdsales.funding_tems}}"
-             target="_blank" style="margin: 0 4em;"> Funding terms </a>
-          <a href="{{crowdsales.funding_url}}"
-             target="_blank" style="margin: 0 4em;"> Invest </a>
+      <div class="col offset-s2 s8 center">
+        <div class="card light-green lighten-4" >
+          <div class="card-content">
+            <h5> This project is currently in crowdsale phase</h5>
+            <a href="{{crowdsales.funding_tems}}"
+               target="_blank" style="margin: 0 4em;"> Funding terms </a>
+            <a href="{{crowdsales.funding_url}}"
+               target="_blank" style="margin: 0 4em;"> Invest </a>
+          </div>
+          {{#if metrics.currently_raised_full}}
+          <div class="card-content light-green lighten-5">
+            <h6>Currently raised: </h6>
+              <sub><i>last updated at: {{dateFormat metrics.currently_raised_updatedAt "llll"}}</i></sub>
+              {{#each keyValue metrics.currently_raised_full}}
+              <p>{{key}}: {{value}}</p>
+              {{/each}}
+            <h6>Crowdsale ends at: {{dateFormat crowdsales.end_date "llll"}}</h6>
+          </div>
+          {{/if}}
         </div>
       </div>
-    </div>
     </div>
     {{/if}}
 
