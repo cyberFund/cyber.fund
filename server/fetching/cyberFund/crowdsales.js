@@ -43,6 +43,7 @@ function updateCrowdsales() {
                 })
               });
               var sum = 0;
+              var date = new Date();
               _.each(raised, function(v, k){
                 var sys = CurrentData.findOne({_id: k});
                 if (sys && sys.metrics && sys.metrics.price && sys.metrics.price.btc) {
@@ -59,7 +60,8 @@ function updateCrowdsales() {
                 }, {
                   $set: {
                     'metrics.currently_raised': sum,
-                    'metrics.currently_raised_full': raised
+                    'metrics.currently_raised_full': raised,
+                    'metrics.currently_raised_updatedAt': date
                   }
                 })
               }
