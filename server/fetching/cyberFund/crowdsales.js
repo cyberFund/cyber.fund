@@ -1,4 +1,5 @@
 // recalculate raised amount crutch
+var print = false ? CF.Utils.logger.print : function(){}
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
       $and: [CF.CurrentData.selectors.crowdsales(), {
@@ -26,51 +27,41 @@ function updateCrowdsales() {
 
           if (addr) {
             if (_.isString(addr)) {
-              Meteor.call('cfCheckBalance', addr,
-                function(err, ret) {
-                  if (!err && ret && ret.length) {
-                    var btc = _.find(ret, function(item) {
-                      return (item.asset == 'BTC');
-                    });
-                    var q = btc.quantity;
-                    if (!q) return;
-                    if (_.isString(q)) {
-                      q = parseFloat(q)
-                    }
-                    console.log('updating raised amount for ' + crowdsale.system);
-                    CurrentData.update({
-                      _id: crowdsale._id
-                    }, {
-                      $set: {
-                        'metrics.currently_raised': q
-                      }
-                    })
+              addr = [addr];
+            }
+            if (_.isArray(addr)){
+              var raised = {};
+              _.each (addr, function(address){
+                var balances = CF.UserAssets.quantumCheck(address);
+                if (!balances || balances[0] == 'error') return;
+                _.each(balances, function(b){
+                  if (b.quantity && b.asset) {
+                    var val = typeof b.quantity == 'number' ? b.quantity : parseFloat(b.quantity);
+                    if (_.has(raised, b.asset)) raised[b.asset] += val;
+                    else raised[b.asset] = val;
                   }
-                });
-            } else {
-              if (_.isArray(addr)){
-                var sum = {};
-                _.each (addr, function(address){
-                  var balances = CF.UserAssets.quantumCheck(address);
-                  if (!balances || balances[0] == 'error') return;
-                  _.each(balances, function(b){
-                    if (b.quantity && b.asset) {
-                      var val = typeof b.quantity == 'number' ? b.quantity : parseFloat(b.quantity);
-                      if (_.has(sum, b.asset)) sum[b.asset] += val;
-                      else sum[b.asset] = val;
-                    }
-                  })
-                });
-                //currently only btcs
-                if (sum['Bitcoin']) // todo: support for more
-                  CurrentData.update({
-                    _id: crowdsale._id
-                  }, {
-                    $set: {
-                      'metrics.currently_raised': sum['Bitcoin'],
-                      'metrics.currently_raised_2': sum
-                    }
-                  })
+                })
+              });
+              var sum = 0;
+              _.each(raised, function(v, k){
+                var sys = CurrentData.findOne({_id: k});
+                if (sys && sys.metrics && sys.metrics.price && sys.metrics.price.btc) {
+                  sum += sys.metrics.price.btc * v;
+                }
+                else console.log ("could not calculate crowdsale correctly, coin ", k, " has no btc price.");
+              })
+              if (sum) {
+                print ("crowdsale", crowdsale._id, true);
+                print ("raised", raised, true);
+                print ("sum", sum);
+                CurrentData.update({
+                  _id: crowdsale._id
+                }, {
+                  $set: {
+                    'metrics.currently_raised': sum,
+                    'metrics.currently_raised_full': raised
+                  }
+                })
               }
             }
           }
