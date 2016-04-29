@@ -3,14 +3,27 @@
         <div class="card project card">
             <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
                 <div class="center-align"
-                     style="width:150px; height: 150px; margin:24px auto">
-                    {{> cgSystemLogo data=this style="width:100%; height: 100%;  "}}
+                     style="height: 150px; margin:24px auto">
+                     {{#if and _usersStarred.length}}
+                       <div class='right-align black-text' style='float: right; margin: 0 12px' >
+
+                          <span >
+                            <i class="material-icons yellow-text"
+                              style="font-size: 1.8rem; vertical-align: text-bottom">stars</i>
+                            <span style="font-size: 1.7rem; margin: auto">{{_usersStarred.length}}</span></span>
+                         </div>
+                     {{/if}}
+                     <div class="center-align" style="width: 150px; margin: 0 auto">
+                     {{> cgSystemLogo data=this style="width:100%; height: 100%;  "}}
+                     </div>
+
                 </div>
                 <div class="card-title black-text center-align"
                      style="font-weight: 700">{{displaySystemName this}}</div>
             </a>
 
             <div class="card-content">
+
                 <div style="text-align: center; min-height: 3em;">
                     {{descriptions.headline}}
                 </div>

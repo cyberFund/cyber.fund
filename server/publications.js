@@ -85,7 +85,8 @@ Meteor.publish('systemData', function(options) {
        _id: 1,
        aliases: 1,
        icon: 1,
-       metrics: 1
+       metrics: 1,
+       _usersStarred: 1
      }
    });
  })
