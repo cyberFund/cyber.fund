@@ -10,7 +10,23 @@ function _crowdsale() {
 }
 
 function _project() {
-  return CurrentData.find(CF.CurrentData.selectors.projects(), {sort: {"calculatable.RATING.vector.LV.sum": -1}});
+  return CurrentData.find({
+    $or: [{
+      'crowdsales.start_date': {
+        $gt: new Date()
+      }
+    }, {
+      'crowdsales.start_date': {
+        $exists: false
+      }
+    }],
+    $and: [
+    CF.CurrentData.selectors.projects()]
+  }, {
+    sort: {
+      "calculatable.RATING.vector.LV.sum": -1
+    }
+  });
 }
 
 function _crowdsalePast() {
@@ -34,9 +50,11 @@ function _crowdsaleUpcoming() {
         $gt: new Date()
       }
     }]
-  }, {sort: {
-    'crowdsales.start_date': 1
-  }})
+  }, {
+    sort: {
+      'crowdsales.start_date': 1
+    }
+  })
 }
 
 function _crowdsaleActive() {
@@ -54,11 +72,23 @@ function _crowdsaleActive() {
 }
 
 Template['radarPage'].helpers({
-  crowdsale: function() { return _crowdsale() },
-  crowdsalePast: function() { return _crowdsalePast() },
-  crowdsaleUpcoming: function() { return _crowdsaleUpcoming() },
-  crowdsaleActive: function() { return _crowdsaleActive() },
-  project: function() { return _project() },
-  nothing: function() { return !( _project().count() + _crowdsale().count() ) },
+  crowdsale: function() {
+    return _crowdsale()
+  },
+  crowdsalePast: function() {
+    return _crowdsalePast()
+  },
+  crowdsaleUpcoming: function() {
+    return _crowdsaleUpcoming()
+  },
+  crowdsaleActive: function() {
+    return _crowdsaleActive()
+  },
+  project: function() {
+    return _project()
+  },
+  nothing: function() {
+    return !(_project().count() + _crowdsale().count())
+  },
 });
 Template['radarPage'].events({});
