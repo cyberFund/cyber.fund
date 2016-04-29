@@ -78,11 +78,9 @@ function getSorterByKey(key){
 }
 
 Template['ratingTable'].onCreated(function() {
-  var sorter = FlowRouter.getQueryParam('sort');
+  var sorter = FlowRouter.getParam('sort');
   if (sorter && getSorterByKey(sorter) && _.keys(getSorterByKey(sorter)).length ) {
     _Session.set('coinSorter', getSorterByKey(sorter));
-  } else {
-
   }
 
   Session.set('ratingPageLimit', initialLimit);
@@ -94,7 +92,6 @@ Template['ratingTable'].onCreated(function() {
       $exists: true
     }
   instance.autorun(function() {
-    console.log(FlowRouter.getQueryParam('sort'));
     CF.subs.MarketData = instance.subscribe("marketDataRP", {
       selector: selector
     });
@@ -102,7 +99,7 @@ Template['ratingTable'].onCreated(function() {
 
   instance.autorun(function() {
     var key = getKeyBySorter(_Session.get('coinSorter'));
-    FlowRouter.setQueryParams({sort: key})
+    FlowRouter.setParams({sort: key})
 
     var handle = CF.SubsMan.subscribe("currentDataRP", {
       /*limit: Session.get('ratingPageLimit'),
