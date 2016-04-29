@@ -68,7 +68,7 @@ function _crowdsaleActive() {
         $lt: new Date()
       }
     }]
-  }, {sort: {"metrics.currently_raised": 1}})
+  }, {sort: {"metrics.currently_raised": -1}})
 }
 
 Template['radarPage'].helpers({
