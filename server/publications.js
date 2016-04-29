@@ -86,7 +86,8 @@ Meteor.publish('systemData', function(options) {
        aliases: 1,
        icon: 1,
        metrics: 1,
-       _usersStarred: 1
+       _usersStarred: 1,
+       "calculatable.RATING.vector.LV.sum": 1
      }
    });
  })

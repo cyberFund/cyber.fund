@@ -10,7 +10,7 @@ function _crowdsale() {
 }
 
 function _project() {
-  return CurrentData.find(CF.CurrentData.selectors.projects(), {sort: {"_usersStarred.length": -1}});
+  return CurrentData.find(CF.CurrentData.selectors.projects(), {sort: {"calculatable.RATING.vector.LV.sum": -1}});
 }
 
 function _crowdsalePast() {
