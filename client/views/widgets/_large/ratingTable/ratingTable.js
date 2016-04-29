@@ -14,7 +14,77 @@ function tableSelector() {
   }
 }
 
+// todo move to triggers
+var sorters = {
+  "metrics.supplyChangePercents.day": {
+    "inflation": -1,
+    "deflation": 1
+  },
+  "metrics.turnover": {
+    "active": -1,
+    "passive": 1
+  },
+  "calculatable.RATING.vector.GR.monthlyGrowthD": {
+    "profit": -1,
+    "loss": 1
+  },
+  "calculatable.RATING.vector.GR.months": {
+    "mature": -1,
+    "young": 1
+  },
+  "metrics.cap.btc": {
+    "whales": -1,
+    "dolphins": 1
+  },
+  "metrics.cap.usd": {
+    "whales": -1,
+    "dolphins": 1
+  },
+  "metrics.capChangePercents.day.usd": {
+    "bulls": -1,
+    "bears": 1
+  },
+  "calculatable.RATING.vector.LV.num": {
+    "love": -1,
+    "hate": 1
+  },
+  "calculatable.RATING.sum": {
+    "leaders": -1,
+    "suckers": 1
+  }
+}
+
+function getKeyBySorter(sorterobj){
+  var ret = null
+  var key = _.keys(sorterobj).length && _.keys(sorterobj)[0];
+  if (!key) return ret;
+  var value = sorterobj[key];
+  var obj = sorters[key];
+  if (!obj) return ret;
+  _.each(obj, function(v, k){
+    if (v == value) ret = k;
+  });
+  return ret;
+}
+
+function getSorterByKey(key){
+  var ret = {}
+  _.each(sorters, function(sorter, sorterKey){
+    _.each(sorter, function(v, k){
+      if (k == key) ret[sorterKey] = v;
+    })
+  })
+  return ret
+}
+
 Template['ratingTable'].onCreated(function() {
+  var sorter = FlowRouter.getQueryParam('sort');
+  if (sorter && getSorterByKey(sorter) && _.keys(getSorterByKey(sorter)).length ) {
+    _Session.set('coinSorter', getSorterByKey(sorter));
+  } else {
+
+  }
+
   Session.set('ratingPageLimit', initialLimit);
   var instance = this;
   instance.ready = new ReactiveVar();
@@ -24,26 +94,20 @@ Template['ratingTable'].onCreated(function() {
       $exists: true
     }
   instance.autorun(function() {
+    console.log(FlowRouter.getQueryParam('sort'));
     CF.subs.MarketData = instance.subscribe("marketDataRP", {
       selector: selector
     });
   })
 
   instance.autorun(function() {
+    var key = getKeyBySorter(_Session.get('coinSorter'));
+    FlowRouter.setQueryParams({sort: key})
+
     var handle = CF.SubsMan.subscribe("currentDataRP", {
       /*limit: Session.get('ratingPageLimit'),
       sort: _Session.get('coinSorter'),*/
-      selector: {
-        "flags.rating_do_not_display": {
-          $ne: true
-        },
-        "calculatable.RATING.sum": {
-          $gte: 1
-        },
-        "metrics.tradeVolume": {
-          $gte: 0.2
-        }
-      }
+      selector: tableSelector()
     });
     instance.ready.set(instance.ready.get() || handle.ready());
   });
