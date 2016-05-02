@@ -33,8 +33,8 @@
         {{> ratingTableHead}}
       </thead>
       <tbody>
-        {{#each rows}}
-        {{> ratingTableRow this }}
+        {{#each keyValue rows}}
+        {{> ratingTableRow this}}
         {{/each}}
       </tbody>
     </table>
@@ -42,7 +42,7 @@
   {{! #if hasMore}}
   <div class="center">
     <br>
-    <a class="waves-effect waves-light btn show-more deep-orange" href="tracking">
+    <a class="waves-effect waves-light btn show-more deep-orange" href="/tracking">
       View all opportunities
     </a>
   </div>

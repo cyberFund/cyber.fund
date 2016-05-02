@@ -1,12 +1,4 @@
-<template name="main">
-  <div class="row center-align">
-    <div class="col l12">
-      <br>
-      <h2>Where Blockchains Grow</h2>
-      <br>
-      <h5>150 people are open to invest in 130 groundbreaking systems</h5>
-    </div>
-  </div>
+<template name="mainPageSystemsWidget">
   <div class="row center-align">
     <div class="col offset-l3 l2">
       System
@@ -17,17 +9,32 @@
     <div class="col l2">
       cyber•Rating
     </div>
+
     <!-- 5 top rated systems-->
+    {{#each systems}}
     <div class="col offset-l3 l2">
-      Ethereum
+      {{_id}}
     </div>
     <div class="col l2">
-      22.5 % during 18 months
+      {{calculatable.GR.monthlyGrowthD}}% during {{calculatable.RATING.GR.months}} months
     </div>
     <div class="col l2">
-      3.8
+      {{calculatable.RATING.sum}}
+    </div>
+    {{/each}}
+  </div>
+</template>
+
+<template name="main">
+  <div class="row center-align">
+    <div class="col l12">
+      <br>
+      <h2>Where Blockchains Grow</h2>
+      <br>
+      <h5>{{usersCount}} people are open to invest in {{coinsCount}} groundbreaking systems</h5>
     </div>
   </div>
+  {{> mainPageSystemsWidget}}
   <br>
   <br>
   <div class="row center-align">
@@ -46,7 +53,11 @@
     </div>
     <div class="col l4">
       <p>Active Crowdsales</p>
-      <p>Lisk ...</p>
+      {{#each activeCrowdsales}}
+      <a href={{pathFor  '/system/:name_' name_=(_toUnderscores _id)}} >
+        {{> cgSystemLogo data=this style="width:20px; height: 20px;" }}{{_id}}
+      </a>
+      {{/each}}
     </div>
     <div class="col l4">
       <p>Funds</p>

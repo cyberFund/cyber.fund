@@ -92,13 +92,19 @@ Meteor.publish('systemData', function(options) {
    });
  })
 
-
- //obsoleters
-/*
-Meteor.publish('crowdsalesList', function() {
-
-  var sel = CF.CurrentData.selectors.crowdsales();
-  return CurrentData.find(sel, {
+Meteor.publish('crowdsalesActive', function() {
+  var doc = Extras.findOne({_id: 'radarList'})
+  if (!doc) return this.ready()
+  var ids = _.union(doc.crowdsales || [], doc.projects || []);
+  return CurrentData.find({
+    _id: {$in: ids},
+    'crowdsales.end_date': {
+      $gt: new Date()
+    },
+    'crowdsales.start_date': {
+      $lt: new Date()
+    }},
+      {
     fields: {
       dailyData: 0,
       hourlyData: 0
@@ -106,6 +112,7 @@ Meteor.publish('crowdsalesList', function() {
   });
 });
 
+/* obsolete
 Meteor.publish('projectsList', function() {
   var sel = CF.CurrentData.selectors.projects();
   return CurrentData.find(sel, {
@@ -129,10 +136,12 @@ Meteor.publish("usersCount", function() {
   number of coins. i.e. allows to hide button "show more systems" when there s nothing left
  */
 Meteor.publish('coinsCount', function() {
-  Counts.publish(this, 'coinsCounter', CurrentData.find({
+  Counts.publish(this, 'coinsCount', CurrentData.find({
     "metrics.cap.btc": {
       $gt: 0
     }
+  }));
+  Counts.publish(this, 'coinsCount2', CurrentData.find({
   }));
 });
 

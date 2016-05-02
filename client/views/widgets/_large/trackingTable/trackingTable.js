@@ -88,14 +88,14 @@ Template['trackingWidget'].helpers({
     this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd
     || 0
   },
-  'rows': function () {
+  rows: function () {
     var sort = _Session.get("coinSorter");
       if (sort["ratings.rating_cyber"]) {
           sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
       }
-    return CurrentData.find({}, {sort: sort});
+    return CurrentData.find({}, {sort: sort}).fetch;
   },
-  'img_url': function () {
+  img_url: function () {
     return CF.Chaingear.helpers.cgSystemLogo(this);
   },
   symbol: function () {
@@ -121,7 +121,7 @@ Template['trackingWidget'].helpers({
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   }/*,
   hasMore: function () {
-    return Counts.get("coinsCounter") > Session.get('ratingPageLimit');
+    return Counts.get("coinsCount") > Session.get('ratingPageLimit');
   }*/,
   subReady: function(){
      return Template.instance().ready.get();
@@ -137,7 +137,7 @@ Template['trackingWidget'].events({
       {
         counter: (limit - initialLimit) / step
       });
-    limit = Math.min(limit, Counts.get("coinsCounter"))
+    limit = Math.min(limit, Counts.get("coinsCount"))
     Session.set("ratingPageLimit", limit);
   },
   'click .no-click a': function () {
