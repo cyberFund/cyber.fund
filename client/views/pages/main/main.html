@@ -12,17 +12,32 @@
 
     <!-- 5 top rated systems-->
     {{#each systems}}
-    <div class="col offset-l3 l2">
-      {{_id}}
-    </div>
-    <div class="col l2">
-      {{calculatable.GR.monthlyGrowthD}}% during {{calculatable.RATING.GR.months}} months
-    </div>
-    <div class="col l2">
-      {{calculatable.RATING.sum}}
+    <div class="row no-bottom-margin">
+      <div class="col offset-l3 l2">
+        {{_id}}
+      </div>
+      <div class="col l2">
+        {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
+        {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}% during {{readableN calculatable.RATING.vector.GR.months 0}} months
+        {{else}}&nbsp;
+        {{/if}}
+      </div>
+      <div class="col l2">
+
+        {{readableN calculatable.RATING.sum 1}}
+      </div>
     </div>
     {{/each}}
   </div>
+</template>
+
+<template name="mainPageCrowdasalesWidget">
+  <p>Active Crowdsales</p>
+  {{#each activeCrowdsales}}
+  <a class="no-wrap" href={{pathFor  '/system/:name_' name_=(_toUnderscores _id)}} style='margin-right: 12px' >
+    {{> cgSystemLogo data=this style="width:20px; height: 20px;" }}{{_id}}
+  </a>
+  {{/each}}
 </template>
 
 <template name="main">
@@ -52,12 +67,7 @@
       <p>$ 6 567 767 +7%</p>
     </div>
     <div class="col l4">
-      <p>Active Crowdsales</p>
-      {{#each activeCrowdsales}}
-      <a href={{pathFor  '/system/:name_' name_=(_toUnderscores _id)}} >
-        {{> cgSystemLogo data=this style="width:20px; height: 20px;" }}{{_id}}
-      </a>
-      {{/each}}
+      {{> mainPageCrowdasalesWidget}}
     </div>
     <div class="col l4">
       <p>Funds</p>
