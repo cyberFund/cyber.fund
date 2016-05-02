@@ -43,7 +43,7 @@ Meteor.publish('marketDataRP', function(options) {
 
 /* own user details */
 Meteor.publish('userDetails', function() {
-  return Meteor.users.find({
+  return [Meteor.users.find({
     _id: this.userId
   }, {
     fields: {
@@ -54,7 +54,7 @@ Meteor.publish('userDetails', function() {
       "firstLogin": 1,
       "profile": 1
     }
-  });
+  }), CF.Accounts._findByUserId(this.userId, {private: true}) ];
 });
 
 /**

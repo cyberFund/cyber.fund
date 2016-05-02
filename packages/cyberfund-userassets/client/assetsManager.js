@@ -3,12 +3,12 @@ var isOwnAssets = function() {
   return CF.Profile.currentUid() == Meteor.userId();
 };
 
-Template['assetsManager'].rendered = function() {
+Template['assetsManager'].onRendered (function() {
   this.$renameAccountInput = this.$("#rename-account-in");
   this.$renameAccountErrorLabel = this.$("#account-rename-exists");
   this.$addAssetInput = this.$("#add-address-input");
   this.$addAssetErrorLabel = this.$("#add-address-error");
-};
+});
 
 Template['assetsManager'].helpers({
   isOwnAssets: function() {
@@ -82,7 +82,7 @@ Template['assetsManager'].helpers({
         var user = Meteor.users.findOne({
           _id: CF.Profile.currentUid()
         });
-        return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
+        return !(CF.Accounts._findByUserId(user._id).count())
       }
       return false;
     } else return false
