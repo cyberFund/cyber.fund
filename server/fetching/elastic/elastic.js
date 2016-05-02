@@ -332,7 +332,7 @@ var esParsers = {
 
     }
 
-    handleArrayWithInterval(todayBuckets, process.env.TEST_DELAY || 1800, handleBucket, function(items){
+    handleArrayWithInterval(todayBuckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){
       if (notFounds.length) {
         logger.warn("not found any currentData for ");
         logger.warn(notFounds);
@@ -367,7 +367,7 @@ var esParsers = {
         // logger.info("no averages for " + bucket.key);
       }
     }
-    handleArrayWithInterval(buckets, process.env.TEST_DELAY || 1800, handleBucket, function(items){});
+    handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
   },
 
   averages_date_hist: function(result, params) {
@@ -446,7 +446,7 @@ var esParsers = {
         }
       });
     };
-    handleArrayWithInterval(buckets, process.env.TEST_DELAY || 1800, handleBucket, function(items){});
+    handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
   }
 };
 
