@@ -8,8 +8,8 @@ Template['radarCard'].helpers({
     return Blaze._globalHelpers._toUnderscores(this._id);
   },
   raised: function() {
-    if (this.crowdsales && this.crowdsales.btc_raised) return this.crowdsales.btc_raised;
     if (this.metrics && this.metrics.currently_raised) return this.metrics.currently_raised;
+    if (this.crowdsales && this.crowdsales.btc_raised) return this.crowdsales.btc_raised;
     return 0
   }
 });
