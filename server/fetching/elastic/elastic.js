@@ -645,6 +645,7 @@ var saveTotalCap = function() {
     }
   };
   var cap = calcTotalCap();
+
   var btcPrice = CurrentData.findOne({
     _id: "Bitcoin"
   }, {
@@ -652,7 +653,9 @@ var saveTotalCap = function() {
       "metrics": 1
     }
   });
+
   if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
+
   if (cap) {
     Extras.upsert({
       _id: 'total_cap'

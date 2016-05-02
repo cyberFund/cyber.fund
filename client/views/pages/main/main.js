@@ -1,5 +1,20 @@
+function _cap() {
+  return Extras.findOne({
+    _id: "total_cap"
+  })
+}
+
+Template['main'].helpers({
+  cap: function(){ return _cap()},
+  cap_usd: function() {
+    var cap = _cap();
+    return cap ? cap.usd : NaN
+  },
+})
+
 Template['main'].onCreated(function(){
   i = this;
+  i.subscribe('investData');
   i.subscribe('currentDataRP', {selector: {
   }, sort:{'calculatable.RATING.sum': -1}, limit: 5} );
 
@@ -11,6 +26,7 @@ Template['mainPageSystemsWidget'].helpers({
     return CurrentData.find({}, {sort:{'calculatable.RATING.sum': -1}, limit: 5})
   }
 });
+
 Template['mainPageCrowdasalesWidget'].helpers({
   activeCrowdsales: function(){
     console.log(1);
