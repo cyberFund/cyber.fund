@@ -106,7 +106,7 @@ Meteor.publish('crowdsalesActive', function() {
     }},
       {
     fields: {
-      dailyData: 0,
+      dailyData: 0, //obsolete
       hourlyData: 0
     }
   });

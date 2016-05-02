@@ -7,7 +7,7 @@ var print = logger.print/*function(really) {
 }(true)*/
 
 //
-ns.quantumCheck = function(address) {
+ns.quantumCheck = function(address) { // moving to CF.Accounts
   try {
     print("checking address", address, true)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
