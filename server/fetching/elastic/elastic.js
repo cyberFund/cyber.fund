@@ -3,11 +3,9 @@
 
 //var currentData = {meta: {}};
 var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000
-
 var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
-
   // sym_sys is alike 'SYMBL|System'
   bucketKey = bucketKey.split("|");
   var selector = {};
@@ -33,6 +31,25 @@ function _searchSelector(bucketKey) {
 
   selector["token.token_symbol"] = symbol;
   return selector;
+}
+
+// data array; function to handle single item; delay in ms.
+// suitable for small arrays, and when we re sure calls won't interfere one another
+// (i.e. call period > delay*array.length)
+function handleArrayWithInterval(array, delay, handler, handlerAfter){
+  var current = 0;
+  var length = array.length;
+
+  var interval = Meteor.setInterval(function(){
+    if (current < length) {
+      var item = array[current];
+      handler(item);
+      ++current;
+    } else {
+      Meteor.clearInterval(interval);
+      handlerAfter(array);
+    }
+  }, delay);
 }
 
 JSON.unflatten = function(data) {
@@ -87,7 +104,7 @@ var esParsers = {
     console.log ("total of " + todayBuckets.length + " buckets")
     var notFounds = [];
 
-    _.each(todayBuckets, function(bucket) {
+    handleBucket = function handleBucket(bucket) {
       var sNow = getHit(bucket);
       if (_.isEmpty(sNow)) return; // no need to update if no new data
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
@@ -305,11 +322,14 @@ var esParsers = {
 
       }
 
-    });
-    if (notFounds.length) {
-      logger.warn("not found any currentData for ");
-      logger.warn(notFounds);
     }
+
+    handleArrayWithInterval(todayBuckets, 1200, handleBucket, function(items){
+      if (notFounds.length) {
+        logger.warn("not found any currentData for ");
+        logger.warn(notFounds);
+      }
+    });
   },
 
   averages_l15: function(result) {
@@ -318,7 +338,7 @@ var esParsers = {
     }
     var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
 
-    _.each(buckets, function(bucket) {
+    handleBucket = function handleBucket(bucket) {
       var findSel = _searchSelector(bucket.key),
         set = {};
 
@@ -338,10 +358,10 @@ var esParsers = {
       } else {
         // logger.info("no averages for " + bucket.key);
       }
-    });
-  }
+    }
+    handleArrayWithInterval(buckets, 1200, handleBucket, function(items){});
+  },
 
-  ,
   averages_date_hist: function(result, params) {
     var daily = params.interval == "day";
     var hourly = params.interval == "hour";
@@ -362,8 +382,8 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
-    console.log(buckets.length+ " :len of buckets.")
-    _.each(buckets, function(sysBucket) {
+    console.log("length of buckets (averages_date_hist): ", buckets.length)
+    handleBucket = function handleBucket(sysBucket) {
       var systemKey = sysBucket.key;
       var id = CurrentData.findOne(_searchSelector(systemKey));
       if (!id) {
@@ -417,8 +437,8 @@ var esParsers = {
           }
         }
       });
-
-    });
+    };
+    handleArrayWithInterval(buckets, 1200, handleBucket, function(items){});
   }
 };
 
