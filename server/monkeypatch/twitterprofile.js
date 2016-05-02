@@ -43,6 +43,7 @@ CF.Profile.patch = function(user){
     Meteor.users.update({_id: user._id}, {$set: set})
 };
 
+
 SyncedCron.add({
   name: 'update profiles',
   schedule: function (parser) {
@@ -50,6 +51,8 @@ SyncedCron.add({
   },
   job: function () {
     console.log("patching profiles started....")
+
+
     Meteor.users.find({}).forEach(function(user){
       CF.Profile.patch(user)
     });
