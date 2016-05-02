@@ -83,7 +83,7 @@ SyncedCron.add({
   name: 'update active crowdsales',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 40 minutes');
+    return parser.text('every 3 minutes');
   },
   job: function() {
     updateCrowdsales()
