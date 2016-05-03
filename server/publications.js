@@ -48,6 +48,7 @@ Meteor.publish('userDetails', function() {
   }, {
     fields: {
       "services.privateAccountsEnabled": 1,
+      "services.twitter": 1, //userHasPublicAccess needs it...
       "username": 1,
       "avatar": 1,
       "largeAvatar": 1,

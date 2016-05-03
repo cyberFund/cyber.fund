@@ -19,23 +19,23 @@ Template['displayAccount'].rendered = function () {
 };
 
 function isPublicAccount(account){
-  var user = Meteor.user();
-  if (!account || !account.key || !user) return true;
-  return (_.keys(user.accounts || {}).indexOf(account.key) == -1)
-    && !!user.accountsPrivate &&
-    (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
+  return account.isPrivate
+  //if (!account || !account.key || !user) return true;
+  //return (_.keys(user.accounts || {}).indexOf(account.key) == -1)
+  //  && !!user.accountsPrivate &&
+  //  (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
 }
 
 Template['displayAccount'].helpers({
-  'disabledTogglePrivate': function () {
+  disabledTogglePrivate: function () {
     return 'disabled';
   },
-  'publicity': function (account) {
+  publicity: function (account) {
     var pub = 'Public Account';
     var pri = 'Private Account';
     return isPublicAccount(account) ? pri : pub;
   },
-  'isPublic': function (account) {
+  isPublic: function (account) {
     return isPublicAccount(account);
   },
   autoUpdateAvailable: function(address){
@@ -75,7 +75,8 @@ Template['displayAccount'].events({
     $("button[type=submit]", "#delete-address-form").focus();
   },
   'click .submit-remove-address': function (e, t) {
-    Meteor.call("cfAssetsRemoveAddress", CF.Accounts.currentAddress.get(), function (err, ret) {
+    Meteor.call("cfAssetsRemoveAddress", CF.Accounts.currentId.get(),
+    CF.Accounts.currentAddress.get(), function (err, ret) {
       if (!err) {
         CF.Accounts.currentAddress.set(null);
         t.$("#modal-delete-address").closeModal()

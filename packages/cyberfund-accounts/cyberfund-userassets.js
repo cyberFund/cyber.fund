@@ -1,7 +1,6 @@
 CF.UserAssets = {};
 
-
-CF.UserAssets.accountNameIsValid = function (name, refId, oldName) {
+CF.Accounts.accountNameIsValid = function (name, refId, oldName) {
   if (!name || !_.isString(name)) return false;
   if (oldName && name == oldName) return true;
   var ret = true;
@@ -127,38 +126,7 @@ CF.UserAssets.accountsFields = function(isOwn){
  * @returns {String} that indicates account type (public or private)
  */
 
-CF.UserAssets .getAccountPrivacyType = function (userId, accountKey) {
-  if (Meteor.isClient) {
-    if (userId != Meteor.userId()) {
-      return ''
-    }
-  }
-
-  if (!userId || !accountKey) return '';
-
-  if (!userId == Meteor.userId()) {
-    console.log ("CF.UserAssets.getAccountPrivacyType - called for non-own.")
-  }
-
-  var user = Meteor.users.findOne({_id: userId},
-      {fields: CF.UserAssets.accountsFields(true)});
-  var key = accountKey.toString();
-  var pri = user.accountsPrivate || {};
-  var pub = user.accounts || {};
-  var isPublic = _.keys(pub).indexOf(key) > -1;
-  var isPrivate = _.keys(pri).indexOf(key) > -1;
-
-  if ((isPublic && isPrivate) || (!isPrivate && !isPublic)) { // both cannot happen
-    if (Meteor.isServer) {
-      var err = "Error with user accounts, userId: " + userId + ' \n';
-      if (!isPublic) {
-        err += 'no account with key ' + key + ' found.'
-      } else {
-        err += 'duplicate accounts with key ' + key + ' found.'
-      }
-      console.warn(err);
-    }
-    return ''
-  }
-  return isPublic ? 'accounts' : 'accountsPrivate'
+CF.UserAssets.getAccountPrivacyType = function (accountKey) {
+  var ret = CF.Accounts.findById(accountKey);
+  return ret ? ( ret.isPrivate ? 'accountsPrivate' : 'accounts' ) : 'undefined'
 };

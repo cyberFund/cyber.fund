@@ -10,8 +10,7 @@
 CF.UserAssets.accNameIsValid = function (newName, oldName) {
   var user = Meteor.user();
   if (!user) return true;
-  var accounts = user.accounts || {};
-  return CF.UserAssets.accountNameIsValid(newName, accounts, oldName);
+  return CF.Accounts.accountNameIsValid(newName, Meteor.userId(), oldName);
 };
 
 CF.UserAssets.uiAddressExists = function (address) {
@@ -87,7 +86,7 @@ Template['addAccount'].onRendered( function () {
 });
 
 Template['addAccount'].helpers({
-  'disabledTogglePrivacy': function () {
+  disabledTogglePrivacy: function () {
 // todo: check user has required thing marked.
 // not to keep this in profile, as profile intended to be user-modifiable
     var user = Meteor.user();
@@ -100,17 +99,7 @@ Template['addAccount'].helpers({
     return  (ret ? "checked" : '');
   },
   currentUserAccounts: function(){
-    var user = Meteor.user();
-    if (!user) return {};
-    var accountsPrivate = user.accountsPrivate;
-    var accounts = user.accounts;
-    if (accountsPrivate) {
-      _.each(accountsPrivate, function(acc){
-        acc.isPrivate = true;
-      })
-      _.extend(accounts, accountsPrivate);
-    }
-    return accounts;
+    return CF.Accounts._findByUserId(Meteor.userId())
   }
 });
 
@@ -145,6 +134,7 @@ Template['addAccount'].events({
       if (!CF.UserAssets.accNameIsValid(name)) {
         return false;
       }
+      t.$(e.currentTarget).addClass('submitted');
       var isPublic = !t.$publicCheckbox.is(":checked");
       analytics.track('Created Account', {
         accountName: name
@@ -157,9 +147,11 @@ Template['addAccount'].events({
         isPublic: isPublic,
         name: name,
         address: address
+      }, function(err, ret){
+        t.$address.val("");
+        $("#modal-add-account").closeModal();
+        t.$(e.currentTarget).removeClass('submitted');
       });
-      t.$address.val("");
-      $("#modal-add-account").closeModal();
       return false;
     } else { // add to existing account
       var accountId = t.$selectAccount.val().trim();

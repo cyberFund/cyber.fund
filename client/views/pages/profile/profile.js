@@ -35,7 +35,7 @@ var _user = function getUserByCurrentUid() { //todo reduce
 
 Template['profile'].helpers({
   currentUserAccounts: function(){
-    return CF.UserAssets.getAccountsObject(Meteor.userId());
+    return CF.Accounts._findByUserId(Meteor.userId()).fetch();
   },
   userAccounts: function(){
     return CF.Accounts._findByUserId(CF.Profile.currentUid()).fetch();
