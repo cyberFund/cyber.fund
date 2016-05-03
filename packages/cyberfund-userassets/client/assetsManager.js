@@ -115,7 +115,7 @@ Template['assetsManager'].events({
   },
   'click .per-account': function(e, t) {
     //if (!isOwnAssets()) return;
-    var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-key");
+    var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-id");
     CF.Accounts.currentId.set(accountKey.toString());
   },
 

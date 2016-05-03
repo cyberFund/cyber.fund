@@ -222,6 +222,7 @@ Meteor.methods({
   },
 
   cfAssetsAddAccount: function(obj) {
+
     if (!this.userId) return {
       err: "no userid"
     };
@@ -245,7 +246,7 @@ Meteor.methods({
 
     var privates = user.accountsPrivate || {};
 
-    if (!ns.accountNameIsValid(obj.name, user[key0])) return {
+    if (!ns.accountNameIsValid(obj.name, this.userId)) return {
       err: "invalid acc name"
     };
 

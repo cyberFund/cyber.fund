@@ -90,7 +90,7 @@ Template['displayAccount'].events({
     var $asset = $(e.currentTarget).closest(".address-item");
     CF.Accounts.currentAddress.set($asset.attr("address-id"));
     CF.Accounts.currentId.set($asset.closest(".account-item")
-      .attr("account-key"));
+      .attr("account-id"));
   },
   'click .req-delete-address': function(e, t) {
     $('#modal-delete-address').openModal();
@@ -114,7 +114,7 @@ Template['displayAccount'].events({
       $item = $item.closest(".address-item");
       CF.Accounts.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.Accounts.currentId.set($item.attr("account-key"));
+      CF.Accounts.currentId.set($item.attr("account-id"));
       $("#modal-delete-asset").openModal();
       $("button[type=submit]", "#delete-asset-form").focus();
     }
@@ -130,7 +130,7 @@ Template['displayAccount'].events({
       $item = $item.closest(".address-item");
       CF.Accounts.currentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.Accounts.currentId.set($item.attr("account-key"));
+      CF.Accounts.currentId.set($item.attr("account-id"));
       $("#modal-edit-asset").openModal();
     }
   },
@@ -139,7 +139,7 @@ Template['displayAccount'].events({
     if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
-      CF.Accounts.currentId.set($item.attr("account-key"));
+      CF.Accounts.currentId.set($item.attr("account-id"));
     $("#modal-toggle-private").openModal();
   }
 });

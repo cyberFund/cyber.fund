@@ -7,6 +7,9 @@ var print = logger.print/*function(really) {
 }(true)*/
 
 //
+
+var _k = CF.Utils._k;
+
 ns.quantumCheck = function(address) { // moving to CF.Accounts
   try {
     print("checking address", address, true)
@@ -19,7 +22,7 @@ ns.quantumCheck = function(address) { // moving to CF.Accounts
     return ['error'];
   }
 }
-
+/*  TODO test CF.Accounts
 // per single address
 ns.updateBalance = function(userId, accountKey, address, isOwn) {
   if (!userId || !accountKey || !address) {
@@ -158,28 +161,34 @@ ns.updateBalances = function(options) { //todo: optimize
     }
   }
 }
+*/
+
+checkAllowed = function(accountKey, userId){ // TODO move to collection rules
+  if (!userId) return false;
+  var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
+  return account;
+}
 
 Meteor.methods({
-  cfAssetsUpdateBalances: function(options) {
+  cfAssetsUpdateBalances: function(options) { //TODO move to CF.Accounts
+    console.log(options);
     options = CF.Utils.normalizeOptionsPerUser(options);
 
     print("cfAssetsUpdateBalances was called with options", options, true)
     options.userId = options.userId || this.userId;
-    options.isOwn = options.userId == this.userId;
+    options.private = options.userId == this.userId;
     if (!options.userId) return {
       error: "no userId passed"
     }
     this.unblock(); //? not sure this is what needed
-    return ns.updateBalances(options);
+    return CF.Accounts._updateBalances(options);
   },
 
   cfAssetsAddAddress: function(accountKey, address) {
-    //decide what to update
-    var userId = this.userId;
-    if (!this.userId) return;
-    var key0 = ns.getAccountPrivacyType(userId, accountKey);
-    if (!key0) return;
-    var key = [key0, accountKey, "addresses", address].join(".");
+
+    if (!checkAllowed(accountKey, this.userId)) return;
+
+    var key = _k(["addresses", address]);
     var set = {
       $set: {}
     };
@@ -187,9 +196,10 @@ Meteor.methods({
       assets: {}
     };
     //push account to dictionary of accounts, so can use in autocomplete later
-    Meteor.users.update({
-      _id: userId
+    CF.Accounts.collection.update({
+      _id: accountKey
     }, set);
+
     Meteor.call("cfAssetsUpdateBalances", {
       accountKey: accountKey,
       address: address
@@ -197,167 +207,106 @@ Meteor.methods({
   },
 
   cfAssetsRemoveAddress: function(accountKey, asset) {
-    var userId = this.userId;
-    if (!userId) return;
-
-    var key0 = ns.getAccountPrivacyType(userId, accountKey);
-    if (!key0) return;
-    var fields = {};
-    fields[key0] = 1;
-    var sel = {
-      _id: this.userId
-    };
-    var accounts = Meteor.users.findOne(sel, {
-      fields: fields
-    })[key0] || {};
-
-    var key = [key0, accountKey, "addresses", asset].join(".");
+    if (!checkAllowed(accountKey, this.userId)) return;
+    var sel = { _id: accountKey };
+    var key = _k(["addresses", asset]);
     var unset = {
       $unset: {}
     };
     unset.$unset[key] = true;
-    Meteor.users.update({
-      _id: userId
-    }, unset);
+    CF.Accounts.collection.update(sel, unset)
   },
 
   cfAssetsAddAccount: function(obj) {
     if (!this.userId) return {
       err: "no userid"
     };
-    var sel = {
-      _id: this.userId
-    };
     check(obj, Match.ObjectIncluding({
       isPublic: Boolean,
       name: String
     }));
-    var user = Meteor.users.findOne(sel);
+
+    var user = Meteor.users.findOne({_id: this.userId});
 
     if (!CF.User.hasPublicAccess(user)) obj.isPublic = false;
-    var key0 = obj.isPublic ? 'accounts' : 'accountsPrivate';
-
-    var set = {};
-    set[key0] = {};
-    if (!user[key0]) Meteor.users.update(sel, {
-      $set: set
-    });
-
-    var privates = user.accountsPrivate || {};
-
-    if (!ns.accountNameIsValid(obj.name, user[key0])) return {
+    if (!ns.accountNameIsValid(obj.name, this.userId)) return {
       err: "invalid acc name"
     };
 
-    // find next account #
-    var key = ns.nextKey(_.extend(user.accounts || {}, privates));
-    var $set = {};
-
-    $set[[key0, key].join('.')] = {
+    var key = CF.Accounts.collection.insert ({
       name: obj.name,
-      addresses: {}
-    };
-
-    var r = Meteor.users.update(sel, {
-      $set: $set
+      addresses: {},
+      isPrivate: !obj.isPublic
     });
+
     if (obj.address) Meteor.call('cfAssetsAddAddress', key, obj.address);
+
     return {
       newAccountKey: key
     };
   },
 
   cfAssetsRenameAccount: function(accountKey, newName) {
-    if (!this.userId) return;
+    var account = checkAllowed(accountKey, this.userId)
+    if (!account) return false;
     var sel = {
-      _id: this.userId
+      _id: accountKey
     };
-    var key0 = ns.getAccountPrivacyType(this.userId, accountKey);
-    if (!key0) return;
 
-    var accounts = Meteor.users.findOne(sel)[key0];
-    if (!accounts || !accounts[accountKey]) {
-      return;
-    }
-    var checkName = ns.accountNameIsValid(newName, accounts, accounts[accountKey].name);
+    var checkName = ns.accountNameIsValid(newName, this.userId, account.name);
     if (checkName) {
-      var k = [key0, accountKey, "name"].join('.');
-      var set = {
-        $set: {}
-      };
-      set.$set[k] = newName;
-      Meteor.users.update(sel, set);
+      var k = "name";
+      var set = {  $set: {} };
+      set.$set[k] = newName.toString();
+      CF.Accounts.collection.update(sel, set);
     }
   },
   cfAssetsRemoveAccount: function(accountKey) {
-    if (!this.userId) return;
-    var key0 = ns.getAccountPrivacyType(this.userId, accountKey);
-    if (!key0) return;
-    var k = [key0, accountKey].join('.');
-    var unset = {
-      $unset: {}
-    };
-    unset.$unset[k] = true;
-    Meteor.users.update({
-      _id: this.userId
-    }, unset);
+    if (checkAllowed(accountKey, this.userId)) //todo - maybe direct,
+        // not method (setup allow/deny for collection)
+    CF.Accounts.collection.remove({_id: accountKey})
   },
 
+  // manual set
   cfAssetsAddAsset: function(accountKey, address, asset, q) {
-    if (!this.userId) return;
-    var key0 = ns.getAccountPrivacyType(this.userId, accountKey);
-    if (!key0) return;
-    var sel = {
-      _id: this.userId
-    };
-    var modify = {
-      $set: {}
-    };
-    var key = [key0, accountKey, 'addresses', address, 'assets', asset].join(".");
+    if (!checkAllowed(accountKey, this.userId)) return;
+    var sel = {_id: accountKey}
+    var modify = { $set: {} };
+    var key = _k(['addresses', address, 'assets', asset]);
     modify.$set[key] = {
       asset: asset,
       quantity: q,
-      update: 'manual'
+      update: 'manual',
+      updatedAt: new Date()
     };
-    Meteor.users.update(sel, modify)
+    CF.Accounts.collection.update(sel, modify)
   },
   cfAssetsDeleteAsset: function(accountKey, address, asset) {
-    if (!this.userId) return;
-    var key0 = ns.getAccountPrivacyType(this.userId, accountKey);
-    if (!key0) return;
+    if (!checkAllowed(accountKey, this.userId)) return
     var sel = {
-      _id: this.userId
+      _id: accountKey
     };
     var modify = {
       $unset: {}
     };
-    var key = [key0, accountKey, 'addresses', address, 'assets', asset].join(".");
+    var key = _k(['addresses', address, 'assets', asset]);
     modify.$unset[key] = true;
-    Meteor.users.update(sel, modify)
+    CF.Accounts.collection.update(sel, modify)
   },
   cfAssetsTogglePrivacy: function(accountKey, fromKey) {
     //{{! todo: add check if user is able using this feature}}
-    if (!this.userId) return false;
-    var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts');
+
+    if (!checkAllowed(accountKey, this.userId)) return false;
+
+    var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts'); //TODO - remove strings, not needed
     var user = Meteor.users.findOne({
       _id: this.userId
     });
     if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
 
-    var account = user[fromKey];
-    if (!account) return false;
-    account = account[accountKey];
-    if (!account) return false;
     logger.info("user " + this.userId + " ordered turning account " + account.name + " to " + toKey);
-    var unset = {},
-      set = {};
-    set[[toKey, accountKey].join(".")] = account;
-    unset[[fromKey, accountKey].join(".")] = true;
-    Meteor.users.update({
-      _id: this.userId
-    }, {
-      $unset: unset,
-      $set: set
-    });
+
+    CF.Accounts.collection.update({_id: accountKey}, toKey == 'accountsPrivate' ? {$set: {isPrivate: true}} :
+      {$unset: {isPrivate: true}})
   }
 });

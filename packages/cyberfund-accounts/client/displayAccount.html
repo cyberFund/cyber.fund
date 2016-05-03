@@ -1,102 +1,100 @@
 <!-- originally created for cyber.fund project-->
 <template name="displayAccount">
     <div class="card ">
-        {{#with value}}
-            <div class="account-item row" account-key="{{../key}}">
-                <div class="row no-bottom-margin">
-                    <div class="right hoverie" style="margin-right: 10px;">
-                        <a class="req-update-balance per-account btn-floating btn-tiny blue btn-margin-left">
-                            <i class="material-icons small" title="last updated at: {{#if updatedAt}}{{dateFormat updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
-                        </a>
-                        {{#if isOwn}}
-                            <a class="req-rename-account per-account btn-floating btn-tiny yellow"><i
-                                    class="material-icons tiny">edit</i></a>
-                            <a class="red-text req-remove-account per-account btn-floating btn-tiny red"><i
-                                    class="material-icons tiny">delete</i></a>
-                            {{#if userHasPublicAccess}}
-                            <a class="req-toggle-private per-account grey btn-floating btn-tiny">{{! todo: add check if user is able using this feature}}
-                                <i class="material-icons tiny">{{#if isPublic ..}}public{{else}}vpn_lock{{/if}}</i></a>
-                            {{/if}}
-                        {{/if}}
-                    </div>
-                    <h4 style="margin-left: 20px">{{name}}
-                        {{#if isOwn}}
-                            <span style="font-size: 40%; padding: 2px 4px; margin-bottom: 2px; border-radius: 4px"
-                                  class="green white-text">
-                                {{publicity ..}}
-                            </span>
-                        {{/if}}
-                    </h4>
-                </div>
-                <!-- add adress button div style="position: absolute; top: 0; right: 0px">
-                    <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
-                </div  -->
-                <ul class="collection adresses-list no-bottom-margin">
-                    {{#each keyValue addresses}}
-                        <li class="address-item collection-item"
-                            address-id="{{key}}" style="margin-left: 0">
-                            <div style="margin-bottom: 18px">
-                                <div
-                                     style="margin-left: 0px;">{{key}}
-                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
-                                          class="red white-text">Unverified Address</span>
-                                </div>
+          <div class="account-item row" account-id="{{_id}}">
+              <div class="row no-bottom-margin">
+                  <div class="right hoverie" style="margin-right: 10px;">
+                      <a class="req-update-balance per-account btn-floating btn-tiny blue btn-margin-left">
+                          <i class="material-icons small" title="last updated at: {{#if updatedAt}}{{dateFormat updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
+                      </a>
+                      {{#if isOwn}}
+                          <a class="req-rename-account per-account btn-floating btn-tiny yellow"><i
+                                  class="material-icons tiny">edit</i></a>
+                          <a class="red-text req-remove-account per-account btn-floating btn-tiny red"><i
+                                  class="material-icons tiny">delete</i></a>
+                          {{#if userHasPublicAccess}}
+                          <a class="req-toggle-private per-account grey btn-floating btn-tiny">{{! todo: add check if user is able using this feature}}
+                              <i class="material-icons tiny">{{#if isPublic ..}}public{{else}}vpn_lock{{/if}}</i></a>
+                          {{/if}}
+                      {{/if}}
+                  </div>
+                  <h4 style="margin-left: 20px">{{name}}
+                      {{#if isOwn}}
+                          <span style="font-size: 40%; padding: 2px 4px; margin-bottom: 2px; border-radius: 4px"
+                                class="green white-text">
+                              {{publicity ..}}
+                          </span>
+                      {{/if}}
+                  </h4>
+              </div>
+              <!-- add adress button div style="position: absolute; top: 0; right: 0px">
+                  <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
+              </div  -->
+              <ul class="collection adresses-list no-bottom-margin">
+                  {{#each keyValue addresses}}
+                      <li class="address-item collection-item"
+                          address-id="{{key}}" style="margin-left: 0">
+                          <div style="margin-bottom: 18px">
+                              <div
+                                   style="margin-left: 0px;">{{key}}
+                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
+                                        class="red white-text">Unverified Address</span>
+                              </div>
 
-                                <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
-                                    {{#if autoUpdateAvailable key}}
-                                        <a class="req-update-balance per-address btn-floating btn-tiny blue btn-margin-left">
-                                            <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
-                                        </a>
-                                    {{/if}}
-                                    {{#if isOwn}}
-                                    <a class="btn-floating btn-small green per-address req-add-asset-to-address">
-                                        <i class="material-icons small">add</i>
-                                    </a>
-                                    <a class="btn-floating btn-small red per-address req-delete-address btn-margin-right">
-                                        <i class="material-icons small">delete</i>
-                                    </a>
-                                    {{/if}}
-                                </div>
+                              <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
+                                  {{#if autoUpdateAvailable key}}
+                                      <a class="req-update-balance per-address btn-floating btn-tiny blue btn-margin-left">
+                                          <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
+                                      </a>
+                                  {{/if}}
+                                  {{#if isOwn}}
+                                  <a class="btn-floating btn-small green per-address req-add-asset-to-address">
+                                      <i class="material-icons small">add</i>
+                                  </a>
+                                  <a class="btn-floating btn-small red per-address req-delete-address btn-margin-right">
+                                      <i class="material-icons small">delete</i>
+                                  </a>
+                                  {{/if}}
+                              </div>
 
-                            </div>
+                          </div>
 
-                            <ul class="collection assets-list">
-                                {{#each keyValue value.assets}}
-                                    <li class="collection-item asset-item"
-                                        asset-key="{{key}}">
-                                        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
-                                        {{displaySystemName systemData}}</a>
-                                        : {{value.quantity}} {{displayCurrencyName systemData}}s
-                                            <div class="secondary-content hoverie"
-                                                 style="margin-right: 12px;">
-                                                {{#if eq value.update 'auto'}}
-                                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
-                                                          class="amber white-text">
-                                                Autoupdate</span>
-                                                {{/if}}
-                                                {{#if eq value.update 'manual'}}
-                                                    <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
-                                                          class="green white-text">
-                                                Manually entered</span>
-                                                {{/if}}
-                                                {{#if isOwn}}
-                                                    <a class="btn-floating btn-tiny req-edit-asset yellow"
-                                                       title="Change quantity"
-                                                       style="vertical-align: middle;"><i
-                                                            class="material-icons tiny">edit</i></a>
-                                                    <a class="btn-floating btn-tiny req-delete-asset red"
-                                                       title="Delete asset"
-                                                       style="vertical-align: middle;"><i
-                                                            class="material-icons tiny">delete</i></a>
-                                                {{/if}}
-                                            </div>
-                                    </li>
-                                {{/each}}
-                            </ul>
-                        </li>
-                    {{/each}}
-                </ul>
-            </div>
-        {{/with}}
+                          <ul class="collection assets-list">
+                              {{#each keyValue value.assets}}
+                                  <li class="collection-item asset-item"
+                                      asset-key="{{key}}">
+                                      <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                      {{displaySystemName systemData}}</a>
+                                      : {{value.quantity}} {{displayCurrencyName systemData}}s
+                                          <div class="secondary-content hoverie"
+                                               style="margin-right: 12px;">
+                                              {{#if eq value.update 'auto'}}
+                                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
+                                                        class="amber white-text">
+                                              Autoupdate</span>
+                                              {{/if}}
+                                              {{#if eq value.update 'manual'}}
+                                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
+                                                        class="green white-text">
+                                              Manually entered</span>
+                                              {{/if}}
+                                              {{#if isOwn}}
+                                                  <a class="btn-floating btn-tiny req-edit-asset yellow"
+                                                     title="Change quantity"
+                                                     style="vertical-align: middle;"><i
+                                                          class="material-icons tiny">edit</i></a>
+                                                  <a class="btn-floating btn-tiny req-delete-asset red"
+                                                     title="Delete asset"
+                                                     style="vertical-align: middle;"><i
+                                                          class="material-icons tiny">delete</i></a>
+                                              {{/if}}
+                                          </div>
+                                  </li>
+                              {{/each}}
+                          </ul>
+                      </li>
+                  {{/each}}
+              </ul>
+          </div>
     </div>
 </template>

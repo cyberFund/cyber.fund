@@ -1,9 +1,11 @@
 CF.UserAssets = {};
-CF.UserAssets.accountNameIsValid = function (name, accounts, oldName) {
+
+
+CF.UserAssets.accountNameIsValid = function (name, refId, oldName) {
   if (!name || !_.isString(name)) return false;
   if (oldName && name == oldName) return true;
   var ret = true;
-  _.each(accounts, function (account) {
+  CF.Accounts.collection.find({refId: refId}).forEach(function (account) {
     if (name == account.name) ret = false;
   });
   return ret;

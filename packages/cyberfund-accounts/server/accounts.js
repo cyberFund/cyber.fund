@@ -1,7 +1,4 @@
-//todo factor out
-function _k(array){
-  return array.join('.');
-}
+var _k = CF.Utils._k
 
 var print = CF.Utils.logger.print;
 var ns = CF.Accounts;
@@ -133,6 +130,9 @@ ns._updateBalanceAddress = function(_id, address, options) {
   ns.collection.update(sel, modify);
 }
 
+
+// is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
+// ==========   NOT TESTED !   ====================
 ns._updateBalanceAccount = function(_id, options) {
   options = options || {}
   if (!_id ) {
@@ -192,4 +192,64 @@ ns._updateBalanceAccount = function(_id, options) {
   }
   if (_.isEmpty(modify.$set)) delete(modify.$set);
   ns.collection.update(sel, modify);
+}
+
+ns._updateBalances = function(options) { //todo: optimize
+  check(options, Object);
+  check(options.userId, String);
+
+  var userId = options.userId;
+  if (!userId) return;
+  var accountKey = options.accountKey;
+  var address = options.address;
+  var private = options.private;
+  var fields = ns.accountsFields(isOwn);
+  if (!isOwn) _.extend(fields, {"services.balanceUpdate": 1});
+
+  if (!accountKey || !address) {
+    var accounts = Meteor.users.findOne({
+      _id: userId
+    }, {
+      fields: fields
+    }) || {};
+  }
+
+  if (!accountKey) {
+    if (!isOwn) {
+      var lastUpdate = accounts.services && accounts.services.balanceUpdate
+        && accounts.services.balanceUpdate.updatedAt;
+      if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
+        print("quitting mass balance update", "last was <5 minutes ago");
+        return;
+      } else {
+        Meteor.users.update({_id: userId}, {$set: {
+            "services.balanceUpdate.updatedAt": new Date()
+          }
+        });
+      }
+    }
+
+    var accountKeys = _.keys(accounts['accounts'] || {});
+    if (isOwn) accountKeys = _.union(accountKeys, _.keys(accounts['accountsPrivate'] || {}))
+    _.each(accountKeys, function(ak) {
+      ns.updateBalances({
+        userId: userId,
+        accountKey: ak,
+        isOwn: isOwn
+      })
+    });
+  } else {
+    if (!address) {
+      var key0 = CF.UserAssets.getAccountPrivacyType(userId, accountKey)
+      var addresses = accounts[key0] && accounts[key0][accountKey] && accounts[key0][accountKey].addresses && _.keys(accounts[key0][accountKey].addresses)
+
+      _.each(addresses, function(addr) {
+  #      ns.updateBalance(userId, accountKey, addr, isOwn)
+      });
+      return
+    } else { //proxy
+  #    ns.updateBalance(userId, accountKey, address, isOwn)
+      return
+    }
+  }
 }
