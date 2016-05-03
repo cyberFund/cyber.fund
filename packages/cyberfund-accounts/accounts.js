@@ -24,11 +24,11 @@ ns._findByUserId = function(userId, options){
   return ns.collection.find(selector);
 }
 
-ns.findById = function(options){
+ns.findById = function(_id, options){
+  if (!_id) return {};
   options = options || {};
-  if (!options._id) return {};
-  var selector = {_id: options}
-  if (Meteor.isServer && !options.private)
+  var selector = {_id: _id}
+  if (Meteor.isServer && !options.private) 
     _.extend (selector, {isPrivate: {$ne: true}})
   return ns.collection.findOne(selector);
 }

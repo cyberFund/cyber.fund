@@ -21,21 +21,21 @@ CF.UserAssets.nextKey = function (accounts) {
 
 /**
  *
- * @param assetsObject - part of user document
+ * @param accounts - part of user document
  * in which accounts information is stored
  * @returns {Array} of system names
  */
 
-CF.UserAssets.getSystemsFromAccountsObject = function (assetsObject) {
-  if (!assetsObject) return [];
-  var systems = _.values(assetsObject);
-  if (systems) {
-    systems = _.flatten(_.map(systems, function (account) {
-      return _.values(account.addresses)
-    }));
-  } else {
-    return [];
-  }
+CF.UserAssets.getSystemsFromAccountsObject = function (accounts) {
+  if (!accounts) return [];
+  //  console.log(accounts);
+
+  var systems = _.flatten(accounts.map(function (account) {
+    //console.log(account)
+    return _.values(account.addresses)
+  }));
+  //console.log(systems)
+
   if (systems) {
     systems = _.uniq(_.flatten(_.map(systems, function (address) {
       return (_.keys(address.assets))

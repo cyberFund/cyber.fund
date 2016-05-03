@@ -80,7 +80,7 @@ ns._updateBalanceAddress = function(_id, address, options) {
     return;
   }
 
-  var account = ns.findById({_id: id, private: options.private})
+  var account = ns.findById(_id, {private: options.private})
   if (!account) return;
 
   var addressObj = account && account.addresses && account.addresses[address];
@@ -140,7 +140,7 @@ ns._updateBalanceAccount = function(_id, options) {
     return;
   }
 
-  var account = ns.findById({_id: id, private: options.private})
+  var account = ns.findById(_id, {private: options.private})
   if (!account) return;
 
   var addressesObj = account && account.addresses ;//&& account.addresses[address];

@@ -21,13 +21,16 @@ Template['assetsManager'].helpers({
   },
 
   _accounts: function() { //todo - pass as parameter.
-    return CF.Accounts._findByUserId(CF.Profile.currentUid());
+    return CF.Accounts._findByUserId(CF.Profile.currentUid()).fetch();
   },
 
   currentAccount: function() {
     if (!isOwnAssets()) return null;
-    var _id = CF.Accounts.currentId.get();
-    return CF.Accounts.findById(_id);
+    var current = CF.Accounts.currentId.get();
+    var key0 = CF.UserAssets.getAccountPrivacyType(Meteor.userId(), current);
+    if (!key0) return {};
+    var user = Meteor.user();
+    return user[key0][current];
   },
   currentAccountId: function() {
     if (!isOwnAssets()) return null;
@@ -42,18 +45,25 @@ Template['assetsManager'].helpers({
     return CF.Accounts.currentAsset.get();
   },
   currentAmount: function() {
-    if (!isOwnAssets()) return '';
+    if (!isOwnAssets) return '';
     var user = Meteor.user();
-    var _id = ns.currentId.get();
-    if (!_id) return ''
-    var account = ns.findById(_id);
-    var amount = amount.addresses;
+    var _id = CF.Accounts.currentId.get();
+
+    var key0 = CF.UserAssets.getAccountPrivacyType(Meteor.userId(), key);
+    if (!key0) return '';
+    var amount = user[key0];
+    if (!amount) return '';
+
+    if (!key) return '';
+    amount = amount[key];
+    if (!amount) return '';
+    amount = amount.addresses;
     if (!amount) return '';
     amount = amount[CF.Accounts.currentAddress.get()];
     if (!amount) return '';
     amount = amount.assets;
     if (!amount) return '';
-    key = CF.Accounts.currentAsset.get(); //i.e. full system doc.
+    key = CF.Accounts.currentAsset.get();
     if (key) key = key._id;
     if (amount) amount = (key ? amount[key] : '');
     if (!amount) return '';
@@ -87,11 +97,8 @@ Template['assetsManager'].onCreated(function() {
   Tracker.autorun(function() {
     var user = Meteor.user()
     if (user && (user.username == FlowRouter.getParam('username'))) {
-      var systems = user && user.accounts;
-      if (CF.Profile.currentUid == Meteor.userId()) {
-        _.extend(systems, user.accountsPrivate);
-      }
-      systems = CF.UserAssets.getSystemsFromAccountsObject(systems);
+      var accounts = CF.Accounts._findByUserId(Meteor.userId)
+      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
       Meteor.subscribe('assetsSystems', systems);
     }
   });
