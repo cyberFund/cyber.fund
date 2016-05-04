@@ -694,7 +694,7 @@ var saveTotalCap = function() {
   };
 
   var cap = calcTotalCap();
-
+  //console.log(cap);
   if (cap) {
     Extras.upsert({
       _id: 'total_cap'
@@ -704,8 +704,13 @@ var saveTotalCap = function() {
       usdDayAgo: cap.btcDayAgo * btcPriceDayAgo,
       btcDayAgo: cap.btcDayAgo
     }));
+    //console.log(Extras.findOne({_id: 'total_cap'}));
   }
 };
+
+Meteor.startup(function(){
+  saveTotalCap();
+});
 
 SyncedCron.add({
   name: 'total btc cap',
