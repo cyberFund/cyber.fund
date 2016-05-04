@@ -645,12 +645,26 @@ SyncedCron.add({
 
 
 var saveTotalCap = function() {
+  var btcMetrics = CurrentData.findOne({
+    _id: "Bitcoin"
+  }, {
+    fields: {
+      "metrics": 1
+    }
+  });
+  btcMetrics = btcMetrics && btcMetrics.metrics;
+  if (!btcMetrics) return;
+
+  var btcPrice = btcMetrics.price && btcMetrics.price.usd
+  var btcPriceDayAgo = btcPrice - (btcMetrics.priceChange && btcMetrics.priceChange.day &&
+    btcMetrics.priceChange.day.usd || 0)
 
   var calcTotalCap = function() {
     function isAutonomous(item) {
       return !item.dependencies || item.dependencies == 'independent' || item.dependencies.indexOf('independent') >= 0
     }
     var cap = 0;
+    var capDayAgo = 0;
     var autonomous = 0;
     var dependent = 0;
     CurrentData.find({}, {
@@ -664,31 +678,31 @@ var saveTotalCap = function() {
         } else {
           dependent++;
         }
+
+        if (sys.metrics.capChange && sys.metrics.capChange.day && sys.metrics.capChange.day.btc ) {
+          capDayAgo += sys.metrics.cap.btc - sys.metrics.capChange.day.btc;
+        }
       }
+
     });
     return {
       btc: cap,
+      btcDayAgo: capDayAgo,
       autonomous: autonomous,
       dependent: dependent
     }
   };
+
   var cap = calcTotalCap();
-
-  var btcPrice = CurrentData.findOne({
-    _id: "Bitcoin"
-  }, {
-    fields: {
-      "metrics": 1
-    }
-  });
-
-  if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
 
   if (cap) {
     Extras.upsert({
       _id: 'total_cap'
     }, _.extend(cap, {
-      usd: cap.btc * btcPrice
+      usd: cap.btc * btcPrice,
+      btc: cap.btc,
+      usdDayAgo: cap.btcDayAgo * btcPriceDayAgo,
+      btcDayAgo: cap.btcDayAgo
     }));
   }
 };

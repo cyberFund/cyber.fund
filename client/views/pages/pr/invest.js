@@ -57,21 +57,21 @@ function _cap() {
 }
 
 Template['invest'].helpers({
-  'invest': function() {
+  invest: function() {
     return _invest();
   },
-  'cap': function() {
+  cap: function() {
     return _cap()
   },
-  'raised': function() {
+  raised: function() {
     var invest = _invest();
     return invest ? _raised(invest) : '...loading...'
   },
-  'left': function() {
+  left: function() {
     var invest = _invest();
     return invest ? 42 - _raised(invest) : '...loading...'
   },
-  'invcap': function() {
+  invcap: function() {
     var invest = _invest();
     return invest ? 100 / 3 * _raised(invest) : '...loading...'
   },
@@ -87,7 +87,7 @@ Template['invest'].helpers({
     var cap = _cap();
     return cap ? cap.btc / 200000 : '...loading...'
   },
-  'nicheShare': function() {
+  nicheShare: function() {
     var invest = _invest(),
       cap = _cap();
     var share = (invest && cap) ? (100 / 3 * _raised(invest) / (cap.btc / 200)) : '...loading...';
@@ -97,13 +97,13 @@ Template['invest'].helpers({
 
     return "1/" + rev
   },
-  'timeright': function() {
+  timeright: function() {
     return Session.get("timeright")
   }
 });
 
 Template['ratingPage'].helpers({
-  'timeright': function() {
+  timeright: function() {
     return Session.get("timeright")
   }
 });
