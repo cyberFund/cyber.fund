@@ -16,9 +16,9 @@ Tracker.autorun(function(c){
 Template['navbar'].helpers({
   isActiveOwnProfile: function(){
     var user = Meteor.user(); if (!user) return ''
-    var twittername = user.profile && user.profile.twitterName;
-    if (!twittername) return ''
-    return (location.pathname == '/@'+twittername) ? 'active': ''
+    var username = user.username
+    if (!username) return ''
+    return (location.pathname == '/@'+username) ? 'active': ''
   }
 });
 
