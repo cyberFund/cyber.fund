@@ -100,7 +100,7 @@ Template["ratingTable"].helpers({
     }).fetch();
   },
   img_url: function() {
-    return CF.Chaingear.helpers.cgSystemLogo(this);
+    return CF.Chaingear.helpers.cgSystemLogoUrl(this);
   },
 
   capBtcToText: function(cap) {
