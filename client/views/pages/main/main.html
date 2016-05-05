@@ -1,12 +1,4 @@
-<template name="main">
-  <div class="row center-align">
-    <div class="col l12">
-      <br>
-      <h2>Where Blockchains Grow</h2>
-      <br>
-      <h5>150 people are open to invest in 130 groundbreaking systems</h5>
-    </div>
-  </div>
+<template name="mainPageSystemsWidget">
   <div class="row center-align">
     <div class="col offset-l3 l2">
       System
@@ -17,40 +9,73 @@
     <div class="col l2">
       cyber•Rating
     </div>
+
     <!-- 5 top rated systems-->
-    <div class="col offset-l3 l2">
-      Ethereum
+    {{#each systems}}
+    <div class="row no-bottom-margin">
+      <div class="col offset-l3 l2">
+        {{_id}}
+      </div>
+      <div class="col l2">
+        {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
+        {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}% during {{readableN calculatable.RATING.vector.GR.months 0}} months
+        {{else}}&nbsp;
+        {{/if}}
+      </div>
+      <div class="col l2">
+
+        {{readableN calculatable.RATING.sum 1}}
+      </div>
     </div>
-    <div class="col l2">
-      22.5 % during 18 months
-    </div>
-    <div class="col l2">
-      3.8
+    {{/each}}
+  </div>
+</template>
+
+<template name="mainPageCrowdasalesWidget">
+  <h4>Active Crowdsales</h4>
+  {{#each activeCrowdsales}}
+  <a class="no-wrap" href={{pathFor  '/system/:name_' name_=(_toUnderscores _id)}} style='margin-right: 12px' >
+    {{> cgSystemLogo data=this style="width:20px; height: 20px;" }}{{_id}}
+  </a>
+  {{/each}}
+</template>
+
+<template name="main">
+  <div class="row center-align">
+    <div class="col l12">
+      <br>
+      <h2>Blockchains Grow Here</h2>
+      <br>
+      <h5>{{usersCount}} people are open to invest in {{coinsCount}} groundbreaking systems</h5>
     </div>
   </div>
+  {{> mainPageSystemsWidget}}
   <br>
   <br>
   <div class="row center-align">
     <div class="col offset-l3 l3">
-      <a class="blue waves-effect waves-light btn login-button">Start Investing</a>
+      <a class="blue waves-effect waves-light btn login-button" href="/rating">Start Investing</a>
     </div>
     <div class="col l3">
-      <a class="green waves-effect waves-light btn login-button">Attract Investments</a>
+      <a class="green waves-effect waves-light btn login-button" href="/listing">Attract Investments</a>
     </div>
   </div>
   <br>
-  <div class="row center-align">
+  <div class="row center-align _flexbox">
     <div class="col l4">
-      <p>Cybernomics Cap</p>
-      <p>$ 6 567 767 +7%</p>
+      <h4>Cybernomics Cap</h4>
+      <p>$ {{readableN cap_usd 0}} (yesterday is {{readableN cap_usd_yesterday 0}},
+         delta is
+         <span class="{{greenRedNumber cap_daily_change}}">
+         {{percentsToTextUpDown cap_daily_change 4}}</span>
+         )</p>
     </div>
     <div class="col l4">
-      <p>Active Crowdsales</p>
-      <p>Lisk ...</p>
+      {{> mainPageCrowdasalesWidget}}
     </div>
     <div class="col l4">
-      <p>Funds</p>
-      <p>5 самых фоловенных чуваков</p>
+      <h4>Funds</h4>
+      <p>Section is under construction :)</p>
     </div>
   </div>
 

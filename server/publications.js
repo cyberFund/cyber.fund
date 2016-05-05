@@ -43,18 +43,19 @@ Meteor.publish('marketDataRP', function(options) {
 
 /* own user details */
 Meteor.publish('userDetails', function() {
-  return Meteor.users.find({
+  return [Meteor.users.find({
     _id: this.userId
   }, {
     fields: {
       "services.privateAccountsEnabled": 1,
+      "services.twitter": 1, //userHasPublicAccess needs it...
       "username": 1,
       "avatar": 1,
       "largeAvatar": 1,
       "firstLogin": 1,
       "profile": 1
     }
-  });
+  }), CF.Accounts._findByUserId(this.userId, {private: true}) ];
 });
 
 /**
@@ -92,20 +93,27 @@ Meteor.publish('systemData', function(options) {
    });
  })
 
-
- //obsoleters
-/*
-Meteor.publish('crowdsalesList', function() {
-
-  var sel = CF.CurrentData.selectors.crowdsales();
-  return CurrentData.find(sel, {
+Meteor.publish('crowdsalesActive', function() {
+  var doc = Extras.findOne({_id: 'radarList'})
+  if (!doc) return this.ready()
+  var ids = _.union(doc.crowdsales || [], doc.projects || []);
+  return CurrentData.find({
+    _id: {$in: ids},
+    'crowdsales.end_date': {
+      $gt: new Date()
+    },
+    'crowdsales.start_date': {
+      $lt: new Date()
+    }},
+      {
     fields: {
-      dailyData: 0,
+      dailyData: 0, //obsolete
       hourlyData: 0
     }
   });
 });
 
+/* obsolete
 Meteor.publish('projectsList', function() {
   var sel = CF.CurrentData.selectors.projects();
   return CurrentData.find(sel, {
@@ -129,10 +137,12 @@ Meteor.publish("usersCount", function() {
   number of coins. i.e. allows to hide button "show more systems" when there s nothing left
  */
 Meteor.publish('coinsCount', function() {
-  Counts.publish(this, 'coinsCounter', CurrentData.find({
+  Counts.publish(this, 'coinsCount', CurrentData.find({
     "metrics.cap.btc": {
       $gt: 0
     }
+  }));
+  Counts.publish(this, 'coinsCount2', CurrentData.find({
   }));
 });
 
@@ -265,8 +275,9 @@ Meteor.publish('userProfile', function(options){
     'services.twitter.screenName': 1
   };
   var own = this.userId == uid;
-  if (own) fields.accountsPrivate = 1;
-  return Meteor.users.find({_id: uid}, {fields: fields});
+  var ret = [Meteor.users.find({_id: uid}, {fields: fields})]
+  if (!own) ret.push (CF.Accounts._findByUserId(uid, {isPrivate: {$ne: true}}) )
+  return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
 /*
@@ -293,17 +304,14 @@ Meteor.publish("portfolioSystems", function(options) {
   options = CF.Utils.normalizeOptionsPerUser(options);
   var userId = options.userId;
 
-  var own = this.userId == userId;
-  var user = Meteor.users.findOne({
-    _id: userId
-  });
-  if (!user) return this.ready();
-  var accounts = _.clone(user.accounts) || {};
-  if (own) _.extend(accounts, user.accountsPrivate)
+  var private = this.userId == userId;
+  if (!userId) return this.ready();
+  var user = Meteor.users.findOne({_id: userId})
 
+  var accounts = CF.Accounts._findByUserId(userId, {private: private});
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
-  if (own) {
+  if (private) {
     if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
       systems = _.union(systems, user.profile.starredSystems)
     }

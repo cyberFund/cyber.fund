@@ -12,8 +12,10 @@ reactive-var
 amplify
 
 cyberfund:cyberfund-base
-cyberfund:cyberfund-marketdata
 cyberfund:cyberfund-chaingear
+cyberfund:cyberfund-currentdata
+cyberfund:cyberfund-accounts
+cyberfund:cyberfund-marketdata
 cyberfund:cyberfund-es
 
 accounts-twitter
@@ -22,13 +24,11 @@ gwendall:body-events
 service-configuration
 twitter
 mfpierre:chartist-js
-cyberfund:cyberfund-currentdata
+
 tmeasday:publish-counts
 fortawesome:fontawesome
 percolate:synced-cron
 mizzao:autocomplete
-#meteorhacks:fast-render
-cyberfund:cyberfund-userassets
 
 gadicohen:sitemaps
 kadira:flow-router
@@ -66,3 +66,4 @@ email
 jparker:gravatar
 aldeed:template-extension
 meteorhacks:subs-manager
+meteorhacks:picker

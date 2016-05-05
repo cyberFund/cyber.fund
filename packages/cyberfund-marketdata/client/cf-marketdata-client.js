@@ -51,11 +51,14 @@ var helpers = {
       return "Stable";
     }
   },
-  percentsToTextUpDown: function (percents) {
+  percentsToTextUpDown: function (percents, precision) {
+    if (!precision) precision = 2
+    if (precision == 100) precision = 0
+
     if (percents < 0) {
-      return "↓ " + (-percents.toFixed(2)) + "%";
+      return "↓ " + (-percents.toFixed(precision)) + "%";
     } else if (percents > 0) {
-      return "↑ " + percents.toFixed(2) + "%";
+      return "↑ " + percents.toFixed(precision) + "%";
     } else {
       return "= 0%";
     }

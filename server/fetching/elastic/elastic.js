@@ -3,11 +3,9 @@
 
 //var currentData = {meta: {}};
 var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000
-
 var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
-
   // sym_sys is alike 'SYMBL|System'
   bucketKey = bucketKey.split("|");
   var selector = {};
@@ -33,6 +31,33 @@ function _searchSelector(bucketKey) {
 
   selector["token.token_symbol"] = symbol;
   return selector;
+}
+
+// data array; function to handle single item; delay in ms.
+// suitable for small arrays, and when we re sure calls won't interfere one another
+// (i.e. call period > delay*array.length)
+function handleArrayWithInterval(array, delay, handler, handlerAfter){
+  if (delay) {
+    var current = 0;
+    var length = array.length;
+
+    var interval = Meteor.setInterval(function(){
+      if (current < length) {
+        var item = array[current];
+        handler(item);
+        ++current;
+      } else {
+        Meteor.clearInterval(interval);
+        if (handlerAfter) handlerAfter(array);
+      }
+    }, delay);
+  } else { // no delay
+
+    _.each(array, function(item){
+      handler(item);
+    });
+    if (handlerAfter) handlerAfter(array);
+  }
 }
 
 JSON.unflatten = function(data) {
@@ -87,7 +112,7 @@ var esParsers = {
     console.log ("total of " + todayBuckets.length + " buckets")
     var notFounds = [];
 
-    _.each(todayBuckets, function(bucket) {
+    handleBucket = function handleBucket(bucket) {
       var sNow = getHit(bucket);
       if (_.isEmpty(sNow)) return; // no need to update if no new data
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
@@ -305,11 +330,14 @@ var esParsers = {
 
       }
 
-    });
-    if (notFounds.length) {
-      logger.warn("not found any currentData for ");
-      logger.warn(notFounds);
     }
+
+    handleArrayWithInterval(todayBuckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){
+      if (notFounds.length) {
+        logger.warn("not found any currentData for ");
+        logger.warn(notFounds);
+      }
+    });
   },
 
   averages_l15: function(result) {
@@ -318,7 +346,7 @@ var esParsers = {
     }
     var buckets = result.aggregations.by_system.buckets; //todo: resolve this crap using smth built into queries.
 
-    _.each(buckets, function(bucket) {
+    handleBucket = function handleBucket(bucket) {
       var findSel = _searchSelector(bucket.key),
         set = {};
 
@@ -338,10 +366,10 @@ var esParsers = {
       } else {
         // logger.info("no averages for " + bucket.key);
       }
-    });
-  }
+    }
+    handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
+  },
 
-  ,
   averages_date_hist: function(result, params) {
     var daily = params.interval == "day";
     var hourly = params.interval == "hour";
@@ -362,8 +390,8 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
-    console.log(buckets.length+ " :len of buckets.")
-    _.each(buckets, function(sysBucket) {
+    console.log("length of buckets (averages_date_hist): ", buckets.length)
+    handleBucket = function handleBucket(sysBucket) {
       var systemKey = sysBucket.key;
       var id = CurrentData.findOne(_searchSelector(systemKey));
       if (!id) {
@@ -417,8 +445,8 @@ var esParsers = {
           }
         }
       });
-
-    });
+    };
+    handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
   }
 };
 
@@ -617,12 +645,26 @@ SyncedCron.add({
 
 
 var saveTotalCap = function() {
+  var btcMetrics = CurrentData.findOne({
+    _id: "Bitcoin"
+  }, {
+    fields: {
+      "metrics": 1
+    }
+  });
+  btcMetrics = btcMetrics && btcMetrics.metrics;
+  if (!btcMetrics) return;
+
+  var btcPrice = btcMetrics.price && btcMetrics.price.usd
+  var btcPriceDayAgo = btcPrice - (btcMetrics.priceChange && btcMetrics.priceChange.day &&
+    btcMetrics.priceChange.day.usd || 0)
 
   var calcTotalCap = function() {
     function isAutonomous(item) {
       return !item.dependencies || item.dependencies == 'independent' || item.dependencies.indexOf('independent') >= 0
     }
     var cap = 0;
+    var capDayAgo = 0;
     var autonomous = 0;
     var dependent = 0;
     CurrentData.find({}, {
@@ -636,31 +678,39 @@ var saveTotalCap = function() {
         } else {
           dependent++;
         }
+
+        if (sys.metrics.capChange && sys.metrics.capChange.day && sys.metrics.capChange.day.btc ) {
+          capDayAgo += sys.metrics.cap.btc - sys.metrics.capChange.day.btc;
+        }
       }
+
     });
     return {
       btc: cap,
+      btcDayAgo: capDayAgo,
       autonomous: autonomous,
       dependent: dependent
     }
   };
+
   var cap = calcTotalCap();
-  var btcPrice = CurrentData.findOne({
-    _id: "Bitcoin"
-  }, {
-    fields: {
-      "metrics": 1
-    }
-  });
-  if (btcPrice) btcPrice = btcPrice.metrics && btcPrice.metrics.price && btcPrice.metrics.price.usd
+  //console.log(cap);
   if (cap) {
     Extras.upsert({
       _id: 'total_cap'
     }, _.extend(cap, {
-      usd: cap.btc * btcPrice
+      usd: cap.btc * btcPrice,
+      btc: cap.btc,
+      usdDayAgo: cap.btcDayAgo * btcPriceDayAgo,
+      btcDayAgo: cap.btcDayAgo
     }));
+    //console.log(Extras.findOne({_id: 'total_cap'}));
   }
 };
+
+Meteor.startup(function(){
+  saveTotalCap();
+});
 
 SyncedCron.add({
   name: 'total btc cap',

@@ -26,6 +26,7 @@ Template['thSortable'].events({
     analytics.track("Sorted " + tableId, {
       sort: sort
     });
+
     _Session.set( sortingMatter, sort);
   }
 })

@@ -1,7 +1,5 @@
 Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
-  // todo: control this from UI
-  _Session.default('portfolioOptions', {privateAssets: true})
 });
 
 //Template['portfolioWidget'].onCreated(function () {
@@ -244,7 +242,8 @@ Template['portfolioWidget'].helpers({
         var user = Meteor.users.findOne({
           _id: CF.Profile.currentUid()
         });
-        return !((user.accounts && _.keys(user.accounts).length) || (user.accountsPrivate && _.keys(user.accountsPrivate).length))
+        if (!user) return false;
+        return !(CF.Accounts._findByUserId(user._id).count())
     } else return false
   },
   isOwnAssets: function(){

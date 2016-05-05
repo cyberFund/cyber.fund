@@ -19,12 +19,12 @@ caching-html-compiler@1.0.6
 callback-hook@1.0.8
 check@1.2.1
 coffeescript@1.0.17
+cyberfund:cyberfund-accounts@0.0.1
 cyberfund:cyberfund-base@0.0.1
 cyberfund:cyberfund-chaingear@0.0.1
 cyberfund:cyberfund-currentdata@0.0.1
 cyberfund:cyberfund-es@0.0.1
 cyberfund:cyberfund-marketdata@0.0.1
-cyberfund:cyberfund-userassets@0.0.1
 d3js:d3@3.5.8
 dandv:caret-position@2.1.1
 ddp@1.2.5
@@ -66,6 +66,7 @@ meteor@1.1.14
 meteor-base@1.0.4
 meteorhacks:kadira@2.28.5
 meteorhacks:meteorx@1.4.1
+meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
 mfpierre:chartist-js@1.6.1
 minifier-css@1.1.11

@@ -7,16 +7,23 @@ CF.Utils.deltaPercents = function deltaPercents(base, another) {
 };
 
 CF.Utils.readableNumbers = function(input) {
-  while (/(\d+)(\d{3})/.test(input.toString())) {
+  var f = true
+  while (/(\d+)(\d{3})/.test(input.toString()) && f) {
     input = input.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
   }
   return input;
 };
 
+CF.Utils.numberWithCommas = function(x) {
+  var parts = x.toString().split(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return parts.join(".");
+}
+
 CF.Utils.readableN = function(input, roundTo) { //roundTo - how many digits after dot
   var ret = parseFloat(input);
   if (isNaN(ret)) return "";
-  return CF.Utils.readableNumbers(ret.toFixed(roundTo));
+  return CF.Utils.numberWithCommas(ret.toFixed(roundTo));
 };
 
 CF.Utils.monetaryFormatter = function(input) {
