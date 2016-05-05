@@ -1,18 +1,18 @@
 <template name="mainPageSystemsWidget">
     <table class="striped highlight" style="max-width: 30em; margin-left: 2em; margin-right: 5em">
         <thead class="">
-          <th data-field="name" class="">
-              System
-          </th>
-          <th data-field="CMGR" class="center">
-              CMGR [$]
-          </th>
-          <th data-field="Lifetime" class="center">
-            Months
-          </th>
-          <th data-field="rating/score" class="center">
-              Rating
-          </th>
+            <th data-field="name" class="">
+                System
+            </th>
+            <th data-field="CMGR" class="center">
+                CMGR [$]
+            </th>
+            <th data-field="Lifetime" class="center">
+                Months
+            </th>
+            <th data-field="rating/score" class="center">
+                Rating
+            </th>
         </thead>
 
         <!-- 5 top rated systems-->
@@ -22,14 +22,10 @@
                 {{_id}}
             </td>
             <td class="center">
-              {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
-                {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
-              {{/if}}
+                {{#if calculatable.RATING.vector.GR.monthlyGrowthD}} {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}% {{/if}}
             </td>
             <td class="center">
-               {{#if calculatable.RATING.vector.GR.months}}
-                {{readableN calculatable.RATING.vector.GR.months 0}}
-              {{/if}}
+                {{#if calculatable.RATING.vector.GR.months}} {{readableN calculatable.RATING.vector.GR.months 0}} {{/if}}
             </td>
             <td class="center">
                 {{readableN calculatable.RATING.sum 1}}
@@ -40,10 +36,7 @@
 </template>
 
 <template name="mainPageCrowdasalesWidget">
-    <h5><a href="/radar#hot">Active Crowdsales</a></h5>
-    {{#each activeCrowdsales}}
-      {{> cgLinkToSystemCard this }}
-    {{/each}}
+    <h5><a href="/radar#hot">Active Crowdsales</a></h5> {{#each activeCrowdsales}} {{> cgLinkToSystemCard this }} {{/each}}
 </template>
 
 <template name="main">
@@ -59,22 +52,25 @@
     <br>
     <br>
     <div class="row center-align">
-      <a style="margin: 12px; border-radius: 3px;" class="blue waves-effect waves-light btn" href="/rating">Start Investing</a>
-      <a style="margin: 12px; border-radius: 3px;" class="disabled green waves-effect waves-light btn" href="/listing">Attract Investments</a>
+        <a style="margin: 12px; border-radius: 3px;" class="blue waves-effect waves-light btn" href="/rating">Start Investing</a>
+        <a style="margin: 12px; border-radius: 3px;" class="disabled green waves-effect waves-light btn" href="/listing">Attract Investments</a>
     </div>
     <br>
     <div class="row center-align _flexbox">
         <div class="col s12 m6 l4 center valign" style="padding:10px">
-            <h5><a class="btn large" href="/tracking">Cybernomics Cap</a></h5>
+            <h5>Cybernomics Cap</h5>
             <div class="card markt">
                 {{#if capUsd }}
                 <p>
-                    <span class="enlarge">$&nbsp;{{readableN capUsd
- 0}}</span>
+                    <span class="enlarge">
+                      $&nbsp;{{readableN capUsd 0}}
+                    </span>
                     <br> {{#if capUsdDailyChange}}
 
                     <span class="{{greenRedNumber capUsdDailyChange}}">
-            {{percentsToTextUpDown capUsdDailyChange 4}}</span> {{else}} &nbsp; {{/if}}
+                      {{percentsToTextUpDown capUsdDailyChange 4}}
+                    </span>
+                {{else}} &nbsp; {{/if}}
                 </p>
                 {{/if}}{{#if capBtc}}
                 <p>
@@ -82,7 +78,8 @@
                     <br> {{#if capBtcDailyChange}}
 
                     <span class="{{greenRedNumber capBtcDailyChange}}">
-            {{percentsToTextUpDown capBtcDailyChange 4}}</span> {{else}}&nbsp; {{/if}}
+                      {{percentsToTextUpDown capBtcDailyChange 4}}
+                    </span> {{else}}&nbsp; {{/if}}
                 </p>
                 {{/if}}
             </div>
@@ -94,8 +91,10 @@
             {{> mainPageCrowdasalesWidget}}
         </div>
         <div class="col s12 m6 l4 center valign" style="padding:10px">
-            <h4>Funds</h4>
-            <p>Section is under construction :)</p>
+            <h5>My Portfolio</h5>
+            <br>
+            <h4>0 bitcoins</h4>
+            <p><a href="/welcome">Join us</a></p>
         </div>
     </div>
 
