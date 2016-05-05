@@ -1,5 +1,5 @@
 <template name="mainPageSystemsWidget">
-    <table class="striped highlight" style="max-width: 30em; margin: 0 auto; ">
+    <table class="" style="max-width: 30em; margin: 0 auto; ">
         <thead class="">
           <th data-field="name" class="">
               System
@@ -37,10 +37,11 @@
         </tr>
         {{/each}}
     </table>
+    <div style="float: right; width: 40px; height: 40px;">.</div>
 </template>
 
 <template name="mainPageCrowdasalesWidget">
-    <h5><a href="/radar#hot">Active Crowdsales</a></h5>
+    <h5><a href="/radar">Active Crowdsales</a></h5>
     {{#each activeCrowdsales}}
       {{> cgLinkToSystemCard this }}
     {{/each}}
@@ -65,8 +66,9 @@
     <br>
     <div class="row center-align _flexbox">
         <div class="col s12 m6 l4 center valign" style="padding:10px">
-            <h5>Cybernomics Cap</h5>
+            <h6>Daily Widget</h6>
             <div class="card markt">
+                <h5>Cybernomics Cap</h5>
                 {{#if capUsd }}
                 <p>
                     <span class="enlarge">$&nbsp;{{readableN capUsd
