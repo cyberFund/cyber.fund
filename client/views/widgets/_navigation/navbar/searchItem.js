@@ -11,7 +11,7 @@ Template['searchItem1'].helpers({
         {
           token: '',
           collection: 'CurrentData',
-          field: "token.token_name",
+          field: "token.name",
           subscription: "search-sys",
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
@@ -45,7 +45,7 @@ Template['searchItem2'].helpers({
         {
           token: '',
           collection: 'CurrentData',
-          field: "token.token_name",
+          field: "token.name",
           subscription: "search-sys",
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,

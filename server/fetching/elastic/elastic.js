@@ -29,7 +29,7 @@ function _searchSelector(bucketKey) {
     "_id": bucketKey
   };
 
-  selector["token.token_symbol"] = symbol;
+  selector["token.symbol"] = symbol;
   return selector;
 }
 
@@ -550,7 +550,7 @@ Meteor.methods({
     });
     if (!curDataDoc || curDataDoc.initializedAverages || !curDataDoc.token) return; //only shoot once. like a real panda.
 
-    var system = curDataDoc.token.token_symbol + "|" + curDataDoc.system;
+    var system = curDataDoc.token.symbol + "|" + curDataDoc.system;
     // fetch dailies for 30 last days
     var params = {
       from: "now-4y/d",
@@ -743,7 +743,7 @@ function gatherSymSys(selector) {
 }
 
 function symSys(system) {
-  var sym = system.token && system.token.token_symbol || null;
+  var sym = system.token && system.token.symbol || null;
   var sys = system._id;
 
   return sym ? [sym, sys].join('|') : null;

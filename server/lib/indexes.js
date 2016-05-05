@@ -17,7 +17,7 @@ Meteor.startup(function() {
 
 	CurrentData._ensureIndex({
 		"_id": 1,
-		"token.token_symbol": 1
+		"token.symbol": 1
 	}, {
 		unique: true,
 		sparse: true,

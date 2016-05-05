@@ -215,7 +215,7 @@ var helpers = {
   displayCurrencyName: function (system) {
     var ret;
     if (system.token) {
-      ret = system.token.token_name;
+      ret = system.token.name;
     }
     if (!ret) ret = system._id;
     return ret;

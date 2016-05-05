@@ -194,17 +194,17 @@ Meteor.publish('dependencies', function(deps) {
   provides means for autocomplete to work
  */
 Meteor.publish('search-sys', function(selector, options, collname) {
-  var s = selector["token.token_name"];
+  var s = selector["token.name"];
   if (s) {
     selector = {
       $or: [{
-        'token.token_symbol': s
+        'token.symbol': s
       }, {
         "_id": s
       }, {
         "aliases.nickname": s
       }, {
-        "token.token_name": s
+        "token.name": s
       }]
     };
   } else {

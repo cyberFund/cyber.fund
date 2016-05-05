@@ -81,7 +81,7 @@ Template['systemBasic'].helpers({
   },
 
   symbol: function() {
-    return this.token ? this.token.token_symbol : ""
+    return this.token ? this.token.symbol : ""
   },
 
   hashtag: function() {
