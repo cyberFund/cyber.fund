@@ -37,6 +37,3 @@ soon. docs will go [there](https://market.mashape.com/21xhipster/cyberfund)
 
 
 
-
-
- [started writing docs](https://cyber.fund/meta/api/docs/paths.json).
