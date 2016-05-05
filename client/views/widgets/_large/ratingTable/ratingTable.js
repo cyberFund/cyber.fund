@@ -90,7 +90,7 @@ Template["ratingTable"].rendered = function() {
 };
 
 Template["ratingTable"].helpers({
-  "rows": function() {
+  rows: function() {
     var sort = _Session.get("coinSorter");
     if (sort["ratings.rating_cyber"]) {
       sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
@@ -99,10 +99,9 @@ Template["ratingTable"].helpers({
       sort: sort
     }).fetch();
   },
-  "img_url": function() {
+  img_url: function() {
     return CF.Chaingear.helpers.cgSystemLogo(this);
   },
-
 
   capBtcToText: function(cap) {
     var ret = parseFloat(cap);

@@ -6,18 +6,27 @@ function _cap() {
 
 Template['main'].helpers({
   cap: function(){ return _cap()},
-  cap_usd: function() {
+  capBtc: function() {
+    var cap = _cap();
+    return cap ? cap.btc : NaN
+  },
+  capUsd: function() {
     var cap = _cap();
     return cap ? cap.usd : NaN
   },
-  cap_usd_yesterday: function() {
+  capUsdYesterday: function() {
     var cap = _cap();
     return cap ? cap.usdDayAgo : NaN
   },
-  cap_daily_change: function () {
+  capBtcDailyChange: function () {
+    var cap = _cap();
+    return cap ? (cap.btc - cap.btcDayAgo)/cap.btc : NaN
+  },
+  capUsdDailyChange: function () {
     var cap = _cap();
     return cap ? (cap.usd - cap.usdDayAgo)/cap.usd : NaN
-  }
+  },
+
 })
 
 Template['main'].onCreated(function(){

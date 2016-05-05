@@ -4,8 +4,8 @@ CF.Chaingear.helpers = {
      * @param that - CurrentData item
      * @returns {string} url to image
      */
-    cgSystemLogo: function (that) {
-        var icon = (that.icon ? that.icon : that._id) || '';
+    cgSystemLogoUrl: function () {
+        var icon = (this.icon ? this.icon : this._id) || '';
         icon = icon.toString().toLowerCase();
         return "https://static.cyber.fund/logos/" + icon + ".png";
     },
