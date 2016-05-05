@@ -28,7 +28,7 @@ CF.processing = {
 
       if (system) {
         query.system = system.system; 
-        query["token.token_symbol"] = system.symbol;
+        query["token.symbol"] = system.symbol;
       }
 
       if ("timestamp" in query && "$gte" in query.timestamp) {

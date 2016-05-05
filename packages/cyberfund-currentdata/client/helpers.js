@@ -16,8 +16,8 @@ var helpers = {
   },
 
   cdSymbol: function symbol () {
-    if (this.token && this.token.token_symbol) {
-      return this.token.token_symbol
+    if (this.token && this.token.symbol) {
+      return this.token.symbol
     }
     return "";
   },

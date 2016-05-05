@@ -93,8 +93,6 @@ Meteor.methods({
     //{{! todo: add check if user is able using this feature}}
 
     if (!checkAllowed(accountKey, this.userId)) return false;
-    console.log("12111", accountKey)
-    console.log(CF.Accounts.findById(accountKey));
 
     var user = Meteor.users.findOne({
       _id: this.userId

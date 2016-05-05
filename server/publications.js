@@ -1,3 +1,4 @@
+var cfCDs = CF.CurrentData .selectors;
 /**
  * currentData, just fields enough to draw rating table..
  */
@@ -66,7 +67,7 @@ Meteor.publish('systemData', function(options) {
   var name =  (typeof options === 'string') ? options : options.name
   console.log ("requested system "+ name);
   if (name) {
-    return CurrentData.find(CF.CurrentData.selectors.system(name));
+    return CurrentData.find(cfCDs.system(name));
   }
   return this.ready();
 });
@@ -115,7 +116,7 @@ Meteor.publish('crowdsalesActive', function() {
 
 /* obsolete
 Meteor.publish('projectsList', function() {
-  var sel = CF.CurrentData.selectors.projects();
+  var sel = cfCDs.projects();
   return CurrentData.find(sel, {
     fields: {
       dailyData: 0,
@@ -150,7 +151,7 @@ Meteor.publish('coinsCount', function() {
   provide enough details to render dependent coins at system page
  */
 Meteor.publish('dependentCoins', function(system) {
-  return CurrentData.find(CF.CurrentData.selectors.dependents(system), {
+  return CurrentData.find(cfCDs.dependents(system), {
     fields: {
       "icon": 1,
       "dependencies": 1,
@@ -180,7 +181,7 @@ Meteor.publish('fastData', function(systemName) {
  list of system names
  */
 Meteor.publish('dependencies', function(deps) {
-  return CurrentData.find(CF.CurrentData.selectors.dependencies(deps), {
+  return CurrentData.find(cfCDs.dependencies(deps), {
     fields: {
       "icon": 1,
       "dependencies": 1,
@@ -194,17 +195,17 @@ Meteor.publish('dependencies', function(deps) {
   provides means for autocomplete to work
  */
 Meteor.publish('search-sys', function(selector, options, collname) {
-  var s = selector["token.token_name"];
+  var s = selector["token.name"];
   if (s) {
     selector = {
       $or: [{
-        'token.token_symbol': s
+        'token.symbol': s
       }, {
         "_id": s
       }, {
         "aliases.nickname": s
       }, {
-        "token.token_name": s
+        "token.name": s
       }]
     };
   } else {
@@ -285,7 +286,7 @@ Meteor.publish('userProfile', function(options){
    currency links in portfolio, depends on list of systems
  */
 Meteor.publish('assetsSystems', function(tokens) {
-  return CurrentData.find(CF.CurrentData.selectors.system(tokens), {
+  return CurrentData.find(cfCDs.system(tokens), {
     fields: {
       token: 1,
       aliases: 1,
@@ -317,7 +318,7 @@ Meteor.publish("portfolioSystems", function(options) {
     }
   }
 
-  return CurrentData.find(CF.CurrentData.selectors.system(systems), {
+  return CurrentData.find(cfCDs.system(systems), {
     fields: {
       "aliases": 1,
       "metrics": 1,

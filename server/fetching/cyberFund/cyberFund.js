@@ -66,8 +66,8 @@ var fetch = function() {
     });
 
     if (!res || !res.headers || !res.headers.etag) return;
-
-    if (!previous || (previous.etag != res.headers.etag)) {
+    var debug = false;
+    if (!previous || (previous.etag != res.headers.etag) || debug) {
       logger.info("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
 
       CF.fetching.get(sourceUrl, {
@@ -78,12 +78,10 @@ var fetch = function() {
             logger.error("Error while fetching cyberfund:", error);
             return;
           }
-          console.log("here");
 
           var crowdsalesList = [];
           var projectsList = [];
           _.each(getResult, function(system) {
-
             system._id = system._id || system.system;
 
             if (!system.token) {
@@ -92,15 +90,19 @@ var fetch = function() {
             }
 
             if (system.crowdsales) { // format crowdsales dates
+
               if (_.isString(system.crowdsales.start_date)) {
-                system.crowdsales.start_date = moment.utc(system.crowdsales.start_date,
-                  "YYYY-MM-DD[T]HH:mm:ss")._d;
+                system.crowdsales.start_date = new Date(system.crowdsales.start_date);
               }
               if (_.isString(system.crowdsales.end_date)) {
-                system.crowdsales.end_date = moment.utc(system.crowdsales.end_date,
-                  "YYYY-MM-DD[T]HH:mm:ss")._d;
+                system.crowdsales.end_date = new Date(system.crowdsales.end_date);
               }
-
+              /*if (system._id == 'Plutus') {
+                console.log("111111");
+                console.log(system.crowdsales);
+                console.log(2222222);
+                console.log(new Date(system.crowdsales.start_date))
+              }*/
               crowdsalesList.push(system._id)
             }
 
@@ -191,6 +193,10 @@ var fetch = function() {
     console.log("probably no connection while trying to fetch cynberfund")
   }
 };
+
+Meteor.startup(function(){
+  fetch();
+})
 
 SyncedCron.add({
   name: 'fetch chaingear data',

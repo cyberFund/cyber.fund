@@ -1,3 +1,4 @@
+var cfCDs = CF.CurrentData .selectors;
 
 Template['profile'].onCreated(function() {
   var instance = this;
@@ -63,7 +64,7 @@ Template['profile'].helpers({
   starred: function() {
     var user = _user();
     return user.profile && user.profile.starredSystems &&
-      CurrentData.find(CF.CurrentData.selectors.system(user.profile.starredSystems)) || []
+      CurrentData.find(cfCDs.system(user.profile.starredSystems)) || []
   },
   followingUsers: function() {
     var user = _user();

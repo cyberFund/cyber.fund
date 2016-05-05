@@ -1,13 +1,10 @@
 CF.Chaingear.helpers = {
-    /**
-     *
-     * @param that - CurrentData item
-     * @returns {string} url to image
-     */
-    cgSystemLogo: function (that) {
-        var icon = (that.icon ? that.icon : that._id) || '';
-        icon = icon.toString().toLowerCase();
-        return "https://static.cyber.fund/logos/" + icon + ".png";
+    cgSystemLogoUrl: function (that) {
+      if (!that) that = this;
+      
+      var icon = (that.icon ? that.icon : that._id) || '';
+      icon = icon.toString().toLowerCase();
+      return "https://static.cyber.fund/logos/" + icon + ".png";
     },
     cgIsActiveCrowdsale: function() {
       return this.crowdsales && this.crowdsales.start_date < new Date() &&

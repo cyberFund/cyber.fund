@@ -1,6 +1,7 @@
+var cfCDs = CF.CurrentData .selectors;
 // ??? not needed
 Meteor.methods({
     "countByCurrencyName": function(name){
-        return CurrentData.find(CF.CurrentData.selectors.system(name)).count();
+        return CurrentData.find(cfCDs.system(name)).count();
     }
 });

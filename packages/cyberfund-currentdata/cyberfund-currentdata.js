@@ -31,7 +31,7 @@ CF.CurrentData = {                // helpers related to collection CurrentData
   selectors: {       // selectors to return elements of CurrentData collection
     system_symbol: function (name, symbol) {   // by system ChG name and token
       return {
-        "token.token_symbol": symbol,
+        "token.symbol": symbol,
         _id: name
       }
     },
@@ -43,13 +43,13 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     },
     symbol: function (symbol) {                             // by token of ChG
       if (_.isArray(symbol)) {
-        return {"token.token_symbol": {$in: symbol}}
+        return {"token.symbol": {$in: symbol}}
       }
-      return {"token.token_symbol": symbol}
+      return {"token.symbol": symbol}
     },
 
     dependents: function (system) {          // systems that depend on current.
-      return {"dependencies": {$in: [system]}};           // single not plural.
+      return {"dependencies": {$in: [system]}};          
     },
 
     dependencies: function (list) {                           //return systems

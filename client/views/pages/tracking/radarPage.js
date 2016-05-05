@@ -1,3 +1,5 @@
+var cfCDs = CF.CurrentData .selectors;
+
 Template['radarPage'].onCreated(function() {
   var self = this;
   self.subscribe('crowdsalesAndProjectsList');
@@ -6,7 +8,7 @@ Template['radarPage'].onCreated(function() {
 });
 
 function _crowdsale() {
-  return CurrentData.find(CF.CurrentData.selectors.crowdsales());
+  return CurrentData.find(cfCDs.crowdsales());
 }
 
 function _project() {
@@ -21,7 +23,7 @@ function _project() {
       }
     }],
     $and: [
-    CF.CurrentData.selectors.projects()]
+    cfCDs.projects()]
   }, {
     sort: {
       "calculatable.RATING.vector.LV.sum": -1
@@ -31,7 +33,7 @@ function _project() {
 
 function _crowdsalePast() {
   return CurrentData.find({
-    $and: [CF.CurrentData.selectors.crowdsales(), {
+    $and: [cfCDs.crowdsales(), {
       'crowdsales.end_date': {
         $lt: new Date()
       }
@@ -45,7 +47,7 @@ function _crowdsalePast() {
 
 function _crowdsaleUpcoming() {
   return CurrentData.find({
-    $and: [CF.CurrentData.selectors.crowdsales(), {
+    $and: [cfCDs.crowdsales(), {
       'crowdsales.start_date': {
         $gt: new Date()
       }
@@ -59,7 +61,7 @@ function _crowdsaleUpcoming() {
 
 function _crowdsaleActive() {
   return CurrentData.find({
-    $and: [CF.CurrentData.selectors.crowdsales(), {
+    $and: [cfCDs.crowdsales(), {
       'crowdsales.end_date': {
         $gt: new Date()
       }

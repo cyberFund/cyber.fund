@@ -1,3 +1,4 @@
+var cfCDs = CF.CurrentData .selectors;
 CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
 CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
 var isOwnAssets = function(){
@@ -48,7 +49,7 @@ Template['displayAccount'].helpers({
     return isOwnAssets();
   },
   systemData: function(){
-    return CurrentData.findOne(CF.CurrentData.selectors.system(this.value.asset)) || {};
+    return CurrentData.findOne(cfCDs.system(this.value.asset)) || {};
   },
   name_of_system: function(){
     return this.value.asset;
@@ -109,7 +110,7 @@ Template['displayAccount'].events({
   'click .req-delete-asset': function(e, t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
     CF.Accounts.currentAsset.set(
-      CurrentData.findOne(CF.CurrentData.selectors.system( $item.attr("asset-key")),
+      CurrentData.findOne(cfCDs.system( $item.attr("asset-key")),
       {fields: {token: 1, aliases: 1, icon: 1}}));
     if (CF.Accounts.currentAsset.get()) {
       $item = $item.closest(".address-item");
@@ -125,7 +126,7 @@ Template['displayAccount'].events({
     var $item = t.$(e.currentTarget).closest(".asset-item");
 
     CF.Accounts.currentAsset.set(
-      CurrentData.findOne(CF.CurrentData.selectors.system($item.attr("asset-key")),
+      CurrentData.findOne(cfCDs.system($item.attr("asset-key")),
       {fields: {token: 1, aliases: 1, icon: 1}}));
     if (CF.Accounts.currentAsset.get()) {
       $item = $item.closest(".address-item");
