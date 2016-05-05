@@ -28,6 +28,11 @@
           </li>
         </ul>
 
+        <ul class="right show-on-med-and-down">
+          <li><div class="w5em lh12em">{{> btcPriceSimple class="black-text" loadingWidget="loadingWidget"}}</div></li>
+        </ul>
+
+
         <ul id="nav-mobile" style="left: -250px" class="side-nav">
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/radar" text="Crowdsales"}}
@@ -37,7 +42,7 @@
           </li>
           <li class="waves-effect">
             <a href="https://blog.cyber.fund" target="_blank">Blog</a></li>
-          
+
           <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
             {{> userDropdown}}
           </li>
