@@ -28,10 +28,9 @@
           </li>
         </ul>
 
-        <ul class="right show-on-med-and-down">
-          <li><div class="w5em lh12em">{{> btcPriceSimple class="black-text" loadingWidget="loadingWidget"}}</div></li>
-        </ul>
-
+        <div class="w5em right hide-on-large-only lh12em" style="padding-top: 1.2em">
+          {{> btcPriceSimple class="black-text" loadingWidget="loadingWidget"}}
+        </div>
 
         <ul id="nav-mobile" style="left: -250px" class="side-nav">
           {{> navbarItem path="/rating" text="Assets"}}
