@@ -39,6 +39,8 @@ ns._importFromUser = function (userId){
 
 Meteor.methods({
   importAccounts: function(){
+    var user = Meteor.user();
+    if (!user || !user.hasSuperPowers) return;
     Meteor.users.find({}, {fields: {_id: 1}}).forEach(function(user){
       console.log(user._id);
       ns._importFromUser(user._id);
