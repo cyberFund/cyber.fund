@@ -44,12 +44,6 @@ Meteor.methods({
       ns._importFromUser(user._id);
     });
   },
-  testSingle: function(_id, address){
-  //  ns._updateBalanceAddress(_id, address, {private: true})
-  },
-  testMany: function(_id){
-  //  ns._updateBalanceAccount(_id, address, {private: true})
-  },
 
   // autoupdate balances for user
   cfAssetsUpdateBalances: function(options) {
