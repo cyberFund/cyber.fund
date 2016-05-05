@@ -41,7 +41,6 @@
 </template>
 
 <template name="main">
-  {{log cap}}
   <div class="row center-align">
     <div class="col l12">
       <br>
@@ -65,7 +64,11 @@
   <div class="row center-align">
     <div class="col l4">
       <h4>Cybernomics Cap</h4>
-      <p>$ {{readableN cap_usd 0}} (yesterday is {{readableN cap_usd_yesterday 0}})</p>
+      <p>$ {{readableN cap_usd 0}} (yesterday is {{readableN cap_usd_yesterday 0}},
+         delta is
+         <span class="{{greenRedNumber cap_daily_change}}">
+         {{percentsToTextUpDown cap_daily_change 4}}</span>
+         )</p>
     </div>
     <div class="col l4">
       {{> mainPageCrowdasalesWidget}}

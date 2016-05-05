@@ -10,10 +10,14 @@ Template['main'].helpers({
     var cap = _cap();
     return cap ? cap.usd : NaN
   },
-  cap_usd_yesterday() {
+  cap_usd_yesterday: function() {
     var cap = _cap();
     return cap ? cap.usdDayAgo : NaN
   },
+  cap_daily_change: function () {
+    var cap = _cap();
+    return cap ? (cap.usd - cap.usdDayAgo)/cap.usd : NaN
+  }
 })
 
 Template['main'].onCreated(function(){
@@ -33,7 +37,6 @@ Template['mainPageSystemsWidget'].helpers({
 
 Template['mainPageCrowdasalesWidget'].helpers({
   activeCrowdsales: function(){
-    console.log(1);
     return CurrentData.find({
       $and: [{crowdsales: {$exists: true}}, {
         'crowdsales.end_date': {

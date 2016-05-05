@@ -18,7 +18,10 @@ var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
 
 Template["ratingTable"].onCreated(function() {
-
+  var sort = (FlowRouter.getParam("sort"));
+   if (sort) {
+     _Session.set ("coinSorter", getSorterByKey(sort));
+   }
 
   Session.set("ratingPageLimit", initialLimit);
   var instance = this;
