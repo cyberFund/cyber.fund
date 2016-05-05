@@ -1,3 +1,5 @@
+var cfCDs = CF.CurrentData .selectors;
+
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
 }
@@ -61,7 +63,7 @@ Template['systemBasic'].helpers({
   },
 
   dependents: function() {
-    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName()), {
+    return CurrentData.find(cfCDs.dependents(systemName()), {
       sort: {
         _id: 1
       }
@@ -73,11 +75,11 @@ Template['systemBasic'].helpers({
     if (!self.dependencies) return [];
     var deps = self.dependencies;
     if (!_.isArray(deps)) deps = [deps];
-    return CurrentData.find(CF.CurrentData.selectors.dependencies(deps));
+    return CurrentData.find(cfCDs.dependencies(deps));
   },
 
   dependentsExist: function() {
-    return CurrentData.find(CF.CurrentData.selectors.dependents(systemName())).count();
+    return CurrentData.find(cfCDs.dependents(systemName())).count();
   },
 
   symbol: function() {

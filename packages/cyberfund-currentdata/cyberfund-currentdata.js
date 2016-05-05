@@ -49,7 +49,7 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     },
 
     dependents: function (system) {          // systems that depend on current.
-      return {"dependencies": {$in: [system]}};           // single not plural.
+      return {"dependencies": {$in: [system]}};          
     },
 
     dependencies: function (list) {                           //return systems

@@ -1,16 +1,9 @@
+var cfCDs = CF.CurrentData .selectors;
+var ns = CF.UserAssets
+
 Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
 });
-
-//Template['portfolioWidget'].onCreated(function () {
-  //var instance = this;
-  /* *** this currently is subscribed at 'profile' template
-  instance.autorun(function(){
-    instance.subscribe('portfolioSystems', {});
-  });*/
-//});
-
-var ns = CF.UserAssets
 
 /**
  *
@@ -24,7 +17,7 @@ var getSumB = function (accountsData) {
     sum = 0;
   _.each(systems, function (sys) {
     var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
-    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+    var system = CurrentData.findOne(cfCDs.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
       sum += q * system.metrics.price.btc;
@@ -38,7 +31,7 @@ var getSumU = function (accountsData) {
     sum = 0;
   _.each(systems, function (sys) {
     var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
-    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+    var system = CurrentData.findOne(cfCDs.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
       sum += q * system.metrics.price.usd;
@@ -52,7 +45,7 @@ var _getSumB = function (accountsData, addressesObject) {
     sum = 0;
   _.each(systems, function (sys) {
     var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
-    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+    var system = CurrentData.findOne(cfCDs.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
       sum += q * system.metrics.price.btc;
@@ -66,7 +59,7 @@ var _getSumU = function (accountsData, addressesObject) {
     sum = 0;
   _.each(systems, function (sys) {
     var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
-    var system = CurrentData.findOne(CF.CurrentData.selectors.system(sys));
+    var system = CurrentData.findOne(cfCDs.system(sys));
 
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
       sum += q * system.metrics.price.usd;
@@ -128,7 +121,7 @@ Template['portfolioWidgetTable'].helpers({
 
     if (_sorter && _split) {
       if (_split.length == 2 && _split[0] == 'f') {
-        var r = CurrentData.find(CF.CurrentData.selectors.system(systems))
+        var r = CurrentData.find(cfCDs.system(systems))
           .fetch()
           .sort(sort[_split[1]]);
 
@@ -137,10 +130,10 @@ Template['portfolioWidgetTable'].helpers({
         if (val == 1) r = r.reverse();
         return r;
       }
-      return CurrentData.find(CF.CurrentData.selectors.system(systems), {sort: sorter})
+      return CurrentData.find(cfCDs.system(systems), {sort: sorter})
     }
 
-    return CurrentData.find(CF.CurrentData.selectors.system(systems))
+    return CurrentData.find(cfCDs.system(systems))
       .fetch().sort(sort.byValue);
   },
   chartData: function () {

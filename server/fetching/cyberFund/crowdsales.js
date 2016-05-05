@@ -1,9 +1,10 @@
+var cfCDs = CF.CurrentData .selectors;
 // recalculate raised amount crutch
 var print = false ? CF.Utils.logger.print : function() {}
 
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
-    $and: [CF.CurrentData.selectors.crowdsales(), {
+    $and: [cfCDs.crowdsales(), {
       'crowdsales.end_date': {
         $gt: new Date()
       }

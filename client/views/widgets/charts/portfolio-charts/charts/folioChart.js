@@ -1,3 +1,5 @@
+var cfCDs = CF.CurrentData .selectors;
+
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.015;
 
@@ -16,7 +18,7 @@ Template['folioChart'].onRendered(function () {
     var options = _Session.get("portfolioOptions") || {},
 
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
-    var r = CurrentData.find(CF.CurrentData.selectors.system(systems));
+    var r = CurrentData.find(cfCDs.system(systems));
 
     var data = r.fetch().sort(function(x, y){
       var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
