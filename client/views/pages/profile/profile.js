@@ -35,40 +35,40 @@ var _user = function getUserByCurrentUid() { //todo reduce
 
 Template['profile'].helpers({
   currentUserAccounts: function(){
-    return CF.UserAssets.getAccountsObject(Meteor.userId());
+    return CF.Accounts._findByUserId(Meteor.userId()).fetch();
   },
   userAccounts: function(){
-    return CF.UserAssets.getAccountsObject(CF.Profile.currentUid());
+    return CF.Accounts._findByUserId(CF.Profile.currentUid()).fetch();
   },
-  'profileName': function() {
+  profileName: function() {
     return this.profile && this.profile.name
   },
-  'userRegistracionCount': function() {
+  userRegistracionCount: function() {
     return Session.get("userRegistracionCount")
   },
-  "isOwnProfile": function() {
+  isOwnProfile: function() {
     if (!Meteor.userId()) return false;
     return (CF.Profile.currentUsername.get() == CF.User.username());
   },
   user: function() {
     return _user();
   },
-  'following': function() { //whether current user is followed by client user
+  following: function() { //whether current user is followed by client user
     var user = Meteor.user();
     if (!user) return false;
     return user.profile && user.profile.followingUsers &&
       _.contains(user.profile.followingUsers, CF.Profile.currentUid());
   },
-  'followingCount': function() { //
+  followingCount: function() { //
     var user = _user();
     return user.profile && user.profile.followingUsers && user.profile.followingUsers.length || 0
   },
-  'starred': function() {
+  starred: function() {
     var user = _user();
     return user.profile && user.profile.starredSystems &&
       CurrentData.find(CF.CurrentData.selectors.system(user.profile.starredSystems)) || []
   },
-  'followingUsers': function() {
+  followingUsers: function() {
     var user = _user();
     return user.profile && user.profile.followingUsers &&
       Meteor.users.find({
@@ -77,7 +77,7 @@ Template['profile'].helpers({
         }
       }) || []
   },
-  'followedByUsers': function() {
+  followedByUsers: function() {
     var user = _user();
     return user.profile && user.profile.followedBy &&
       Meteor.users.find({
@@ -86,7 +86,7 @@ Template['profile'].helpers({
         }
       }) || []
   },
-  'followedByCount': function() {
+  followedByCount: function() {
     var user = _user();
     return user.profile && user.profile.followedBy && user.profile.followedBy.length || 0
   }

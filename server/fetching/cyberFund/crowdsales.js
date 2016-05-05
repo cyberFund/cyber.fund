@@ -33,7 +33,7 @@ function updateCrowdsales() {
           if (_.isArray(addr)) {
             var raised = {};
             _.each(addr, function(address) {
-              var balances = CF.UserAssets.quantumCheck(address);
+              var balances = CF.Accounts.quantumCheck(address);
               if (!balances || balances[0] == 'error') return;
               _.each(balances, function(b) {
                 if (b.quantity && b.asset) {

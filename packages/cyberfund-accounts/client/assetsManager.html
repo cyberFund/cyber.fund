@@ -4,12 +4,11 @@
         {{#if isOwnAssets}}
             {{> addAccount}}
         {{/if}}
-        {{#if and isOwnAssets  showAccountsAdvertise}}
-
+        {{#if and isOwnAssets showAccountsAdvertise}}
         {{/if}}
 
-        {{#each keyValue _accounts}}
-            {{> displayAccount value=value key=key}}
+        {{#each _accounts}}
+          {{> displayAccount this}}
         {{/each}}
 
         {{#if isOwnAssets}}
@@ -19,7 +18,7 @@
                         account {{currentAccount.name}}</h4>
 
                     <form id="add-address-form"
-                          account-key="{{session 'currentAccount'}}">
+                          account-id="{{session 'currentAccount'}}">
                         <div class="row">
                             <input type="text" name="address"
                                    placeholder="Address" id="add-address-input">
@@ -226,15 +225,15 @@
             <div id="modal-toggle-private" class="modal">
                 <div class="modal-content">
                     <form id="toggle-private-form">
-                        {{#if currentAccountKey}}
+                        {{#if currentAccountId}}
                             <h4 class="center">Make
-                                account {{privacyOpposite currentAccountKey}}
+                                account {{privacyOpposite currentAccountId}}
                                 .</h4>
 
                             <div class="row">
                                 <p> Confirm turning
                                     account {{currentAccount.name}}
-                                    into {{privacyOpposite currentAccountKey}}
+                                    into {{privacyOpposite currentAccountId}}
                                     .</p>
                             </div>
                         {{/if}}

@@ -39,8 +39,8 @@
                 <div id="existing-account-group">
                     <select id="account-id-select" class="browser-default">
                         <option value="">Select account</option>
-                        {{#each keyValue currentUserAccounts}}
-                            <option value="{{key}}">{{value.name}}</option>
+                        {{#each currentUserAccounts}}
+                            <option value="{{_id}}">{{name}}</option>
                         {{/each}}
                     </select>
                 </div>

@@ -43,18 +43,19 @@ Meteor.publish('marketDataRP', function(options) {
 
 /* own user details */
 Meteor.publish('userDetails', function() {
-  return Meteor.users.find({
+  return [Meteor.users.find({
     _id: this.userId
   }, {
     fields: {
       "services.privateAccountsEnabled": 1,
+      "services.twitter": 1, //userHasPublicAccess needs it...
       "username": 1,
       "avatar": 1,
       "largeAvatar": 1,
       "firstLogin": 1,
       "profile": 1
     }
-  });
+  }), CF.Accounts._findByUserId(this.userId, {private: true}) ];
 });
 
 /**
@@ -106,7 +107,7 @@ Meteor.publish('crowdsalesActive', function() {
     }},
       {
     fields: {
-      dailyData: 0,
+      dailyData: 0, //obsolete
       hourlyData: 0
     }
   });
@@ -275,7 +276,9 @@ Meteor.publish('userProfile', function(options){
   };
   var own = this.userId == uid;
   if (own) fields.accountsPrivate = 1;
-  return Meteor.users.find({_id: uid}, {fields: fields});
+  var ret = [Meteor.users.find({_id: uid}, {fields: fields})]
+  if (own) ret.push (CF.Accounts._findByUserId(uid, {private: own}) )
+  return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
 /*
@@ -302,17 +305,14 @@ Meteor.publish("portfolioSystems", function(options) {
   options = CF.Utils.normalizeOptionsPerUser(options);
   var userId = options.userId;
 
-  var own = this.userId == userId;
-  var user = Meteor.users.findOne({
-    _id: userId
-  });
-  if (!user) return this.ready();
-  var accounts = _.clone(user.accounts) || {};
-  if (own) _.extend(accounts, user.accountsPrivate)
+  var private = this.userId == userId;
+  if (!userId) return this.ready();
+  var user = Meteor.users.findOne({_id: userId})
 
+  var accounts = CF.Accounts._findByUserId(userId, {private: private});
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
-  if (own) {
+  if (private) {
     if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
       systems = _.union(systems, user.profile.starredSystems)
     }

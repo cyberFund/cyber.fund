@@ -1,5 +1,5 @@
 Package.describe({
-  name: 'cyberfund:cyberfund-userassets',
+  name: 'cyberfund:cyberfund-accounts',
   version: '0.0.1',
   // Brief, one-line summary of the package.
   summary: '',
@@ -15,9 +15,10 @@ Package.onUse(function(api) {
   api.use(["cyberfund:cyberfund-base"]);
   api.use(['underscore'], ['client', 'server']);
   api.use(['ui', 'templating'], 'client');
-  api.addFiles(['cyberfund-userassets.js'], ['client', 'server']);
-  api.addFiles(['server/cyberfund-userassets-methods.js', 'server/cyberfund-userassets-pub.js'], 'server');
-  api.addFiles(['client/userassets.js', 'client/assetsManager.html', 'client/assetsManager.js',
+  api.addFiles(['cyberfund-userassets.js', 'accounts.js'], ['client', 'server']);
+  api.addFiles(['server/cyberfund-userassets-methods.js', 'server/cyberfund-userassets-pub.js', 'server/accounts.js'], 'server');
+  api.addFiles(['client/userassets.js', 'client/accounts.js',
+    'client/assetsManager.html', 'client/assetsManager.js',
     'client/addAccount.html', 'client/addAccount.js',
     'client/displayAccount.html', 'client/displayAccount.js',
     'client/systemWithToken.html'
