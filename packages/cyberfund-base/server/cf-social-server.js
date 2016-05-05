@@ -30,7 +30,5 @@ Meteor.publish("friendlyUsers", function(options){
   return Meteor.users.find({_id: {$in: uids}}, {fields: {
     "profile.name": 1,
     "username":  1,
-    "avatar": 1,
-    "profile.twitterName": 1,
-  }})
+    "avatar": 1  }})
 });

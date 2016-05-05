@@ -17,11 +17,11 @@ sitemaps.add('/sitemap.xml', function () {
         lastmod: coin.updatedAt
       });
     });
-  Meteor.users.find({}, {fields: {"profile.twitterName": 1}})
+  Meteor.users.find({}, {fields: {"username": 1}})
     .forEach(function(user){
-      if (user.profile && user.profile.twitterName)
+      if (user.username)
       ret.push({
-        page: '@' + user.profile.twitterName
+        page: '@' + user.username
       });
     });
   return ret;
