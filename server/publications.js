@@ -275,9 +275,8 @@ Meteor.publish('userProfile', function(options){
     'services.twitter.screenName': 1
   };
   var own = this.userId == uid;
-  if (own) fields.accountsPrivate = 1;
   var ret = [Meteor.users.find({_id: uid}, {fields: fields})]
-  if (own) ret.push (CF.Accounts._findByUserId(uid, {private: own}) )
+  if (!own) ret.push (CF.Accounts._findByUserId(uid, {isPrivate: {$ne: true}}) )
   return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 

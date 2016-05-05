@@ -143,8 +143,6 @@ Picker.route('/api03/username/:username/accounts', function(params, req, res, ne
 
   var ret = {accounts: getAccountIdsByUsername(params.username, options)}
 
-
-
   ret = applyOptionsFinal(bottle, ret, options);
   if (ret.meta) {
     _.extend(ret.meta, {request: {username: params.username}}) // todo: log instead echoing
