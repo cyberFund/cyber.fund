@@ -1,9 +1,4 @@
 CF.Chaingear.helpers = {
-    /**
-     *
-     * @param that - CurrentData item
-     * @returns {string} url to image
-     */
     cgSystemLogoUrl: function () {
         var icon = (this.icon ? this.icon : this._id) || '';
         icon = icon.toString().toLowerCase();

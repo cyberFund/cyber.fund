@@ -4,7 +4,7 @@ Template['cgSystemLogo'].rendered = function () {
 
 Template['cgSystemLogo'].helpers({
     'img_url': function () {
-        return CF.Chaingear.helpers.cgSystemLogo(this.data)
+        return CF.Chaingear.helpers.cgSystemLogoUrl(this.data)
     }
 });
 

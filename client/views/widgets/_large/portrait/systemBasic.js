@@ -196,10 +196,6 @@ Template['systemBasic'].helpers({
 });
 
 Template['systemBasicAbout'].helpers({
-  img_url: function() {
-    return CF.Chaingear.helpers.cgSystemLogo(curData());
-  },
-
   independent: function(system) {
     var deps = system.dependencies;
     if (!deps) return true;
