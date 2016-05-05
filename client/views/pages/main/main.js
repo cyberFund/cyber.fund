@@ -10,6 +10,10 @@ Template['main'].helpers({
     var cap = _cap();
     return cap ? cap.usd : NaN
   },
+  cap_usd_yesterday() {
+    var cap = _cap();
+    return cap ? cap.usdDayAgo : NaN
+  },
 })
 
 Template['main'].onCreated(function(){
