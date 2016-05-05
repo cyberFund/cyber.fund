@@ -35,8 +35,7 @@ Meteor.startup(function() {
 
 // comma separated string (no spaces so far..), not css
 var cssToArray = function(str) {
-  if (typeof str == 'string')
-    return str.split(',');
+   return (typeof str == 'string') ? str.split(',') : str;
 }
 
 // if passed single string (not array) - pretend it s ,-split
