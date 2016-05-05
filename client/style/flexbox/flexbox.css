@@ -1,0 +1,7 @@
+.flexbox {
+  display: flex;
+}
+
+.flexbox-inline {
+  display: inline-flex;
+}
