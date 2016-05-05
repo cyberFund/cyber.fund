@@ -10,16 +10,17 @@
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "ramda": "^0.21.0",
+    "react": "^15.0.2",
     "react-addons-create-fragment": "^15.0.2",
     "react-addons-css-transition-group": "^15.0.2",
+    "react-addons-linked-state-mixin": "^15.0.2",
     "react-addons-perf": "^15.0.2",
     "react-addons-pure-render-mixin": "^15.0.2",
-    "react-addons-linked-state-mixin": "^15.0.2",
     "react-addons-test-utils": "^15.0.2",
     "react-addons-transition-group": "^15.0.2",
-    "react": "^15.0.2",
     "react-addons-update": "^15.0.2",
-    "react-dom": "^15.0.2"
+    "react-dom": "^15.0.2",
+    "unirest": "^0.4.2"
   },
   "devDependencies": {},
   "scripts": {
