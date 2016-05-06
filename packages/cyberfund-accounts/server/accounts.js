@@ -163,6 +163,10 @@ ns._updateBalanceAccount = function(account) {
   if (!account.addresses) return;
   var modify = {$set: {},$unset: {}};
   _.each(account.addresses, function(addressObj, address){
+
+    var balances = ns.quantumCheck(address);
+    if (balances[0] == 'error') return;
+
     //var addressObj = account && account.addresses && account.addresses[address];
     var key = _k(['addresses', address, 'assets']);
     _.each(addressObj.assets, function(asset, assetKey) {
@@ -171,8 +175,6 @@ ns._updateBalanceAccount = function(account) {
       }
     });
 
-    var balances = ns.quantumCheck(address);
-    if (balances[0] == 'error') return;
     print("balances", balances)
 
     _.each(balances, function(balance) {
@@ -192,7 +194,6 @@ ns._updateBalanceAccount = function(account) {
       modify.$set[k] = {
         update: 'auto',
         quantity: quantity,
-        //asset: asset,
         updatedAt: new Date(),
       };
       delete modify.$unset[k];
