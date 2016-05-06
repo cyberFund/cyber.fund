@@ -2,7 +2,7 @@ var disableButton = function disableButton(t){
   t.$(".query-balance").addClass("disabled");
 }
 
-var enableButton =  function enableButton(t){
+var enableButton = function enableButton(t){
   if (t.timeout) Meteor.clearTimeout(t.timeout);
   t.$(".query-balance").removeClass("disabled");
 }
@@ -36,19 +36,13 @@ Template['balanceChecker1'].events({
     if (!addr) {
       Materialize.toast("Please input an address", 4000); return;
     }
-    /* cors do not work so far
-    $.ajax({
-      url: "http://quantum.cyber.fund:3001?address="+addr,
-      complete: function(a, b){
-        console.log(a);
-        console.log(b);
-      }
-    })*/
+
     $(e.currentTarget).addClass('disabled');
 
     disableButton(t);
 
     t.timeout = Meteor.setTimeout(function(){
+      analytics.track("balance check", {status: "timeout"})
       enableButton(t);
     }, 15000)
 
@@ -58,8 +52,12 @@ Template['balanceChecker1'].events({
       t.lastStatus.set(result[0] == 'error' ? result[1].statusCode : '')
       t.lastData.set(t.lastStatus.get() ? null : result);
       t.queryingAddress.set('')
-      console.log(result);
       enableButton(t);
+      if (result[0] == 'error') {
+        analytics.track("balance check", {status: "success"})
+      } else {
+        analytics.track("balance check", {status: "failure", address: addr})
+      }
     })
   }
 })
