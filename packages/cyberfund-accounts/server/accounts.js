@@ -50,6 +50,7 @@ Meteor.methods({
     var user = Meteor.user();
     if (!user) return;
     if (!user.hasSuperPowers) sel = {_id: this.userId};
+    return;
     Meteor.users.find(sel||{_id: "ErwxCME6azQS7KcNm"}, {fields: {_id: 1}}).forEach(function(user){
       console.log(user._id);
       ns._importFromUser(user._id);

@@ -1,20 +1,22 @@
 CF.UserAssets = {};
 
-CF.Accounts.accountNameIsValid = function (name, refId, oldName) {
+CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
   if (!name || !_.isString(name)) return false;
   if (oldName && name == oldName) return true;
   var ret = true;
-  CF.Accounts.collection.find({refId: refId}).forEach(function (account) {
+  CF.Accounts.collection.find({
+    refId: refId
+  }).forEach(function(account) {
     if (name == account.name) ret = false;
   });
   return ret;
 };
 
 // if user adds new account let s assign it a key
-CF.UserAssets.nextKey = function (accounts) {
+CF.UserAssets.nextKey = function(accounts) {
   var keys = _.keys(accounts || {});
   if (!keys.length) return 1;
-  _.each(keys, function (v, k) {
+  _.each(keys, function(v, k) {
     if (_.isString(v)) keys[k] = parseInt(v);
   });
   return (_.max(keys) + 1).toString();
@@ -27,18 +29,18 @@ CF.UserAssets.nextKey = function (accounts) {
  * @returns {Array} of system names
  */
 
-CF.UserAssets.getSystemsFromAccountsObject = function (accounts) {
+CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
   //  console.log(accounts);
 
-  var systems = _.flatten(accounts.map(function (account) {
+  var systems = _.flatten(accounts.map(function(account) {
     //console.log(account)
     return _.values(account.addresses)
   }));
   //console.log(systems)
 
   if (systems) {
-    systems = _.uniq(_.flatten(_.map(systems, function (address) {
+    systems = _.uniq(_.flatten(_.map(systems, function(address) {
       return (_.keys(address.assets))
     })));
   } else {
@@ -55,15 +57,14 @@ CF.UserAssets.getSystemsFromAccountsObject = function (accounts) {
  *
  * same as getQuantitiesFromAccountsObject - but to work account-wise, not totaling..
  */
-CF.UserAssets.getQuantitiesFromAddressesObject = function (addressesObject, key) {
+CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) {
   var sum = 0.0;
   if (addressesObject && key) {
     var rets = _.values(addressesObject);
-    _.each(rets, function (assetsObject) {
+    _.each(rets, function(assetsObject) {
       assetsObject = assetsObject.assets;
-      if (assetsObject[key]) {
-        if (assetsObject[key].asset == key/*why we need this check?*/
-          && assetsObject[key].quantity) sum += assetsObject[key].quantity
+      if (assetsObject[key] && assetsObject[key].quantity) {
+        sum += assetsObject[key].quantity
       }
     });
   }
@@ -77,7 +78,7 @@ CF.UserAssets.getQuantitiesFromAddressesObject = function (addressesObject, key)
  * @param key - system name to check against (or system object)
  * @returns {number} quantity of specified coins from accountsObject
  */
-CF.UserAssets.getQuantitiesFromAccountsObject = function (accountsObject, key) {
+CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   var sum = 0.0;
   if (_.isObject(key) && _.isString(key._id)) key = key._id;
 
@@ -85,18 +86,17 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function (accountsObject, key) {
   if (accountsObject && key) {
     var rets = _.values(accountsObject);
     if (rets) {
-      rets = _.flatten(_.map(rets, function (account) {
+      rets = _.flatten(_.map(rets, function(account) {
         return _.values(account.addresses)
       }));
     } else {
       return sum;
     }
 
-    _.each(rets, function (assetsObject) {
+    _.each(rets, function(assetsObject) {
       assetsObject = assetsObject.assets;
-      if (assetsObject[key]) {
-        if (assetsObject[key].asset == key/*why we need this check?*/
-          && assetsObject[key].quantity) sum += assetsObject[key].quantity
+      if (assetsObject[key] && assetsObject[key].quantity) {
+        sum += assetsObject[key].quantity
       }
     });
   }
@@ -109,15 +109,10 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function (accountsObject, key) {
  * and we later will need this to be not flag, but have some time limits there..
  * @param user - user object.
  */
-CF.UserAssets.isPrivateAccountsEnabled = function (user) {
+CF.UserAssets.isPrivateAccountsEnabled = function(user) {
   return true;
   //return !!(user && user.services && user.services.privateAccountsEnabled)
 };
-
-
-CF.UserAssets.accountsFields = function(isOwn){
-  return isOwn ? {'accounts': 1, 'accountsPrivate': 1} : {'accounts': 1}
-}
 
 /**
  * returns 'accounts' or 'accountsPrivate' or ''
@@ -126,7 +121,7 @@ CF.UserAssets.accountsFields = function(isOwn){
  * @returns {String} that indicates account type (public or private)
  */
 
-CF.UserAssets.getAccountPrivacyType = function (accountKey) {
+CF.UserAssets.getAccountPrivacyType = function(accountKey) {
   var ret = CF.Accounts.findById(accountKey);
-  return ret ? ( ret.isPrivate ? 'accountsPrivate' : 'accounts' ) : 'undefined'
+  return ret ? (ret.isPrivate ? 'accountsPrivate' : 'accounts') : 'undefined'
 };
