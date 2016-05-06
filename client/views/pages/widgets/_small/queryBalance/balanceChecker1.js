@@ -11,7 +11,7 @@ Template['balanceChecker1'].onCreated(function(){
   t.lastAddress = new ReactiveVar();
   t.lastStatus = new ReactiveVar();
   t.lastData = new ReactiveVar();
-  t.queryingAddress = new ReactiveVar(); 
+  t.queryingAddress = new ReactiveVar();
 })
 
 Template['balanceChecker1'].helpers({
@@ -22,6 +22,13 @@ Template['balanceChecker1'].helpers({
 });
 
 Template['balanceChecker1'].events({
+  'click .reset-all': function(e, t){
+    t.lastAddress.set('');
+    t.lastStatus.set('')
+    t.lastData.set('');
+    t.queryingAddress.set('')
+    t.$("input").val('')
+  },
   'click .query-balance': function (e, t){
     e.preventDefault();
     if (t.$(e.currentTarget).hasClass("disabled")) return;

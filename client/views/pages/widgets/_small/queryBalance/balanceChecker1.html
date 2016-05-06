@@ -2,19 +2,27 @@
     <div class="card">
         <h6>Balance checker widget</h6>
         <div class="card-content">
+          {{#if lastAddress}}
+          <a class="red-text reset-all btn-floating btn-tiny red"
+            style="position: absolute; bottom: 9px; right: 9px"><i
+                  class="material-icons tiny right">delete</i></a>
+          {{/if}}
             <input type="text" name="address" placeholder="input address">
             <a href="#" class="btn query-balance">Query Balance</a>
             {{#if lastAddress}}
               <h6>{{lastAddress}} </h6>
+
                 {{#if lastStatus}}
                 <div class="row">
                   {{#if eq lastStatus 400}} wrong address {{else}} unknown error {{/if}}
                 </div>
                 {{else}}
+
                   {{#each lastData}}
                     <div class="row no-bottom-margin">{{asset}}:{{quantity}}</div>
                   {{/each}}
                 {{/if}}
+
             {{/if}}
             {{#if queryingAddress}}
               <p>Querying address: {{queryingAddress}}</p>
