@@ -72,7 +72,11 @@ Meteor.methods({
   },
 })
 
-
+Meteor.methods({
+  checkBalance: function(address){
+    return ns.quantumCheck(address.toString())
+  }
+})
 // get auto balances per address
 ns.quantumCheck = function(address) {
   try {
@@ -83,7 +87,7 @@ ns.quantumCheck = function(address) {
   } catch (e) {
     print("on checking address " + address + " quantum returned code ",
       e && e.response && e.response.statusCode, true)
-    return ['error'];
+    return ['error', {statusCode: e.response.statusCode} ];
   }
 }
 

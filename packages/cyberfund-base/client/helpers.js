@@ -213,6 +213,7 @@ var helpers = {
     return ret;
   },
   displayCurrencyName: function (system) {
+    console.log (system)
     var ret;
     if (system.token) {
       ret = system.token.name;
