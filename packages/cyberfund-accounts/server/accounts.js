@@ -38,10 +38,11 @@ ns._importFromUser = function (userId){
 }
 
 Meteor.methods({
-  importAccounts: function(){
+  importAccounts: function(sel){
     var user = Meteor.user();
     if (!user || !user.hasSuperPowers) return;
-    Meteor.users.find({}, {fields: {_id: 1}}).forEach(function(user){
+
+    Meteor.users.find(sel||{_id: "ErwxCME6azQS7KcNm"}, {fields: {_id: 1}}).forEach(function(user){
       console.log(user._id);
       ns._importFromUser(user._id);
     });
