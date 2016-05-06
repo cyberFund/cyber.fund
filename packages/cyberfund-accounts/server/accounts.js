@@ -99,12 +99,8 @@ Meteor.methods({
       _id: this.userId
     });
     var account = CF.Accounts.findById(accountKey);
-    if (account) {
-      print ("account", account);
-    }
     var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts'); //TODO - remove strings, not needed
     if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
-
 
     if (account.refId == this.userId) {
       print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
@@ -254,7 +250,8 @@ ns._updateBalanceAddress = function(account, address) {
   if (balances[0] == 'error') return;
   print("balances", balances)
 
-  _.each(balances, function(balance, asset) {
+  _.each(balances, function(balance) {
+    var asset = balance.asset
     if (!asset) {
       print("NO BALANCE", balance, true)
       print ("NO KEY", asset)
@@ -299,7 +296,6 @@ ns._updateBalanceAccount = function(account) {
   print("account", account);
   if (!account.addresses) return;
   var modify = {$set: {},$unset: {}};
-  print("here", modify);
   _.each(account.addresses, function(addressObj, address){
     //var addressObj = account && account.addresses && account.addresses[address];
     var key = _k(['addresses', address, 'assets']);
@@ -313,8 +309,8 @@ ns._updateBalanceAccount = function(account) {
     if (balances[0] == 'error') return;
     print("balances", balances)
 
-    _.each(balances, function(balance, asset) {
-      print ("internal check", balance.asset == asset);
+    _.each(balances, function(balance) {
+      var asset = balance.asset;
       if (!asset) return;
 
       var quantity;
