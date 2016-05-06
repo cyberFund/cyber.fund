@@ -37,8 +37,7 @@
                           <div style="margin-bottom: 18px">
                               <div
                                    style="margin-left: 0px;">{{key}}
-                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 6px; border-radius: 6px"
-                                        class="red white-text">Unverified Address</span>
+                                  <span class="portfolio-badge red white-text">Unverified Address</span>
                               </div>
 
                               <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
@@ -65,17 +64,17 @@
                                       asset-key="{{key}}">
                                       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
                                       {{displaySystemName systemData}}</a>
-                                      : {{value.quantity}} {{displayCurrencyName systemData}}s
+                                      : {{value.quantity}} {{displayCurrencyName key}}s
                                           <div class="secondary-content hoverie"
                                                style="margin-right: 12px;">
+
                                               {{#if eq value.update 'auto'}}
-                                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
-                                                        class="amber white-text">
+                                                  <span class="portfolio-badge amber white-text">
                                               Autoupdate</span>
                                               {{/if}}
+
                                               {{#if eq value.update 'manual'}}
-                                                  <span style="font-size: 80%; vertical-align: middle; padding: 2px 4px; margin-top: 4px; border-radius: 6px"
-                                                        class="green white-text">
+                                                  <span class="portfolio-badge green white-text">
                                               Manually entered</span>
                                               {{/if}}
                                               {{#if isOwn}}

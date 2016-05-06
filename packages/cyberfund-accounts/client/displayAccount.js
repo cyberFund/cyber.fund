@@ -49,10 +49,10 @@ Template['displayAccount'].helpers({
     return isOwnAssets();
   },
   systemData: function(){
-    return CurrentData.findOne(cfCDs.system(this.value.asset)) || {};
+    return CurrentData.findOne(cfCDs.system(this.key)) || {};
   },
   name_of_system: function(){
-    return this.value.asset;
+    return this.key;
   }
 });
 

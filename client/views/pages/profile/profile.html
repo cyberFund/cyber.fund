@@ -1,5 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
+
     <div class="row" style="margin-top: 12px">
         <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
@@ -66,6 +67,16 @@
         </div>
         <div class="col l9 m12 s12">
               {{> portfolioWidget accountsData=userAccounts hideTable=false}}
+              {{#if isOwnProfile}}
+                <div class="red lighten-5 black-text card">If you experience some accounts were here,
+                  but missing - let us know.<br/>
+                   Contact <a href="mailto:t@cyber.fund">t@cyber.fund</a>.
+                    or <a href="https://github.com/cyberFund/cyber.fund/issues/418">file an issue to github </a><br/>
+                    Please provide your username (or twitter screenName - we do not handle renamings of twitter accounts well yet)
+                    <br/>
+                  On May, 5 we've migrated database, so there are still some issues.
+                </div>
+                {{/if}}
             {{> assetsManager }}
         </div>
 
