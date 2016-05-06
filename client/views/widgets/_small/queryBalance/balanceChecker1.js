@@ -54,9 +54,9 @@ Template['balanceChecker1'].events({
       t.queryingAddress.set('')
       enableButton(t);
       if (result[0] == 'error') {
-        analytics.track("balance check", {status: "failure", address: addr})
-      } else {
         analytics.track("balance check", {status: "success"})
+      } else {
+        analytics.track("balance check", {status: "failure", address: addr})
       }
     })
   }

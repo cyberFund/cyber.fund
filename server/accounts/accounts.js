@@ -12,6 +12,8 @@ Accounts.onCreateUser(function(options, user) {
   //  1.2. if ok: add user.username field
   //  1.2.1. if not ok: try same with username+'_tw'
   //  1.2.2. if still not ok: try same with username +'random number or user first/last name'
+  //
+  //   and that s completely wrong.
 
   var isTwitter = !!(user.services && user.services.twitter)
   var isPassword = !!(user.services && user.services.password) && !isTwitter; // ?
