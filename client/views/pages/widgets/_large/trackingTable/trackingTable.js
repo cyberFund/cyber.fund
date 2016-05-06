@@ -93,7 +93,7 @@ Template['trackingWidget'].helpers({
       if (sort["ratings.rating_cyber"]) {
           sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
       }
-    return CurrentData.find({}, {sort: sort}).fetch;
+    return CurrentData.find({}, {sort: sort}).fetch();
   },
   img_url: function () {
     return CF.Chaingear.helpers.cgSystemLogoUrl(this);
