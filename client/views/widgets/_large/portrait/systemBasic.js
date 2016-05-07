@@ -52,42 +52,44 @@ Template['systemBasic'].onRendered(function() {
     });*/
 
     // Create a query instance
-    var count = new Keen.Query("count", {
-      eventCollection: "Viewed System Page",
-      filters: [{
-        "operator": "contains",
-        "property_name": "path",
-        "property_value": FlowRouter.getParam("name_")
-      }],
-      group_by: "visitor.geo.country",
-      interval: "daily",
-      timeframe: "this_21_days"
-    });
+    Tracker.autorun(function() {
+      var count = new Keen.Query("count", {
+        eventCollection: "Viewed System Page",
+        filters: [{
+          "operator": "contains",
+          "property_name": "path",
+          "property_value": Blaze._globalHelpers._toSpaces( FlowRouter.getParam("name_") )
+        }],
+        group_by: "visitor.geo.country",
+        interval: "daily",
+        timeframe: "this_21_days"
+      });
 
-    // Basic charting w/ `client.draw`:
-    client.draw(count, document.getElementById("chart-wrapper"), {
-      chartType: "columnchart",
-      title: "Custom chart title"
-    });
+      // Basic charting w/ `client.draw`:
+      client.draw(count, document.getElementById("chart-wrapper"), {
+        chartType: "columnchart",
+        title: "Custom chart title"
+      });
 
-    // Advanced charting with `Keen.Dataviz`:
-    var chart = new Keen.Dataviz()
-      .el(document.getElementById("keen-chart"))
-      .chartType("columnchart")
-      .prepare(); // starts spinner
+      // Advanced charting with `Keen.Dataviz`:
+      var chart = new Keen.Dataviz()
+        .el(document.getElementById("keen-chart"))
+        .chartType("columnchart")
+        .prepare(); // starts spinner
 
-    var req = client.run(count, function(err, res) {
-      if (err) {
-        // Display the API error
-        chart.error(err.message);
-      } else {
-        // Handle the response
-        chart
-          .parseRequest(this)
-          .title("Custom chart title")
-          .render();
-      }
-    });
+      var req = client.run(count, function(err, res) {
+        if (err) {
+          // Display the API error
+          chart.error(err.message);
+        } else {
+          // Handle the response
+          chart
+            .parseRequest(this)
+            .title("Custom chart title")
+            .render();
+        }
+      });
+    })
   })
 });
 
