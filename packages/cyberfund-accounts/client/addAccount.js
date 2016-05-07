@@ -24,9 +24,8 @@ CF.UserAssets.uiAddressExists = function (address) {
 };
 
 function _accountsExist(){
-  var user = Meteor.user();
-  return user && ((user.accounts && !_.isEmpty(user.accounts))
-    || (user.accountsPrivate && !_.isEmpty(user.accountsPrivate)));
+  var userId = Meteor.userId();
+  return !!userId && !!CF.Accounts.collection.find({refId: userId}).count();
 }
 
 Template['addAccount'].onRendered( function () {
@@ -96,7 +95,7 @@ Template['addAccount'].helpers({
   privacyState: function () {
     var user = Meteor.user();
     var ret = CF.User.hasPublicAccess(user)
-    return  (ret ? "checked" : '');
+    return  (ret ? "" : "checked");
   },
   currentUserAccounts: function(){
     return CF.Accounts._findByUserId(Meteor.userId())
