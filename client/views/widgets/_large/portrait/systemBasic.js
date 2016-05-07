@@ -30,69 +30,51 @@ Template['systemBasic'].onCreated(function() {
       }
     }
   });
-});
+})
 
-Template['systemBasic'].onRendered(function() {
+Meteor.startup(function() {
+  CF.keenflag = new ReactiveVar();
+  Keen.ready(function() {
+    CF.keenflag.set(true);
+  });
+})
+
+Template['systemBasicKeen'].onRendered(function() {
+  var instance = this;
   var client = new Keen({
     projectId: "55c8be40d2eaaa07d156b99f",
     readKey: "4083b4d7a1ce47a40aabf59102162e3848d0886d457e4b9b57488361edfa28a1e49d2b100b6008299aa38303cd6254d4aa993db64137675d9d8d65928f283573c3932f413ec06050e8e3e9a642485cb6090d742d84da78f247aeb05f709e69f6c2085e9324a277e654bb12434f094412"
   });
 
-  Keen.ready(function() {
-    //Tracker.autorun(function(){
-    /*var query = new Keen.Query("count", {
+  instance.autorun(function() {
+    console.log("0")
+    if (!CF.keenflag.get()) return;
+    console.log("1")
+    var key = FlowRouter.getParam("name_");
+    if (!key) return;
+    // Create a query instance
+
+    var count = new Keen.Query("count", {
       eventCollection: "Viewed System Page",
       filters: [{
         "operator": "contains",
         "property_name": "path",
-        "property_value": FlowRouter.getParam("name_")
+        "property_value": key
       }],
-      timeframe: "this_14_months",
-      timezone: "UTC"
-    });*/
+      interval: "daily",
+      timeframe: "this_21_days"
+    });
 
-    // Create a query instance
-    Tracker.autorun(function() {
-      var count = new Keen.Query("count", {
-        eventCollection: "Viewed System Page",
-        filters: [{
-          "operator": "contains",
-          "property_name": "path",
-          "property_value": Blaze._globalHelpers._toSpaces( FlowRouter.getParam("name_") )
-        }],
-        group_by: "visitor.geo.country",
-        interval: "daily",
-        timeframe: "this_21_days"
-      });
+    console.log("2", key)
 
-      // Basic charting w/ `client.draw`:
-      client.draw(count, document.getElementById("chart-wrapper"), {
-        chartType: "columnchart",
-        title: "Custom chart title"
-      });
-
-      // Advanced charting with `Keen.Dataviz`:
-      var chart = new Keen.Dataviz()
-        .el(document.getElementById("keen-chart"))
-        .chartType("columnchart")
-        .prepare(); // starts spinner
-
-      var req = client.run(count, function(err, res) {
-        if (err) {
-          // Display the API error
-          chart.error(err.message);
-        } else {
-          // Handle the response
-          chart
-            .parseRequest(this)
-            .title("Custom chart title")
-            .render();
-        }
-      });
-    })
+    // Basic charting w/ `client.draw`:
+    client.draw(count, document.getElementById("keen-chart"), {
+      chartType: "columnchart",
+      title: "Page Visits",
+      label: 'test'
+    });
   })
-});
-
+})
 
 Template['systemBasicUsersStarred'].onCreated(function() {
   var instance = this;
