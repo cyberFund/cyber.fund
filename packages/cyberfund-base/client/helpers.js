@@ -213,13 +213,7 @@ var helpers = {
     return ret;
   },
   displayCurrencyName: function (system) {
-    console.log (system)
-    var ret;
-    if (system.token) {
-      ret = system.token.name;
-    }
-    if (!ret) ret = system._id;
-    return ret;
+    return system.token ? system.token.name : system._id;
   },
   ownUsername: function(){
     var user =  Meteor.user();

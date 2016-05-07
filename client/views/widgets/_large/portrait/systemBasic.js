@@ -1,4 +1,4 @@
-var cfCDs = CF.CurrentData .selectors;
+var cfCDs = CF.CurrentData.selectors;
 
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
@@ -32,6 +32,65 @@ Template['systemBasic'].onCreated(function() {
   });
 });
 
+Template['systemBasic'].onRendered(function() {
+  var client = new Keen({
+    projectId: "55c8be40d2eaaa07d156b99f",
+    readKey: "4083b4d7a1ce47a40aabf59102162e3848d0886d457e4b9b57488361edfa28a1e49d2b100b6008299aa38303cd6254d4aa993db64137675d9d8d65928f283573c3932f413ec06050e8e3e9a642485cb6090d742d84da78f247aeb05f709e69f6c2085e9324a277e654bb12434f094412"
+  });
+
+  Keen.ready(function() {
+    //Tracker.autorun(function(){
+    /*var query = new Keen.Query("count", {
+      eventCollection: "Viewed System Page",
+      filters: [{
+        "operator": "contains",
+        "property_name": "path",
+        "property_value": FlowRouter.getParam("name_")
+      }],
+      timeframe: "this_14_months",
+      timezone: "UTC"
+    });*/
+
+    // Create a query instance
+    var count = new Keen.Query("count", {
+      eventCollection: "Viewed System Page",
+      filters: [{
+        "operator": "contains",
+        "property_name": "path",
+        "property_value": FlowRouter.getParam("name_")
+      }],
+      group_by: "visitor.geo.country",
+      interval: "daily",
+      timeframe: "this_21_days"
+    });
+
+    // Basic charting w/ `client.draw`:
+    client.draw(count, document.getElementById("chart-wrapper"), {
+      chartType: "columnchart",
+      title: "Custom chart title"
+    });
+
+    // Advanced charting with `Keen.Dataviz`:
+    var chart = new Keen.Dataviz()
+      .el(document.getElementById("keen-chart"))
+      .chartType("columnchart")
+      .prepare(); // starts spinner
+
+    var req = client.run(count, function(err, res) {
+      if (err) {
+        // Display the API error
+        chart.error(err.message);
+      } else {
+        // Handle the response
+        chart
+          .parseRequest(this)
+          .title("Custom chart title")
+          .render();
+      }
+    });
+  })
+});
+
 
 Template['systemBasicUsersStarred'].onCreated(function() {
   var instance = this;
@@ -48,15 +107,17 @@ Template['systemBasicUsersStarred'].onCreated(function() {
 Template['systemBasic'].onRendered(function() {
   $('.scrollspy').scrollSpy();
   var curDataDoc = curData();
-/*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
-    Meteor.call("initAverageValues", curDataDoc._id);
-  } */
+  /*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
+      Meteor.call("initAverageValues", curDataDoc._id);
+    } */
 });
 
 Template['systemBasic'].helpers({
-  systemName: function(){ return systemName()},
-  subReady: function(){
-     return Template.instance().ready.get();
+  systemName: function() {
+    return systemName()
+  },
+  subReady: function() {
+    return Template.instance().ready.get();
   },
   curData: function() {
     return curData();
@@ -230,7 +291,7 @@ Template['systemBasic'].events({
   }
 });
 
-Template['systemBasicCharts'].onCreated(function(){
+Template['systemBasicCharts'].onCreated(function() {
   var instance = this;
   instance.subscribe('fastData', systemName());
 });
