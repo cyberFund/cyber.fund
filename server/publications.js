@@ -195,7 +195,7 @@ Meteor.publish('dependencies', function(deps) {
   provides means for autocomplete to work
  */
 Meteor.publish('search-sys', function(selector, options, collname) {
-  var s = selector["search"];
+  var s = selector["token.name"];
   if (s) {
     selector = {
       $or: [{

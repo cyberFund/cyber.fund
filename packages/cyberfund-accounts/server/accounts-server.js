@@ -37,6 +37,12 @@ ns._importFromUser = function (userId){
   });
 }
 
+var checkAllowed = function(accountKey, userId){ // TODO move to collection rules
+  if (!userId) return false;
+  var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
+  return account;
+}
+
 Meteor.methods({
   importAccounts: function(sel){
     var user = Meteor.user();
@@ -110,7 +116,7 @@ ns.quantumCheck = function(address) {
   }
 
   try {
-    print("checking address", address, true)
+    //print("checking address", address, true)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
     if (r.statusCode == 200) {
       return transform(r.data);
@@ -150,7 +156,7 @@ ns._updateBalanceAddress = function(account, address) {
     }
   });
 
-  print("balances", balances)
+  //print("balances", balances)
 
   _.each(balances, function(balance) {
     if (!balance.asset) return;
@@ -186,7 +192,7 @@ ns._updateBalanceAccount = function(account, options) {
   if (!options.private){
     var lastUpdate = account.updatedAt;
     if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
-      print("quitting mass balance update", "last was <5 minutes ago");
+      //print("quitting mass balance update", "last was <5 minutes ago");
       return;
     }
   }
@@ -213,7 +219,7 @@ ns._updateBalanceAccount = function(account, options) {
     });
 
 
-    print("balances", balances)
+    //print("balances", balances)
 
     _.each(balances, function(balance) {
       if (!balance.asset) return;
@@ -274,25 +280,7 @@ ns._updateBalances = function(options) { //todo: optimize
     var account = CF.Accounts.collection.findOne(selector);
     ns._updateBalanceAddress(account, address);
   } else { */
-    CF.Accounts.collection.find(selector).forEach(function(account){
-      ns._updateBalanceAccount(account, options);
-    });
-  //}
-
-
-  if (!accountKey) { //TODO  put rate limiter back. now testing..
-    if (!private) {/* rate limiter
-      var lastUpdate = accounts.services && accounts.services.balanceUpdate
-        && accounts.services.balanceUpdate.updatedAt;
-      if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
-        print("quitting mass balance update", "last was <5 minutes ago");
-        return;
-      } else {
-        Meteor.users.update({_id: userId}, {$set: {
-            "services.balanceUpdate.updatedAt": new Date()
-          }
-        });
-      }*/
-    }
-  }
+  CF.Accounts.collection.find(selector).forEach(function(account){
+    ns._updateBalanceAccount(account, options);
+  });
 }

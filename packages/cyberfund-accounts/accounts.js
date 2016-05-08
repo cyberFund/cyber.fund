@@ -36,14 +36,11 @@ ns.findById = function(_id, options){
   return ns.collection.findOne(selector);
 }
 
-
 var checkAllowed = function(accountKey, userId){ // TODO move to collection rules
   if (!userId) return false;
   var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
   return account;
 }
-
-
 
 Meteor.methods({
   cfAssetsAddAccount: function(obj) {
