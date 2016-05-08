@@ -19,11 +19,9 @@
                       {{/if}}
                   </div>
                   <h4 style="margin-left: 20px">{{name}}<span style="font-size: 63%">
-                    {{#if or vUsd vBtc}}(
-                      {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                    {{#if or vUsd vBtc}}({{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
                       {{#if and vUsd vBtc}}/{{/if}}
-                      {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
-                    ){{/if}}</span>
+                      {{#if vUsd}}${{readableN vUsd 2}}{{/if}}){{/if}}</span>
                       {{#if isOwn}}
                           <span class="portfolio-badge-large green white-text">
                               {{publicity ..}}
@@ -42,6 +40,10 @@
                           <div style="margin-bottom: 18px">
                               <div
                                    style="margin-left: 0px;">{{key}}
+                                   <span>{{#with value}}
+                                   {{#if or vUsd vBtc}}({{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                                     {{#if and vUsd vBtc}}/{{/if}}
+                                     {{#if vUsd}}${{readableN vUsd 2}}{{/if}}){{/if}}{{/with}}</span>
                                   <span class="portfolio-badge red white-text">Unverified Address</span>
                               </div>
 
@@ -55,12 +57,6 @@
                                   </a>
                                   {{/if}}
                               </div>
-                              {{#with value}}
-                              {{#if or vUsd vBtc}}(
-                                {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
-                                {{#if and vUsd vBtc}}/{{/if}}
-                                {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
-                              ){{/if}}{{/with}}
                           </div>
 
                           <ul class="collection assets-list">
@@ -72,11 +68,9 @@
                                       {{displaySystemName systemData}}</a>
                                       : {{value.quantity}} {{displayCurrencyName key}}s
                                       {{#with value}}
-                                      {{#if or vUsd vBtc}}(
-                                        {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                                      {{#if or vUsd vBtc}}({{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
                                         {{#if and vUsd vBtc}}/{{/if}}
-                                        {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
-                                      ){{/if}}{{/with}}
+                                        {{#if vUsd}}${{readableN vUsd 2}}{{/if}}){{/if}}{{/with}}
                                           <div class="secondary-content hoverie"
                                                style="margin-right: 12px;">
 
