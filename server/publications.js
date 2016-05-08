@@ -195,7 +195,7 @@ Meteor.publish('dependencies', function(deps) {
   provides means for autocomplete to work
  */
 Meteor.publish('search-sys', function(selector, options, collname) {
-  var s = selector["token.name"];
+  var s = selector["search"];
   if (s) {
     selector = {
       $or: [{
@@ -229,41 +229,6 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   Autocomplete.publishCursor(collection.find(selector, options), this);
   this.ready();
 });
-
-
-Meteor.publish("search-user", function(selector, options, collname) {
-  var s = selector["username"];
-  if (s) {
-    selector = {
-      $or: [{
-        'profile.name': s
-      }, {
-        "username": s
-      }]
-    };
-  } else {
-    return this.ready();
-  }
-  console.log(0)
-  var collection;
-  if (collname == "Users") {
-    collection = Meteor.users;
-  }
-  if (!collection) return this.ready();
-
-  options.fields = {
-    "username": 1,
-    "profile.name": 1,
-    "avatar": 1
-  };
-  options.sort = {
-    username: 1
-  };
-  console.log(1)
-  Autocomplete.publishCursor(collection.find(selector, options), this);
-  this.ready();
-
-})
 
 Meteor.publish('avatars', function(uidArray) {
   if (!_.isArray(uidArray)) return this.ready();

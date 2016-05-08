@@ -3,7 +3,7 @@ Template['searchItem1'].rendered = function () {
 };
 
 Template['searchItem1'].helpers({
-  searchSettings: function () {
+  'searchSettings': function () {
     return {
       position: "bottom",
       limit: 5,
@@ -15,15 +15,6 @@ Template['searchItem1'].helpers({
           subscription: "search-sys",
           matchAll: false,
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
-          noMatchTemplate: Template.searchNoMatchedSearch
-        },
-        {
-          token: '@',
-          collection: 'Users',
-          field: "username",
-          subscription: "search-user",
-          matchAll: false,
-          template: Template.searchUser, //Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
         },
       ]
@@ -46,7 +37,7 @@ Template['searchItem1'].events({
 });
 
 Template['searchItem2'].helpers({
-  searchSettings: function () {
+  'searchSettings': function () {
     return {
       position: "bottom",
       limit: 5,
@@ -60,15 +51,6 @@ Template['searchItem2'].helpers({
           template: Template.searchSystemBySymbolItem, //Template.searchSystemItem,
           noMatchTemplate: Template.searchNoMatchedSearch
         },
-        {
-          token: '@',
-          collection: 'Users',
-          field: "username",
-          subscription: "search-user",
-          matchAll: false,
-          template: Template.searchUser, //Template.searchSystemItem,
-          noMatchTemplate: Template.searchNoMatchedSearch
-        }
       ]
     };
   }
