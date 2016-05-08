@@ -163,7 +163,6 @@ ns._updateBalanceAddress = function(account, address) {
       quantity: balance.quantity,
       vBtc: balance.vBtc,
       vUsd: balance.vUsd,
-      updatedAt: new Date(),
     };
     delete modify.$unset[k];
   });
@@ -180,7 +179,6 @@ ns._updateBalanceAddress = function(account, address) {
 
 
 // is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
-// ==========   NOT TESTED !   ====================
 ns._updateBalanceAccount = function(account) {
 
   if (!account) {
@@ -209,20 +207,22 @@ ns._updateBalanceAccount = function(account) {
       var asset = balance.asset;
       if (!asset) return;
 
-      var quantity;
+      /*var quantity;
       try {
         quantity = parseFloat(balance.quantity)
       } catch (e) {
         print ("catched non-string balance at", _k([account._id, address, key]) )
         quantity = balance.quantity;
         if (typeof quantity != 'number') return;
-      }
+      }*/
 
       var k = _k([key, asset]);
       modify.$set[k] = {
         update: 'auto',
         quantity: quantity,
-        updatedAt: new Date(),
+        vBtc: balance.vBtc,
+        vUsd: balance.vUsd,
+        //updatedAt: new Date(),
       };
       delete modify.$unset[k];
     });
