@@ -138,32 +138,5 @@ Meteor.methods({
       accountKey: accountKey,
       address: address
     })
-  },
-
-  cfAssetsRemoveAddress: function(accountKey, asset) {
-    if (!checkAllowed(accountKey, this.userId)) return;
-    if (!asset) return;
-    var sel = { _id: accountKey };
-    var key = _k(["addresses", asset]);
-    var unset = {
-      $unset: {}
-    };
-    unset.$unset[key] = true;
-    CF.Accounts.collection.update(sel, unset)
-  },
-
-  cfAssetsDeleteAsset: function(accountKey, address, asset) {
-    if (!checkAllowed(accountKey, this.userId)) return
-    var sel = {
-      _id: accountKey
-    };
-    var modify = {
-      $unset: {}
-    };
-    var key = _k(['addresses', address, 'assets', asset]);
-    modify.$unset[key] = true;
-    CF.Accounts.collection.update(sel, modify)
   }
-
-
 })

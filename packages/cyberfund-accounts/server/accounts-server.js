@@ -115,6 +115,36 @@ Meteor.methods({
     ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
       private: true
     })
+  },
+  cfAssetsRemoveAddress: function(accountKey, asset) {
+    if (!checkAllowed(accountKey, this.userId)) return;
+    if (!asset) return;
+    var sel = { _id: accountKey };
+    var key = _k(["addresses", asset]);
+    var unset = {
+      $unset: {}
+    };
+    unset.$unset[key] = true;
+    CF.Accounts.collection.update(sel, unset)
+    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+      private: true
+    })
+  },
+
+  cfAssetsDeleteAsset: function(accountKey, address, asset) {
+    if (!checkAllowed(accountKey, this.userId)) return
+    var sel = {
+      _id: accountKey
+    };
+    var modify = {
+      $unset: {}
+    };
+    var key = _k(['addresses', address, 'assets', asset]);
+    modify.$unset[key] = true;
+    CF.Accounts.collection.update(sel, modify)
+    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+      private: true
+    })
   }
 })
 
