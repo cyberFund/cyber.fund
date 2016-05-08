@@ -37,14 +37,6 @@ ns._importFromUser = function (userId){
   });
 }
 
-var checkAllowed = function(accountKey, userId){ // TODO move to collection rules
-  if (!userId) return false;
-  var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
-  return account;
-}
-
-
-
 Meteor.methods({
   importAccounts: function(sel){
     var user = Meteor.user();
@@ -73,11 +65,41 @@ Meteor.methods({
     })
     return true
   },
-})
-
-Meteor.methods({
   checkBalance: function(address){
     return ns.quantumCheck(address.toString())
+  },
+  // manual set
+  cfAssetsAddAsset: function(accountKey, address, asset, q) {
+    if (typeof q == 'string') try {
+      q = parseFloat(q);
+    } catch(e) {
+      return;
+    }
+    if (!checkAllowed(accountKey, this.userId)) return;
+    var sel = {_id: accountKey}
+    var modify = { $set: {} };
+    var key = _k(['addresses', address, 'assets', asset]);
+
+    if (Meteor.isServer) { // TODO client shd haz CF.Prices
+      var usd = CF.Prices.usd(asset);
+      var btc = CF.Prices.btc(asset);
+      modify.$set[key] = {
+        quantity: q,
+        update: 'manual',
+        updatedAt: new Date(),
+        vBtc: (btc || 0) * q,
+        vUsd: (usd || 0) * q
+      };
+    } else {
+      modify.$set[key] = {
+        quantity: q,
+        update: 'manual',
+        updatedAt: new Date(),
+      };
+    }
+
+    CF.Accounts.collection.update(sel, modify);
+    ns._updateBalanceAccount (CF.Accounts.collection.findOne(sel), {private:true})
   }
 })
 
@@ -167,14 +189,22 @@ ns._updateBalanceAddress = function(account, address) {
 
 
 // is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
-ns._updateBalanceAccount = function(account) {
+ns._updateBalanceAccount = function(account, options) {
   var modify = {$set: {},$unset: {}};
   if (!account || !account.addresses) {
     print("no account or addresses on it", account, true);
   }
 
+  if (!options.private){
+    var lastUpdate = account.updatedAt;
+    if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
+      print("quitting mass balance update", "last was <5 minutes ago");
+      return;
+    }
+  }
+  var accBtc = 0, accUsd = 0;
   _.each(account.addresses, function(addressObj, address){
-
+    var addrBtc = 0, addrUsd = 0;
     var balances = ns.quantumCheck(address);
     if (balances[0] == 'error') return;
 
@@ -184,7 +214,12 @@ ns._updateBalanceAccount = function(account) {
       if (asset.update === 'auto') {
         modify.$unset[_k([key, assetKey])] = "true"
       }
+      if (asset.update === 'manual') {
+        addrBtc += asset.vBtc || 0;
+        addrUsd += asset.vUsd || 0;
+      }
     });
+
 
     print("balances", balances)
 
@@ -198,22 +233,33 @@ ns._updateBalanceAccount = function(account) {
         vBtc: balance.vBtc,
         vUsd: balance.vUsd,
       };
+      addrBtc += balance.vBtc || 0;
+      addrUsd += balance.vUsd || 0;
       delete modify.$unset[k];
     });
 
-    if (_.keys(modify).length) {
-      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
-    }
+    modify.$set[_k(['addresses', address, 'vBtc'])] = addrBtc;
+    modify.$set[_k(['addresses', address, 'vUsd'])] = addrUsd;
+
+    accBtc += addrBtc;
+    accUsd += addrUsd;
+    //if (_.keys(modify).length) {
+//      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
+    //}
   });
+
 
   if (_.isEmpty(modify.$unset)) delete(modify.$unset);
   if (_.isEmpty(modify.$set)) delete(modify.$set);
 
   if (!_.isEmpty(modify)){
     modify.$set[_k(['updatedAt'])] = new Date();
+    modify.$set[_k(['vBtc'])] = accBtc;
+    modify.$set[_k(['vUsd'])] = accUsd;
     ns.collection.update({_id: account._id}, modify);
   }
 }
+
 
 // autoupdate balances.
 // 1. userId passed - do for all accounts
@@ -231,15 +277,15 @@ ns._updateBalances = function(options) { //todo: optimize
   if (options.accountKey) _.extend (selector, {_id: accountKey});
   //if (!options.private) _.extend (selector, {isPrivate: {$ne: true}});
 
-  if (address) {
+/*  if (address) {
     if (!options.refId) return;
     var account = CF.Accounts.collection.findOne(selector);
     ns._updateBalanceAddress(account, address);
-  } else {
+  } else { */
     CF.Accounts.collection.find(selector).forEach(function(account){
-      ns._updateBalanceAccount(account);
+      ns._updateBalanceAccount(account, options);
     });
-  }
+  //}
 
 
   if (!accountKey) { //TODO  put rate limiter back. now testing..

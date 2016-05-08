@@ -26,6 +26,11 @@
                           </span>
                       {{/if}}
                   </h4>
+                  {{#if or vUsd vBtc}}(
+                    {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                    {{#if and vUsd vBtc}}/{{/if}}
+                    {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                  ){{/if}}
               </div>
               <!-- add adress button div style="position: absolute; top: 0; right: 0px">
                   <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
@@ -55,7 +60,12 @@
                                   </a>
                                   {{/if}}
                               </div>
-
+                              {{#with value}}
+                              {{#if or vUsd vBtc}}(
+                                {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                                {{#if and vUsd vBtc}}/{{/if}}
+                                {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                              ){{/if}}{{/with}}
                           </div>
 
                           <ul class="collection assets-list">
@@ -66,6 +76,12 @@
                                         {{> cgSystemLogo system=systemData class="logo-portfolio"}}
                                       {{displaySystemName systemData}}</a>
                                       : {{value.quantity}} {{displayCurrencyName key}}s
+                                      {{#with value}}
+                                      {{#if or vUsd vBtc}}(
+                                        {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                                        {{#if and vUsd vBtc}}/{{/if}}
+                                        {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                                      ){{/if}}{{/with}}
                                           <div class="secondary-content hoverie"
                                                style="margin-right: 12px;">
 

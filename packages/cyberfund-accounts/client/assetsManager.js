@@ -103,6 +103,7 @@ Template['assetsManager'].events({
     $t.addClass("disabled");
 
     Meteor.call("cfAssetsUpdateBalances", {
+      username: Meteor.user() && Meteor.user().username,
       accountKey: CF.Accounts.currentId.get(),
       address: CF.Accounts.currentAddress.get()
     }, function(er, re) {
@@ -127,6 +128,7 @@ Template['assetsManager'].events({
     //.addClass("disabled");
 
     Meteor.call("cfAssetsUpdateBalances", {
+      userId: Meteor.userId(),
       accountKey: CF.Accounts.currentId.get()
         //  address: CF.Accounts.currentAddress.get()
     }, function(er, re) {

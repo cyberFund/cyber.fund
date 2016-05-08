@@ -137,6 +137,7 @@ Meteor.methods({
     }, set);
 
     Meteor.call("cfAssetsUpdateBalances", {
+      username: Meteor.user() && Meteor.user().username,
       accountKey: accountKey,
       address: address
     })
@@ -154,38 +155,6 @@ Meteor.methods({
     CF.Accounts.collection.update(sel, unset)
   },
 
-  // manual set
-  cfAssetsAddAsset: function(accountKey, address, asset, q) {
-    if (typeof q == 'string') try {
-      q = parseFloat(q);
-    } catch(e) {
-      return;
-    }
-    if (!checkAllowed(accountKey, this.userId)) return;
-    var sel = {_id: accountKey}
-    var modify = { $set: {} };
-    var key = _k(['addresses', address, 'assets', asset]);
-
-    if (Meteor.isServer) { // TODO client shd haz CF.Prices
-      var usd = CF.Prices.usd(asset);
-      var btc = CF.Prices.btc(asset);
-      modify.$set[key] = {
-        quantity: q,
-        update: 'manual',
-        updatedAt: new Date(),
-        vBtc: (btc || 0) * q,
-        vUsd: (usd || 0) * q
-      };
-    } else {
-      modify.$set[key] = {
-        quantity: q,
-        update: 'manual',
-        updatedAt: new Date(),
-      };
-    }
-
-    CF.Accounts.collection.update(sel, modify)
-  },
   cfAssetsDeleteAsset: function(accountKey, address, asset) {
     if (!checkAllowed(accountKey, this.userId)) return
     var sel = {
