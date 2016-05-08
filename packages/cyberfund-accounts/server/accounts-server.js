@@ -285,10 +285,10 @@ ns._updateBalanceAccount = function(account, options) {
       if (asset.update === 'manual' && !_.contains(autoModifiedKeys, assetKey)) {
         var usdP = CF.Prices.usd(assetKey)
         var btcP = CF.Prices.btc(assetKey)
-        addrBtc += asset.quantity * btcP;
-        addrUsd += asset.quantity * usdP;
-        modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP;
-        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP;
+        addrBtc += asset.quantity * btcP || 0;
+        addrUsd += asset.quantity * usdP || 0;
+        modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP || 0;
+        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP || 0;
       }
     });
 
