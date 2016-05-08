@@ -80,23 +80,11 @@ Meteor.methods({
     var modify = { $set: {} };
     var key = _k(['addresses', address, 'assets', asset]);
 
-    if (Meteor.isServer) { // TODO client shd haz CF.Prices
-      var usd = CF.Prices.usd(asset);
-      var btc = CF.Prices.btc(asset);
-      modify.$set[key] = {
-        quantity: q,
-        update: 'manual',
-        updatedAt: new Date(),
-        vBtc: (btc || 0) * q,
-        vUsd: (usd || 0) * q
-      };
-    } else {
-      modify.$set[key] = {
-        quantity: q,
-        update: 'manual',
-        updatedAt: new Date(),
-      };
-    }
+    modify.$set[key] = {
+      quantity: q,
+      update: 'manual',
+      updatedAt: new Date(),
+    };
 
     CF.Accounts.collection.update(sel, modify);
     ns._updateBalanceAccount (CF.Accounts.collection.findOne(sel), {private:true})
@@ -215,8 +203,12 @@ ns._updateBalanceAccount = function(account, options) {
         modify.$unset[_k([key, assetKey])] = "true"
       }
       if (asset.update === 'manual') {
-        addrBtc += asset.vBtc || 0;
-        addrUsd += asset.vUsd || 0;
+        var usdP = CF.Prices.usd(assetKey)
+        var btcP = CF.Prices.btc(assetKey)
+        addrBtc += asset.quantity * btcP;
+        addrUsd += asset.quantity * usdP;
+        modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP;
+        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP;
       }
     });
 
