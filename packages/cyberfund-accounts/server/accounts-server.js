@@ -1,14 +1,18 @@
 var _k = CF.Utils._k
 var print = CF.Utils.logger.getLogger('CF.Accounts').print;
 var ns = CF.Accounts;
-ns.collection._ensureIndex({refId: 1});
+ns.collection._ensureIndex({
+  refId: 1
+});
 
-ns._importFromUser = function (userId){
-  var user = Meteor.users.findOne({_id: userId});
+ns._importFromUser = function(userId) {
+  var user = Meteor.users.findOne({
+    _id: userId
+  });
   if (!user) return;
   var accounts = user.accounts || {};
   var accountsPrivate = user.accountsPrivate || {};
-  _.each (accounts, function(account, key){
+  _.each(accounts, function(account, key) {
     var doc = {
       name: account.name,
       addresses: account.addresses,
@@ -21,7 +25,7 @@ ns._importFromUser = function (userId){
       index: key // back compat. no need
     }, doc);
   });
-  _.each (accountsPrivate, function(account, key){
+  _.each(accountsPrivate, function(account, key) {
     var doc = {
       name: account.name,
       addresses: account.addresses,
@@ -37,19 +41,30 @@ ns._importFromUser = function (userId){
   });
 }
 
-var checkAllowed = function(accountKey, userId){ // TODO move to collection rules
+var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
-  var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
+  var account = CF.Accounts.collection.findOne({
+    _id: accountKey,
+    refId: userId
+  });
   return account;
 }
 
 Meteor.methods({
-  importAccounts: function(sel){
+  importAccounts: function(sel) {
     var user = Meteor.user();
     if (!user) return;
-    if (!user.hasSuperPowers) sel = {_id: this.userId};
+    if (!user.hasSuperPowers) sel = {
+      _id: this.userId
+    };
     return;
-    Meteor.users.find(sel||{_id: "ErwxCME6azQS7KcNm"}, {fields: {_id: 1}}).forEach(function(user){
+    Meteor.users.find(sel || {
+      _id: "ErwxCME6azQS7KcNm"
+    }, {
+      fields: {
+        _id: 1
+      }
+    }).forEach(function(user) {
       console.log(user._id);
       ns._importFromUser(user._id);
     });
@@ -63,27 +78,31 @@ Meteor.methods({
     options.refId = options.userId || this.userId;
     options.private = options.userId == this.userId;
     if (!options.userId && !options.accountKey) return {
-      error: "neither userId nor accountKey passed"
-    }
-    //this.unblock(); //? not sure this is what needed
-    Meteor.defer(function(){
+        error: "neither userId nor accountKey passed"
+      }
+      //this.unblock(); //? not sure this is what needed
+    Meteor.defer(function() {
       return ns._updateBalances(options);
     })
     return true
   },
-  checkBalance: function(address){
+  checkBalance: function(address) {
     return ns.quantumCheck(address.toString())
   },
   // manual set
   cfAssetsAddAsset: function(accountKey, address, asset, q) {
     if (typeof q == 'string') try {
       q = parseFloat(q);
-    } catch(e) {
+    } catch (e) {
       return;
     }
     if (!checkAllowed(accountKey, this.userId)) return;
-    var sel = {_id: accountKey}
-    var modify = { $set: {} };
+    var sel = {
+      _id: accountKey
+    }
+    var modify = {
+      $set: {}
+    };
     var key = _k(['addresses', address, 'assets', asset]);
 
     modify.$set[key] = {
@@ -93,26 +112,30 @@ Meteor.methods({
     };
 
     CF.Accounts.collection.update(sel, modify);
-    ns._updateBalanceAccount (CF.Accounts.collection.findOne(sel), {private:true})
+    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+      private: true
+    })
   }
 })
 
 // get auto balances per address
 ns.quantumCheck = function(address) {
-  function transform(data){
-    _.each(data, function(asset){
+  function transform(data) {
+    _.each(data, function(asset) {
       if (typeof asset.quantity == 'string')
-        asset.quantity = parseFloat( asset.quantity );
+        asset.quantity = parseFloat(asset.quantity);
       var p = CF.Prices.doc(asset.asset);
       if (!p) return;
       if (p.btc) {
-        asset.vBtc = p.btc*asset.quantity;
+        asset.vBtc = p.btc * asset.quantity;
       }
       if (p.usd) {
-        asset.vUsd = p.usd*asset.quantity;
+        asset.vUsd = p.usd * asset.quantity;
       }
     });
-    return(_.filter(data, function (it){ return it.quantity }));
+    return (_.filter(data, function(it) {
+      return it.quantity
+    }));
   }
 
   try {
@@ -121,12 +144,16 @@ ns.quantumCheck = function(address) {
     if (r.statusCode == 200) {
       return transform(r.data);
     } else {
-      return ['error', {statusCode: r.statusCode} ];
+      return ['error', {
+        statusCode: r.statusCode
+      }];
     }
   } catch (e) {
     print("on checking address " + address + " quantum returned code ",
       e.response && e.response.statusCode, true)
-    return ['error', {statusCode: e.response && e.response.statusCode} ];
+    return ['error', {
+      statusCode: e.response && e.response.statusCode
+    }];
   }
 }
 
@@ -137,12 +164,16 @@ ns.quantumCheck = function(address) {
 // private should be set by server.
 ns._updateBalanceAddress = function(account, address) {
   var addressObj = account && account.addresses && account.addresses[address];
-  var modify = {$set: {},$unset: {}};
+  var modify = {
+    $set: {},
+    $unset: {}
+  };
 
 
   if (!account || !addressObj) {
     print("no account or address object; account", account, true);
-    print("address", address);return;
+    print("address", address);
+    return;
   }
 
   var balances = ns.quantumCheck(address);
@@ -175,7 +206,9 @@ ns._updateBalanceAddress = function(account, address) {
   if (_.isEmpty(modify.$set)) delete(modify.$set);
   if (_.keys(modify).length) {
     modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
-    ns.collection.update({_id: account._id}, modify);
+    ns.collection.update({
+      _id: account._id
+    }, modify);
   }
   //TODO: updateAddressBalance(account._id, address);
   // then updateAccountBalance(account._id)
@@ -184,23 +217,27 @@ ns._updateBalanceAddress = function(account, address) {
 
 // is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
 ns._updateBalanceAccount = function(account, options) {
-  var modify = {$set: {},$unset: {}};
+  var modify = {
+    $set: {},
+    $unset: {}
+  };
   if (!account || !account.addresses) {
     print("no account or addresses on it", account, true);
   }
 
-  if (!options.private){
+  if (!options.private) {
     var lastUpdate = account.updatedAt;
     if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
       //print("quitting mass balance update", "last was <5 minutes ago");
       return;
     }
   }
-  var accBtc = 0, accUsd = 0;
-  _.each(account.addresses, function(addressObj, address){
-    var addrBtc = 0, addrUsd = 0;
+  var accBtc = 0,
+    accUsd = 0;
+  _.each(account.addresses, function(addressObj, address) {
+    var addrBtc = 0,
+      addrUsd = 0;
     var balances = ns.quantumCheck(address);
-    if (balances[0] == 'error') return;
 
     var key = _k(['addresses', address, 'assets']);
 
@@ -220,29 +257,29 @@ ns._updateBalanceAccount = function(account, options) {
 
 
     //print("balances", balances)
+    if (balances[0] == 'error') {} else {
+      _.each(balances, function(balance) {
+        if (!balance.asset) return;
 
-    _.each(balances, function(balance) {
-      if (!balance.asset) return;
-
-      var k = _k([key, balance.asset]);
-      modify.$set[k] = {
-        update: 'auto',
-        quantity: balance.quantity,
-        vBtc: balance.vBtc,
-        vUsd: balance.vUsd,
-      };
-      addrBtc += balance.vBtc || 0;
-      addrUsd += balance.vUsd || 0;
-      delete modify.$unset[k];
-    });
-
+        var k = _k([key, balance.asset]);
+        modify.$set[k] = {
+          update: 'auto',
+          quantity: balance.quantity,
+          vBtc: balance.vBtc,
+          vUsd: balance.vUsd,
+        };
+        addrBtc += balance.vBtc || 0;
+        addrUsd += balance.vUsd || 0;
+        delete modify.$unset[k];
+      });
+    }
     modify.$set[_k(['addresses', address, 'vBtc'])] = addrBtc;
     modify.$set[_k(['addresses', address, 'vUsd'])] = addrUsd;
 
     accBtc += addrBtc;
     accUsd += addrUsd;
     //if (_.keys(modify).length) {
-//      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
+    //      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
     //}
   });
 
@@ -250,11 +287,13 @@ ns._updateBalanceAccount = function(account, options) {
   if (_.isEmpty(modify.$unset)) delete(modify.$unset);
   if (_.isEmpty(modify.$set)) delete(modify.$set);
 
-  if (!_.isEmpty(modify)){
+  if (!_.isEmpty(modify)) {
     modify.$set[_k(['updatedAt'])] = new Date();
     modify.$set[_k(['vBtc'])] = accBtc;
     modify.$set[_k(['vUsd'])] = accUsd;
-    ns.collection.update({_id: account._id}, modify);
+    ns.collection.update({
+      _id: account._id
+    }, modify);
   }
 }
 
@@ -271,16 +310,20 @@ ns._updateBalances = function(options) { //todo: optimize
   var private = options.private;
 
   var selector = {};
-  if (options.refId) _.extend (selector, {refId: refId})
-  if (options.accountKey) _.extend (selector, {_id: accountKey});
+  if (options.refId) _.extend(selector, {
+    refId: refId
+  })
+  if (options.accountKey) _.extend(selector, {
+    _id: accountKey
+  });
   //if (!options.private) _.extend (selector, {isPrivate: {$ne: true}});
 
-/*  if (address) {
-    if (!options.refId) return;
-    var account = CF.Accounts.collection.findOne(selector);
-    ns._updateBalanceAddress(account, address);
-  } else { */
-  CF.Accounts.collection.find(selector).forEach(function(account){
+  /*  if (address) {
+      if (!options.refId) return;
+      var account = CF.Accounts.collection.findOne(selector);
+      ns._updateBalanceAddress(account, address);
+    } else { */
+  CF.Accounts.collection.find(selector).forEach(function(account) {
     ns._updateBalanceAccount(account, options);
   });
 }

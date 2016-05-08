@@ -213,6 +213,7 @@ var helpers = {
     return ret;
   },
   displayCurrencyName: function (system) {
+    if (typeof system == 'string') system = CurrentData.findOne({_id: system})
     return system.token ? system.token.name : system._id;
   },
   systemFromId: function (id){
