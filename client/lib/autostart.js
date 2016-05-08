@@ -13,12 +13,12 @@ FlowRouter.wait();
 Meteor.startup(function () {
   CF.SubsMan = new SubsManager();
   CF.subs = {}
-  Meteor.subscribe('userDetails', {
+  Meteor.subscribe("userDetails", {
     onReady: function(){
       FlowRouter.initialize();
     }
   });
-  Meteor.subscribe("BitcoinPrice");
-  Meteor.subscribe('usersCount');
-  Meteor.subscribe('coinsCount');
+  Meteor.subscribe("usersCount");
+  Meteor.subscribe("coinsCount");
+  Meteor.subscribe("allSystems")
 });

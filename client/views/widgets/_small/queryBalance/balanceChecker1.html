@@ -19,7 +19,7 @@
                 {{else}}
 
                   {{#each lastData}}
-                    <div class="row no-bottom-margin">{{asset}}:{{quantity}}
+                    <div class="row no-bottom-margin">{{> cgSystemLogo class="logo-portfolio" system=asset}}{{displaySystemName (systemFromId asset)}}:{{quantity}}
                       {{#if or vUsd vBtc}}(
                         {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
                         {{#if and vUsd vBtc}}/{{/if}}

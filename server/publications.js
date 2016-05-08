@@ -231,17 +231,39 @@ Meteor.publish('search-sys', function(selector, options, collname) {
 });
 
 
-/*
-  have to publish whole bitcoin document... too bad - as it s heavy.
-  would either split market data from docs, or manage subscriptions better
- */
-Meteor.publish("BitcoinPrice", function() {
-  return CurrentData.find({
-    _id: "Bitcoin"
-  }, {fields: {
-    metrics: 1
-  }})
-});
+Meteor.publish("search-user", function(selector, options, collname) {
+  var s = selector["username"];
+  if (s) {
+    selector = {
+      $or: [{
+        'profile.name': s
+      }, {
+        "username": s
+      }]
+    };
+  } else {
+    return this.ready();
+  }
+  console.log(0)
+  var collection;
+  if (collname == "Users") {
+    collection = Meteor.users;
+  }
+  if (!collection) return this.ready();
+
+  options.fields = {
+    "username": 1,
+    "profile.name": 1,
+    "avatar": 1
+  };
+  options.sort = {
+    username: 1
+  };
+  console.log(1)
+  Autocomplete.publishCursor(collection.find(selector, options), this);
+  this.ready();
+
+})
 
 Meteor.publish('avatars', function(uidArray) {
   if (!_.isArray(uidArray)) return this.ready();
@@ -328,3 +350,14 @@ Meteor.publish("portfolioSystems", function(options) {
     }
   })
 });
+
+Meteor.publish("allSystems", function(){
+  return CurrentData.find({}, {
+    fields: {
+      "aliases": 1,
+      "metrics": 1,
+      "token": 1,
+      "icon": 1,
+    }
+  })
+})

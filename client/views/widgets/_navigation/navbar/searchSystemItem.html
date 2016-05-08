@@ -2,7 +2,7 @@
 <template name="searchSystemItem">
     <div style="width: 100% !important;">
     <span class="enlarge black-text no-wrap">
-        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+        {{> cgSystemLogo system=this class="logo-search"}}
         {{displaySystemName this}}
     </span>
     </div>
@@ -11,8 +11,17 @@
 <template name="searchSystemBySymbolItem">
     <div style="width: 100% !important;">
     <span class="enlarge black-text no-wrap">
-        {{> cgSystemLogo data=this style="width: 40px; height: 40px; margin-right: 6px; vertical-align:middle"}}
+        {{> cgSystemLogo system=this class="logo-search"}}
         {{displaySystemName this}} ({{token.symbol}})
     </span>
     </div>
+</template>
+
+<template name="searchUser">
+  <div style="width: 100% !important;">
+  <span class="enlarge black-text no-wrap">
+      {{> hitryImage img_url=avatar class="logo-search"}}
+      {{username}} ({{profile.name}})
+  </span>
+  </div>
 </template>

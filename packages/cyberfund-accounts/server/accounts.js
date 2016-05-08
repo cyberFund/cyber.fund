@@ -96,7 +96,7 @@ ns.quantumCheck = function(address) {
         asset.vUsd = p.usd*asset.quantity;
       }
     });
-    return(data);
+    return(_.filter(data, function (it){ return it.quantity }));
   }
 
   try {

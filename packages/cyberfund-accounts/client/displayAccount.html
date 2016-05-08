@@ -62,7 +62,8 @@
                               {{#each keyValue value.assets}}
                                   <li class="collection-item asset-item"
                                       asset-key="{{key}}">
-                                      <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">{{> cgSystemLogo data=systemData style="margin: 0; width: 32px; height: 32px; margin-right: 6px; vertical-align:middle"}}
+                                      <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">
+                                        {{> cgSystemLogo system=systemData class="logo-portfolio"}}
                                       {{displaySystemName systemData}}</a>
                                       : {{value.quantity}} {{displayCurrencyName key}}s
                                           <div class="secondary-content hoverie"

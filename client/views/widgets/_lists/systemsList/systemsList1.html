@@ -3,7 +3,7 @@
 <template name="systemsList1">
     {{#each data}}
         <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" title="{{_id}}">
-            {{> cgSystemLogo data=this style=../style class=../class}}
+            {{> cgSystemLogo system=this style=../style class=../class}}
         </a>
     {{/each}}
 </template>

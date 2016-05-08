@@ -111,20 +111,6 @@ hr{
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
 
-.cg-system-logo {
-  width: 40px;
-  height: 40px;
-  margin-right: 6px;
-  vertical-align: middle
-}
-
-.cg-system-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 4px;
-  vertical-align: middle
-}
-
 .th-sys {
   margin-left: 40px
 }
@@ -156,9 +142,7 @@ hr{
     width: 98%;
   }
   .nar-row {
-
     margin:0 1%;
-
   }
 
   .alike-navlink {
@@ -167,17 +151,6 @@ hr{
 
   .enlarge {
     font-size: 127%;
-  }
-  .cg-system-logo {
-    width: 32px;
-    height: 32px;
-    margin-right: 4px;
-  }
-
-  .cg-system-icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 3px;
   }
 
   .th-sys {
@@ -196,30 +169,11 @@ hr{
   .symbol-sys {
     font-size: 1.2rem;
   }
-
-  .nar-row {
-
-    margin:0 7%;
-
-  }
 }
 
 @media only screen and (min-width: 1201px) {
-
   .alike-navlink {
     padding: 0 20px;
-  }
-
-  .cg-system-logo {
-    width: 54px;
-    height: 54px;
-    margin-right: 9px;
-  }
-
-  .cg-system-icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 6px;
   }
 
   .th-sys {

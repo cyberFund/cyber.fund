@@ -215,6 +215,9 @@ var helpers = {
   displayCurrencyName: function (system) {
     return system.token ? system.token.name : system._id;
   },
+  systemFromId: function (id){
+    return CurrentData.findOne({_id:id});
+  },
   ownUsername: function(){
     var user =  Meteor.user();
     if (!user) return '';
