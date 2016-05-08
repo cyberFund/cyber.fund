@@ -18,19 +18,19 @@
                           {{/if}}
                       {{/if}}
                   </div>
-                  <h4 style="margin-left: 20px">{{name}}
+                  <h4 style="margin-left: 20px">{{name}}<span style="font-size: 63%">
+                    {{#if or vUsd vBtc}}(
+                      {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                      {{#if and vUsd vBtc}}/{{/if}}
+                      {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                    ){{/if}}</span>
                       {{#if isOwn}}
-                          <span style="font-size: 40%; padding: 2px 4px; margin-bottom: 2px; border-radius: 4px"
-                                class="green white-text">
+                          <span class="portfolio-badge-large green white-text">
                               {{publicity ..}}
                           </span>
                       {{/if}}
                   </h4>
-                  {{#if or vUsd vBtc}}(
-                    {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
-                    {{#if and vUsd vBtc}}/{{/if}}
-                    {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
-                  ){{/if}}
+
               </div>
               <!-- add adress button div style="position: absolute; top: 0; right: 0px">
                   <a class="btn right per-account req-add-address btn-margin-right">Add address</a>
@@ -46,11 +46,6 @@
                               </div>
 
                               <div class="hoverie" style="position: absolute; top: 10px; right: 0px;">
-                                  {{#if autoUpdateAvailable key}}
-                                      <a class="req-update-balance per-address btn-floating btn-tiny blue btn-margin-left">
-                                          <i class="material-icons small" title="last updated at: {{#if value.updatedAt}}{{dateFormat value.updatedAt "llll"}}{{else}}never{{/if}}">loop</i>
-                                      </a>
-                                  {{/if}}
                                   {{#if isOwn}}
                                   <a class="btn-floating btn-small green per-address req-add-asset-to-address">
                                       <i class="material-icons small">add</i>
@@ -95,14 +90,17 @@
                                               Manually entered</span>
                                               {{/if}}
                                               {{#if isOwn}}
+                                                  {{#if eq value.update 'manual'}}
                                                   <a class="btn-floating btn-tiny req-edit-asset yellow"
                                                      title="Change quantity"
                                                      style="vertical-align: middle;"><i
                                                           class="material-icons tiny">edit</i></a>
+
                                                   <a class="btn-floating btn-tiny req-delete-asset red"
                                                      title="Delete asset"
                                                      style="vertical-align: middle;"><i
                                                           class="material-icons tiny">delete</i></a>
+                                                  {{/if}}
                                               {{/if}}
                                           </div>
                                   </li>

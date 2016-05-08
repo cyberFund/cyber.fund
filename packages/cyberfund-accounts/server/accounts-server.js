@@ -241,11 +241,18 @@ ns._updateBalanceAccount = function(account, options) {
 
     var key = _k(['addresses', address, 'assets']);
 
+    var autoModifiedKeys = []
+    if (balances[0] != 'error') {
+      balances.map(function(b){
+        autoModifiedKeys.push (b.asset)
+      })
+    }
+
     _.each(addressObj.assets, function(asset, assetKey) {
       if (asset.update === 'auto') {
         modify.$unset[_k([key, assetKey])] = "true"
       }
-      if (asset.update === 'manual') {
+      if (asset.update === 'manual' && !_.contains(autoModifiedKeys, assetKey)) {
         var usdP = CF.Prices.usd(assetKey)
         var btcP = CF.Prices.btc(assetKey)
         addrBtc += asset.quantity * btcP;
@@ -291,6 +298,7 @@ ns._updateBalanceAccount = function(account, options) {
     modify.$set[_k(['updatedAt'])] = new Date();
     modify.$set[_k(['vBtc'])] = accBtc;
     modify.$set[_k(['vUsd'])] = accUsd;
+    print("modify", modify)
     ns.collection.update({
       _id: account._id
     }, modify);

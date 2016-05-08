@@ -39,12 +39,6 @@ Template['displayAccount'].helpers({
   isPublic: function (account) {
     return isPublicAccount(account);
   },
-  autoUpdateAvailable: function(address){
-    //if (!isOwnAssets()) return false;
-    return true;// for all.
-    //var re = new RegExp();
-    //return (address || '').match(/^[13]/) ? true : false;
-  },
   isOwn: function(){
     return isOwnAssets();
   },
