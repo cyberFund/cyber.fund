@@ -19,7 +19,12 @@
                 {{else}}
 
                   {{#each lastData}}
-                    <div class="row no-bottom-margin">{{asset}}:{{quantity}}</div>
+                    <div class="row no-bottom-margin">{{asset}}:{{quantity}}
+                      {{#if or vUsd vBtc}}(
+                        {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                        {{#if and vUsd vBtc}}/{{/if}}
+                        {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                      ){{/if}}</div>
                   {{/each}}
                 {{/if}}
 

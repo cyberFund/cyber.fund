@@ -12,7 +12,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.1.0.3');
-  api.use(["cyberfund:cyberfund-base"]);
+  api.use(["cyberfund:cyberfund-currentdata"]);
   api.use(['underscore'], ['client', 'server']);
   api.use(['ui', 'templating'], 'client');
   api.addFiles(['cyberfund-userassets.js', 'accounts.js'], ['client', 'server']);

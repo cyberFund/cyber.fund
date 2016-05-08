@@ -9,6 +9,7 @@ http
 momentjs:moment
 
 reactive-var
+ddp-client
 amplify
 
 cyberfund:cyberfund-base

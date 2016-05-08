@@ -67,8 +67,11 @@ Meteor.methods({
     if (!options.userId && !options.accountKey) return {
       error: "neither userId nor accountKey passed"
     }
-    this.unblock(); //? not sure this is what needed
-    return ns._updateBalances(options);
+    //this.unblock(); //? not sure this is what needed
+    Meteor.defer(function(){
+      return ns._updateBalances(options);
+    })
+    return true
   },
 })
 
@@ -77,17 +80,37 @@ Meteor.methods({
     return ns.quantumCheck(address.toString())
   }
 })
+
 // get auto balances per address
 ns.quantumCheck = function(address) {
+  function transform(data){
+    _.each(data, function(asset){
+      if (typeof asset.quantity == 'string')
+        asset.quantity = parseFloat( asset.quantity );
+      var p = CF.Prices.doc(asset.asset);
+      if (!p) return;
+      if (p.btc) {
+        asset.vBtc = p.btc*asset.quantity;
+      }
+      if (p.usd) {
+        asset.vUsd = p.usd*asset.quantity;
+      }
+    });
+    return(data);
+  }
+
   try {
     print("checking address", address, true)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
-    if (r.statusCode == 200)
-      return r.data;
+    if (r.statusCode == 200) {
+      return transform(r.data);
+    } else {
+      return ['error', {statusCode: r.statusCode} ];
+    }
   } catch (e) {
     print("on checking address " + address + " quantum returned code ",
-      e && e.response && e.response.statusCode, true)
-    return ['error', {statusCode: e.response.statusCode} ];
+      e.response && e.response.statusCode, true)
+    return ['error', {statusCode: e.response && e.response.statusCode} ];
   }
 }
 
@@ -124,20 +147,22 @@ ns._updateBalanceAddress = function(account, address) {
       return;
     } else { print ("ok ok", "ok")}
 
-    var quantity;
-    try {
+    //var quantity;
+    /*try {
       quantity = parseFloat(balance.quantity)
     } catch (e) {
       print ("catched non-string balance at", _k([account._id, address, asset]) )
       quantity = balance.quantity;
       if (typeof quantity != 'number') return;
-    }
+    }*/
+
 
     var k = _k([key, asset]);
     modify.$set[k] = {
       update: 'auto',
-      quantity: quantity,
-      //asset: asset,
+      quantity: balance.quantity,
+      vBtc: balance.vBtc,
+      vUsd: balance.vUsd,
       updatedAt: new Date(),
     };
     delete modify.$unset[k];
@@ -148,6 +173,9 @@ ns._updateBalanceAddress = function(account, address) {
     modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
   }
   ns.collection.update({_id: account._id}, modify);
+
+  //TODO: updateAddressBalance(account._id, address);
+  // then updateAccountBalance(account._id)
 }
 
 

@@ -12,15 +12,7 @@ CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
   return ret;
 };
 
-// if user adds new account let s assign it a key
-CF.UserAssets.nextKey = function(accounts) {
-  var keys = _.keys(accounts || {});
-  if (!keys.length) return 1;
-  _.each(keys, function(v, k) {
-    if (_.isString(v)) keys[k] = parseInt(v);
-  });
-  return (_.max(keys) + 1).toString();
-};
+// WTF IS THERE???
 
 /**
  *
