@@ -121,43 +121,31 @@ ns.quantumCheck = function(address) {
 // private should be set by server.
 ns._updateBalanceAddress = function(account, address) {
   var addressObj = account && account.addresses && account.addresses[address];
+  var modify = {$set: {},$unset: {}};
+
+
   if (!account || !addressObj) {
     print("no account or address object; account", account, true);
     print("address", address);return;
   }
 
-  var modify = {$set: {},$unset: {}};
+  var balances = ns.quantumCheck(address);
+  if (balances[0] == 'error') return;
 
   var key = _k(['addresses', address, 'assets']);
+
   _.each(addressObj.assets, function(asset, assetKey) {
     if (asset.update === 'auto') {
       modify.$unset[_k([key, assetKey])] = "true"
     }
   });
 
-  var balances = ns.quantumCheck(address);
-  if (balances[0] == 'error') return;
   print("balances", balances)
 
   _.each(balances, function(balance) {
-    var asset = balance.asset
-    if (!asset) {
-      print("NO BALANCE", balance, true)
-      print ("NO KEY", asset)
-      return;
-    } else { print ("ok ok", "ok")}
+    if (!balance.asset) return;
 
-    //var quantity;
-    /*try {
-      quantity = parseFloat(balance.quantity)
-    } catch (e) {
-      print ("catched non-string balance at", _k([account._id, address, asset]) )
-      quantity = balance.quantity;
-      if (typeof quantity != 'number') return;
-    }*/
-
-
-    var k = _k([key, asset]);
+    var k = _k([key, balance.asset]);
     modify.$set[k] = {
       update: 'auto',
       quantity: balance.quantity,
@@ -166,13 +154,13 @@ ns._updateBalanceAddress = function(account, address) {
     };
     delete modify.$unset[k];
   });
+
   if (_.isEmpty(modify.$unset)) delete(modify.$unset);
   if (_.isEmpty(modify.$set)) delete(modify.$set);
   if (_.keys(modify).length) {
     modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
+    ns.collection.update({_id: account._id}, modify);
   }
-  ns.collection.update({_id: account._id}, modify);
-
   //TODO: updateAddressBalance(account._id, address);
   // then updateAccountBalance(account._id)
 }
@@ -180,21 +168,18 @@ ns._updateBalanceAddress = function(account, address) {
 
 // is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
 ns._updateBalanceAccount = function(account) {
-
-  if (!account) {
-    print("no account", account, true);
-    print("address", address);return;
-  }
-  print("account", account);
-  if (!account.addresses) return;
   var modify = {$set: {},$unset: {}};
+  if (!account || !account.addresses) {
+    print("no account or addresses on it", account, true);
+  }
+
   _.each(account.addresses, function(addressObj, address){
 
     var balances = ns.quantumCheck(address);
     if (balances[0] == 'error') return;
 
-    //var addressObj = account && account.addresses && account.addresses[address];
     var key = _k(['addresses', address, 'assets']);
+
     _.each(addressObj.assets, function(asset, assetKey) {
       if (asset.update === 'auto') {
         modify.$unset[_k([key, assetKey])] = "true"
@@ -204,25 +189,14 @@ ns._updateBalanceAccount = function(account) {
     print("balances", balances)
 
     _.each(balances, function(balance) {
-      var asset = balance.asset;
-      if (!asset) return;
+      if (!balance.asset) return;
 
-      /*var quantity;
-      try {
-        quantity = parseFloat(balance.quantity)
-      } catch (e) {
-        print ("catched non-string balance at", _k([account._id, address, key]) )
-        quantity = balance.quantity;
-        if (typeof quantity != 'number') return;
-      }*/
-
-      var k = _k([key, asset]);
+      var k = _k([key, balance.asset]);
       modify.$set[k] = {
         update: 'auto',
-        quantity: quantity,
+        quantity: balance.quantity,
         vBtc: balance.vBtc,
         vUsd: balance.vUsd,
-        //updatedAt: new Date(),
       };
       delete modify.$unset[k];
     });
@@ -259,10 +233,7 @@ ns._updateBalances = function(options) { //todo: optimize
 
   if (address) {
     if (!options.refId) return;
-    console.log(111)
-    console.log(selector);
     var account = CF.Accounts.collection.findOne(selector);
-    console.log(account);
     ns._updateBalanceAddress(account, address);
   } else {
     CF.Accounts.collection.find(selector).forEach(function(account){

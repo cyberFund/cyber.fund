@@ -165,12 +165,25 @@ Meteor.methods({
     var sel = {_id: accountKey}
     var modify = { $set: {} };
     var key = _k(['addresses', address, 'assets', asset]);
-    modify.$set[key] = {
-      //asset: asset,
-      quantity: q,
-      update: 'manual',
-      updatedAt: new Date()
-    };
+
+    if (Meteor.isServer) { // TODO client shd haz CF.Prices
+      var usd = CF.Prices.usd(asset);
+      var btc = CF.Prices.btc(asset);
+      modify.$set[key] = {
+        quantity: q,
+        update: 'manual',
+        updatedAt: new Date(),
+        vBtc: (btc || 0) * q,
+        vUsd: (usd || 0) * q
+      };
+    } else {
+      modify.$set[key] = {
+        quantity: q,
+        update: 'manual',
+        updatedAt: new Date(),
+      };
+    }
+
     CF.Accounts.collection.update(sel, modify)
   },
   cfAssetsDeleteAsset: function(accountKey, address, asset) {
