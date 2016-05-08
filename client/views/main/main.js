@@ -26,7 +26,14 @@ Template['main'].helpers({
     var cap = _cap();
     return cap ? (cap.usd - cap.usdDayAgo)/cap.usd : NaN
   },
-
+  sumBtc: function(){
+    var ret = 0;
+    if (!Meteor.userId()) return ret;
+    CF.Accounts.collection.find({refId: Meteor.userId()}).forEach(function (acc){
+      ret += acc.vBtc || 0;
+    });
+    return ret;
+  }
 })
 
 Template['main'].onCreated(function(){

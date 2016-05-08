@@ -97,8 +97,8 @@
         <div class="col s12 m12 l4 center valign" style="padding:10px">
             <h5>My Portfolio</h5>
             <br>
-            <h4>0 bitcoins</h4>
-            <p><a href="/welcome">Join Us</a></p>
+            <h4>{{#if currentUser}}~{{readableN sumBtc 2}}{{else}}0{{/if}} bitcoins</h4>
+            {{#if currentUser}}{{else}}<p><a href="/welcome">Join Us</a></p>{{/if}}
         </div>
     </div>
 </template>
