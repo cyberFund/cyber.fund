@@ -97,12 +97,6 @@ var fetch = function() {
               if (_.isString(system.crowdsales.end_date)) {
                 system.crowdsales.end_date = new Date(system.crowdsales.end_date);
               }
-              /*if (system._id == 'Plutus') {
-                console.log("111111");
-                console.log(system.crowdsales);
-                console.log(2222222);
-                console.log(new Date(system.crowdsales.start_date))
-              }*/
               crowdsalesList.push(system._id)
             }
 
@@ -117,6 +111,9 @@ var fetch = function() {
               }
               if (system.specs.cap) {
                 system.metrics.cap = system.specs.cap;
+              }
+              if (system.specs.price) {
+                system.metrics.price = system.specs.price;
               }
             }
 

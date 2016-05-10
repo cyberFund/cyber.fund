@@ -1,5 +1,52 @@
 var ns = CF.Accounts;
-ns.collection = new Meteor.Collection('accounts');
+
+function getPricesFromCD(doc){
+  return doc && doc.metrics && doc.metrics.price && _.clone(doc.metrics.price) || null;
+}
+
+function setValues (asset, assetId) {
+  if (asset.quantity) {
+    var prices = getPricesFromCD(CurrentData.findOne({_id: assetId}, {fields: {"metrics.price": 1}}));
+    if (prices) {
+      if (prices.eth && !prices.btc) {
+        var priceEth = getPricesFromCD(CurrentData.findOne({_id: 'Ethereum'}, {fields: {"metrics.price": 1}}));
+        if (priceEth) {
+          prices.btc = prices.eth * priceEth.btc;
+          prices.usd = prices.eth * priceEth.usd;
+        }
+        // todo: asset.vEth = prices.usd*asset.quantity;
+      }
+      if (prices.usd) asset.vUsd = prices.usd*asset.quantity;
+      if (prices.btc) asset.vBtc = prices.btc*asset.quantity;
+    }
+  }
+}
+
+ns.collection = new Meteor.Collection('accounts', {
+  transform: function(doc){
+    if (doc.addresses) {
+      var accBtc = 0;
+      var accUsd = 0;
+      _.each(doc.addresses, function (assetsDoc, address) {
+        var addrUsd = 0; var addrBtc = 0;
+        if (assetsDoc.assets) {
+          _.each (assetsDoc.assets, function(asset, assetId){
+            setValues (asset, assetId);
+            addrUsd += asset.vUsd;
+            addrBtc += asset.vBtc;
+          });
+        }
+        assetsDoc.vUsd = addrUsd;
+        assetsDoc.vBtc = addrBtc;
+        accBtc += addrBtc;
+        accUsd += addrUsd;
+      });
+      doc.vBtc = accBtc;
+      doc.vUsd = accUsd;
+    }
+    return doc;
+  }
+});
 var print = Meteor.isClient ? function(){} : CF.Utils.logger.getLogger('CF.Accounts').print;
 var _k = CF.Utils._k
 

@@ -51,7 +51,7 @@ myGraph = (el, i) ->
   hZ = h*split[2] / splitsum
   data = i.theData #_chartdata(i.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
-
+  if not data.length then return
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
     d3.max(data, grab.t)

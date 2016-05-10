@@ -1,0 +1,36 @@
+db.getCollection('accounts').update({}, {
+  $unset: {
+    "vBtc": 1,
+    "vUsd": 1
+  }
+}, {
+  multi: true
+});
+
+db.getCollection('accounts').find().forEach(function(doc) {
+  var unset = {}
+
+  function _k(keys) {
+    return keys.join(".");
+  }
+  if (doc.addresses) {
+    var ad = Object.keys(doc.addresses);
+    ad.forEach(function(addressKey) {
+      unset[_k(['addresses', addressKey, 'vBtc'])] = 1;
+      unset[_k(['addresses', addressKey, 'vUsd'])] = 1
+      if (doc.addresses[addressKey].assets) {
+        var as = Object.keys(doc.addresses[addressKey].assets);
+        as.forEach(function(assetKey) {
+          unset[_k(['addresses', addressKey, 'assets', assetKey, 'vBtc'])] = 1;
+          unset[_k(['addresses', addressKey, 'assets', assetKey, 'vUsd'])] = 1;
+        });
+      }
+    })
+  }
+  print(doc._id)
+  db.getCollection('accounts').update({
+    _id: doc._id
+  }, {
+    $unset: unset
+  });
+})

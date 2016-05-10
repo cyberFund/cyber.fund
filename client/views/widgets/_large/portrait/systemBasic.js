@@ -47,13 +47,11 @@ Template['systemBasicKeen'].onRendered(function() {
   });
 
   instance.autorun(function() {
-    console.log("0")
     if (!CF.keenflag.get()) return;
-    console.log("1")
     var key = FlowRouter.getParam("name_");
     if (!key) return;
-    // Create a query instance
 
+    // Create a query instance
     var count = new Keen.Query("count", {
       eventCollection: "Viewed System Page",
       filters: [{
@@ -64,8 +62,6 @@ Template['systemBasicKeen'].onRendered(function() {
       interval: "daily",
       timeframe: "this_21_days"
     });
-
-    console.log("2", key)
 
     // Basic charting w/ `client.draw`:
     client.draw(count, document.getElementById("keen-chart"), {

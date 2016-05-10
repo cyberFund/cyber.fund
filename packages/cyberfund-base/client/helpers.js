@@ -214,7 +214,8 @@ var helpers = {
   },
   displayCurrencyName: function (system) {
     if (typeof system == 'string') system = CurrentData.findOne({_id: system})
-    return system.token ? system.token.name : system._id;
+    if (system) return system.token ? system.token.name : system._id;
+    else return ''
   },
   systemFromId: function (id){
     return CurrentData.findOne({_id:id});

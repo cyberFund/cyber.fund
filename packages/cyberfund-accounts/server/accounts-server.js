@@ -154,14 +154,14 @@ ns.quantumCheck = function(address) {
     _.each(data, function(asset) {
       if (typeof asset.quantity == 'string')
         asset.quantity = parseFloat(asset.quantity);
-      var p = CF.Prices.doc(asset.asset);
+    /*  var p = CF.Prices.doc(asset.asset);
       if (!p) return;
       if (p.btc) {
         asset.vBtc = p.btc * asset.quantity;
       }
       if (p.usd) {
         asset.vUsd = p.usd * asset.quantity;
-      }
+      }*/
     });
     return (_.filter(data, function(it) {
       return it.quantity
@@ -226,8 +226,8 @@ ns._updateBalanceAddress = function(account, address) {
     modify.$set[k] = {
       update: 'auto',
       quantity: balance.quantity,
-      vBtc: balance.vBtc,
-      vUsd: balance.vUsd,
+    /*  vBtc: balance.vBtc,
+      vUsd: balance.vUsd, */
     };
     delete modify.$unset[k];
   });
@@ -287,8 +287,8 @@ ns._updateBalanceAccount = function(account, options) {
         var btcP = CF.Prices.btc(assetKey)
         addrBtc += asset.quantity * btcP || 0;
         addrUsd += asset.quantity * usdP || 0;
-        modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP || 0;
-        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP || 0;
+    /*    modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP || 0;
+        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP || 0; */
       }
     });
 
@@ -302,19 +302,19 @@ ns._updateBalanceAccount = function(account, options) {
         modify.$set[k] = {
           update: 'auto',
           quantity: balance.quantity,
-          vBtc: balance.vBtc,
-          vUsd: balance.vUsd,
+      /*    vBtc: balance.vBtc,
+          vUsd: balance.vUsd, */
         };
-        addrBtc += balance.vBtc || 0;
-        addrUsd += balance.vUsd || 0;
+    /*    addrBtc += balance.vBtc || 0;
+        addrUsd += balance.vUsd || 0; */
         delete modify.$unset[k];
       });
     }
-    modify.$set[_k(['addresses', address, 'vBtc'])] = addrBtc;
-    modify.$set[_k(['addresses', address, 'vUsd'])] = addrUsd;
+    /*modify.$set[_k(['addresses', address, 'vBtc'])] = addrBtc;
+    modify.$set[_k(['addresses', address, 'vUsd'])] = addrUsd;*/
 
-    accBtc += addrBtc;
-    accUsd += addrUsd;
+  /*  accBtc += addrBtc;
+    accUsd += addrUsd; */
     //if (_.keys(modify).length) {
     //      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
     //}
@@ -326,9 +326,9 @@ ns._updateBalanceAccount = function(account, options) {
 
   if (!_.isEmpty(modify)) {
     modify.$set[_k(['updatedAt'])] = new Date();
-    modify.$set[_k(['vBtc'])] = accBtc;
-    modify.$set[_k(['vUsd'])] = accUsd;
-    print("modify", modify)
+  /*  modify.$set[_k(['vBtc'])] = accBtc;
+    modify.$set[_k(['vUsd'])] = accUsd; */
+    //print("modify", modify)
     ns.collection.update({
       _id: account._id
     }, modify);
