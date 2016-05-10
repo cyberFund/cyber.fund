@@ -1,5 +1,5 @@
 <template name="slowchart">
-  <div class="slowchart card" id="slowchart-{{_toAttr system}}">
+  <div class="slowchart card {{#if hasNoData}}hidden{{/if}}" id="slowchart-{{_toAttr system}}">
     {{#if __ready}}
     {{else}}
     LOADING

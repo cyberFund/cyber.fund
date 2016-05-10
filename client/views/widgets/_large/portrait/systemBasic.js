@@ -97,6 +97,12 @@ Template['systemBasic'].onRendered(function() {
 });
 
 Template['systemBasic'].helpers({
+  anyCards: function(){
+    if (!this.metrics) return false;
+    return this.metrics.tradeVolume || this.metrics.supply ||
+    (this.metrics.price && (this.metrics.price.usd || this.metrics.price.btc || this.metrics.price.eth)) ||
+    (this.metrics.cap && (this.metrics.cap.usd || this.metrics.cap.btc || this.metrics.cap.eth ))
+  },
   systemName: function() {
     return systemName()
   },

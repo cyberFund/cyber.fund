@@ -267,6 +267,8 @@ Template['slowchart'].helpers
   __ready: ->
     # do not draw anything before data is loaded
     return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
+  hasNoData: ->
+    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
 
 grab =
   t: (fruit) -> fruit and fruit.timestamp

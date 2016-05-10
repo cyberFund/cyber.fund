@@ -48,6 +48,8 @@
 
     {{#if not isProject}}
     <div id="market" class="row scrollspy center">
+
+      {{! PRICE CARD}}
       {{#if and metrics metrics.price}} {{#if or metrics.price.usd metrics.price.btc}}
       <div class="col s12 m6 l3 center valign" style="padding:10px">
         <div class="card markt">
@@ -80,7 +82,10 @@
           </p>{{/if}}
         </div>
       </div>
-      {{/if}} {{/if}} {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
+      {{/if}} {{/if}}
+
+      {{! CAP CARD}}
+      {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
       <div class="col s12 m6 l3 center valign" style="padding:10px">
         <div class="card markt">
           <h5>Cap</h5>
@@ -106,6 +111,9 @@
         </div>
       </div>
       {{/if}} {{/if}}
+
+      {{! TRADE CARD}}
+      {{#if todayVolumeUsd}}
       <div class="col s12 m6 l3 center valign" style="padding:10px">
         <div class="card markt">
           <h5>Trade</h5>
@@ -127,6 +135,10 @@
           </p>
         </div>
       </div>
+      {{/if}}
+
+      {{! SUPPLY CARD}}
+      {{#if and metrics metrics.supply}}
       <div class="col s12 m6 l3 center valign" style="padding:10px">
         <div class="card markt">
           <h5>Supply</h5>
@@ -144,12 +156,16 @@
           <p>&nbsp;</p>
         </div>
       </div>
+      {{/if}}
     </div>
+
+    {{#if anyCards}}
     <div class="row" style="margin-top: -20px">
       <div class="col s12 center">
         Changes given for 24h
       </div>
     </div>
+    {{/if}}
     <div class="row"></div>
 
     {{> slowchart system=_id}}
