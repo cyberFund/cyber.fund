@@ -25,6 +25,7 @@ Template['folioChart'].onRendered(function () {
         q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
       return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
     });
+    console.log(data);
 
     var sum = 0; // this to be used o determine if minor actives
     var datum = []; // let s calculate first and put calculations here

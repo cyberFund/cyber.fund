@@ -8,7 +8,10 @@ function setValues (asset, assetId) {
   if (asset.quantity) {
     var prices = getPricesFromCD(CurrentData.findOne({_id: assetId}, {fields: {"metrics.price": 1}}));
     if (prices) {
+
+      // todo split
       if (prices.eth && !prices.btc) {
+
         var priceEth = getPricesFromCD(CurrentData.findOne({_id: 'Ethereum'}, {fields: {"metrics.price": 1}}));
         if (priceEth) {
           prices.btc = prices.eth * priceEth.btc;
@@ -23,31 +26,48 @@ function setValues (asset, assetId) {
 }
 
 ns.collection = new Meteor.Collection('accounts', {
+
   transform: function(doc){
     if (doc.addresses) {
       var accBtc = 0;
       var accUsd = 0;
       _.each(doc.addresses, function (assetsDoc, address) {
-        var addrUsd = 0; var addrBtc = 0;
+        var addrUsd = 0;
+        var addrBtc = 0;
+
         if (assetsDoc.assets) {
           _.each (assetsDoc.assets, function(asset, assetId){
+
             setValues (asset, assetId);
+
             addrUsd += asset.vUsd;
             addrBtc += asset.vBtc;
           });
+
         }
+
         assetsDoc.vUsd = addrUsd;
         assetsDoc.vBtc = addrBtc;
         accBtc += addrBtc;
         accUsd += addrUsd;
       });
+
       doc.vBtc = accBtc;
       doc.vUsd = accUsd;
     }
     return doc;
   }
+
 });
+
+Meteor.startup(function(){
+  ns.find = ns.collection.find
+  ns.update = ns.collection.update
+  ns.remove = ns.collection.remove
+})
+
 var print = Meteor.isClient ? function(){} : CF.Utils.logger.getLogger('CF.Accounts').print;
+
 var _k = CF.Utils._k
 
 ns.collection.allow({
