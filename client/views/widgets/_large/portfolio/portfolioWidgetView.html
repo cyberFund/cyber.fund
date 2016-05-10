@@ -1,0 +1,37 @@
+<template name="portfolioWidgetView">
+  <div class="row">
+    <div class="col s12 m6 l6">
+      <h1 class="center">Ƀ {{ sumB}} </h1>
+
+      <h2 class="center">$ {{ sumU}} </h2>
+
+      <!--div class="center black-text">
+        <small>
+          Hint: go to <a href="{{pathFor '/@:username' username=ownUsername}}">Profile</a> page to add assets
+        </small>
+      </div-->
+      <table>
+        <thead>
+          <th class="center">Account</th>
+          <th class="right-align">Σ Ƀ</th>
+          <th class="right-align">Σ $</th>
+        </thead>
+        <tbody>
+          {{#each values_of accountsData}}
+          <tr>
+            <td>
+              <input type="checkbox" account-id="{{_id}}" class="filled-in count-account"
+                id="toggle-account-{{_id}}" {{showAccount}} />
+              <label class="black-text" for="toggle-account-{{_id}}">{{name}}</label></td>
+            <td class="right-align">{{_sumB addresses}}</td>
+            <td class="right-align">{{_sumU addresses}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+    </div>
+    <div class="col s12 m6 l6">
+      {{> folioChart accountsData=filteredAccountsData}}
+    </div>
+  </div>
+</template>

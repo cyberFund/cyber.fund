@@ -1,0 +1,43 @@
+<template name="portfolioWidgetTable">
+  <div class="row">
+    <table>
+      <thead>
+        <th class="center">System</th>
+        <th class="center sorter" data-sorter="f|byAmount">{{sorter "f|byAmount"}}Amount
+        </th>
+        <th class="center sorter" data-sorter="f|byEquity">{{sorter "f|byEquity"}}Equity
+        </th>
+        <th class="center sorter hide-on-small-and-down" data-sorter="f|byValue">{{sorter "f|byValue"}}Portfolio Share
+        </th>
+        <th class="center sorter" data-sorter="f|byValue">{{sorter "f|byValue"}}Value in BTC
+        </th>
+        <th class="center sorter hide-on-med-and-down " data-sorter="f|byValue">{{sorter "f|byValue"}}Value in USD
+        </th>
+        <th class="right sorter hide-on-small-and-down " data-sorter="metrics.priceChangePercents.day.usd">USD Price
+          <sup>{{sorter "metrics.priceChangePercents.day.usd"}}1d
+                    Change</sup></th>
+        <th class="center sorter hide-on-med-and-down " data-sorter="metrics.cap.usd">{{sorter 'metrics.cap.usd'}}USD Cap
+        </th>
+      </thead>
+      <tbody>
+        {{#each pSystems}}
+        <tr>
+          <td><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+                        {{> cgSystemLogo system=this class="logo-portfolio"}}
+                        {{displaySystemName this}}</a></td>
+          <td class="right-align">{{quantity this}}</td>
+          <td class="right-align">{{equity this}}</td>
+          <td class="right-align hide-on-small-and-down">{{share}}</td>
+          <td class="right-align">{{btcCost this}}</td>
+          <td class="right-align hide-on-med-and-down ">
+            {{usdCost this}}</td>
+          <td class="right-align hide-on-small-and-down ">{{usdPrice}}
+            <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
+                            {{readableN usdPriceChange1d 2}}%</sup></td>
+          <td class="right-align  hide-on-med-and-down ">{{usdCap this}}</td>
+        </tr>
+        {{! > portTableRow this}} {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
