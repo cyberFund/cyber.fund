@@ -1,7 +1,7 @@
 <template name="portfolioWidgetTable">
   <div class="row">
     <table>
-      {{#if pSystems.length}}
+      {{! #if pSystems.length}}
       <thead>
         <th class="center">System</th>
         <th class="center sorter" data-sorter="f|byAmount">{{sorter "f|byAmount"}}Amount
@@ -20,7 +20,7 @@
         <th class="center sorter hide-on-med-and-down " data-sorter="metrics.cap.usd">{{sorter 'metrics.cap.usd'}}USD Cap
         </th>
       </thead>
-      {{/if}}
+      {{! /if}}
       <tbody>
         {{#each pSystems}}
         <tr>
@@ -38,7 +38,8 @@
                             {{readableN usdPriceChange1d 2}}%</sup></td>
           <td class="right-align  hide-on-med-and-down ">{{usdCap this}}</td>
         </tr>
-        {{! > portTableRow this}} {{/each}}
+        {{! > portTableRow this}}
+        {{/each}}
       </tbody>
     </table>
   </div>
