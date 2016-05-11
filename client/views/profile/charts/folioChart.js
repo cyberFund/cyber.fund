@@ -43,7 +43,6 @@ Template['folioChart'].onRendered(function() {
       q: 0
     };
 
-    console.log(data);
     _.each(data, function(system) {
       var asset = assets[system._id] || {};
       var point = {

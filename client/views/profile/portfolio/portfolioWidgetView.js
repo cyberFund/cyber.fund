@@ -63,14 +63,25 @@ var _getSumU = function(accountsData, addressesObject) {
 
 Template['portfolioWidgetView'].helpers({
   sumB: function() {
-    var accounts = CF.Accounts.userProfileData();
-    var sumB = accounts ? getSumB(accounts) : 0;
-    return CF.Utils.readableN(sumB, 3)
+    var assets = CF.Accounts.portfolioTableData();
+    var sum = 0;
+    if (_.keys(assets).length) {
+      _.each(assets, function(asset) {
+        sum += asset.vBtc || 0;
+      });
+    }
+
+    return CF.Utils.readableN(sum, 3)
   },
   sumU: function() {
-    var accounts = CF.Accounts.userProfileData();
-    var sumU = accounts ? getSumU(accounts) : 0;
-    return CF.Utils.readableN(sumU, 0)
+    var assets = CF.Accounts.portfolioTableData();
+    var sum = 0;
+    if (_.keys(assets).length) {
+      _.each(assets, function(asset) {
+        sum += asset.vUsd || 0;
+      });
+    }
+    return CF.Utils.readableN(sum, 0)
   },
   filteredAccountsData: function() {
     return CF.Accounts.userProfileData()

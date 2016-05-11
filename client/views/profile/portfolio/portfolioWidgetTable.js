@@ -7,65 +7,6 @@ Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
 });
 
-// TODO: DEFLATE - DEDUPE
-var getSumB = function (accountsData) {
-  var systems = ns.getSystemsFromAccountsObject(accountsData),
-    sum = 0;
-  _.each(systems, function (sys) {
-    var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
-    var system = CurrentData.findOne(cfCDs.system(sys));
-
-    if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
-      sum += q * system.metrics.price.btc;
-    }
-  });
-  return sum;
-};
-
-var getSumU = function (accountsData) {
-  var systems = ns.getSystemsFromAccountsObject(accountsData),
-    sum = 0;
-  _.each(systems, function (sys) {
-    var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
-    var system = CurrentData.findOne(cfCDs.system(sys));
-
-    if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
-      sum += q * system.metrics.price.usd;
-    }
-  });
-  return sum;
-};
-
-
-//mapreduce bro
-var _getSumB = function (accountsData, addressesObject) {
-  var systems = ns.getSystemsFromAccountsObject(accountsData),
-    sum = 0;
-  _.each(systems, function (sys) {
-    var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
-    var system = CurrentData.findOne(cfCDs.system(sys));
-
-    if (system && system.metrics && system.metrics.price && system.metrics.price.btc) {
-      sum += q * system.metrics.price.btc;
-    }
-  });
-  return sum;
-};
-
-var _getSumU = function (accountsData, addressesObject) {
-  var systems = ns.getSystemsFromAccountsObject(accountsData),
-    sum = 0;
-  _.each(systems, function (sys) {
-    var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
-    var system = CurrentData.findOne(cfCDs.system(sys));
-
-    if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
-      sum += q * system.metrics.price.usd;
-    }
-  });
-  return sum;
-};
-
 Template['portfolioWidgetTable'].helpers({
   values: function (obj) {
     return _.values(obj || {});
@@ -169,7 +110,7 @@ Template['portfolioWidgetTable'].helpers({
     var r = tableData();
     //var accounts = CF.Accounts.userProfileData();
 
-    if (system._id) {
+    if (system._id && r[system._id]) {
       q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
@@ -183,8 +124,9 @@ Template['portfolioWidgetTable'].helpers({
   share: function () {
     var system = this;
     var r = tableData();
-    if (system._id) {
-      var q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
+    var q = 0.0;
+    if (system._id && r[system._id]) {
+      q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
       var vBtc = r[system._id].vBtc;
 
       var sum = _.reduce(_.map(r, function(it){
