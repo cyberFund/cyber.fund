@@ -34,7 +34,6 @@ ns.collection = new Meteor.Collection('accounts', {
           _.each (assetsDoc.assets, function(asset, assetId){
 
             setValues (asset, assetId);
-
             addrUsd += asset.vUsd;
             addrBtc += asset.vBtc;
           });

@@ -24,9 +24,11 @@ Template['profile'].onCreated(function() {
     var name = user && user.profile && user.profile.name || username;
     document.title = name + ' - ' + 'cyber•Fund';
   });
-
-
 });
+
+Template['profile'].onRendered(function(){
+  $('ul.tabs').tabs();
+})
 
 var _user = function getUserByCurrentUid() { //todo reduce
   return Meteor.users.findOne({

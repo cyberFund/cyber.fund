@@ -1,93 +1,88 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
-
     <div class="row" style="margin-top: 12px">
         <div itemscope itemtype="http://schema.org/Person" class="col s12 m12 l3">
             {{#with user}}
+            <div>
+                {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=largeAvatar}}
+            </div>
+            <div>
+                <h4 itemprop="name">{{profile.name}}</h4>
+            </div>
+            <div class="grey-text">
+                {{#if and services services.twitter}}
+                <a class="grey-text" href="https://twitter.com/@{{username}}"><span
+                            itemprop="alternateName">@{{username}}</span></a> {{else}} <span class="grey-text">{{username}}</span> {{/if}}
+                <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
+            </div>
+            <div class="profile-lists">
                 <div>
-                    {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=largeAvatar}}
+                    <h5>Starred</h5>
                 </div>
                 <div>
-                    <h4 itemprop="name">{{profile.name}}</h4>
+                    {{> systemsList1 data=starred style="width: 40px; height: 40px; margin: 0 3px 6px"}}
                 </div>
-                <div class="grey-text">
-                    {{#if and services services.twitter}}
-                    <a class="grey-text"
-                       href="https://twitter.com/@{{username}}"><span
-                            itemprop="alternateName">@{{username}}</span></a>
-                    {{else}} <span class="grey-text">{{username}}</span>
-                    {{/if}}
-                    <div>Joined on {{dateFormat createdAt "Do MMM, YYYY"}}</div>
+                <div>
+                    <h5>Followers</h5>
                 </div>
-                <div class="profile-lists">
-                    <div>
-                        <h5>Starred</h5>
-                    </div>
-                    <div>
-                        {{> systemsList1 data=starred style="width: 40px; height: 40px; margin: 0 3px 6px"}}
-                    </div>
-                    <div>
-                        <h5>Followers</h5>
-                    </div>
-                    <div>
-                        {{> usersList1 data=followedByUsers class="avatar-round" style="margin: 0 3px 6px"}}
-                    </div>
-                    <div>
-                        <h5>Following</h5>
-                    </div>
-                    <div>
-                        {{> usersList1 data=followingUsers class="avatar-round" style="margin: 0 3px 6px"}}
-                    </div>
+                <div>
+                    {{> usersList1 data=followedByUsers class="avatar-round" style="margin: 0 3px 6px"}}
                 </div>
-            {{/with}}
-            {{#if isOwnProfile}}
-                {{#if userRegistracionCount}}
-                    {{#if lte userRegistracionCount 400}}
-                    <div>
-                        <br>
-                        You are user #{{userRegistracionCount}}
-                    </div>
-                    {{/if}}
-                    {{#if lte userRegistracionCount 100}}
-                        <div>
-                            We have classified you as group A user
-                        </div>
-                    {{else}}
-                        {{#if lte userRegistracionCount 400}}
-                            <div>
-                                We have classified you as group B user
-                            </div>
-                        {{/if}}
-                    {{/if}}
-                {{/if}}
-            {{/if}}
-            {{#if isOwnProfile}}
-                {{> atNavButton}}
-            {{/if}}
-        </div>
-        <div class="col l9 m12 s12">
-              {{> portfolioWidget accountsData=userAccounts hideTable=false}}
-              {{#if isOwnProfile}}{{/if}}
-            {{> assetsManager }}
+                <div>
+                    <h5>Following</h5>
+                </div>
+                <div>
+                    {{> usersList1 data=followingUsers class="avatar-round" style="margin: 0 3px 6px"}}
+                </div>
+            </div>
+            {{/with}} {{#if isOwnProfile}} {{#if userRegistracionCount}} {{#if lte userRegistracionCount 400}}
+            <div>
+                <br> You are user #{{userRegistracionCount}}
+            </div>
+            {{/if}} {{#if lte userRegistracionCount 100}}
+            <div>
+                We have classified you as group A user
+            </div>
+            {{else}} {{#if lte userRegistracionCount 400}}
+            <div>
+                We have classified you as group B user
+            </div>
+            {{/if}} {{/if}} {{/if}} {{/if}} {{#if isOwnProfile}} {{> atNavButton}} {{/if}}
         </div>
 
-        {{! #if currentUser}}
-        {{#if not isOwnProfile}}
-            <div class="fixed-action-btn"
-                 style="bottom: 24px; right: 24px;">
-                {{#if following}}
-                    <a class="btn-floating btn-large btn-unfollow blue"
-                       title="Unfollow">
-                        <i class="large material-icons">thumb_down</i>
-                    </a>
-                {{else}}
-                    <a class="btn-floating btn-large btn-follow green"
-                       title="Follow">
-                        <i class="large material-icons">thumb_up</i>
-                    </a>
-                {{/if}}
+
+        <div class="col l9 m12 s12">
+            <ul class="tabs">
+                <li class="tab">
+                    <a href="#portfolio">Portfolio</a>
+                </li>
+                <li class="tab">
+                    <a href="#accounts">Accounts</a>
+                </li>
+            </ul>
+            <div class="row">
+                <div id="portfolio" class="col s12">
+                    {{> portfolioWidget accountsData=userAccounts}}
+                    {{> portfolioWidgetTable accountsData=userAccounts}}
+                </div>
+                <div id="accounts" class="col s12">
+                    {{> assetsManager }}
+                </div>
             </div>
+        </div>
+
+        {{#if not isOwnProfile}}
+        <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
+            {{#if following}}
+            <a class="btn-floating btn-large btn-unfollow blue" title="Unfollow">
+                <i class="large material-icons">thumb_down</i>
+            </a>
+            {{else}}
+            <a class="btn-floating btn-large btn-follow green" title="Follow">
+                <i class="large material-icons">thumb_up</i>
+            </a>
+            {{/if}}
+        </div>
         {{/if}}
-        {{! /if}}
     </div>
 </template>
