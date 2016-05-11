@@ -99,9 +99,6 @@ Template["ratingTable"].helpers({
       sort: sort
     }).fetch();
   },
-  img_url: function() {
-    return CF.Chaingear.helpers.cgSystemLogoUrl(this);
-  },
 
   capBtcToText: function(cap) {
     var ret = parseFloat(cap);

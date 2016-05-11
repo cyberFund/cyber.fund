@@ -95,9 +95,6 @@ Template['trackingWidget'].helpers({
       }
     return CurrentData.find({}, {sort: sort}).fetch();
   },
-  img_url: function () {
-    return CF.Chaingear.helpers.cgSystemLogoUrl(this);
-  },
   symbol: function () {
     if (this.token && this.token.symbol) {
       return this.token.symbol

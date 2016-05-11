@@ -1,7 +1,5 @@
 CF.Chaingear.helpers = {
     cgSystemLogoUrl: function (that) {
-      if (!that) that = this;
-      
       var icon = (that.icon ? that.icon : that._id) || '';
       icon = icon.toString().toLowerCase();
       return "https://static.cyber.fund/logos/" + icon + ".png";
