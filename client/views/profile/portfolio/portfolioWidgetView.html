@@ -23,27 +23,8 @@
           <th class="right-align">Σ $</th>
         </thead>
         <tbody>
-          {{#each values_of accountsData}}
-          <tr>
-            {{#if isOwnAssets}}
-            <td class="right align">
-              <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
-              class="count-account checkbox-green filled-in"
-                 />
-              <label class="grey-text black-text" for="toggle-account-{{_id}}">
-                <i class="tiny grey-text material-icons">{{#if isPrivate}}visibility{{else}}visibility_off{{/if}}</i>
-               </label></td>
-            <td> {{name}} </td>
-            {{else}}
-            <td>
-              <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
-              class="count-account checkbox-green filled-in"
-                 />
-              <label class="black-text" for="toggle-account-{{_id}}">{{name}}</label></td>
-            {{/if}}
-            <td class="right-align">{{_sumB addresses}}</td>
-            <td class="right-align">{{_sumU addresses}}</td>
-          </tr>
+          {{#each accountsData}}
+            {{> pwvRow}}
           {{/each}}
         </tbody>
       </table>
@@ -52,4 +33,28 @@
       {{> folioChart accountsData=filteredAccountsData}}
     </div>
   </div>
+</template>
+
+
+<template name="pwvRow">
+<tr>
+  {{#if isOwnAssets}}
+  <td class="right align">
+    <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
+    class="count-account checkbox-green filled-in"
+       />
+    <label class="grey-text black-text" for="toggle-account-{{_id}}">
+      <i class="tiny grey-text material-icons">{{#if isPrivate}}visibility{{else}}visibility_off{{/if}}</i>
+     </label></td>
+  <td> {{name}} </td>
+  {{else}}
+  <td>
+    <input {{! showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
+    class="count-account checkbox-green filled-in"
+       />
+    <label class="black-text" for="toggle-account-{{_id}}">{{name}}</label></td>
+  {{/if}}
+  <td class="right-align">{{vBtc}}</td>
+  <td class="right-align">{{vUsd}}</td>
+</tr>
 </template>

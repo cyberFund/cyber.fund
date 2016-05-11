@@ -68,6 +68,22 @@ Template['portfolioWidgetView'].helpers({
     var sumB = accounts ? getSumB(accounts) : 0;
     return CF.Utils.readableN(sumB, 3)
   },
+  sumU: function () {
+    var accounts = CF.Accounts.userProfileData();
+    var sumU = accounts ? getSumU(accounts) : 0;
+    return CF.Utils.readableN(sumU, 0)
+  },
+  filteredAccountsData: function(){
+    return CF.Accounts.userProfileData()
+  }
+})
+
+Template['pwvRow'].onRendered(function(){
+  var t = this;
+  t.$(".count-account").prop("checked", !CF.Accounts.isHidden(t.data._id));
+});
+
+Template['pwvRow'].helpers({
   _sumB: function (addressesObject) {
     var accounts = CF.Accounts.userProfileData();
     var sumB = (accounts && addressesObject) ? _getSumB(accounts, addressesObject) : 0;
@@ -78,20 +94,12 @@ Template['portfolioWidgetView'].helpers({
     var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
     return CF.Utils.readableN(sumB, 0)
   },
-  sumU: function () {
-    var accounts = CF.Accounts.userProfileData();
-    var sumU = accounts ? getSumU(accounts) : 0;
-    return CF.Utils.readableN(sumU, 0)
-  },
   showAccount: function(){
     return Session.get('hideAccount_'+this._id) ? '' : 'checked'
   },
-  filteredAccountsData: function(){
-    return CF.Accounts.userProfileData()
-  }
 })
 
-Template['portfolioWidgetView'].events({
+Template['pwvRow'].events({
   'change .count-account': function(e, t){
     CF.Accounts.hiddenToggle(t.$(e.currentTarget).attr('account-id'))
   }
