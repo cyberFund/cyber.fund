@@ -2,7 +2,7 @@ var cfCDs = CF.CurrentData .selectors;
 CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
 CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
 var isOwnAssets = function(){
-  return CF.Profile.currentUsername.get() == CF.User.username();
+  return CF.Profile.currentUsername() == CF.User.username();
 };
 
 Template['displayAccount'].rendered = function () {
@@ -20,11 +20,7 @@ Template['displayAccount'].rendered = function () {
 };
 
 function isPublicAccount(account){
-  return account.isPrivate
-  //if (!account || !account.key || !user) return true;
-  //return (_.keys(user.accounts || {}).indexOf(account.key) == -1)
-  //  && !!user.accountsPrivate &&
-  //  (_.keys(user.accountsPrivate || {}).indexOf(account.key) > -1);
+  return !account.isPrivate
 }
 
 Template['displayAccount'].helpers({
@@ -132,10 +128,15 @@ Template['displayAccount'].events({
   },
   'click .req-toggle-private': function(e, t){
     var user = Meteor.user();
+    console.log('here')
+    console.log ( CF.User.hasPublicAccess(user) );
     if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
-      CF.Accounts.currentId.set($item.attr("account-id"));
+    console.log('here22222')
+    CF.Accounts.currentId.set($item.attr("account-id"));
+    console.log("222222")
     $("#modal-toggle-private").openModal();
+    console.log(5)
   }
 });

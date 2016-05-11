@@ -1,14 +1,4 @@
-// goes to cf.profile
-function getUserId() {
-  var username = FlowRouter.getParam("username");
-  var user = CF.Utils.normalizeOptionsPerUser({username:username});
-  return user.userId;
-}
-
-function gimmeData (refId){
-  return CF.Accounts.collection.find({refId: refId});
-}
-
+//////////////////////////// hide domain
 CF.Accounts.isHidden = function isHidden(accountId){
   return Session.get('hideAccount_'+(accountId));
 }
@@ -18,6 +8,15 @@ CF.Accounts.hiddenToggle = function(accountId){
   Session.set('hideAccount_'+(accountId), !Session.get('hideAccount_'+(accountId)));
 }
 
+function getUserId() {
+  var username = FlowRouter.getParam("username");
+  var user = CF.Utils.normalizeOptionsPerUser({username:username});
+  return user.userId;
+}
+
+function gimmeData (refId){
+  return CF.Accounts.collection.find({refId: refId});
+}
 
 function filterData(){
   var ret = [];

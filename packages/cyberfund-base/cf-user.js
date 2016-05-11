@@ -28,7 +28,7 @@ CF.User.get = function getUser() {
 }
 
 CF.User.hasPublicAccess = function hasPublicAccess(user){
-  return user && user.services && user.services.twitter && user.services.twitter.screenName;
+  return true;
 }
 
 CF.User.findOneByUsername = function findOneByUsername(username) {

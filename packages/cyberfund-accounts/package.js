@@ -18,12 +18,6 @@ Package.onUse(function(api) {
   api.addFiles(['cyberfund-userassets.js', 'accounts.js'], ['client', 'server']);
   api.addFiles(['server/cyberfund-userassets-methods.js', 'server/cyberfund-userassets-pub.js',
   'server/accounts-server.js'], 'server');
-  api.addFiles(['client/userassets.js', 'client/accounts-client.js',
-    'client/assetsManager.html', 'client/assetsManager.js',
-    'client/addAccount.html', 'client/addAccount.js',
-    'client/displayAccount.html', 'client/displayAccount.js',
-    'client/systemWithToken.html'
-  ], 'client');
 });
 
 Package.onTest(function(api) {

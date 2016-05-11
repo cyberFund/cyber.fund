@@ -9,8 +9,13 @@ Template['folioChart'].onRendered(function () {
   self.autorun(function (comp) {
     var dddd = Template.currentData()
     var accounts = dddd && dddd.accountsData;
+    if (!accounts.length) {
+      if (CF.UserAssets.graph.folioPie) {
+        CF.UserAssets.graph.folioPie.update({ labels: [], series: [] });
+      }
+      return;
+    }
 
-    //var accounts = Template.instance().data && Template.instance().data.accountsData;
     if (!accounts || !_.keys(accounts).length) return;
 
     var ticks = [], labels = [];
@@ -25,7 +30,6 @@ Template['folioChart'].onRendered(function () {
         q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
       return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
     });
-    console.log(data);
 
     var sum = 0; // this to be used o determine if minor actives
     var datum = []; // let s calculate first and put calculations here

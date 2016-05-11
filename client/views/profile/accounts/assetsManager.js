@@ -1,8 +1,5 @@
 var ns = CF.Accounts
 ns.currentId = new CF.Utils.SessionVariable('cfAccountsCurrentId');
-var isOwnAssets = function() {
-  return CF.Profile.currentUid() == Meteor.userId();
-};
 
 Template['assetsManager'].onRendered (function() {
   this.$renameAccountInput = this.$("#rename-account-in");
@@ -11,11 +8,9 @@ Template['assetsManager'].onRendered (function() {
   this.$addAssetErrorLabel = this.$("#add-address-error");
 });
 
-Template['assetsManager'].helpers({
-  isOwnAssets: function() {
-    return isOwnAssets()
-  },
+var isOwnAssets = Blaze._globalHelpers.isOwnAssets
 
+Template['assetsManager'].helpers({
   assetsOwnerId: function() {
     return CF.Profile.currentUid()
   },
@@ -62,7 +57,7 @@ Template['assetsManager'].helpers({
   showAccountsAdvertise: function() {
     var instance = Template.instance();
     if (CF.subs.Assets.ready()) {
-      if (CF.Profile.currentUsername.get() == CF.User.username()) {
+      if (CF.Profile.currentUsername() == CF.User.username()) {
         var user = Meteor.users.findOne({
           _id: CF.Profile.currentUid()
         });
@@ -83,7 +78,7 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername.get());
+  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername());
   Tracker.autorun(function() {
     var user = Meteor.user()
     if (user && (user.username == FlowRouter.getParam('username'))) {
@@ -347,6 +342,7 @@ Template['assetsManager'].events({
     return false;
   },
   'submit #toggle-private-form': function(e, t) {
+    console.log('there');
     //{{! todo: add check if user is able using this feature}}
     if (!isOwnAssets()) return false;
 

@@ -60,9 +60,11 @@ CF.Utils.SessionVariable = function(key) {
 };
 
 // WTF? use path segment here..
-CF.Profile.currentUsername = new CF.Utils.SessionVariable('cfAssetsCurrentUsername');
+CF.Profile.currentUsername = function(){
+  return FlowRouter.getParam("username");
+};
 
 CF.Profile.currentUid = function() {
-  var u = CF.User.findOneByUsername(CF.Profile.currentUsername.get());
+  var u = CF.User.findOneByUsername(CF.Profile.currentUsername());
   return u ? u._id : undefined;
 };
