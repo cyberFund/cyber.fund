@@ -5,24 +5,19 @@ function getPricesFromCD(doc){
 }
 
 function setValues (asset, assetId) {
-  if (asset.quantity) {
-    var prices = getPricesFromCD(CurrentData.findOne({_id: assetId}, {fields: {"metrics.price": 1}}));
-    if (prices) {
+  var prices = getPricesFromCD(CurrentData.findOne({_id: assetId}, {fields: {"metrics.price": 1}})) || {};
 
-      // todo split
-      if (prices.eth && !prices.btc) {
-
-        var priceEth = getPricesFromCD(CurrentData.findOne({_id: 'Ethereum'}, {fields: {"metrics.price": 1}}));
-        if (priceEth) {
-          prices.btc = prices.eth * priceEth.btc;
-          prices.usd = prices.eth * priceEth.usd;
-        }
-        // todo: asset.vEth = prices.usd*asset.quantity;
-      }
-      if (prices.usd) asset.vUsd = prices.usd*asset.quantity;
-      if (prices.btc) asset.vBtc = prices.btc*asset.quantity;
+  // todo split
+  if (prices.eth && !prices.btc) {
+    var priceEth = getPricesFromCD(CurrentData.findOne({_id: 'Ethereum'}, {fields: {"metrics.price": 1}}));
+    if (priceEth) {
+      prices.btc = prices.eth * priceEth.btc || 0;
+      prices.usd = prices.eth * priceEth.usd || 0;
     }
+    // todo: asset.vEth = prices.usd*asset.quantity;
   }
+  asset.vUsd = (prices.usd || 0) * (asset.quantity || 0);
+  asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
 }
 
 ns.collection = new Meteor.Collection('accounts', {
