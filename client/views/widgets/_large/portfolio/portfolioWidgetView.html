@@ -20,8 +20,9 @@
           {{#each values_of accountsData}}
           <tr>
             <td>
-              <input type="checkbox" account-id="{{_id}}" class="filled-in count-account"
-                id="toggle-account-{{_id}}" {{showAccount}} />
+              <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
+              class="count-account green-text white"
+                 />
               <label class="black-text" for="toggle-account-{{_id}}">{{name}}</label></td>
             <td class="right-align">{{_sumB addresses}}</td>
             <td class="right-align">{{_sumU addresses}}</td>

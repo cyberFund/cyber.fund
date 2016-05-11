@@ -31,6 +31,8 @@ var getSumU = function (accountsData) {
   return sum;
 };
 
+
+//mapreduce bro
 var _getSumB = function (accountsData, addressesObject) {
   var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;

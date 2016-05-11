@@ -5,35 +5,15 @@ _chartdata = (systemId) ->
 
 myGraph = (el, i) ->
 
-  mousemove = ->
-    limitX = (v) -> Math.min(v, wf - tooltip.__w)
-    limitY = (v) -> Math.min(v, mTop + hM - tooltip.__h)
-    x0 = x.invert(d3.mouse(this)[0]-mLeft)
-    y0 = y.invert(d3.mouse(this)[1])
-    i = bisectDate(data, x0, 1)
-    d0 = data[i - 1]
-    d1 = data[i]
-    d = if x0 - grab.t(d0) > grab.t(d1) - x0 then d1 else d0
-    yv = y(grab.sp(d))
-    xv = x(grab.t(d))
-    focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
-    focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
-
-    focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
-
-
-    tooltip.select('text.price').text formatCurrency(grab.sp(d))
-    tooltip.select('text.date').text _timestampino(grab.t(d))
-    tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
-    tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
-
-    return
+  data = i.theData #_chartdata(i.data.system).fetch()
+    .sort((a, b) -> a.timestamp - (b.timestamp))
+  if not data.length then return
+  d3.select(el).classed("hidden", false);
 
   @selectedNode = null
   graph = this
   wf = d3.select(el).style('width')?.split('px')[0]
   hf = d3.select(el).style('height')?.split('px')[0]
-
 
   mLeft = 40
   mRight = 40
@@ -49,9 +29,8 @@ myGraph = (el, i) ->
   hM = h*split[0] / splitsum
   hV = h*split[1] / splitsum
   hZ = h*split[2] / splitsum
-  data = i.theData #_chartdata(i.data.system).fetch()
-    .sort((a, b) -> a.timestamp - (b.timestamp))
-  if not data.length then return
+
+
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
     d3.max(data, grab.t)
@@ -250,6 +229,29 @@ myGraph = (el, i) ->
     .attr('class', 'remove-on-brush')
     .attr('text', "drag to zoom")
     .attr('dx', 20).attr('dy', 20)
+
+  mousemove = ->
+    limitX = (v) -> Math.min(v, wf - tooltip.__w)
+    limitY = (v) -> Math.min(v, mTop + hM - tooltip.__h)
+    x0 = x.invert(d3.mouse(this)[0]-mLeft)
+    y0 = y.invert(d3.mouse(this)[1])
+    i = bisectDate(data, x0, 1)
+    d0 = data[i - 1]
+    d1 = data[i]
+    d = if x0 - grab.t(d0) > grab.t(d1) - x0 then d1 else d0
+    yv = y(grab.sp(d))
+    xv = x(grab.t(d))
+    focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
+    focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
+
+    focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
+
+    tooltip.select('text.price').text formatCurrency(grab.sp(d))
+    tooltip.select('text.date').text _timestampino(grab.t(d))
+    tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
+    tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
+
+    return
 
   svg.on('mouseover', ->
     focus.style 'display', null
