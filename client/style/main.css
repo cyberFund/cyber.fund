@@ -23,7 +23,7 @@ nav .brand-logo {
 }
 
 p {
-  line-height: 2rem;
+  line-height: 1.4rem;
 }
 
 .button-collapse {
@@ -50,7 +50,7 @@ p {
 	-ms-background-size: cover;
 	-moz-background-size: cover;
 	min-height:300px;
-	padding:80px 0;
+	padding:60px 0;
 }
 
 @media only screen and (max-width: 992px) {
@@ -70,12 +70,12 @@ p {
   }
 
   html {
-    font-size: 13px
+    font-size: 11px
   }
 }
 
 .icon-block {
-  padding: 0 15px;
+  padding: 0 10px;
 }
 
 
@@ -132,9 +132,7 @@ hr{
 }
 
 .nar-row {
-
   margin:0 5%;
-
 }
 
 @media only screen and (max-width: 600px) {
@@ -199,7 +197,7 @@ hr{
 .address-item {
   position: relative;
   margin-top: 9px;
-  min-height: 6rem;
+  min-height: 3.2rem;
 }
 
 .asset-item {
