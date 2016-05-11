@@ -13,6 +13,8 @@ function getPricesById(docId) {
   }));
 }
 
+CF.CurrentData.getPricesById = getPricesById;
+
 // mutates asset
 function setValues(asset, assetId) {
   var prices = getPricesById(assetId) || {};

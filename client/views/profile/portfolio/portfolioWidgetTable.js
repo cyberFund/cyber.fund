@@ -1,13 +1,7 @@
 var cfCDs = CF.CurrentData .selectors;
 var ns = CF.UserAssets
 
-function tableData() {
-  var ret = CF.Accounts.accumulate(CF.Accounts.userProfileData().map(function(it) {
-    return CF.Accounts.extractAssets(it);
-  }))
-  _.each(ret, CF.Accounts._setValues)
-  return ret;
-}
+var tableData = CF.Accounts.portfolioTableData
 
 Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
@@ -172,10 +166,11 @@ Template['portfolioWidgetTable'].helpers({
   },
   equity: function (system) {
     var q = 0.0;
-    var accounts = CF.Accounts.userProfileData();
+    var r = tableData();
+    //var accounts = CF.Accounts.userProfileData();
 
     if (system._id) {
-      q = ns.getQuantitiesFromAccountsObject(accounts, system._id);
+      q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
       q = 10000 * q / system.metrics.supply
@@ -187,18 +182,16 @@ Template['portfolioWidgetTable'].helpers({
   },
   share: function () {
     var system = this;
-    var q = 0.0;
-    var accounts = CF.Accounts.userProfileData();
+    var r = tableData();
     if (system._id) {
-      q = ns.getQuantitiesFromAccountsObject(accounts, system._id);
-    }
-    var accountsData = Template.instance().data &&
-      Template.instance().data.accountsData;
-    var sum = accountsData ? getSumB(accountsData) : 0;
+      var q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
+      var vBtc = r[system._id].vBtc;
 
-    if (system && system.metrics && system.metrics.price
-      && system.metrics.price.btc && sum > 0.0) {
-      return (100 * q * system.metrics.price.btc / sum).toFixed(1) + "%";
+      var sum = _.reduce(_.map(r, function(it){
+        return it.vBtc
+      }), function(memo, num){ return memo + num; }, 0);
+
+        return (100 * vBtc / sum).toFixed(1) + "%";
     }
     return "0%";
   },
@@ -206,6 +199,11 @@ Template['portfolioWidgetTable'].helpers({
     var system = this;
     if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
       return CF.Utils.readableN(system.metrics.price.usd, 2);
+    }
+    if (system && system.metrics && system.metrics.price && system.metrics.price.eth) {
+      var ethprice = CF.CurrentData.getPricesById('Ethereum');
+      var pusd = (ethprice.btc || 0) * system.metrics.price.eth;
+      return CF.Utils.readableN(pusd, 2);
     }
     return 0;
   },

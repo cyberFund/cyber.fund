@@ -1,33 +1,36 @@
-var cfCDs = CF.CurrentData .selectors;
+var cfCDs = CF.CurrentData.selectors;
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.015;
 
-Template['folioChart'].onRendered(function () {
+function emptyPie(){
+  if (CF.UserAssets.graph.folioPie) {
+    CF.UserAssets.graph.folioPie.update({
+      labels: [],
+      series: []
+    });
+  }
+}
+
+Template['folioChart'].onRendered(function() {
   var self = this;
 
-  self.autorun(function (comp) {
-    var dddd = Template.currentData()
-    var accounts = dddd && dddd.accountsData;
-    if (!accounts.length) {
-      if (CF.UserAssets.graph.folioPie) {
-        CF.UserAssets.graph.folioPie.update({ labels: [], series: [] });
-      }
+  self.autorun(function(comp) {
+    var assets = Template.currentData() && Template.currentData().accountsData || {};
+    if (_.isEmpty(assets)) {
+      emptyPie();
       return;
     }
 
-    if (!accounts || !_.keys(accounts).length) return;
+    var ticks = [],
+      labels = [];
 
-    var ticks = [], labels = [];
-
-    var options = _Session.get("portfolioOptions") || {},
-
-      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
+    systems = _.keys(assets);
     var r = CurrentData.find(cfCDs.system(systems));
 
-    var data = r.fetch().sort(function(x, y){
-      var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id),
-        q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
+    var data = r.fetch().sort(function(x, y) {
+      var q1 = accounts[x._id] && accounts[x._id].quantity || 0,
+        q2 = accounts[y._id] && accounts[y._id].quantity || 0;
       return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
     });
 
@@ -39,20 +42,28 @@ Template['folioChart'].onRendered(function () {
       b: 0,
       q: 0
     };
-    _.each(data, function (system) {
+
+    console.log(data);
+    _.each(data, function(system) {
+      var asset = assets[system._id] || {};
       var point = {
         symbol: system._id,
-        q: CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id)
-      };
-      point.u = (system.metrics && system.metrics.price && system.metrics.price.usd) ? point.q * system.metrics.price.usd : 0;
-      point.b = (system.metrics && system.metrics.price && system.metrics.price.btc) ? point.q * system.metrics.price.btc : 0;
+        q: asset.quantity || 0,
+        u: asset.vUsd || 0,
+        b: asset.vBtc || 0,
+      }
 
       datum.push(point);
       sum += point.b;
     });
 
-    if (!sum) return;
-    _.each(datum, function (point) {
+    if (!sum) {
+      emptyPie();
+      return;
+    }
+
+    // push smalls into 'others'
+    _.each(datum, function(point) {
       if (point.b / sum >= CF.UserAssets.graph.minimalShare) {
         labels.push(point.symbol);
         ticks.push({
@@ -65,6 +76,7 @@ Template['folioChart'].onRendered(function () {
       }
     });
 
+    // if others, draw them too
     if (others.b && others.b > 0) {
       labels.push("OTHER");
       ticks.push({
@@ -73,22 +85,16 @@ Template['folioChart'].onRendered(function () {
       })
     }
 
-    if (ticks.length && self.$('.ct-chart.folio-pie').length )
-    CF.UserAssets.graph.folioPie = // crutch
-    new Chartist.Pie('.ct-chart.folio-pie', {
-      labels: labels,
-      series: ticks
-    }, {
-      chartPadding: CF.Chartist.options.chartPadding.folio,
-      startAngle: 0,
-      labelOffset: 82,
-      labelDirection: 'explode'
-    });
+    if (ticks.length && self.$('.ct-chart.folio-pie').length)
+      CF.UserAssets.graph.folioPie = // crutch
+      new Chartist.Pie('.ct-chart.folio-pie', {
+        labels: labels,
+        series: ticks
+      }, {
+        chartPadding: CF.Chartist.options.chartPadding.folio,
+        startAngle: 0,
+        labelOffset: 82,
+        labelDirection: 'explode'
+      });
   })
-});
-
-Template['folioChart'].helpers({
-  dd: function () {
-    return Template.instance().data.accountsData
-  }
 });

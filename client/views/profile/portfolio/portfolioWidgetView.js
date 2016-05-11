@@ -77,7 +77,8 @@ Template['portfolioWidgetView'].helpers({
   },
   flat: function() {
     return CF.Accounts.extractAssets(this);
-  }
+  },
+  flattenData: CF.Accounts.portfolioTableData
 })
 
 Template['pwvRow'].onRendered(function() {

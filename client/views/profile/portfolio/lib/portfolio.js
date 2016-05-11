@@ -33,25 +33,30 @@ CF.Accounts.userProfileData = function(){
 }
 
 ////////////////////////////// accounting domain
+
 /*
-*
+* @param docs: array of
+* todo - mabe use vBtc vUsd here?
 */
 CF.Accounts.accumulate = function(docs, accumulator){
   var ret = accumulator || {}
   docs.forEach(function(doc){
     _.each(doc, function(asset, assetId){
-      if (ret[assetId]) ret[assetId].quantity += asset.quantity || 0;
+      if (ret[assetId]) {
+        ret[assetId].quantity += asset.quantity || 0;
+        ret[assetId].vUsd += asset.vUsd || 0;
+        ret[assetId].vBtc += asset.vBtc || 0;
+      }
       else ret[assetId] = {
-        quantity: asset.quantity || 0
+        quantity: asset.quantity || 0,
+        vUsd: asset.vUsd || 0,
+        vBtc: asset.vBtc || 0
       }
     });
   });
   return ret;
 }
 
-// works with single account document, returns only {
-//  key: {quantity:q}, ...
-//}
 CF.Accounts.extractAssets = function flatten(doc) {
   var ret = []
   if (doc.addresses) {
@@ -64,10 +69,10 @@ CF.Accounts.extractAssets = function flatten(doc) {
   return CF.Accounts.accumulate(ret);
 }
 
-// works with set of 'normalized' docs
-CF.Accounts.extractAssetsMany = function flattenMany(docs){
-  var ret = {}
-  docs.map(function(doc){
-
-  })
+function tableData() {
+  return  CF.Accounts.accumulate(CF.Accounts.userProfileData().map(function(it) {
+    return CF.Accounts.extractAssets(it);
+  }))
 }
+
+CF.Accounts.portfolioTableData = tableData
