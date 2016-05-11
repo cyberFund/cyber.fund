@@ -1,15 +1,25 @@
 var ns = CF.Accounts;
 
-function getPricesFromCD(doc){
-  return doc && doc.metrics && doc.metrics.price && _.clone(doc.metrics.price) || null;
+function getPricesById(docId) {
+  function filter(doc) {
+    return doc && doc.metrics && doc.metrics.price && _.clone(doc.metrics.price) || null;
+  }
+  return filter(CurrentData.findOne({
+    _id: docId
+  }, {
+    fields: {
+      "metrics.price": 1
+    }
+  }));
 }
 
-function setValues (asset, assetId) {
-  var prices = getPricesFromCD(CurrentData.findOne({_id: assetId}, {fields: {"metrics.price": 1}})) || {};
+// mutates asset
+function setValues(asset, assetId) {
+  var prices = getPricesById(assetId) || {};
 
   // todo split
   if (prices.eth && !prices.btc) {
-    var priceEth = getPricesFromCD(CurrentData.findOne({_id: 'Ethereum'}, {fields: {"metrics.price": 1}}));
+    var priceEth = getPricesById('Ethereum');
     if (priceEth) {
       prices.btc = prices.eth * priceEth.btc || 0;
       prices.usd = prices.eth * priceEth.usd || 0;
@@ -20,20 +30,22 @@ function setValues (asset, assetId) {
   asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
 }
 
+ns._setValues = setValues
+
 ns.collection = new Meteor.Collection('accounts', {
 
-  transform: function(doc){
+  transform: function(doc) {
     if (doc.addresses) {
       var accBtc = 0;
       var accUsd = 0;
-      _.each(doc.addresses, function (assetsDoc, address) {
+      _.each(doc.addresses, function(assetsDoc, address) {
         var addrUsd = 0;
         var addrBtc = 0;
 
         if (assetsDoc.assets) {
-          _.each (assetsDoc.assets, function(asset, assetId){
+          _.each(assetsDoc.assets, function(asset, assetId) {
 
-            setValues (asset, assetId);
+            setValues(asset, assetId);
             addrUsd += asset.vUsd;
             addrBtc += asset.vBtc;
           });
@@ -54,52 +66,61 @@ ns.collection = new Meteor.Collection('accounts', {
 
 });
 
-Meteor.startup(function(){
+Meteor.startup(function() {
   ns.find = ns.collection.find
   ns.update = ns.collection.update
   ns.remove = ns.collection.remove
 })
 
-var print = Meteor.isClient ? function(){} : CF.Utils.logger.getLogger('CF.Accounts').print;
+var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger('CF.Accounts').print;
 
 var _k = CF.Utils._k
 
 ns.collection.allow({
-  insert: function(userId, doc){
+  insert: function(userId, doc) {
     return userId && (doc.refId == userId);
   },
-  update: function(userId, doc, fieldNames, modifier){
+  update: function(userId, doc, fieldNames, modifier) {
     if (fieldNames['refId'] || fieldNames['value'] || fieldNames['createdAt']) return false;
     if (doc.refId != userId) return false;
     return true;
   },
-  remove: function(userId, doc){
+  remove: function(userId, doc) {
     return doc.refId == userId;
   }
 });
 
-ns._findByUserId = function(userId, options){
+ns._findByUserId = function(userId, options) {
   var selector = {
     refId: userId,
   }
 
   // have to supply isPrivate flag internally on server
-  if (Meteor.isServer && !options.private) _.extend (selector, {isPrivate: {$ne: true}})
+  if (Meteor.isServer && !options.private) _.extend(selector, {
+    isPrivate: {
+      $ne: true
+    }
+  })
   return ns.collection.find(selector);
 }
 
-ns.findById = function(_id, options){
+ns.findById = function(_id, options) {
   if (!_id) return {};
   options = options || {};
-  var selector = {_id: _id}
-  //if (Meteor.isServer) {} && !options.private)
-  //  _.extend (selector, {isPrivate: {$ne: true}})
+  var selector = {
+      _id: _id
+    }
+    //if (Meteor.isServer) {} && !options.private)
+    //  _.extend (selector, {isPrivate: {$ne: true}})
   return ns.collection.findOne(selector);
 }
 
-var checkAllowed = function(accountKey, userId){ // TODO move to collection rules
+var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
-  var account = CF.Accounts.collection.findOne({_id: accountKey, refId: userId});
+  var account = CF.Accounts.collection.findOne({
+    _id: accountKey,
+    refId: userId
+  });
   return account;
 }
 
@@ -114,14 +135,16 @@ Meteor.methods({
       name: String
     }));
 
-    var user = Meteor.users.findOne({_id: this.userId});
+    var user = Meteor.users.findOne({
+      _id: this.userId
+    });
     if (!user) return;
     if (!CF.User.hasPublicAccess(user)) obj.isPublic = false;
     if (!ns.accountNameIsValid(obj.name, this.userId)) return {
       err: "invalid acc name"
     };
 
-    var key = CF.Accounts.collection.insert ({
+    var key = CF.Accounts.collection.insert({
       name: obj.name,
       addresses: {},
       isPrivate: !obj.isPublic,
@@ -145,7 +168,9 @@ Meteor.methods({
     var checkName = ns.accountNameIsValid(newName, this.userId, account.name);
     if (checkName) {
       var k = "name";
-      var set = {  $set: {} };
+      var set = {
+        $set: {}
+      };
       set.$set[k] = newName.toString();
       CF.Accounts.collection.update(sel, set);
     }
@@ -160,7 +185,7 @@ Meteor.methods({
     });
     var account = CF.Accounts.findById(accountKey);
     if (account) {
-      print ("account", account);
+      print("account", account);
     }
     var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts'); //TODO - remove strings, not needed
     if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
@@ -169,14 +194,22 @@ Meteor.methods({
     if (account.refId == this.userId) {
       print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
 
-      CF.Accounts.collection.update({_id: accountKey}, {$set: {isPrivate: (toKey == 'accountsPrivate')}})
+      CF.Accounts.collection.update({
+        _id: accountKey
+      }, {
+        $set: {
+          isPrivate: (toKey == 'accountsPrivate')
+        }
+      })
     }
   },
 
   cfAssetsRemoveAccount: function(accountKey) {
     if (checkAllowed(accountKey, this.userId)) //todo - maybe direct,
-        // not method (setup allow/deny for collection)
-    CF.Accounts.collection.remove({_id: accountKey})
+    // not method (setup allow/deny for collection)
+      CF.Accounts.collection.remove({
+      _id: accountKey
+    })
   },
 
   cfAssetsAddAddress: function(accountKey, address) {

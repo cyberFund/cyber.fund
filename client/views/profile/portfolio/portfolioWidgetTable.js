@@ -1,15 +1,17 @@
 var cfCDs = CF.CurrentData .selectors;
 var ns = CF.UserAssets
 
-// goes to cf.profile
-function _isOwn() {
-  return Blaze._globalHelpers.isOwnAssets()
+function tableData() {
+  var ret = CF.Accounts.accumulate(CF.Accounts.userProfileData().map(function(it) {
+    return CF.Accounts.extractAssets(it);
+  }))
+  _.each(ret, CF.Accounts._setValues)
+  return ret;
 }
 
 Meteor.startup(function(){
   _Session.default('folioWidgetSort', {"f|byValue": -1});
 });
-
 
 // TODO: DEFLATE - DEDUPE
 var getSumB = function (accountsData) {
@@ -73,6 +75,9 @@ var _getSumU = function (accountsData, addressesObject) {
 Template['portfolioWidgetTable'].helpers({
   values: function (obj) {
     return _.values(obj || {});
+  },
+  tableData: function(){
+
   },
   pSystems: function () { //  systems to display in portfolio table, including 'starred' systems
     var accounts = CF.Accounts.userProfileData();
@@ -145,6 +150,8 @@ Template['portfolioWidgetTable'].helpers({
       accounts, system._id), 3);
   },
   btcCost: function (system) {
+    var r= tableData();
+    return CF.Utils.readableN(r && r[system._id] && r[system._id].vBtc, 2);
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
     var accounts =  CF.Accounts.userProfileData();
@@ -152,6 +159,8 @@ Template['portfolioWidgetTable'].helpers({
       accounts, system._id) * system.metrics.price.btc).toFixed(3);
   },
   usdCost: function (system) {
+    var r= tableData();
+    return CF.Utils.readableN(r && r[system._id] && r[system._id].vUsd, 2);
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     var accounts = CF.Accounts.userProfileData();
 

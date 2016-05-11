@@ -1,12 +1,12 @@
-var cfCDs = CF.CurrentData .selectors;
+var cfCDs = CF.CurrentData.selectors;
 var ns = CF.UserAssets
 
 
 // TODO: DEFLATE - DEDUPE
-var getSumB = function (accountsData) {
+var getSumB = function(accountsData) {
   var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
-  _.each(systems, function (sys) {
+  _.each(systems, function(sys) {
     var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
     var system = CurrentData.findOne(cfCDs.system(sys));
 
@@ -17,10 +17,10 @@ var getSumB = function (accountsData) {
   return sum;
 };
 
-var getSumU = function (accountsData) {
+var getSumU = function(accountsData) {
   var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
-  _.each(systems, function (sys) {
+  _.each(systems, function(sys) {
     var q = ns.getQuantitiesFromAccountsObject(accountsData, sys);
     var system = CurrentData.findOne(cfCDs.system(sys));
 
@@ -33,10 +33,10 @@ var getSumU = function (accountsData) {
 
 
 //mapreduce bro
-var _getSumB = function (accountsData, addressesObject) {
+var _getSumB = function(accountsData, addressesObject) {
   var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
-  _.each(systems, function (sys) {
+  _.each(systems, function(sys) {
     var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
     var system = CurrentData.findOne(cfCDs.system(sys));
 
@@ -47,10 +47,10 @@ var _getSumB = function (accountsData, addressesObject) {
   return sum;
 };
 
-var _getSumU = function (accountsData, addressesObject) {
+var _getSumU = function(accountsData, addressesObject) {
   var systems = ns.getSystemsFromAccountsObject(accountsData),
     sum = 0;
-  _.each(systems, function (sys) {
+  _.each(systems, function(sys) {
     var q = ns.getQuantitiesFromAddressesObject(addressesObject, sys);
     var system = CurrentData.findOne(cfCDs.system(sys));
 
@@ -61,46 +61,48 @@ var _getSumU = function (accountsData, addressesObject) {
   return sum;
 };
 
-
 Template['portfolioWidgetView'].helpers({
-  sumB: function () {
+  sumB: function() {
     var accounts = CF.Accounts.userProfileData();
     var sumB = accounts ? getSumB(accounts) : 0;
     return CF.Utils.readableN(sumB, 3)
   },
-  sumU: function () {
+  sumU: function() {
     var accounts = CF.Accounts.userProfileData();
     var sumU = accounts ? getSumU(accounts) : 0;
     return CF.Utils.readableN(sumU, 0)
   },
-  filteredAccountsData: function(){
+  filteredAccountsData: function() {
     return CF.Accounts.userProfileData()
+  },
+  flat: function() {
+    return CF.Accounts.extractAssets(this);
   }
 })
 
-Template['pwvRow'].onRendered(function(){
+Template['pwvRow'].onRendered(function() {
   var t = this;
   t.$(".count-account").prop("checked", !CF.Accounts.isHidden(t.data._id));
 });
 
 Template['pwvRow'].helpers({
-  _sumB: function (addressesObject) {
+  _sumB: function(addressesObject) {
     var accounts = CF.Accounts.userProfileData();
     var sumB = (accounts && addressesObject) ? _getSumB(accounts, addressesObject) : 0;
     return CF.Utils.readableN(sumB, 3)
   },
-  _sumU: function (addressesObject) {
+  _sumU: function(addressesObject) {
     var accounts = CF.Accounts.userProfileData();
     var sumB = (accounts && addressesObject) ? _getSumU(accounts, addressesObject) : 0;
     return CF.Utils.readableN(sumB, 0)
   },
-  showAccount: function(){
-    return Session.get('hideAccount_'+this._id) ? '' : 'checked'
+  showAccount: function() {
+    return Session.get('hideAccount_' + this._id) ? '' : 'checked'
   },
 })
 
 Template['pwvRow'].events({
-  'change .count-account': function(e, t){
+  'change .count-account': function(e, t) {
     CF.Accounts.hiddenToggle(t.$(e.currentTarget).attr('account-id'))
   }
 })
