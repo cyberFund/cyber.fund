@@ -69,6 +69,10 @@
                     {{> assetsManager }}
                 </div>
             </div>
+
+            {{#if isOwnAssets}}
+                {{> addAccount}}
+            {{/if}}
         </div>
 
         {{#if not isOwnProfile}}
