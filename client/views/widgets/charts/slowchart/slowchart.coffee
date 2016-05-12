@@ -196,7 +196,7 @@ myGraph = (el, instance) ->
     d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
       if res
         #instance = Template.instance();
-        data = instance.theData.concat res #_chartdata(instance.data.system).fetch()
+        instance.theData = instance.theData.concat res #_chartdata(instance.data.system).fetch()
           .sort (a, b) -> a.timestamp - (b.timestamp)
         brushed();
         #instance.$(".slowchart").empty();
@@ -318,28 +318,6 @@ myGraph = (el, instance) ->
       brush(d3.select(".brush").transition());
       brush.event(d3.select(".brush").transition().delay(10))
 
-    #  brush.extent([new Date(this.innerText + '-01-01'), new Date(this.innerText + '-12-31')])
-    #  brush(d3.select(".brush").transition());
-    #  brush.event(d3.select(".brush").transition().delay(1000))
-
-###  function drawBrush() {
-    // our year will this.innerText
-    console.log(this.innerText)
-
-    // define our brush extent to be begin and end of the year
-    brush.extent([new Date(this.innerText + '-01-01'), new Date(this.innerText + '-12-31')])
-
-    // now draw the brush to match our extent
-    // use transition to slow it down so we can see what is happening
-    // remove transition so just d3.select(".brush") to just draw
-    brush(d3.select(".brush").transition());
-
-    // now fire the brushstart, brushmove, and brushend events
-    // remove transition so just d3.select(".brush") to just draw
-    brush.event(d3.select(".brush").transition().delay(1000))
-  }
-###
-
 _timestampino = (timestamp) ->
   # date format. maybe better use d3-provided ?
   moment(timestamp).format if Meteor.settings.public and Meteor.settings.public.manyData then 'ddd D-MM HH:' else 'ddd D-MM'
@@ -376,6 +354,7 @@ Template['slowchart'].onRendered ->
     if not system then return
     Meteor.call "fetchMarketData1", system, (err, res)->
       if res
+        console.log('here')
         instance.theData = res
         instance.$(".slowchart").empty();
         graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), instance)
