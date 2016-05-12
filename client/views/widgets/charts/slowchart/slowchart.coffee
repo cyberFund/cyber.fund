@@ -8,10 +8,11 @@ myGraph = (el, instance) ->
   data = instance.theData #_chartdata(instance.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
   if not data.length then return
-  parent = d3.select(d3.select(el).node().parentNode)
-  parent.classed("hidden", false);
-  controls = parent.select(".slowchart-controls")
-  controlsButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+  parent = d3.select(d3.select(el).node()?.parentNode)
+  if parent
+    parent.classed("hidden", false);
+    controls = parent.select(".slowchart-controls")
+    controlsButtons = parent.selectAll(".slowchart-controls .timeline.btn")
 
 
   @selectedNode = null
@@ -195,16 +196,12 @@ myGraph = (el, instance) ->
     if brush.empty() then return
     d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
       if res
-        #instance = Template.instance();
-        data = instance.theData = instance.theData.concat res #_chartdata(instance.data.system).fetch()
-          .sort (a, b) -> a.timestamp - (b.timestamp)
-        brushed();
-        #instance.$(".slowchart").empty();
-        #graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), instance)
-        #if onresize
-        #  $(window).off 'resize', onresize
-        #onresize = onResize(system)
-        #$(window).on 'resize', onresize
+        d = instance.theData.concat(res).sort((a, b) -> a.timestamp - (b.timestamp));
+        console.log(d.length);
+        data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp));
+        console.log (data.length)
+
+
 
   brushTimeoutT = 2000
   brushTimeout = null
@@ -295,28 +292,29 @@ myGraph = (el, instance) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
-  controlsButtons.on "click", (e ,t)->
-    len = 0
+  if controlsButtons
+    controlsButtons.on "click", (e ,t)->
+      len = 0
 
-    switch controlsButtons[0][t].getAttribute('len')
-      when "full" then len = 3650 * day
-      when "year" then len = 365 * day
-      when "month" then len = 30 * day
-      when "week" then len = 7 * day
-      else len = 3650 * day
+      switch controlsButtons[0][t].getAttribute('len')
+        when "full" then len = 3650 * day
+        when "year" then len = 365 * day
+        when "month" then len = 30 * day
+        when "week" then len = 7 * day
+        else len = 3650 * day
 
-    fullDomain = x3.domain()
-    selectedDomain = brush.extent()
-    newFront = new Date ( fullDomain[1].valueOf()-len )
-    newTail = new Date ( fullDomain[1].valueOf() )
-    if (newFront < fullDomain[0])
-      brush.clear()
-      brush(d3.select(".brush").transition());
-      brush.event(d3.select(".brush").transition().delay(10))
-    else
-      brush.extent [newFront,newTail]
-      brush(d3.select(".brush").transition());
-      brush.event(d3.select(".brush").transition().delay(10))
+      fullDomain = x3.domain()
+      selectedDomain = brush.extent()
+      newFront = new Date ( fullDomain[1].valueOf()-len )
+      newTail = new Date ( fullDomain[1].valueOf() )
+      if (newFront < fullDomain[0])
+        brush.clear()
+        brush(d3.select(".brush").transition());
+        brush.event(d3.select(".brush").transition().delay(10))
+      else
+        brush.extent [newFront,newTail]
+        brush(d3.select(".brush").transition());
+        brush.event(d3.select(".brush").transition().delay(10))
 
 _timestampino = (timestamp) ->
   # date format. maybe better use d3-provided ?
