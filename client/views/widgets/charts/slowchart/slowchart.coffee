@@ -354,7 +354,6 @@ Template['slowchart'].onRendered ->
     if not system then return
     Meteor.call "fetchMarketData1", system, (err, res)->
       if res
-        console.log('here')
         instance.theData = res
         instance.$(".slowchart").empty();
         graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), instance)
