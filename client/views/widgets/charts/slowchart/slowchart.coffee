@@ -259,6 +259,24 @@ myGraph = (el, i) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
+  console.log d3.select(el)[0].parentNode
+###  function drawBrush() {
+    // our year will this.innerText
+    console.log(this.innerText)
+
+    // define our brush extent to be begin and end of the year
+    brush.extent([new Date(this.innerText + '-01-01'), new Date(this.innerText + '-12-31')])
+
+    // now draw the brush to match our extent
+    // use transition to slow it down so we can see what is happening
+    // remove transition so just d3.select(".brush") to just draw
+    brush(d3.select(".brush").transition());
+
+    // now fire the brushstart, brushmove, and brushend events
+    // remove transition so just d3.select(".brush") to just draw
+    brush.event(d3.select(".brush").transition().delay(1000))
+  }
+###
 
 _timestampino = (timestamp) ->
   # date format. maybe better use d3-provided ?
@@ -301,14 +319,4 @@ Template['slowchart'].onRendered ->
           $(window).off 'resize', onresize
         onresize = onResize(system)
         $(window).on 'resize', onresize
-  ###i.autorun (c) ->
-    if CF.subs.systemData and CF.subs.systemData.ready()
-      if _chartdata(i.data.system).count()
-        i._ready_ = true
-    if !i._ready_
-      return###
-
-  ###  if i._ready_
-      c.stop()
-    return###
   return

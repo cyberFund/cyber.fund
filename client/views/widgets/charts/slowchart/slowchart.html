@@ -1,8 +1,12 @@
 <template name="slowchart">
-  <div class="slowchart card {{#if hasNoData}}hidden{{/if}}" id="slowchart-{{_toAttr system}}">
-    {{#if __ready}}
-    {{else}}
-    LOADING
-    {{/if}}
-  </div>
+    <div class="card {{#if hasNoData}}hidden{{/if}}">
+        <div class="slowchart" id="slowchart-{{_toAttr system}}">
+            {{#if __ready}} {{else}} LOADING {{/if}}
+        </div>
+        <div class="slowchart-controls">
+            <a class="btn timeline-full">full</a>
+            <a class="btn timeline-month">month</a>
+            <a class="btn timeline-week">week</a>
+        </div>
+    </div>
 </template>
