@@ -72,18 +72,6 @@ Template['systemBasicKeen'].onRendered(function() {
   })
 })
 
-Template['systemBasicUsersStarred'].onCreated(function() {
-  var instance = this;
-
-  instance.autorun(function() {
-    var data = curData();
-    if (data) {
-      instance.subscribe('avatars', data._usersStarred);
-    }
-  });
-});
-
-
 Template['systemBasic'].onRendered(function() {
   $('.scrollspy').scrollSpy();
   var curDataDoc = curData();
@@ -275,39 +263,4 @@ Template['systemBasic'].events({
 
     Meteor.call('toggleStarSys', system);
   }
-});
-
-Template['systemBasicCharts'].onCreated(function() {
-  var instance = this;
-  instance.subscribe('fastData', systemName());
-});
-
-Template['systemBasicCharts'].helpers({
-  selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() === key ? "orange" : "green";
-  },
-  _selectedGraph: function(key) {
-    return CF.MarketData.graphTime.get() === key
-  },
-})
-
-Template['systemBasicCharts'].events({
-  'click #charts-ctl a.btn.act': function(e, t) {
-    var val = t.$(e.currentTarget).data("span");
-    CF.MarketData.graphTime.set(val);
-    analytics.track('Discovered Charts', {
-      section: 'graphs',
-      role: 'timespan select',
-      value: val
-    })
-  },
-  'click #charts-ctl a.btn.mock': function(e, t) {
-    var val = t.$(e.currentTarget).data("span");
-    Materialize.toast('Coming soon!', 2500);
-    analytics.track('Discovered Charts', {
-      section: 'graphs',
-      role: 'timespan select',
-      value: val
-    })
-  },
 });

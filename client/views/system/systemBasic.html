@@ -9,7 +9,7 @@
                     zone</a> to help us improve it faster! {{else}}&nbsp; {{/if}}
     </p>
 
-    {{> systemBasicAbout this}} {{> systemBasicHeadline this}} {{> systemBasicUsersStarred this}}
+    {{> systemBasicAbout this}} {{> systemBasicHeadline this}} {{> systemStarredBy this}}
 
     {{#if cgIsActiveCrowdsale}}
 
@@ -170,7 +170,7 @@
 
     {{> slowchart system=_id}}
 
-    {{! > systemBasicCharts this}} {{/if}}
+    {{/if}}
 
     <div id="news" class="section scrollspy row">
       {{#if existLinksWith links 'News'}}
@@ -265,7 +265,7 @@
       <p>{{description}}</p>
     </div>
 
-    {{> systemBasicSpecs this}}
+    {{> systemSpecs this}}
 
     <div id="improve" class="row scrollspy center">
       <h3 class="center">Fans Edge</h3>
@@ -347,70 +347,3 @@
     {{/if}}
   </div>
 </template>
-
-<Template name="systemBasicUsersStarred">
-  {{#if _usersStarred}}
-  <div id="users-starred" class="center">
-    <h5 style="margin-bottom: 3px;">Starred by</h5>
-
-    <div>
-      {{>usersList1 data=(usersListFromIds _usersStarred) class="avatar-round" style="margin: 6px 3px; width=40px; height=40px;"}}
-    </div>
-  </div>
-  {{/if}}
-</Template>
-
-<template name="systemBasicCharts">
-  <div id="charts" class="row scrollspy center">
-    {{#if _selectedGraph 'week'}} {{> weeklyGraph this}} {{/if}}
-    {{#if _selectedGraph 'month'}} {{> monthlyGraph this}} {{/if}}
-    {{#if _selectedGraph 'all' }} {{> fulltimeGraph this}} {{/if}}
-    {{#if _selectedGraph 'day' }} {{> dailyGraph graphData=dailyData
-    currencyId=_id }} {{/if}} {{! > hcChart this}}
-    <div id="charts-ctl" class="row scrollspy center">
-      <a class="btn act {{selectedGraph 'day'}}" data-span="day">Last
-                        Day</a>
-      <a class="btn act {{selectedGraph 'week'}}" data-span="week">Last Week</a>
-      <a class="btn act {{selectedGraph 'month'}}" data-span="month">Last
-                        Month</a>
-      <a class="btn act {{selectedGraph 'all'}}" data-span="all">Lifetime</a>
-    </div>
-  </div>
-</template>
-
-<Template name="systemBasicSpecs">
-  <div id="specs" class="row center scrollspy  striped">
-    {{#if and (isObject(specs)) (not (isEmpty(specs))) }}
-    <div class="col offset-l3 l6 offset-m1 m10 s12">
-      <h3 class="center">Specification</h3>
-      <table>
-
-        <thead>
-          <tr>
-            <th data-field="property">Property</th>
-            <th data-field="value">Value</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {{#each keyValue specs}} {{#if isObject value}} {{#each keyValue value}}
-          <tr>
-            <td>{{_specs__ ../key key}}</td>
-            <td> {{#if isNumber value}} {{readableNumbers value}} {{else}} {{value}} {{/if}}
-            </td>
-          </tr>
-          {{/each}} {{else}}
-          <tr>
-            <td>{{_specs_ key}}</td>
-            <td> {{#if isNumber value}} {{readableNumbers value}} {{else}} {{value}} {{/if}}
-            </td>
-          </tr>
-          {{/if}} {{/each}}
-        </tbody>
-
-      </table>
-    </div>
-    {{/if}}
-    <div class="col l3 m1 hide-"></div>
-  </div>
-</Template>

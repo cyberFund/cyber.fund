@@ -18,8 +18,12 @@
         <!-- 5 top rated systems-->
         {{#each systems}}
         <tr class="">
-            <td class="">
-                {{_id}}
+            <td class=""><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+              {{> cgSystemLogo system=this class="logo-icon"}}
+                <span class="no-wrap"
+                  itemprop="name">
+                  {{displaySystemName this}}
+                </span></a>
             </td>
             <td class="center">
               {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
