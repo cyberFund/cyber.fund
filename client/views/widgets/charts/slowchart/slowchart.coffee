@@ -197,16 +197,13 @@ myGraph = (el, instance) ->
     d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
       if res
         d = instance.theData.concat(res).sort((a, b) -> a.timestamp - (b.timestamp));
-        console.log(d.length);
         data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp));
-        console.log (data.length)
-
-
+        brushed(true)
 
   brushTimeoutT = 2000
   brushTimeout = null
 
-  brushed = () ->
+  brushed = (bypassFetching) ->
     x.domain( if brush.empty() then x3.domain() else brush.extent())
     x2.domain( if brush.empty() then x3.domain() else brush.extent())
 
@@ -224,7 +221,7 @@ myGraph = (el, instance) ->
     if not brush.empty()
       if brushTimeout
         clearTimeout brushTimeout
-      if brushLen(brush.extent())/day < 30
+      if (not bypassFetching) and (brushLen(brush.extent())/day < 31)
         brushTimeout = setTimeout brushTimeoutFn, brushTimeoutT
 
 
