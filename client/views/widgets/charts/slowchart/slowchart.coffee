@@ -3,9 +3,9 @@ _chartdata = (systemId) ->
     return null
   MarketData.find { systemId: systemId }, sort: timestamp: -1
 
-myGraph = (el, i) ->
+myGraph = (el, instance) ->
 
-  data = i.theData #_chartdata(i.data.system).fetch()
+  data = instance.theData #_chartdata(instance.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
   if not data.length then return
   parent = d3.select(d3.select(el).node().parentNode)
@@ -48,7 +48,7 @@ myGraph = (el, i) ->
   xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(5).tickSize(-6)
   yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-6).tickFormat(d3.format('s'))
   svg = d3.select(el).append('svg:svg')
-    .attr('id', 'svg-' + i.data.system).attr('pointer-events', 'all')
+    .attr('id', 'svg-' + instance.data.system).attr('pointer-events', 'all')
     .attr('class', 'slowchart-svg')
     #.attr('width', wf)
     #.attr('height', hf)
@@ -72,6 +72,7 @@ myGraph = (el, i) ->
   .x((d) -> x grab.t(d))
   .y((d) -> y grab.sp(d))
   drawing = mainChart.append('path').attr('d', priceLine(data)).attr('class', 'qc-line-1')
+
 
   # FOCUS DOMAIN
   bisectDate = d3.bisector((d) ->
@@ -186,8 +187,29 @@ myGraph = (el, i) ->
     .attr 'dx', '2'
     .attr 'dy', '33'
 
-  brushed = () ->
+  day = 1000 * 60 * 60 * 24
+  brushLen = (extent) ->
+    return extent[1].valueOf() - extent[0].valueOf()
 
+  brushTimeoutFn = ()->
+    if brush.empty() then return
+    d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
+      if res
+        #instance = Template.instance();
+        data = instance.theData.concat res #_chartdata(instance.data.system).fetch()
+          .sort (a, b) -> a.timestamp - (b.timestamp)
+        brushed();
+        #instance.$(".slowchart").empty();
+        #graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), instance)
+        #if onresize
+        #  $(window).off 'resize', onresize
+        #onresize = onResize(system)
+        #$(window).on 'resize', onresize
+
+  brushTimeoutT = 2000
+  brushTimeout = null
+
+  brushed = () ->
     x.domain( if brush.empty() then x3.domain() else brush.extent())
     x2.domain( if brush.empty() then x3.domain() else brush.extent())
 
@@ -195,11 +217,20 @@ myGraph = (el, i) ->
       data.slice(bisectDate(data, brush.extent()[0], 1), bisectDate(data, brush.extent()[1], 1))
 
     y.domain [ d3.min(d, grab.sp), d3.max(d, grab.sp) ]
-    y2.domain [0, d3.max(d, grab.bvd)]
+    y2.domain [0, d3.max(d, grab.bvd)*1.1]
 
     mainChart.select(".x.axis").call(xAxis);
     mainChart.select(".y.axis").call(yAxis);
+
     mainChart.select(".qc-line-1").attr("d", priceLine(data));
+
+    if not brush.empty()
+      if brushTimeout
+        clearTimeout brushTimeout
+      if brushLen(brush.extent())/day < 30
+        brushTimeout = setTimeout brushTimeoutFn, brushTimeoutT
+
+
     zoomChart.select(".remove-on-brush").text('')
 
     volumeChart.select(".x.axis").call(xAxis2);
@@ -264,11 +295,8 @@ myGraph = (el, i) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
-  console.log controls
-  console.log controlsButtons
   controlsButtons.on "click", (e ,t)->
     len = 0
-    day = 1000 * 60 * 60 * 24
 
     switch controlsButtons[0][t].getAttribute('len')
       when "full" then len = 3650 * day
@@ -279,18 +307,20 @@ myGraph = (el, i) ->
 
     fullDomain = x3.domain()
     selectedDomain = brush.extent()
-    console.log selectedDomain
-    console.log fullDomain
     newFront = new Date ( fullDomain[1].valueOf()-len )
     newTail = new Date ( fullDomain[1].valueOf() )
     if (newFront < fullDomain[0])
       brush.clear()
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
     else
-      console.log [newFront, newTail]
       brush.extent [newFront,newTail]
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
 
-    brush(d3.select(".brush").transition());
-
+    #  brush.extent([new Date(this.innerText + '-01-01'), new Date(this.innerText + '-12-31')])
+    #  brush(d3.select(".brush").transition());
+    #  brush.event(d3.select(".brush").transition().delay(1000))
 
 ###  function drawBrush() {
     // our year will this.innerText
@@ -330,23 +360,25 @@ grab =
   bc: (fruit) -> fruit and fruit.cap_btc
   bvd: (fruit) -> fruit and fruit.volume24_btc
 
+getSystemId = ()->Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
+
 Template['slowchart'].onRendered ->
-  i = this
+  instance = this
 
   onResize = (sys)->
     (e) ->
       $('#slowchart-' + Blaze._globalHelpers._toAttr(sys)).empty()
-      graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(sys), i)
+      graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(sys), instance)
   onresize = null
 
-  i.autorun (c) ->
-    system = Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
+  instance.autorun (c) ->
+    system = getSystemId()
     if not system then return
     Meteor.call "fetchMarketData1", system, (err, res)->
       if res
-        i.theData = res
-        i.$(".slowchart").empty();
-        graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), i)
+        instance.theData = res
+        instance.$(".slowchart").empty();
+        graph = new myGraph('#slowchart-' + Blaze._globalHelpers._toAttr(system), instance)
         if onresize
           $(window).off 'resize', onresize
         onresize = onResize(system)
