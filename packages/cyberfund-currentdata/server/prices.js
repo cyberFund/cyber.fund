@@ -1,4 +1,4 @@
-CF.Prices = { // todo: have same thing at client, so it s able calculating stuff.
+/*CF.Prices = { // todo: have same thing at client, so it s able calculating stuff.
   collection: new Meteor.Collection(null),
   transform: function(fields){
     return {
@@ -36,3 +36,4 @@ Meteor.startup(function(){
     }
   })
 })
+*/

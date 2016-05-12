@@ -154,18 +154,10 @@ ns.quantumCheck = function(address) {
     _.each(data, function(asset) {
       if (typeof asset.quantity == 'string')
         asset.quantity = parseFloat(asset.quantity);
-    /*  var p = CF.Prices.doc(asset.asset);
-      if (!p) return;
-      if (p.btc) {
-        asset.vBtc = p.btc * asset.quantity;
-      }
-      if (p.usd) {
-        asset.vUsd = p.usd * asset.quantity;
-      }*/
     });
-    return (_.filter(data, function(it) {
-      return it.quantity
-    }));
+    return data;//(_.filter(data, function(it) {
+      //return it.quantity
+    //}));
   }
 
   try {
@@ -258,17 +250,11 @@ ns._updateBalanceAccount = function(account, options) {
   if (!options.private) {
     var lastUpdate = account.updatedAt;
     if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
-      //print("quitting mass balance update", "last was <5 minutes ago");
       return;
     }
   }
-  var accBtc = 0,
-    accUsd = 0;
   _.each(account.addresses, function(addressObj, address) {
-    var addrBtc = 0,
-      addrUsd = 0;
     var balances = ns.quantumCheck(address);
-
     var key = _k(['addresses', address, 'assets']);
 
     var autoModifiedKeys = []
@@ -283,15 +269,8 @@ ns._updateBalanceAccount = function(account, options) {
         modify.$unset[_k([key, assetKey])] = "true"
       }
       if (asset.update === 'manual' && !_.contains(autoModifiedKeys, assetKey)) {
-        var usdP = CF.Prices.usd(assetKey)
-        var btcP = CF.Prices.btc(assetKey)
-        addrBtc += asset.quantity * btcP || 0;
-        addrUsd += asset.quantity * usdP || 0;
-    /*    modify.$set[_k([key, assetKey, "vBtc"])] = asset.quantity * btcP || 0;
-        modify.$set[_k([key, assetKey, "vUsd"])] = asset.quantity * usdP || 0; */
       }
     });
-
 
     //print("balances", balances)
     if (balances[0] == 'error') {} else {
@@ -302,22 +281,10 @@ ns._updateBalanceAccount = function(account, options) {
         modify.$set[k] = {
           update: 'auto',
           quantity: balance.quantity,
-      /*    vBtc: balance.vBtc,
-          vUsd: balance.vUsd, */
         };
-    /*    addrBtc += balance.vBtc || 0;
-        addrUsd += balance.vUsd || 0; */
         delete modify.$unset[k];
       });
     }
-    /*modify.$set[_k(['addresses', address, 'vBtc'])] = addrBtc;
-    modify.$set[_k(['addresses', address, 'vUsd'])] = addrUsd;*/
-
-  /*  accBtc += addrBtc;
-    accUsd += addrUsd; */
-    //if (_.keys(modify).length) {
-    //      modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
-    //}
   });
 
 
@@ -326,9 +293,6 @@ ns._updateBalanceAccount = function(account, options) {
 
   if (!_.isEmpty(modify)) {
     modify.$set[_k(['updatedAt'])] = new Date();
-  /*  modify.$set[_k(['vBtc'])] = accBtc;
-    modify.$set[_k(['vUsd'])] = accUsd; */
-    //print("modify", modify)
     ns.collection.update({
       _id: account._id
     }, modify);
@@ -354,13 +318,7 @@ ns._updateBalances = function(options) { //todo: optimize
   if (options.accountKey) _.extend(selector, {
     _id: accountKey
   });
-  //if (!options.private) _.extend (selector, {isPrivate: {$ne: true}});
 
-  /*  if (address) {
-      if (!options.refId) return;
-      var account = CF.Accounts.collection.findOne(selector);
-      ns._updateBalanceAddress(account, address);
-    } else { */
   CF.Accounts.collection.find(selector).forEach(function(account) {
     ns._updateBalanceAccount(account, options);
   });
