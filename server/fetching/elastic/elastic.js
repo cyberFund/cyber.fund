@@ -543,6 +543,42 @@ SyncedCron.add({
   }
 });
 
+Meteor.startup(function(){
+  return false;
+  var params = {
+    from: "now-1d/d",
+    to: "now/d",
+    interval: "day"
+  };
+  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result, params);
+
+  params = {
+    from: "now-2d/d",
+    to: "now-1d/d",
+    interval: "day"
+  };
+  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result, params);
+
+  params = {
+    from: "now-3d/d",
+    to: "now-2d/d",
+    interval: "day"
+  };
+  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result, params);
+
+  params = {
+    from: "now-4d/d",
+    to: "now-3d/d",
+    interval: "day"
+  };
+  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  esParsers.averages_date_hist(result, params);
+
+})
+
 Meteor.methods({
   "initAverageValues": function(curDataId) {
     var curDataDoc = CurrentData.findOne({

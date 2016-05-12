@@ -8,9 +8,14 @@ myGraph = (el, i) ->
   data = i.theData #_chartdata(i.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
   if not data.length then return
-  d3.select(el).classed("hidden", false);
+  parent = d3.select(d3.select(el).node().parentNode)
+  parent.classed("hidden", false);
+  controls = parent.select(".slowchart-controls")
+  controlsButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+
 
   @selectedNode = null
+
   graph = this
   wf = d3.select(el).style('width')?.split('px')[0]
   hf = d3.select(el).style('height')?.split('px')[0]
@@ -259,7 +264,34 @@ myGraph = (el, i) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
-  console.log d3.select(el)[0].parentNode
+  console.log controls
+  console.log controlsButtons
+  controlsButtons.on "click", (e ,t)->
+    len = 0
+    day = 1000 * 60 * 60 * 24
+
+    switch controlsButtons[0][t].getAttribute('len')
+      when "full" then len = 3650 * day
+      when "year" then len = 365 * day
+      when "month" then len = 30 * day
+      when "week" then len = 7 * day
+      else len = 3650 * day
+
+    fullDomain = x3.domain()
+    selectedDomain = brush.extent()
+    console.log selectedDomain
+    console.log fullDomain
+    newFront = new Date ( fullDomain[1].valueOf()-len )
+    newTail = new Date ( fullDomain[1].valueOf() )
+    if (newFront < fullDomain[0])
+      brush.clear()
+    else
+      console.log [newFront, newTail]
+      brush.extent [newFront,newTail]
+
+    brush(d3.select(".brush").transition());
+
+
 ###  function drawBrush() {
     // our year will this.innerText
     console.log(this.innerText)
