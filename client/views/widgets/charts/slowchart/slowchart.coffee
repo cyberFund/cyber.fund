@@ -196,7 +196,7 @@ myGraph = (el, instance) ->
     d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
       if res
         #instance = Template.instance();
-        instance.theData = instance.theData.concat res #_chartdata(instance.data.system).fetch()
+        data = instance.theData = instance.theData.concat res #_chartdata(instance.data.system).fetch()
           .sort (a, b) -> a.timestamp - (b.timestamp)
         brushed();
         #instance.$(".slowchart").empty();

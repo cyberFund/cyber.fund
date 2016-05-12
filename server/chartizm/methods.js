@@ -18,7 +18,7 @@ Meteor.methods({
         systemId: systemId,
         interval: {$in: ['daily', 'hourly']},
         timestamp: {$gte: from, $lte: to}
-      })).fetch();
+      }).fetch() );
     }
     return ret;
   }
