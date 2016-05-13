@@ -1,6 +1,7 @@
 var _k = CF.Utils._k
 var print = CF.Utils.logger.getLogger('CF.Accounts').print;
 var ns = CF.Accounts;
+
 ns.collection._ensureIndex({
   refId: 1
 });
@@ -162,7 +163,6 @@ ns.quantumCheck = function(address) {
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
     if (r.statusCode == 200) {
       print("address", address)
-      print("raw", r)
       return transform(r.data);
     } else {
       return ['error', {
@@ -255,10 +255,11 @@ ns._updateBalanceAccount = function(account, options) {
     var balances = ns.quantumCheck(address);
     var key = _k(['addresses', address, 'assets']);
 
+    // if balance checker is ok
     if (balances[0] !== 'error') {
       _.each(addressObj.assets, function(asset, assetKey) {
         if (asset.update === 'auto') {
-          modify.$unset[_k([key, assetKey])] = "true"
+          modify.$unset[_k([key, assetKey])] = true
         }
       });
       _.each(balances, function(balance) {
@@ -270,6 +271,7 @@ ns._updateBalanceAccount = function(account, options) {
           quantity: balance.quantity,
         };
         delete modify.$unset[k];
+        modify.$set[_k(['addresses', address, 'updatedAt'])] = new Date();
       });
     }
   });

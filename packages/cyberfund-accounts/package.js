@@ -16,8 +16,7 @@ Package.onUse(function(api) {
   api.use(['underscore'], ['client', 'server']);
   api.use(['ui', 'templating'], 'client');
   api.addFiles(['cyberfund-userassets.js', 'accounts.js'], ['client', 'server']);
-  api.addFiles(['server/cyberfund-userassets-methods.js', 'server/cyberfund-userassets-pub.js',
-  'server/accounts-server.js'], 'server');
+  api.addFiles(['server/accounts-server.js'], 'server');
 });
 
 Package.onTest(function(api) {

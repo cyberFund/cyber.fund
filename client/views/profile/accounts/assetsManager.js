@@ -78,7 +78,7 @@ Template['assetsManager'].onCreated(function() {
 
   //if own profile, else getting data from user' "profile.assets" -
   // this all going to be actual once we get to private accounts
-  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername());
+//  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername());
   Tracker.autorun(function() {
     var user = Meteor.user()
     if (user && (user.username == FlowRouter.getParam('username'))) {

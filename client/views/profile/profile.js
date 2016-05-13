@@ -15,7 +15,7 @@ Template['profile'].onCreated(function() {
       Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
     instance.subscribe('friendlyUsers', {username: username});
     instance.subscribe('portfolioSystems', {username: username});
-    instance.subscribe('userProfile', {username: username});
+    CF.subs.Assets = instance.subscribe('userProfile', {username: username});
   });
 
   instance.autorun(function() {
