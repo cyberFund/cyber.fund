@@ -197,8 +197,10 @@ myGraph = (el, instance) ->
     d = Meteor.call 'fetchMarketData2', getSystemId(), brush.extent()[0], brush.extent()[1], (err, res)->
       if res
         d = instance.theData.concat(res).sort((a, b) -> a.timestamp - (b.timestamp));
-        data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp));
+        data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp).valueOf());
+        console.log(data.length)
         brushed(true)
+
 
   brushTimeoutT = 2000
   brushTimeout = null

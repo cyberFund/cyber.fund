@@ -155,15 +155,14 @@ ns.quantumCheck = function(address) {
       if (typeof asset.quantity == 'string')
         asset.quantity = parseFloat(asset.quantity);
     });
-    return data;//(_.filter(data, function(it) {
-      //return it.quantity
-    //}));
+    return data;
   }
 
   try {
-    //print("checking address", address, true)
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
     if (r.statusCode == 200) {
+      print("address", address)
+      print("raw", r)
       return transform(r.data);
     } else {
       return ['error', {
@@ -190,7 +189,6 @@ ns._updateBalanceAddress = function(account, address) {
     $set: {},
     $unset: {}
   };
-
 
   if (!account || !addressObj) {
     print("no account or address object; account", account, true);
@@ -257,23 +255,12 @@ ns._updateBalanceAccount = function(account, options) {
     var balances = ns.quantumCheck(address);
     var key = _k(['addresses', address, 'assets']);
 
-    var autoModifiedKeys = []
-    if (balances[0] != 'error') {
-      balances.map(function(b){
-        autoModifiedKeys.push (b.asset)
-      })
-    }
-
-    _.each(addressObj.assets, function(asset, assetKey) {
-      if (asset.update === 'auto') {
-        modify.$unset[_k([key, assetKey])] = "true"
-      }
-      if (asset.update === 'manual' && !_.contains(autoModifiedKeys, assetKey)) {
-      }
-    });
-
-    //print("balances", balances)
-    if (balances[0] == 'error') {} else {
+    if (balances[0] !== 'error') {
+      _.each(addressObj.assets, function(asset, assetKey) {
+        if (asset.update === 'auto') {
+          modify.$unset[_k([key, assetKey])] = "true"
+        }
+      });
       _.each(balances, function(balance) {
         if (!balance.asset) return;
 
