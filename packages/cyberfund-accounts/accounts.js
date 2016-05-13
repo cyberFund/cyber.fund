@@ -185,9 +185,6 @@ Meteor.methods({
       _id: this.userId
     });
     var account = CF.Accounts.findById(accountKey);
-    if (account) {
-      print("account", account);
-    }
     var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts'); //TODO - remove strings, not needed
     if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
 

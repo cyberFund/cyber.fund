@@ -71,9 +71,9 @@ var applyOptionsFinal = function applyOptionsFinal(bottle, result, options) {
         });
         var item = item.slice(0, gotcha["index"]);
 
-        print("gotcha", extractParams(item), true)
-        print("item", item, true);
-        print("drinkmap", drinkmap)
+        if (debug) print("gotcha", extractParams(item), true)
+        if (debug) print("item", item, true);
+        if (debug) print("drinkmap", drinkmap)
 
         return result.meta[item] = drink(bottle, item, drinkmap)
       } // result.meta[item] =
@@ -82,7 +82,7 @@ var applyOptionsFinal = function applyOptionsFinal(bottle, result, options) {
       if (debug) print("item", item)
       result.meta[item] = drink(bottle, item)
     })
-    print("whole urlqueryparams", options.meta)
+    if (debug) print("whole urlqueryparams", options.meta)
   }
   return result;
 }
