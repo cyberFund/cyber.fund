@@ -30,7 +30,7 @@ Template['displayAccount'].helpers({
   publicity: function (account) {
     var pub = 'Public Account';
     var pri = 'Private Account';
-    return isPublicAccount(account) ? pri : pub;
+    return isPublicAccount(account) ? pub : pri;
   },
   isPublic: function (account) {
     return isPublicAccount(account);
