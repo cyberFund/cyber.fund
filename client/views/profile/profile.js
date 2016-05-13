@@ -38,7 +38,7 @@ var _user = function getUserByCurrentUid() { //todo reduce
 
 Template['profile'].helpers({
   userAccounts: function(){
-    return CF.Accounts._findByUserId(CF.Profile.currentUid()).fetch();
+    return CF.Accounts.findByRefId(CF.Profile.currentUid()).fetch();
   },
   profileName: function() {
     return this.profile && this.profile.name

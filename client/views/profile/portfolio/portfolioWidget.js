@@ -13,7 +13,7 @@ Template['portfolioWidget'].helpers({
           _id: CF.Profile.currentUid()
         });
         if (!user) return false;
-        return !(CF.Accounts._findByUserId(user._id).count())
+        return !(CF.Accounts.findByRefId(user._id).count())
     } else return false
   },
   isOwnAssets: function(){

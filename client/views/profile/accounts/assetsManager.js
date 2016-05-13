@@ -16,7 +16,7 @@ Template['assetsManager'].helpers({
   },
 
   _accounts: function() { //todo - pass as parameter.
-    return CF.Accounts._findByUserId(CF.Profile.currentUid()).fetch();
+    return CF.Accounts.findByRefId(CF.Profile.currentUid()).fetch();
   },
 
   currentAccount: function() {
@@ -61,7 +61,7 @@ Template['assetsManager'].helpers({
         var user = Meteor.users.findOne({
           _id: CF.Profile.currentUid()
         });
-        return !(ns._findByUserId(user._id).count())
+        return !(ns.findByRefId(user._id).count())
       }
       return false;
     } else return false
@@ -82,7 +82,7 @@ Template['assetsManager'].onCreated(function() {
   Tracker.autorun(function() {
     var user = Meteor.user()
     if (user && (user.username == FlowRouter.getParam('username'))) {
-      var accounts = CF.Accounts._findByUserId(Meteor.userId())
+      var accounts = CF.Accounts.findByRefId(Meteor.userId())
       systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
       Meteor.subscribe('assetsSystems', systems);
     }
@@ -145,12 +145,14 @@ Template['assetsManager'].events({
   'keyup #rename-account-in, change #rename-account-in': function(e, t) {
     if (!isOwnAssets()) return;
     var accountId = CF.Accounts.currentId.get();
-    var user = Meteor.user();
-    if (!user || !user.accounts || !accountId || !user.accounts[accountId]) return;
-    var oldName = user.accounts[accountId].name;
+    var names = _.map(CF.Accounts.findByRefId(Meteor.user()).fetch(), function(account){
+      return (account._id === accountId) ? '' : account.name;
+    })
+
+    var oldName = CF.Accounts.findById(accountId) && CF.Accounts.findById(accountId).name || '';
 
     var invalidState = t.$renameAccountInput.hasClass("invalid");
-    var validName = CF.UserAssets.accNameIsValid(t.$renameAccountInput.val().trim(), oldName);
+    var validName = CF.Accounts.accountNameIsValid(t.$renameAccountInput.val().trim(), Meteor.userId(), oldName);
 
     if (invalidState && validName) { // => valid
       t.$renameAccountInput.removeClass("invalid");
@@ -161,6 +163,7 @@ Template['assetsManager'].events({
       t.$renameAccountErrorLabel.removeClass("hidden")
     }
   },
+
   'submit #rename-account-form': function(e, t) {
     if (!isOwnAssets()) return false;
     //var key = CF.Accounts.currentId.get();
@@ -172,6 +175,7 @@ Template['assetsManager'].events({
     $("#modal-rename-account").closeModal();
     return false;
   },
+
   'keyup #add-address-input, change #add-address-input': function(e, t) {
     if (!isOwnAssets()) return;
     var address = t.$addAssetInput.val().trim();
@@ -196,7 +200,7 @@ Template['assetsManager'].events({
       address: address
         //autoupdate
     });
-    if (CF.UserAssets.uiAddressExists(address)) return false;
+    if (CF.Accounts.addressExists(address, Meteor.userId())) return false;
     Meteor.call("cfAssetsAddAddress", account, address, function(err, ret) {
       t.$addAssetInput.val("");
       t.$("#modal-add-address").closeModal();

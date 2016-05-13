@@ -6,5 +6,5 @@ Meteor.publish('profileAssets', function(username) {
     if (user.username == username) isOwn = true;
   }
   var userId = CF.User.findOneByUsername(username);
-  return CF.Accounts._findByUserId(userId, {private:isOwn});
+  return CF.Accounts.findByRefId(userId, {private:isOwn});
 });

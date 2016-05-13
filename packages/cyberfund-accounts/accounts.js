@@ -92,7 +92,7 @@ ns.collection.allow({
   }
 });
 
-ns._findByUserId = function(userId, options) {
+ns.findByRefId = function(userId, options) {
   var selector = {
     refId: userId,
   }

@@ -1,21 +1,9 @@
 //todo: move into namespace
 
-/**
- * specific client-side version to check account name is valid.
- * extracts current user's accounts and calls generic version
- * @param newName - name to check validness
- * @param oldName - to be used if rename is going on
- * @returns {boolean}
- */
-CF.UserAssets.accNameIsValid = function (newName, oldName) {
-  var user = Meteor.user();
-  if (!user) return true;
-  return CF.Accounts.accountNameIsValid(newName, Meteor.userId(), oldName);
-};
-
-CF.UserAssets.uiAddressExists = function (address) {
-  var accounts = Meteor.user().accounts || {};
-  var addresses = _.flatten(_.map(accounts, function (account) {
+CF.Accounts.addressExists = function (address, refId) {
+  if (!refId) return false;
+  var accounts = CF.Accounts.findByRefId(refId, {private:true});
+  var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
     return _.map(account.addresses, function (v, k) {
       return k;
     })
@@ -23,7 +11,7 @@ CF.UserAssets.uiAddressExists = function (address) {
   return addresses.indexOf(address) > -1
 };
 
-function _accountsExist(){
+function accountsExist(){
   var userId = Meteor.userId();
   return !!userId && !!CF.Accounts.collection.find({refId: userId}).count();
 }
@@ -52,7 +40,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAccountNameExists = function (newName) {
-    var c = newName && CF.UserAssets.accNameIsValid(newName);
+    var c = newName && CF.Accounts.accountNameIsValid(newName, Meteor.userId());
     if (!c) {
       t.$newAccountName.addClass("invalid");
       t.$failLabelAccount.removeClass("hidden");
@@ -62,7 +50,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAddressExists = function (address) {
-    var c = CF.UserAssets.uiAddressExists(address);
+    var c = CF.Accounts.addressExists(address, Meteor.userId());
     if (c) {
       t.$address.addClass("invalid");
       t.$failLabelAddress.removeClass("hidden");
@@ -74,8 +62,8 @@ Template['addAccount'].onRendered( function () {
 
   Tracker.autorun(function () {
     var user = Meteor.user();
-    var accountsExist = _accountsExist();
-    if (!accountsExist) {
+    var _accountsExist = accountsExist();
+    if (!_accountsExist) {
       t.$newAccountCheckbox.prop("checked", true).prop("disabled", true);
       t.$newAccountCheckbox.closest("label").removeClass("black-text");
     } else {
@@ -99,13 +87,13 @@ Template['addAccount'].helpers({
     return  (ret ? "" : "checked");
   },
   currentUserAccounts: function(){
-    return CF.Accounts._findByUserId(Meteor.userId())
+    return CF.Accounts.findByRefId(Meteor.userId())
   }
 });
 
 Template['addAccount'].events({
   'click .btn-add-account': function (e, t) {
-    t.toggleAccountGroup ( !_accountsExist() );
+    t.toggleAccountGroup ( !accountsExist() );
     t.$("#modal-add-account").openModal();
   },
   'keyup #account-name, change #account-name': function (e, t) {
@@ -121,7 +109,7 @@ Template['addAccount'].events({
       Materialize.toast("please enter address", 4000);
       return false;
     }
-    if (CF.UserAssets.uiAddressExists(address)) {
+    if (CF.Accounts.addressExists(address, Meteor.userId())) {
       return false;
     }
     var name = '';
@@ -131,7 +119,7 @@ Template['addAccount'].events({
         Materialize.toast("please enter account name or select existing account", 4000);
         return false;
       }
-      if (!CF.UserAssets.accNameIsValid(name)) {
+      if (!CF.Accounts.accountNameIsValid(name, Meteor.userId())) {
         return false;
       }
       t.$(e.currentTarget).addClass('submitted');

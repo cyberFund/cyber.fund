@@ -2,7 +2,7 @@ CF.UserAssets = {};
 
 CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
   if (!name || !_.isString(name)) return false;
-  if (oldName && name == oldName) return true;
+  if (oldName && (name === oldName) || !refId) return true;
   var ret = true;
   CF.Accounts.collection.find({
     refId: refId
@@ -11,8 +11,6 @@ CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
   });
   return ret;
 };
-
-// WTF IS THERE???
 
 /**
  *
