@@ -66,5 +66,5 @@ CF.Profile.currentUsername = function(){
 
 CF.Profile.currentUid = function() {
   var u = CF.User.findOneByUsername(CF.Profile.currentUsername());
-  return u ? u._id : undefined;
+  return u ? u._id : null;
 };

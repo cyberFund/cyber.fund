@@ -18,16 +18,14 @@ CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
  * in which accounts information is stored
  * @returns {Array} of system names
  */
-
+// obsolete
 CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
   //  console.log(accounts);
 
   var systems = _.flatten(accounts.map(function(account) {
-    //console.log(account)
     return _.values(account.addresses)
   }));
-  //console.log(systems)
 
   if (systems) {
     systems = _.uniq(_.flatten(_.map(systems, function(address) {
@@ -40,49 +38,30 @@ CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
 };
 
 /**
- * return quantity of specified coins in specified addressesObject
- * @param addressesObject - addresses object provided
- * @param key - system name to check against
- * @returns {number} quantity of specified coins from accountsObject
- *
- * same as getQuantitiesFromAccountsObject - but to work account-wise, not totaling..
- */
-CF.UserAssets.getQuantitiesFromAddressesObject = function(addressesObject, key) {
-  var sum = 0.0;
-  if (addressesObject && key) {
-    var rets = _.values(addressesObject);
-    _.each(rets, function(assetsObject) {
-      assetsObject = assetsObject.assets;
-      if (assetsObject[key] && assetsObject[key].quantity) {
-        sum += assetsObject[key].quantity
-      }
-    });
-  }
-
-  return sum;
-};
-
-/**
- * return quantity of specified coins in specified accountsObject
- * @param accountsObject - accounts object provided
- * @param key - system name to check against (or system object)
+ * return quantity of specified coins in niven accountsObjects
+ * @param accountsObject - array of account objects, as they are in CF.Accounts.collection
+ * @param key - system _id to check against
  * @returns {number} quantity of specified coins from accountsObject
  */
 CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   var sum = 0.0;
-  if (_.isObject(key) && _.isString(key._id)) key = key._id;
-
-
   if (accountsObject && key) {
+
+    // i.e. accounts
     var rets = _.values(accountsObject);
     if (rets) {
+
+      // i.e. adresses
       rets = _.flatten(_.map(rets, function(account) {
         return _.values(account.addresses)
       }));
     } else {
+
+      // if no accounts then zero
       return sum;
     }
 
+    // extract from addresses
     _.each(rets, function(assetsObject) {
       assetsObject = assetsObject.assets;
       if (assetsObject[key] && assetsObject[key].quantity) {
@@ -90,6 +69,7 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
       }
     });
   }
+
   return sum;
 };
 

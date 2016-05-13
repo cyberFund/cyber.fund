@@ -51,7 +51,6 @@ ns.collection = new Meteor.Collection('accounts', {
             addrUsd += asset.vUsd;
             addrBtc += asset.vBtc;
           });
-
         }
 
         assetsDoc.vUsd = addrUsd;

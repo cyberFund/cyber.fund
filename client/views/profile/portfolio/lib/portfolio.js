@@ -36,7 +36,8 @@ CF.Accounts.userProfileData = function(){
 
 /*
 * @param docs: array of
-* todo - mabe use vBtc vUsd here?
+* @param accumulator: object to sum data from docs array - MUTABLE
+* @returns accumulator
 */
 CF.Accounts.accumulate = function(docs, accumulator){
   var ret = accumulator || {}
@@ -69,6 +70,7 @@ CF.Accounts.extractAssets = function flatten(doc) {
   return CF.Accounts.accumulate(ret);
 }
 
+//
 function tableData() {
   return  CF.Accounts.accumulate(CF.Accounts.userProfileData().map(function(it) {
     return CF.Accounts.extractAssets(it);
