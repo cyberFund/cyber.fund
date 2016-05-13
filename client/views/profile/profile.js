@@ -30,11 +30,9 @@ Template['profile'].onRendered(function(){
   $('ul.tabs').tabs();
 })
 
-var _user = function getUserByCurrentUid() { //todo reduce
-  return Meteor.users.findOne({
-    _id: CF.Profile.currentUid()
-  });
-};
+var _user = function(){
+  return CF.User.findOneByUsername(FlowRouter.getParam('username'));
+}
 
 Template['profile'].helpers({
   userAccounts: function(){

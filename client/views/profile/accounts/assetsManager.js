@@ -54,18 +54,7 @@ Template['assetsManager'].helpers({
     if (!amount) return '';
     return amount.quantity || '';
   },
-  showAccountsAdvertise: function() {
-    var instance = Template.instance();
-    if (CF.subs.Assets.ready()) {
-      if (CF.Profile.currentUsername() == CF.User.username()) {
-        var user = Meteor.users.findOne({
-          _id: CF.Profile.currentUid()
-        });
-        return !(ns.findByRefId(user._id).count())
-      }
-      return false;
-    } else return false
-  },
+
   privacyOpposite: function(key) {
     var account = CF.Accounts.findById(key)
     if (!account) return '';
