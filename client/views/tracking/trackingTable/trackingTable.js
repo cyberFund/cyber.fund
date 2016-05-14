@@ -84,9 +84,7 @@ Template['trackingWidget'].helpers({
     return 0;
   },
   firstPrice: function(){
-    return this.calculatable && this.calculatable.firstDatePrice &&
-    this.calculatable.firstDatePrice.market && this.calculatable.firstDatePrice.market.price_usd
-    || 0
+    return this.first_price || {  };
   },
   rows: function () {
     var sort = _Session.get("coinSorter");
