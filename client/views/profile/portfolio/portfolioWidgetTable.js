@@ -138,16 +138,8 @@ Template['portfolioWidgetTable'].helpers({
     return "0%";
   },
   usdPrice: function () { //TODO: use package functions here.
-    var system = this;
-    if (system && system.metrics && system.metrics.price && system.metrics.price.usd) {
-      return CF.Utils.readableN(system.metrics.price.usd, 2);
-    }
-    if (system && system.metrics && system.metrics.price && system.metrics.price.eth) {
-      var ethprice = CF.CurrentData.getPricesById('Ethereum');
-      var pusd = (ethprice.btc || 0) * system.metrics.price.eth;
-      return CF.Utils.readableN(pusd, 2);
-    }
-    return 0;
+    var prices = CF.CurrentData.getPricesByDoc(this);
+    return prices && prices.usd || 0;
   },
   usdPriceChange1d: function () {
     var system = this;
@@ -158,12 +150,29 @@ Template['portfolioWidgetTable'].helpers({
     }
     return 0;
   },
-  usdCap: function (system) {
+  usdCap: function () {
+    var system = this;
     if (system && system.metrics && system.metrics.price &&
       system.metrics.price.usd && system.metrics.supply) {
-      return CF.Utils.readableN((system.metrics.price.usd * system.metrics.supply), 0);
+      return (system.metrics.price.usd * system.metrics.supply);
     }
     return 0;
+  },
+  btcPrice: function () { //TODO: use package functions here.
+    var prices = CF.CurrentData.getPricesByDoc(this);
+    return prices && prices.btc || 0;
+  },
+  btcPriceChange1d: function () {
+    var system = this;
+    return (system && system.metrics && system.metrics.priceChangePercents
+      && system.metrics.priceChangePercents.day &&
+      system.metrics.priceChangePercents.day.btc || 0);
+  },
+  btcCap: function () {
+    var system = this;
+    return (system && system.metrics && system.metrics.price &&
+      system.metrics.price.btc && system.metrics.supply &&
+      system.metrics.price.btc * system.metrics.supply || 0);
   },
   sorter: function (field) {
     var sorter = _Session.get("folioWidgetSort");

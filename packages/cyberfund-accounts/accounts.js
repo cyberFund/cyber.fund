@@ -1,33 +1,9 @@
 var ns = CF.Accounts;
 
-function getPricesById(docId) {
-  function filter(doc) {
-    return doc && doc.metrics && doc.metrics.price && _.clone(doc.metrics.price) || null;
-  }
-  return filter(CurrentData.findOne({
-    _id: docId
-  }, {
-    fields: {
-      "metrics.price": 1
-    }
-  }));
-}
-
-CF.CurrentData.getPricesById = getPricesById;
-
 // mutates asset
 function setValues(asset, assetId) {
-  var prices = getPricesById(assetId) || {};
+  var prices = CF.CurrentData.getPricesById(assetId) || {};
 
-  // todo split
-  if (prices.eth && !prices.btc) {
-    var priceEth = getPricesById('Ethereum');
-    if (priceEth) {
-      prices.btc = prices.eth * priceEth.btc || 0;
-      prices.usd = prices.eth * priceEth.usd || 0;
-    }
-    // todo: asset.vEth = prices.usd*asset.quantity;
-  }
   asset.vUsd = (prices.usd || 0) * (asset.quantity || 0);
   asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
 }

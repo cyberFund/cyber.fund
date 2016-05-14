@@ -1,9 +1,10 @@
 <template name="ratingTableRow">
   <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
-    <td class="center-align hide-on-small-and-down">
-      {{sum key 1}} </td>
+    <td class="center-align hide-on-small-and-down"> {{! rank}}
+      {{sum key 1}}
+    </td>
     {{#with value}}
-    <td class="left-align" style="position: relative;">
+    <td class="left-align" style="position: relative;"> {{! system}}
       <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
          class="enlarge no-wrap"
@@ -16,12 +17,13 @@
 
     </td>
 
-    <td class="center-align hide-on-small-and-down">{{# withTooltip data=this ttName="t001Tooltip"}}
+    <td class="center-align hide-on-small-and-down"> {{! inflation}}
+      {{# withTooltip data=this ttName="t001Tooltip"}}
       <span>{{inflationToText metrics.supplyChangePercents.day}}</span>
        {{/withTooltip}}
     </td>
 
-    <td class="center-align hide-on-small-and-down">
+    <td class="center-align hide-on-small-and-down"> {{! trade}}
       {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this}}
       <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
       {{/withTooltip}} {{else}}

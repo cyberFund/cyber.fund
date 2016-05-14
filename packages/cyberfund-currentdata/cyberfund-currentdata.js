@@ -17,16 +17,6 @@ CF.CurrentData = {                // helpers related to collection CurrentData
       fieldsExclude: {'_t_calc': 0}
     }
   },
-  calculatable: function getCalculatable (system){
-    if (typeof system == "string")
-      throw "please pass CurrentData document instead of string"
-
-    return system['calculatable'] || function(){
-      var id = system._id || system.system || function(){
-         console.log( "` _ `" )
-       }();
-    }()
-  },
 
   selectors: {       // selectors to return elements of CurrentData collection
     system_symbol: function (name, symbol) {   // by system ChG name and token
@@ -49,7 +39,7 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     },
 
     dependents: function (system) {          // systems that depend on current.
-      return {"dependencies": {$in: [system]}};          
+      return {"dependencies": {$in: [system]}};
     },
 
     dependencies: function (list) {                           //return systems
@@ -89,3 +79,26 @@ CF.CurrentData = {                // helpers related to collection CurrentData
     })
   }
 };
+
+CF.CurrentData.getPricesByDoc = function getPricesByDoc(doc) {
+  var ret = doc && doc.metrics && doc.metrics.price && doc.metrics.price;
+  if (ret && ret.eth && !ret.btc){
+    var priceEth = CF.CurrentData.getPricesById('Ethereum');
+    if (priceEth) {
+      ret.btc = ret.eth * priceEth.btc || 0;
+      ret.usd = ret.eth * priceEth.usd || 0;
+    }
+  }
+  return ret;
+}
+
+CF.CurrentData.getPricesById = function getPricesById(docId) {
+  var doc = CurrentData.findOne({
+    _id: docId
+  }, {
+    fields: {
+      "metrics.price": 1
+    }
+  });
+  return CF.CurrentData.getPricesByDoc(doc);
+}
