@@ -44,8 +44,6 @@ Template["ratingTable"].onCreated(function() {
     });
 
     var handle = CF.SubsMan.subscribe("currentDataRP", {
-      /*limit: Session.get('ratingPageLimit'),
-      sort: _Session.get('coinSorter'),*/
       selector: tableSelector()
     });
     instance.ready.set(instance.ready.get() || handle.ready());

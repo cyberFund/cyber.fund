@@ -27,16 +27,16 @@
             </td>
             <td class="center">
               {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
-                {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
+                {{readableN1 calculatable.RATING.vector.GR.monthlyGrowthD}}%
               {{/if}}
             </td>
             <td class="center">
                {{#if calculatable.RATING.vector.GR.months}}
-                {{readableN calculatable.RATING.vector.GR.months 0}}
+                {{readableN0 calculatable.RATING.vector.GR.months}}
               {{/if}}
             </td>
             <td class="center">
-                {{readableN calculatable.RATING.sum 1}}
+                {{readableN1 calculatable.RATING.sum}}
             </td>
         </tr>
         {{/each}}
@@ -75,8 +75,7 @@
                 <h5>Cybernomics Cap</h5>
                 {{#if capUsd }}
                 <p>
-                    <span class="enlarge">$&nbsp;{{readableN capUsd
- 0}}</span>
+                    <span class="enlarge">$&nbsp;{{readableN0 capUsd}}</span>
                     <br> {{#if capUsdDailyChange}}
 
                     <span class="{{greenRedNumber capUsdDailyChange}}">
@@ -84,7 +83,7 @@
                 </p>
                 {{/if}}{{#if capBtc}}
                 <p>
-                    <span class="enlarge">Ƀ&nbsp;{{readableN capBtc 0}}</span>
+                    <span class="enlarge">Ƀ&nbsp;{{readableN0 capBtc}}</span>
                     <br> {{#if capBtcDailyChange}}
 
                     <span class="{{greenRedNumber capBtcDailyChange}}">
@@ -101,7 +100,7 @@
         <div class="col s12 m12 l4 center valign" style="padding:10px">
             <h5>My Portfolio</h5>
             <br>
-            <h4>{{#if currentUser}}~{{readableN sumBtc 2}}{{else}}0{{/if}} bitcoins</h4>
+            <h4>{{#if currentUser}}~{{readableN2 sumBtc}}{{else}}0{{/if}} bitcoins</h4>
             {{#if currentUser}}{{else}}<p><a href="/welcome">Join Us</a></p>{{/if}}
         </div>
     </div>

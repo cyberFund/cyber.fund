@@ -36,14 +36,14 @@
 
           <td class="right-align hide-on-small-and-down "> {{! price}}
             {{#withTooltip}}
-            {{readableN usdPrice 2}}
+            {{readableN2 usdPrice}}
             <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
-              {{readableN usdPriceChange1d 2}}%
+              {{readableN2 usdPriceChange1d}}%
             </sup>
             {{#tooltip}}
-            BTC Price: {{readableN btcPrice 2}}
+            BTC Price: {{readableN2 btcPrice}}
             <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
-              {{readableN btcPriceChange1d 2}}%
+              {{readableN2 btcPriceChange1d}}%
             </sup>
             {{/tooltip}}
             {{/withTooltip}}
@@ -51,9 +51,9 @@
 
           <td class="right-align  hide-on-med-and-down ">
             {{#withTooltip}}
-              {{readableN usdCap 0}}
+              {{readableN0 usdCap}}
                 {{#tooltip}}
-                  BTC Cap: {{readableN btcCap 1}}
+                  BTC Cap: {{readableN2 btcCap}}
                 {{/tooltip}}
             {{/withTooltip}}
           </td>

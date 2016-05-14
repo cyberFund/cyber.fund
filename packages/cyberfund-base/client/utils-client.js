@@ -21,19 +21,29 @@ CF.Utils.numberWithCommas = function(x) {
 }
 
 CF.Utils.readableN = function(input, roundTo) { //roundTo - how many digits after dot
-  var ret = parseFloat(input);
-  if (isNaN(ret)) return "";
-  return CF.Utils.numberWithCommas(ret.toFixed(roundTo));
+  //var ret = parseFloat(input);
+  //if (isNaN(ret)) return "";
+  return d3.format(',.'+roundTo+'f')//CF.Utils.numberWithCommas(ret.toFixed(roundTo));
 };
+
+CF.Utils.formatters = {
+  readableN0: d3.format(",.0f"),
+  readableN1: d3.format(",.1f"),
+  readableN2: d3.format(",.2f"),
+  readableN3: d3.format(",.3f"),
+  readableN4: d3.format(",.4f"),
+  meaningful4: d3.format(",.4g"),
+  meaningful4Si: d3.format(",.4s"),
+}
 
 CF.Utils.monetaryFormatter = function(input) {
   var postfix = "",
     value = input,
-    decimals = 2;
+    formatter = CF.Utils.formatters.readableN2;
   if (input > 5000) {
     postfix = 'k';
     value = input / 1000;
-    decimals = 3;
+    formatter = CF.Utils.formatters.readableN3;
   }
   if (input > 1000000) {
     postfix = 'M';

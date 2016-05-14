@@ -59,7 +59,7 @@
             <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
               <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
               <span itemprop="price" content="{{metrics.price.usd}}">
-                {{#if gte metrics.price.usd 0.1}}{{readableN metrics.price.usd 2}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
+                {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
             </span>
             <br> {{#if metrics.priceChangePercents.day.usd}}
 
@@ -91,7 +91,7 @@
           <h5>Cap</h5>
           {{#if metrics.cap.usd}}
           <p>
-            <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+            <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
             <br> {{#if metrics.capChangePercents.day.usd}}
 
             <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
@@ -100,7 +100,7 @@
           </p>
           {{/if}}{{#if metrics.cap.btc}}
           <p>
-            <span class="enlarge">Ƀ&nbsp;{{readableN metrics.cap.btc 0}}</span>
+            <span class="enlarge">Ƀ&nbsp;{{readableN0 metrics.cap.btc}}</span>
             <br> {{#if metrics.capChangePercents.day.btc}}
 
             <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
@@ -119,7 +119,7 @@
           <h5>Trade</h5>
 
           <p>
-            <span class="enlarge">$&nbsp;{{readableN todayVolumeUsd 0}}</span>
+            <span class="enlarge">$&nbsp;{{readableN0 todayVolumeUsd}}</span>
             <br> {{#if yesterdayVolumeUsd}}
             <span class="{{greenRedNumber usdVolumeChange }}">
               {{percentsToTextUpDown usdVolumeChange 2}}</span>
@@ -127,7 +127,7 @@
           </p>
 
           <p>
-            <span class="enlarge">Ƀ&nbsp;{{readableN todayVolumeBtc 0}}</span>
+            <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
             <br> {{#if yesterdayVolumeBtc}}
             <span class="{{greenRedNumber btcVolumeChange }}">
               {{percentsToTextUpDown btcVolumeChange 2}}</span>
@@ -146,7 +146,7 @@
           <p style="line-height: 80%;">&nbsp;</p>
 
           <p>
-            <span class="enlarge">{{readableN metrics.supply 0}}
+            <span class="enlarge">{{readableN0 metrics.supply}}
               <br> {{displayCurrencyName this}}s</span>
             {{#if metrics.supplyChangePercents.day}}
             <br>

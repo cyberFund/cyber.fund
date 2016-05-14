@@ -32,14 +32,14 @@
     </td>
 
     <td class="center hide-on-med-and-down sorter">
-      {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
+      {{readableN1 calculatable.RATING.vector.GR.monthlyGrowthD}}%
     </td>
     <td class="center hide-on-med-and-down sorter">
-      {{readableN calculatable.RATING.vector.GR.months 0}}
+      {{readableN0 calculatable.RATING.vector.GR.months}}
     </td>
 
     <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
-      <span class="enlarge">$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+      <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
       {{/withTooltip}}
     </td>
 
@@ -54,7 +54,7 @@
         {{percentsToTextUpDown metrics.capChangePercents.day.usd 2}}</span>
       {{#tooltip}}
       <div>Real change:
-        <b>{{readableN metrics.capChange.day.usd 2}} $</b>
+        <b>{{readableN2 metrics.capChange.day.usd}} $</b>
       </div>
       {{/tooltip}} {{/withTooltip}}
     </td>
@@ -69,7 +69,7 @@
       {{#withTooltip}}
        {{>cfRating rating=calculatable.RATING.sum}}
       {{#tooltip}}
-        <span>rating: {{readableN calculatable.RATING.sum 2}}
+        <span>rating: {{readableN2 calculatable.RATING.sum}}
           <p>
             <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Methodology Draft</a>
           </p>

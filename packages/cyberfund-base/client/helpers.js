@@ -27,6 +27,12 @@ function group3decimal(input, sep) {
   return input;
 }
 
+function escapeNaN(formatter){
+  return function(value){
+    return isNaN(value) ? '' : formatter(value);
+  }
+}
+
 var helpers = {
   eq: function
     (value1, value2) {
@@ -111,8 +117,16 @@ var helpers = {
     return from + Math.floor(Math.random() * (to - from + 1));
   },
   readableNumbers: CF.Utils.readableNumbers,
-  readableN: CF.Utils.readableN,
-
+  readableN: function(input, roundTo){
+    return escapeNaN(d3.format(',.'+roundTo||0+'f'))(input)
+  },//CF.Utils.readableN,
+  readableN0: escapeNaN(CF.Utils.formatters.readableN0),
+  readableN1: escapeNaN(CF.Utils.formatters.readableN1),
+  readableN2: escapeNaN(CF.Utils.formatters.readableN2),
+  readableN3: escapeNaN(CF.Utils.formatters.readableN3),
+  readableN4: escapeNaN(CF.Utils.formatters.readableN4),
+  meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
+  meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
   isNumber: function (value) {
     return _.isNumber(value)
   },

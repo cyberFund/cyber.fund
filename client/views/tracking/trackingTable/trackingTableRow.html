@@ -44,45 +44,45 @@
   </td>
 
   <td class="right-align">{{# withTooltip data=this ttName="itemPropTooltip" }}
-    <span>$&nbsp;{{readableN metrics.cap.usd 0}}</span>
+    <span>$&nbsp;{{readableN0 metrics.cap.usd}}</span>
     {{#if metrics.price.usd}} {{/if}} {{/withTooltip}}
   </td>
 
-  <td class="center">
-    {{readableN firstPrice.usd 3}}
+  <td class="right-align">
+    {{meaningful4Si firstPrice.usd}}
   </td>
 
-  <td class="center">
-    {{readableN currentPrice 2}}
+  <td class="right-align">
+    {{meaningful4 currentPrice}}
   </td>
   <td class="center hide-on-med-and-down sorter">
-    {{readableN calculatable.RATING.vector.GR.monthlyGrowthD 1}}%
+    {{readableN1 calculatable.RATING.vector.GR.monthlyGrowthD}}%
   </td>
   <td class="center hide-on-med-and-down sorter">
-    {{readableN calculatable.RATING.vector.GR.months 0}}
+    {{readableN0 calculatable.RATING.vector.GR.months}}
   </td>
   <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.CS 2}}
+    {{readableN2 calculatable.RATING.weighted.CS}}
   </td>
   <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.LV 2}}
+    {{readableN2 calculatable.RATING.weighted.LV}}
   </td>
   <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.WL 2}}
+    {{readableN2 calculatable.RATING.weighted.WL}}
   </td>
 
   {{#if false}}
     <td class="center hide-on-med-and-down">
-      {{readableN calculatable.RATING.weighted.BR 2}}
+      {{readableN2 calculatable.RATING.weighted.BR}}
     </td>
   {{/if}}
 
   <td class="center hide-on-med-and-down">
-    {{readableN calculatable.RATING.weighted.AM 2}}
+    {{readableN2 calculatable.RATING.weighted.AM}}
   </td>
   {{#if false}}
     <td class="center hide-on-med-and-down">
-      {{readableN calculatable.RATING.weighted.GR 2}}
+      {{readableN2 calculatable.RATING.weighted.GR}}
     </td>
   {{/if}}
 

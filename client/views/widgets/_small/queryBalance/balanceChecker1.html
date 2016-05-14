@@ -21,9 +21,9 @@
                   {{#each lastData}}
                     <div class="row no-bottom-margin">{{> cgSystemLogo class="logo-portfolio" system=asset}}{{displaySystemName (systemFromId asset)}}:{{quantity}}
                       {{#if or vUsd vBtc}}(
-                        {{#if vBtc}}Ƀ{{readableN vBtc 4}}{{/if}}
+                        {{#if vBtc}}Ƀ{{readableN4 vBtc}}{{/if}}
                         {{#if and vUsd vBtc}}/{{/if}}
-                        {{#if vUsd}}${{readableN vUsd 2}}{{/if}}
+                        {{#if vUsd}}${{readableN2 vUsd}}{{/if}}
                       ){{/if}}</div>
                   {{/each}}
                 {{/if}}

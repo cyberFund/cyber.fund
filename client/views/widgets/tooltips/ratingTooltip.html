@@ -1,5 +1,5 @@
 <template name="ratingTooltip">
-    <span>rating: {{readableN RATING.sum 1}}</span>
+    <span>rating: {{readableN1 RATING.sum}}</span>
 </template>
 
 <template name="tickerTooltip">
@@ -11,21 +11,21 @@
   </div>
 
   <div>Current supply:
-    <b>{{readableN metrics.supply 0}}</b>
+    <b>{{readableN0 metrics.supply}}</b>
   </div>
   <div>Absolute change:
-    <b>{{readableN metrics.supplyChange.day 0}}</b>
+    <b>{{readableN0 metrics.supplyChange.day}}</b>
   </div>
 </template>
 
 <template name="tradeTooltip">
-  <div>Trade volume (24h):<b>{{readableN metrics.tradeVolume 2}}</b>BTC
+  <div>Trade volume (24h):<b>{{readableN2 metrics.tradeVolume}}</b>BTC
   </div>
 
-  <div>Daily change :<b>{{readableN (dayToDayTradeVolumeChange this) 2}}</b> %
+  <div>Daily change :<b>{{readableN2 (dayToDayTradeVolumeChange this)}}</b> %
   </div>
 
-  <div>Turnover:<b>{{readableN (cdTurnover) 2}}</b> %
+  <div>Turnover:<b>{{readableN2 (cdTurnover)}}</b> %
   </div>
 </template>
 
