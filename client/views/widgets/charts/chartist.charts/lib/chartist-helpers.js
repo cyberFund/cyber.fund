@@ -7,7 +7,7 @@ var getDecimals = function (str) {
 };
 
 CF.MarketData.tooltipFncT = function (meta, value) {
-  var ret = "Daily trade: Ƀ " + CF.Utils.readableN(value, 2);
+  var ret = "Daily trade: Ƀ " + CF.Utils.formatters.readableN2(value);
   if (meta) {
     meta = meta.split("|"); // point date to be passed there, too
     var decimals = getDecimals(meta[0]);
@@ -18,7 +18,7 @@ CF.MarketData.tooltipFncT = function (meta, value) {
 };
 
 CF.MarketData.tooltipFncB = function (meta, value) {
-  var ret = "Ƀ " + CF.Utils.readableN(value, 2);
+  var ret = "Ƀ " + CF.Utils.formatters.readableN2(value);
   if (meta) {
     meta = meta.split("|"); // point date to be passed there, too
     var decimals = getDecimals(meta[0]);
@@ -29,7 +29,7 @@ CF.MarketData.tooltipFncB = function (meta, value) {
 };
 
 CF.MarketData.tooltipFncS = function (meta, value) {
-  var ret = "$ " + CF.Utils.readableN(value, 2);
+  var ret = "$ " + CF.Utils.formatters.readableN2(value);
   if (meta) {
     meta = meta.split("|"); // point date to be passed there, too
     if (meta[0]) {

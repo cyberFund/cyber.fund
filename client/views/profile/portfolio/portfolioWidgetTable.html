@@ -27,12 +27,12 @@
           <td><a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
                         {{> cgSystemLogo system=this class="logo-portfolio"}}
                         {{displaySystemName this}}</a></td>
-          <td class="right-align">{{quantity this}}</td>
-          <td class="right-align">{{equity this}}</td>
+          <td class="right-align">{{readableN2 quantity}}</td>
+          <td class="right-align">{{readableN3 equity}}‱</td>
           <td class="right-align hide-on-small-and-down">{{share}}</td>
-          <td class="right-align">{{btcCost this}}</td>
+          <td class="right-align">{{readableN2 btcCost}}</td>
           <td class="right-align hide-on-med-and-down ">
-            {{usdCost this}}</td>
+            {{readableN0 usdCost}}</td>
 
           <td class="right-align hide-on-small-and-down "> {{! price}}
             {{#withTooltip}}

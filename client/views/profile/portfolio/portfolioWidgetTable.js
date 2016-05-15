@@ -77,35 +77,38 @@ Template['portfolioWidgetTable'].helpers({
   chartData: function () {
     return  CF.Accounts.userProfileData();
   },
-  quantity: function (system) {
+  quantity: function () {
+    var system = this;
     if (!system._id) return NaN;
     var accounts =  CF.Accounts.userProfileData();
 
-    return CF.Utils.readableN(ns.getQuantitiesFromAccountsObject(
-      accounts, system._id), 3);
+    ns.getQuantitiesFromAccountsObject(accounts, system._id);
   },
-  btcCost: function (system) {
+  btcCost: function () {
+    var system = this;
     var r= tableData();
-    return CF.Utils.readableN(r && r[system._id] && r[system._id].vBtc, 2);
+    return r && r[system._id] && r[system._id].vBtc;
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
     var accounts =  CF.Accounts.userProfileData();
     return (ns.getQuantitiesFromAccountsObject(
-      accounts, system._id) * system.metrics.price.btc).toFixed(3);
+      accounts, system._id) * system.metrics.price.btc);
   },
-  usdCost: function (system) {
+  usdCost: function () {
+    var system = this;
     var r= tableData();
-    return CF.Utils.readableN(r && r[system._id] && r[system._id].vUsd, 2);
+    return (r && r[system._id] && r[system._id].vUsd);
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
     var accounts = CF.Accounts.userProfileData();
 
-    return CF.Utils.readableN(ns.getQuantitiesFromAccountsObject(
-        accounts, system._id) * system.metrics.price.usd, 2);
+    return (ns.getQuantitiesFromAccountsObject(
+        accounts, system._id) * system.metrics.price.usd);
   },
   name_of_system: function () {
     return this._id
   },
-  equity: function (system) {
+  equity: function () {
+    var system = this;
     var q = 0.0;
     var r = tableData();
     //var accounts = CF.Accounts.userProfileData();
@@ -119,7 +122,7 @@ Template['portfolioWidgetTable'].helpers({
     else {
       q = 0.0;
     }
-    return CF.Utils.readableN(q, 3) + '‱';
+    return q;
   },
   share: function () {
     var system = this;
@@ -137,7 +140,7 @@ Template['portfolioWidgetTable'].helpers({
     }
     return "0%";
   },
-  usdPrice: function () { //TODO: use package functions here.
+  usdPrice: function () {
     var prices = CF.CurrentData.getPricesByDoc(this);
     return prices && prices.usd || 0;
   },

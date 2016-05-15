@@ -13,8 +13,7 @@ Template['portfolioWidgetView'].helpers({
         sum += asset.vBtc || 0;
       });
     }
-
-    return CF.Utils.readableN(sum, 3)
+    return sum
   },
   sumU: function() {
     var assets = CF.Accounts.portfolioTableData();
@@ -24,7 +23,7 @@ Template['portfolioWidgetView'].helpers({
         sum += asset.vUsd || 0;
       });
     }
-    return CF.Utils.readableN(sum, 0)
+    return sum;
   },
   filteredAccountsData: function() {
     return CF.Accounts.userProfileData()

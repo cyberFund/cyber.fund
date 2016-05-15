@@ -119,13 +119,13 @@ var helpers = {
   readableNumbers: CF.Utils.readableNumbers,
   readableN: function(input, roundTo){
     return escapeNaN(d3.format(',.'+roundTo||0+'f'))(input)
-  },//CF.Utils.readableN,
+  },
   readableN0: escapeNaN(CF.Utils.formatters.readableN0),
   readableN1: escapeNaN(CF.Utils.formatters.readableN1),
   readableN2: escapeNaN(CF.Utils.formatters.readableN2),
   readableN3: escapeNaN(CF.Utils.formatters.readableN3),
   readableN4: escapeNaN(CF.Utils.formatters.readableN4),
-  roundedN4: escapeNaN(CF.Utils.formatters.readableN4),
+  roundedN4: escapeNaN(CF.Utils.formatters.roundedN4),
   meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
   meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
   isNumber: function (value) {
