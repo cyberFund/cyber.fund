@@ -5,7 +5,15 @@
               System
           </th>
           <th data-field="CMGR" class="center">
-              CMGR [$]
+              {{# withTooltip}} CMGR[$]
+              {{#tooltip class="tooltip-table-head"}}
+                <h5>Compound Monthly Growth Rate</h5>
+                <p>
+                Key indicator that show long term profitability of investments.
+                We use monthly calculation in opposite to annual in traditional
+                finance as blockchain markets are faster than tradational thus
+                should be evaulated more frequently</p>
+              {{/ tooltip}} {{/ withTooltip}}
           </th>
           <th data-field="Lifetime" class="center">
             Months
