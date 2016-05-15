@@ -12,7 +12,7 @@
   <th class="center hide-on-small-and-down">
     {{# withTooltip}}
     STC
-    {{#tooltip class="tooltip-table-head"}}
+    {{#tooltip class="tooltip-table-head right0"}}
     Systems in <cybernom></cybernom>ics have very similar to traditional economy lifecycle.
       <br/>
       <br/> They are born and die.
@@ -29,14 +29,14 @@
   {{# thSortable o=__sorter class="center hide-on-small-and-down"
   s="metrics.supplyChangePercents.day"}}
   {{# withTooltip}} Token
-  {{#tooltip class="tooltip-table-head"}} Weekly inflation rate. Don't participate in Rating calculation yet
+  {{#tooltip class="tooltip-table-head right0"}} Weekly inflation rate. Don't participate in Rating calculation yet
   {{/tooltip}} {{/withTooltip}} {{/thSortable}}
 
 
   {{#thSortable o=__sorter class="center hide-on-small-and-down sorter"
     s="metrics.turnover"}}
   {{# withTooltip}} Trade
-  {{# tooltip class="tooltip-table-head"}}
+  {{# tooltip class="tooltip-table-head right0"}}
   Turnover based on daily trade volumes Turnover calcalated as Daily Trady Volume / Cap Turnover grade is a key component of Rating calculation We use the following grade system:
    <br> - Illiquid grade if daily turnover is 0%
    <br> - Very Low grade if daily turnover is less 0.01%
@@ -47,7 +47,7 @@
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="right-align" s="metrics.cap.usd"}}
-  {{# withTooltip }} Cap in $ {{# tooltip class="tooltip-table-head" }}
+  {{# withTooltip }} Cap in $ {{# tooltip class="tooltip-table-head right0" }}
   Cap is calculated as Tokens Outstanding * Last Price Token Outstanding are tokens created without difference who control them: founders, users or an organization itself. That is approach simmilar to how existing finance works. Cap is a key component of
   ratingCap. We use the following grade system:
   <br> - Pico grade if cap is less $10k
@@ -61,7 +61,7 @@
   {{#thSortable o=__sorter class="center hide-on-small-and-down"
   s="first_price.usd"}}
   {{# withTooltip}} AIP in $
-  {{#tooltip class="tooltip-table-head"}} Avarage Initial Price. Used as initial spot for calculating Compound Monthly Growth Rate. If initial price has been appeared during public transparent crowdfunding
+  {{#tooltip class="tooltip-table-head right0"}} Avarage Initial Price. Used as initial spot for calculating Compound Monthly Growth Rate. If initial price has been appeared during public transparent crowdfunding
   capmaign avarage Crowdfunding price used as AIP. If the first price appeared as result of a placment to an exchange avarage price of the first trading week is being used for AIP calculation. In case of Bitcoin we use Coindesk BPI index. In case of
   Crowdfunding we use our personal tracking. In case of other currencies and assets we use Coinmarketcap data and if data is incorrent we use historical data from an exchange of a first placement.
   {{/tooltip}} {{/withTooltip}} {{/ thSortable}}
@@ -74,40 +74,40 @@
   {{# thSortable o=__sorter class="center hide-on-med-and-down sorter"
   s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
   {{# withTooltip}} CMGR
-  {{#tooltip class="tooltip-table-head"}} Compound Monthly Growth Rate. Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional
+  {{#tooltip class="tooltip-table-head right0"}} Compound Monthly Growth Rate. Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional
   finance as blockchain markets are faster than tradational thus should be evaulated more frequently
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center hide-on-med-and-down sorter"
   s="calculatable.RATING.vector.GR.months"}}
   {{# withTooltip}} Months
-  {{# tooltip class="tooltip-table-head"}} Number of periods CMGR has been calculated. Less a number of periods the more risk that CMGR will float
+  {{# tooltip class="tooltip-table-head right0"}} Number of periods CMGR has been calculated. Less a number of periods the more risk that CMGR will float
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center hide-on-med-and-down"
   s="calculatable.RATING.weighted.CS"}}
   {{# withTooltip}} CS
-  {{#tooltip class="tooltip-table-head"}} ChainGear Score. Is calculted based on static metadata from <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a> Score
+  {{#tooltip class="tooltip-table-head right0"}} ChainGear Score. Is calculted based on static metadata from <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a> Score
   show spreading of basic services and infrustrcture. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#chaingear">Details</a> of calculation
   {{/tooltip}} {{/withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center hide-on-med-and-down"
   s="calculatable.RATING.weighted.LV"}}
   {{# withTooltip}}LV
-  {{#tooltip class="tooltip-table-head"}} LoVe Score. Is calculted based on user generated stars. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
+  {{#tooltip class="tooltip-table-head right0"}} LoVe Score. Is calculted based on user generated stars. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Chaingear</a>
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#thSortable o=__sorter class="center hide-on-med-and-down"
   s="calculatable.RATING.weighted.WL"}}
   {{# withTooltip}} WL
-  {{#tooltip class="tooltip-table-head"}} Weighted Liquidity. Compound score that reflects Liquidity weighted on capitalzation grade. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#weighted-liquidity">Chaingear</a>
+  {{#tooltip class="tooltip-table-head right0"}} Weighted Liquidity. Compound score that reflects Liquidity weighted on capitalzation grade. Detailed methodlogoy is defined in cyber•Rating spec <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#weighted-liquidity">Chaingear</a>
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
   {{#if false}}
     {{#thSortable o=__sorter class="center hide-on-med-and-down"
     s="calculatable.RATING.weighted.BR"}}
     {{# withTooltip}} BR
-    {{#tooltip class="tooltip-table-head"}} Blockchain Reporting. This score in development. At this point in time it is calculated based in availablity infromation about supply of tokens outstanding. In future this
+    {{#tooltip class="tooltip-table-head right0"}} Blockchain Reporting. This score in development. At this point in time it is calculated based in availablity infromation about supply of tokens outstanding. In future this
     score will reflect transactional perfomance <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#blockchain-reporting">Details</a>
     {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
   {{/if}}
@@ -115,7 +115,7 @@
   {{#thSortable o=__sorter class="center hide-on-med-and-down"
   s="calculatable.RATING.weighted.AM"}}
   {{# withTooltip}} AM
-  {{#tooltip class="tooltip-table-head"}} cyber•Fund's Automation. The score reglects how deep a system is integrated in cyber•Fund core functionality. Now we evaulate balance autoupdate implementation only.
+  {{#tooltip class="tooltip-table-head right0"}} cyber•Fund's Automation. The score reglects how deep a system is integrated in cyber•Fund core functionality. Now we evaulate balance autoupdate implementation only.
     <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
   {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
 
@@ -123,12 +123,12 @@
     {{#thSortable o=__sorter class="center hide-on-med-and-down"
     s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
     {{# withTooltip}} GR
-    {{#tooltip class="tooltip-table-head"}} Growth Rate score. In development and don't partcipated in rating calculations yet.<a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
+    {{#tooltip class="tooltip-table-head right0"}} Growth Rate score. In development and don't partcipated in rating calculations yet.<a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md#automation">Details</a>
     {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
   {{/if}}
 
   {{#thSortable o=__sorter class="center" s="calculatable.RATING.sum"}}
-  {{# withTooltip}}  Rating  {{# tooltip class="tooltip-table-head"}} Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a>  and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
+  {{# withTooltip}}  Rating  {{# tooltip class="tooltip-table-head right0"}} Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime. <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">Full methodology</a>  and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">cyber•Rating: Cryptoproperty Evaluation</a>
   {{/ tooltip }} {{/withTooltip}}
   {{/ thSortable}}
 </template>

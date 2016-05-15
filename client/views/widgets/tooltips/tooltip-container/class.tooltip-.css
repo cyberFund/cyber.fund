@@ -59,9 +59,10 @@ a.tooltip:hover span {
   padding: 1.2em;
 }
 
+.right0{right: 0}
+
 .tooltip-table-head {
-  background: #f0d092;
-  right: 0;
+  background: white;
 }
 .tooltip-table-head a {
   color: darkcyan;
