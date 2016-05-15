@@ -29,7 +29,7 @@ Template['addAccount'].onRendered( function () {
   this.$selectAccount = this.$("#account-id-select");
 
   var t = this;
-  t.$selectAccount.material_select();
+  //t.$selectAccount.material_select();
   this.toggleAccountGroup = function (isNew) {
     if (isNew) {
       t.$("#existing-account-group").addClass("hidden");
