@@ -35,6 +35,11 @@ CF.Utils.formatters = {
   roundedN4: d3.format(",.4r"),
   meaningful4: d3.format(",.4g"),
   meaningful4Si: d3.format(",.4s"),
+  percents: d3.format("%"),
+  percents0: d3.format(".0%"),
+  percents1: d3.format(".1%"),
+  percents2: d3.format(".2%"),
+  percents3: d3.format(".3%"),
 }
 
 CF.Utils.monetaryFormatter = function(input) {

@@ -82,7 +82,7 @@ Template['portfolioWidgetTable'].helpers({
     if (!system._id) return NaN;
     var accounts =  CF.Accounts.userProfileData();
 
-    ns.getQuantitiesFromAccountsObject(accounts, system._id);
+    return ns.getQuantitiesFromAccountsObject(accounts, system._id);
   },
   btcCost: function () {
     var system = this;
@@ -127,18 +127,16 @@ Template['portfolioWidgetTable'].helpers({
   share: function () {
     var system = this;
     var r = tableData();
-    var q = 0.0;
     if (system._id && r[system._id]) {
-      q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
       var vBtc = r[system._id].vBtc;
 
       var sum = _.reduce(_.map(r, function(it){
         return it.vBtc
       }), function(memo, num){ return memo + num; }, 0);
 
-        return (100 * vBtc / sum).toFixed(1) + "%";
+        return vBtc / sum;
     }
-    return "0%";
+    return 0;
   },
   usdPrice: function () {
     var prices = CF.CurrentData.getPricesByDoc(this);

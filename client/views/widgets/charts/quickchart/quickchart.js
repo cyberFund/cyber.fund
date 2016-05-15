@@ -59,11 +59,12 @@ Template['quickchart'].onRendered(function() {
 
   var instance = this;
   function _system(){
+    return Template.currentData().system;
     var r = instance.$(".quickchart").attr('id').split('-')[1];
     if (r) return Blaze._globalHelpers._toSpaces(r);
     return instance.data && instance.data.system || ""
   }
-
+  console.log('got system ' + _system())
   function myGraph(el, system) {
     el.selectAll("*").remove()
     this.selectedNode = null;

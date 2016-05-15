@@ -131,6 +131,11 @@ var helpers = {
   isNumber: function (value) {
     return _.isNumber(value)
   },
+  percents: escapeNaN(CF.Utils.formatters.percents),
+  percents0: escapeNaN(CF.Utils.formatters.percents0),
+  percents1: escapeNaN(CF.Utils.formatters.percents1),
+  percents2: escapeNaN(CF.Utils.formatters.percents2),
+  percents3: escapeNaN(CF.Utils.formatters.percents3),
 
   isObject: function (value) {
     return _.isObject(value)
@@ -154,31 +159,42 @@ var helpers = {
     return ret;
   },
 
+
   isBeforeNow: function (date) {
-    var m = /*format ? moment(date, format) : */moment(date);
+    var m = moment(date);
     return m.isBefore(moment());
   },
   isAfterNow: function (date/*, format*/) {
-    var m = /*format ? moment(date, format) :*/ moment(date);
+    var m = moment(date);
     return m.isAfter(moment());
   },
   isNowBetween: function (date1, date2/*, format*/) {
-    var m1 = /*format ? moment(date1, format) :*/ moment(date1),
-    m2 = /*format ? moment(date2, format) : */moment(date2);
+    var m1 = moment(date1),
+    m2 = moment(date2);
     return moment().isBetween(m1, m2);
   },
+
+  // days before date
   daysLeft: function (date) {
     return  moment(date).diff( moment() , 'days');
   },
+
+  // since date
   daysPassed: function (date) {
     return  moment().diff(moment(date), 'days');
   },
+
+  // when displaying string (e.g. CurrentData._id) as url path segment
   _toUnderscores: function (str) {
     return !!str ? str.replace(/\ /g, "_") : ''
   },
+
+  // opposite to _toUnderscores
   _toSpaces: function (str) {
     return !!str ? str.replace(/_/g, " ") : ''
   },
+
+  // html attribute-'friendly' string
   _toAttr: function (str) {
     return !!str ? str.replace(/\ /g, "_").replace(/\(/g, "_")
     .replace(/\)/g, "_").replace(/\./g, "_") : ''
