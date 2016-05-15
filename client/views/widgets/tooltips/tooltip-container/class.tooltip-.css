@@ -63,6 +63,12 @@ a.tooltip:hover span {
   background: #f0d092;
   right: 0;
 }
+.tooltip-table-head a {
+  color: darkcyan;
+}
+.tooltip-table-head p, .tooltip-table-head-lite p{
+  text-align: justify; margin: 0.2em 1em
+}
 
 .tooltip-table-head-lite {
   text-align: inherit;

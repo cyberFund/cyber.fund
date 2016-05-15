@@ -7,7 +7,7 @@
           <th data-field="CMGR" class="center">
               {{# withTooltip}} CMGR[$]
               {{#tooltip class="tooltip-table-head"}}
-                <h5>Compound Monthly Growth Rate</h5>
+                <h5 class="center">Compound Monthly Growth Rate</h5>
                 <p>
                 Key indicator that shows long term profitability of investment.
                 We use monthly calculation in opposite to annual in traditional
@@ -19,7 +19,19 @@
             Months
           </th>
           <th data-field="rating/score" class="center">
-              Rating
+            {{# withTooltip}} Rating
+            {{# tooltip class="tooltip-table-head"}}
+            <p> Compound evaluation of a given crypto property.
+              Methodology depend on a stage, type and class of a given cryptoproperty.
+              More than 50 indicators are evaluated in a realtime.
+            </p><p>
+              <h5 class="center">Rating</h5>
+              <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">
+                Full methodology</a> and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">
+                cyber•Rating: Cryptoproperty Evaluation</a>
+            </p>
+            {{/ tooltip }} {{/withTooltip}}
+
           </th>
         </thead>
 
