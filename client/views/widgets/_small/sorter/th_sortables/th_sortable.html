@@ -1,8 +1,20 @@
 <template name="thSortable">
   <th class="{{class}} sorter" data-sorter="{{s}}" data-sorting-matter="{{o}}">
+    {{#noWrap y=forceInline}}
     {{> thSorter field=s sorting=o}}
     {{> UI.contentBlock}}
+    {{/noWrap}}
   </th>
+</template>
+
+<template name="noWrap">
+  {{#if y}}
+  <span class="nowrap">
+    {{> UI.contentBlock}}
+  </span>
+  {{else}}
+    {{> UI.contentBlock}}
+  {{/if}}
 </template>
 
 <template name="thSorter">

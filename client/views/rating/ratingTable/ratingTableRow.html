@@ -7,9 +7,9 @@
     <td class="left-align" style="position: relative;"> {{! system}}
       <span class="hidden description" itemprop="description">{{descriptions.headline}}</span>
       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}"
-         class="enlarge no-wrap"
+         class="enlarge nowrap"
          title="{{descriptions.headline}}">
-         <span class="no-wrap" itemprop="name">
+         <span class="nowrap" itemprop="name">
            {{> cgSystemLogo system=this class='logo-logo'}}
          <span style="position: relative">{{displaySystemName this}}
          </span></span>
@@ -70,9 +70,9 @@
        {{>cfRating rating=calculatable.RATING.sum}}
       {{#tooltip}}
         <span>rating: {{readableN2 calculatable.RATING.sum}}
-          <p>
+          <!--p>
             <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Methodology Draft</a>
-          </p>
+          </p-->
         </span>
       {{/tooltip}}
 

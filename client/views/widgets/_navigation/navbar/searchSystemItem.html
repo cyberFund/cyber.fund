@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="searchSystemItem">
     <div style="width: 100% !important;">
-    <span class="enlarge black-text no-wrap">
+    <span class="enlarge black-text nowrap">
         {{> cgSystemLogo system=this class="logo-search"}}
         {{displaySystemName this}}
     </span>
@@ -10,7 +10,7 @@
 
 <template name="searchSystemBySymbolItem">
     <div style="width: 100% !important;">
-    <span class="enlarge black-text no-wrap">
+    <span class="enlarge black-text nowrap">
         {{> cgSystemLogo system=this class="logo-search"}}
         {{displaySystemName this}} ({{token.symbol}})
     </span>
@@ -19,7 +19,7 @@
 
 <template name="searchUser">
   <div style="width: 100% !important;">
-  <span class="enlarge black-text no-wrap">
+  <span class="enlarge black-text nowrap">
       {{> hitryImage img_url=avatar class="logo-search"}}
       {{username}} ({{profile.name}})
   </span>

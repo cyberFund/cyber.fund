@@ -6,10 +6,10 @@
   </td>
   {{#with value}}
   <td class="left-align">
-    <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" class="enlarge no-wrap" title="{{descriptions.headline}}">
+    <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}" class="enlarge nowrap" title="{{descriptions.headline}}">
       {{> cgSystemLogo system=this class="logo-icon"}}
         <span
-          class="no-wrap"
+          class="nowrap"
           itemprop="name">
           {{displaySystemName this}}
         </span>

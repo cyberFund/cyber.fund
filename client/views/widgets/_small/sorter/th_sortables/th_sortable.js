@@ -5,6 +5,9 @@ Template['thSorter'].helpers({
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
     return "";
+  },
+  forceImline: function(){
+    return true; //!this.
   }
 })
 

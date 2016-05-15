@@ -56,7 +56,7 @@
           <h5>Price</h5>
           {{#if metrics.price.usd}}
           <p>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
               <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
               <span itemprop="price" content="{{metrics.price.usd}}">
                 {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
@@ -69,7 +69,7 @@
           </p>
           {{/if}}{{#if metrics.price.btc}}
           <p>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge no-wrap">
+            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
               <span itemprop="priceCurrency" content="BTC">
                 Ƀ&nbsp;</span>
               <span itemprop="price" content="{{metrics.price.btc}}">
@@ -208,7 +208,7 @@
         <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
           <div class="card" style="padding: 10px 0; margin: 2px 0">
             {{> cgSystemLogo system=this class="logo-dependent"}}
-            <span class="enlarge no-wrap" style="vertical-align: middle; margin-left: 10px">
+            <span class="enlarge nowrap" style="vertical-align: middle; margin-left: 10px">
 
               {{displaySystemName this}}
             </span>
