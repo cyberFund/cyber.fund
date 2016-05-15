@@ -32,6 +32,7 @@ CF.Utils.formatters = {
   readableN2: d3.format(",.2f"),
   readableN3: d3.format(",.3f"),
   readableN4: d3.format(",.4f"),
+  readableN4: d3.format(",.4r"),
   meaningful4: d3.format(",.4g"),
   meaningful4Si: d3.format(",.4s"),
 }
