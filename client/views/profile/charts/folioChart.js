@@ -1,25 +1,65 @@
+
+
+
 var cfCDs = CF.CurrentData.selectors;
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.015;
 
-function emptyPie(){
-  if (CF.UserAssets.graph.folioPie) {
-    CF.UserAssets.graph.folioPie.update({
-      labels: [],
-      series: []
-    });
-  }
-}
+var ns = CF.UserAssets. graph;
 
 Template['folioChart'].onRendered(function() {
-  var self = this;
+  var instance = this;
+  instance._selector = "folio-pie"
+  instance.options = {
+    chartPadding: CF.Chartist.options.chartPadding.folio,
+    startAngle: Math.random() * 30 - 15,
+    labelOffset: 82,
+    labelDirection: 'explode'
+  }
 
-  self.autorun(function(comp) {
+  // does not expect null/undef values before non-null/non-undef
+  instance.chart = function(selector, data) {
+    var emptyData = {
+      labels: [],
+      series: []
+    }
+
+    if (selector && data) {
+      // TODO add test against chartist loses 'update' method
+
+      if (ns.folioPie && ns.folioPie.update) {
+        ns.folioPie.update(data);
+      } else
+       ns.folioPie = new Chartist.Pie(selector, data, instance.options);
+       return ns.folioPie;
+    }
+
+    if (!selector && !data) {
+      if (ns.folioPie && ns.folioPie.update)
+        ns.folioPie.update(emptyData)
+      return ns.folioPie;
+    }
+  }
+
+  instance.hideView = function() {
+    return instance.chart();
+    CF.Utils.jqHide(instance.$(".folio-pie"));
+  };
+
+  instance.showView = function(data) {
+    CF.Utils.jqShow(instance.$(".folio-pie"));
+    return instance.chart(instance._selector, data);
+  }
+
+
+
+  instance.autorun(function(comp) {
     var assets = Template.currentData() && Template.currentData().accountsData || {};
+
     if (_.isEmpty(assets)) {
-      emptyPie();
-      return;
+      ns.folioPie = instance.hideView()
+      return ns.folioPie
     }
 
     var ticks = [],
@@ -57,13 +97,13 @@ Template['folioChart'].onRendered(function() {
     });
 
     if (!sum) {
-      emptyPie();
-      return;
+      ns.folioPie = instance.hideView();
+      return ns.folioPie;
     }
 
     // push smalls into 'others'
     _.each(datum, function(point) {
-      if (point.b / sum >= CF.UserAssets.graph.minimalShare) {
+      if (point.b / sum >= ns.minimalShare) {
         labels.push(point.symbol);
         ticks.push({
           value: point.u,
@@ -84,16 +124,16 @@ Template['folioChart'].onRendered(function() {
       })
     }
 
-    if (ticks.length && self.$('.ct-chart.folio-pie').length)
-      CF.UserAssets.graph.folioPie = // crutch
-      new Chartist.Pie('.ct-chart.folio-pie', {
+    // final data check
+    if (ticks.length > 1) {
+      ns.folioPie = instance.showView({
         labels: labels,
-        series: ticks
-      }, {
-        chartPadding: CF.Chartist.options.chartPadding.folio,
-        startAngle: 0,
-        labelOffset: 82,
-        labelDirection: 'explode'
+        ticks: ticks
       });
+      return ns.folioPie;
+    } else {
+      ns.folioPie = instance.hideView();
+      return ns.folioPie;
+    }
   })
 });

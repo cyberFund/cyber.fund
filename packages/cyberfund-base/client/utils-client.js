@@ -74,8 +74,53 @@ CF.Utils.SessionVariable = function(key) {
     Session.set(me._sessname, v);
   };
 };
+// provides memoizing of session values. depends on 'amplify' script/package
+// simply use CF.Utils._session instead of Session to store global things, like
+// sorting preference etc
 
-// WTF? use path segment here..
+// using session as it already reactive. and storing changes via amplify
+CF.Utils._session = {
+  _prefixKey: 'Session|',
+
+  /**
+   * loads value from
+   * @param key
+   */
+  get: function(key) {
+    ret = amplify.store(CF.Utils._session._prefixKey + key);
+    if (Session.get(key) != ret) Session.set(key, ret);
+    return ret;
+  },
+
+  set: function(key, value) {
+    amplify.store(CF.Utils._session._prefixKey + key, value);
+    Session.set(key, value)
+  },
+
+  default: function(key, value) {
+    if (CF.Utils._session.get(key) == undefined) CF.Utils._session.set(key, value);
+  }
+}
+
+
+CF.Utils.jqHide = function(jQ) {
+  if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
+  //  jQ.addClass("hidden");
+  //  jQ.attr("visibility", "hidden");
+    return jQ;
+  }
+  console.log("condition failure");
+}
+
+CF.Utils.jqShow = function(jQ) {
+  if (jQ && jQ.removeClass && typeof jQ.removeClass == "function") {
+    jQ.removeClass("hidden");
+    jQ.attr("visibility", "inherit");
+    return jQ;
+  }
+  console.log("condition failure");
+}
+
 CF.Profile.currentUsername = function(){
   return FlowRouter.getParam("username");
 };

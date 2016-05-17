@@ -2,16 +2,16 @@ CF.MarketData = CF.MarketData || {};
 CF.MarketData.graphTime = {
   key: "CF.MarketData.graphTime",
   set: function(value) {
-    if (!_Session) throw("no _Session");
-    _Session.set(this.key, value)
+    if (!CF.Utils._session) throw("no CF.Utils._session");
+    CF.Utils._session.set(this.key, value)
   },
   get: function() {
-    if (!_Session) throw("no _Session");
-    return _Session.get(this.key);
+    if (!CF.Utils._session) throw("no CF.Utils._session");
+    return CF.Utils._session.get(this.key);
   },
   default: function(value){
-    if (!_Session) throw("no _Session");
-    _Session.default(this.key, value);
+    if (!CF.Utils._session) throw("no CF.Utils._session");
+    CF.Utils._session.default(this.key, value);
   }
 }
 

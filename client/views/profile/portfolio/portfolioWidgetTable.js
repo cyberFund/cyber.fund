@@ -4,7 +4,7 @@ var ns = CF.UserAssets
 var tableData = CF.Accounts.portfolioTableData
 
 Meteor.startup(function(){
-  _Session.default('folioWidgetSort', {"f|byValue": -1});
+  CF.Utils._session.default('folioWidgetSort', {"f|byValue": -1});
 });
 
 Template['portfolioWidgetTable'].helpers({
@@ -53,7 +53,7 @@ Template['portfolioWidgetTable'].helpers({
     // for sorter values, see template file. 'f|' is for sorting by system field
     // like "by daily price change", no prefix is for using some sort function
     // from above
-    var sorter = _Session.get('folioWidgetSort'),
+    var sorter = CF.Utils._session.get('folioWidgetSort'),
       _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
       _split = (_sorter || '').split('|');
 
@@ -176,7 +176,7 @@ Template['portfolioWidgetTable'].helpers({
       system.metrics.price.btc * system.metrics.supply || 0);
   },
   sorter: function (field) {
-    var sorter = _Session.get("folioWidgetSort");
+    var sorter = CF.Utils._session.get("folioWidgetSort");
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
@@ -187,7 +187,7 @@ Template['portfolioWidgetTable'].helpers({
 Template['portfolioWidgetTable'].events({
   'click th.sorter': function (e, t) {
     var newSorter = $(e.currentTarget).data('sorter');
-    var sort = _Session.get("folioWidgetSort");
+    var sort = CF.Utils._session.get("folioWidgetSort");
     // same sorting criteria - reverse order
     if (sort[newSorter]) {
       sort[newSorter] = -sort[newSorter];
@@ -198,6 +198,6 @@ Template['portfolioWidgetTable'].events({
     analytics.track("Sorted Portfolio", {
       sort: sort
     });
-    _Session.set('folioWidgetSort', sort);
+    CF.Utils._session.set('folioWidgetSort', sort);
   }
 });

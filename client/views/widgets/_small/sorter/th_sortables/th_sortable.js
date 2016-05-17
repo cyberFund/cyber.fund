@@ -1,6 +1,6 @@
 Template['thSorter'].helpers({
   grok: function(sorting, field){
-    var sorter = _Session.get(sorting);
+    var sorter = CF.Utils._session.get(sorting);
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
@@ -17,7 +17,7 @@ Template['thSortable'].events({
     var sortingMatter = $e.data('sortingMatter') || "random"; // what we sort
     var newSorter = $e.data('sorter'); // sorting key
     var tableId = $e.closest("table").attr("id");
-    var sort = _Session.get( sortingMatter );
+    var sort = CF.Utils._session.get( sortingMatter );
 
     if (sort[ newSorter ]) {
         sort[ newSorter ] = -sort[ newSorter ];
@@ -30,6 +30,6 @@ Template['thSortable'].events({
       sort: sort
     });
 
-    _Session.set( sortingMatter, sort);
+    CF.Utils._session.set( sortingMatter, sort);
   }
 })
