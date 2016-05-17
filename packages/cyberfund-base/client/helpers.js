@@ -270,8 +270,11 @@ var helpers = {
     if (btc && btc.metrics) return parseFloat(btc.metrics.price.usd)
     return undefined
   },
-  userHasPublicAccess: function() {
+  userHasPublicAccess: function userHasPublicAccess() {
     return CF.User.hasPublicAccess(Meteor.user())
+  },
+  isInDevelopmentMode: function isInDevelopmentMode(){
+    return CF._mode;
   }
 };
 

@@ -1,0 +1,8 @@
+.card.markt {
+  height: 14em;
+}
+
+.card.markt h5{
+  margin-bottom: 1.2em;
+  text-transform: capitalize;
+}

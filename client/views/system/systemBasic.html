@@ -112,10 +112,12 @@
 
                 <p>
                   <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
+
                   <br> {{#if yesterdayVolumeBtc}}
-                            <span class="{{greenRedNumber btcVolumeChange }}">
-                              {{percentsToTextUpDown btcVolumeChange 2}}</span>
-                            {{else}}&nbsp; {{/if}}
+                                                  <span class="{{greenRedNumber btcVolumeChange }}">
+                                                    {{percentsToTextUpDown btcVolumeChange 2}}</span>
+                                                  {{else}}&nbsp; {{/if}}
+
                 </p>
             {{/cardMarkt}}{{/if}}
 
@@ -135,12 +137,12 @@
                   <br />
               </p>
               <p>
-              {{#if yesterdaySupplyMetric}}
 
-              {{metrics.supplyChange.day}}//
-              {{yesterdaySupplyMetric}}
-
-              {{/if}}
+                            {{#if yesterdaySupplyMetric}}
+                              {{metrics.supplyChange.day}}
+                                {{#if isInDevelopmentMode}}<br  />dfgdg
+                                  {{yesterdaySupplyMetric}}
+                            {{/if}}{{/if}}
               </p>
             {{/cardMarkt}}
             {{/if}}
