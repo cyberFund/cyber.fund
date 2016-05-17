@@ -137,12 +137,18 @@
                   <br />
               </p>
               <p>
+                {{#if isInDevelopmentMode}}
 
-                            {{#if yesterdaySupplyMetric}}
-                              {{metrics.supplyChange.day}}
-                                {{#if isInDevelopmentMode}}<br  />dfgdg
-                                  {{yesterdaySupplyMetric}}
-                            {{/if}}{{/if}}
+
+
+                  {{#if yesterdaySupplyMetric}}
+                    {{metrics.supplyChange.day}}
+                      <br  />
+                        {{yesterdaySupplyMetric}}
+
+
+                                
+                {{/if}}{{/if}}
               </p>
             {{/cardMarkt}}
             {{/if}}
