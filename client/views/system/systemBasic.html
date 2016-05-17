@@ -130,24 +130,17 @@
                 <span class="enlarge">{{readableN0 metrics.supply}}
                   {{displayCurrencyName this}}s</span>
                   {{#if metrics.supplyChangePercents.day}}
+                  <br />
                             <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">
                   {{percentsToTextUpDown metrics.supplyChangePercents.day 2}}</span>
                   {{/if}}
-
-                  <br />
               </p>
               <p>
                 {{#if isInDevelopmentMode}}
-
-
-
-                  {{#if yesterdaySupplyMetric}}
-                    {{metrics.supplyChange.day}}
-                      <br  />
-                        {{yesterdaySupplyMetric}}
-
-
-                                
+                    {{#if yesterdaySupplyMetric}}
+                      {{metrics.supplyChange.day}}
+                        <br  />
+                          {{yesterdaySupplyMetric}}
                 {{/if}}{{/if}}
               </p>
             {{/cardMarkt}}
