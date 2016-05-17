@@ -49,48 +49,36 @@
 
     {{#if not isProject}}
     <div id="market" class="row scrollspy center">
-
-      {{! PRICE CARD}}
       {{#if and metrics metrics.price}} {{#if or metrics.price.usd metrics.price.btc}}
-      <div class="col s6 m6 l3 center valign" style="padding:10px">
-        <div class="card markt">
-          <h5>Price</h5>
-          {{#if metrics.price.usd}}
 
-          <p>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
-              <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
-              <span itemprop="price" content="{{metrics.price.usd}}">
-                {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
-            </span>
-            <br> {{#if metrics.priceChangePercents.day.usd}}
+      {{#cardMarkt title=" Price "}}
+          {{#if metrics.price.usd}}<p>
+              <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
+                  <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                  <span itemprop="price" content="{{metrics.price.usd}}">
+                      {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
+              </span>
+              <br> {{#if metrics.priceChangePercents.day.usd}}
+              <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+                  {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>
+              {{else}}&nbsp; {{/if}}
+          </p>{{/if}}
 
-            <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
-              {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>
-            {{else}}&nbsp; {{/if}}
-          </p>
-          {{/if}}
-          {{#if metrics.price.btc}}
-          <p>
-            <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
-              <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
-                {{satoshi_decimals metrics.price.btc 8}}</span>
-            </span>
-            <br> {{#if metrics.priceChangePercents.day.btc}}
-            <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-              {{percentsToTextUpDown metrics.priceChangePercents.day.btc 2}}</span>
-            {{else}}&nbsp; {{/if}}
-          </p>
-          {{/if}}
-        </div>
-      </div>
-      {{/if}} {{/if}}
+          {{#if metrics.price.btc}}<p>
+              <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
+                  <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
+                      {{satoshi_decimals metrics.price.btc 8}}</span>
+              </span>
+              <br> {{#if metrics.priceChangePercents.day.btc}}
+              <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+                  {{percentsToTextUpDown metrics.priceChangePercents.day.btc 2}}</span>
+              {{else}}&nbsp; {{/if}}
+          </p>{{/if}}
+      {{/cardMarkt}} {{/if}} {{/if}}
 
-      {{! CAP CARD}}
+
       {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
-      <div class="col s6 m6 l3 center valign" style="padding:10px">
-        <div class="card markt">
-          <h5>Cap</h5>
+      {{#cardMarkt title=" Cap "}}
           {{#if metrics.cap.usd}}
           <p>
             <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
@@ -110,55 +98,57 @@
             {{else}}&nbsp; {{/if}}
           </p>
           {{/if}}
-        </div>
-      </div>
-      {{/if}} {{/if}}
+      {{/cardMarkt }} {{/if}} {{/if}}
 
-      {{! TRADE CARD}}
-      {{#if todayVolumeUsd}}
-      <div class="col s6 m6 l3 center valign" style="padding:10px">
-        <div class="card markt">
-          <h5>Trade</h5>
+            {{#if todayVolumeUsd}}
+            {{#cardMarkt title=" Trade "}}
+                <p>
+                  <span class="enlarge">$&nbsp;{{readableN0 todayVolumeUsd}}</span>
+                  <br> {{#if yesterdayVolumeUsd}}
+                              <span class="{{greenRedNumber usdVolumeChange }}">
+                                {{percentsToTextUpDown usdVolumeChange 2}}</span>
+                              {{else}}&nbsp; {{/if}}
+                </p>
 
-          <p>
-            <span class="enlarge">$&nbsp;{{readableN0 todayVolumeUsd}}</span>
-            <br> {{#if yesterdayVolumeUsd}}
-            <span class="{{greenRedNumber usdVolumeChange }}">
-              {{percentsToTextUpDown usdVolumeChange 2}}</span>
-            {{else}}&nbsp; {{/if}}
-          </p>
+                <p>
+                  <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
+                  <br> {{#if yesterdayVolumeBtc}}
+                            <span class="{{greenRedNumber btcVolumeChange }}">
+                              {{percentsToTextUpDown btcVolumeChange 2}}</span>
+                            {{else}}&nbsp; {{/if}}
+                </p>
+            {{/cardMarkt}}{{/if}}
 
-          <p>
-            <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
-            <br> {{#if yesterdayVolumeBtc}}
-            <span class="{{greenRedNumber btcVolumeChange }}">
-              {{percentsToTextUpDown btcVolumeChange 2}}</span>
-            {{else}}&nbsp; {{/if}}
-          </p>
-        </div>
-      </div>
-      {{/if}}
 
-      {{! SUPPLY CARD}}
-      {{#if and metrics metrics.supply}}
-      <div class="col s6 m6 l3 center valign" style="padding:10px">
-        <div class="card markt">
-          <h5>Supply</h5>
 
-          <p style="line-height: 80%;">&nbsp;</p>
+            {{#if and metrics metrics.supply}}
 
-          <p>
-            <span class="enlarge">{{readableN0 metrics.supply}}
-              <br> {{displayCurrencyName this}}s</span>
-            {{#if metrics.supplyChangePercents.day}}
-            <br>
-            <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">{{inflationToText metrics.supplyChangePercents.day}}</span>
-            {{/if}}</p>
+            {{#cardMarkt title=" Supply "}}
+              <p>
+                <span class="enlarge">{{readableN0 metrics.supply}}
+                  {{displayCurrencyName this}}s</span>
+                  {{#if metrics.supplyChangePercents.day}}
+                            <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">
+                  {{percentsToTextUpDown metrics.supplyChangePercents.day 2}}</span>
+                  {{/if}}
 
-          <p>&nbsp;</p>
-        </div>
-      </div>
-      {{/if}}
+                  <br />
+              </p>
+              <p>
+              {{#if yesterdaySupplyMetric}}
+
+              {{metrics.supplyChange.day}}//
+              {{yesterdaySupplyMetric}}
+
+              {{/if}}
+              </p>
+            {{/cardMarkt}}
+            {{/if}}
+
+
+
+
+
     </div>
 
     {{#if anyCards}}

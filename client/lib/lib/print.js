@@ -1,3 +1,4 @@
+
 var logger = {
   test: function() {
     if (!console || !console.log) throw "unknown system"

@@ -48,11 +48,16 @@ Template['systemBasic'].onRendered(function() {
 });
 
 Template['systemBasic'].helpers({
+  yesterdaySupplyMetric: function(){
+    var m = this.metrics;
+    return (m.supply - m.supplyChange.day) || 0;
+  },
   anyCards: function(){
     if (!this.metrics) return false;
-    return this.metrics.tradeVolume || this.metrics.supply ||
-    (this.metrics.price && (this.metrics.price.usd || this.metrics.price.btc || this.metrics.price.eth)) ||
-    (this.metrics.cap && (this.metrics.cap.usd || this.metrics.cap.btc || this.metrics.cap.eth ))
+    var m = this.metrics;
+    return m.tradeVolume || m.supply ||
+    (m.price && (m.price.usd || m.price.btc || m.price.eth)) ||
+    (m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ))
   },
   systemName: function() {
     return systemName()

@@ -11,6 +11,7 @@ Tracker.autorun(function () {
 
 FlowRouter.wait();
 Meteor.startup(function () {
+
   CF.SubsMan = new SubsManager();
   CF.subs = {}
   Meteor.subscribe("userDetails", {
@@ -18,7 +19,9 @@ Meteor.startup(function () {
       FlowRouter.initialize();
     }
   });
-  Meteor.subscribe("usersCount");
+  Meteor.subscribe("usersCount")
   Meteor.subscribe("coinsCount");
-  Meteor.subscribe("allSystems")
+  Meteor.subscribe("allSystems");
+  CF._mode = Meteor.call("getEnv")
+
 });
