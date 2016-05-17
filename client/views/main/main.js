@@ -8,23 +8,23 @@ Template['main'].helpers({
   cap: function(){ return _cap()},
   capBtc: function() {
     var cap = _cap();
-    return cap ? cap.btc : NaN
+    return cap ? cap.btc : undefined
   },
   capUsd: function() {
     var cap = _cap();
-    return cap ? cap.usd : NaN
+    return cap ? cap.usd : undefined
   },
   capUsdYesterday: function() {
     var cap = _cap();
-    return cap ? cap.usdDayAgo : NaN
+    return cap ? cap.usdDayAgo : undefined
   },
   capBtcDailyChange: function () {
     var cap = _cap();
-    return cap ? (cap.btc - cap.btcDayAgo)/cap.btc : NaN
+    return (cap && cap.btc) ? (cap.btc - cap.btcDayAgo)/cap.btc : undefined
   },
   capUsdDailyChange: function () {
     var cap = _cap();
-    return cap ? (cap.usd - cap.usdDayAgo)/cap.usd : NaN
+    return (cap && cap.usd) ? (cap.usd - cap.usdDayAgo)/cap.usd : undefined
   },
   sumBtc: function(){
     var ret = 0;

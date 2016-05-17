@@ -1,5 +1,5 @@
 <template name="mainPageSystemsWidget">
-    <h5 class="center"> Top 5 Rated Assets </h5>
+    <h5 class="center "> Top 5 Rated Assets </h5>
     <table class="" style="max-width: 30em; margin: 0 auto; ">
         <thead class="">
           <th data-field="name" class="">
@@ -17,7 +17,11 @@
               {{/ tooltip}} {{/ withTooltip}}
           </th>
           <th data-field="Lifetime" class="center">
-            Months
+            {{# withTooltip}} Months
+            {{#tooltip class="tooltip-table-head right0"}}
+              <h5 class="center">Lifetime</h5>
+              <p>This is time passed since time of sampling 'first price' metric.</p>
+            {{/ tooltip}} {{/ withTooltip}}
           </th>
           <th data-field="rating/score" class="center">
             {{# withTooltip}} Rating
