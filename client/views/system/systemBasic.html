@@ -38,6 +38,7 @@
     </div>
     {{/if}}
 
+
     <div id="main" class="section scrollspy row">
       {{#each main_links}}
       <div class="col m6 s6 l3 center">
@@ -55,6 +56,7 @@
         <div class="card markt">
           <h5>Price</h5>
           {{#if metrics.price.usd}}
+
           <p>
             <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
               <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
@@ -67,19 +69,19 @@
               {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>
             {{else}}&nbsp; {{/if}}
           </p>
-          {{/if}}{{#if metrics.price.btc}}
+          {{/if}}
+          {{#if metrics.price.btc}}
           <p>
             <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
-              <span itemprop="priceCurrency" content="BTC">
-                Ƀ&nbsp;</span>
-              <span itemprop="price" content="{{metrics.price.btc}}">
+              <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
                 {{satoshi_decimals metrics.price.btc 8}}</span>
             </span>
             <br> {{#if metrics.priceChangePercents.day.btc}}
             <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
               {{percentsToTextUpDown metrics.priceChangePercents.day.btc 2}}</span>
             {{else}}&nbsp; {{/if}}
-          </p>{{/if}}
+          </p>
+          {{/if}}
         </div>
       </div>
       {{/if}} {{/if}}

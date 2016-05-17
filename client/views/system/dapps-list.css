@@ -17,3 +17,7 @@ ul.dapps-list > li {
 .card.markt {
   height: 14em;
 }
+
+.card.markt h5{
+  margin-bottom: 3.4em;
+}
