@@ -69,3 +69,4 @@ aldeed:template-extension
 meteorhacks:subs-manager
 meteorhacks:picker
 ecmascript
+gadicc:babel-compiler-babelrc

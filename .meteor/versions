@@ -41,6 +41,7 @@ email@1.0.12
 fastclick@1.0.11
 fortawesome:fontawesome@4.5.0
 fourseven:scss@3.4.3
+gadicc:babel-compiler-babelrc@6.6.4_2
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.24
 geojson-utils@1.0.8
@@ -106,6 +107,7 @@ standard-minifier-css@1.0.6
 standard-minifier-js@1.0.6
 templating@1.1.9
 templating-tools@1.0.4
+tmeasday:check-npm-versions@0.3.1
 tmeasday:publish-counts@0.7.3
 tracker@1.0.13
 twitter@1.1.9
