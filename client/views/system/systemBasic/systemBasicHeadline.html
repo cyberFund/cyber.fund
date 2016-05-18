@@ -1,0 +1,9 @@
+<template name="systemBasicHeadline">
+  <div id="headline" class="row scrollspy center">
+    {{#if and descriptions descriptions.headline}}
+    <p>
+      <span itemprop="description">{{descriptions.headline}}</span>
+    </p>
+    {{/if}}
+  </div>
+</template>

@@ -1,0 +1,33 @@
+
+<template name="systemBasicAbout">
+  <div id="about" class="row scrollspy">
+    <div class="col s4 m4 l4 center valign-wrapper">
+      <div style="height: 8em; width: 100%;">
+        {{> cgSystemLogo system=this class='logo-sys' itemprop='logo'}}
+      </div>
+    </div>
+    <div class="col s5 m4 l4 center valign-wrapper">
+      <div style="display: inline-block; margin: auto" class="valign">
+        <div class="header-sys center" itemprop="name">{{displaySystemName this}}</div>
+        <div class="symbol-sys center" itemprop="alternateName">{{symbol}}</div>
+      </div>
+    </div>
+    <div class="col s3 hide-on-med-and-up">&nbsp;</div>
+    <div class="col s12 m4 l4 center">
+      <div style="display: inline-block; margin: auto" class="valign-wrapper">
+        <div class="valign">
+          <div itemprop="aggregateRating" content="{{ratings.rating_cyber}}" class="rating-sys" style="margin-top: 1.5rem">
+            {{>cfRating rating=calculatable.RATING.sum}}
+          </div>
+          <div class="center">
+            <span style="font-size:12px">
+              {{descriptions.state}} {{descriptions.system_type}}
+              <br> {{consensus.type}} {{consensus.algorithm}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</template>
