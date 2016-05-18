@@ -40,6 +40,7 @@ CF.Utils.formatters = {
   percents1: d3.format(".1%"),
   percents2: d3.format(".2%"),
   percents3: d3.format(".3%"),
+  withSign: d3.format("+,")
 }
 
 CF.Utils.monetaryFormatter = function(input) {

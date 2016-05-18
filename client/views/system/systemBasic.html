@@ -38,7 +38,6 @@
     </div>
     {{/if}}
 
-
     <div id="main" class="section scrollspy row">
       {{#each main_links}}
       <div class="col m6 s6 l3 center">
@@ -114,10 +113,9 @@
                   <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
 
                   <br> {{#if yesterdayVolumeBtc}}
-                                                  <span class="{{greenRedNumber btcVolumeChange }}">
-                                                    {{percentsToTextUpDown btcVolumeChange 2}}</span>
-                                                  {{else}}&nbsp; {{/if}}
-
+                          <span class="{{greenRedNumber btcVolumeChange }}">
+                            {{percentsToTextUpDown btcVolumeChange 2}}</span>
+                          {{else}}&nbsp; {{/if}}
                 </p>
             {{/cardMarkt}}{{/if}}
 
@@ -136,12 +134,9 @@
                   {{/if}}
               </p>
               <p>
-                {{#if isInDevelopmentMode}}
-                    {{#if yesterdaySupplyMetric}}
-                      {{metrics.supplyChange.day}}
-                        <br  />
-                          {{yesterdaySupplyMetric}}
-                {{/if}}{{/if}}
+                {{#if metrics.supplyChange}}
+                      {{withSign metrics.supplyChange.day}} {{displayCurrencyName this}}s
+                {{/if}}
               </p>
             {{/cardMarkt}}
             {{/if}}
@@ -275,13 +270,11 @@
     </div>
   </div>
 
-
   <div class="row">
     <div class="col s12 m6 offset-m3 l4 offset-l4">
       {{> keenIo id="meow"}}
     </div>
   </div>
-
 
   <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
     <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}" system-name="{{_id}}">
