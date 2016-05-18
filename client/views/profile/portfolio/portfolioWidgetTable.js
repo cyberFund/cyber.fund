@@ -1,13 +1,13 @@
 var cfCDs = CF.CurrentData .selectors;
-var ns = CF.UserAssets
+var ns = CF.UserAssets;
 
-var tableData = CF.Accounts.portfolioTableData
+var tableData = CF.Accounts.portfolioTableData;
 
 Meteor.startup(function(){
-  CF.Utils._session.default('folioWidgetSort', {"f|byValue": -1});
+  CF.Utils._session.default("folioWidgetSort", {"f|byValue": -1});
 });
 
-Template['portfolioWidgetTable'].helpers({
+Template["portfolioWidgetTable"].helpers({
   values: function (obj) {
     return _.values(obj || {});
   },
@@ -23,7 +23,7 @@ Template['portfolioWidgetTable'].helpers({
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
       if (stars && stars.length) {
-        systems = _.uniq(_.union(systems, stars))
+        systems = _.uniq(_.union(systems, stars));
       }
     }
 
@@ -53,12 +53,12 @@ Template['portfolioWidgetTable'].helpers({
     // for sorter values, see template file. 'f|' is for sorting by system field
     // like "by daily price change", no prefix is for using some sort function
     // from above
-    var sorter = CF.Utils._session.get('folioWidgetSort'),
+    var sorter = CF.Utils._session.get("folioWidgetSort"),
       _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
-      _split = (_sorter || '').split('|');
+      _split = (_sorter || "").split("|");
 
     if (_sorter && _split) {
-      if (_split.length == 2 && _split[0] == 'f') {
+      if (_split.length == 2 && _split[0] == "f") {
         var r = CurrentData.find(cfCDs.system(systems))
           .fetch()
           .sort(sort[_split[1]]);
@@ -68,7 +68,7 @@ Template['portfolioWidgetTable'].helpers({
         if (val == 1) r = r.reverse();
         return r;
       }
-      return CurrentData.find(cfCDs.system(systems), {sort: sorter})
+      return CurrentData.find(cfCDs.system(systems), {sort: sorter});
     }
 
     return CurrentData.find(cfCDs.system(systems))
@@ -105,7 +105,7 @@ Template['portfolioWidgetTable'].helpers({
         accounts, system._id) * system.metrics.price.usd);
   },
   name_of_system: function () {
-    return this._id
+    return this._id;
   },
   equity: function () {
     var system = this;
@@ -117,7 +117,7 @@ Template['portfolioWidgetTable'].helpers({
       q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
-      q = 10000 * q / system.metrics.supply
+      q = 10000 * q / system.metrics.supply;
     }
     else {
       q = 0.0;
@@ -131,10 +131,10 @@ Template['portfolioWidgetTable'].helpers({
       var vBtc = r[system._id].vBtc;
 
       var sum = _.reduce(_.map(r, function(it){
-        return it.vBtc
+        return it.vBtc;
       }), function(memo, num){ return memo + num; }, 0);
 
-        return vBtc / sum;
+      return vBtc / sum;
     }
     return 0;
   },
@@ -184,9 +184,9 @@ Template['portfolioWidgetTable'].helpers({
   }
 });
 
-Template['portfolioWidgetTable'].events({
-  'click th.sorter': function (e, t) {
-    var newSorter = $(e.currentTarget).data('sorter');
+Template["portfolioWidgetTable"].events({
+  "click th.sorter": function (e, t) {
+    var newSorter = $(e.currentTarget).data("sorter");
     var sort = CF.Utils._session.get("folioWidgetSort");
     // same sorting criteria - reverse order
     if (sort[newSorter]) {
@@ -198,6 +198,6 @@ Template['portfolioWidgetTable'].events({
     analytics.track("Sorted Portfolio", {
       sort: sort
     });
-    CF.Utils._session.set('folioWidgetSort', sort);
+    CF.Utils._session.set("folioWidgetSort", sort);
   }
 });

@@ -18,10 +18,10 @@ var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
 
 Template["ratingTable"].onCreated(function() {
-  var sort = (FlowRouter.getParam("sort"));
-   if (sort) {
-     CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
-   }
+  var sort = (FlowRouter.getParam("sort") || "whales");
+  if (sort) {
+    CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
+  }
 
   Session.set("ratingPageLimit", initialLimit);
   var instance = this;
@@ -90,9 +90,6 @@ Template["ratingTable"].rendered = function() {
 Template["ratingTable"].helpers({
   rows: function() {
     var sort = CF.Utils._session.get("coinSorter");
-    if (sort["ratings.rating_cyber"]) {
-      sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
-    }
     return CurrentData.find(tableSelector(), {
       sort: sort
     }).fetch();

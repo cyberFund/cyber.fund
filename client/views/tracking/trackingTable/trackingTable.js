@@ -1,13 +1,13 @@
 var initialLimit = CF.Rating.limit0;
 
-Template['trackingWidget'].onCreated(function () {
+Template["trackingWidget"].onCreated(function () {
   var instance = this;
   instance.subscribe("maxLove");
   instance.ready = new ReactiveVar();
   instance.autorun(function () {
-    var selector = {'flags.rating_do_not_display': {$ne: true}};
-    if (_.keys(CF.Utils._session.get('coinSorter')).length )
-      selector[ _.keys(CF.Utils._session.get('coinSorter'))[0] ] = {$exists: true}
+    var selector = {"flags.rating_do_not_display": {$ne: true}};
+    if (_.keys(CF.Utils._session.get("coinSorter")).length )
+      selector[ _.keys(CF.Utils._session.get("coinSorter"))[0] ] = {$exists: true};
     var handle = CF.SubsMan.subscribe("currentDataRP", {
       /*limit: 150,//Session.get('ratingPageLimit'),
       sort: CF.Utils._session.get('coinSorter'),*/
@@ -18,8 +18,8 @@ Template['trackingWidget'].onCreated(function () {
 
 });
 
-Template['trackingWidget'].onRendered ( function () {
-  Session.set('ratingPageLimit', 30);
+Template["trackingWidget"].onRendered ( function () {
+  Session.set("ratingPageLimit", 30);
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -39,14 +39,14 @@ Template['trackingWidget'].onRendered ( function () {
     if (scrolltop > 55 && scrolltop < ($("#tracking-table").height() - $w.height() )) {
       if (!$thead.hasClass("show")) {
         //$thead.css("height", $thead0.height()+"px");
-        recalcWidths()
+        recalcWidths();
         $thead.addClass("show");
       }
     } else {
       $thead.removeClass("show");
-      $thead.css("width", '');
+      $thead.css("width", "");
       $thead.find("th").each(function () {
-        $(this).css("width", '');
+        $(this).css("width", "");
       });
     }
   }, 200);
@@ -56,10 +56,10 @@ Template['trackingWidget'].onRendered ( function () {
   $(window).trigger("resize");
 });
 
-Template['trackingWidget'].helpers({
+Template["trackingWidget"].helpers({
   _wl_cs: function(){
     var c = this.metrics && this.metrics.cap && this.metrics.cap.usd || 0;
-    var k = 1000, M = 1000000
+    var k = 1000, M = 1000000;
     if (c < 10*k) return 0;
     if (c < 100*k) return 0.1;
     if (c < 1*M) return 0.2;
@@ -70,7 +70,7 @@ Template['trackingWidget'].helpers({
   _lv: function(){
     if (!this._usersStarred || !this._usersStarred.length) return 0;
 
-    var maxLove = Extras.findOne({_id: 'maxLove'});
+    var maxLove = Extras.findOne({_id: "maxLove"});
     if (maxLove) {
       maxLove = maxLove.value;
     }
@@ -88,14 +88,11 @@ Template['trackingWidget'].helpers({
   },
   rows: function () {
     var sort = CF.Utils._session.get("coinSorter");
-      if (sort["ratings.rating_cyber"]) {
-          sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
-      }
     return CurrentData.find({}, {sort: sort}).fetch();
   },
   symbol: function () {
     if (this.token && this.token.symbol) {
-      return this.token.symbol
+      return this.token.symbol;
     }
     return "";
   },
@@ -119,12 +116,12 @@ Template['trackingWidget'].helpers({
     return Counts.get("coinsCount") > Session.get('ratingPageLimit');
   }*/,
   subReady: function(){
-     return Template.instance().ready.get();
-  },
+    return Template.instance().ready.get();
+  }
 });
 
-Template['trackingWidget'].events({
-  'click .show-more': function (e, t) {
+Template["trackingWidget"].events({
+  "click .show-more": function (e, t) {
     var step = CF.Rating.step;
     var limit = Session.get("ratingPageLimit");
     limit += step;
@@ -132,10 +129,10 @@ Template['trackingWidget'].events({
       {
         counter: (limit - initialLimit) / step
       });
-    limit = Math.min(limit, Counts.get("coinsCount"))
+    limit = Math.min(limit, Counts.get("coinsCount"));
     Session.set("ratingPageLimit", limit);
   },
-  'click .no-click a': function () {
+  "click .no-click a": function () {
     return false;
   }
 });

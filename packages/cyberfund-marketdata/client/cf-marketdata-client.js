@@ -1,23 +1,4 @@
 CF.MarketData = CF.MarketData || {};
-CF.MarketData.graphTime = {
-  key: "CF.MarketData.graphTime",
-  set: function(value) {
-    if (!CF.Utils._session) throw("no CF.Utils._session");
-    CF.Utils._session.set(this.key, value)
-  },
-  get: function() {
-    if (!CF.Utils._session) throw("no CF.Utils._session");
-    return CF.Utils._session.get(this.key);
-  },
-  default: function(value){
-    if (!CF.Utils._session) throw("no CF.Utils._session");
-    CF.Utils._session.default(this.key, value);
-  }
-}
-
-Meteor.startup(function(){
-  CF.MarketData.graphTime.default("month");
-});
 
 var helpers = {
   dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
@@ -52,8 +33,8 @@ var helpers = {
     }
   },
   percentsToTextUpDown: function (percents, precision) {
-    if (!precision) precision = 2
-    if (precision == 100) precision = 0
+    if (!precision) precision = 2;
+    if (precision == 100) precision = 0;
 
     if (percents < 0) {
       return "↓ " + (-percents.toFixed(precision)) + "%";
@@ -80,7 +61,7 @@ var helpers = {
     return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
   }
 
-}
+};
 
 _.each(helpers, function(helper, key) {
   Template.registerHelper(key, helper);
