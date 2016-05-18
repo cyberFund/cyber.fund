@@ -1,0 +1,15 @@
+2016-05-18T16:04:19.825032556 0.020366s notice: Recursively removing directory /home/xhipster/Github/cyber.fund/rethinkdb_data/tmp
+2016-05-18T16:04:19.837786965 0.033119s notice: Initializing directory /home/xhipster/Github/cyber.fund/rethinkdb_data
+2016-05-18T16:04:19.838007198 0.033340s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/home/xhipster/Github/cyber.fund/rethinkdb_data' did not already exist or is empty.)
+2016-05-18T16:04:19.838339550 0.033672s notice: Running rethinkdb 2.3.2~0xenial (GCC 5.3.1)...
+2016-05-18T16:04:19.843902299 0.039239s notice: Running on Linux 4.4.0-22-generic x86_64
+2016-05-18T16:04:19.844032978 0.039365s notice: Loading data from directory /home/xhipster/Github/cyber.fund/rethinkdb_data
+2016-05-18T16:04:19.927421725 0.122754s info: Automatically using cache size of 10306 MB
+2016-05-18T16:04:19.928964109 0.124296s notice: Listening for intracluster connections on port 29015
+2016-05-18T16:04:19.931919116 0.127251s notice: Listening for client driver connections on port 28015
+2016-05-18T16:04:19.932108586 0.127440s notice: Listening for administrative HTTP connections on port 8080
+2016-05-18T16:04:19.932109946 0.127442s notice: Listening on cluster addresses: 127.0.0.1, 127.0.1.1, ::1
+2016-05-18T16:04:19.932112694 0.127444s notice: Listening on driver addresses: 127.0.0.1, 127.0.1.1, ::1
+2016-05-18T16:04:19.932117421 0.127449s notice: Listening on http addresses: 127.0.0.1, 127.0.1.1, ::1
+2016-05-18T16:04:19.932122319 0.127454s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2016-05-18T16:04:19.932127437 0.127459s notice: Server ready, "discovery_ugt" cffbb475-6266-4d63-ac48-a16a05c9eb83

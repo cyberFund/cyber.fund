@@ -20,11 +20,11 @@ Template['main'].helpers({
   },
   capBtcDailyChange: function () {
     var cap = _cap();
-    return (cap && cap.btc) ? (cap.btc - cap.btcDayAgo)/cap.btc : undefined
+    return (cap && cap.btc) ? (cap.btc - cap.btcDayAgo)/cap.btc * 100 : undefined
   },
   capUsdDailyChange: function () {
     var cap = _cap();
-    return (cap && cap.usd) ? (cap.usd - cap.usdDayAgo)/cap.usd : undefined
+    return (cap && cap.usd) ? (cap.usd - cap.usdDayAgo)/cap.usd * 100 : undefined
   },
   sumBtc: function(){
     var ret = 0;
