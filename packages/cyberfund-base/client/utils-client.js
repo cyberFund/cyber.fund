@@ -121,12 +121,3 @@ CF.Utils.jqShow = function(jQ) {
   }
   console.log("condition failure");
 }
-
-CF.Profile.currentUsername = function(){
-  return FlowRouter.getParam("username");
-};
-
-CF.Profile.currentUid = function() {
-  var u = CF.User.findOneByUsername(CF.Profile.currentUsername());
-  return u ? u._id : null;
-};
