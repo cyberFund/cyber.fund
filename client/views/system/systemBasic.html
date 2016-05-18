@@ -246,7 +246,6 @@
     <div id="science" class="section scrollspy row">
       {{#if existLinksWith links 'Science'}}
       <h3 class="center">Scientific Roots</h3>
-
       {{#each linksWithTag links "Science"}}
       <div class="row">
         {{> cgLink this}}
@@ -257,18 +256,15 @@
     <div id="description" class="row scrollspy center">
       <p>{{description}}</p>
     </div>
-
     {{> systemSpecs this}}
 
     <div id="improve" class="row scrollspy center">
       <h3 class="center">Fans Edge</h3>
-
       <p>You can
         <a target="_blank" href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
                         improve {{_id}}'s page
                     </a> on Github.
       </p>
-
       We consider
       <a target="_blank" href="http://cybertalks.org/t/do-cyber-fund-better-together/322">
                     any proposals
@@ -276,14 +272,17 @@
       <span itemprop="brand">{{system}}</span>
       more transparent and understandable
       <br>for investors, developers and usual people.
-
     </div>
-
-    <div class="col l1 m1 hide-on-small-and-down">
-
-    </div>
-
   </div>
+
+
+  <div class="row">
+    <div class="col s12 m6 offset-m3 l4 offset-l4">
+      {{> keenIo id="meow"}}
+    </div>
+  </div>
+
+
   <div class="fixed-action-btn" style="bottom: 24px; right: 24px;">
     <a class="btn-floating btn-large btn-star-system {{systemIsStarredColor}}" system-name="{{_id}}">
       <i class="material-icons" style="font-size: 3.8rem">stars</i>
@@ -291,47 +290,4 @@
   </div>
   {{/with}}
   {{/if}}
-</template>
-
-<template name="systemBasicAbout">
-  <div id="about" class="row scrollspy">
-    <div class="col s4 m4 l4 center valign-wrapper">
-      <div style="height: 8em; width: 100%;">
-        {{> cgSystemLogo system=this class='logo-sys' itemprop='logo'}}
-      </div>
-    </div>
-    <div class="col s5 m4 l4 center valign-wrapper">
-      <div style="display: inline-block; margin: auto" class="valign">
-        <div class="header-sys center" itemprop="name">{{displaySystemName this}}</div>
-        <div class="symbol-sys center" itemprop="alternateName">{{symbol}}</div>
-      </div>
-    </div>
-    <div class="col s3 hide-on-med-and-up">&nbsp;</div>
-    <div class="col s12 m4 l4 center">
-      <div style="display: inline-block; margin: auto" class="valign-wrapper">
-        <div class="valign">
-          <div itemprop="aggregateRating" content="{{ratings.rating_cyber}}" class="rating-sys" style="margin-top: 1.5rem">
-            {{>cfRating rating=calculatable.RATING.sum}}
-          </div>
-          <div class="center">
-            <span style="font-size:12px">
-              {{descriptions.state}} {{descriptions.system_type}}
-              <br> {{consensus.type}} {{consensus.algorithm}}
-            </span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</template>
-
-<template name="systemBasicHeadline">
-  <div id="headline" class="row scrollspy center">
-    {{#if and descriptions descriptions.headline}}
-    <p>
-      <span itemprop="description">{{descriptions.headline}}</span>
-    </p>
-    {{/if}}
-  </div>
 </template>
