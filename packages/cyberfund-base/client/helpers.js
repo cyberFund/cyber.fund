@@ -128,6 +128,7 @@ var helpers = {
   roundedN4: escapeNaN(CF.Utils.formatters.roundedN4),
   meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
   meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
+  withSign: escapeNaN(CF.Utils.formatters.withSign),
   isNumber: function (value) {
     return _.isNumber(value)
   },

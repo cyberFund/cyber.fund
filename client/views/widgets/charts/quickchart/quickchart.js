@@ -1,4 +1,4 @@
-var _chartdata = function(systemId) {
+_chartdata = function(systemId) {
   if (!systemId) return null;
 
   return MarketData.find({
@@ -55,15 +55,12 @@ Template['quickchart'].onCreated(function(){
   })
 })
 
-Template['quickchart'].onRendered(function() {
+function _system(){
+  return Template.currentData().system;
+}
 
+Template['quickchart'].onRendered(function() {
   var instance = this;
-  function _system(){
-    return Template.currentData().system;
-    var r = instance.$(".quickchart").attr('id').split('-')[1];
-    if (r) return Blaze._globalHelpers._toSpaces(r);
-    return instance.data && instance.data.system || ""
-  }
   console.log('got system ' + _system())
   function myGraph(el, system) {
     el.selectAll("*").remove()
@@ -199,8 +196,7 @@ Template['quickchart'].onRendered(function() {
   }
 
   instance.autorun(function(c) {
-    console.log(Template.instance().data.system)
-    var system = Template.instance().data && Template.instance().data.system;
+    var system = _system();
     if (CF.subs.MarketData.ready()) {
       if (_chartdata(system).count() ) {
         instance._ready.set(true);
