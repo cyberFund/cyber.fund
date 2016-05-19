@@ -1,6 +1,7 @@
 private/
 node_modules
 dist
+.eslintrc.js
 .tmp
 .sass-cache
 public/components

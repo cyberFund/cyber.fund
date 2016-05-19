@@ -21,8 +21,8 @@ function _searchSelector(bucketKey) {
   if (bucketKey.slice(-3) == "...") {
     bucketKey = bucketKey.slice(0, -3);
     bucketKey = {
-      $regex: new RegExp('^' + CF.Utils.escapeRegExp(bucketKey)),
-      $options: 'i'
+      $regex: new RegExp("^" + CF.Utils.escapeRegExp(bucketKey)),
+      $options: "i"
     };
   } else {}
   selector = {
@@ -80,7 +80,7 @@ JSON.unflatten = function(data) {
   return resultholder[""] || resultholder;
 };
 
-var print = CF.Utils.logger.print
+var print = CF.Utils.logger.print;
 
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
@@ -103,13 +103,13 @@ var esParsers = {
 
     function getSameBucket(dayBuckets, key){
       // search by key in results of another timerange
-      return _.find(dayBuckets, function(dB){ return dB.key === key})
+      return _.find(dayBuckets, function(dB){ return dB.key === key;});
     }
 
     var todayBuckets = getBuckets (today);
     var yesterdayBuckets = getBuckets (yesterday);
 
-    console.log ("total of " + todayBuckets.length + " buckets")
+    console.log ("total of " + todayBuckets.length + " buckets");
     var notFounds = [];
 
     handleBucket = function handleBucket(bucket) {
@@ -136,11 +136,11 @@ var esParsers = {
       });
 
       // what we use as a data source. is set in chaingear, per-coin/per-asset
-      var supplyDataSource = (curDoc && curDoc.token && curDoc.token.supply_from) || 'cmc';
+      var supplyDataSource = (curDoc && curDoc.token && curDoc.flags && curDoc.flags.supply_from) || "cmc";
 
       // overriding supply data source.
       if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
-        supplyDataSource = 'chg';
+        supplyDataSource = "chg";
       }
 
       // 1.
@@ -173,7 +173,6 @@ var esParsers = {
         sNow.price_btc = curDoc.metrics && curDoc.metrics.price && curDoc.metrics.price.btc;
       }
 
-
       // if price - store it, calculate diffs
       if (sNow.price_usd) {
         set["metrics.price.usd"] = sNow.price_usd;
@@ -182,9 +181,10 @@ var esParsers = {
             (sNow.price_usd - sDayAgo.price_usd) / sNow.price_usd;
           set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
         }
+
         // calculate cap from supply and store it;
         if (sNow.supply_current) {
-          sNow.cap_btc = sNow.supply_current * sNow.price_btc
+          sNow.cap_btc = sNow.supply_current * sNow.price_btc;
         }
       }
 
@@ -196,9 +196,10 @@ var esParsers = {
             (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
           set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
         }
+
         // calculate cap from supply and store it;
         if (sNow.supply_current) {
-          sNow.cap_usd = sNow.supply_current * sNow.price_usd
+          sNow.cap_usd = sNow.supply_current * sNow.price_usd;
         }
       }
 
@@ -207,7 +208,6 @@ var esParsers = {
       // 3.
       // now that we tried to fix prices, let s check again if we can fix supply from cap & prices
       // not sure if needed..
-
       if (!sNow.supply_current) {
         capBtc = sNow.cap_btc ||
           (curDoc && curDoc.metrics && curDoc.metrics.cap && curDoc.metrics.cap.btc);
@@ -216,7 +216,6 @@ var esParsers = {
           sNow.supply_current = capBtc / sNow.price_btc;
         }
       }
-
 
       // if supply value is here
       if (sDayAgo && sDayAgo.supply_current) {
@@ -247,7 +246,7 @@ var esParsers = {
 
         set["metrics.supply"] = sNow.supply_current;
         if (sDayAgo && sDayAgo.supply_current) {
-          var supplyDayAgo = sDayAgo.supply_current // || sNow.supply_current;
+          var supplyDayAgo = sDayAgo.supply_current; // || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
             (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
 
@@ -257,10 +256,10 @@ var esParsers = {
 
 
       if (sNow.cap_usd) {
-        set['metrics.cap.usd'] = sNow.cap_usd;
+        set["metrics.cap.usd"] = sNow.cap_usd;
       }
       if (sNow.cap_btc) {
-        set['metrics.cap.btc'] = sNow.cap_btc;
+        set["metrics.cap.btc"] = sNow.cap_btc;
       }
 
       if (sNow.volume24_btc) {
@@ -300,19 +299,19 @@ var esParsers = {
         set.updatedAt = new Date();
         //
         if (curDoc && curDoc.flags && curDoc.flags.supply_from_here) {
-         set['metrics.supply'] = curDoc.specs.supply;
-         set['metrics.cap.btc'] = curDoc.specs.supply * set['metrics.price.btc'];
-         set['metrics.cap.usd'] = curDoc.specs.supply * set['metrics.price.usd'];
-         }
+          set["metrics.supply"] = curDoc.specs.supply;
+          set["metrics.cap.btc"] = curDoc.specs.supply * set["metrics.price.btc"];
+          set["metrics.cap.usd"] = curDoc.specs.supply * set["metrics.price.usd"];
+        }
 
       /*   print("selector", _searchSelector(bucket.key));
          print("set", set); */
         var fastMetric = _.pick(sNow, [
-         "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"
+          "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"
         ]);
         fastMetric.timestamp = timestamp;
 
-        set['lastData'] = fastMetric;
+        set["lastData"] = fastMetric;
 
         CurrentData.update(_searchSelector(bucket.key), {
           $set: set
@@ -320,7 +319,7 @@ var esParsers = {
 
         fastMetric.systemId = curDoc._id;
         fastMetric.stamp = stamp;
-        FastData.insert(fastMetric)
+        FastData.insert(fastMetric);
         //var marketData = _.omit(fastMetric, ['stamp'])
         //marketData.source = "2015"
         //marketData.interval = "hourly"
@@ -330,7 +329,7 @@ var esParsers = {
 
       }
 
-    }
+    };
 
     handleArrayWithInterval(todayBuckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){
       if (notFounds.length) {
@@ -358,15 +357,15 @@ var esParsers = {
             $set: set
           });
         } catch (e) {
-          console.log('could not update currentData: ');
+          console.log("could not update currentData: ");
           console.log(e);
           console.log(_searchSelector(bucket.key));
-          console.log(set)
+          console.log(set);
         }
       } else {
         // logger.info("no averages for " + bucket.key);
       }
-    }
+    };
     handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
   },
 
@@ -390,7 +389,7 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
-    console.log("length of buckets (averages_date_hist): ", buckets.length)
+    console.log("length of buckets (averages_date_hist): ", buckets.length);
     handleBucket = function handleBucket(sysBucket) {
       var systemKey = sysBucket.key;
       var id = CurrentData.findOne(_searchSelector(systemKey));
@@ -422,7 +421,7 @@ var esParsers = {
       _.each(sysBucket.over_time.buckets, function(timeBucket) {
 
         if (!timeBucket.key) return;
-        if (typeof timeBucket.key === "string") timeBucket.key = parseInt(timeBucket.key)
+        if (typeof timeBucket.key === "string") timeBucket.key = parseInt(timeBucket.key);
         if (isNaN (timeBucket.key) || timeBucket.key < epoch) return;
 
         var timestamp = new Date(timeBucket.key);
@@ -431,7 +430,7 @@ var esParsers = {
         //var key;
         var doc = grab(timeBucket);
         if (!_.isEmpty(doc)) {
-          var interval =  daily ? 'daily' : hourly ? 'hourly' : 'unknown';
+          var interval =  daily ? "daily" : hourly ? "hourly" : "unknown";
           _.extend(doc, {
             interval: interval,
             timestamp: timestamp,
@@ -441,7 +440,7 @@ var esParsers = {
           try { // for some reason, there s unique index over. indexing of market data is a separate task
             MarketData.insert(doc);
           } catch (e) {
-            console.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"))
+            console.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"));
           }
         }
       });
@@ -454,19 +453,19 @@ Meteor.startup(function(){
   /*Meteor.setTimeout(function(){
     fetchLatest ({systems: gatherSymSys({}) })
   }, 5000);*/
-})
+});
 
 function fetchLatest(params) {
   try {
     var p1 = {"from": "now-15m", "to": "now"};
-    _.extend(p1, params)
+    _.extend(p1, params);
 
     var d = moment();
     var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p1));
     var n = moment();
     console.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    var p2 = {"from": "now-1d-15m", "to": "now-1d"}
+    var p2 = {"from": "now-1d-15m", "to": "now-1d"};
     _.extend(p2, params);
 
     d = moment();
@@ -474,7 +473,7 @@ function fetchLatest(params) {
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    esParsers.latest_values(today, yesterday)
+    esParsers.latest_values(today, yesterday);
 
   } catch (e) {
     logger.warn("could not fetch latest values");
@@ -493,7 +492,7 @@ function fetchAverage15m(params) {
   } catch (e) {
     logger.warn("could not fetch latest_!5m_averages");
     logger.warn(e);
-    throw (e)
+    throw (e);
   }
 }
 
@@ -506,9 +505,9 @@ function fetchAverages(params) {
 }
 
 var hourlyAves = {
-  name: 'fetch last hour averages',
+  name: "fetch last hour averages",
   schedule: function(parser) {
-    return parser.cron('4 * * * *', false);
+    return parser.cron("4 * * * *", false);
   },
   job: function() {
     var params = {
@@ -518,19 +517,19 @@ var hourlyAves = {
     };
     _.extend(params, {
       systems: gatherSymSys({})
-    })
-    console.log ("average hour")
+    });
+    console.log ("average hour");
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
-}
+};
 
-SyncedCron.add(hourlyAves)
+SyncedCron.add(hourlyAves);
 
 SyncedCron.add({
-  name: 'fetch last day averages',
+  name: "fetch last day averages",
   schedule: function(parser) {
-    return parser.cron('6 0 * * *', false);
+    return parser.cron("6 0 * * *", false);
   },
   job: function() {
     var params = {
@@ -577,7 +576,7 @@ Meteor.startup(function(){
   result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);
 
-})
+});
 
 Meteor.methods({
   "initAverageValues": function(curDataId) {
@@ -643,38 +642,38 @@ Meteor.methods({
 
 
 SyncedCron.add({
-  name: 'fetch latest elasticsearch data',
+  name: "fetch latest elasticsearch data",
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('3/5 * * * *', false);
+    return parser.cron("3/5 * * * *", false);
   },
   job: function() {
     try {
-      var s = gatherSymSys({})
+      var s = gatherSymSys({});
       fetchAverage15m({
         systems: s
       });
     } catch (e) {
-      console.log('could not fetch elastic data (15m averages)')
+      console.log("could not fetch elastic data (15m averages)");
     }
   }
 });
 
 
 SyncedCron.add({
-  name: 'fetch avegares 15m elasticsearch data',
+  name: "fetch avegares 15m elasticsearch data",
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('20 0/5 * * * *', true);
+    return parser.cron("20 0/5 * * * *", true);
   },
   job: function() {
     try {
-      var s = gatherSymSys({})
+      var s = gatherSymSys({});
       fetchLatest({
         systems: s
       });
     } catch (e) {
-      console.log('could not fetch elastic data (latest)')
+      console.log("could not fetch elastic data (latest)");
     }
   }
 });
@@ -691,21 +690,21 @@ var saveTotalCap = function() {
   btcMetrics = btcMetrics && btcMetrics.metrics;
   if (!btcMetrics) return;
 
-  var btcPrice = btcMetrics.price && btcMetrics.price.usd
+  var btcPrice = btcMetrics.price && btcMetrics.price.usd;
   var btcPriceDayAgo = btcPrice - (btcMetrics.priceChange && btcMetrics.priceChange.day &&
-    btcMetrics.priceChange.day.usd || 0)
+    btcMetrics.priceChange.day.usd || 0);
 
   var calcTotalCap = function() {
     function isAutonomous(item) {
-      return !item.dependencies || item.dependencies == 'independent' || item.dependencies.indexOf('independent') >= 0
+      return !item.dependencies || item.dependencies == "independent" || item.dependencies.indexOf("independent") >= 0;
     }
     var cap = 0;
     var capDayAgo = 0;
     var autonomous = 0;
     var dependent = 0;
     CurrentData.find({}, {
-      'metrics.cap': 1,
-      'dependencies': 1
+      "metrics.cap": 1,
+      "dependencies": 1
     }).forEach(function(sys) {
       if (sys.metrics && sys.metrics.cap && sys.metrics.cap.btc) {
         cap += sys.metrics.cap.btc;
@@ -726,14 +725,14 @@ var saveTotalCap = function() {
       btcDayAgo: capDayAgo,
       autonomous: autonomous,
       dependent: dependent
-    }
+    };
   };
 
   var cap = calcTotalCap();
   //console.log(cap);
   if (cap) {
     Extras.upsert({
-      _id: 'total_cap'
+      _id: "total_cap"
     }, _.extend(cap, {
       usd: cap.btc * btcPrice,
       btc: cap.btc,
@@ -749,16 +748,16 @@ Meteor.startup(function(){
 });
 
 SyncedCron.add({
-  name: 'total btc cap',
+  name: "total btc cap",
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('* 1 * * *', false);
+    return parser.cron("* 1 * * *", false);
   },
   job: function() {
     try {
-      saveTotalCap()
+      saveTotalCap();
     } catch (e) {
-      console.log('could not fetch elastic data (latest)')
+      console.log("could not fetch elastic data (latest)");
     }
   }
 });
@@ -782,5 +781,5 @@ function symSys(system) {
   var sym = system.token && system.token.symbol || null;
   var sys = system._id;
 
-  return sym ? [sym, sys].join('|') : null;
+  return sym ? [sym, sys].join("|") : null;
 }

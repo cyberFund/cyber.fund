@@ -1,7 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="profile">
     <div class="row" style="margin-top: 12px">
-      <div class="col l9" style="float: right">
+      <div class="col l9 s12 m12" style="float: right">
         <ul class="tabs">
             <li class="tab">
                 <a href="#portfolio">Portfolio</a>
@@ -24,7 +24,7 @@
             {{> addAccount}}
         {{/if}}
       </div>
-      <div itemscope itemtype="http://schema.org/Person" class="col l3" style="float: left">
+      <div itemscope itemtype="http://schema.org/Person" class="col l3 s12 m12" style="float: left">
         {{#with user}}
         <div>
             {{> hitryImage style="vertical-align: middle; margin-top: 12px; max-width: 100%" img_url=largeAvatar}}

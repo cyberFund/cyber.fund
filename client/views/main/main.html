@@ -1,5 +1,5 @@
 <template name="mainPageSystemsWidget">
-    <h5 class="center"> Top 5 Rated Assets </h5>
+    <h5 class="center "> Top 5 Rated Assets </h5>
     <table class="" style="max-width: 30em; margin: 0 auto; ">
         <thead class="">
           <th data-field="name" class="">
@@ -17,7 +17,11 @@
               {{/ tooltip}} {{/ withTooltip}}
           </th>
           <th data-field="Lifetime" class="center">
-            Months
+            {{# withTooltip}} Months
+            {{#tooltip class="tooltip-table-head right0"}}
+              <h5 class="center">Lifetime</h5>
+              <p>This is time passed since time of sampling 'first price' metric.</p>
+            {{/ tooltip}} {{/ withTooltip}}
           </th>
           <th data-field="rating/score" class="center">
             {{# withTooltip}} Rating
@@ -78,7 +82,7 @@
             <br>
             <h2>Blockchains Grow Here</h2>
             <br>
-            <h5>{{usersCount}} people are open to invest in {{coinsCount}} groundbreaking systems</h5>
+            <h5>{{usersCount}} people are ready to invest in {{coinsCount}} groundbreaking systems</h5>
         </div>
     </div>
     {{> mainPageSystemsWidget}}
@@ -91,7 +95,8 @@
     <br>
     <div class="row center-align _flexbox">
         <div class="col s12 m6 l4 center valign" style="padding:10px">
-            <h6>Daily Widget</h6>
+            <h5>Daily Widget</h5>
+            <br>
             <div class="card markt">
                 <h5>Cybernomics Cap</h5>
                 {{#if capUsd }}

@@ -1,19 +1,19 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemLinksTabs">
     <ul class="tabs">
-        {{#if existLinksWith this "Wallet"}}
-            <li class="tab  {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
-                <a href="#tag-wallet">Wallet</a>
-            </li>
-        {{/if}}
         {{#if existLinksWith this "Exchange"}}
             <li class="tab  {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
-                <a href="#tag-exchange">Exchange</a>
+                <a href="#tag-exchange">Buy</a>
+            </li>
+        {{/if}}
+        {{#if existLinksWith this "Wallet"}}
+            <li class="tab  {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
+                <a href="#tag-wallet">Hold</a>
             </li>
         {{/if}}
         {{#if existLinksWith this "Analytics"}}
             <li class="tab  {{#if linksWithTag this "Analytics"}}{{else}}disabled{{/if}}">
-                <a href="#tag-analytics">Analytics</a>
+                <a href="#tag-analytics">Analyze</a>
             </li>
         {{/if}}
         {{#if existLinksWith this "Magic"}}
@@ -22,7 +22,7 @@
             </li>
         {{/if}}
         <li class="tab {{#if linksWithoutTags this mainTags}}{{else}}disabled{{/if}}">
-            <a href="#tag-other">Other</a>
+            <a href="#tag-other">Earn</a>
         </li>
     </ul>
 

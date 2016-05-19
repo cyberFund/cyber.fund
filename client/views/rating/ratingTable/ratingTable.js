@@ -18,17 +18,17 @@ var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
 
 Template["ratingTable"].onCreated(function() {
-  var sort = (FlowRouter.getParam("sort"));
-   if (sort) {
-     _Session.set ("coinSorter", getSorterByKey(sort));
-   }
+  var sort = (FlowRouter.getParam("sort") || "whales");
+  if (sort) {
+    CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
+  }
 
   Session.set("ratingPageLimit", initialLimit);
   var instance = this;
   instance.ready = new ReactiveVar();
   var selector = tableSelector();
-  if (_.keys(_Session.get("coinSorter")).length)
-    selector[_.keys(_Session.get("coinSorter"))[0]] = {
+  if (_.keys(CF.Utils._session.get("coinSorter")).length)
+    selector[_.keys(CF.Utils._session.get("coinSorter"))[0]] = {
       $exists: true
     };
   instance.autorun(function() {
@@ -38,7 +38,7 @@ Template["ratingTable"].onCreated(function() {
   });
 
   instance.autorun(function() {
-    var key = getKeyBySorter(_Session.get("coinSorter"));
+    var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
@@ -89,10 +89,7 @@ Template["ratingTable"].rendered = function() {
 
 Template["ratingTable"].helpers({
   rows: function() {
-    var sort = _Session.get("coinSorter");
-    if (sort["ratings.rating_cyber"]) {
-      sort["metrics.cap.btc"] = sort["ratings.rating_cyber"];
-    }
+    var sort = CF.Utils._session.get("coinSorter");
     return CurrentData.find(tableSelector(), {
       sort: sort
     }).fetch();

@@ -1,4 +1,4 @@
-var _chartdata = function(systemId) {
+_chartdata = function(systemId) {
   if (!systemId) return null;
 
   return MarketData.find({
@@ -7,17 +7,17 @@ var _chartdata = function(systemId) {
     sort: { //tooltip only, d3 does not need this
       timestamp: -1
     }
-  })
-}
+  });
+};
 
 _timestampino = function(timestamp) {
   return moment(timestamp).format(Meteor.settings.public &&
     Meteor.settings.public.manyData ?
     "ddd D-MM HH:" : "ddd D-MM");
-}
+};
 
-Template['quickchart'].helpers({
-  'chartdata': _chartdata,
+Template["quickchart"].helpers({
+  "chartdata": _chartdata,
   __ready: function() {
     return Template.instance()._ready.get() || CF.subs.MarketData.ready();
   }
@@ -25,57 +25,51 @@ Template['quickchart'].helpers({
 
 var grab = {
   t: function(fruit) {
-    return fruit && fruit.timestamp
+    return fruit && fruit.timestamp;
   },
   sp: function(fruit) {
-    return fruit && fruit.price_usd
+    return fruit && fruit.price_usd;
   },
   bp: function(fruit) {
-    return fruit && fruit.price_btc
+    return fruit && fruit.price_btc;
   },
   sc: function(fruit) {
-    return fruit && fruit.cap_usd
+    return fruit && fruit.cap_usd;
   },
   bc: function(fruit) {
-    return fruit && fruit.cap_btc
+    return fruit && fruit.cap_btc;
   },
   bvd: function(fruit) {
-    return fruit && fruit.volume24_btc
-  },
+    return fruit && fruit.volume24_btc;
+  }
+};
+
+Template["quickchart"].onCreated(function(){
+  var instance = this;
+  instance._ready = new ReactiveVar();
+  instance._system = new ReactiveVar();
+  instance.autorun(function(){
+    instance._system.set(instance.data && instance.data.system);
+  });
+});
+
+function _system(){
+  return Template.currentData().system;
 }
 
-Template['quickchart'].onCreated(function(){
+Template["quickchart"].onRendered(function() {
   var instance = this;
-  instance._ready = new ReactiveVar()
-  instance._system = new ReactiveVar()
-  instance.autorun(function(){
-    console.log(instance);
-    console.log(instance.data);
-    instance._system.set(instance.data && instance.data.system)
-  })
-})
-
-Template['quickchart'].onRendered(function() {
-
-  var instance = this;
-  function _system(){
-    return Template.currentData().system;
-    var r = instance.$(".quickchart").attr('id').split('-')[1];
-    if (r) return Blaze._globalHelpers._toSpaces(r);
-    return instance.data && instance.data.system || ""
-  }
-  console.log('got system ' + _system())
   function myGraph(el, system) {
-    el.selectAll("*").remove()
+    el.selectAll("*").remove();
     this.selectedNode = null;
     var graph = this;
 
     var data = _chartdata(system).fetch();
     data = data.sort(function(a, b) {
-      return a.timestamp - b.timestamp
-    })
-    var lastData = CurrentData.findOne({_id:system})
-    if (lastData && lastData.lastData) data.push(lastData.lastData)
+      return a.timestamp - b.timestamp;
+    });
+    var lastData = CurrentData.findOne({_id:system});
+    if (lastData && lastData.lastData) data.push(lastData.lastData);
 
     var wf = 140;
     var w = 140;
@@ -88,8 +82,8 @@ Template['quickchart'].onRendered(function() {
     var y = d3.scale.linear()
       .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
       .range([hf - 1, mTop + 1]);
-    var xAxis = d3.svg.axis().scale(x).orient('bottom');
-    var yAxis = d3.svg.axis().scale(y).orient('left');
+    var xAxis = d3.svg.axis().scale(x).orient("bottom");
+    var yAxis = d3.svg.axis().scale(y).orient("left");
 
     var svg = el
       .append("svg:svg")
@@ -98,7 +92,7 @@ Template['quickchart'].onRendered(function() {
       .attr("id", "svg-" + Blaze._globalHelpers._toAttr(system))
       .attr("pointer-events", "all")
       .attr("viewBox", "0 0 " + wf + " " + hf)
-      .attr('class', 'chart')
+      .attr("class", "chart")
       .attr("preserveAspectRatio", "xMinYMid");
 
     var priceLine = d3.svg.line()
@@ -111,7 +105,7 @@ Template['quickchart'].onRendered(function() {
 
     var drawing = svg.append("path")
       .attr("d", priceLine(data))
-      .attr("class", "qc-line-1")
+      .attr("class", "qc-line-1");
 
     // FOCUS DOMAIN
     var bisectDate = d3.bisector(function(d) {
@@ -124,7 +118,7 @@ Template['quickchart'].onRendered(function() {
     };
 
     var ficus = svg.append("g")
-      .attr("class", "ficus")
+      .attr("class", "ficus");
 
     ficus.append("text")
       .attr("class", "price")
@@ -132,7 +126,7 @@ Template['quickchart'].onRendered(function() {
       .attr("text-anchor", "middle")
       .attr("x", 70)
       .attr("y", "0")
-      .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "")
+      .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "");
 
     var focus = svg.append("g")
       .attr("class", "focus")
@@ -173,11 +167,11 @@ Template['quickchart'].onRendered(function() {
       var xv = x(grab.t(d));
       focus.select(".focus-horiz")
         .attr("y1", yv)
-        .attr("y2", yv)
+        .attr("y2", yv);
 
       focus.select(".focus-vert")
         .attr("x1", xv)
-        .attr("x2", xv)
+        .attr("x2", xv);
 
       focus.select("text.price")
         .text(formatCurrency(grab.sp(d)));
@@ -195,12 +189,11 @@ Template['quickchart'].onRendered(function() {
         focus.style("display", "none");
         ficus.style("display", null);
       })
-      .on("mousemove", mousemove)
+      .on("mousemove", mousemove);
   }
 
   instance.autorun(function(c) {
-    console.log(Template.instance().data.system)
-    var system = Template.instance().data && Template.instance().data.system;
+    var system = _system();
     if (CF.subs.MarketData.ready()) {
       if (_chartdata(system).count() ) {
         instance._ready.set(true);
@@ -208,5 +201,5 @@ Template['quickchart'].onRendered(function() {
     }
     if (!instance._ready.get()) return;
     new myGraph(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(system)), system);
-  })
-})
+  });
+});
