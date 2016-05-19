@@ -21,30 +21,30 @@ Meteor.publish("currentDataRP", function(options) {
     "lastData": 1 //wtf is going here
   };
 
-  return CurrentData.find(selector, options)
+  return CurrentData.find(selector, options);
 });
 
-Meteor.publish('marketDataRP', function(options) {
+Meteor.publish("marketDataRP", function(options) {
   options = options || {};
   var selector = options.selector;
 
-  var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id")
+  var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
 
   function intervalSelector(){
     return Meteor.settings.public && Meteor.settings.public.manyData ?
-     'hourly' : 'daily'
+     "hourly" : "daily";
   }
-  var date = moment.utc().subtract(30, "days").startOf('day').toDate();
+  var date = moment.utc().subtract(30, "days").startOf("day").toDate();
 
   return MarketData.find({
-      systemId: {$in: list},
-      timestamp: {$gte: date },
-      interval: intervalSelector()}); // 'daily' ! remove this, stick to daily everywhere, was only for dev
-})
+    systemId: {$in: list},
+    timestamp: {$gte: date },
+    interval: intervalSelector()}); // 'daily' ! remove this, stick to daily everywhere, was only for dev
+});
 
 /* own user details */
-Meteor.publish('userDetails', function() {
-  return [Meteor.users.find({
+Meteor.publish("userDetails", function() {
+  return Meteor.users.find({
     _id: this.userId
   }, {
     fields: {
@@ -56,15 +56,19 @@ Meteor.publish('userDetails', function() {
       "firstLogin": 1,
       "profile": 1
     }
-  }), CF.Accounts.findByRefId(this.userId, {private: true}) ];
+  }) ;
 });
 
+Meteor.publish("ownAssets", function(){
+  if (!this.userId) return this.ready();
+  return CF.Accounts.collection.find({refId:this.userId});
+});
 /**
  * fetch full currentData document
  */
-Meteor.publish('systemData', function(options) {
-  options = options || {}
-  var name =  (typeof options === 'string') ? options : options.name
+Meteor.publish("systemData", function(options) {
+  options = options || {};
+  var name =  (typeof options === "string") ? options : options.name;
   console.log ("requested system "+ name);
   if (name) {
     return CurrentData.find(cfCDs.system(name));
@@ -76,42 +80,42 @@ Meteor.publish('systemData', function(options) {
 /*
   fetch systems that are displayed at radar page.
  */
- Meteor.publish('crowdsalesAndProjectsList', function() {
-   var doc = Extras.findOne({_id: 'radarList'})
-   if (!doc) return this.ready()
-   var ids = _.union(doc.crowdsales || [], doc.projects || []);
-   return CurrentData.find({_id: {$in: ids}}, {
-     fields: {
-       crowdsales: 1,
-       descriptions: 1,
-       _id: 1,
-       aliases: 1,
-       icon: 1,
-       metrics: 1,
-       _usersStarred: 1,
-       "calculatable.RATING.vector.LV.sum": 1
-     }
-   });
- })
+Meteor.publish("crowdsalesAndProjectsList", function() {
+  var doc = Extras.findOne({_id: "radarList"});
+  if (!doc) return this.ready();
+  var ids = _.union(doc.crowdsales || [], doc.projects || []);
+  return CurrentData.find({_id: {$in: ids}}, {
+    fields: {
+      crowdsales: 1,
+      descriptions: 1,
+      _id: 1,
+      aliases: 1,
+      icon: 1,
+      metrics: 1,
+      _usersStarred: 1,
+      "calculatable.RATING.vector.LV.sum": 1
+    }
+  });
+});
 
-Meteor.publish('crowdsalesActive', function() {
-  var doc = Extras.findOne({_id: 'radarList'})
-  if (!doc) return this.ready()
+Meteor.publish("crowdsalesActive", function() {
+  var doc = Extras.findOne({_id: "radarList"});
+  if (!doc) return this.ready();
   var ids = _.union(doc.crowdsales || [], doc.projects || []);
   return CurrentData.find({
     _id: {$in: ids},
-    'crowdsales.end_date': {
+    "crowdsales.end_date": {
       $gt: new Date()
     },
-    'crowdsales.start_date': {
+    "crowdsales.start_date": {
       $lt: new Date()
     }},
-      {
-    fields: {
-      dailyData: 0, //obsolete
-      hourlyData: 0
-    }
-  });
+    {
+      fields: {
+        dailyData: 0, //obsolete
+        hourlyData: 0
+      }
+    });
 });
 
 /* obsolete
@@ -130,42 +134,42 @@ Meteor.publish('projectsList', function() {
   only needed to display users count on profile page
  */
 Meteor.publish("usersCount", function() {
-  Counts.publish(this, 'usersCount', Meteor.users.find());
+  Counts.publish(this, "usersCount", Meteor.users.find());
 });
 
 /*
   needed to know are there systems left, or we subscribed with limit >=
   number of coins. i.e. allows to hide button "show more systems" when there s nothing left
  */
-Meteor.publish('coinsCount', function() {
-  Counts.publish(this, 'coinsCount', CurrentData.find({
+Meteor.publish("coinsCount", function() {
+  Counts.publish(this, "coinsCount", CurrentData.find({
     "metrics.cap.btc": {
       $gt: 0
     }
   }));
-  Counts.publish(this, 'coinsCount2', CurrentData.find({
+  Counts.publish(this, "coinsCount2", CurrentData.find({
   }));
 });
 
 /*
   provide enough details to render dependent coins at system page
  */
-Meteor.publish('dependentCoins', function(system) {
+Meteor.publish("dependentCoins", function(system) {
   return CurrentData.find(cfCDs.dependents(system), {
     fields: {
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
-      'token': 1
+      "token": 1
     }
-  })
+  });
 });
 
 /*
   provides data to draw daily chart
    - this currently is stored apart from CurrentData documents
  */
-Meteor.publish('fastData', function(systemName) {
+Meteor.publish("fastData", function(systemName) {
   var _id = CurrentData.findOne({
     _id: systemName
   });
@@ -180,26 +184,26 @@ Meteor.publish('fastData', function(systemName) {
  provides details on coins   that current coin depends on . accepts
  list of system names
  */
-Meteor.publish('dependencies', function(deps) {
+Meteor.publish("dependencies", function(deps) {
   return CurrentData.find(cfCDs.dependencies(deps), {
     fields: {
       "icon": 1,
       "dependencies": 1,
       "aliases": 1,
-      'token': 1
+      "token": 1
     }
-  })
+  });
 });
 
 /*
   provides means for autocomplete to work
  */
-Meteor.publish('search-sys', function(selector, options, collname) {
+Meteor.publish("search-sys", function(selector, options, collname) {
   var s = selector["token.name"];
   if (s) {
     selector = {
       $or: [{
-        'token.symbol': s
+        "token.symbol": s
       }, {
         "_id": s
       }, {
@@ -230,7 +234,7 @@ Meteor.publish('search-sys', function(selector, options, collname) {
   this.ready();
 });
 
-Meteor.publish('avatars', function(uidArray) {
+Meteor.publish("avatars", function(uidArray) {
   if (!_.isArray(uidArray)) return this.ready();
   return Meteor.users.find({
     _id: {
@@ -238,9 +242,9 @@ Meteor.publish('avatars', function(uidArray) {
     }
   }, {
     fields: {
-      'profile': 1,
-      'avatar': 1,
-      'username': 1,
+      "profile": 1,
+      "avatar": 1,
+      "username": 1
     }
   });
 });
@@ -248,8 +252,8 @@ Meteor.publish('avatars', function(uidArray) {
 /*
   user profile by username or id
  */
- var print = CF.Utils.logger.print;
-Meteor.publish('userProfile', function(options){
+var print = CF.Utils.logger.print;
+Meteor.publish("userProfile", function(options){
   options = CF.Utils.normalizeOptionsPerUser(options);
   var uid = options.userId;
 
@@ -260,11 +264,11 @@ Meteor.publish('userProfile', function(options){
     largeAvatar: 1,
     accounts: 1,
     createdAt: 1,
-    'services.twitter.screenName': 1
+    "services.twitter.screenName": 1
   };
-  var own = this.userId == uid;
-  var ret = [Meteor.users.find({_id: uid}, {fields: fields})]
-  if (!own) ret.push (CF.Accounts.findByRefId(uid, {isPrivate: {$ne: true}}) )
+  var ret = [];
+  ret.push (Meteor.users.find({_id: uid}, {fields: fields}));
+  ret.push (CF.Accounts.collection.find({refId:uid, isPrivate: {$ne: true}}) );
   return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
@@ -272,7 +276,7 @@ Meteor.publish('userProfile', function(options){
   support subscription for assets manager, loads info to display,
    currency links in portfolio, depends on list of systems
  */
-Meteor.publish('assetsSystems', function(tokens) {
+Meteor.publish("assetsSystems", function(tokens) {
   return CurrentData.find(cfCDs.system(tokens), {
     fields: {
       token: 1,
@@ -281,27 +285,26 @@ Meteor.publish('assetsSystems', function(tokens) {
       metrics: 1,
       calculatable: 1
     }
-  })
+  });
 });
 
 /*
   loads systems data for portfolio
  */
-
 Meteor.publish("portfolioSystems", function(options) {
   options = CF.Utils.normalizeOptionsPerUser(options);
   var userId = options.userId;
 
   var private = this.userId == userId;
   if (!userId) return this.ready();
-  var user = Meteor.users.findOne({_id: userId})
+  var user = Meteor.users.findOne({_id: userId});
 
   var accounts = CF.Accounts.findByRefId(userId, {private: private});
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
   if (private) {
     if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
-      systems = _.union(systems, user.profile.starredSystems)
+      systems = _.union(systems, user.profile.starredSystems);
     }
   }
 
@@ -313,7 +316,7 @@ Meteor.publish("portfolioSystems", function(options) {
       "icon": 1,
       "calculatable": 1
     }
-  })
+  });
 });
 
 Meteor.publish("allSystems", function(){
@@ -322,7 +325,7 @@ Meteor.publish("allSystems", function(){
       "aliases": 1,
       "metrics": 1,
       "token": 1,
-      "icon": 1,
+      "icon": 1
     }
-  })
-})
+  });
+});
