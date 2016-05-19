@@ -8,58 +8,55 @@ CF.UserAssets.graph.minimalShare = 0.015;
 
 var ns = CF.UserAssets. graph;
 
-Template['folioChart'].onRendered(function() {
+Template["folioChart"].onRendered(function() {
   var instance = this;
-  instance._selector = "folio-pie"
+  instance._selector = ".folio-pie";
   instance.options = {
     chartPadding: CF.Chartist.options.chartPadding.folio,
     startAngle: Math.random() * 30 - 15,
     labelOffset: 82,
-    labelDirection: 'explode'
-  }
+    labelDirection: "explode"
+  };
+
+  var emptyData = {
+    labels: [],
+    series: []
+  };
 
   // does not expect null/undef values before non-null/non-undef
   instance.chart = function(selector, data) {
-    var emptyData = {
-      labels: [],
-      series: []
-    }
-
     if (selector && data) {
-      // TODO add test against chartist loses 'update' method
-
       if (ns.folioPie && ns.folioPie.update) {
         ns.folioPie.update(data);
       } else
        ns.folioPie = new Chartist.Pie(selector, data, instance.options);
-       return ns.folioPie;
-    }
-
-    if (!selector && !data) {
-      if (ns.folioPie && ns.folioPie.update)
-        ns.folioPie.update(emptyData)
       return ns.folioPie;
     }
-  }
+
+    if (!data) {
+      if (ns.folioPie && ns.folioPie.update)
+        ns.folioPie.update(emptyData);
+    }
+    return ns.folioPie;
+  };
 
   instance.hideView = function() {
-    return instance.chart();
+    var ret = instance.chart();
     CF.Utils.jqHide(instance.$(".folio-pie"));
+    return ret;
   };
 
   instance.showView = function(data) {
     CF.Utils.jqShow(instance.$(".folio-pie"));
     return instance.chart(instance._selector, data);
-  }
-
-
+  };
 
   instance.autorun(function(comp) {
     var assets = Template.currentData() && Template.currentData().accountsData || {};
 
     if (_.isEmpty(assets)) {
-      ns.folioPie = instance.hideView()
-      return ns.folioPie
+      ns.folioPie = instance.hideView();
+      return ns.folioPie;
     }
 
     var ticks = [],
@@ -77,7 +74,7 @@ Template['folioChart'].onRendered(function() {
     var sum = 0; // this to be used o determine if minor actives
     var datum = []; // let s calculate first and put calculations here
     var others = { // here be minor actives
-      symbol: 'other',
+      symbol: "other",
       u: 0,
       b: 0,
       q: 0
@@ -89,8 +86,8 @@ Template['folioChart'].onRendered(function() {
         symbol: system._id,
         q: asset.quantity || 0,
         u: asset.vUsd || 0,
-        b: asset.vBtc || 0,
-      }
+        b: asset.vBtc || 0
+      };
 
       datum.push(point);
       sum += point.b;
@@ -107,8 +104,8 @@ Template['folioChart'].onRendered(function() {
         labels.push(point.symbol);
         ticks.push({
           value: point.u,
-          meta: 'N: ' + point.q.toFixed(4) + '; BTC: ' + point.b.toFixed(4) + '; USD: ' + point.u.toFixed(2)
-        })
+          meta: "N: " + point.q.toFixed(4) + "; BTC: " + point.b.toFixed(4) + "; USD: " + point.u.toFixed(2)
+        });
       } else {
         others.u += point.u;
         others.b += point.b;
@@ -120,20 +117,19 @@ Template['folioChart'].onRendered(function() {
       labels.push("OTHER");
       ticks.push({
         value: others.u,
-        meta: 'other assets: BTC: ' + others.b.toFixed(4) + '; USD: ' + others.u.toFixed(2)
-      })
+        meta: "other assets: BTC: " + others.b.toFixed(4) + "; USD: " + others.u.toFixed(2)
+      });
     }
 
     // final data check
     if (ticks.length > 1) {
-      ns.folioPie = instance.showView({
+      instance.showView({
         labels: labels,
-        ticks: ticks
+        series: ticks
       });
-      return ns.folioPie;
     } else {
-      ns.folioPie = instance.hideView();
-      return ns.folioPie;
+      instance.hideView();
     }
-  })
+    return ns.folioPie;
+  });
 });

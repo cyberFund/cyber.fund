@@ -29,7 +29,6 @@ Template["thSortable"].events({
       sort = {};
       sort[newSorter] = -1;
     }
-    console.log(sort);
 
     analytics.track("Sorted " + tableId, {
       sort: sort
