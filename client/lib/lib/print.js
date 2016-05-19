@@ -18,6 +18,7 @@ var logger = {
     if (!condensed) console.log();
   }
 };
+
 CF.Utils.logger = logger;
-import { Metric as Metric } from '../../../imports/namespaces'
-console.log (Metric)
+//import { Metric as Metric } from '../../../imports/namespaces'
+//console.log (Metric)

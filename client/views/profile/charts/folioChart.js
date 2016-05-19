@@ -1,6 +1,3 @@
-
-
-
 var cfCDs = CF.CurrentData.selectors;
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};
@@ -13,7 +10,7 @@ Template["folioChart"].onRendered(function() {
   instance._selector = ".folio-pie";
   instance.options = {
     chartPadding: CF.Chartist.options.chartPadding.folio,
-    startAngle: Math.random() * 30 - 15,
+    startAngle: 0,
     labelOffset: 82,
     labelDirection: "explode"
   };
