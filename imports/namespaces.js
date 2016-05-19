@@ -1,7 +1,16 @@
-var Metric = {
-  hey: "you"
+const collection = new Mongo.collection('Metrics');
+
+var Metrics = {
+  collection: collection
+  schema: {
+    refId: "string",
+    type: "string",
+    subtype: "string",
+    updatedOn: "date",
+    data: "mixed"
+  }
 };
 
-exports.Metric = Metric;
+exports.Metrics = Metrics;
 
-Metric.v = 1;
+Metrics.v = 1
