@@ -140,11 +140,6 @@
               </p>
             {{/cardMarkt}}
             {{/if}}
-
-
-
-
-
     </div>
 
     {{#if anyCards}}
@@ -157,54 +152,41 @@
     <div class="row"></div>
 
     {{> slowchart system=_id}}
-
     {{/if}}
 
-    <div id="news" class="section scrollspy row">
-      {{#if existLinksWith links 'News'}}
-      <h3 class="center">News</h3>
+    {{#if existLinksWith links 'News'}}
+    <h3 class="center">News</h3>
+    <div id="news" class="section scrollspy cglinxbox">
       {{#each linksWithTag links "News"}}
         {{> cgLinkCard this}}
-      {{/each}} {{/if}}
+      {{/each}}
     </div>
+    {{/if}}
 
-    <div id="apps" class="section scrollspy row">
-      {{#if existLinksWith links 'Apps'}}
-      <h3 class="center">Apps</h3>
-
-      {{#with linksWithTag links "Apps"}} {{#if gte this.length 8}}
-      <div class="row">
-        <div class="col s12">
-          {{> systemLinksTabs this}}
-        </div>
-
-      </div>
-      {{else}}
-      <div class="row">
-        {{#each this}} {{> cgLinkCard this}} {{/each}}
-      </div>
-      {{/if}} {{/with}} {{/if}}
-    </div>
-
-    <div id="dapps" class="section scrollspy row">
-      {{#if dependentsExist}} {{! todo: extract widget}}
-
-      <h3 class="center">Internal Economy</h3>
-
-      {{#each dependents}}
-      <div class="col s6 m6 l3" style="padding:0 10px; margin: 6px 0;">
-        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id) }}">
-          <div class="card" style="padding: 10px 0; margin: 2px 0">
-            {{> cgSystemLogo system=this class="logo-dependent"}}
-            <span class="enlarge nowrap" style="vertical-align: middle; margin-left: 10px">
-
-              {{displaySystemName this}}
-            </span>
+    {{#if existLinksWith links 'Apps'}}
+    <h3 class="center">Apps</h3>
+    <div id="apps" class="section scrollspy">
+        {{#with linksWithTag links "Apps"}}
+        {{#if gte this.length 8}}
+            {{> systemLinksTabs this}}
+        {{else}}
+          <div class="cglinxbox">
+            {{#each this}} {{> cgLinkCard this}} {{/each}}
           </div>
-        </a>
-      </div>
-      {{/each}} {{/if}}
+        {{/if}} {{/with}}
     </div>
+    {{/if}}
+
+    {{#if dependentsExist}}
+    <div id="dapps" class="section scrollspy">
+    <h3 class="center">Internal Economy</h3>
+    <div class="cglinxbox">
+      {{#each dependents}}
+        {{> cgLinkToSystemCard}}
+      {{/each}}
+    </div>
+    </div>
+    {{/if}}
 
     {{#if false}}
     <div id="hashtag" class="row scrollspy center">
@@ -227,21 +209,21 @@
     </div>
     {{/if}}
 
-    <div id="code" class="section scrollspy row">
-      {{#if existLinksWith links 'Code'}}
-      <h3 class="center">Developers Dimension</h3>
-
-      {{#each linksWithTag links "Code"}}
+    <div id="science" class="section scrollspy row">
+      {{#if existLinksWith links 'Science'}}
+      <h3 class="center">Scientific Roots</h3>
+      {{#each linksWithTag links "Science"}}
       <div class="row">
         {{> cgLink this}}
       </div>
       {{/each}} {{/if}}
     </div>
 
-    <div id="science" class="section scrollspy row">
-      {{#if existLinksWith links 'Science'}}
-      <h3 class="center">Scientific Roots</h3>
-      {{#each linksWithTag links "Science"}}
+    <div id="code" class="section scrollspy row">
+      {{#if existLinksWith links 'Code'}}
+      <h3 class="center">Developers Dimension</h3>
+
+      {{#each linksWithTag links "Code"}}
       <div class="row">
         {{> cgLink this}}
       </div>

@@ -2,24 +2,21 @@
 <template name="systemLinksTabs">
     <ul class="tabs">
         {{#if existLinksWith this "Exchange"}}
-            <li class="tab  {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
-                <a href="#tag-exchange">Buy</a>
-            </li>
-        {{/if}}
-        {{#if existLinksWith this "Wallet"}}
-            <li class="tab  {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
-                <a href="#tag-wallet">Hold</a>
-            </li>
-        {{/if}}
-        {{#if existLinksWith this "Analytics"}}
-            <li class="tab  {{#if linksWithTag this "Analytics"}}{{else}}disabled{{/if}}">
-                <a href="#tag-analytics">Analyze</a>
-            </li>
-        {{/if}}
-        {{#if existLinksWith this "Magic"}}
-            <li class="tab  {{#if linksWithTag this "Magic"}}{{else}}disabled{{/if}}">
-                <a href="#tag-magic">Magic</a>
-            </li>
+        <li class="tab {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
+            <a href="#tag-exchange">Buy</a>
+        </li>
+        {{/if}} {{#if existLinksWith this "Wallet"}}
+        <li class="tab  {{#if linksWithTag this "Wallet"}}{{else}}disabled{{/if}}">
+            <a href="#tag-wallet">Hold</a>
+        </li>
+        {{/if}} {{#if existLinksWith this "Analytics"}}
+        <li class="tab  {{#if linksWithTag this "Analytics"}}{{else}}disabled{{/if}}">
+            <a href="#tag-analytics">Analyze</a>
+        </li>
+        {{/if}} {{#if existLinksWith this "Magic"}}
+        <li class="tab  {{#if linksWithTag this "Magic"}}{{else}}disabled{{/if}}">
+            <a href="#tag-magic">Magic</a>
+        </li>
         {{/if}}
         <li class="tab {{#if linksWithoutTags this mainTags}}{{else}}disabled{{/if}}">
             <a href="#tag-other">Earn</a>
@@ -27,24 +24,24 @@
     </ul>
 
 
-            {{#if existLinksWith this "Wallet"}}
-            <div id="tag-wallet" class="col s12">
-              {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
-            </div>
-            {{/if}} {{#if existLinksWith this "Exchange"}}
-            <div id="tag-exchange" class="col s12">
-              {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
-            </div>
-            {{/if}} {{#if existLinksWith this "Analytics"}}
-            <div id="tag-analytics" class="col s12">
-              {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
-            </div>
-            {{/if}} {{#if existLinksWith this "Magic"}}
-            <div id="tag-magic" class="col s12">
-              {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
-            </div>
-            {{/if}}
-            <div id="tag-other" class="col s12">
-              {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
-            </div>
+    {{#if existLinksWith this "Wallet"}}
+    <div id="tag-wallet" class="cglinxbox">
+        {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
+    </div>
+    {{/if}} {{#if existLinksWith this "Exchange"}}
+    <div id="tag-exchange" class="cglinxbox">
+        {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
+    </div>
+    {{/if}} {{#if existLinksWith this "Analytics"}}
+    <div id="tag-analytics" class="cglinxbox">
+        {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
+    </div>
+    {{/if}} {{#if existLinksWith this "Magic"}}
+    <div id="tag-magic" class="cglinxbox">
+        {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
+    </div>
+    {{/if}}
+    <div id="tag-other" class="cglinxbox">
+        {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
+    </div>
 </template>

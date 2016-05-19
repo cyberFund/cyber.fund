@@ -1,15 +1,13 @@
 <template name="cgLinkToSystemCard">
-    <div class="col s12 m12 l12"
-         style="padding:0 10px; margin: 6px 0;">
-        <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
-            <div class="card"
-                 style="vertical-align: middle; min-height: 60px; padding: 10px 0; margin: 2px 0;">
+  <a href="{{url}}" target="_blank">
+      <div class="card">
+          <div class="cglinkcard">
+              {{> cgSystemLogo system=this class="cglinkcard-icon"}}
 
-                {{> cgSystemLogo system=this class="logo-dependent"}}
-                    <span class="enlarge center" style="vertical-align: middle; margin: auto 10px;">
+              <div class="enlarge center cglinkcard-text">
                     {{_id}}
-                </span>
-            </div>
-        </a>
-    </div>
+              </div>
+          </div>
+      </div>
+  </a>
 </template>
