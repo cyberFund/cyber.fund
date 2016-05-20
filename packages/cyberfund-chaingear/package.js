@@ -18,9 +18,7 @@ Package.onUse(function(api) {
   api.addFiles(["client/cyberfund-chaingear-client.js", "client/cgLink/cgLink.html",
   "client/cgLink/cgLink.js", "client/cgLink/cgLink.css",
   "client/cgLinkCard/cgLinkCard.html", "client/cgLinkCard/cgLinkCard.js",
-  "client/cgLinkCard/cgLinkCard.css",
-  "client/cgLinkToSystemCard/cgLinkToSystemCard.html",
-  "client/cgLinkToSystemCard/cgLinkToSystemCard.js"], "client");
+  "client/cgLinkCard/cgLinkCard.css"], "client");
 });
 
 Package.onTest(function(api) {
