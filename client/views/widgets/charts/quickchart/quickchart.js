@@ -54,6 +54,7 @@ function _system(){
 }
 
 Template["quickchart"].onRendered(function() {
+  var ppp = 0;
   var instance = this;
   function myGraph(el, system) {
     el.selectAll("*").remove();
@@ -197,5 +198,6 @@ Template["quickchart"].onRendered(function() {
     }
     if (!instance._ready.get()) return;
     new myGraph(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(system)), system);
+    console.log(ppp++, system);
   });
 });
