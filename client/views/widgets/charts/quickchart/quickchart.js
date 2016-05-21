@@ -47,10 +47,6 @@ var grab = {
 Template["quickchart"].onCreated(function(){
   var instance = this;
   instance._ready = new ReactiveVar();
-  instance._system = new ReactiveVar();
-  instance.autorun(function(){
-    instance._system.set(instance.data && instance.data.system);
-  });
 });
 
 function _system(){
