@@ -24,17 +24,20 @@ Template["ratingTable"].onCreated(function() {
   }
 
   Session.set("ratingPageLimit", initialLimit);
+
   var instance = this;
   instance.ready = new ReactiveVar();
-  var selector = tableSelector();
-  if (_.keys(CF.Utils._session.get("coinSorter")).length)
+  /*if (_.keys(CF.Utils._session.get("coinSorter")).length)
     selector[_.keys(CF.Utils._session.get("coinSorter"))[0]] = {
       $exists: true
-    };
-  instance.autorun(function() {
-    CF.subs.MarketData = instance.subscribe("marketDataRP", {
-      selector: selector
-    });
+    };*/
+
+  CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
+    selector: tableSelector()
+  });
+
+  var handle = CF.SubsMan.subscribe("currentDataRP", {
+    selector: tableSelector()
   });
 
   instance.autorun(function() {
@@ -42,15 +45,12 @@ Template["ratingTable"].onCreated(function() {
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
-
-    var handle = CF.SubsMan.subscribe("currentDataRP", {
-      selector: tableSelector()
-    });
     instance.ready.set(instance.ready.get() || handle.ready());
   });
+
 });
 
-Template["ratingTable"].rendered = function() {
+Template["ratingTable"].onRendered (function() {
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -85,7 +85,7 @@ Template["ratingTable"].rendered = function() {
   $(window).scroll(t);
   $(window).resize(recalcWidths);
   $(window).trigger("resize");
-};
+});
 
 Template["ratingTable"].helpers({
   rows: function() {
@@ -111,7 +111,7 @@ Template["ratingTable"].helpers({
     return Blaze._globalHelpers.readableNumbers(ret.toFixed(0));
   },
   subReady: function() {
-    return Template.instance().ready.get();
+    return true;//Template.instance().ready.get();
   }
 });
 

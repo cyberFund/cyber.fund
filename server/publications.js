@@ -17,8 +17,7 @@ Meteor.publish("currentDataRP", function(options) {
     "calculatable": 1,
     "descriptions": 1,
     "consensus": 1,
-    "first_price": 1,
-    "lastData": 1 //wtf is going here
+    "first_price": 1
   };
 
   return CurrentData.find(selector, options);
