@@ -49,7 +49,6 @@ Template["quickchart"].onCreated(function(){
 
 var renderCount = 0;
 function myGraph(el, system, instance) {
-  console.log(renderCount++, system);
   el.selectAll("*").remove();
   this.selectedNode = null;
   var graph = this;
@@ -194,7 +193,7 @@ Template["quickchart"].onRendered(function() {
     if (instance._system != Template.currentData().system) {
       instance._system = Template.currentData().system;
       new myGraph(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(instance._system)),
-        instance._system, instance);  
+        instance._system, instance);
     }
   });
 });

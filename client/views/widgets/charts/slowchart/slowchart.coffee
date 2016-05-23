@@ -5,6 +5,14 @@ _chartdata = (systemId) ->
 
 myGraph = (el, instance) ->
 
+  settings =
+    axes:
+      x:
+        tickSize: -6
+      y:
+        tickSize: -6
+
+
   data = instance.theData #_chartdata(instance.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
   if not data.length then return
@@ -21,33 +29,37 @@ myGraph = (el, instance) ->
   wf = d3.select(el).style('width')?.split('px')[0]
   hf = d3.select(el).style('height')?.split('px')[0]
 
-  mLeft = 40
-  mRight = 40
-  mTop = 20
-  mBottom = 20
+  marginLeft = 40 # margins
+  marginRight = 40
+  marginTop = 20
+  marginBottom = 20
   mBetween = 20
-  split = [1, 1/3, 1/3]
+  split = [1, 1/3, 1/3] # proportions of chart heights
   splitsum = split[0] + split[1] + split[2]
 
-  w = wf - mLeft - mRight
-  h = hf - mTop - mBottom - mBetween*(split.length-1)
+  chartWidth = wf - marginLeft - marginRight
+  chartHeight = hf - marginTop - marginBottom - mBetween*(split.length-1) # summary height of charts
 
-  hM = h*split[0] / splitsum
-  hV = h*split[1] / splitsum
-  hZ = h*split[2] / splitsum
+  hMain = chartHeight*split[0] / splitsum
+  hVolume = chartHeight*split[1] / splitsum
+  hZoom = chartHeight*split[2] / splitsum
 
 
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
     d3.max(data, grab.t)
-  ]).range [ 0, w ]
+  ]).range [ 0, chartWidth ]
   y = d3.scale.linear().domain([
     d3.min(data, grab.sp)
     d3.max(data, grab.sp)
-  ]).range [ hM + 0, 0 ]
+  ]).range [ hMain + 0, 0 ]
 
-  xAxis = d3.svg.axis().scale(x).orient('bottom').ticks(5).tickSize(-6)
-  yAxis = d3.svg.axis().scale(y).orient('left').ticks(6).tickSize(-6).tickFormat(d3.format('s'))
+  xAxis = d3.svg.axis().scale(x).orient('bottom')
+    .ticks(5).tickSize(settings.axes.x.tickSize)
+  yAxis = d3.svg.axis().scale(y)
+    .orient('left').ticks(6)
+    .tickSize(settings.axes.y.tickSize)
+    #.tickFormat(d3.format(',g'))
   svg = d3.select(el).append('svg:svg')
     .attr('id', 'svg-' + instance.data.system).attr('pointer-events', 'all')
     .attr('class', 'slowchart-svg')
@@ -56,23 +68,23 @@ myGraph = (el, instance) ->
     .attr('viewBox', '0 0 ' + wf + ' ' + hf)
     .attr('preserveAspectRatio', 'xMinYMid')
   mainChart = svg.append('g')
-    #.attr('width', w)
-    #//attr().height(hM)
-    .attr('transform', 'translate(' + mLeft + ',' + mTop + ')')
+    #.attr('width', chartWidth)
+    #//attr().height(hMain)
+    .attr('transform', 'translate(' + marginLeft + ',' + marginTop + ')')
     .attr('class', 'main-chart')
   mainChart
   .append('defs').append("clipPath").attr("id", "clip")
-    .append('rect').attr('x', 0).attr('y', 0).attr('width', w).attr('height', hM)
+    .append('rect').attr('x', 0).attr('y', 0).attr('width', chartWidth).attr('height', hMain)
 
   mainChart.append('g').attr('class', 'x axis')
-  .attr('transform', 'translate(0,' + hM + ')').call(xAxis)
+  .attr('transform', 'translate(0,' + hMain + ')').call(xAxis)
   mainChart.append('g').attr('class', 'y axis')
   .attr('transform', 'translate(' + 0 + ',0)').call(yAxis)
 
   priceLine = d3.svg.line()
   .x((d) -> x grab.t(d))
   .y((d) -> y grab.sp(d))
-  drawing = mainChart.append('path').attr('d', priceLine(data)).attr('class', 'qc-line-1')
+  drawing = mainChart.append('path').attr('d', priceLine(data)).attr('class', 'sc-line-1')
 
 
   # FOCUS DOMAIN
@@ -85,9 +97,9 @@ myGraph = (el, instance) ->
     '$' + formatValue(d)
 
   volumeChart = svg.append('g')
-  volumeChart.__top = mTop + mBetween + hM
+  volumeChart.__top = marginTop + mBetween + hMain
   volumeChart
-    .attr 'transform', "translate(#{mLeft}, #{volumeChart.__top})"
+    .attr 'transform', "translate(#{marginLeft}, #{volumeChart.__top})"
   volumeChart.append('text')
     .attr 'x', 0
     .attr 'y', 9
@@ -100,19 +112,22 @@ myGraph = (el, instance) ->
       d3.min(data, grab.t)
       d3.max(data, grab.t)
     ])
-    .range [ 0, w ]
+    .range [ 0, chartWidth ]
 
 
-  y2 = d3.scale.linear().range([ hV, 0])
-  xAxis2 = d3.svg.axis().scale(x2).orient('bottom').ticks(5)
-  yAxis2 = d3.svg.axis().scale(y2).orient('left').ticks(5).tickFormat(d3.format("s"))
+  y2 = d3.scale.linear().range([ hVolume, 0])
+  xAxis2 = d3.svg.axis().scale(x2).orient('bottom')
+    .ticks(5).tickSize(settings.axes.x.tickSize)
+  yAxis2 = d3.svg.axis().scale(y2).orient('left')
+    .ticks(5).tickSize(settings.axes.y.tickSize)
+    .tickFormat(d3.format("s"))
 
   #x2.domain data.map ((d) -> grab.t(d))
   y2.domain [0, d3.max(data, (d) -> grab.bvd(d))]
   volumeChart
     .append('g')
     .attr('class', 'x axis')
-    .attr('transform', 'translate(0,' + hV + ')')
+    .attr('transform', 'translate(0,' + hVolume + ')')
     .call(xAxis2)
 
   volumeChart
@@ -120,7 +135,7 @@ myGraph = (el, instance) ->
     .attr('class', 'y axis')
     .call(yAxis2)
 
-  wid = Math.min(10, Math.max(w/data.length-1, 1))
+  wid = Math.min(10, Math.max(chartWidth/data.length-1, 1))
   volumeChart
     .selectAll('bar')
     .data(data)
@@ -130,63 +145,65 @@ myGraph = (el, instance) ->
     .attr 'x', (d) -> (x2 grab.t(d)) - wid/2
     .attr('width', wid)
     .attr 'y', (d) -> y2 grab.bvd(d)
-    .attr 'height', (d)-> hV - y2( grab.bvd(d) )
+    .attr 'height', (d)-> hVolume - y2( grab.bvd(d) )
 
   zoomChart = svg.append('g')
-  zoomChart.__top = mTop + 2*mBetween + hM + hV
+  zoomChart.__top = marginTop + 2*mBetween + hMain + hVolume
   zoomChart
-    .attr 'transform', "translate(#{mLeft}, #{zoomChart.__top})"
-  x3 = d3.time.scale().range([0, w])
-  y3 = d3.scale.linear().range([hZ, 0])
+    .attr 'transform', "translate(#{marginLeft}, #{zoomChart.__top})"
+  x3 = d3.time.scale().range([0, chartWidth])
+  y3 = d3.scale.linear().range([hZoom, 0])
 
   x3.domain(x.domain());
   y3.domain(y.domain());
 
-  xAxis3 = d3.svg.axis().scale(x3).orient("bottom")
+  xAxis3 = d3.svg.axis().scale(x3)
+
+    .orient("bottom").tickSize(settings.axes.x.tickSize)
 
   priceLine3 = d3.svg.line()
     .x((d) -> x3 grab.t(d))
     .y((d) -> y3 grab.sp(d))
 
   zoomChart
-    .append('path').attr('d', priceLine3(data)).attr('class', 'qc-line-1')
+    .append('path').attr('d', priceLine3(data)).attr('class', 'sc-line-1')
   zoomChart
     .append("g")
     .attr("class", "x axis")
-    .attr("transform", "translate(0," + hZ + ")")
+    .attr("transform", "translate(0," + hZoom + ")")
     .call(xAxis3);
 
   focus = mainChart.append('g').attr('class', 'focus').style('display', 'none')
   focus.append('line').attr('class', 'focus-horiz')
-  .attr('x1', 0).attr('x2', 0+w).attr('y1', 0).attr 'y2', 0
+  .attr('x1', 0).attr('x2', 0+chartWidth).attr('y1', 0).attr 'y2', 0
   focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hM
+  .attr('x1', 0).attr('x2', 0).attr('y1', 0).attr 'y2', 0+hMain
 
   focus.append('line').attr('class', 'focus-vert')
-  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop).attr 'y2', hM+mTop+hV
+  .attr('x1', 0).attr('x2', 0).attr('y1', hMain+marginTop).attr 'y2', hMain+marginTop+hVolume
 
   focus.append('line').attr('class', 'focus-vert-full')
-  .attr('x1', 0).attr('x2', 0).attr('y1', hM+mTop+hV+mBetween).attr 'y2', hM+mTop+hV+mBetween+hZ
+  .attr('x1', 0).attr('x2', 0).attr('y1', hMain+marginTop+hVolume+mBetween).attr 'y2', hMain+marginTop+hVolume+mBetween+hZoom
 
   tooltip = focus.append('g')
-  tooltip.__w = 65
-  tooltip.__h = 35
+  tooltip.__w = 102
+  tooltip.__h = 40
   tooltip.append('rect')
-    .attr 'x', 0
+    .attr 'x', 8
     .attr 'width', tooltip.__w
     .attr 'y', 0
     .attr 'height', tooltip.__h
     .attr 'class', 'tooltip-box'
   tooltip.attr('transform', 'translate(40,0)')
   tooltip.append('text').attr('class', 'date')
-    .attr 'dx', '2'
-    .attr 'dy', '11'
+    .attr 'dx', '14'
+    .attr 'dy', '12'
   tooltip.append('text').attr('class', 'price')
-    .attr 'dx', '2'
-    .attr 'dy', '22'
+    .attr 'dx', '14'
+    .attr 'dy', '24'
   tooltip.append('text').attr('class', 'volume')
-    .attr 'dx', '2'
-    .attr 'dy', '33'
+    .attr 'dx', '14'
+    .attr 'dy', '36'
 
   day = 1000 * 60 * 60 * 24
   brushLen = (extent) ->
@@ -218,7 +235,7 @@ myGraph = (el, instance) ->
     mainChart.select(".x.axis").call(xAxis);
     mainChart.select(".y.axis").call(yAxis);
 
-    mainChart.select(".qc-line-1").attr("d", priceLine(data));
+    mainChart.select(".sc-line-1").attr("d", priceLine(data));
 
     if not brush.empty()
       if brushTimeout
@@ -233,7 +250,7 @@ myGraph = (el, instance) ->
     volumeChart.select(".y.axis").call(yAxis2);
 
     volumeChart.selectAll("rect").remove()
-    wid = Math.min(10, Math.max(w/d.length-1, 1))
+    wid = Math.min(10, Math.max(chartWidth/d.length-1, 1))
     volumeChart
       .selectAll('bar')
       .data(d)
@@ -243,7 +260,7 @@ myGraph = (el, instance) ->
       .attr 'x', (d) -> (x2 grab.t(d)) - wid/2
       .attr('width', wid)
       .attr 'y', (d) -> y2 grab.bvd(d)
-      .attr 'height', (d)-> hV - y2( grab.bvd(d) )
+      .attr 'height', (d)-> hVolume - y2( grab.bvd(d) )
 
   brush = d3.svg.brush()
     .x(x3)
@@ -254,7 +271,7 @@ myGraph = (el, instance) ->
     .call(brush)
     .selectAll("rect")
     .attr("y", 0)
-    .attr("height", hZ );
+    .attr("height", hZoom );
 
   zoomChart
     .append('text')
@@ -263,9 +280,13 @@ myGraph = (el, instance) ->
     .attr('dx', 20).attr('dy', 20)
 
   mousemove = ->
-    limitX = (v) -> Math.min(v, wf - tooltip.__w)
-    limitY = (v) -> Math.min(v, mTop + hM - tooltip.__h)
-    x0 = x.invert(d3.mouse(this)[0]-mLeft)
+    limitX = (v) ->
+      if (chartWidth - tooltip.__w > v) then v
+      else v - tooltip.__w - 16
+
+      #Math.min(v, wf - tooltip.__w)
+    limitY = (v) -> Math.min(v, marginTop + hMain - tooltip.__h)
+    x0 = x.invert(d3.mouse(this)[0]-marginLeft)
     y0 = y.invert(d3.mouse(this)[1])
     i = bisectDate(data, x0, 1)
     d0 = data[i - 1]
@@ -278,9 +299,9 @@ myGraph = (el, instance) ->
 
     focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
 
-    tooltip.select('text.price').text formatCurrency(grab.sp(d))
+    tooltip.select('text.price').text "price " + formatCurrency(grab.sp(d))
     tooltip.select('text.date').text _timestampino(grab.t(d))
-    tooltip.select('text.volume').text d3.format(',.0f')(grab.bvd(d))
+    tooltip.select('text.volume').text "daily volume " +d3.format(',.0f')(grab.bvd(d))
     tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
     return

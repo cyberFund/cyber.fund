@@ -10,11 +10,9 @@
 
   transition: all 0.3s ease-in-out
 }
-.slowchart-svg {
-}
 
 .tooltip-box {
-  fill: rgba(0, 200, 0, 0.8);
+  fill: rgba(200, 200, 200, 0.8);
 }
 
 path.line {
@@ -28,29 +26,24 @@ path.area {
 }
 
 .axis {
-  shape-rendering: crispEdges;
+  /*shape-rendering: crispEdges;*/
 }
 
 .axis .minor {
   stroke-opacity: .5;
 }
 
-.x.axis path {
-}
-
-.brush .extent {
-  stroke: #fff;
-  fill-opacity: .125;
-  shape-rendering: crispEdges;
-}
 
 .axis line {
+  fill: none;
   stroke: #000;
+  stroke-width:1;
 }
 
 .axis path {
   fill: none;
   stroke: #000;
+  stroke-width:0.9;
 }
 
 .focus-horiz {
@@ -70,7 +63,13 @@ path.area {
   stroke-width: 0;
 }
 
-.qc-line-1 {
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.sc-line-1 {
     stroke: red;
     stroke-width: 2;
     fill: none;
