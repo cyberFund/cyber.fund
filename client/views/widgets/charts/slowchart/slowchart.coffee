@@ -86,6 +86,10 @@ myGraph = (el, instance) ->
   .y((d) -> y grab.sp(d))
   drawing = mainChart.append('path').attr('d', priceLine(data)).attr('class', 'sc-line-1')
 
+  mainChart.append('text')
+    .attr 'x', 12
+    .attr 'y', 20
+    .text 'token price, $'
 
   # FOCUS DOMAIN
   bisectDate = d3.bisector((d) ->
@@ -101,9 +105,9 @@ myGraph = (el, instance) ->
   volumeChart
     .attr 'transform', "translate(#{marginLeft}, #{volumeChart.__top})"
   volumeChart.append('text')
-    .attr 'x', 0
-    .attr 'y', 9
-    .text 'volume'
+    .attr 'x', 12
+    .attr 'y', 20
+    .text 'daily trade volume, BTC'
 
   parseDate = d3.time.format('%Y-%m').parse
 
