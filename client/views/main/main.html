@@ -71,6 +71,7 @@
 
 <template name="mainPageCrowdasalesWidget">
     <h5><a href="/radar">Active Crowdsales</a></h5>
+    <br />
     {{#each activeCrowdsales}}
       {{> cgLinkToSystemCard this }}
     {{/each}}
@@ -118,7 +119,7 @@
                 {{/if}}
             </div>
             {{> balanceChecker1}}
-            <a href="/funds">Funds</a>
+            <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/funds">Funds</a>
         </div>
 
         <div class="col s12 m6 l4 center valign" style="padding:10px">
@@ -128,7 +129,7 @@
             <h5>My Portfolio</h5>
             <br>
             <h4>{{#if currentUser}}~{{readableN2 sumBtc}}{{else}}0{{/if}} bitcoins</h4>
-            {{#if currentUser}}{{else}}<p><a href="/welcome">Join Us</a></p>{{/if}}
+            {{#if currentUser}}{{else}}<p><a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/welcome">Join Us</a></p>{{/if}}
         </div>
     </div>
 </template>
