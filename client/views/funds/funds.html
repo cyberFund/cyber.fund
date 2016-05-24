@@ -1,7 +1,5 @@
 <template name="funds">
-  <p class="center">
-    We currently only list here people with 3+ followers
-  </p>
+
   <h4 class="center">Top Funds You Follow</h4>
   {{#if currentUser}}
   <table class="center" style="max-width: 36em; margin: 0 auto" id="funds-table">
@@ -23,6 +21,9 @@
   {{/if}}
 
   <h4 class="center">Top Funds You Don't Follow</h4>
+  <p class="center">
+    We currently only list here people with 3+ followers
+  </p>
   <table class="center" style="max-width: 36em; margin: 0 auto" id="funds-table">
     <thead>
       <th class="center">Fund</th>
