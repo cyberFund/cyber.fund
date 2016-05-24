@@ -20,6 +20,7 @@ Template.funds.onCreated(function(){
 
 function fundsIFollow(){
   const userId = Meteor.userId();
+  const user = Meteor.user();
   let iFollow = user && user.profile && user.profile.followingUsers;
   if (userId) {
     if (iFollow) iFollow.push(userId);
@@ -37,7 +38,6 @@ Template.funds.helpers({
     });
   },
   rowsIFollow: function(){
-    const user = Meteor.user();
     const iFollow = fundsIFollow();
     let selector = require("../../../imports/userFunds/").selector
     return Meteor.users.find(selector, {
@@ -45,7 +45,6 @@ Template.funds.helpers({
     });
   },
   rowsIDontFollow: function(){
-    const user = Meteor.user();
     const iFollow = fundsIFollow();
     let selector = require("../../../imports/userFunds/").selector
     if (iFollow) selector._id = {$nin: iFollow}
