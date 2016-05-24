@@ -1,4 +1,34 @@
+CF.Accounts = {
+  History: {
+    collection: new Meteor.Collection("accountsHistory")
+  }
+};
 var ns = CF.Accounts;
+if (Meteor.isServer) {
+  ns.History.collection._ensureIndex({
+    timestamp: -1
+  });
+
+  ns.History.collection._ensureIndex({
+    refId: 1, timestamp: -1
+  });
+
+  ns.History.collection._ensureIndex({
+    accountId: 1, timestamp: -1
+  });
+}
+
+ns.History.collection.allow({
+  insert: function(userId, doc) {
+    return false;
+  },
+  update: function(userId, doc, fieldNames, modifier) {
+    return false;
+  },
+  remove: function(userId, doc) {
+    return false;
+  }
+});
 
 // mutates asset
 function setValues(asset, assetId) {
@@ -8,9 +38,9 @@ function setValues(asset, assetId) {
   asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
 }
 
-ns._setValues = setValues
+ns._setValues = setValues;
 
-ns.collection = new Meteor.Collection('accounts', {
+ns.collection = new Meteor.Collection("accounts", {
 
   transform: function(doc) {
     if (doc.addresses) {
@@ -44,21 +74,21 @@ ns.collection = new Meteor.Collection('accounts', {
 });
 
 Meteor.startup(function() {
-  ns.find = ns.collection.find
-  ns.update = ns.collection.update
-  ns.remove = ns.collection.remove
-})
+  ns.find = ns.collection.find;
+  ns.update = ns.collection.update;
+  ns.remove = ns.collection.remove;
+});
 
-var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger('CF.Accounts').print;
+var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger("CF.Accounts").print;
 
-var _k = CF.Utils._k
+var _k = CF.Utils._k;
 
 ns.collection.allow({
   insert: function(userId, doc) {
     return userId && (doc.refId == userId);
   },
   update: function(userId, doc, fieldNames, modifier) {
-    if (fieldNames['refId'] || fieldNames['value'] || fieldNames['createdAt']) return false;
+    if (fieldNames["refId"] || fieldNames["value"] || fieldNames["createdAt"]) return false;
     if (doc.refId != userId) return false;
     return true;
   },
@@ -69,28 +99,28 @@ ns.collection.allow({
 
 ns.findByRefId = function(userId, options) {
   var selector = {
-    refId: userId,
-  }
+    refId: userId
+  };
 
   // have to supply isPrivate flag internally on server
   if (Meteor.isServer && !options.private) _.extend(selector, {
     isPrivate: {
       $ne: true
     }
-  })
+  });
   return ns.collection.find(selector);
-}
+};
 
 ns.findById = function(_id, options) {
   if (!_id) return {};
   options = options || {};
   var selector = {
-      _id: _id
-    }
+    _id: _id
+  };
     //if (Meteor.isServer) {} && !options.private)
     //  _.extend (selector, {isPrivate: {$ne: true}})
   return ns.collection.findOne(selector);
-}
+};
 
 var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
@@ -99,14 +129,14 @@ var checkAllowed = function(accountKey, userId) { // TODO move to collection rul
     refId: userId
   });
   return account;
-}
+};
 
 Meteor.methods({
   cfAssetsAddAccount: function(obj) {
     if (!this.userId) return {
       err: "no userid"
     };
-    print("in add account", obj)
+    print("in add account", obj);
     check(obj, Match.ObjectIncluding({
       isPublic: Boolean,
       name: String
@@ -128,7 +158,7 @@ Meteor.methods({
       refId: user._id
     });
 
-    if (obj.address) Meteor.call('cfAssetsAddAddress', key, obj.address);
+    if (obj.address) Meteor.call("cfAssetsAddAddress", key, obj.address);
 
     return {
       newAccountKey: key
@@ -136,7 +166,7 @@ Meteor.methods({
   },
 
   cfAssetsRenameAccount: function(accountKey, newName) {
-    var account = checkAllowed(accountKey, this.userId)
+    var account = checkAllowed(accountKey, this.userId);
     if (!account) return false;
     var sel = {
       _id: accountKey
@@ -161,8 +191,8 @@ Meteor.methods({
       _id: this.userId
     });
     var account = CF.Accounts.findById(accountKey);
-    var toKey = (fromKey == 'accounts' ? 'accountsPrivate' : 'accounts'); //TODO - remove strings, not needed
-    if (!CF.User.hasPublicAccess(user)) toKey = 'accountsPrivate'
+    var toKey = (fromKey == "accounts" ? "accountsPrivate" : "accounts"); //TODO - remove strings, not needed
+    if (!CF.User.hasPublicAccess(user)) toKey = "accountsPrivate";
 
 
     if (account.refId == this.userId) {
@@ -172,9 +202,9 @@ Meteor.methods({
         _id: accountKey
       }, {
         $set: {
-          isPrivate: (toKey == 'accountsPrivate')
+          isPrivate: (toKey == "accountsPrivate")
         }
-      })
+      });
     }
   },
 
@@ -182,8 +212,8 @@ Meteor.methods({
     if (checkAllowed(accountKey, this.userId)) //todo - maybe direct,
     // not method (setup allow/deny for collection)
       CF.Accounts.collection.remove({
-      _id: accountKey
-    })
+        _id: accountKey
+      });
   },
 
   cfAssetsAddAddress: function(accountKey, address) {
@@ -205,6 +235,6 @@ Meteor.methods({
       username: Meteor.user() && Meteor.user().username,
       accountKey: accountKey,
       address: address
-    })
+    });
   }
-})
+});

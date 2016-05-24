@@ -33,12 +33,9 @@ function _searchSelector(bucketKey) {
   return selector;
 }
 
-// data array; function to handle single item; delay in ms.
-// suitable for small arrays, and when we re sure calls won't interfere one another
-// (i.e. call period > delay*array.length)
 const handleArrayWithInterval = require(
   "../../../imports/api/handleArray").handleArrayWithInterval;
-console.log (handleArrayWithInterval, "oooooooooooooooooooooooooooooo")
+
 JSON.unflatten = function(data) {
   "use strict";
   if (Object(data) !== data || Array.isArray(data)) {

@@ -1,11 +1,16 @@
-const HOUR = 1000*60*60;
-const historyInterval = 24*HOUR;
-const accountActual = historyInterval/2;
+
 
 if (Meteor.isServer) {
-  exports.putPoint = function(accountId){
-    var account = CF.Accounts.collection.findOne({_id: accountId});
-    if (!account) return;
-    
+  exports.putPoint = function(accountIn){
+    var accountState = CF.Accounts.collection.findOne( {_id: CF.Accounts._updateBalanceAccount(accountIn, {isPrivate:true}) });
+    if (!accountState) return null;
+    const accountId = accountState._id;
+    delete accountState._id;
+    // ? delete accountState.updatedAt
+
+    _.extend(accountState, {accountId: accountId, timestamp: new Date()});
+    var ret = {_id: CF.Accounts.History.collection.insert(accountState),
+      vBtc: accountState.vBtc }
+    return ret;
   }
 }

@@ -6,3 +6,5 @@ exports.selector = {
 exports.selectorService = {
   "profile.followedBy.2": {$exists: true}
 };
+
+exports.updateUserFunds = require("./userHistory").updateUserFunds;

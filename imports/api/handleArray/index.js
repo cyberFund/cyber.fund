@@ -1,3 +1,6 @@
+// data array; function to handle single item; delay in ms.
+// suitable for small arrays, and when we re sure calls won't interfere one another
+// (i.e. call period > delay*array.length)
 exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay, handler, handlerAfter){
   if (delay) {
     var current = 0;
