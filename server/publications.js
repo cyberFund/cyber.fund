@@ -331,12 +331,14 @@ Meteor.publish("allSystems", function(){
 
 Meteor.publish("usersWithFunds", function(){
   const selector = require("../imports/userFunds/").selector
-  return Meteor.users.find(selector, {
+  let fullSelector = this.userId ? {$or:[{_id: this.userId}, selector]} : selector;
+  return Meteor.users.find(fullSelector, {
     fields: {
       profile: 1,
       avatar: 1,
       username: 1,
-      publicFunds: 1
+      publicFunds: 1,
+      publicFundsUsd: 1
     }
   });
 });

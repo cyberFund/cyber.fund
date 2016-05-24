@@ -1,6 +1,6 @@
 exports.selector = {
   "profile.followedBy.2": {$exists: true},
-  publicFunds: {$gte: 0}
+  publicFunds: {$gt: 0}
 };
 
 exports.selectorService = {

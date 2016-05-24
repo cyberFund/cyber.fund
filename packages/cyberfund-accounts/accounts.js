@@ -238,3 +238,34 @@ Meteor.methods({
     });
   }
 });
+
+ns.accumulate = function(docs, accumulator){
+  var ret = accumulator || {};
+  docs.forEach(function(doc){
+    _.each(doc, function(asset, assetId){
+      if (ret[assetId]) {
+        ret[assetId].quantity += asset.quantity || 0;
+        ret[assetId].vUsd += asset.vUsd || 0;
+        ret[assetId].vBtc += asset.vBtc || 0;
+      }
+      else ret[assetId] = {
+        quantity: asset.quantity || 0,
+        vUsd: asset.vUsd || 0,
+        vBtc: asset.vBtc || 0
+      };
+    });
+  });
+  return ret;
+};
+
+ns.extractAssets = function flatten(doc) {
+  var ret = [];
+  if (doc.addresses) {
+    _.each(doc.addresses, function(assetsDoc, address) {
+      if (assetsDoc.assets) {
+        ret.push(assetsDoc.assets);
+      }
+    });
+  }
+  return CF.Accounts.accumulate(ret);
+};

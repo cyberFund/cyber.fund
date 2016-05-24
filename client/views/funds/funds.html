@@ -2,15 +2,36 @@
   <p class="center">
     We currently only list here people with 3+ followers
   </p>
+  <h4 class="center">Top Funds You Follow</h4>
+  {{#if currentUser}}
   <table class="center" style="max-width: 36em; margin: 0 auto" id="funds-table">
     <thead>
-      <th class="center">User</th>
-      <th class="center">Funds Public (Ƀ)</th>
+      <th class="center">Fund</th>
+      <th class="center">Valuation in Ƀ</th>
+      <th class="center">Valuation in $</th>
       <th class="center">Followed By</th>
-      <th class="center">Follows</th>
     </thead>
     <tbody>
-      {{#each rows}}
+      {{#each rowsIFollow}}
+        {{> fundsRow this}}
+      {{/each}}
+    </tbody>
+  </table>
+  {{else}}
+
+  {{> atNavButton}}
+  {{/if}}
+
+  <h4 class="center">Top Funds You Don't Follow</h4>
+  <table class="center" style="max-width: 36em; margin: 0 auto" id="funds-table">
+    <thead>
+      <th class="center">Fund</th>
+      <th class="center">Valuation in Ƀ</th>
+      <th class="center">Valuation in $</th>
+      <th class="center">Followed By</th>
+    </thead>
+    <tbody>
+      {{#each rowsIDontFollow}}
         {{> fundsRow this}}
       {{/each}}
     </tbody>

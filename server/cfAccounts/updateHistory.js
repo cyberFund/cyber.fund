@@ -14,7 +14,7 @@ SyncedCron.add({
   job: function () {
     dealWithPopulars()
   }
-})
+}) 
 
 function dealWithAll(){
   handleArrayWithInterval( _.pluck( Meteor.users.find({}, {fields: {_id: 1}}).fetch(), '_id'), 8000, updateUserFunds)
@@ -52,5 +52,5 @@ SyncedCron.add({
 
 // dev test only
 Meteor.startup(function(){
-  dealWithPopulars();
+  dealWithAll();
 })
