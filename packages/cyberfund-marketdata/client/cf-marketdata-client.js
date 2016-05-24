@@ -2,13 +2,6 @@ CF.MarketData = CF.MarketData || {};
 
 var helpers = {
   dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
-    //=0% - Illiquid
-    //<0.01% - Very Low
-    //< 0.1% - Low
-    //< 0.5% - Normal
-    //< 2% - High
-    //`> 2% - Very High
-
     if (!absolute) {
       return needDigit ? 0 : "Normal";
     }
