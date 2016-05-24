@@ -20,8 +20,10 @@ Template.funds.onCreated(function(){
 
 function fundsIFollow(){
   const userId = Meteor.userId();
+  if (!userId) return null;
   const user = Meteor.user();
-  let iFollow = user && user.profile && user.profile.followingUsers;
+  let iFollow = user && user.profile && user.profile.followingUsers || [];
+  iFollow.push(userId);
   return iFollow
 }
 
@@ -35,18 +37,17 @@ Template.funds.helpers({
   },
   rowsIFollow: function(){
     const iFollow = fundsIFollow();
-    let selector = require("../../../imports/userFunds/").selector
-    if (iFollow) selector._id = {$in: iFollow}
-    selector = {$or: [selector, {_id: Meteor.userId()}]}
-    return Meteor.users.find(selector, {
-      sort: {publicFunds: -1}
-    });
+    if (iFollow) {
+      selector = {_id: {$in: iFollow}}
+      return Meteor.users.find(selector, {
+        sort: {publicFunds: -1}
+      });
+    } else return [];
   },
   rowsIDontFollow: function(){
     const iFollow = fundsIFollow();
     let selector = require("../../../imports/userFunds/").selector
     if (iFollow) selector._id = {$nin: iFollow}
-    selector = {$and: [selector, {_id: {$ne:Meteor.userId()}} ]}
     return Meteor.users.find(selector, {
       limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,
       sort: {publicFunds: -1}
