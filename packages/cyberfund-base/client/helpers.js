@@ -268,8 +268,11 @@ var helpers = {
   },
   _btcPrice: function(){
     var btc = CurrentData.findOne({_id: "Bitcoin"});
-    if (btc && btc.metrics) return parseFloat(btc.metrics.price.usd)
-    return undefined
+    try {// try to return a value
+      return parseFloat(btc.metrics.price.usd)
+    } catch (err) {// if value undefined return nothing
+      return
+    }
   },
   userHasPublicAccess: function userHasPublicAccess() {
     return CF.User.hasPublicAccess(Meteor.user())
