@@ -331,10 +331,11 @@ Meteor.publish("allSystems", function(){
 
 Meteor.publish("usersWithFunds", function(){
   const selector = require("../imports/userFunds/").selector
-  const user = Meteor.user();
+  const user = Meteor.users.findOne({_id:this.userId});
   let ids = user && user.profile && user.profile.followingUsers || [];
   ids.push(this.userId);
-  let fullSelector = this.userId ? {$or:[{_id: this.userId}, selector]} : selector;
+
+  let fullSelector = this.userId ? {$or:[{_id: ids}, selector]} : selector;
   return Meteor.users.find(fullSelector, {
     fields: {
       profile: 1,
