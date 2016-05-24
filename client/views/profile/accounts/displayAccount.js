@@ -5,31 +5,31 @@ var isOwnAssets = function(){
   return CF.Profile.currentUsername() == CF.User.username();
 };
 
-Template['displayAccount'].rendered = function () {
+Template["displayAccount"].rendered = function () {
   var t = this;
 
-  t.$('.dropdown-button').dropdown({
-      inDuration: 300,
-      outDuration: 225,
-      constrain_width: false, // Does not change width of dropdown to that of the activator
-      hover: false, // Activate on hover
-      gutter: 12, // Spacing from edge
-      belowOrigin: true // Displays dropdown below the button
-    }
+  t.$(".dropdown-button").dropdown({
+    inDuration: 300,
+    outDuration: 225,
+    constrain_width: false, // Does not change width of dropdown to that of the activator
+    hover: false, // Activate on hover
+    gutter: 12, // Spacing from edge
+    belowOrigin: true // Displays dropdown below the button
+  }
   );
 };
 
 function isPublicAccount(account){
-  return !account.isPrivate
+  return !account.isPrivate;
 }
 
-Template['displayAccount'].helpers({
+Template["displayAccount"].helpers({
   disabledTogglePrivate: function () {
-    return 'disabled';
+    return "disabled";
   },
   publicity: function (account) {
-    var pub = 'Public Account';
-    var pri = 'Private Account';
+    var pub = "Public Account";
+    var pri = "Private Account";
     return isPublicAccount(account) ? pub : pri;
   },
   isPublic: function (account) {
@@ -46,58 +46,58 @@ Template['displayAccount'].helpers({
   }
 });
 
-Template['displayAccount'].events({
-  'click .req-remove-account': function (e, t) {
+Template["displayAccount"].events({
+  "click .req-remove-account": function (e, t) {
     if (!isOwnAssets()) return;
     $("#modal-delete-account").openModal();
     $("button[type=submit]", "#delete-account-form").focus();
   },
-  'click .req-rename-account': function (e, t) {
+  "click .req-rename-account": function (e, t) {
     if (!isOwnAssets()) return;
     $("#modal-rename-account").openModal();
   },
-  'click .mock-soon': function (e, t) {
+  "click .mock-soon": function (e, t) {
     if (!isOwnAssets()) return;
-    Materialize.toast('Private accounts coming soon', 3200);
+    Materialize.toast("Private accounts coming soon", 3200);
   },
   "click .act-remove-address": function (e, t) {
     if (!isOwnAssets()) return;
     t.$("#modal-delete-address").openModal();
     $("button[type=submit]", "#delete-address-form").focus();
   },
-  'click .submit-remove-address': function (e, t) {
+  "click .submit-remove-address": function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", CF.Accounts.currentId.get(),
     CF.Accounts.currentAddress.get(), function (err, ret) {
       if (!err) {
         CF.Accounts.currentAddress.set(null);
-        t.$("#modal-delete-address").closeModal()
+        t.$("#modal-delete-address").closeModal();
       }
     });
     return false;
   },
-  'click .req-add-address': function (e, t) {
+  "click .req-add-address": function (e, t) {
     $("#modal-add-address").openModal();
   },
-  'click .per-address': function(e, t){
+  "click .per-address": function(e, t){
     var $asset = $(e.currentTarget).closest(".address-item");
     CF.Accounts.currentAddress.set($asset.attr("address-id"));
     CF.Accounts.currentId.set($asset.closest(".account-item")
       .attr("account-id"));
   },
-  'click .req-delete-address': function(e, t) {
-    $('#modal-delete-address').openModal();
-    $("button[type=submit]", "#delete-address-form").focus()
+  "click .req-delete-address": function(e, t) {
+    $("#modal-delete-address").openModal();
+    $("button[type=submit]", "#delete-address-form").focus();
   },
-  'click .req-add-asset-to-address': function(e, t){
+  "click .req-add-asset-to-address": function(e, t){
     CF.Accounts.currentAsset.set(null);
-    $('#modal-add-asset').openModal();
+    $("#modal-add-asset").openModal();
   },
-  'click .req-update-address': function(e, t){
+  "click .req-update-address": function(e, t){
     Meteor.call("cfAssetUpdateBalance",
       CF.Accounts.currentId.get(),
-      CF.Accounts.currentAddress.get())
+      CF.Accounts.currentAddress.get());
   },
-  'click .req-delete-asset': function(e, t){
+  "click .req-delete-asset": function(e, t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
     CF.Accounts.currentAsset.set(
       CurrentData.findOne(cfCDs.system( $item.attr("asset-key")),
@@ -112,7 +112,7 @@ Template['displayAccount'].events({
     }
   },
 
-  'click .req-edit-asset': function(e,t){
+  "click .req-edit-asset": function(e,t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
 
     CF.Accounts.currentAsset.set(
@@ -126,15 +126,12 @@ Template['displayAccount'].events({
       $("#modal-edit-asset").openModal();
     }
   },
-  'click .req-toggle-private': function(e, t){
+  "click .req-toggle-private": function(e, t){
     var user = Meteor.user();
     if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
-    console.log('here22222')
     CF.Accounts.currentId.set($item.attr("account-id"));
-    console.log("222222")
     $("#modal-toggle-private").openModal();
-    console.log(5)
   }
 });
