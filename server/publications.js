@@ -330,7 +330,8 @@ Meteor.publish("allSystems", function(){
 });
 
 Meteor.publish("usersWithFunds", function(){
-  return Meteor.users.find({/*publicFunds: {$gt: 0}*/}, {
+  const selector = require("../imports/userFunds/").selector
+  return Meteor.users.find(selector, {
     fields: {
       profile: 1,
       avatar: 1,

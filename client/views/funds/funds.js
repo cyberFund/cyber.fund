@@ -20,7 +20,8 @@ Template.funds.onCreated(function(){
 
 Template.funds.helpers({
   rows: function(){
-    return Meteor.users.find({/*publicFunds: {$gt: 0}*/}, {
+    const selector = require("../../../imports/userFunds/").selector
+    return Meteor.users.find(selector, {
       limit: Session.get("showAllUsersAtFunds") ? 1000 : 50
     });
   }
