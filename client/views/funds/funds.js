@@ -22,7 +22,8 @@ Template.funds.helpers({
   rows: function(){
     const selector = require("../../../imports/userFunds/").selector
     return Meteor.users.find(selector, {
-      limit: Session.get("showAllUsersAtFunds") ? 1000 : 50
+      limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,
+      sort: {publicFunds: -1}
     });
   }
 });
