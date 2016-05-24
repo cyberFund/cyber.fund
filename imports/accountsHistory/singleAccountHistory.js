@@ -10,7 +10,8 @@ if (Meteor.isServer) {
 
     _.extend(accountState, {accountId: accountId, timestamp: new Date()});
     var ret = {_id: CF.Accounts.History.collection.insert(accountState),
-      vBtc: accountState.vBtc }
+      state: accountState
+    }
     return ret;
   }
 }
