@@ -40,7 +40,7 @@ Template.funds.helpers({
   rowsIFollow: function(){
     const iFollow = fundsIFollow();
     let selector = require("../../../imports/userFunds/").selector
-    if (iFollow) selector._id = {$nin: iFollow}
+    if (iFollow) selector._id = {$in: iFollow}
     return Meteor.users.find(selector, {
       sort: {publicFunds: -1}
     });
