@@ -107,7 +107,7 @@ myGraph = (el, instance) ->
   volumeChart.append('text')
     .attr 'x', 12
     .attr 'y', 20
-    .text 'daily trade volume, BTC'
+    .text 'daily trade volume, Ƀ'
 
   parseDate = d3.time.format('%Y-%m').parse
 

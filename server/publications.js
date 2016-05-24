@@ -328,3 +328,14 @@ Meteor.publish("allSystems", function(){
     }
   });
 });
+
+Meteor.publish("usersWithFunds", function(){
+  return Meteor.users.find({/*publicFunds: {$gt: 0}*/}, {
+    fields: {
+      profile: 1,
+      avatar: 1,
+      username: 1,
+      publicFunds: 1
+    }
+  });
+});

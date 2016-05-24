@@ -1,0 +1,17 @@
+.user-at-funds {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /*justify-content: space-between;*/
+  margin: 0 3px;
+}
+
+.avatar-at-funds {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+}
+
+.valign-middle {
+  vertical-align: middle;
+}
