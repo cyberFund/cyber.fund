@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "dependencies": {
+    "babel-runtime": "^6.9.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "ramda": "^0.21.0",

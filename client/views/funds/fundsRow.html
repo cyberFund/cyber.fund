@@ -1,0 +1,20 @@
+<template name="fundsRow">
+  <tr itemscope itemtype="http://schema.org/Person">
+    <td>
+      <a class="user-at-funds" itemprop="url" href="{{pathFor '/@:username' username=username}}"
+         title="{{profile.name}}">
+         {{>hitryImage img_url=avatar class="avatar-at-funds" fallback='av'}}
+        <span itemprop="name" content="{{profile.name}}">@{{username}}</span>
+      </a>
+    </td>
+    <td class="right-align">
+      {{readableN1 publicFunds}}
+    </td>
+    <td class="right-align">
+      {{userFollowedByCount}}
+    </td>
+    <td class="right-align">
+      {{userFollowsCount}}
+    </td>
+  </tr>
+</template>

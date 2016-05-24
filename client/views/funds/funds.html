@@ -1,0 +1,15 @@
+<template name="funds">
+  <table class="center" style="max-width: 36em; margin: 0 auto" id="funds-table">
+    <thead>
+      <th class="center">User</th>
+      <th class="center">Funds Public (Ƀ)</th>
+      <th class="center">Follows</th>
+      <th class="center">Followed By</th>
+    </thead>
+    <tbody>
+      {{#each rows}}
+        {{> fundsRow this}}
+      {{/each}}
+    </tbody>
+  </table>
+</template>
