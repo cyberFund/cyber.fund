@@ -30,7 +30,27 @@ SyncedCron.add({
   }
 });
 
+SyncedCron.add({
+  name: 'daily user history 2',
+  schedule: function (parser) {
+    return parser.cron("17 9 * * *", false);
+  },
+  job: function () {
+    dealWithAll
+  }
+});
+
+SyncedCron.add({
+  name: 'daily user history 3',
+  schedule: function (parser) {
+    return parser.cron("17 17 * * *", false);
+  },
+  job: function () {
+    dealWithAll
+  }
+});
+
 // dev test only
 Meteor.startup(function(){
-  dealWithAll();
+  dealWithPopulars();
 })
