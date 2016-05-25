@@ -6,13 +6,16 @@ function dealWithPopulars(){
   handleArrayWithInterval( _.pluck( Meteor.users.find(selectorService, {fields: {_id: 1}}).fetch(), '_id'), 8000, updateUserFunds)
 }
 
+const print = CF.Utils.logger.getLogger('FUNDS')
+
 SyncedCron.add({
   name: 'hourly user history',
   schedule: function (parser) {
-    return parser.text('every hour');
+    return parser.cron('49 * * * *', false);
   },
   job: function () {
-    dealWithPopulars()
+    print("starting hourly funds recalculation")
+    dealWithPopulars();
   }
 })
 
@@ -26,7 +29,8 @@ SyncedCron.add({
     return parser.cron("17 1 * * *", false);
   },
   job: function () {
-    dealWithAll
+    print("starting daily funds recalculation")
+    dealWithAll();
   }
 });
 
@@ -36,7 +40,8 @@ SyncedCron.add({
     return parser.cron("17 9 * * *", false);
   },
   job: function () {
-    dealWithAll
+    print("starting daily funds recalculation")
+    dealWithAll();
   }
 });
 
@@ -46,7 +51,8 @@ SyncedCron.add({
     return parser.cron("17 17 * * *", false);
   },
   job: function () {
-    dealWithAll
+    print("starting daily funds recalculation")
+    dealWithAll();
   }
 });
 

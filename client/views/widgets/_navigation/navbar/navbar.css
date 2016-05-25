@@ -1,3 +1,24 @@
+/* "join us" button will not have list item-like background on hover  */
+.right.hide-on-med-and-down li:last-child:hover {
+  background-color: transparent;
+}
+/* same as previous */
+#nav-mobile li:last-child:hover {
+    background-color: transparent;
+}
+/* sidebar items aligned by center, not to the left */
+#nav-mobile li {
+  text-align: center;
+}
+/* button were taking whole height leaving no space for :hover shadow effect */
+#nav-mobile li:last-child {
+  padding-bottom: 10px;
+}
+/* button were taking whole width of li element leaving no space between items */
+.right.hide-on-med-and-down li:last-child {
+  margin-left: 15px;
+}
+
 input.search-input {
   border: 0;
   display: inline;
