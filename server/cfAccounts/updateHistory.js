@@ -52,5 +52,5 @@ SyncedCron.add({
 
 // dev test only
 Meteor.startup(function(){
-  dealWithPopulars();
+//  dealWithPopulars();
 })
