@@ -11,7 +11,7 @@ const print = CF.Utils.logger.getLogger('FUNDS')
 SyncedCron.add({
   name: 'hourly user history',
   schedule: function (parser) {
-    return parser.cron('49 * * * *', false);
+    return parser.cron('7/10 * * * *', false);
   },
   job: function () {
     print("starting hourly funds recalculation")
