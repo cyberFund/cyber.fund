@@ -7,7 +7,12 @@
             style="position: absolute; bottom: 9px; right: 9px"><i
                   class="material-icons tiny right">delete</i></a>
           {{/if}}
-            <input type="text" name="address" placeholder="input address">
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="address" type="text">
+              <label>input address</label>
+            </div>
+          </div>
             <a href="#" class="btn query-balance">Query Balance</a>
             {{#if lastAddress}}
               <h6>{{lastAddress}} </h6>
