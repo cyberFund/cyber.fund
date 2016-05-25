@@ -7,8 +7,6 @@ const putPoint = require('../accountsHistory/singleAccountHistory').putPoint
 // only work for user collection.
 if (Meteor.isServer) {
   exports.updateUserFunds = function(userId) {
-    console.log(userId);
-    console.log(111);
     const updatedAt = new Date()
     let sum = 0,
       sumUsd = 0,
