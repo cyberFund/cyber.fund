@@ -1,6 +1,6 @@
 // this file describes fetching of data from chaingear
 
-var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
+var sourceUrl = "http://chaingear.cyber.fund/chaingear.json";
 var fetchTimeout = 15 * 1000;
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
@@ -42,12 +42,12 @@ function flatten(obj) { //todo move to utils..
         add(key, v);
       } else {
         if (_.isObject(v)) {
-          iter(key, v)
+          iter(key, v);
         } else {
-          add(key, v)
+          add(key, v);
         }
       }
-    })
+    });
   }
 
   iter("", obj);
@@ -62,7 +62,7 @@ var fetch = function() {
     });
 
     var previous = Extras.findOne({
-      _id: 'chaingearEtag'
+      _id: "chaingearEtag"
     });
 
     if (!res || !res.headers || !res.headers.etag) return;
@@ -71,8 +71,8 @@ var fetch = function() {
       logger.info("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
 
       CF.fetching.get(sourceUrl, {
-          timeout: fetchTimeout
-        },
+        timeout: fetchTimeout
+      },
         function(error, getResult) {
           if (error) {
             logger.error("Error while fetching cyberfund:", error);
@@ -97,11 +97,11 @@ var fetch = function() {
               if (_.isString(system.crowdsales.end_date)) {
                 system.crowdsales.end_date = new Date(system.crowdsales.end_date);
               }
-              crowdsalesList.push(system._id)
+              crowdsalesList.push(system._id);
             }
 
-            if (system.descriptions && system.descriptions.state == 'Project')
-              projectsList.push(system._id)
+            if (system.descriptions && system.descriptions.state == "Project")
+              projectsList.push(system._id);
 
             if (system.specs) { // push supply & caps from chaingear to metrics
 
@@ -122,7 +122,7 @@ var fetch = function() {
             });
 
             if (!doc) {
-              console.log("no doc for system '" + system._id + "'")
+              console.log("no doc for system '" + system._id + "'");
               console.log("inserting system " + system._id);
               CurrentData.insert(system);
             } else {
@@ -138,12 +138,12 @@ var fetch = function() {
     //                if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
                       //set.metrics = set.metrics || {};
                       //set.metrics.price = set.metrics.price || {};
-                      set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
+                  set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
       //              }
         //            if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
                       //set.metrics = set.metrics || {};
                       //set.metrics.price = set.metrics.price || {};
-                      set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
+                  set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
           //          }
         //          }
                 }
@@ -161,19 +161,19 @@ var fetch = function() {
 
           // store lists of projects and crowdsales
           Extras.upsert({
-            _id: 'radarList'
+            _id: "radarList"
           }, {
             crowdsales: crowdsalesList,
             projects: projectsList,
             meta: {
-              domain: 'chaingear',
-              type: 'cache'
+              domain: "chaingear",
+              type: "cache"
             }
           });
 
           // mark current version so we won't download it again. todo: use github webhook instead
           Extras.upsert({
-            _id: 'chaingearEtag'
+            _id: "chaingearEtag"
           }, {
             etag: res.headers.etag,
             meta: {
@@ -184,22 +184,22 @@ var fetch = function() {
 
         });
     } else {
-      console.log("chaingear not changed..")
+      console.log("chaingear not changed..");
     }
   } catch (e) {
-    console.log("probably no connection while trying to fetch cynberfund")
+    console.log("probably no connection while trying to fetch cynberfund");
   }
 };
 
 Meteor.startup(function(){
   fetch();
-})
+});
 
 SyncedCron.add({
-  name: 'fetch chaingear data',
+  name: "fetch chaingear data",
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron('0/5 * * * *', false);
+    return parser.cron("0/5 * * * *", false);
   },
   job: function() {
     fetch();
