@@ -210,7 +210,7 @@ myGraph = (el, instance) ->
     .attr 'dy', '36'
 
   day = 1000 * 60 * 60 * 24
-  brushLen = (extent) ->
+  extentLen = (extent) ->
     return extent[1].valueOf() - extent[0].valueOf()
 
   brushTimeoutFn = ()->
@@ -219,7 +219,6 @@ myGraph = (el, instance) ->
       if res
         d = instance.theData.concat(res).sort((a, b) -> a.timestamp - (b.timestamp));
         data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp).valueOf());
-        console.log(data.length)
         brushed(true)
 
 
@@ -244,7 +243,7 @@ myGraph = (el, instance) ->
     if not brush.empty()
       if brushTimeout
         clearTimeout brushTimeout
-      if (not bypassFetching) and (brushLen(brush.extent())/day < 31)
+      if (not bypassFetching) and (extentLen(brush.extent())/day < 31)
         brushTimeout = setTimeout brushTimeoutFn, brushTimeoutT
 
 
@@ -282,6 +281,14 @@ myGraph = (el, instance) ->
     .attr('class', 'remove-on-brush')
     .attr('text', "drag to zoom")
     .attr('dx', 20).attr('dy', 20)
+
+  if (extentLen(x3.domain())/day < 35)
+    d = Meteor.call 'fetchMarketData2', getSystemId(), x3.domain()[0], x3.domain()[1], (err, res)->
+      if res
+        d = instance.theData.concat(res).sort((a, b) -> a.timestamp - (b.timestamp));
+        data = instance.theData = _.uniq(d, true, ((item)-> return item.timestamp).valueOf());
+        brushed(true)
+
 
   mousemove = ->
     limitX = (v) ->
