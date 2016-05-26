@@ -4,27 +4,28 @@
 var fetch = function(){
   try {
     var res = HTTP.get("https://etherchain.org/api/basic_stats");
+    //http://kong.cyber.fund/Ethereum/supplies
     if (!res.data) return;
     var data = res.data;
     if (data.status ==  1) {
       data = data.data;
       var blockCount = data.blockCount ? data.blockCount.number : data.difficulty ? data.difficulty.number : 0;
       if (blockCount) {
-        var selector = {system: "Ethereum"};
+        var selector = {_id: "Ethereum"};
         var metrics = CurrentData.findOne(selector);
         if (metrics.metrics) {
           metrics = metrics.metrics;
           var supply = blockCount*5 + 72002454.768;
           var set = {
-            'metrics.supply': supply,
-            'metrics.cap.btc': metrics.price.btc *supply,
-            'metrics.cap.usd': metrics.price.usd *supply
+            "metrics.supply": supply,
+            "metrics.cap.btc": metrics.price.btc *supply,
+            "metrics.cap.usd": metrics.price.usd *supply
           };
           CurrentData.update(selector, {$set: set});
         }
       }
     } else  {
-      console.log("received status " +data.status + " when fetched etherium basic stats. no update.")
+      console.log("received status " +data.status + " when fetched etherium basic stats. no update.");
     }
   } catch (e) {
     console.log("cannot fetch etherium data");
@@ -33,10 +34,10 @@ var fetch = function(){
 };
 
 SyncedCron.add({
-  name: 'fetch etherium volume data',
+  name: "fetch etherium volume data",
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron('5/15 * * * * *', true)
+    return parser.cron("5/15 * * * * *", true);
   },
   job: function () {
     fetch();

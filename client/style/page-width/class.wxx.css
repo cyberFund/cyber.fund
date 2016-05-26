@@ -4,6 +4,12 @@
   position: relative;
 }
 
+.w95 {
+  width: 95%;
+  margin: 0 auto;
+  position: relative;
+}
+
 .w100 {
   width: 100%;
   margin: 0 auto;

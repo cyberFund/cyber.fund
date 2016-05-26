@@ -63,7 +63,7 @@ var esParsers = {
     logger.error(rejection);
   },
 
-  latest_values: function parseLatestValues(today, yesterday) {
+  latest_values: function parseLatestValues(today, yesterday, monthAgo) {
     function getBuckets (day) {
       // could probably check for some es flags.
       return day.aggregations && day.aggregations.by_system
@@ -110,7 +110,6 @@ var esParsers = {
           hourlyData: 0
         }
       });
-
       // what we use as a data source. is set in chaingear, per-coin/per-asset
       var supplyDataSource = (curDoc && curDoc.token && curDoc.flags && curDoc.flags.supply_from) || "cmc";
 
@@ -195,21 +194,16 @@ var esParsers = {
 
       // if supply value is here
       if (sDayAgo && sDayAgo.supply_current) {
-
-        // try count cap using price and supply
-        // if (sDayAgo.price_usd) {
+        //  count cap using price and supply
         sDayAgo.cap_usd = sDayAgo.supply_current * (sDayAgo.price_usd || sNow.price_usd);
-        // }
 
-        // try count cap using price and suuply
-        //  if (sDayAgo.price_btc) {
+        //  count cap using price and suuply
         sDayAgo.cap_btc = sDayAgo.supply_current * (sDayAgo.price_btc || sNow.price_usd);
-        // }
       }
-
 
       // if supply value is here
       if (sNow.supply_current) {
+
         // try count cap (if none) using price and supply
         if (sNow.price_usd) {
           sNow.cap_usd = sNow.supply_current * sNow.price_usd;
@@ -253,12 +247,7 @@ var esParsers = {
       }
 
       if (sNow.cap_usd && sDayAgo && sDayAgo.cap_usd) {
-      /*  print ('in set["metrics.capChangePercents.day.usd"]');
-        print ('bucketKey', bucket.key)
-        print ('cap_usd now', sNow.cap_usd);
-        print ('cap_usd yest',  sDayAgo.cap_usd);
-        print ('timestamp yest', sDayAgo.timestamp);
-        print ('timestamp curr', sNow.timestamp); */
+
         set["metrics.capChangePercents.day.usd"] = 100.0 *
           (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
         set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
@@ -280,8 +269,6 @@ var esParsers = {
           set["metrics.cap.usd"] = curDoc.specs.supply * set["metrics.price.usd"];
         }
 
-      /*   print("selector", _searchSelector(bucket.key));
-         print("set", set); */
         var fastMetric = _.pick(sNow, [
           "cap_usd", "cap_btc", "volume24_btc", "price_usd", "volume24_usd", "price_btc"
         ]);
@@ -296,13 +283,6 @@ var esParsers = {
         fastMetric.systemId = curDoc._id;
         fastMetric.stamp = stamp;
         FastData.insert(fastMetric);
-        //var marketData = _.omit(fastMetric, ['stamp'])
-        //marketData.source = "2015"
-        //marketData.interval = "hourly"
-        //MarketData.upsert({_id: curDoc._id+"_"+"latestH"}, {$set: marketData})
-        //marketData.interval = "daily"
-        //MarketData.upsert({_id: curDoc._id+"_"+"latestD"}, {$set: marketData})
-
       }
 
     };
@@ -325,8 +305,6 @@ var esParsers = {
       var findSel = _searchSelector(bucket.key),
         set = {};
 
-      // if (bucket.avg_cap_usd.value) set["metrics.cap.usd"] = bucket.avg_cap_usd.value;
-      // if (bucket.avg_cap_btc.value) set["metrics.cap.btc"] = bucket.avg_cap_btc.value;
       if (!_.isEmpty(set)) {
         try {
           CurrentData.update(_searchSelector(bucket.key), {
@@ -425,12 +403,6 @@ var esParsers = {
   }
 };
 
-Meteor.startup(function(){
-  /*Meteor.setTimeout(function(){
-    fetchLatest ({systems: gatherSymSys({}) })
-  }, 5000);*/
-});
-
 function fetchLatest(params) {
   try {
     var p1 = {"from": "now-15m", "to": "now"};
@@ -443,13 +415,19 @@ function fetchLatest(params) {
 
     var p2 = {"from": "now-1d-15m", "to": "now-1d"};
     _.extend(p2, params);
-
     d = moment();
     var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p2));
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    esParsers.latest_values(today, yesterday);
+    var p3 = {"from": "now-1M-15m", "to": "now-1M-1d"};
+    _.extend(p3, params);
+    d = moment();
+    var monthAgo = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
+    n = moment();
+    console.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+
+    esParsers.latest_values(today, yesterday, monthAgo);
 
   } catch (e) {
     logger.warn("could not fetch latest values");
@@ -603,19 +581,6 @@ Meteor.methods({
     }
   }
 });
-
-/*SyncedCron.add({
-  name: 'initAverageValues',
-  schedule: function(parser) {
-    // parser is a later.parse object
-    return parser.cron('14 1/2 * * *', false);
-  },
-  job: function() {
-    var doc = CurrentData.findOne({$not: {initializedAverages: true}});
-    if (doc) Meteor.call(initAverageValues(doc._id))
-  }
-});*/
-
 
 SyncedCron.add({
   name: "fetch latest elasticsearch data",
