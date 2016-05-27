@@ -19,8 +19,9 @@ myGraph = (el, instance) ->
   parent = d3.select(d3.select(el).node()?.parentNode)
   if parent
     parent.classed("hidden", false);
-    controls = parent.select(".slowchart-controls")
-    controlsButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+    scaleButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+    backButton = parent.select(".slowchart-controls .act-go-back.btn")
+    forthButton = parent.select(".slowchart-controls .act-go-forth.btn")
 
 
   @selectedNode = null
@@ -323,11 +324,11 @@ myGraph = (el, instance) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
-  if controlsButtons
-    controlsButtons.on "click", (e ,t)->
+  if scaleButtons
+    scaleButtons.on "click", (e ,t)->
       len = 0
 
-      switch controlsButtons[0][t].getAttribute('len')
+      switch scaleButtons[0][t].getAttribute('len')
         when "full" then len = 3650 * day
         when "year" then len = 365 * day
         when "month" then len = 30 * day
@@ -346,7 +347,27 @@ myGraph = (el, instance) ->
         brush.extent [newFront,newTail]
         brush(d3.select(".brush").transition());
         brush.event(d3.select(".brush").transition().delay(10))
+  if backButton
+    backButton.on "click", (e, t)->
+      if brush.empty() then return
+      extent = extentLen brush.extent()
+      newFront = new Date ( Math.max brush.extent()[0].valueOf()-extent,  x3.domain()[0].valueOf() ) # -extent*0.95
+      newTail = new Date ( newFront.valueOf() + extent )
 
+      brush.extent [newFront,newTail]
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
+  if forthButton
+    forthButton.on "click", (e, t)->
+      if brush.empty() then return
+      extent = extentLen brush.extent()
+      newTail = new Date ( Math.min brush.extent()[1].valueOf()+extent, x3.domain()[1].valueOf() )
+      newFront = new Date ( newTail.valueOf() - extent )
+
+
+      brush.extent [newFront,newTail]
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
 _timestampino = (timestamp) ->
   # date format. maybe better use d3-provided ?
   moment(timestamp).format if Meteor.settings.public and Meteor.settings.public.manyData then 'ddd D-MM HH:' else 'ddd D-MM'
