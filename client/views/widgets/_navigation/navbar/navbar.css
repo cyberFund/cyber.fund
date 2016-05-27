@@ -1,3 +1,7 @@
+/* for proper click animation effect brand logo must have a little space */
+.brand-logo {
+  padding: 10px 0;
+}
 /* "join us" button will not have list item-like background on hover  */
 .right.hide-on-med-and-down li:last-child:hover {
   background-color: transparent;
