@@ -114,7 +114,7 @@ myGraph = (el, instance) ->
   x2 = d3.time.scale()
     .domain([
       d3.min(data, grab.t)
-      DAte.now()#d3.max(data, grab.t)
+      Date.now()#d3.max(data, grab.t)
     ])
     .range [ 0, chartWidth ]
 
