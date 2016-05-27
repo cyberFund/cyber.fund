@@ -47,7 +47,7 @@ myGraph = (el, instance) ->
 
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
-    d3.max(data, grab.t)
+    Date.now() #Math.max(d3.max(data, grab.t), Date.now())
   ]).range [ 0, chartWidth ]
   y = d3.scale.linear().domain([
     d3.min(data, grab.sp)
