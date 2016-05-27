@@ -168,9 +168,10 @@
     <div id="apps" class="section scrollspy">
         {{#with linksWithTag links "Apps"}}
         {{#if gte this.length 8}}
-            {{> systemLinksTabs this}}
+            {{> systemLinksTabs links=this system=../_id}}
         {{else}}
           <div class="cglinxbox">
+            {{> testMarkets system=_id}}
             {{#each this}} {{> cgLinkCard this}} {{/each}}
           </div>
         {{/if}} {{/with}}

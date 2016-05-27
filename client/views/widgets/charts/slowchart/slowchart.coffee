@@ -306,13 +306,14 @@ myGraph = (el, instance) ->
     d = if x0 - grab.t(d0) > grab.t(d1) - x0 then d1 else d0
     yv = y(grab.sp(d))
     xv = x(grab.t(d))
+
     focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
     focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
 
     focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
 
     tooltip.select('text.price').text "price " + formatCurrency(grab.sp(d))
-    tooltip.select('text.date').text _timestampino(grab.t(d))
+    tooltip.select('text.date').text _timestampino(d)
     tooltip.select('text.volume').text "daily volume " +d3.format(',.0f')(grab.bvd(d))
     tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
@@ -368,17 +369,6 @@ myGraph = (el, instance) ->
       brush.extent [newFront,newTail]
       brush(d3.select(".brush").transition());
       brush.event(d3.select(".brush").transition().delay(10))
-_timestampino = (timestamp) ->
-  # date format. maybe better use d3-provided ?
-  moment(timestamp).format if Meteor.settings.public and Meteor.settings.public.manyData then 'ddd D-MM HH:' else 'ddd D-MM'
-
-Template['slowchart'].helpers
-  'chartdata': _chartdata
-  __ready: ->
-    # do not draw anything before data is loaded
-    return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
-  hasNoData: ->
-    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
 
 grab =
   t: (fruit) -> fruit and fruit.timestamp
@@ -387,6 +377,20 @@ grab =
   sc: (fruit) -> fruit and fruit.cap_usd
   bc: (fruit) -> fruit and fruit.cap_btc
   bvd: (fruit) -> fruit and fruit.volume24_btc
+
+_timestampino = (fruit) ->
+  timestamp = grab.t(fruit)
+  format = if fruit.interval is 'hourly' then 'ddd D-MM HH:mm' else 'ddd D-MM'
+  # date format. maybe better use d3-provided ?
+  moment(timestamp).format format
+
+Template['slowchart'].helpers
+  'chartdata': _chartdata
+  __ready: ->
+    # do not draw anything before data is loaded
+    return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
+  hasNoData: ->
+    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
 
 getSystemId = ()->Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
 

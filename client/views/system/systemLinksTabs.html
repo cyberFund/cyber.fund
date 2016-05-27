@@ -1,5 +1,6 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemLinksTabs">
+  {{#with links}}
     <ul class="tabs">
         {{#if existLinksWith this "Exchange"}}
         <li class="tab {{#if linksWithTag this "Exchange"}}{{else}}disabled{{/if}}">
@@ -28,11 +29,17 @@
     <div id="tag-wallet" class="cglinxbox">
         {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
     </div>
-    {{/if}} {{#if existLinksWith this "Exchange"}}
+    {{/if}} {{/with}}
+
+    {{#if existLinksWith links "Exchange"}}
     <div id="tag-exchange" class="cglinxbox">
-        {{#each linksWithTag this "Exchange"}} {{> cgLinkCard this}} {{/each}}
+      {{> testMarkets system=system}}
+        {{#each linksWithTag links "Exchange"}} {{> cgLinkCard this}} {{/each}}
     </div>
-    {{/if}} {{#if existLinksWith this "Analytics"}}
+    {{/if}}
+    
+    {{#with links}}
+    {{#if existLinksWith this "Analytics"}}
     <div id="tag-analytics" class="cglinxbox">
         {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
     </div>
@@ -44,4 +51,5 @@
     <div id="tag-other" class="cglinxbox">
         {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
     </div>
+    {{/with}}
 </template>
