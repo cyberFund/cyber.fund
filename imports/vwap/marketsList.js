@@ -20,6 +20,10 @@ const xchangeMarkets = {
     name: "BlueTrade",
     url: "http://bleutrade.com"
   },
+  "http://www.gatecoin.com": {
+    name: "Gatecoin",
+    url: "http://www.gatecoin.com"
+  },
   "http://btc-e.com": {
     name: "BTC-e",
     url: "http://btc-e.com"

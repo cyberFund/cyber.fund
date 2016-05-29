@@ -1,4 +1,34 @@
 <template name="testMarkets">
   <div class="testMarkets">
+    <table>
+      <thead>
+        <th class="center">
+          Market
+        </th>
+
+        <th class="center">
+          Pair
+        </th>
+        <th class="center">
+          Price
+        </th>
+        <th class="center">
+          Daily volume, native<!--Ƀ-->
+        </th>
+
+      </thead>
+      <tbody>
+        {{#each rows}}
+        <tr>
+          <td>
+            <a href="{{marketUrlByApiUrl market}}">{{marketNameByApiUrl market}}</a>
+          </td>
+          <td>{{tokenById quote}}/{{tokenById base}}</td>
+          <td class="right-align">{{pricePair}}</td>
+          <td class="right-align">{{volumePair}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 </template>
