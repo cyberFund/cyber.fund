@@ -90,8 +90,17 @@ var esParsers = {
 
     handleBucket = function handleBucket(bucket) {
       var sNow = getHit(bucket);
+
       if (_.isEmpty(sNow)) return; // no need to update if no new data
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
+      /* debug
+      console.log(bucket.key)
+      if (bucket.key == 'DAO|TheDAO') {
+        console.log(bucket.latest.hits.hits)
+        console.log(sNow);
+        console.log(sDayAgo)
+      }
+      /debug */
 
       var set = {}; // changes object, to be used within doc update
       var m = moment(sNow.timestamp);

@@ -19,8 +19,9 @@ myGraph = (el, instance) ->
   parent = d3.select(d3.select(el).node()?.parentNode)
   if parent
     parent.classed("hidden", false);
-    controls = parent.select(".slowchart-controls")
-    controlsButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+    scaleButtons = parent.selectAll(".slowchart-controls .timeline.btn")
+    backButton = parent.select(".slowchart-controls .act-go-back.btn")
+    forthButton = parent.select(".slowchart-controls .act-go-forth.btn")
 
 
   @selectedNode = null
@@ -47,7 +48,7 @@ myGraph = (el, instance) ->
 
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
-    d3.max(data, grab.t)
+    Date.now() #Math.max(d3.max(data, grab.t), Date.now())
   ]).range [ 0, chartWidth ]
   y = d3.scale.linear().domain([
     d3.min(data, grab.sp)
@@ -114,7 +115,7 @@ myGraph = (el, instance) ->
   x2 = d3.time.scale()
     .domain([
       d3.min(data, grab.t)
-      d3.max(data, grab.t)
+      Date.now()#d3.max(data, grab.t)
     ])
     .range [ 0, chartWidth ]
 
@@ -305,13 +306,14 @@ myGraph = (el, instance) ->
     d = if x0 - grab.t(d0) > grab.t(d1) - x0 then d1 else d0
     yv = y(grab.sp(d))
     xv = x(grab.t(d))
+
     focus.select('.focus-horiz').attr('y1', yv).attr 'y2', yv
     focus.selectAll('.focus-vert').attr('x1', xv).attr 'x2', xv
 
     focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
 
     tooltip.select('text.price').text "price " + formatCurrency(grab.sp(d))
-    tooltip.select('text.date').text _timestampino(grab.t(d))
+    tooltip.select('text.date').text _timestampino(d)
     tooltip.select('text.volume').text "daily volume " +d3.format(',.0f')(grab.bvd(d))
     tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
@@ -323,11 +325,11 @@ myGraph = (el, instance) ->
     focus.style 'display', 'none'
   ).on 'mousemove', mousemove
 
-  if controlsButtons
-    controlsButtons.on "click", (e ,t)->
+  if scaleButtons
+    scaleButtons.on "click", (e ,t)->
       len = 0
 
-      switch controlsButtons[0][t].getAttribute('len')
+      switch scaleButtons[0][t].getAttribute('len')
         when "full" then len = 3650 * day
         when "year" then len = 365 * day
         when "month" then len = 30 * day
@@ -346,18 +348,27 @@ myGraph = (el, instance) ->
         brush.extent [newFront,newTail]
         brush(d3.select(".brush").transition());
         brush.event(d3.select(".brush").transition().delay(10))
+  if backButton
+    backButton.on "click", (e, t)->
+      if brush.empty() then return
+      extent = extentLen brush.extent()
+      newFront = new Date ( Math.max brush.extent()[0].valueOf()-extent,  x3.domain()[0].valueOf() ) # -extent*0.95
+      newTail = new Date ( newFront.valueOf() + extent )
 
-_timestampino = (timestamp) ->
-  # date format. maybe better use d3-provided ?
-  moment(timestamp).format if Meteor.settings.public and Meteor.settings.public.manyData then 'ddd D-MM HH:' else 'ddd D-MM'
+      brush.extent [newFront,newTail]
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
+  if forthButton
+    forthButton.on "click", (e, t)->
+      if brush.empty() then return
+      extent = extentLen brush.extent()
+      newTail = new Date ( Math.min brush.extent()[1].valueOf()+extent, x3.domain()[1].valueOf() )
+      newFront = new Date ( newTail.valueOf() - extent )
 
-Template['slowchart'].helpers
-  'chartdata': _chartdata
-  __ready: ->
-    # do not draw anything before data is loaded
-    return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
-  hasNoData: ->
-    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
+
+      brush.extent [newFront,newTail]
+      brush(d3.select(".brush").transition());
+      brush.event(d3.select(".brush").transition().delay(10))
 
 grab =
   t: (fruit) -> fruit and fruit.timestamp
@@ -366,6 +377,20 @@ grab =
   sc: (fruit) -> fruit and fruit.cap_usd
   bc: (fruit) -> fruit and fruit.cap_btc
   bvd: (fruit) -> fruit and fruit.volume24_btc
+
+_timestampino = (fruit) ->
+  timestamp = grab.t(fruit)
+  format = if fruit.interval is 'hourly' then 'ddd D-MM HH:mm' else 'ddd D-MM'
+  # date format. maybe better use d3-provided ?
+  moment(timestamp).format format
+
+Template['slowchart'].helpers
+  'chartdata': _chartdata
+  __ready: ->
+    # do not draw anything before data is loaded
+    return Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready()
+  hasNoData: ->
+    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
 
 getSystemId = ()->Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
 
