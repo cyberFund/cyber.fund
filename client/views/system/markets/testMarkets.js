@@ -3,7 +3,6 @@ const ROWS_SHORT = 20
 
 const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
 const fiats = require("../../../../imports/vwap/marketsList").fiats
-  .feedsCurrent
 CF.test = CF.test || {}
 CF.test.printPairs = function(){
   console.log(xchangeFeeds.find().fetch())
@@ -48,10 +47,10 @@ Template['testMarkets'].helpers({
     const sys = CurrentData.findOne({_id: _id}, {fields: {token: 1}});
     return sys && sys.token && sys.token.symbol || _id
   },
-  pricePair: function () {
+  pricePair: () => {
     return this.last && this.last.native
   },
-  volumePair: function () {
+  volumePair: () => {
     return this.volume && this.volume.native
   }
 })

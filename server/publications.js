@@ -348,7 +348,7 @@ Meteor.publish("usersWithFunds", function(){
 });
 
 Meteor.publish('xchangeToSystemPage', function(options){
-  if (!options.system) return this.ready;
+  if (!options.system) return this.ready();
   return xchangeFeeds.find({
     $or: [{
       base: options.system

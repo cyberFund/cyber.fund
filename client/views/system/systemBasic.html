@@ -141,7 +141,6 @@
             {{/cardMarkt}}
             {{/if}}
     </div>
-
     {{#if anyCards}}
     <div class="row" style="margin-top: -20px">
       <div class="col s12 center">
@@ -171,7 +170,7 @@
             {{> systemLinksTabs links=this system=../_id}}
         {{else}}
           <div class="cglinxbox">
-            {{> testMarkets system=_id}}
+            {{! > testMarkets system=../_id}}
             {{#each this}} {{> cgLinkCard this}} {{/each}}
           </div>
         {{/if}} {{/with}}

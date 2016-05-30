@@ -1,7 +1,7 @@
 var cfCDs = CF.CurrentData.selectors;
 
 function systemName() {
-  return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
+  return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
 }
 
 function curData() {
@@ -10,15 +10,15 @@ function curData() {
   });
 }
 
-Template['systemBasic'].onCreated(function() {
+Template["systemBasic"].onCreated(function() {
   var instance = this;
   instance.ready = new ReactiveVar();
   instance.autorun(function() {
-    var handle = CF.SubsMan.subscribe('systemData', {
+    var handle = CF.SubsMan.subscribe("systemData", {
       name: systemName()
     });
     instance.ready.set(instance.ready.get() || handle.ready());
-    instance.subscribe('dependentCoins', systemName());
+    instance.subscribe("dependentCoins", systemName());
 
     var data = curData();
 
@@ -26,28 +26,28 @@ Template['systemBasic'].onCreated(function() {
       var d = data.dependencies;
       if (!_.isArray(d)) d = [d];
       if (d.indexOf("independent") == -1) {
-        instance.subscribe('dependencies', d);
+        instance.subscribe("dependencies", d);
       }
     }
   });
-})
+});
 
 Meteor.startup(function() {
   CF.keenflag = new ReactiveVar();
   Keen.ready(function() {
     CF.keenflag.set(true);
   });
-})
+});
 
-Template['systemBasic'].onRendered(function() {
-  $('.scrollspy').scrollSpy();
+Template["systemBasic"].onRendered(function() {
+  $(".scrollspy").scrollSpy();
   var curDataDoc = curData();
   /*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
       Meteor.call("initAverageValues", curDataDoc._id);
     } */
 });
 
-Template['systemBasic'].helpers({
+Template["systemBasic"].helpers({
   yesterdaySupplyMetric: function(){
     var m = this.metrics;
     return (m.supply - m.supplyChange.day) || 0;
@@ -57,10 +57,10 @@ Template['systemBasic'].helpers({
     var m = this.metrics;
     return m.tradeVolume || m.supply ||
     (m.price && (m.price.usd || m.price.btc || m.price.eth)) ||
-    (m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ))
+    (m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ));
   },
   systemName: function() {
-    return systemName()
+    return systemName();
   },
   subReady: function() {
     return Template.instance().ready.get();
@@ -74,7 +74,7 @@ Template['systemBasic'].helpers({
       sort: {
         _id: 1
       }
-    })
+    });
   },
 
   depends_on: function() {
@@ -90,11 +90,11 @@ Template['systemBasic'].helpers({
   },
 
   symbol: function() {
-    return this.token ? this.token.symbol : ""
+    return this.token ? this.token.symbol : "";
   },
 
   hashtag: function() {
-    return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : ""
+    return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : "";
   },
   existLinksWith: function(links, tag) {
     if (!_.isArray(links)) return false;
@@ -104,7 +104,7 @@ Template['systemBasic'].helpers({
   },
 
   mainTags: function() {
-    return ['Wallet', "Exchange", "Analytics", "Magic"]
+    return ["Wallet", "Exchange", "Analytics", "Magic"];
   },
 
   linksWithoutTags: function(links, tags) {
@@ -121,7 +121,7 @@ Template['systemBasic'].helpers({
   },
 
   isProject: function() {
-    return this.descriptions && this.descriptions.state == 'Project'
+    return this.descriptions && this.descriptions.state == "Project";
   },
 
   // todo: currently, those are using current price to estimate yesterday' trade volume.
@@ -176,7 +176,7 @@ Template['systemBasic'].helpers({
     }
 
     return _.first(_.filter(this.links, function(link) {
-      return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
+      return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1);
     }), 4);
   },
   ___join: function(k1, k2) {
@@ -188,7 +188,7 @@ Template['systemBasic'].helpers({
     if (user && user.profile && user.profile.starredSystems) {
       ret = user.profile.starredSystems.indexOf(this._id) > -1;
     }
-    return ret ? 'yellow' : 'grey';
+    return ret ? "yellow" : "grey";
   },
   dailyData: function() {
     var _id = this._id;
@@ -198,20 +198,20 @@ Template['systemBasic'].helpers({
       sort: {
         timestamp: 1
       }
-    })
+    });
   }
 });
 
-Template['systemBasicAbout'].helpers({
+Template["systemBasicAbout"].helpers({
   independent: function(system) {
     var deps = system.dependencies;
     if (!deps) return true;
     if (!_.isArray(deps)) deps = [deps];
-    return deps.indexOf('independent') > -1;
+    return deps.indexOf("independent") > -1;
   }
-})
+});
 
-Template['systemBasicHeadline'].helpers({
+Template["systemBasicHeadline"].helpers({
   countWithTag: function(links, tag) {
     if (!_.isArray(links)) return 0;
     var f = _.filter(links, function(link) {
@@ -221,18 +221,18 @@ Template['systemBasicHeadline'].helpers({
   }
 });
 
-Template['systemBasic'].events({
+Template["systemBasic"].events({
 
-  'click .btn-star-system': function(e, t) {
+  "click .btn-star-system": function(e, t) {
     var user = Meteor.user();
-    if (!user) FlowRouter.go('/welcome'); //return;
+    if (!user) FlowRouter.go("/welcome"); //return;
     var system = t.$(e.currentTarget).attr("system-name");
     var exists = user && user.profile && user.profile.starredSystems &&
       _.contains(user.profile.starredSystems, system);
-    analytics.track(exists ? 'Unfollowed System' : 'Followed System', {
+    analytics.track(exists ? "Unfollowed System" : "Followed System", {
       systemName: system
     });
 
-    Meteor.call('toggleStarSys', system);
+    Meteor.call("toggleStarSys", system);
   }
 });

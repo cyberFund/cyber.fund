@@ -1,5 +1,6 @@
 <template name="testMarkets">
   <div class="testMarkets">
+    {{#if rows.count}}
     <table>
       <thead>
         <th class="center">
@@ -30,5 +31,6 @@
         {{/each}}
       </tbody>
     </table>
+    {{/if}}
   </div>
 </template>

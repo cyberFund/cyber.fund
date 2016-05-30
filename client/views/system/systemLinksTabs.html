@@ -33,11 +33,11 @@
 
     {{#if existLinksWith links "Exchange"}}
     <div id="tag-exchange" class="cglinxbox">
-      {{> testMarkets system=system}}
+      {{! > testMarkets system=system}}
         {{#each linksWithTag links "Exchange"}} {{> cgLinkCard this}} {{/each}}
     </div>
     {{/if}}
-    
+
     {{#with links}}
     {{#if existLinksWith this "Analytics"}}
     <div id="tag-analytics" class="cglinxbox">
