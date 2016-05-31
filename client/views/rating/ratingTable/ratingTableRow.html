@@ -42,7 +42,9 @@
       {{/if}}
     </td>
     <td class="center hide-on-med-and-down sorter">
+      {{#if calculatable.RATING.vector.GR.months}}
       {{readableN0 calculatable.RATING.vector.GR.months}}
+      {{/if}}
     </td>
 
     <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
@@ -58,11 +60,15 @@
 
     <td class="right-align">{{#withTooltip}}
       {{#if eq ../../_period "month"}}
-        <span class="{{greenRedNumber metrics.capChangePercents.month.usd}}">
-        {{percentsToTextUpDown metrics.capChangePercents.month.usd 2}}</span>
+        {{#if metrics.capChangePercents.month.usd}}
+          <span class="{{greenRedNumber metrics.capChangePercents.month.usd}}">
+          {{percentsToTextUpDown metrics.capChangePercents.month.usd 2}}</span>
+        {{/if}}
       {{else}}
-        <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-        {{percentsToTextUpDown metrics.capChangePercents.day.usd 2}}</span>
+        {{#if metrics.capChangePercents.day.usd}}
+          <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+          {{percentsToTextUpDown metrics.capChangePercents.day.usd 2}}</span>
+        {{/if}}
       {{/if}}
       {{#tooltip}}
       <div>Real change:
