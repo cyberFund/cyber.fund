@@ -24,9 +24,9 @@
           <td>
             <a href="{{marketUrlByApiUrl market}}">{{marketNameByApiUrl market}}</a>
           </td>
-          <td>{{tokenById quote}}/{{tokenById base}}</td>
-          <td class="right-align">{{pricePair}}</td>
-          <td class="right-align">{{volumePair}}</td>
+          <td class="center">{{tokenById quote}}/{{tokenById base}}</td>
+          <td class="right-align">{{readableN1 pricePair}}</td>
+          <td class="right-align">{{readableN0 volumePair}}</td>
         </tr>
         {{/each}}
       </tbody>
