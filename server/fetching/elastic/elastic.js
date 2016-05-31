@@ -85,6 +85,8 @@ var esParsers = {
     var todayBuckets = getBuckets (today);
     var yesterdayBuckets = getBuckets (yesterday);
     var monthAgoBuckets = getBuckets (monthAgo);
+    console.log(monthAgo)
+    console.log(monthAgoBuckets);
 
     console.log ("total of " + todayBuckets.length + " buckets");
     var notFounds = [];
@@ -97,6 +99,7 @@ var esParsers = {
       // past day data
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) );
       var sMonthAgo = getHit( getSameBucket(monthAgoBuckets, bucket.key) );
+
       /* debug
       console.log(bucket.key)
       if (bucket.key == 'DAO|TheDAO') {
@@ -477,9 +480,10 @@ function fetchLatest(params) {
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    var p3 = {"from": "now-1M-15m", "to": "now-1M-1d"};
+    var p3 = {"from": "now-1M-15m", "to": "now-1M"};
     _.extend(p3, params);
     d = moment();
+
     var monthAgo = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
     n = moment();
     console.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
