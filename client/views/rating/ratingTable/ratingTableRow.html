@@ -1,6 +1,5 @@
 <template name="ratingTableRow">
   {{#with data}}
-  {{! log ../_period}}
   <tr style="vertical-align: middle" itemscope itemtype="http://schema.org/Product">
     <td class="center-align hide-on-small-and-down"> {{! rank}}
       {{sum key 1}}
@@ -17,11 +16,10 @@
          </span></span>
        </a>
     </td>
-
     <td class="center-align hide-on-small-and-down"> {{! inflation}}
-      {{# withTooltip data=this ttName="t001Tooltip" _period=../_period}}
+      {{# withTooltip data=this ttName="t001Tooltip" _period=../../_period}}
         <span>
-          {{#if eq ../_period "month"}}
+          {{#if eq ../../_period "month"}}
             {{inflationToText metrics.supplyChangePercents.month}}
           {{else}}
             {{inflationToText metrics.supplyChangePercents.day}}
@@ -31,7 +29,7 @@
     </td>
 
     <td class="center-align hide-on-small-and-down"> {{! trade}}
-      {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this  _period=../_period}}
+      {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this  _period=../../_period}}
       <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
       {{/withTooltip}} {{else}}
       <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
@@ -57,7 +55,7 @@
     </td>
 
     <td class="right-align">{{#withTooltip}}
-      {{#if eq ../_period "month"}}
+      {{#if eq ../../_period "month"}}
         <span class="{{greenRedNumber metrics.capChangePercents.month.usd}}">
         {{percentsToTextUpDown metrics.capChangePercents.month.usd 2}}</span>
       {{else}}
@@ -67,7 +65,7 @@
       {{#tooltip}}
       <div>Real change:
         <b>
-          {{#if eq ../_period "month"}}
+          {{#if eq ../../_period "month"}}
             {{readableN2 metrics.capChange.month.usd}} $
           {{else}}
             {{readableN2 metrics.capChange.day.usd}} $
