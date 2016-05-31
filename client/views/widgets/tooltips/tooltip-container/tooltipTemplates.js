@@ -32,5 +32,9 @@ Template['withTooltip'].events({
 Template['tooltipContainer'].helpers({
   'tooltipStyleClass': function(kls) {
     return CF.tooltip.styleClass(kls)
+  },
+  getData: ()=> {
+    var ret = _.clone(this.data);
+    return _.extend(ret, {_period: this._period}) //dirty.
   }
 })

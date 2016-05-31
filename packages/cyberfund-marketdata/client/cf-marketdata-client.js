@@ -44,6 +44,13 @@ var helpers = {
     }
     return 0;
   },
+  monthToMonthTradeVolumeChange: function(system) {
+    var metrics = system.metrics;
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.month) {
+      return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.month, metrics.tradeVolume);
+    }
+    return 0;
+  },
   chartdata: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
     return MarketData.find({systemId: systemId});
   },

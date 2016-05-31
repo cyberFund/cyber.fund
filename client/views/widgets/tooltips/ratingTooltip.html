@@ -22,7 +22,13 @@
   <div>Trade volume (24h):<b>{{readableN2 metrics.tradeVolume}}</b>BTC
   </div>
 
-  <div>Daily change :<b>{{readableN2 (dayToDayTradeVolumeChange this)}}</b> %
+  <div>Daily change :<b>
+    {{#if eq _period "month"}}
+      {{readableN2 (monthToMonthTradeVolumeChange this)}}
+    {{else}}
+      {{readableN2 (dayToDayTradeVolumeChange this)}}
+    {{/if}}
+  </b> %
   </div>
 
   <div>Turnover:<b>{{readableN2 (cdTurnover)}}</b> %

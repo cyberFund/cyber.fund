@@ -14,10 +14,20 @@
         <b>{{readableN0 metrics.supply}}</b></div>
 
     <div>Absolute change:
-        <b>{{readableN0 metrics.supplyChange.day}}</b></div>
+        <b>{{#if eq _period "month"}}
+            {{readableN0 metrics.supplyChange.month}}
+          {{else}}
+            {{readableN0 metrics.supplyChange.day}}
+          {{/if}}
+        </b></div>
 </template>
 
 <template name="capChangeTooltip">
     <div>Real change:
-        <b>{{readableN2 metrics.capChange.day.btc}}</b>Ƀ</div>
+        <b>
+          {{#if eq _period "month"}}
+            {{readableN2 metrics.capChange.month.btc}}
+          {{else}}
+            {{readableN2 metrics.capChange.day.btc}}
+          {{/if}}</b>Ƀ</div>
 </template>
