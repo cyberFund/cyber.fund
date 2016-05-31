@@ -1,4 +1,9 @@
 <template name="ratingTable">
+    <div class="row">
+      <div class="col s12 offset-m6 m6 offset-l9 l3">
+        <a href="/rating/monthly"> Switch to monthly view </a>
+      </div>
+    </div>
     {{! #if subReady}}
     <div class="card" style="padding:10px">
         <table class="hoverable-my" align="center" id="rating-table">
@@ -11,7 +16,7 @@
             </thead>
             <tbody>
                 {{#each keyValue rows}}
-                  {{> ratingTableRow data=this }} 
+                  {{> ratingTableRow data=this }}
                 {{/each}}
             </tbody>
         </table>
