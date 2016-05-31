@@ -1,18 +1,16 @@
-<template name="ratingTable">
+<template name="ratingTableMonthly">
     {{! #if subReady}}
     <div class="card" style="padding:10px">
         <table class="hoverable-my" align="center" id="rating-table">
 
             <thead id="fixed-thead" class="fixed-thead z20">
-                {{> ratingTableHead}}
+                {{> ratingTableHead _period="month"}}
             </thead>
             <thead id="normal-thead">
-                {{> ratingTableHead}}
+                {{> ratingTableHead _period="month"}}
             </thead>
             <tbody>
-                {{#each keyValue rows}}
-                  {{> ratingTableRow data=this }} 
-                {{/each}}
+                {{#each keyValue rows}} {{> ratingTableRow data=this _period="month"}} {{/each}}
             </tbody>
         </table>
     </div>

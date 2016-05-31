@@ -84,6 +84,7 @@ var esParsers = {
 
     var todayBuckets = getBuckets (today);
     var yesterdayBuckets = getBuckets (yesterday);
+    var monthAgoBuckets = getBuckets (monthAgo);
 
     console.log ("total of " + todayBuckets.length + " buckets");
     var notFounds = [];
@@ -92,7 +93,11 @@ var esParsers = {
       var sNow = getHit(bucket);
 
       if (_.isEmpty(sNow)) return; // no need to update if no new data
-      var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) ); // past day data
+
+      // past day data
+      var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) );
+      var sMonthAgo = getHit( getSameBucket(monthAgoBuckets, bucket.key) );
+
       /* debug
       console.log(bucket.key)
       if (bucket.key == 'DAO|TheDAO') {
@@ -134,6 +139,7 @@ var esParsers = {
       if (supplyDataSource == "chg") {
         sNow.supply_current = (curDoc.specs && curDoc.specs.supply) || 0;
         if (sDayAgo) sDayAgo.supply_current = sNow.supply_current;
+        if (sMonthAgo) sMonthAgo.supply_current = sNow.supply_current;
       }
 
       // try using existing supply value if none or 0 here
@@ -166,6 +172,12 @@ var esParsers = {
           set["metrics.priceChange.day.usd"] = sNow.price_usd - sDayAgo.price_usd;
         }
 
+        if (sMonthAgo && sMonthAgo.price_usd) {
+          set["metrics.priceChangePercents.month.usd"] = 100.0 *
+            (sNow.price_usd - sMonthAgo.price_usd) / sNow.price_usd;
+          set["metrics.priceChange.month.usd"] = sNow.price_usd - sMonthAgo.price_usd;
+        }
+
         // calculate cap from supply and store it;
         if (sNow.supply_current) {
           sNow.cap_btc = sNow.supply_current * sNow.price_btc;
@@ -179,6 +191,12 @@ var esParsers = {
           set["metrics.priceChangePercents.day.btc"] = 100.0 *
             (sNow.price_btc - sDayAgo.price_btc) / sNow.price_btc;
           set["metrics.priceChange.day.btc"] = sNow.price_btc - sDayAgo.price_btc;
+        }
+
+        if (sMonthAgo && sMonthAgo.price_btc) {
+          set["metrics.priceChangePercents.month.btc"] = 100.0 *
+            (sNow.price_btc - sMonthAgo.price_btc) / sNow.price_btc;
+          set["metrics.priceChange.month.btc"] = sNow.price_btc - sMonthAgo.price_btc;
         }
 
         // calculate cap from supply and store it;
@@ -210,6 +228,11 @@ var esParsers = {
         sDayAgo.cap_btc = sDayAgo.supply_current * (sDayAgo.price_btc || sNow.price_usd);
       }
 
+      if (sMonthAgo && sMonthAgo.supply_current) {
+        sMonthAgo.cap_usd = sMonthAgo.supply_current * (sMonthAgo.price_usd || sNow.price_usd);
+        sMonthAgo.cap_btc = sMonthAgo.supply_current * (sMonthAgo.price_btc || sNow.price_usd);
+      }
+
       // if supply value is here
       if (sNow.supply_current) {
 
@@ -225,11 +248,17 @@ var esParsers = {
 
         set["metrics.supply"] = sNow.supply_current;
         if (sDayAgo && sDayAgo.supply_current) {
-          var supplyDayAgo = sDayAgo.supply_current; // || sNow.supply_current;
           set["metrics.supplyChangePercents.day"] = 100.0 *
-            (sNow.supply_current - supplyDayAgo) / sNow.supply_current;
+            (sNow.supply_current - sDayAgo.supply_current) / sNow.supply_current;
 
-          set["metrics.supplyChange.day"] = sNow.supply_current - supplyDayAgo;
+          set["metrics.supplyChange.day"] = sNow.supply_current - sDayAgo.supply_current;
+        }
+
+        if (sMonthAgo && sMonthAgo.supply_current) {
+          set["metrics.supplyChangePercents.month"] = 100.0 *
+            (sNow.supply_current - sMonthAgo.supply_current) / sNow.supply_current;
+
+          set["metrics.supplyChange.month"] = sNow.supply_current - sMonthAgo.supply_current;
         }
       }
 
@@ -253,10 +282,14 @@ var esParsers = {
         if (sDayAgo && sDayAgo.volume24_btc) {
           set["metrics.tradeVolumePrevious.day"] = sDayAgo.volume24_btc;
         }
+
+        if (sMonthAgo && sMonthAgo.volume24_btc) {
+          set["metrics.tradeVolumePrevious.month"] = sMonthAgo.volume24_btc;
+        }
+
       }
 
       if (sNow.cap_usd && sDayAgo && sDayAgo.cap_usd) {
-
         set["metrics.capChangePercents.day.usd"] = 100.0 *
           (sNow.cap_usd - sDayAgo.cap_usd) / sNow.cap_usd;
         set["metrics.capChange.day.usd"] = sNow.cap_usd - sDayAgo.cap_usd;
@@ -267,6 +300,22 @@ var esParsers = {
           (sNow.cap_btc - sDayAgo.cap_btc) / sNow.cap_btc;
         set["metrics.capChange.day.btc"] = sNow.cap_btc - sDayAgo.cap_btc;
       }
+
+
+
+      if (sNow.cap_usd && sMonthAgo && sMonthAgo.cap_usd) {
+        set["metrics.capChangePercents.month.usd"] = 100.0 *
+          (sNow.cap_usd - sMonthAgo.cap_usd) / sNow.cap_usd;
+        set["metrics.capChange.month.usd"] = sNow.cap_usd - sMonthAgo.cap_usd;
+      }
+
+      if (sNow.cap_btc && sMonthAgo && sMonthAgo.cap_btc) {
+        set["metrics.capChangePercents.month.btc"] = 100.0 *
+          (sNow.cap_btc - sMonthAgo.cap_btc) / sNow.cap_btc;
+        set["metrics.capChange.month.btc"] = sNow.cap_btc - sMonthAgo.cap_btc;
+      }
+
+
 
       // those are used to build daily charts
       if (!_.isEmpty(set) && curDoc) {
@@ -429,9 +478,10 @@ function fetchLatest(params) {
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
-    var p3 = {"from": "now-1M-15m", "to": "now-1M-1d"};
+    var p3 = {"from": "now-1M-15m", "to": "now-1M"};
     _.extend(p3, params);
     d = moment();
+
     var monthAgo = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
     n = moment();
     console.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );

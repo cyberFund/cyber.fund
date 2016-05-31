@@ -1,0 +1,33 @@
+<template name="tvBTCTooltip">
+    <div>Trade volume (24h):
+        <b>{{readableN2 metrics.tradeVolume}}</b>BTC</div>
+</template>
+
+<template name="t001Tooltip">
+    <div>Ticker:
+        <b itemprop="alternateName">{{cdSymbol}}</b></div>
+
+    <div>Currency name:
+        <b>{{displayCurrencyName this}}</b></div>
+
+    <div>Current supply:
+        <b>{{readableN0 metrics.supply}}</b></div>
+
+    <div>Absolute change:
+        <b>{{#if eq _period "month"}}
+            {{readableN0 metrics.supplyChange.month}}
+          {{else}}
+            {{readableN0 metrics.supplyChange.day}}
+          {{/if}}
+        </b></div>
+</template>
+
+<template name="capChangeTooltip">
+    <div>Real change:
+        <b>
+          {{#if eq _period "month"}}
+            {{readableN2 metrics.capChange.month.btc}}
+          {{else}}
+            {{readableN2 metrics.capChange.day.btc}}
+          {{/if}}</b>Ƀ</div>
+</template>

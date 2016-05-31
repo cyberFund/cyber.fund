@@ -17,7 +17,7 @@ function tableSelector() {
 var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
 
-Template["ratingTable"].onCreated(function() {
+Template["ratingTableMonthly"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
   if (sort) {
     CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
@@ -45,7 +45,7 @@ Template["ratingTable"].onCreated(function() {
   });
 });
 
-Template["ratingTable"].onRendered (function() {
+Template["ratingTableMonthly"].onRendered (function() {
   var $thead = $("#fixed-thead");
   var $thead0 = $("#normal-thead");
 
@@ -82,7 +82,7 @@ Template["ratingTable"].onRendered (function() {
   $(window).trigger("resize");
 });
 
-Template["ratingTable"].helpers({
+Template["ratingTableMonthly"].helpers({
   rows: function() {
     var sort = CF.Utils._session.get("coinSorter");
     return CurrentData.find(tableSelector(), {
@@ -110,9 +110,7 @@ Template["ratingTable"].helpers({
   }
 });
 
-
-
-Template["ratingTable"].events({
+Template["ratingTableMonthly"].events({
   "click .show-more": function(e, t) {
     var step = CF.Rating.step;
     var limit = Session.get("ratingPageLimit");
