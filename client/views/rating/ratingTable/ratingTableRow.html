@@ -37,7 +37,9 @@
     </td>
 
     <td class="center hide-on-med-and-down sorter">
+      {{#if calculatable.RATING.vector.GR.monthlyGrowthD}}
       {{readableN1 calculatable.RATING.vector.GR.monthlyGrowthD}}%
+      {{/if}}
     </td>
     <td class="center hide-on-med-and-down sorter">
       {{readableN0 calculatable.RATING.vector.GR.months}}

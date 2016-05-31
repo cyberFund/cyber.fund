@@ -85,8 +85,6 @@ var esParsers = {
     var todayBuckets = getBuckets (today);
     var yesterdayBuckets = getBuckets (yesterday);
     var monthAgoBuckets = getBuckets (monthAgo);
-    console.log(monthAgo)
-    console.log(monthAgoBuckets);
 
     console.log ("total of " + todayBuckets.length + " buckets");
     var notFounds = [];
