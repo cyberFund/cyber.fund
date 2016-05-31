@@ -1,55 +1,29 @@
-<template name="tvBTCTooltip">
-<div>Trade volume (24h):
-  <b>{{readableN2 metrics.tradeVolume}}</b>BTC</div></template>
-
-
-
-<template name="t001Tooltip">
-<div>Ticker:
-  <b itemprop="alternateName">{{cdSymbol}}</b></div>
-
-<div>Currency name:
-  <b>{{displayCurrencyName this}}</b></div>
-
-<div>Current supply:
-  <b>{{readableN0 metrics.supply}}</b></div>
-
-<div>Absolute change:
-  <b>{{readableN0 metrics.supplyChange.day}}</b></div></template>
-
-<template name="capChangeTooltip">
-<div>Real change:
-  <b>{{readableN2 metrics.capChange.day.btc}}</b>Ƀ</div></template>
-
 <template name="ratingTable">
-  {{! #if subReady}}
-  <div class="card" style="padding:10px">
-    <table class="hoverable-my" align="center" id="rating-table">
+    {{! #if subReady}}
+    <div class="card" style="padding:10px">
+        <table class="hoverable-my" align="center" id="rating-table">
 
-      <thead id="fixed-thead" class="fixed-thead z20">
-        {{> ratingTableHead}}
-      </thead>
-      <thead id="normal-thead">
-        {{> ratingTableHead}}
-      </thead>
-      <tbody>
-        {{#each keyValue rows}}
-        {{> ratingTableRow this}}
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
-  {{! #if hasMore}}
-  <p class="center">
-      We filter illiquid assets and assets with <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">cyber • Rating</a> less than 1
-  </p>
-  <div class="center">
-    <br>
-    <a class="waves-effect waves-light btn show-more deep-orange" href="/tracking">
+            <thead id="fixed-thead" class="fixed-thead z20">
+                {{> ratingTableHead}}
+            </thead>
+            <thead id="normal-thead">
+                {{> ratingTableHead}}
+            </thead>
+            <tbody>
+                {{#each keyValue rows}} {{> ratingTableRow this}} {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{! #if hasMore}}
+    <p class="center">
+        We filter illiquid assets and assets with <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">cyber • Rating</a> less than 1
+    </p>
+    <div class="center">
+        <br>
+        <a class="waves-effect waves-light btn show-more deep-orange" href="/tracking">
       View all opportunities
     </a>
-  </div>
-  {{! /if}}
-  {{! /if}}
-  <div style="padding-bottom: 40px"></div>
+    </div>
+    {{! /if}} {{! /if}}
+    <div style="padding-bottom: 40px"></div>
 </template>

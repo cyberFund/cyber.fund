@@ -27,10 +27,6 @@ Template["ratingTable"].onCreated(function() {
 
   var instance = this;
   instance.ready = new ReactiveVar();
-  /*if (_.keys(CF.Utils._session.get("coinSorter")).length)
-    selector[_.keys(CF.Utils._session.get("coinSorter"))[0]] = {
-      $exists: true
-    };*/
 
   CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
     selector: tableSelector()
@@ -47,7 +43,6 @@ Template["ratingTable"].onCreated(function() {
     });
     instance.ready.set(instance.ready.get() || handle.ready());
   });
-
 });
 
 Template["ratingTable"].onRendered (function() {
