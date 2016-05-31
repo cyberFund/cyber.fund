@@ -34,7 +34,6 @@ var fetch = function() {
       }
 
       if (data.supply) {
-        print("Geth supplies for", `${_.keys(data.supply)}`, true)
         _.each(data.supply, (it, key) => {
           const selector = {
             _id: key
