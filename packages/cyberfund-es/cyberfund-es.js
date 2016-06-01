@@ -446,18 +446,21 @@ _.extend(ns, {
           "body": {
             "query": {
               "bool": {
-                "should": [
-                  {"match": {"base": params.system} },
-                  {"match": {"quote": params.system} }
-                ],
-                "must": {
-                  "range": {
-                    "timestamp": {
-                      "gt": params.from,
-                      "lt": params.to
+                "filter": [{
+                    "range": {
+                      "timestamp": {
+                        "gt": params.from,
+                        "lt": params.to
+                      }
                     }
+                  },
+                    {
+                      "bool": {"should": [
+                        {"match": {"base": params.system} },
+                        {"match": {"quote": params.system} }
+                    ]
                   }
-                }
+                }]
               }
             },
             "aggs": {
