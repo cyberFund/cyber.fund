@@ -43,14 +43,14 @@ Template['testMarkets'].helpers({
     const market = markets[apiUrl];
     return market && market.name || apiUrl
   },
-  tokenById: (_id) => {
+  tokenById: function(_id) {
     const sys = CurrentData.findOne({_id: _id}, {fields: {token: 1}});
     return sys && sys.token && sys.token.symbol || _id
   },
-  pricePair: () => {
+  pricePair: function() {
     return this.last && this.last.native
   },
-  volumePair: () => {
+  volumePair: function() {
     return this.volume && this.volume.native
   }
 })

@@ -1,6 +1,6 @@
 // this file describes fetching of data from chaingear
 
-var sourceUrl = "http://chaingear.cyber.fund/chaingear.json";
+var sourceUrl = "http://static.cyber.fund/chaingear/full.json";
 var fetchTimeout = 15 * 1000;
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
@@ -55,7 +55,7 @@ function flatten(obj) { //todo move to utils..
 }
 
 var fetch = function() {
-  logger.info("Fetching data from cyberFund...");
+  logger.info("Fetching data from cyberFund - chaingear");
   try {
     var res = HTTP.call("HEAD", sourceUrl, {
       timeout: fetchTimeout
