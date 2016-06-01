@@ -360,7 +360,7 @@ _.extend(ns, {
         };
         var print = CF.Utils.logger.print;
         print("vwap_data query", ret.body.query);
-        if (params) return CF.ES.queries._parametrize(ret, params);
+        //if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
     },
@@ -424,7 +424,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_averages_system_base: { //only for tests here..
+    vwap_averages_system: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         console.log(params)
@@ -496,6 +496,89 @@ _.extend(ns, {
         var print = CF.Utils.logger.print;
         print("vwap_data query", ret.body.query.bool);
         //if (params) return CF.ES.queries._parametrize(ret, params);
+        return ret;
+      }
+    },
+
+    vwap_system: { //only for tests here..
+      clientAllowed: true,
+      getQueryObj: function(params) { //not "latest" anymore
+        console.log(params)
+        console.log(1111)
+        params = params || {}
+        if (!params.from || !params.to) {
+          params.from = "now-10m";
+          params.to = "now";
+        }
+        if (!params.system) {
+          console.log(222)
+          throw {error: "no system passed"};
+        }
+
+        var ret = {
+          "index": 'xchange-read',
+          "type": 'point',
+          "size": 0,
+          "body": {
+            "query": {
+              "bool": {
+                "filter": [{
+                    "range": {
+                      "timestamp": {
+                        "gt": params.from,
+                        "lt": params.to
+                      }
+                    }
+                  },
+                    {
+                      "bool": {"should": [
+                        {"match": {"base": params.system} },
+                        {"match": {"quote": params.system} }
+                    ]
+                  }
+                }]
+              }
+            },
+            "aggs": {
+              "by_quote": {
+                "terms": {
+                  "field": "quote",
+                  "size": 0
+                },
+                "aggs": {
+                  "by_base": {
+                    "terms": {
+                      "field": "base",
+                      "size": 0
+                    },
+                    "aggs": {
+                      "by_market": {
+                        "terms": {
+                          "field": "market",
+                          "size": 0
+                        },
+                        "aggs": {
+                          "latest": {
+                            "top_hits": {
+                              "size": 1,
+                              "sort": [{
+                                "timestamp": {
+                                  "order": "desc"
+                                }
+                              }]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        var print = CF.Utils.logger.print;
+        print("vwap_data query", ret.body.query.bool);
         return ret;
       }
     }
