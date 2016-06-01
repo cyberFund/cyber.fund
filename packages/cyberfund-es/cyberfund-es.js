@@ -428,7 +428,7 @@ _.extend(ns, {
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         console.log(params)
-        console.log(55456464564645646456)
+        console.log(1111)
         params = params || {}
         if (!params.from || !params.to) {
           params.from = "now-10m";
@@ -450,14 +450,14 @@ _.extend(ns, {
                   {"match": {"base": params.system} },
                   {"match": {"quote": params.system} }
                 ],
-              /*  "must": {
+                "must": {
                   "range": {
                     "timestamp": {
                       "gt": params.from,
                       "lt": params.to
                     }
                   }
-                }*/
+                }
               }
             },
             "aggs": {
