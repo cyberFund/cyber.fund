@@ -537,22 +537,6 @@ var hourlyAves = {
   }
 };
 
-function fetchVwap(){
-  const params = {
-    from: "now-10m",
-    to: "now"
-  }
-  return CF.Utils.extractFromPromise(CF.ES.sendQuery("vwap_data", params));
-}
-
-Meteor.startup(function(){
-  var ret = fetchVwap();
-  if (ret) {
-    Extras.insert({type: "test", timestamp: Date.now(), data: ret});
-    console.log("fetched vwap, check extras")
-  }
-})
-
 SyncedCron.add(hourlyAves);
 
 SyncedCron.add({
