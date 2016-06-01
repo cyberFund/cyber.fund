@@ -47,7 +47,7 @@ _.extend(CF.ES, {
   },
 
   isClientQueryAllowed: function(queryName) {
-    return ns.queries[queryName] && ns.queries[queryName].client_allowed;
+    return ns.queries[queryName] && ns.queries[queryName].clientAllowed;
   }
 });
 
@@ -139,7 +139,7 @@ _.extend(ns, {
     },
 
     averages_last_15m: {
-      client_allowed: false, //comment out to disable client ability calling this.
+      clientAllowed: false, //comment out to disable client ability calling this.
       getQueryObj: function(params) {
         var ret = {
           "index": 'marketcap-read',
@@ -258,7 +258,7 @@ _.extend(ns, {
     },
 
     latest_values: {
-      //client_allowed: true,
+      //clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         if (!params.from || !params.to) {
           console.warn("average_values_date_histogram was called with missing parameters");
@@ -298,8 +298,8 @@ _.extend(ns, {
       }
     },
 
-    vwap_data: { //only for tests here.. 
-      client_allowed: true,
+    vwap_data: { //only for tests here..
+      clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         params = params || {}
         if (!params.from || !params.to) {
@@ -361,6 +361,138 @@ _.extend(ns, {
         var print = CF.Utils.logger.print;
         print("vwap_data query", ret.body.query);
         if (params) return CF.ES.queries._parametrize(ret, params);
+        return ret;
+      }
+    },
+
+    vwap_averages_all: { //only for tests here..
+      clientAllowed: true,
+      getQueryObj: function(params) { //not "latest" anymore
+        params = params || {}
+        if (!params.from || !params.to) {
+          params.from = "now-10m";
+          params.to = "now";
+        }
+
+        var ret = {
+          "index": 'xchange-vwap-read',
+          "type": 'point',
+          "size": 0,
+          "body": {
+            "query": {
+              "range": {
+                "timestamp": {
+                  "gt": params.from, //gte-lt are used to force desired behavior:
+                  "lt": params.to //passing in "from: "now-1h/h", to: "now/h", outputs exactly results for last full hour (8:00-9:00 for 9:15)
+                }
+              }
+            },
+            "aggs": {
+              "by_quote": {
+                "terms": {
+                  "field": "quote",
+                  "size": 0
+                },
+                "aggs": {
+                  "by_base": {
+                    "terms": {
+                      "field": "base",
+                      "size": 0
+                    },
+                    "aggs": {
+                      "latest": {
+                        "top_hits": {
+                          "size": 1,
+                          "sort": [{
+                            "timestamp": {
+                              "order": "desc"
+                            }
+                          }]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        var print = CF.Utils.logger.print;
+        print("vwap_data query", ret.body.query);
+        //if (params) return CF.ES.queries._parametrize(ret, params);
+        return ret;
+      }
+    },
+
+    vwap_averages_system_base: { //only for tests here..
+      clientAllowed: true,
+      getQueryObj: function(params) { //not "latest" anymore
+        console.log(params)
+        console.log(55456464564645646456)
+        params = params || {}
+        if (!params.from || !params.to) {
+          params.from = "now-10m";
+          params.to = "now";
+        }
+        if (!params.system) {
+          console.log(222)
+          throw {error: "no system passed"};
+        }
+
+        var ret = {
+          "index": 'xchange-vwap-read',
+          "type": 'point',
+          "size": 0,
+          "body": {
+            "query": {
+              "bool": {
+                "should": [
+                  {"match": {"base": params.system} },
+                  {"match": {"quote": params.system} }
+                ],
+              /*  "must": {
+                  "range": {
+                    "timestamp": {
+                      "gt": params.from,
+                      "lt": params.to
+                    }
+                  }
+                }*/
+              }
+            },
+            "aggs": {
+              "by_quote": {
+                "terms": {
+                  "field": "quote",
+                  "size": 0
+                },
+                "aggs": {
+                  "by_base": {
+                    "terms": {
+                      "field": "base",
+                      "size": 0
+                    },
+                    "aggs": {
+                      "latest": {
+                        "top_hits": {
+                          "size": 1,
+                          "sort": [{
+                            "timestamp": {
+                              "order": "desc"
+                            }
+                          }]
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+        var print = CF.Utils.logger.print;
+        print("vwap_data query", ret.body.query.bool);
+        //if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
     }
