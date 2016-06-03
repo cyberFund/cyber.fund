@@ -32,14 +32,20 @@ percolate:synced-cron
 mizzao:autocomplete
 
 gadicohen:sitemaps
-kadira:flow-router
-kadira:blaze-layout
 meteorhacks:kadira
+
+
+kadira:flow-router
+# instead of useraccounts:flow-routing to avoid
+# "require Blaze" error
+abiabsurd:flow-routing-react
+# arillo:flow-router-helpers
+zimme:active-route
+
 
 meteor-base
 mobile-experience
 mongo
-blaze-html-templates
 session
 jquery
 tracker
@@ -49,16 +55,18 @@ random
 ejson
 spacebars
 check
-useraccounts:flow-routing
-useraccounts:materialize
-arillo:flow-router-helpers
-zimme:active-route
-materialize:materialize@=0.97.0
+# use blaze components in react
+# installed for early react development, remove in future
+gadicc:blaze-react-component
+react-meteor-data
+static-html
 
 npm-container
 d3js:d3
 coffeescript
-standard-minifier-css
+fourseven:scss
+# same as standard-minifier-css but with autoprefixer
+seba:minifiers-autoprefixer
 standard-minifier-js
 
 email
