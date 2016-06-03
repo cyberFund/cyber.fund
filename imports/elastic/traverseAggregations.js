@@ -1,4 +1,32 @@
 //buckethead
+
+//  == Elasticsearch related feature
+//
+//    Nested aggegations in Elasticsearch query response are rendered as
+
+//    resultObjcet
+//      .aggregations
+//        .<aggregationName>
+//          .buckets
+//            .<aggregationNextLevelName>
+//              .buckets
+//               .
+//               .
+//               .
+//                .<aggregationLastLevelName>
+//                  .hits
+//                    .hits
+
+//   with `buckets` and `hits.hits` being arrays. there are other fields with
+//   meta data as well, not shown in the structure above
+//
+//   Function defined below accepts as its parameters
+//   whole query responce (as given by [FXIME: paste file path here])
+//    and an array of keys, that corresponds to aggregations ladder defined in
+//   request
+//   It returns joined elements of `hits.hits` arrays, gathered from
+//   all buckets of given aggregation chain.
+
 function flattenAggregations(resultObject, keysIn){
   let keys = keysIn.slice();
   console.log(keys);

@@ -7,7 +7,7 @@ SyncedCron.add({
   name: "xchange feed",
   schedule: function (parser) {
     // parser is a later.parse object
-    return parser.cron("40 0/1 * * * *", true);
+    return parser.cron("10 0/3 * * * *", true);
   },
   job: function () {
     //feeds.fetchDirect() //todo remove
@@ -21,7 +21,7 @@ SyncedCron.add({
 SyncedCron.add({
   name: "xchange vwap feed",
   schedule: function (parser) {
-    return parser.cron("10 0/1 * * * *", true);
+    return parser.cron("40 1/3 * * * *", true);
   },
   job: function () {
     const ret = feeds.fetchXchangeVwapData();
