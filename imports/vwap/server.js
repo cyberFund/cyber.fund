@@ -6,7 +6,7 @@ xchangeCurrent._ensureIndex({
   market: 1, base: 1, quote: 1
 }, {unique: true, dropDups: true});
 
-function fetch() {
+function fetchDirect() {
   var res = HTTP.get(feedUrl, {
     timeout: 10000
   }, function(err, res) {
@@ -24,4 +24,24 @@ function fetch() {
   });
 }
 
-exports.fetch = fetch
+const flatten = require("../elastic/traverseAggregations").flatten
+
+fetchXchangeData = () => {
+  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+  if (data && data.aggregations)
+    return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
+  else
+    return []
+}
+
+fetchXchangeVwapData = () => {
+  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
+  if (data && data.aggregations)
+    return flatten(data, ['by_quote', 'by_base', 'latest']);
+  else
+    return []
+}
+
+exports.fetchDirect = fetchDirect
+exports.fetchXchangeData = fetchXchangeData
+exports.fetchXchangeVwapData = fetchXchangeVwapData

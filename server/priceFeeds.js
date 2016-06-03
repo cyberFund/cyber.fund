@@ -10,6 +10,23 @@ SyncedCron.add({
     return parser.cron("40 0/1 * * * *", true);
   },
   job: function () {
-    feeds.fetch()
+    //feeds.fetchDirect() //todo remove
+    const ret = feeds.fetchXchangeData();
+    console.log(ret);
+    console.log(ret.length);
+    console.log("222")
+  }
+})
+
+SyncedCron.add({
+  name: "xchange vwap feed",
+  schedule: function (parser) {
+    return parser.cron("10 0/1 * * * *", true);
+  },
+  job: function () {
+    const ret = feeds.fetchXchangeVwapData();
+    console.log(ret);
+    console.log(ret.length);
+    console.log("111")
   }
 })
