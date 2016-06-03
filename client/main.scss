@@ -1,0 +1,49 @@
+/* PLEASE READ */
+/*
+the reason behind not using inline styles in react components are:
+1) they can become complex
+2) they make component code non-readable
+3) it is very hard to apply responsive styles
+the reason for not using independent style file for every component:
+meteor-webpack does not support importing css or html in js. So all css dependencies must be listed in
+separate file which can become unmaintainable.
+This is the reason for using main.scss for everything (temprorary?)
+*/
+/* ALSO
+using !important everywhere because currently mdl-react links styles using <style> tag, which iverrides everything IIRC
+this solution is temporary
+*/
+
+/* UTILITIES */
+
+.center {
+  text-align: center;
+}
+
+// problem: footer were displayed as it is outside of .mdl-layout and had display: static
+// but no such styles were applied to actual tag. Very strange.
+.mdl-layout__inner-container{
+  height: auto !important;
+}
+
+/* HEADER */
+
+// search icon were out of line but the element itself were fine
+[for="textfield-Searchforcoin"] {
+  // .material-icons
+  // line-height: 32px !important;
+  bottom: 16px !important;
+}
+
+/* FOOTER */
+
+// footer columns were 33% width in tablet mode,
+// but there were 4 of them
+@media screen and (min-width: 760px) {
+  .mdl-mega-footer--drop-down-section, .mdl-mega-footer__drop-down-section {
+      width: 25% !important;
+  }
+  .mdl-mega-footer--drop-down-section:nth-child(3), .mdl-mega-footer__drop-down-section:nth-child(3) {
+      float: left !important;
+  }
+}
