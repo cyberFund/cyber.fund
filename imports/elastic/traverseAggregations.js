@@ -4,7 +4,7 @@
 //
 //    Nested aggegations in Elasticsearch query response are rendered as
 
-//    resultObjcet
+//    resultObject
 //      .aggregations
 //        .<aggregationName>
 //          .buckets
@@ -27,9 +27,24 @@
 //   It returns joined elements of `hits.hits` arrays, gathered from
 //   all buckets of given aggregation chain.
 
+//                                  sample usage
+//
+// const flatten = require("..//imports/elastic/traverseAggregations").flatten
+//
+// fetchXchangeData = () => {
+//   const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+//   if (data && data.aggregations)
+//     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
+//   else
+//     return []
+// }
+
 function flattenAggregations(resultObject, keysIn){
+  const print = CF.Utils.logger.getLogger("esFlattenAggregation").print
+  const print_ = CF.Utils.logger.print;
   let keys = keysIn.slice();
-  console.log(keys);
+  print ("running with keys", keys, true);
+  let lengths = [];
   let results = resultObject['aggregations'];
 
   function gimmeBuckets(buckets, key){
@@ -67,8 +82,9 @@ function flattenAggregations(resultObject, keysIn){
     console.log(keys);
     key = keys.shift();
     results = keys.length > 0 ? gimmeBuckets(results, key) : gimmeHits(results, key)
-    console.log(results)
+    lengths.push(results.length);
   } while (keys.length > 0)
+  print_ ("resulting buckets by level", lengths, true)
   return results;
 }
 exports.flatten = flattenAggregations
