@@ -7,7 +7,7 @@ var feeds = new Mongo.Collection("xchange");
 var feedsCurrent = new Mongo.Collection("xchangeCurrent");
 
 // volume weighted - history (will volume-weight on client.)
-var feedsVwap = new Mongo.Collection("xchangeVwap");
+var feedsVwapCurrent = new Mongo.Collection("xchangeVwap");
 feeds.allow({
   insert: function(){return false;},
   update: function(){return false;},
@@ -21,7 +21,7 @@ feedsCurrent.allow({
   remove: function(){return false;}
 });
 
-feedsVwap.allow({
+feedsVwapCurrent.allow({
   insert: function(){return false;},
   update: function(){return false;},
   remove: function(){return false;}
@@ -30,5 +30,5 @@ feedsVwap.allow({
 module.exports = {
   feeds: feeds,
   feedsCurrent: feedsCurrent,
-  feedsVwap: feedsVwap
+  feedsVwapCurrent: feedsVwapCurrent
 };
