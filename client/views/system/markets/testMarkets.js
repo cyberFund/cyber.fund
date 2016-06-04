@@ -1,7 +1,7 @@
 const ROWS_SHORT = 20
 const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
 const fiats = require("../../../../imports/vwap/marketsList").fiats
-const flatten = require("../../imports/elastic/traverseAggregations").flatten
+const flatten = require("../../../../imports/elastic/traverseAggregations").flatten
 
 CF.test = CF.test || {}
 CF.test.printPairs = function(){
@@ -26,7 +26,7 @@ Template["testMarkets"].onCreated(function(){
     this.subscribe("xchangeToSystemPage", {system: system});
   })
   this.showAll = new ReactiveVar
-  this.showAll.set(false); 
+  this.showAll.set(false);
 });
 
 

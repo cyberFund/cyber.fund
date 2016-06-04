@@ -357,3 +357,11 @@ Meteor.publish('xchangeToSystemPage', function(options){
     }]
   })
 });
+
+Meteor.publish("fiatPair", function(fiatName){
+  console.log("эгегей", fiatName);
+  return this.ready();
+  // todo both direct and reverted pairs from xchangeVwap
+  // for given fiat vs bitcoin. if "" is passed, return nothing and use BTC
+  // as a base unit
+})
