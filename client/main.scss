@@ -10,14 +10,20 @@ separate file which can become unmaintainable.
 This is the reason for using main.scss for everything (temprorary?)
 */
 /* ALSO
-using !important everywhere because currently mdl-react links styles using <style> tag, which iverrides everything IIRC
+using !important everywhere because currently mdl-react links styles using <style> tag, which overrides everything IIRC
 this solution is temporary
 */
 
 /* UTILITIES */
 
-.center {
+.center, .text-center {
   text-align: center;
+}
+.left, .text-left {
+  text-align: left;
+}
+.right, .text-right {
+  text-align: right;
 }
 
 // problem: footer were displayed as it is outside of .mdl-layout and had display: static
