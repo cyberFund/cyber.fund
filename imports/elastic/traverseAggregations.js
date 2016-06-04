@@ -40,7 +40,7 @@
 // }
 
 function flattenAggregations(resultObject, keysIn){
-  const print = CF.Utils.logger.getLogger("esFlattenAggregation").print
+  const print = CF.Utils.logger.getLogger("esFlatten").print
   const print_ = CF.Utils.logger.print;
   let keys = keysIn.slice();
   print ("running with keys", keys, true);
@@ -79,7 +79,6 @@ function flattenAggregations(resultObject, keysIn){
   }
 
   do {
-    console.log(keys);
     key = keys.shift();
     results = keys.length > 0 ? gimmeBuckets(results, key) : gimmeHits(results, key)
     lengths.push(results.length);
@@ -87,4 +86,5 @@ function flattenAggregations(resultObject, keysIn){
   print_ ("resulting buckets by level", lengths, true)
   return results;
 }
+
 exports.flatten = flattenAggregations
