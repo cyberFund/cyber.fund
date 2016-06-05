@@ -347,21 +347,4 @@ Meteor.publish("usersWithFunds", function(){
   });
 });
 
-Meteor.publish('xchangeToSystemPage', function(options){
-  if (!options.system) return this.ready();
-  return xchangeFeeds.find({
-    $or: [{
-      base: options.system
-    }, {
-      quote: options.system
-    }]
-  })
-});
-
-Meteor.publish("fiatPair", function(fiatName){
-  console.log("эгегей", fiatName);
-  return this.ready();
-  // todo both direct and reverted pairs from xchangeVwap
-  // for given fiat vs bitcoin. if "" is passed, return nothing and use BTC
-  // as a base unit
-})
+require("../imports/vwap/publications")
