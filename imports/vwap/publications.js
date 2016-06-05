@@ -23,10 +23,22 @@ Meteor.publish("systemPairs", function(systemId){
   if (!systemId) return this.ready();
   const collection = require("./collections").feedsCurrent;
   const selector = require("./selectors").pairsById;
-  console.log(selector(systemId))
-  console.log(collection.find(selector(systemId)).fetch())
   return collection.find(selector(systemId));
 });
+
+Meteor.publish("systemPairsToBitcoinWeighted", function(systemId){
+  if (!systemId) return this.ready();
+  const collection = require("./collections").feedsVwapCurrent;
+  const selector = require("./selectors").pairsByTwoIds;
+  return collection.find(selector(systemId));
+});
+
+Meteor.publish("pairsToBitcoinWeighted", function(){
+  const collection = require("./collections").feedsVwapCurrent;
+  const selector = require("./selectors").pairsById;
+  return collection.find(selector("Bitcoin"));
+});
+
 
 Meteor.publish("marketPairs", function(marketUrl){
   if (!marketUrl) return this.ready();

@@ -2,28 +2,68 @@ const ROWS_SHORT = 20
 const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
 const fiats = require("../../../../imports/vwap/marketsList").fiats
 const flatten = require("../../../../imports/elastic/traverseAggregations").flatten
-const feedsCurrent = require("../../../../imports/vwap/collections").feedsCurrent
+const collections = require("../../../../imports/vwap/collections")
+const selectors = require("../../../../imports/vwap/selectors")
+const feedsCurrent = collections.feedsCurrent
+const feedsVwapCurrent = collections.feedsVwapCurrent
+
 
 CF.test = CF.test || {}
 CF.test.printPairs = function(){
   console.log(feedsCurrent.find().fetch())
 }
+CF.test.printPairsWeighted = function(){
+  console.log(feedsVwapCurrent.find().fetch())
+}
 
+// get weighted native price, given that there exist both direct and reverted
+// market pairs.
+function getWeightedPriceNative (base, quote){
+
+  //1. get both direct and revert price
+  // note: for non-weighted pairs - there d be find().fetch(), and also weighting/getting reverse price would involve extra mapreduce step
+  const direct = feedsVwapCurrent.findOne(
+    selectors.pairsByTwoIdsOrdered(base, quote));
+  const reverted = feedsVwapCurrent.findOne(
+    selectors.pairsByTwoIdsOrdered(quote, base));
+
+  let revertedPrice, revertedVolume;
+
+  //2. weight them. do not forget volume is given against quote, not base
+  if (!direct && !reverted) return undefined;
+
+  // nothing to weight
+  if (!reverted) return direct.last.native;
+
+  if (reverted) {
+    revertedPrice = 1/reverted.last.native;
+
+    // nothing to weight
+    if (!direct) return revertedPrice;
+
+    revertedVolume = reverted.volume.native/reverted.last.native;
+    return (direct.last.native*direct.volume.native + revertedPrice*revertedVolume) / (revertedVolume + direct.volume.native)
+  }
+}
+
+CF.test.gwp = getWeightedPriceNative;
 Template["testMarkets"].onCreated(function(){
   const system = Template.currentData().system;
-  console.log(system);
+
+  this.subscribe("pairsToBitcoinWeighted"); // weighted prices to bitcoin
+
   this.autorun(() => {
     this.subscribe("systemPairs", system);
   })
+
   this.showAll = new ReactiveVar
   this.showAll.set(false);
 });
 
-
 Template['testMarkets'].helpers({
   rows: function(){
     const system = this.system;
-    const selector = require("../../../../imports/vwap/selectors").pairsById
+    const selector = selectors.pairsById
     const count = feedsCurrent.find(selector).count();
     return feedsCurrent.find(selector, {
       sort: {volume: -1},
