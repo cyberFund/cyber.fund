@@ -52,12 +52,12 @@ exports.fetchDirect = fetchDirect
 exports.fetchXchangeData = () => {
   const ret = _fetchXchangeData();
   _.each(ret, function(item) {
-    const it = _.omit(item._source, ['price', 'volume_daily']);
+    const it = _.omit(item._source, ['price', 'volume']);
     const _id = [it.quote, it.base, it.market].join('_')
     //TODO: handling depending on index version.
     // (can get version from form item._index,  )
     it.last = {native: item._source.price}
-    it.volume = {native: item._source.volume_daily}
+    it.volume = {native: item._source.volume}
     xchangeCurrent.upsert({
       _id: _id, market: it.market, quote: it.quote, base: it.base
     }, {$set: it})

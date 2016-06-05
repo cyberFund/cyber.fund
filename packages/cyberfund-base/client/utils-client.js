@@ -33,6 +33,7 @@ CF.Utils.formatters = {
   readableN3: d3.format(",.3f"),
   readableN4: d3.format(",.4f"),
   roundedN4: d3.format(",.4r"),
+  meaningful3: d3.format(",.4g"),
   meaningful4: d3.format(",.4g"),
   meaningful4Si: d3.format(",.4s"),
   percents: d3.format("%"),

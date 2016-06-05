@@ -18,8 +18,9 @@ CF.test.printPairsWeighted = function(){
 
 // get weighted native price, given that there exist both direct and reverted
 // market pairs.
-function getWeightedPriceNative (base, quote){
 
+function getWeightedPriceNative (base, quote){
+  if (base === quote) return 1;
   //1. get both direct and revert price
   // note: for non-weighted pairs - there d be find().fetch(), and also weighting/getting reverse price would involve extra mapreduce step
   const direct = feedsVwapCurrent.findOne(
@@ -83,6 +84,12 @@ Template['testMarkets'].helpers({
   },
   pricePair: function() {
     return this.last && this.last.native
+  },
+  pricePairBtc: function() {
+    const native = this.last && this.last.native;
+    console.log( native, this.quote, this.base, getWeightedPriceNative("Bitcoin", this.quote), getWeightedPriceNative("Bitcoin", this.base) )
+    // A/btc = A/B * B/btc
+    return native / getWeightedPriceNative(this.base, "Bitcoin") 
   },
   volumePair: function() {
     return this.volume && this.volume.native

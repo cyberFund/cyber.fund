@@ -11,7 +11,10 @@
           Pair
         </th>
         <th class="center">
-          Price
+          Price, native
+        </th>
+        <th class="center">
+          Price, BTC
         </th>
         <th class="center">
           Daily volume, native<!--Ƀ-->
@@ -25,7 +28,10 @@
             <a href="{{marketUrlByApiUrl market}}">{{marketNameByApiUrl market}}</a>
           </td>
           <td class="center">{{tokenById quote}}/{{tokenById base}}</td>
-          <td class="right-align">{{readableN1 pricePair}}</td>
+          <td class="right-align">{{! todo: make pretty helper for that}}
+            {{#if gt pricePair 1000 }}{{readableN0 pricePair}}{{else}}{{meaningful4 pricePair}}{{/if}}</td>
+            <td class="right-align">{{! todo: make pretty helper for that}}
+              {{#if gt pricePairBtc 1000 }}{{readableN0 pricePair}}{{else}}{{meaningful4 pricePairBtc }}{{/if}}</td>
           <td class="right-align">{{readableN0 volumePair}}</td>
         </tr>
         {{/each}}
