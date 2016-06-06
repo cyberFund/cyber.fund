@@ -87,9 +87,16 @@ Template['testMarkets'].helpers({
   },
   pricePairBtc: function() {
     const native = this.last && this.last.native;
-    console.log( native, this.quote, this.base, getWeightedPriceNative("Bitcoin", this.quote), getWeightedPriceNative("Bitcoin", this.base) )
+
     // A/btc = A/B * B/btc
-    return native / getWeightedPriceNative(this.base, "Bitcoin") 
+    return native / getWeightedPriceNative(this.base, "Bitcoin")
+  },
+  pricePairFiat: function(){
+    const native = this.last && this.last.native;
+    const fiat = CF.Utils._session.get('fiat') //todo => ../imports
+    let ret = native / getWeightedPriceNative(this.base, "Bitcoin");
+    if (fiat) ret = ret / getWeightedPriceNative("Bitcoin", fiat);
+    return ret;
   },
   volumePair: function() {
     return this.volume && this.volume.native
