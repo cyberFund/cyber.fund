@@ -10,64 +10,85 @@ const CardFooter = (props) => {
   /* variables */
   const {item, type} = props,
         {crowdsales} = item
-  const btcRaised = crowdsales && crowdsales.btc_raised ? crowdsales.btc_raised : ''
-        fundUrl = crowdsales && crowdsales.funding_url ? crowdsales.funding_url : '',
+  const fundUrl = crowdsales && crowdsales.funding_url ? crowdsales.funding_url : '',
         termsUrl = crowdsales && crowdsales.funding_terms ? crowdsales.funding_terms : '',
         fundLink = <Button key="1" component="a" href={fundUrl} target="blank" colored>Invest</Button>,
-        termsLink = <Button key="2" component="a" href={termsUrl} target="blank" colored>Funding Terms</Button>
+        termsLink = <Button key="2" component="a" href={termsUrl} target="blank" colored>Funding Terms</Button>,
+        btcRaised = crowdsales && crowdsales.btc_raised ? crowdsales.btc_raised : '',
+        btcCap = item.metrics && item.metrics.cap && item.metrics.cap.btc ? item.metrics.cap.btc : '',
+        startDate = item.crowdsales && item.crowdsales.start_date ? item.crowdsales.start_date : '',
+        endDate = item.crowdsales && item.crowdsales.end_date ? item.crowdsales.end_date : '',
+        daysLeft = date => { return moment(date).diff( moment(), 'days') }
+        currentlyRaised = () => {
+            let value = () => {
+              if (item.metrics && item.metrics.currently_raised) return item.metrics.currently_raised
+              if (item.crowdsales && item.crowdsales.btc_raised) return item.crowdsales.btc_raised
+              return 0
+            }
+            return CF.Utils.formatters.readableN1(value())
+        }
+  // set empty variables to null because react does not like "undefined"
+  let footerTop = null, footerBottom = null
   // different card types require different footer
-  function chooseFooter (type) {
+  // function returns boolean
+  function displayFooter (type) {
       switch (type) {
         case 'active':
+          footerTop = <div className="mdl-card__supporting-text">
+                        <strong className="left">{daysLeft(endDate) + ' days left'}</strong>
+                        <span className="right"><strong>Currently raised: </strong> {currentlyRaised() + ' Ƀ'}</span>
+                      </div>
           // return two links if they exists
-          if (termsUrl && fundUrl) return [termsLink, fundLink]
+          if (termsUrl && fundUrl) footerBottom = [termsLink, fundLink]
           // else return one of them or none
-          else return termsLink ? termsLink : fundLink ? fundLink : null
+          else footerBottom = <CardActions border>{termsLink ? termsLink : fundLink ? fundLink : null}</CardActions>
+          return true
         case 'upcoming':
+          footerTop = <div className="mdl-card__supporting-text">
+                        <strong className="left">{daysLeft(startDate) + ' days left'}</strong>
+                      </div>
           // return termsLink if it exists
-          return termsLink ? termsLink : null
+          footerBottom = <CardActions border>{termsLink ? termsLink : null}</CardActions>
+          return true
         case 'past':
-          return `?? days ago, ${btcRaised} raised, ?? cap`
+          footerTop = <div className="mdl-card__supporting-text">
+                        <p className="text-center">{`${moment().diff(moment(endDate), 'days')} days ago`}</p>
+                        <strong className="left">{`${CF.Utils.formatters.readableN0(btcRaised)} Ƀ raised`}</strong>
+                        <strong className="right">{`${CF.Utils.formatters.readableN0(btcCap)} Ƀ cap`}</strong>
+                      </div>
+          return true
         // in projects footer is not needed
         case 'projects':
         default:
-          return null
+          return false
       }
   }
-  return chooseFooter(type) ? <CardActions border>{chooseFooter(type)}</CardActions> : null
+  // render footer or not
+  return displayFooter(type) ? <div>{footerTop}{footerBottom}</div> : null
 }
 
 const CrowdsaleCard = (props) => {
     /* variables */
     const item = props.item
-    let nickname = item.aliases && item.aliases.nickname ? item.aliases.nickname : ''
+    // nickname = aliases.nickname or _id
+    let nickname = item.aliases && item.aliases.nickname ? item.aliases.nickname : item._id
     let usersStarred = item._usersStarred && item._usersStarred.length ? item._usersStarred.length : 0
-    let endDate = item.crowdsales && item.crowdsales.end_date ? item.crowdsales.end_date : ''
-    let currentlyRaised = () => {
-        let value = () => {
-          if (item.metrics && item.metrics.currently_raised) return item.metrics.currently_raised
-          if (item.crowdsales && item.crowdsales.btc_raised) return item.crowdsales.btc_raised
-          return 0
-        }
-        return CF.Utils.formatters.readableN1(value())
-      }
-    const currentlyRaisedText = [<strong key="0">Currently raised: </strong>, currentlyRaised(), ' Ƀ']
 
     /* styles */
-    const cardStyle = {width: 'auto'}
+    const cardStyle = {width: 'auto'} //, clear: 'both'
     const linkStyle = {color: 'inherit', textDecoration: 'none'}
     const titleStyle = {height: '176px', background: `url(${CF.Chaingear.helpers.cgSystemLogoUrl(item)}) no-repeat center / contain`}
 
     return <Cell col={4} tablet={4} phone={4} shadow={1}>
             <Card style={cardStyle}>
-              <span style={{textAlign: 'right'}}>
-                <i className="material-icons"
-                  style={{fontSize: "1.8rem", verticalAlign: "text-bottom", color: '#ffeb3b'}}>
-                  stars
-                </i>
-                <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
-              </span>
-              <a href={`/system/${item._id}`} style={linkStyle}>
+              <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
+                <p className="text-right">
+                  <i className="material-icons"
+                    style={{fontSize: "1.8rem", verticalAlign: "text-bottom", color: '#ffeb3b'}}>
+                    stars
+                  </i>
+                  <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
+                </p>
                 <CardTitle style={titleStyle}>{nickname}</CardTitle>
                 <CardText>{item.descriptions.headline}</CardText>
               </a>
