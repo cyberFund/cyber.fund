@@ -169,10 +169,13 @@
         {{#if gte this.length 8}}
             {{> systemLinksTabs links=this system=../_id}}
         {{else}}
-          <div class="cglinxbox">
+          <div style="float: left">
             {{> testMarkets system=../_id}}
+          </div>
+          <div class="cglinxbox">
             {{#each this}} {{> cgLinkCard this}} {{/each}}
           </div>
+          <div style="clear: left"></div>
         {{/if}} {{/with}}
     </div>
     {{/if}}
