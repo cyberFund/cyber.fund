@@ -1,48 +1,57 @@
 import React, { PropTypes } from 'react'
 import { Card, CardTitle, CardText, CardActions, CardMenu, IconButton, Cell, Button } from 'react-mdl'
+import moment from 'moment'
+
+/* some documents do not have proper structure, so
+   "cannot read property of undefined" can occur anywhere
+   so seems like brute force checking existence of data is the only way */
 
 const CardFooter = (props) => {
-
-}
-const CardMain = (props) => {
-
-}
-
-const CrowdsaleCard = (props) => {
-    /* variables */
-    const item = props.item
-    /* some documents do not have proper structure, so
-       "cannot read property of undefined" can occur anywhere
-       so seems like brute force checking existence of data is the only way */
-    let nickname = item.aliases && item.aliases.nickname ? item.aliases.nickname : ''
-    let fundUrl = item.crowdsales && item.crowdsales.funding_url ? item.crowdsales.funding_url : ''
-    let fundTerms = item.crowdsales && item.crowdsales.funding_terms ? item.crowdsales.funding_terms : ''
-    let usersStarred = item._usersStarred && item._usersStarred.length ? item._usersStarred.length : 0
-    let btcRaised = item.crowdsales && item.crowdsales.btc_raised ? item.crowdsales.btc_raised : ''
-
-    // different card types require different footer
-    function chooseFooter (type) {
-      const termsLink = <Button component="a" href={fundTerms} target="blank" colored>Funding Terms</Button>
-      const fundLink = <Button component="a" href={fundUrl} target="blank" colored>Invest</Button>
+  /* variables */
+  const {item, type} = props,
+        {crowdsales} = item
+  const btcRaised = crowdsales && crowdsales.btc_raised ? crowdsales.btc_raised : ''
+        fundUrl = crowdsales && crowdsales.funding_url ? crowdsales.funding_url : '',
+        termsUrl = crowdsales && crowdsales.funding_terms ? crowdsales.funding_terms : '',
+        fundLink = <Button key="1" component="a" href={fundUrl} target="blank" colored>Invest</Button>,
+        termsLink = <Button ley="2" component="a" href={termsUrl} target="blank" colored>Funding Terms</Button>
+  // different card types require different footer
+  function chooseFooter (type) {
       switch (type) {
         case 'active':
           // return two links if they exists
-          if (fundTerms && fundUrl) return <CardActions border>{termsLink}{fundLink}</CardActions>
+          if (termsUrl && fundUrl) return [termsLink, fundLink]
           // else return one of them or none
-          else return <CardActions border>
-                        {termsLink ? termsLink : fundLink ? fundLink : null}
-                      </CardActions>
+          else return termsLink ? termsLink : fundLink ? fundLink : null
         case 'upcoming':
-          // return fund terms link if it exists
-          return <CardActions border>{termsLink ? termsLink : null}</CardActions>
+          // return termsLink if it exists
+          return termsLink ? termsLink : null
         case 'past':
-          return <CardActions border>{`?? days ago, ${btcRaised} raised, ?? cap`}</CardActions>
+          return `?? days ago, ${btcRaised} raised, ?? cap`
         // in projects footer is not needed
         case 'projects':
         default:
           return null
       }
-    }
+  }
+  return chooseFooter(type) ? <CardActions border>{chooseFooter(type)}</CardActions> : null
+}
+
+const CrowdsaleCard = (props) => {
+    /* variables */
+    const item = props.item
+    let nickname = item.aliases && item.aliases.nickname ? item.aliases.nickname : ''
+    let usersStarred = item._usersStarred && item._usersStarred.length ? item._usersStarred.length : 0
+    let endDate = item.crowdsales && item.crowdsales.end_date ? item.crowdsales.end_date : ''
+    let currentlyRaised = () => {
+        let value = () => {
+          if (item.metrics && item.metrics.currently_raised) return item.metrics.currently_raised
+          if (item.crowdsales && item.crowdsales.btc_raised) return item.crowdsales.btc_raised
+          return 0
+        }
+        return CF.Utils.formatters.readableN1(value())
+      }
+    const currentlyRaisedText = [<strong key="0">Currently raised: </strong>, currentlyRaised(), ' Ƀ']
 
     /* styles */
     const cardStyle = {width: 'auto'}
@@ -51,31 +60,21 @@ const CrowdsaleCard = (props) => {
 
     return <Cell col={4} tablet={4} phone={4} shadow={1}>
             <Card style={cardStyle}>
+              <span style={{textAlign: 'right'}}>
+                <i className="material-icons"
+                  style={{fontSize: "1.8rem", verticalAlign: "text-bottom", color: '#ffeb3b'}}>
+                  stars
+                </i>
+                <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
+              </span>
               <a href={`/system/${item._id}`} style={linkStyle}>
-                <CardTitle style={titleStyle}>
-                  {nickname}
-                </CardTitle>
-                <CardText>
-                    {item.descriptions.headline + ' ' + usersStarred}
-                </CardText>
+                <CardTitle style={titleStyle}>{nickname}</CardTitle>
+                <CardText>{item.descriptions.headline}</CardText>
               </a>
-              {chooseFooter(props.type)}
+              <CardFooter {...props} />
             </Card>
           </Cell>
 }
-
-/* <template name="hitryImage">
-    <img src="{{img_url}}"
-         itemprop="{{itemprop}}"
-         itemmeta="{{itemmeta}}"
-         style="{{style}}"
-         class="{{class}} hidden"/>
-</template>
-*/
-
-/*<CardMenu style={{color: '#fff'}}>
-    <IconButton name="stars" />
-</CardMenu>*/
 
 CrowdsaleCard.propTypes = {
   item: PropTypes.object.isRequired,
