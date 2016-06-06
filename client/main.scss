@@ -16,16 +16,24 @@ this solution is temporary
 
 /* UTILITIES */
 
-.center, .text-center {
+.left {
+  float: left;
+}
+.right {
+  float: right;
+}
+.text-center {
   text-align: center;
 }
-.left, .text-left {
+.text-left {
   text-align: left;
 }
-.right, .text-right {
+.text-right {
   text-align: right;
 }
-
+.clear, .clear-fix{
+  clear: both;
+}
 // problem: footer were displayed as it is outside of .mdl-layout and had display: static
 // but no such styles were applied to actual tag. Very strange.
 .mdl-layout__inner-container{
