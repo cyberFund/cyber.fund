@@ -1,5 +1,6 @@
 import React from 'react'
-import { Grid, Cell, DataTable, TableHeader } from 'react-mdl'
+import { Grid, Cell, DataTable, TableHeader } from 'react-mdl' //
+//import { Grid, Cell } from './Grid'
 
 class Top5Assets extends React.Component {
   constructor(params){
@@ -8,7 +9,7 @@ class Top5Assets extends React.Component {
       lastAddress: undefined,
       lastStatus: undefined
     }
-  }
+  }// offset={6} offsetTablet={1}
   render () {
     return (
       <div>
@@ -18,7 +19,7 @@ class Top5Assets extends React.Component {
           </Cell>
         </Grid>
         <Grid>
-          <Cell col={4} tablet={6} phone={12} align="middle" className="mdl-cell--4-offset-desktop mdl-cell--1-offset-tablet">
+          <Cell col={4} tablet={6} phone={12} className="mdl-cell--4-offset-desktop mdl-cell--1-offset-tablet">
             <DataTable
                 style={{width: '100%'}}
                 shadow={0}
@@ -33,6 +34,8 @@ class Top5Assets extends React.Component {
                 <TableHeader numeric name="price" cellFormatter={(price) => `\$${price.toFixed(2)}`} tooltip="Price pet unit">Price</TableHeader>
             </DataTable>
           </Cell>
+          {/* you can add components after table */}
+          {this.props.children}
         </Grid>
       </div>
   )}
