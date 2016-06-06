@@ -14,7 +14,7 @@ const CardFooter = (props) => {
         fundUrl = crowdsales && crowdsales.funding_url ? crowdsales.funding_url : '',
         termsUrl = crowdsales && crowdsales.funding_terms ? crowdsales.funding_terms : '',
         fundLink = <Button key="1" component="a" href={fundUrl} target="blank" colored>Invest</Button>,
-        termsLink = <Button ley="2" component="a" href={termsUrl} target="blank" colored>Funding Terms</Button>
+        termsLink = <Button key="2" component="a" href={termsUrl} target="blank" colored>Funding Terms</Button>
   // different card types require different footer
   function chooseFooter (type) {
       switch (type) {
