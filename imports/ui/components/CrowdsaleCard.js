@@ -11,7 +11,6 @@ const CardMain = (props) => {
 const CrowdsaleCard = (props) => {
     /* variables */
     const item = props.item
-    console.log(item);
     /* some documents do not have proper structure, so
        "cannot read property of undefined" can occur anywhere
        so seems like brute force checking existence of data is the only way */
@@ -45,11 +44,15 @@ const CrowdsaleCard = (props) => {
       }
     }
 
-    // render actual card
+    /* styles */
+    const cardStyle = {width: 'auto'}
+    const linkStyle = {color: 'inherit', textDecoration: 'none'}
+    const titleStyle = {height: '176px', background: `url(${CF.Chaingear.helpers.cgSystemLogoUrl(item)}) no-repeat center / contain`}
+
     return <Cell col={4} tablet={4} phone={4} shadow={1}>
-            <Card style={{width: 'auto'}}>
-              <a href={`/system/${item._id}`} style={{color: 'inherit', textDecoration: 'none'}}>
-                <CardTitle style={{height: '176px', background: `url() center / cover`}/* color: '#fff', */}>
+            <Card style={cardStyle}>
+              <a href={`/system/${item._id}`} style={linkStyle}>
+                <CardTitle style={titleStyle}>
                   {nickname}
                 </CardTitle>
                 <CardText>
