@@ -1,16 +1,23 @@
-import React from 'react'
-import { Grid, Cell, DataTable, TableHeader } from 'react-mdl' //
-//import { Grid, Cell } from './Grid'
+import React, { PropTypes }from 'react'
+import { Grid, Cell, DataTable, TableHeader } from 'react-mdl'
+import helpers from '../helpers'
 
-class Top5Assets extends React.Component {
-  constructor(params){
-    super(params)
-    this.state = {
-      lastAddress: undefined,
-      lastStatus: undefined
-    }
-  }// offset={6} offsetTablet={1}
-  render () {
+const Top5Assets = (props) => {
+    const data = props.systems.map( i => {
+        return {
+          system: helpers.displaySystemName(i),
+          cmgr: helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD),
+          months: helpers.readableN0(i.calculatable.RATING.vector.GR.months),
+          rating: helpers.readableN1(i.calculatable.RATING.sum)
+        }
+    }),
+    // tooltips
+    // tooltips currently not work properly. Because mdl's tooltips are too small
+    // TODO: implement proper tooltips
+    cmgrTP = `Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional finance as blockchain markets are faster than tradational thus should be evaulated more frequently.`,
+    monthsTP = `This is time passed since time of sampling 'first price' metric.`
+    ratingTP = `Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime.`
+
     return (
       <div>
         <Grid>
@@ -19,25 +26,29 @@ class Top5Assets extends React.Component {
           </Cell>
         </Grid>
         <Grid>
-          <Cell col={4} tablet={6} phone={12} className="mdl-cell--4-offset-desktop mdl-cell--1-offset-tablet">
-            <DataTable
-                style={{width: '100%'}}
-                shadow={0}
-                rows={[
-                    {material: 'Acrylic (Transparent)', quantity: 25, price: 2.90},
-                    {material: 'Plywood (Birch)', quantity: 50, price: 1.25},
-                    {material: 'Laminate (Gold on Blue)', quantity: 10, price: 2.35}
-                ]}
-              >
-                <TableHeader name="material" tooltip="The amazing material name">Material</TableHeader>
-                <TableHeader numeric name="quantity" tooltip="Number of materials">Quantity</TableHeader>
-                <TableHeader numeric name="price" cellFormatter={(price) => `\$${price.toFixed(2)}`} tooltip="Price pet unit">Price</TableHeader>
+          <Cell col={3} tablet={4} phone={4} className="mdl-cell--3-offset-desktop mdl-cell--1-offset-tablet">
+            <DataTable rows={data} style={{width: '100%'}} shadow={0}>
+                <TableHeader name="system">
+                  System
+                </TableHeader>
+                <TableHeader numeric name="cmgr" tooltip="Profitability of investment">
+                  CMGR[$]
+                </TableHeader>
+                <TableHeader numeric name="months" tooltip="This passed since time of sampling">
+                  Months
+                </TableHeader>
+                <TableHeader numeric name="rating" tooltip="Compound evaluation of a crypto property">
+                  Rating
+                </TableHeader>
             </DataTable>
           </Cell>
           {/* you can add components after table */}
-          {this.props.children}
+          {props.children}
         </Grid>
       </div>
-  )}
+  )
+}
+Top5Assets.propTypes = {
+  systems: PropTypes.array.isRequired
 }
 export default Top5Assets
