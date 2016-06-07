@@ -15,13 +15,14 @@ this solution is temporary
 */
 
 /* UTILITIES */
-
+// component aligment
 .left {
   float: left;
 }
 .right {
   float: right;
 }
+// text manipulation
 .text-center {
   text-align: center;
 }
@@ -31,9 +32,19 @@ this solution is temporary
 .text-right {
   text-align: right;
 }
+.enlarge { // TODO: delete this class?
+  font-size: 136%;
+}
 .clear, .clear-fix{
   clear: both;
 }
+.red-text, .text-red {
+  color: #F44336;
+}
+.green-text, .text-green {
+  color: #4CAF50;
+}
+
 // adds animated shadow effect on hover
 .hover-shadow {
   transition: box-shadow 0.2s ease-in-out;
