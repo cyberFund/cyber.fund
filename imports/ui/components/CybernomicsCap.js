@@ -1,0 +1,71 @@
+import React, { PropTypes } from 'react'
+import { If, Then, Else } from 'react-if'
+import { Cell } from 'react-mdl'
+import helpers from '../helpers'
+import CrowdsaleCard from './CrowdsaleCard'
+
+const CybernomicsCap = props =>{
+    const largeText = {textSize: '136%'}
+    return (
+      <Cell className="text-center" {...props}>
+          <h4>{props.title}</h4> {/* default is: 'Cybernomics Cap' */}
+          <If condition={Boolean(props.capUsd)}>
+            <Then>
+              <p>
+                <div style={largeText}>
+                  $&nbsp;{helpers.readableN0(props.capUsd)}
+                </div>
+                <If condition={Boolean(props.capUsdDailyChange)}>
+                  <Then>
+                    <span className={helpers.greenRedNumber(props.capUsdDailyChange)}>
+                      {helpers.percentsToTextUpDown(props.capUsdDailyChange, 4)}
+                    </span>
+                  </Then>
+                  <Else>&nbsp;</Else>
+                </If>
+              </p>
+            </Then>
+          </If>
+          <If condition={Boolean(props.capBtc)}>
+            <Then>
+              <p>
+                  <div style={largeText}>
+                    Ƀ&nbsp;{helpers.readableN0(props.capBtc)}
+                  </div>
+                  <If condition={Boolean(props.capBtcDailyChange)}>
+                    <Then>
+                      <span className={helpers.greenRedNumber(props.capBtcDailyChange)}>
+                        {helpers.percentsToTextUpDown(props.capBtcDailyChange, 4)}
+                      </span>
+                    </Then>
+                    <Else>&nbsp;</Else>
+                  </If>
+              </p>
+            </Then>
+          </If>
+      </Cell>
+  )
+}
+
+/*        {{#if capBtc}}
+              <p>
+                  <span class="enlarge">Ƀ&nbsp;{{readableN0 capBtc}}</span>
+                  <br> {{#if capBtcDailyChange}}
+
+                  <span class="{{greenRedNumber capBtcDailyChange}}">
+          {{percentsToTextUpDown capBtcDailyChange 4}}</span> {{else}}&nbsp; {{/if}}
+              </p>
+              {{/if}}*/
+CybernomicsCap.defaultProps = {
+ title: 'Cybernomics Cap'
+}
+
+CybernomicsCap.propTypes = {
+ title: PropTypes.string,
+ capBtc: PropTypes.number.isRequired,
+ capUsd: PropTypes.number.isRequired,
+ capBtcDailyChange: PropTypes.number.isRequired,
+ capUsdDailyChange: PropTypes.number.isRequired
+}
+
+export default CybernomicsCap
