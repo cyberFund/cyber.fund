@@ -34,6 +34,14 @@ this solution is temporary
 .clear, .clear-fix{
   clear: both;
 }
+// adds animated shadow effect on hover
+.hover-shadow {
+  transition: box-shadow 0.2s ease-in-out;
+  &:hover {
+    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+  }
+}
+
 // problem: footer were displayed as it is outside of .mdl-layout and had display: static
 // but no such styles were applied to actual tag. Very strange.
 .mdl-layout__inner-container{
