@@ -29,6 +29,8 @@ const CardFooter = (props) => {
         }
   // set empty variables to null because react does not like "undefined"
   let footerTop = null, footerBottom = null
+  /* end of variables */
+
   // different card types require different footer
   // function returns boolean
   function displayFooter (type) {
@@ -39,7 +41,7 @@ const CardFooter = (props) => {
                         <span className="right"><strong>Currently raised: </strong> {currentlyRaised() + ' Ƀ'}</span>
                       </div>
           // return two links if they exists
-          if (termsUrl && fundUrl) footerBottom = [termsLink, fundLink]
+          if (termsUrl && fundUrl) footerBottom = <CardActions border>{[termsLink, fundLink]}</CardActions>
           // else return one of them or none
           else footerBottom = <CardActions border>{termsLink ? termsLink : fundLink ? fundLink : null}</CardActions>
           return true
@@ -63,6 +65,7 @@ const CardFooter = (props) => {
           return false
       }
   }
+
   // render footer or not
   return displayFooter(type) ? <div>{footerTop}{footerBottom}</div> : null
 }
@@ -77,10 +80,10 @@ const CrowdsaleCard = (props) => {
     /* styles */
     const cardStyle = {width: 'auto'} //, clear: 'both'
     const linkStyle = {color: 'inherit', textDecoration: 'none'}
-    const titleStyle = {height: '176px', background: `url(${CF.Chaingear.helpers.cgSystemLogoUrl(item)}) no-repeat center / contain`}
+    const imageStyle = {height: '176px', background: `url(${CF.Chaingear.helpers.cgSystemLogoUrl(item)}) no-repeat center / contain`}
 
-    return <Cell col={4} tablet={4} phone={4} shadow={1}>
-            <Card style={cardStyle}>
+    return <Cell col={4} tablet={4} phone={4}>
+            <Card className="hover-shadow" shadow={2} style={cardStyle}>
               <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
                 <p className="text-right">
                   <i className="material-icons"
@@ -89,8 +92,12 @@ const CrowdsaleCard = (props) => {
                   </i>
                   <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
                 </p>
-                <CardTitle style={titleStyle}>{nickname}</CardTitle>
-                <CardText>{item.descriptions.headline}</CardText>
+                <div style={imageStyle}></div>
+                {/*<CardTitle style={titleStyle}>{nickname}</CardTitle>*/}
+                <CardText>
+                  <h2 className="mdl-card__title-text">{nickname}</h2>
+                  <p>{item.descriptions.headline}</p>
+                  </CardText>
               </a>
               <CardFooter {...props} />
             </Card>
