@@ -5,13 +5,13 @@ import helpers from '../helpers'
 import CrowdsaleCard from './CrowdsaleCard'
 
 const CybernomicsCap = props =>{
-    const largeText = {textSize: '136%'}
+    const largeText = {fontSize: '136%'}
     return (
-      <Cell className="text-center" {...props}>
+      <Cell {...props} className="text-center">
           <h4>{props.title}</h4> {/* default is: 'Cybernomics Cap' */}
           <If condition={Boolean(props.capUsd)}>
             <Then>
-              <p>
+              <div>
                 <div style={largeText}>
                   $&nbsp;{helpers.readableN0(props.capUsd)}
                 </div>
@@ -23,12 +23,12 @@ const CybernomicsCap = props =>{
                   </Then>
                   <Else>&nbsp;</Else>
                 </If>
-              </p>
+              </div>
             </Then>
           </If>
           <If condition={Boolean(props.capBtc)}>
             <Then>
-              <p>
+              <div>
                   <div style={largeText}>
                     Ƀ&nbsp;{helpers.readableN0(props.capBtc)}
                   </div>
@@ -40,7 +40,7 @@ const CybernomicsCap = props =>{
                     </Then>
                     <Else>&nbsp;</Else>
                   </If>
-              </p>
+              </div>
             </Then>
           </If>
       </Cell>
@@ -57,11 +57,13 @@ const CybernomicsCap = props =>{
               </p>
               {{/if}}*/
 CybernomicsCap.defaultProps = {
- title: 'Cybernomics Cap'
+ title: 'Cybernomics Cap',
+ shadow: 2
 }
 
 CybernomicsCap.propTypes = {
  title: PropTypes.string,
+ shadow: PropTypes.number,
  capBtc: PropTypes.number.isRequired,
  capUsd: PropTypes.number.isRequired,
  capBtcDailyChange: PropTypes.number.isRequired,

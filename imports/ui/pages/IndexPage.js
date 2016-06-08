@@ -26,7 +26,6 @@ class IndexPage extends Component {
         <Grid>
           <CybernomicsCap
             col={4} tablet={4} phone={4}
-            shadow={2}
             capUsd={this.props.capUsd}
             capBtc={this.props.capBtc}
             capBtcDailyChange={this.props.capBtcDailyChange}
