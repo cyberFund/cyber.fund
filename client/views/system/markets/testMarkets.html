@@ -1,6 +1,10 @@
 <template name="testMarkets">
   <div class="testMarkets">
-    {{#if rows.count}}
+    {{#if rows.length}}
+    <div style="display: inline-block">
+      Select currency {{> fiatSelector}}
+    </div>
+
     <table>
       <thead>
         <th class="center">
@@ -10,17 +14,11 @@
         <th class="center">
           Pair
         </th>
-        <th class="center">
-          Price, native
-        </th>
-        <th class="center">
-          Price, BTC
-        </th>
         <th>
-          <span class="nowrap">Price,&nbsp;{{> fiatSelector}}</span>
+          <span class="nowrap">Price,&nbsp;{{fiatToken}}</span>
         </th>
         <th class="center">
-          Daily volume, native<!--Ƀ-->
+          <span class="nowrap">Volume daily,&nbsp;{{fiatToken}}</span>
         </th>
 
       </thead>
@@ -31,10 +29,8 @@
             <a href="{{marketUrlByApiUrl market}}">{{marketNameByApiUrl market}}</a>
           </td>
           <td class="center">{{tokenById quote}}/{{tokenById base}}</td>
-          <td class="right-align">{{meaningfulNice4 pricePair}}</td>
-          <td class="right-align">{{meaningfulNice4 pricePairBtc}}</td>
           <td class="right-align">{{meaningfulNice4 pricePairFiat}}</td>
-          <td class="right-align">{{readableN0 volumePair}}</td>
+          <td class="right-align">{{readableN0 volumePairFiat}}</td>
         </tr>
         {{/each}}
       </tbody>
