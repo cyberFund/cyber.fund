@@ -14,12 +14,10 @@ class RadarPage extends Component {
     return (
       <div>
         {/* INFO SECTION */}
-        <div>
-          <CrowdsaleCardList title="Active Crowdsales" type="active" items={p.active} />
-          <CrowdsaleCardList title="Upcoming Crowdsales" type="upcoming" items={p.upcoming} />
-          <CrowdsaleCardList title="Anticipated Projects" type="projects" items={p.projects} />
-          <CrowdsaleCardList title="Successful Crowdsales" type="past" items={p.past} />
-        </div>
+        <CrowdsaleCardList title="Active Crowdsales" type="active" items={p.active} />
+        <CrowdsaleCardList title="Upcoming Crowdsales" type="upcoming" items={p.upcoming} />
+        <CrowdsaleCardList title="Anticipated Projects" type="projects" items={p.projects} />
+        <CrowdsaleCardList title="Successful Crowdsales" type="past" items={p.past} />
         {/* CALL TO ACTION */}
         <div className="text-center">
           <Grid>
@@ -44,9 +42,7 @@ class RadarPage extends Component {
           </Grid>
           <Grid>
             <Cell col={12}>
-              <Button
-                raised accent ripple
-                component="a"
+              <Button raised accent ripple component="a"
                 href="http://cybertalks.org/t/radar-listing-of-cryptocurrencies-and-cryptoassets/354"
                 target="blank">
                 Get Listed!
