@@ -8,7 +8,7 @@ class CrowdsaleCardList extends React.Component {
       <div>
         <Grid>
           <Cell col={12} className="text-center">
-            <h4>{this.props.title}</h4>
+            <h5>{this.props.title}</h5>
           </Cell>
         </Grid>
         <Grid>
@@ -18,7 +18,7 @@ class CrowdsaleCardList extends React.Component {
           return <CrowdsaleCard
                     key={item._id}
                     item={item}
-                    type={this.props.type} />
+                    {...this.props} />
                 })
           : null
         }
@@ -26,10 +26,14 @@ class CrowdsaleCardList extends React.Component {
       </div>
   )}
 }
-
+CrowdsaleCardList.defaultProps = {
+    itemComponent: 'h4'
+}
 CrowdsaleCardList.propTypes = {
  title: PropTypes.string.isRequired,
+ //itemComponent: PropTypes.oneOf(['active', 'upcoming', 'past', 'projects']),
  items: PropTypes.array.isRequired,
+ size: PropTypes.oneOf(['big', 'small', '']),
  //type is optional because there is default rule
  type: PropTypes.string
 }
