@@ -3,22 +3,27 @@ import { Grid, Cell, DataTable, TableHeader } from 'react-mdl'
 import helpers from '../helpers'
 
 const Top5Assets = (props) => {
-    const data = props.systems.map( i => {
-        return {
-          system: helpers.displaySystemName(i),
-          cmgr: helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD),
-          months: helpers.readableN0(i.calculatable.RATING.vector.GR.months),
-          rating: helpers.readableN1(i.calculatable.RATING.sum)
-        }
-    }),
+    let data
+    try {
+      data = props.systems.map( i => {
+          return {
+            system: helpers.displaySystemName(i),
+            cmgr: helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD),
+            months: helpers.readableN0(i.calculatable.RATING.vector.GR.months),
+            rating: helpers.readableN1(i.calculatable.RATING.sum)
+          }
+      })
+    } catch (e) { data = [] }
     // tooltips
     // tooltips currently not work properly. Because mdl's tooltips are too small
     // TODO: implement proper tooltips
-    cmgrTP = `Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional finance as blockchain markets are faster than tradational thus should be evaulated more frequently.`,
+    const cmgrTP = `Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional finance as blockchain markets are faster than tradational thus should be evaulated more frequently.`,
     monthsTP = `This is time passed since time of sampling 'first price' metric.`
     ratingTP = `Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime.`
 
-    return (
+    const tableStyle = {marginLeft: 'auto', marginRight: 'auto'}
+
+    return (// style={{width: '100%'}}
       <div>
         <Grid>
           <Cell col={12}>
@@ -26,8 +31,8 @@ const Top5Assets = (props) => {
           </Cell>
         </Grid>
         <Grid>
-          <Cell col={3} tablet={4} phone={4} className="mdl-cell--3-offset-desktop mdl-cell--1-offset-tablet">
-            <DataTable rows={data} style={{width: '100%'}} shadow={0}>
+          <Cell col={12}>
+            <DataTable rows={data} style={tableStyle} shadow={0}>
                 <TableHeader name="system">
                   System
                 </TableHeader>
@@ -47,6 +52,9 @@ const Top5Assets = (props) => {
         </Grid>
       </div>
   )
+}
+Top5Assets.defaultProps = {
+  systems: []
 }
 Top5Assets.propTypes = {
   systems: PropTypes.array.isRequired
