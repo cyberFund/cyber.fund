@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Card, CardTitle, CardText, CardActions, CardMenu, IconButton, Cell, Button } from 'react-mdl'
 import moment from 'moment'
-
+// TODO: refactoring needed. Hint: maybe separate into multiple components?
 /* some documents do not have proper structure, so
    "cannot read property of undefined" can occur anywhere
    so seems like brute force checking existence of data is the only way */
@@ -36,7 +36,7 @@ const CardFooter = (props) => {
   function displayFooter (type) {
       switch (type) {
         case 'active':
-          footerTop = <div className="mdl-card__supporting-text">
+          footerTop = <div className="mdl-card__supporting-text" style={{width: 'auto'}}>
                         <strong className="left">{daysLeft(endDate) + ' days left'}</strong>
                         <span className="right"><strong>Currently raised: </strong> {currentlyRaised() + ' Ƀ'}</span>
                       </div>
@@ -46,14 +46,14 @@ const CardFooter = (props) => {
           else footerBottom = <CardActions border>{termsLink ? termsLink : fundLink ? fundLink : null}</CardActions>
           return true
         case 'upcoming':
-          footerTop = <div className="mdl-card__supporting-text">
+          footerTop = <div className="mdl-card__supporting-text" style={{width: 'auto'}}>
                         <strong className="left">{daysLeft(startDate) + ' days left'}</strong>
                       </div>
           // return termsLink if it exists
           footerBottom = <CardActions border>{termsLink ? termsLink : null}</CardActions>
           return true
         case 'past':
-          footerTop = <div className="mdl-card__supporting-text">
+          footerTop = <div className="mdl-card__supporting-text" style={{width: 'auto'}}>
                         <p className="text-center">{`${moment().diff(moment(endDate), 'days')} days ago`}</p>
                         <strong className="left">{`${CF.Utils.formatters.readableN0(btcRaised)} Ƀ raised`}</strong>
                         <strong className="right">{`${CF.Utils.formatters.readableN0(btcCap)} Ƀ cap`}</strong>
@@ -85,19 +85,19 @@ const CrowdsaleCard = (props) => {
     return <Cell col={4} tablet={4} phone={4}>
             <Card className="hover-shadow" shadow={2} style={cardStyle}>
               <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
-                <p className="text-right">
-                  <i className="material-icons"
-                    style={{fontSize: "1.8rem", verticalAlign: "text-bottom", color: '#ffeb3b'}}>
-                    stars
-                  </i>
-                  <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
-                </p>
+                <div className="text-right" style={{margin: '10px 10px 0'}}>
+                    <i className="material-icons"
+                      style={{fontSize: "1.8rem", verticalAlign: "text-bottom", color: '#ffeb3b'}}>
+                      stars
+                    </i>
+                    <span style={{fontSize: '1.7rem', margin: 'auto'}}>{usersStarred}</span>
+                </div>
                 <div style={imageStyle}></div>
                 {/*<CardTitle style={titleStyle}>{nickname}</CardTitle>*/}
                 <CardText>
                   <h2 className="mdl-card__title-text">{nickname}</h2>
                   <p>{item.descriptions.headline}</p>
-                  </CardText>
+                </CardText>
               </a>
               <CardFooter {...props} />
             </Card>
@@ -106,7 +106,7 @@ const CrowdsaleCard = (props) => {
 
 CrowdsaleCard.propTypes = {
   item: PropTypes.object.isRequired,
-  type: PropTypes.string
+  type: PropTypes.oneOf(['active', 'upcoming', 'past', 'projects'])
 }
 
 export default CrowdsaleCard
