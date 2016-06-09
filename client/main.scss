@@ -80,3 +80,16 @@ this solution is temporary
       float: left !important;
   }
 }
+
+/* Tables */
+// problem: on small screens table cells are too wide
+@media (max-width: 375px){
+    .table {// make table horyzontally scrollable
+        overflow: auto !important;
+    }
+    // make table cells less wide
+    .mdl-data-table td, .mdl-data-table th {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+    }
+}
