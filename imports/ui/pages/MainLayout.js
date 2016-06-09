@@ -1,10 +1,21 @@
 import React from 'react'
+import { Meteor } from 'meteor/meteor'
+import { $ } from 'meteor/jquery'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList } from 'react-mdl'
 
 
 class MainLayout extends React.Component {
+    componentDidMount() {
+        // after link or button click close sidebar
+        // but not if it's expandable search button
+        $('.mdl-layout__drawer .mdl-navigation__link:not(.mdl-textfield--expandable), .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])').click(function(){
+            Meteor.setTimeout(function triggerClick(){
+              $('.mdl-layout__obfuscator').trigger('click');
+            }, 280)
+        })
+    }
  render() {
    const brandLink = <a
                       style={{color: 'white'}}
