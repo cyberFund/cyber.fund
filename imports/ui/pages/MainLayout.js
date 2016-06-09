@@ -1,57 +1,95 @@
 import React from 'react'
+import { Meteor } from 'meteor/meteor'
+import { $ } from 'meteor/jquery'
+import Blaze from 'meteor/gadicc:blaze-react-component'
+import { If, Then, Else } from 'react-if'
+import BitcoinPrice from '../components/BitcoinPrice'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList } from 'react-mdl'
 
 
 class MainLayout extends React.Component {
+  componentDidMount() {
+    // after link or button click close sidebar
+    // but not if it's expandable search button
+    $('.mdl-layout__drawer .mdl-navigation__link:not(.mdl-textfield--expandable), .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])').click(function(){
+      Meteor.setTimeout(function triggerClick(){
+        $('.mdl-layout__obfuscator').trigger('click');
+      }, 280)
+    })
+  }
  render() {
-   const brandLink = <a
+  const brandLink = <a
                       style={{color: 'white'}}
                       className="mdl-button mdl-js-button mdl-js-ripple-effect"
                       href="/">
                       Cyber.Fund
                      </a>
+  // TODO: move data variables to state
+  const user = Meteor.user()
+  const username = user && user.username ? user.username : undefined
+  /* show username or just "profile"*/
+  /*const profileLink = <a href={`/${username}`}>
+                        <If condition={Boolean(username)}>
+                          <Then>
+                            <div>
+                                <Blaze template="avatar" user={Meteor.userId()} shape="circle" />
+                                {username}
+                            </div>
+                          </Then>
+                          <Else><span>Profile</span></Else>
+                        </If>
+                      </a>*/
+    console.log(user)
+    console.log(Boolean(user))
+    console.log(username)
+    console.log(Boolean(username))
+  /* show login button or profile link */
+  const loginOrProfileLink =  <If condition={Boolean(!user)}>
+                                  <Then>
+                                      <a href={`/${username}`}>
+                                        {/* show username or just "profile"*/}
+                                        <If condition={Boolean(!username)}>
+                                          <Then>
+                                            <div>
+                                                <Blaze template="avatar" user={Meteor.userId()} shape="circle" />
+                                                {username}
+                                            </div>
+                                          </Then>
+                                          <Else><span>Profile</span></Else>
+                                        </If>
+                                      </a>
+                                  </Then>
+                                  <Else>
+                                    <a href="/welcome" class="red waves-effect waves-light btn">Join Us</a>
+                                  </Else>
+                              </If>
+
+  const navLinks = <Navigation>
+                        <Textfield
+                          value=""
+                          onChange={() => {}}
+                          label="Search for coin"
+                          expandable
+                          expandableIcon="search"
+                        />
+                        <a href="/radar">Crowdsales</a>
+                        <a href="/rating">Assets</a>
+                        <a href="/funds">Funds</a>
+                        <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
+                        <a href="https://blog.cyber.fund" target="_blank">Blog</a>
+                        <BitcoinPrice />
+                        <Blaze template="avatar" user={Meteor.userId()} shape="circle" />
+                     </Navigation>
    return (
      <Layout>
-
-       {/* HEADER NAV */}
-       <Header scroll title={brandLink}>
-           <Navigation>
-               <a href="/radar">Crowdsales</a>
-               <a href="/rating">Assets</a>
-               <a href="/funds">Funds</a>
-               <Textfield
-                   value=""
-                   onChange={() => {}}
-                   label="Search for coin"
-                   expandable
-                   expandableIcon="search"
-               />
-           </Navigation>
-       </Header>
-
-       {/* MOBILE SIDEBAR */}
-       <Drawer title={brandLink}>
-           <Navigation>
-               <a href="/radar">Crowdsales</a>
-               <a href="/rating">Assets</a>
-               <a href="/funds">Funds</a>
-               <Textfield
-                   value=""
-                   onChange={() => {}}
-                   label="Search for coin"
-                   expandable
-                   expandableIcon="search"
-               />
-           </Navigation>
-       </Drawer>
-
-       {/* MAIN CONTENT */}
-        <Content component="main">
-          {this.props.main}
-        </Content>
-
+        {/* HEADER NAV */}
+        <Header scroll title={brandLink}>{navLinks}</Header>
+        {/* MOBILE SIDEBAR */}
+        <Drawer title={brandLink}>{navLinks}</Drawer>
+        {/* MAIN CONTENT */}
+        <Content component="main">{this.props.main}</Content>
         {/* FOOTER */}
         <Footer size="mega">
           <FooterSection type="middle">
