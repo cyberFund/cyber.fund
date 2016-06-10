@@ -4,12 +4,14 @@ import { mount } from 'react-mounter'
 
 import MainLayout from '../ui/pages/MainLayout'
 import IndexPage from '../ui/pages/IndexPage'
+import WelcomePage from '../ui/pages/WelcomePage'
 import RadarPage from '../ui/pages/RadarPage'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPage from '../ui/pages/FundsPage'
 
 const routes = [
   ['/', <IndexPage />],
+  ['/welcome', <WelcomePage />],
   ['/radar', <RadarPage />],
   ['/rating', <RatingPage />],
   ['/funds', <FundsPage />]
