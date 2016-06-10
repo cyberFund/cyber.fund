@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { $ } from 'meteor/jquery'
+import BitcoinPrice from '../components/BitcoinPrice'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList } from 'react-mdl'
@@ -23,46 +24,29 @@ class MainLayout extends React.Component {
                       href="/">
                       Cyber.Fund
                      </a>
+    const navLinks = <Navigation>
+                       <a href="/radar">Crowdsales</a>
+                       <a href="/rating">Assets</a>
+                       <a href="/funds">Funds</a>
+                       <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
+                       <a href="https://blog.cyber.fund" target="_blank">Blog</a>
+                       <Textfield
+                           value=""
+                           onChange={() => {}}
+                           label="Search for coin"
+                           expandable
+                           expandableIcon="search"
+                       />
+                       <BitcoinPrice />
+                   </Navigation>
    return (
      <Layout>
-
        {/* HEADER NAV */}
-       <Header scroll title={brandLink}>
-           <Navigation>
-               <a href="/radar">Crowdsales</a>
-               <a href="/rating">Assets</a>
-               <a href="/funds">Funds</a>
-               <Textfield
-                   value=""
-                   onChange={() => {}}
-                   label="Search for coin"
-                   expandable
-                   expandableIcon="search"
-               />
-           </Navigation>
-       </Header>
-
+       <Header scroll title={brandLink}>{navLinks}</Header>
        {/* MOBILE SIDEBAR */}
-       <Drawer title={brandLink}>
-           <Navigation>
-               <a href="/radar">Crowdsales</a>
-               <a href="/rating">Assets</a>
-               <a href="/funds">Funds</a>
-               <Textfield
-                   value=""
-                   onChange={() => {}}
-                   label="Search for coin"
-                   expandable
-                   expandableIcon="search"
-               />
-           </Navigation>
-       </Drawer>
-
+       <Drawer title={brandLink}>{navLinks}</Drawer>
        {/* MAIN CONTENT */}
-        <Content component="main">
-          {this.props.main}
-        </Content>
-
+       <Content component="main">{this.props.main}</Content>
         {/* FOOTER */}
         <Footer size="mega">
           <FooterSection type="middle">
