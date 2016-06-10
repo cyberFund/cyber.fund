@@ -1,13 +1,19 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { $ } from 'meteor/jquery'
-import BitcoinPrice from '../components/BitcoinPrice'
+import { If, Then, Else } from 'react-if'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
-  Footer, FooterSection, FooterDropDownSection, FooterLinkList } from 'react-mdl'
-
+  Footer, FooterSection, FooterDropDownSection, FooterLinkList, Button } from 'react-mdl'
+import BitcoinPrice from '../components/BitcoinPrice'
 
 class MainLayout extends React.Component {
+    constructor(props){
+        super(props)
+        const user = Meteor.user()
+        const username = user && user.username ? user.username : ''
+        this.state = {user, username}
+    }
     componentDidMount() {
         // after link or button click close sidebar
         // but not if it's expandable search button
@@ -18,12 +24,34 @@ class MainLayout extends React.Component {
         })
     }
  render() {
-   const brandLink = <a
-                      style={{color: 'white'}}
-                      className="mdl-button mdl-js-button mdl-js-ripple-effect"
-                      href="/">
-                      Cyber.Fund
-                     </a>
+     const brandLink = <a
+                        style={{color: 'white'}}
+                        className="mdl-button mdl-js-button mdl-js-ripple-effect"
+                        href="/">
+                        Cyber.Fund
+                       </a>
+     /* show login button or profile link */
+     const loginOrProfileLink =  <If condition={Boolean(this.state.user)}>
+                                    <Then>
+                                          {/* show username or just "profile"*/}
+                                          <If condition={Boolean(this.state.username)}>
+                                            <Then>
+                                              <a href={`/@${this.state.username}`}>
+                                                  {/* this sucker right here is causing Error: type should not be null, undefined, boolean, or number */}
+                                                  {/* TODO: resolve error */}
+                                                  <Blaze template="avatar" user={Meteor.userId()} shape="circle" />
+                                                  {this.state.username}
+                                              </a>
+                                            </Then>
+                                            <Else>
+                                                <a href={`/@${this.state.username}`}>Profile</a>
+                                            </Else>
+                                          </If>
+                                    </Then>
+                                    <Else>
+                                        <Button href="/welcome" raised accent ripple>Join Us</Button>
+                                    </Else>
+                                </If>
     const navLinks = <Navigation>
                        <a href="/radar">Crowdsales</a>
                        <a href="/rating">Assets</a>
@@ -38,6 +66,7 @@ class MainLayout extends React.Component {
                            expandableIcon="search"
                        />
                        <BitcoinPrice />
+                       {loginOrProfileLink}
                    </Navigation>
    return (
      <Layout>
