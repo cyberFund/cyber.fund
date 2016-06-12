@@ -418,7 +418,7 @@ var esParsers = {
       }
 
       // apply changes to currentData
-      // var set = {};
+      // var sexchangeData
 
       function grab(timeBucket) {
         var ret = {};

@@ -298,7 +298,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_data: { //only for tests here..
+    xchangeData: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         params = params || {}
@@ -365,7 +365,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_averages_all: { //only for tests here..
+    xchangeVwapData: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         params = params || {}
@@ -424,7 +424,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_averages_system: { //only for tests here..
+    xchangeVwapBySystem: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         console.log(params)
@@ -500,7 +500,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_system: { //only for tests here..
+    xchangeDataBySystem: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         console.log(params)

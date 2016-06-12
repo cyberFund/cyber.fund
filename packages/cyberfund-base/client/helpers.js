@@ -29,8 +29,8 @@ function group3decimal(input, sep) {
 
 function escapeNaN(formatter){
   return function(value){
-    return isNaN(value) ? '' : formatter(value);
-  }
+    return isNaN(value) ? "" : formatter(value);
+  };
 }
 
 var helpers = {
@@ -83,7 +83,7 @@ var helpers = {
   },
 
   dif: function (v1, v2) {
-    return parseInt(v1) - parseInt(v2)
+    return parseInt(v1) - parseInt(v2);
   },
   cfRatingRound: function(v) {
     return Math.ceil(v);
@@ -118,7 +118,7 @@ var helpers = {
   },
   readableNumbers: CF.Utils.readableNumbers,
   readableN: function(input, roundTo){
-    return escapeNaN(d3.format(',.'+roundTo||0+'f'))(input)
+    return escapeNaN(d3.format(",."+roundTo||0+"f"))(input);
   },
   readableN0: escapeNaN(CF.Utils.formatters.readableN0),
   readableN1: escapeNaN(CF.Utils.formatters.readableN1),
@@ -126,11 +126,16 @@ var helpers = {
   readableN3: escapeNaN(CF.Utils.formatters.readableN3),
   readableN4: escapeNaN(CF.Utils.formatters.readableN4),
   roundedN4: escapeNaN(CF.Utils.formatters.roundedN4),
+  meaningful3: escapeNaN(CF.Utils.formatters.meaningful3),
   meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
+  meaningfulNice4: function(value){
+    return escapeNaN(value >= 1000 ? CF.Utils.formatters.readableN0 :
+    CF.Utils.formatters.meaningful4)(value); 
+  },
   meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
   withSign: escapeNaN(CF.Utils.formatters.withSign),
   isNumber: function (value) {
-    return _.isNumber(value)
+    return _.isNumber(value);
   },
   percents: escapeNaN(CF.Utils.formatters.percents),
   percents0: escapeNaN(CF.Utils.formatters.percents0),
@@ -139,11 +144,11 @@ var helpers = {
   percents3: escapeNaN(CF.Utils.formatters.percents3),
 
   isObject: function (value) {
-    return _.isObject(value)
+    return _.isObject(value);
   },
 
   isEmpty: function (value) {
-    return _.isEmpty(value)
+    return _.isEmpty(value);
   },
 
   satoshi_decimals: function (value, precision) {
@@ -153,7 +158,7 @@ var helpers = {
     } catch (e) {
 
     }
-    var out = value.toFixed(precision).split('.');
+    var out = value.toFixed(precision).split(".");
     var ret = "";
     if (out[0]) ret += group3natural(out[0]);
     if (out[1]) ret += "." + group3decimal(out[1], " ");
@@ -171,43 +176,43 @@ var helpers = {
   },
   isNowBetween: function (date1, date2/*, format*/) {
     var m1 = moment(date1),
-    m2 = moment(date2);
+      m2 = moment(date2);
     return moment().isBetween(m1, m2);
   },
 
   // days before date
   daysLeft: function (date) {
-    return  moment(date).diff( moment() , 'days');
+    return  moment(date).diff( moment() , "days");
   },
 
   // since date
   daysPassed: function (date) {
-    return  moment().diff(moment(date), 'days');
+    return  moment().diff(moment(date), "days");
   },
 
   // when displaying string (e.g. CurrentData._id) as url path segment
   _toUnderscores: function (str) {
-    return !!str ? str.replace(/\ /g, "_") : ''
+    return !!str ? str.replace(/\ /g, "_") : "";
   },
 
   // opposite to _toUnderscores
   _toSpaces: function (str) {
-    return !!str ? str.replace(/_/g, " ") : ''
+    return !!str ? str.replace(/_/g, " ") : "";
   },
 
   // html attribute-'friendly' string
   _toAttr: function (str) {
     return !!str ? str.replace(/\ /g, "_").replace(/\(/g, "_")
-    .replace(/\)/g, "_").replace(/\./g, "_") : ''
+    .replace(/\)/g, "_").replace(/\./g, "_") : "";
   },
   usersCount: function () {
-    return Counts.get('usersCount')
+    return Counts.get("usersCount");
   },
   coinsCount: function(){
-    return Counts.get('coinsCount');
+    return Counts.get("coinsCount");
   },
   coinsCount2: function(){
-    return Counts.get('coinsCount2');
+    return Counts.get("coinsCount2");
   },
 
   _system_type_: function(key){
@@ -245,37 +250,37 @@ var helpers = {
     return ret;
   },
   displayCurrencyName: function (system) {
-    if (typeof system == 'string') system = CurrentData.findOne({_id: system})
+    if (typeof system == "string") system = CurrentData.findOne({_id: system});
     if (system) return system.token ? system.token.name : system._id;
-    else return ''
+    else return "";
   },
   systemFromId: function (id){
     return CurrentData.findOne({_id:id});
   },
   ownUsername: function(){
     var user =  Meteor.user();
-    if (!user) return '';
-    return (user.username) || '';
+    if (!user) return "";
+    return (user.username) || "";
   },
   _largeAvatar: function(user){
-    return user.largeAvatar || user.avatar || '';
+    return user.largeAvatar || user.avatar || "";
   },
   dateFormat: function(date, format){
     return moment(date).format(format);
   },
   usersListFromIds: function(listFromIds) {
-    return CF.User.listFromIds(listFromIds)
+    return CF.User.listFromIds(listFromIds);
   },
   _btcPrice: function(){
     var btc = CurrentData.findOne({_id: "Bitcoin"});
     try {// try to return a value
-      return parseFloat(btc.metrics.price.usd)
+      return parseFloat(btc.metrics.price.usd);
     } catch (err) {// if value undefined return nothing
-      return
+      return;
     }
   },
   userHasPublicAccess: function userHasPublicAccess() {
-    return CF.User.hasPublicAccess(Meteor.user())
+    return CF.User.hasPublicAccess(Meteor.user());
   },
   isInDevelopmentMode: function isInDevelopmentMode(){
     return CF._mode;

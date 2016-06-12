@@ -6,6 +6,7 @@ CF.UserAssets.graph.minimalShare = 0.025;
 var ns = CF.UserAssets.graph;
 
 Template["folioChart"].onRendered(function() {
+
   var instance = this;
   instance._selector = ".folio-pie";
   instance.options = {
@@ -33,11 +34,11 @@ Template["folioChart"].onRendered(function() {
   // does not expect null/undef values before non-null/non-undef
   instance.chart = function(selector, data) {
     if (selector && data) {
-      if (ns.folioPie && ns.folioPie.update) {
-        ns.folioPie.update(data);
-      } else
-        ns.folioPie = new Chartist.Pie(selector, data, instance.options);
-      return ns.folioPie;
+      //if (ns.folioPie && ns.folioPie.update) {
+        //ns.folioPie.update(data);
+      //} else
+      ns.folioPie = new Chartist.Pie(selector, data, instance.options);
+      //return ns.folioPie;
     }
 
     if (!data) {
@@ -50,20 +51,18 @@ Template["folioChart"].onRendered(function() {
   instance.hideView = function() {
     var ret = instance.chart();
     CF.Utils.jqHide(instance.$(".folio-pie"));
-    return ret;
   };
 
   instance.showView = function(data) {
     CF.Utils.jqShow(instance.$(".folio-pie"));
-    return instance.chart(instance._selector, data);
+    instance.chart(instance._selector, data);
   };
 
   instance.autorun(function(comp) {
     var assets = Template.currentData() && Template.currentData().accountsData || {};
 
     if (_.isEmpty(assets)) {
-      ns.folioPie = instance.hideView();
-      return ns.folioPie;
+      instance.hideView();
     }
 
     var ticks = [],
@@ -101,8 +100,7 @@ Template["folioChart"].onRendered(function() {
     });
 
     if (!sum) {
-      ns.folioPie = instance.hideView();
-      return ns.folioPie;
+      instance.hideView();
     }
 
     // push smalls into 'others'
@@ -130,13 +128,14 @@ Template["folioChart"].onRendered(function() {
 
     // final data check
     if (ticks.length > 1) {
+      console.log(ns.folioPie, labels, ticks);
       instance.showView({
         labels: labels,
         series: ticks
       });
     } else {
+      console.log("hiding");
       instance.hideView();
     }
-    return ns.folioPie;
   });
 });

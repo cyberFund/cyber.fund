@@ -1,7 +1,7 @@
 var cfCDs = CF.CurrentData.selectors;
-var ns = CF.UserAssets
+var ns = CF.UserAssets;
 
-Template['portfolioWidgetView'].helpers({
+Template["portfolioWidgetView"].helpers({
   shouldShowCheckboxes: function(){
     return CF.Accounts.findByRefId(CF.Profile.currentUid()).count() > 1;
   },
@@ -13,7 +13,7 @@ Template['portfolioWidgetView'].helpers({
         sum += asset.vBtc || 0;
       });
     }
-    return sum
+    return sum;
   },
   sumU: function() {
     var assets = CF.Accounts.portfolioTableData();
@@ -26,30 +26,30 @@ Template['portfolioWidgetView'].helpers({
     return sum;
   },
   filteredAccountsData: function() {
-    return CF.Accounts.userProfileData()
+    return CF.Accounts.userProfileData();
   },
   flat: function() {
     return CF.Accounts.extractAssets(this);
   },
   flattenData: CF.Accounts.portfolioTableData
-})
+});
 
-Template['pwvRow'].onRendered(function() {
+Template["pwvRow"].onRendered(function() {
   var t = this;
   t.$(".count-account").prop("checked", !CF.Accounts.isHidden(t.data._id));
 });
 
-Template['pwvRow'].helpers({
+Template["pwvRow"].helpers({
   showAccount: function() {
-    return Session.get('hideAccount_' + this._id) ? '' : 'checked'
+    return Session.get("hideAccount_" + this._id) ? "" : "checked";
   },
   shouldShowCheckboxes: function(){ //TODO dedupe
     return CF.Accounts.findByRefId(CF.Profile.currentUid()).count() > 1;
-  },
-})
-
-Template['pwvRow'].events({
-  'change .count-account': function(e, t) {
-    CF.Accounts.hiddenToggle(t.$(e.currentTarget).attr('account-id'))
   }
-})
+});
+
+Template["pwvRow"].events({
+  "change .count-account": function(e, t) {
+    CF.Accounts.hiddenToggle(t.$(e.currentTarget).attr("account-id"));
+  }
+});

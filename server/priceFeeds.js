@@ -5,11 +5,21 @@ const feeds = require("../imports/vwap/server");
 
 SyncedCron.add({
   name: "xchange feed",
-  schedule: function (parser) {
+  schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron("40 0/1 * * * *", true);
+    return parser.cron("40 2/3 * * * *", true);
   },
-  job: function () {
-    feeds.fetch()
+  job: function() {
+    feeds.fetchXchangeData();
+  }
+})
+
+SyncedCron.add({
+  name: "xchange vwap feed",
+  schedule: function(parser) {
+    return parser.cron("10 1/3 * * * *", true);
+  },
+  job: function() {
+    feeds.fetchXchangeVwapData();
   }
 })
