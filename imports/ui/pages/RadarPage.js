@@ -12,10 +12,10 @@ class RadarPage extends Component {
     // const loadingIndicator = (<h3 className="center">Scanning cyberspace</h3>)
 
     return (
-      <div>
+      <div id="RadarPage">
         {/* INFO SECTION */}
-        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" ype="active" items={p.active} />
-        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" ype="upcoming" items={p.upcoming} />
+        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" type="active" items={p.active} />
+        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" type="upcoming" items={p.upcoming} />
         <CrowdsaleCardList title="Anticipated Projects" titleComponent="h2" type="projects" items={p.projects} />
         <CrowdsaleCardList title="Successful Crowdsales" titleComponent="h2" type="past" items={p.past} />
         {/* CALL TO ACTION */}
