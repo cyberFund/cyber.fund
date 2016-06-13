@@ -14,10 +14,10 @@ class RadarPage extends Component {
     return (
       <div>
         {/* INFO SECTION */}
-        <CrowdsaleCardList title="Active Crowdsales" type="active" items={p.active} />
-        <CrowdsaleCardList title="Upcoming Crowdsales" type="upcoming" items={p.upcoming} />
-        <CrowdsaleCardList title="Anticipated Projects" type="projects" items={p.projects} />
-        <CrowdsaleCardList title="Successful Crowdsales" type="past" items={p.past} />
+        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" ype="active" items={p.active} />
+        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" ype="upcoming" items={p.upcoming} />
+        <CrowdsaleCardList title="Anticipated Projects" titleComponent="h2" type="projects" items={p.projects} />
+        <CrowdsaleCardList title="Successful Crowdsales" titleComponent="h2" type="past" items={p.past} />
         {/* CALL TO ACTION */}
         <div className="text-center">
           <Grid>
