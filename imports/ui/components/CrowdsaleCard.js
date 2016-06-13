@@ -60,7 +60,8 @@ const CrowdsaleCard = (props) => {
                             <p className="text-center">{`${moment().diff(moment(endDate), 'days')} days ago`}</p>
                             <strong className="left">{`${CF.Utils.formatters.readableN0(btcRaised)} Ƀ raised`}</strong>
                             <strong className="right">
-                                {readableBtcCap ? `${readableBtcCap} Ƀ cap` : ''}
+                                {/* specifically check against zero because  ternary operator (?) returns 0 = true*/}
+                                {readableBtcCap != 0 ? `${readableBtcCap} Ƀ cap` : ''}
                             </strong>
                           </div>
               return true
