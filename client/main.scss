@@ -81,6 +81,7 @@ this solution is temporary
   }
 }
 
+
 /* Tables */
 // problem: on small screens table cells are too wide
 @media (max-width: 375px){
@@ -91,5 +92,20 @@ this solution is temporary
     .mdl-data-table td, .mdl-data-table th {
         padding-left: 10px !important;
         padding-right: 10px !important;
+    }
+}
+
+// super wide screen styles
+@media screen and (min-width: 1921px) {
+    // navigation bar, content and footer
+    .mdl-layout__header-row,
+    .mdl-layout__content,
+    .mdl-mega-footer__middle-section,
+    .mdl-mega-footer__bottom-section {
+        max-width: 1922px;
+        margin: 0 auto;
+    }// drawer button need to be repositioned
+    .mdl-layout__drawer-button {
+        left: 25%;
     }
 }
