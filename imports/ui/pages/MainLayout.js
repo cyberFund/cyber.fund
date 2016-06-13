@@ -1,6 +1,7 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { $ } from 'meteor/jquery'
+import Blaze from 'meteor/gadicc:blaze-react-component'
 import { If, Then, Else } from 'react-if'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,

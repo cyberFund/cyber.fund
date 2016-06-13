@@ -47,9 +47,9 @@ this solution is temporary
 
 // adds animated shadow effect on hover
 .hover-shadow {
-  transition: box-shadow 0.2s ease-in-out;
+  transition: box-shadow .25s;
   &:hover {
-    box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
 }
 
@@ -122,5 +122,17 @@ this solution is temporary
         left:0;
         width:100%;
         height:100%;
+    }
+}
+
+/**** RADAR PAGE ****/
+#RadarPage {
+    .mdl-card {
+        // CrowdsaleCard have bunch of paragraphs and margin makes card to tall
+        p { margin-bottom: 0; }
+        // same as previous
+        .mdl-card__supporting-text {
+            padding-top: 5px;
+        }
     }
 }
