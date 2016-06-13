@@ -15,13 +15,10 @@ const CrowdsaleCardList = props => {
                               item={item}
                               {...props} />
     })
-    return  <div>
-                <Grid>
+    // if col width specified render component ass Cell instead of Grid
+    return  <div className={props.col ? `mdl-cell mdl-cell--${props.col}-col` : 'mdl-grid'}>
                   <Cell col={12}>{renderTitle}</Cell>
-                </Grid>
-                <Grid>
-                    { props.items.length ? renderCards : null }
-                </Grid>
+                  {props.items.length ? renderCards : null}
             </div>
 }
 CrowdsaleCardList.defaultProps = {
