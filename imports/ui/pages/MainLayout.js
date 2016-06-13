@@ -65,7 +65,9 @@ class MainLayout extends React.Component {
                            expandable
                            expandableIcon="search"
                        />
-                       <BitcoinPrice />
+                       <a href="" style={{lineHeight: 'inherit'}}>
+                           <BitcoinPrice />
+                       </a>
                        {loginOrProfileLink}
                    </Navigation>
    return (
@@ -73,7 +75,7 @@ class MainLayout extends React.Component {
        {/* HEADER NAV */}
        <Header scroll title={brandLink}>{navLinks}</Header>
        {/* MOBILE SIDEBAR */}
-       <Drawer title={brandLink}>{navLinks}</Drawer>
+       <Drawer title={brandLink} className="text-center">{navLinks}</Drawer>
        {/* MAIN CONTENT */}
        <Content component="main">{this.props.main}</Content>
         {/* FOOTER */}
