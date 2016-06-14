@@ -72,7 +72,7 @@ class BalanceChecker extends React.Component {
     const pr = this.props
     const st = this.state
     return ( //error="Please input an address!" inputClassName="is-invalid"
-      <Cell col={pr.col} {...pr}>
+      <Cell col={pr.col} className="mdl-card" {...pr}>
           <h6>{pr.title}</h6>
           {st.lastAddress ? (
             <a onClick={this._handleReset} className="red-text reset-all btn-floating btn-tiny red">

@@ -7,7 +7,7 @@ import CrowdsaleCard from './CrowdsaleCard'
 const CybernomicsCap = props =>{
     const largeText = {fontSize: '136%'}
     return (
-      <Cell {...props} className="text-center">
+      <Cell {...props} className="text-center mdl-card">
           <h4>{props.title}</h4> {/* default is: 'Cybernomics Cap' */}
           <If condition={Boolean(props.capUsd)}>
             <Then>
