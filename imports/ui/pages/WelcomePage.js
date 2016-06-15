@@ -10,6 +10,7 @@ import helpers from '../helpers'
 class WelcomePage extends React.Component {
     // redirect user if he is logged in
     componentWillMount() {
+        // TODO: move this to FlowRouter.route(triggersEnter: function)
         if(Meteor.userId()) FlowRouter.go('/profile')
     }
     componentDidMount() {
@@ -20,9 +21,14 @@ class WelcomePage extends React.Component {
             })
             FlowRouter.go('/sign-in')
         })
+        // make drawer button white
+        // conditional css is pretty much non existent
+        // TODO create states for drawer button in MainLayout and apply changes through state manipulation
+        $('.mdl-layout__drawer-button').css('color', 'white !important')
     }
     componentWillUnmount() { // clean up
         $('[href="/sign-in"]').remove()
+        $('.mdl-layout__drawer-button').css('color', 'black')
     }
     render() {
         const wideSectionStyle = {
@@ -54,18 +60,19 @@ class WelcomePage extends React.Component {
                     <Grid>
                         <Cell col={12}>
                              <h3>How cyber <span className="red-text">•</span> Fund helps you manage your blockchain portfolio</h3>
-                             <div className="video-container">
-                                 <iframe width="853" height="480" src="//www.youtube.com/embed/gGbbawSJ6P0?rel=0" frameborder="0" allowfullscreen>
-                                 </iframe>
-                             </div>
                         </Cell>
                     </Grid>
+                    <div className="video-container">
+                        <iframe width="853" height="480" src="//www.youtube.com/embed/gGbbawSJ6P0?rel=0" frameborder="0" allowfullscreen>
+                        </iframe>
+                    </div>
                     <Grid>
                         <Cell col={12}>
                             <h4>Sign up now and your public account will be free forever!</h4>
-                            <Button href="/sign-in" raised colored ripple>Sign Up</Button>
+                            <Button href="/sign-in" raised accent ripple>Sign Up</Button>
                         </Cell>
                     </Grid>
+                    <hr/>
                     <Grid>
                         <Cell col={12}><h2>Why you’ll love <Brand />.</h2></Cell>
                         <Cell col={4} tablet={4} phone={12}>
@@ -78,7 +85,7 @@ class WelcomePage extends React.Component {
                             <h4>Balance Autoupdate</h4>
                             <p>A majority of the blockchains' balances are updated automatically. Insert your public address and it will be tracked.</p>
                         </Cell>
-                        <Cell col={4} tablet={12} phone={12}>
+                        <Cell col={4} tablet={4} phone={12}>
                             <i style={{color: '#4CAF50', fontSize: '6em'}} className="material-icons">directions_bike</i>
                             <h4>Trustless</h4>
                             <p>We invest a lot in blockains too, so we care about your security. We never touch your private keys.</p>
@@ -86,18 +93,18 @@ class WelcomePage extends React.Component {
 
                         <br className="clearfix mdl-cell--hide-tablet mdl-cell--hide-phone" />
 
-                        <Cell col={4} tablet={12} phone={12}>
+                        <Cell col={4} tablet={4} phone={12}>
                             <i style={{color: '#2196F3', fontSize: '6em'}} className="material-icons">router</i>
                             <h4>Scanner</h4>
                             <p>We scan all(!) blockchain space for prominent crowdfunding and huge deals.</p>
                         </Cell>
-                        <Cell col={4} tablet={12} phone={12}>
+                        <Cell col={4} tablet={4} phone={12}>
                             <i style={{color: '#cddc39', fontSize: '6em'}} className="material-icons">toys</i>
                             <h4>Dispatcher</h4>
                             <p>We filter the noise so only awesome digital
                             assets reach your attention. No scum. No kitchen forks. No middleman.</p>
                         </Cell>
-                        <Cell col={4} tablet={12} phone={12}>
+                        <Cell col={4} tablet={4} phone={12}>
                             <i style={{color: '#cddc39', fontSize: '6em'}} className="material-icons">grade</i>
                             <h4>Verifier</h4>
                             <p>We make due diligence free. Really. View all of our
@@ -105,6 +112,7 @@ class WelcomePage extends React.Component {
                             Take a look.</p>
                         </Cell>
                     </Grid>
+                    <hr/>
                     <Grid>
                         <Cell col={12}>
                             <h4>Welcome to <Brand />!</h4>
@@ -114,12 +122,7 @@ class WelcomePage extends React.Component {
                             <p>{helpers.usersCount()} people already joined</p>
                         </Cell>
                     </Grid>
-                    <Grid>
-                        <Cell col={12}>
-                            <h4>Sign up now and your public account will be free forever!</h4>
-                            <Button href="/sign-in" raised colored ripple>Sign Up</Button>
-                        </Cell>
-                    </Grid>
+                    <hr/>
                     <Grid>
                         <Cell col={12}><h2>For Developers</h2></Cell>
                     </Grid>
