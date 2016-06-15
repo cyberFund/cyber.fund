@@ -11,11 +11,13 @@ import BitcoinPrice from '../components/BitcoinPrice'
 class MainLayout extends React.Component {
     constructor(props){
         super(props)
-        const user = Meteor.user()
-        const username = user && user.username ? user.username : ''
-        this.state = {user, username}
+        this.state = {user: {}, username: ''}
     }
     componentDidMount() {
+        // get data
+        const user = Meteor.user()
+        const username = user && user.username ? user.username : ''
+        this.setState({ user, username })
         // after link or button click close sidebar
         // but not if it's expandable search button
         $('.mdl-layout__drawer .mdl-navigation__link:not(.mdl-textfield--expandable), .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])').click(function(){
@@ -36,16 +38,14 @@ class MainLayout extends React.Component {
                                     <Then>
                                           {/* show username or just "profile"*/}
                                           <If condition={Boolean(this.state.username)}>
-                                            <Then>
-                                              <a href={`/@${this.state.username}`}>
-                                                  {/* this sucker right here is causing Error: type should not be null, undefined, boolean, or number */}
-                                                  {/* TODO: resolve error */}
-                                                  <Blaze template="avatar" user={Meteor.userId()} shape="circle" />
+                                            <Then>{/* TODO: if avatar package changes this class myight not be needed className="mdl-navigation__link" */}
+                                              <a href={`/@${this.state.username}`} className="mdl-navigation__link">
+                                                  <Blaze template="avatar" shape="circle" />
                                                   {this.state.username}
                                               </a>
                                             </Then>
                                             <Else>
-                                                <a href={`/@${this.state.username}`}>Profile</a>
+                                                <a href={`/@${this.state.username}`} className="mdl-navigation__link">Profile</a>
                                             </Else>
                                           </If>
                                     </Then>
