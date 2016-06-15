@@ -6,24 +6,26 @@ import MainLayout from '../ui/pages/MainLayout'
 import IndexPage from '../ui/pages/IndexPage'
 import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
+import ProfilePage from '../ui/pages/ProfilePage'
 import RadarPage from '../ui/pages/RadarPage'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPage from '../ui/pages/FundsPage'
 
 /*const routes = [
-  ['/', <IndexPage />],
-  ['/welcome', <WelcomePage />],
-  ['/sign-in', <LoginPage />],
-  ['/radar', <RadarPage />],
-  ['/rating', <RatingPage />],
-  ['/funds', <FundsPage />]
+  ['/', 'Index', <IndexPage />],
+  ['/welcome', 'Welcome', <WelcomePage />],
+  ['/sign-in', 'SignIn', <LoginPage />],
+  ['/radar', 'Radar', <RadarPage />],
+  ['/rating', 'Rating', <RatingPage />],
+  ['/funds', 'Funds', <FundsPage />]
 ].forEach( item =>{
     FlowRouter.route(item[0], {
-      action() {
-        mount(MainLayout, {
-          main: item[1]
-        })
-      }
+        name: item[1]
+        action() {
+            mount(MainLayout, {
+              main: item[2]
+            })
+        }
     })
   })
 */
@@ -148,9 +150,9 @@ FlowRouter.route("/system/:name_", {
 FlowRouter.route("/@:username", {
   name: "Profile",
   action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "profile"
-    });
+      mount(MainLayout, {
+        main: <ProfilePage />
+      })
   },
   triggersEnter: [
 
