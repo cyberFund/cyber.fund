@@ -21,6 +21,9 @@ cyberfund:cyberfund-es
 
 accounts-twitter
 useraccounts:mdl
+# ground-user makes Meteor.user() store data on LocalStorage
+# never again you will see Meteor.user() = undefined on startup
+gwendall:ground-user
 
 gwendall:body-events
 service-configuration
