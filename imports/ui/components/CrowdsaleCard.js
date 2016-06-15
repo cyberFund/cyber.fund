@@ -109,17 +109,35 @@ const CrowdsaleCard = (props) => {
                           {CardFooter()}
                         </Card>
                       </Cell>
-    const smallCard = <Cell col={12}>
-                        <Card className="hover-shadow" shadow={2} style={cardStyle}>
-                          <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
+      const smallCard = () =>{
+         //const cardStyle = {}
+         const innerStyle = {
+                display: 'inline-flex',
+                flexDirection: 'row',
+                verticalAlign: 'middle',
+                minHeight: '60px',
+                maxHeight: '100px',
+                width: 'auto'
+         },
+         textStyle = {
+             verticalAlign: 'middle',
+             margin: 'auto 1em',
+             textAlign: 'center'
+         }
+         return <Cell col={12}>
+                    <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
+                       <Card className="hover-shadow" shadow={2} style={{minHeight: 'inherit', width: 'auto'}}>
+                           <div style={innerStyle}>
                              <img src={CF.Chaingear.helpers.cgSystemLogoUrl(item)} alt={`${nickname} logo`}/>
-                             <span className="enlarge">{nickname}</span>
-                          </a>
-                        </Card>
-                      </Cell>
+                             <span style={textStyle} className="enlarge">{nickname}</span>
+                           </div>
+                       </Card>
+                    </a>
+                 </Cell>
+      }
     switch (props.size) {
     case 'small':
-        return smallCard
+        return smallCard()
     case 'big':
     default:
         return bigCard
