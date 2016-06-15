@@ -46,15 +46,18 @@ class IndexPage extends Component {
                 size="small"
                 items={this.props.activeCrowdsales} />
             <Cell col={4} tablet={4} phone={4}>
+                {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
-                <h4>
-                    ~{Meteor.userId() ? helpers.readableN2(this.props.sumBtc) : 0} bitcoins
-                </h4>
-                <If condition={Boolean(!Meteor.userId())}>
-                    <Then>
-                        <Button component='a' href="/welcome" primary ripple>Join Us</Button>
-                    </Then>
-                </If>
+                <div className="mdl-card mdl-shadow--4dp">
+                    <h4>
+                        ~{Meteor.userId() ? helpers.readableN2(this.props.sumBtc) : 0} bitcoins
+                    </h4>
+                    <If condition={Boolean(!Meteor.userId())}>
+                        <Then>
+                            <Button component='a' href="/welcome" primary ripple>Join Us</Button>
+                        </Then>
+                    </If>
+                </div>
             </Cell>
         </Grid>
 
