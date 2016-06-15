@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
 import helpers from '../helpers'
 import { If, Then, Else } from 'react-if'
@@ -28,7 +27,7 @@ class IndexPage extends Component {
           </Cell>
         </Top5Assets>
         {/* WIDGETS */}
-        <Grid>
+        <Grid> {/* TODO: move Cell into <DayliWidget /> ? */}
             <Cell col={4} tablet={4} phone={4}>
                 <h5>Daily Widget</h5>
                 <CybernomicsCap col={12}
@@ -49,7 +48,7 @@ class IndexPage extends Component {
                 {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
                 <div className="mdl-card mdl-shadow--4dp">
-                    <h4>
+                    <h4> {/* TODO move userId into container+property */}
                         ~{Meteor.userId() ? helpers.readableN2(this.props.sumBtc) : 0} bitcoins
                     </h4>
                     <If condition={Boolean(!Meteor.userId())}>
@@ -74,56 +73,4 @@ IndexPage.propTypes = {
   activeCrowdsales: PropTypes.array.isRequired
 }
 
-export default createContainer(() => {
-  Meteor.subscribe("investData")
-  Meteor.subscribe("currentDataRP", {selector: {
-  }, sort:{"calculatable.RATING.sum": -1}, limit: 5} )
-  Meteor.subscribe("crowdsalesAndProjectsList")
-
-  // variables
-  // TODO: ??? do we even use any of this?
-  const cap = Extras.findOne("total_cap"),
-  capBtc = cap ? cap.btc : 0,
-  capUsd = cap ? cap.usd : 0,
-  capUsdYesterday = cap ? cap.usdDayAgo : 0,
-  capBtcDailyChange = cap && cap.btc ? (cap.btc - cap.btcDayAgo)/cap.btc * 100 : 0,
-  capUsdDailyChange = cap && cap.usd ? (cap.usd - cap.usdDayAgo)/cap.usd * 100 : 0,
-  sumBtc = () => {
-    let ret = 0
-    if (!Meteor.userId()) return ret
-    CF.Accounts.collection
-        .find({refId: Meteor.userId()}).fetch()
-        .forEach(acc =>{
-          ret += acc.vBtc || 0;
-        })
-    return ret;
-  }
-  // TODO: move active corwsales into CrowdsaleCardListContainer with type=active
-  const activeCrowdsales = CurrentData.find({
-    $and: [{crowdsales: {$exists: true}}, {
-      "crowdsales.end_date": {
-        $gt: new Date()
-      }
-    }, {
-      "crowdsales.start_date": {
-        $lt: new Date()
-      }
-    }]
-  }, {sort: {"metrics.currently_raised": -1}}).fetch();
-
-  /* TODO: seems like we need only sumBtc variable
-  can we make getSumBtc() which does try {return cap.btc*cap.usd bla bla... OR return 0}
-  this will make code more readable */
-
-  return {
-    capUsd,
-    capBtc,
-    capUsdDailyChange,
-    capBtcDailyChange,
-    activeCrowdsales,
-    sumBtc: sumBtc(),
-    usersCount: Counts.get('usersCount'),
-    coinsCount: Counts.get('coinsCount'),
-    systems: CurrentData.find({}, {sort:{"calculatable.RATING.sum": -1}, limit: 5}).fetch()
-  }
-}, IndexPage)
+export default IndexPage

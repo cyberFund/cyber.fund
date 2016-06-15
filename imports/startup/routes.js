@@ -3,7 +3,7 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import { mount } from 'react-mounter'
 
 import MainLayout from '../ui/pages/MainLayout'
-import IndexPage from '../ui/pages/IndexPage'
+import IndexPageContainer from '../ui/containers/IndexPageContainer'
 import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
 import ProfilePage from '../ui/pages/ProfilePage'
@@ -12,7 +12,7 @@ import RatingPage from '../ui/pages/RatingPage'
 import FundsPage from '../ui/pages/FundsPage'
 
 /*const routes = [
-  ['/', 'Index', <IndexPage />],
+  ['/', 'Index', <IndexPageContainer />],
   ['/welcome', 'Welcome', <WelcomePage />],
   ['/sign-in', 'SignIn', <LoginPage />],
   ['/radar', 'Radar', <RadarPage />],
@@ -34,7 +34,7 @@ FlowRouter.notFound = {
       console.warn('Route not found! Redirecting to index page')
       mount(MainLayout, {
         // TODO: create 404Page component
-          main: <IndexPage />
+          main: <IndexPageContainer />
       })
     }
 }
@@ -378,7 +378,7 @@ FlowRouter.route("/", {
   name: "Index",
   action: function(params, queryParams) {
       mount(MainLayout, {
-        main: <IndexPage />
+        main: <IndexPageContainer />
       })
   }
 });
