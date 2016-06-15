@@ -9,15 +9,7 @@ import { Layout, Content,
 import BitcoinPrice from '../components/BitcoinPrice'
 
 class MainLayout extends React.Component {
-    constructor(props){
-        super(props)
-        this.state = {user: {}, username: ''}
-    }
     componentDidMount() {
-        // get data
-        const user = Meteor.user()
-        const username = user && user.username ? user.username : ''
-        this.setState({ user, username })
         // after link or button click close sidebar
         // but not if it's expandable search button
         $('.mdl-layout__drawer .mdl-navigation__link:not(.mdl-textfield--expandable), .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])').click(function(){
@@ -27,6 +19,9 @@ class MainLayout extends React.Component {
         })
     }
  render() {
+     // data is defined in variable on in the state on purpose, because otherwise it is not reactive
+     const user = Meteor.user()
+     const username = user && user.username ? user.username : ''
      const brandLink = <a
                         style={{color: 'white'}}
                         className="mdl-button mdl-js-button mdl-js-ripple-effect"
@@ -34,18 +29,18 @@ class MainLayout extends React.Component {
                         Cyber.Fund
                        </a>
      /* show login button or profile link */
-     const loginOrProfileLink =  <If condition={Boolean(this.state.user)}>
+     const loginOrProfileLink =  <If condition={Boolean(user)}>
                                     <Then>
                                           {/* show username or just "profile"*/}
-                                          <If condition={Boolean(this.state.username)}>
+                                          <If condition={Boolean(username)}>
                                             <Then>{/* TODO: if avatar package changes this class myight not be needed className="mdl-navigation__link" */}
-                                              <a href={`/@${this.state.username}`} className="mdl-navigation__link">
+                                              <a href={`/@${username}`} className="mdl-navigation__link">
                                                   <Blaze template="avatar" shape="circle" />
-                                                  {this.state.username}
+                                                  {username}
                                               </a>
                                             </Then>
                                             <Else>
-                                                <a href={`/@${this.state.username}`} className="mdl-navigation__link">Profile</a>
+                                                <a href={`/@${username}`} className="mdl-navigation__link">Profile</a>
                                             </Else>
                                           </If>
                                     </Then>
