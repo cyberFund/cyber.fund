@@ -171,6 +171,16 @@ FlowRouter.route("/@:username", {
   ]
 });
 
+FlowRouter.route("/sign-in", {
+  name: "SignIn",
+  action: function(params, queryParams) {
+      mount(MainLayout, {
+        main: <LoginPage />
+      })
+  },
+  triggersEnter: [redirectLoggedToProfile]
+});
+
 FlowRouter.route("/profile", {
   triggersEnter: [redirectLoggedToProfile, redirectGuestToWelcome]
 });
