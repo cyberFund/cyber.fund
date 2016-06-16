@@ -7,20 +7,20 @@ import Top5Assets from '../components/Top5Assets'
 import CybernomicsCap from '../components/CybernomicsCap'
 //import BalanceChecker from '../components/BalanceChecker'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
+import Loading from '../components/Loading'
 
-class IndexPage extends Component {
-  render() {
-    return (
+const IndexPage = props => {
+    return props.loaded ? (
       <div id="IndexPage" className="text-center">
         {/* HEADERS */}
         <Grid>
           <Cell col={12}>
             <h2>Blockchains Grow Here</h2>
-            <h5>{this.props.usersCount} people are ready to invest in {this.props.coinsCount} groundbreaking systems</h5>
+            <h5>{props.usersCount} people are ready to invest in {props.coinsCount} groundbreaking systems</h5>
           </Cell>
         </Grid>
         {/* ASSETS TABLE */}
-        <Top5Assets systems={this.props.systems}>{/* component */}
+        <Top5Assets systems={props.systems}>{/* component */}
           <Cell col={12} className="text-center">{/* components children */}
             <Button component="a" href="/rating" style={{margin: '0 5px'}} raised colored>Start Investing</Button>
             <Button component="a" href="/listing" style={{margin: '0 5px'}} raised disabled>Attract Investments</Button>
@@ -31,10 +31,10 @@ class IndexPage extends Component {
             <Cell col={4} tablet={4} phone={4}>
                 <h5>Daily Widget</h5>
                 <CybernomicsCap col={12}
-                capUsd={this.props.capUsd}
-                capBtc={this.props.capBtc}
-                capBtcDailyChange={this.props.capBtcDailyChange}
-                capUsdDailyChange={this.props.capUsdDailyChange}
+                capUsd={props.capUsd}
+                capBtc={props.capBtc}
+                capBtcDailyChange={props.capBtcDailyChange}
+                capUsdDailyChange={props.capUsdDailyChange}
                 />
                 {/*<BalanceChecker col={12} />*/}
                 <Button component='a' href="/funds" primary ripple>Funds</Button>
@@ -43,13 +43,13 @@ class IndexPage extends Component {
                 col={4} tablet={4} phone={4}
                 title="Active Crowdsales"
                 size="small"
-                items={this.props.activeCrowdsales} />
+                items={props.activeCrowdsales} />
             <Cell col={4} tablet={4} phone={4}>
                 {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
                 <div className="mdl-card mdl-shadow--4dp">
                     <h4> {/* TODO move userId into container+property */}
-                        ~{Meteor.userId() ? helpers.readableN2(this.props.sumBtc) : 0} bitcoins
+                        ~{Meteor.userId() ? helpers.readableN2(props.sumBtc) : 0} bitcoins
                     </h4>
                     <If condition={Boolean(!Meteor.userId())}>
                         <Then>
@@ -60,8 +60,7 @@ class IndexPage extends Component {
             </Cell>
         </Grid>
       </div>
-    )
-  }
+  ) : <Loading />
 }
 
 IndexPage.propTypes = {
@@ -69,7 +68,8 @@ IndexPage.propTypes = {
   usersCount: PropTypes.number.isRequired,
   coinsCount: PropTypes.number.isRequired,
   systems: PropTypes.array.isRequired,
-  activeCrowdsales: PropTypes.array.isRequired
+  activeCrowdsales: PropTypes.array.isRequired,
+  loaded: PropTypes.bool.isRequired
 }
 
 export default IndexPage
