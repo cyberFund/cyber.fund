@@ -47,7 +47,7 @@ const IndexPage = props => {
             <Cell col={4} tablet={4} phone={4}>
                 {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
-                <div className="mdl-card mdl-shadow--4dp">
+                <div className="mdl-card mdl-shadow--4dp" style={{width: '100%'}}>
                     <h4> {/* TODO move userId into container+property */}
                         ~{Meteor.userId() ? helpers.readableN2(props.sumBtc) : 0} bitcoins
                     </h4>
