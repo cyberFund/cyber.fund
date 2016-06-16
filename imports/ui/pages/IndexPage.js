@@ -5,7 +5,7 @@ import { If, Then, Else } from 'react-if'
 import { Button,  Grid, Cell } from 'react-mdl'
 import Top5Assets from '../components/Top5Assets'
 import CybernomicsCap from '../components/CybernomicsCap'
-import BalanceChecker from '../components/BalanceChecker'
+//import BalanceChecker from '../components/BalanceChecker'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
 
 class IndexPage extends Component {
@@ -36,7 +36,7 @@ class IndexPage extends Component {
                 capBtcDailyChange={this.props.capBtcDailyChange}
                 capUsdDailyChange={this.props.capUsdDailyChange}
                 />
-                <BalanceChecker col={12} />
+                {/*<BalanceChecker col={12} />*/}
                 <Button component='a' href="/funds" primary ripple>Funds</Button>
             </Cell>
             <CrowdsaleCardList
@@ -59,7 +59,6 @@ class IndexPage extends Component {
                 </div>
             </Cell>
         </Grid>
-
       </div>
     )
   }
