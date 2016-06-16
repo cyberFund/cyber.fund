@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor'
 import RadarPage from '../pages/RadarPage'
 
 export default RadarPageContainer = createContainer(() => {
-  Meteor.subscribe('crowdsalesAndProjectsList')
+  const loaded = Meteor.subscribe('crowdsalesAndProjectsList').ready()
   const {selectors} = CF.CurrentData,
           crowdsales = CurrentData.find(selectors.crowdsales()).fetch(),
           projects =  CurrentData.find({
@@ -57,5 +57,5 @@ export default RadarPageContainer = createContainer(() => {
               }
             }]
           }, {sort: {"metrics.currently_raised": -1}}).fetch()
-  return {crowdsales, projects, past, upcoming, active}
+  return {crowdsales, projects, past, upcoming, active, loaded}
 }, RadarPage)

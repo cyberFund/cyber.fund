@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react'
+import Loading from '../components/Loading'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
 
@@ -7,7 +8,7 @@ const RadarPage = props => {
     // TODO: make proper loading indication
     // const loadingIndicator = (<h3 className="center">Scanning cyberspace</h3>)
 
-    return (
+    return props.loaded ? (
       <div id="RadarPage">
         {/* INFO SECTION */}
         <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" type="active" items={props.active} />
@@ -47,14 +48,15 @@ const RadarPage = props => {
           </Grid>
         </div>
       </div>
-    )
+    ) : <Loading />
 }
 
 RadarPage.propTypes = {
  projects: PropTypes.array.isRequired,
  past: PropTypes.array.isRequired,
  upcoming: PropTypes.array.isRequired,
- active: PropTypes.array.isRequired
+ active: PropTypes.array.isRequired,
+ loaded: PropTypes.bool.isRequired
 }
 
 export default RadarPage
