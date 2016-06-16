@@ -1,6 +1,6 @@
 import React from 'react'
 import { If, Then, Else } from 'react-if'
-import Loading from "./Loading"
+import { Spinner } from 'react-mdl'
 import helpers from '../helpers'
 
 class BitcoinPrice extends React.Component {
@@ -15,7 +15,7 @@ class BitcoinPrice extends React.Component {
         return (
             <If condition={Boolean(this.state.btcPrice)}>
                 <Then><span>${this.state.btcPrice} per&nbsp;Ƀ</span></Then>
-                <Else><Loading /></Else>
+                <Else><Spinner /></Else>
             </If>
         )
     }
