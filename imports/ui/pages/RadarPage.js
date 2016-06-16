@@ -1,23 +1,19 @@
-import React, { Component, PropTypes } from 'react'
-import { createContainer } from 'meteor/react-meteor-data'
-import { Meteor } from 'meteor/meteor'
+import React, { PropTypes } from 'react'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
 
 
-class RadarPage extends Component {
-  render() {
-    const p = this.props
+const RadarPage = props => {
     // TODO: make proper loading indication
     // const loadingIndicator = (<h3 className="center">Scanning cyberspace</h3>)
 
     return (
       <div id="RadarPage">
         {/* INFO SECTION */}
-        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" type="active" items={p.active} />
-        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" type="upcoming" items={p.upcoming} />
-        <CrowdsaleCardList title="Anticipated Projects" titleComponent="h2" type="projects" items={p.projects} />
-        <CrowdsaleCardList title="Successful Crowdsales" titleComponent="h2" type="past" items={p.past} />
+        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" type="active" items={props.active} />
+        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" type="upcoming" items={props.upcoming} />
+        <CrowdsaleCardList title="Anticipated Projects" titleComponent="h2" type="projects" items={props.projects} />
+        <CrowdsaleCardList title="Successful Crowdsales" titleComponent="h2" type="past" items={props.past} />
         {/* CALL TO ACTION */}
         <div className="text-center">
           <Grid>
@@ -52,7 +48,6 @@ class RadarPage extends Component {
         </div>
       </div>
     )
-  }
 }
 
 RadarPage.propTypes = {
@@ -62,59 +57,4 @@ RadarPage.propTypes = {
  active: PropTypes.array.isRequired
 }
 
-export default createContainer(() => {
-  Meteor.subscribe('crowdsalesAndProjectsList')
-  const {selectors} = CF.CurrentData,
-  projects =  CurrentData.find({
-      $or: [{
-        'crowdsales.start_date': {
-          $gt: new Date()
-        }
-      }, {
-        'crowdsales.start_date': {
-          $exists: false
-        }
-      }],
-      $and: [
-      selectors.projects()]
-    }, {
-      sort: {
-        "calculatable.RATING.vector.LV.sum": -1
-      }
-    }).fetch(),
-  past = CurrentData.find({
-      $and: [selectors.crowdsales(), {
-        'crowdsales.end_date': {
-          $lt: new Date()
-        }
-      }]
-    }, {
-      sort: {
-        'crowdsales.end_date': -1
-      }
-    }).fetch(),
-  upcoming = CurrentData.find({
-      $and: [selectors.crowdsales(), {
-        'crowdsales.start_date': {
-          $gt: new Date()
-        }
-      }]
-    }, {
-      sort: {
-        'crowdsales.start_date': 1
-      }
-    }).fetch(),
-  active = CurrentData.find({
-      $and: [selectors.crowdsales(), {
-        'crowdsales.end_date': {
-          $gt: new Date()
-        }
-      }, {
-        'crowdsales.start_date': {
-          $lt: new Date()
-        }
-      }]
-    }, {sort: {"metrics.currently_raised": -1}}).fetch()
-  // seems like we don't use all of these
-  return { projects, past, upcoming, active }
-}, RadarPage)
+export default RadarPage

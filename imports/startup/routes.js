@@ -7,7 +7,7 @@ import IndexPageContainer from '../ui/containers/IndexPageContainer'
 import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
 import ProfilePage from '../ui/pages/ProfilePage'
-import RadarPage from '../ui/pages/RadarPage'
+import RadarPageContainer from '../ui/containers/RadarPageContainer'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPage from '../ui/pages/FundsPage'
 
@@ -15,7 +15,7 @@ import FundsPage from '../ui/pages/FundsPage'
   ['/', 'Index', <IndexPageContainer />],
   ['/welcome', 'Welcome', <WelcomePage />],
   ['/sign-in', 'SignIn', <LoginPage />],
-  ['/radar', 'Radar', <RadarPage />],
+  ['/radar', 'Radar', <RadarPageContainer />],
   ['/rating', 'Rating', <RatingPage />],
   ['/funds', 'Funds', <FundsPage />]
 ].forEach( item =>{
@@ -369,7 +369,7 @@ FlowRouter.route("/radar", {
   name: "Radar",
   action: function(params, queryParams) {
       mount(MainLayout, {
-        main: <RadarPage />
+        main: <RadarPageContainer />
       })
   }
 });
