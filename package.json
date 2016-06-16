@@ -25,6 +25,7 @@
     "react-if": "^2.0.5",
     "react-mdl": "^1.5.4",
     "react-mounter": "^1.2.0",
+    "oget": "latest",
     "unirest": "^0.4.2"
   },
   "devDependencies": {
