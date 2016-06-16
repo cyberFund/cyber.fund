@@ -6,12 +6,13 @@ import CrowdsaleCard from './CrowdsaleCard'
 
 const CybernomicsCap = props =>{
     const largeText = {fontSize: '136%'}
+    const margin = {marginBottom: '14px'}
     return (
       <Cell {...props} className="text-center mdl-card">
           <h4>{props.title}</h4> {/* default is: 'Cybernomics Cap' */}
           <If condition={Boolean(props.capUsd)}>
             <Then>
-              <div>
+              <div style={margin}>
                 <div style={largeText}>
                   $&nbsp;{helpers.readableN0(props.capUsd)}
                 </div>
@@ -28,7 +29,7 @@ const CybernomicsCap = props =>{
           </If>
           <If condition={Boolean(props.capBtc)}>
             <Then>
-              <div>
+              <div style={margin}>
                   <div style={largeText}>
                     Ƀ&nbsp;{helpers.readableN0(props.capBtc)}
                   </div>
