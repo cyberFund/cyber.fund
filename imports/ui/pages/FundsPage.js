@@ -1,20 +1,21 @@
-import React, { Component, PropTypes } from 'react'
-/*import { createContainer } from 'meteor/react-meteor-data'
-import { Meteor } from 'meteor/meteor'
-import { $ } from 'meteor/jquery'
-import { Counts } from 'meteor/tmeasday:publish-counts'
-import { Skills } from '../../api/skills.js'
-import List from '../components/List'
-import Loading from '../components/Loading'*/
+import React, { PropTypes } from 'react'
+import { Grid, Cell } from 'react-mdl'
+import Loading from '../components/Loading'
 
-class FundsPage extends Component {
-  render() {
-    return ( //this.props.loaded ?
-      <div>
-        <h1>HELLO WORLD! <br/> THIS IS FUNDS PAGE</h1>
-    </div>
-  )// : <Loading />
-  }
+const FundsPage = props => {
+    return props.loaded ? ( //this.props.loaded ?
+        <Grid>
+            <Cell col={12}>
+                Top Funds You Follow
+                table
+            </Cell>
+            <Cell col={12}>
+                Top Funds You Don't Follow
+                We currently only list here people with 3+ followers
+                table
+            </Cell>
+        </Grid>
+  ) : <Loading />
 }
 
 FundsPage.propTypes = {

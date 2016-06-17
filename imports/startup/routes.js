@@ -9,7 +9,7 @@ import LoginPage from '../ui/pages/LoginPage'
 import ProfilePage from '../ui/pages/ProfilePage'
 import RadarPageContainer from '../ui/containers/RadarPageContainer'
 import RatingPage from '../ui/pages/RatingPage'
-import FundsPage from '../ui/pages/FundsPage'
+import FundsPageContainer from '../ui/containers/FundsPageContainer'
 
 /*const routes = [
   ['/', 'Index', <IndexPageContainer />],
@@ -17,7 +17,7 @@ import FundsPage from '../ui/pages/FundsPage'
   ['/sign-in', 'SignIn', <LoginPage />],
   ['/radar', 'Radar', <RadarPageContainer />],
   ['/rating', 'Rating', <RatingPage />],
-  ['/funds', 'Funds', <FundsPage />]
+  ['/funds', 'Funds', <FundsPageContainer />]
 ].forEach( item =>{
     FlowRouter.route(item[0], {
         name: item[1]
@@ -386,8 +386,8 @@ FlowRouter.route("/", {
 FlowRouter.route("/funds", {
   name: "Funds",
   action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "funds"
-    });
+      mount(MainLayout, {
+        main: <FundsPageContainer />
+      })
   }
 });
