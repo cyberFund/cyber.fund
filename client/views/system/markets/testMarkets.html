@@ -1,9 +1,9 @@
 <template name="testMarkets">
   <div class="testMarkets">
-    {{#if rows.length}}
-    <div style="display: inline-block">
-      Select currency {{> fiatSelector}}
-    </div>
+    {{#if rows.count}}
+    <!--div style="display: inline-block">
+      Select currency {{> fiatSelector display='inline'}}
+    </div-->
 
     <table>
       <thead>
@@ -15,10 +15,10 @@
           Pair
         </th>
         <th>
-          <span class="nowrap">Price,&nbsp;{{fiatToken}}</span>
+          <span class="nowrap">Price,&nbsp;{{> fiatSelector display='inline'}}</span>
         </th>
         <th class="center">
-          <span class="nowrap">Volume daily,&nbsp;{{fiatToken}}</span>
+          <span class="nowrap">Volume daily,&nbsp;{{> fiatSelector display='inline'}}</span>
         </th>
 
       </thead>

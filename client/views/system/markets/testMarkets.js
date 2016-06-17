@@ -16,36 +16,8 @@ CF.test.printPairsWeighted = function(){
   console.log(feedsVwapCurrent.find().fetch())
 }
 
+import {default as weightedPriceNative} from '../../../../imports/vwap/weightedPriceNative'
 
-// get weighted native price, given that there can exist both direct and
-// reverted market pairs.
-function weightedPriceNative (base, quote){
-  if (base === quote) return 1;
-  //1. get both direct and revert price
-  // note: for non-weighted pairs - there d be find().fetch(), and also weighting/getting reverse price would involve extra mapreduce step
-  const direct = feedsVwapCurrent.findOne(
-    selectors.pairsByTwoIdsOrdered(base, quote));
-  const reverted = feedsVwapCurrent.findOne(
-    selectors.pairsByTwoIdsOrdered(quote, base));
-
-  let revertedPrice, revertedVolume;
-
-  //2. weight them. do not forget volume is given against quote, not base
-  if (!direct && !reverted) return undefined;
-
-  // nothing to weight
-  if (!reverted) return direct.last.native;
-
-  if (reverted) {
-    revertedPrice = 1/reverted.last.native;
-
-    // nothing to weight
-    if (!direct) return revertedPrice;
-
-    revertedVolume = reverted.volume.native/reverted.last.native;
-    return (direct.last.native*direct.volume.native + revertedPrice*revertedVolume) / (revertedVolume + direct.volume.native)
-  }
-}
 
 
 // return name of currently picked fiat. as it s given by xchange
@@ -86,15 +58,11 @@ Template['testMarkets'].helpers({
     const system = this.system;
     const selector = selectors.pairsById
     const count = feedsCurrent.find(selector).count();
-    function sortVolumeBtc(x, y){
-      function volumeBtc(point){
-        return point.volume.native/weightedPriceNative(point.quote, "Bitcoin");
-      }
-      return Math.sign(volumeBtc(y) - volumeBtc(x))
-    }
-    let ret = feedsCurrent.find(selector).fetch().sort(sortVolumeBtc);
-    console.log(ret);
-    if (!Template.instance().showAll.get()) ret = ret.slice(0, ROWS_SHORT);
+
+    let ret = feedsCurrent.find(selector, {
+      sort: {"volume.btc": -1},
+      limit: Template.instance().showAll.get() ? 1000 : ROWS_SHORT
+    })
     return ret;
   },
   marketUrlByApiUrl: (apiUrl) => {
@@ -116,9 +84,7 @@ Template['testMarkets'].helpers({
   // not used
   pricePairBtc: function() {
     const native = this.last && this.last.native;
-
-    // A/btc = A/B * B/btc
-    return native / weightedPriceNative(this.base, "Bitcoin")
+    return this.last && this.last.btcnative / weightedPriceNative(this.base, "Bitcoin")
   },
   fiatToken: _fiatToken,
   pricePairFiat: function(){

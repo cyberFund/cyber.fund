@@ -33,13 +33,9 @@
 
     {{#if existLinksWith links "Exchange"}}
     <div id="tag-exchange">
-      <div style="float: left">
-        {{> testMarkets system=system}}
-      </div>
       <div  class="cglinxbox">
           {{#each linksWithTag links "Exchange"}} {{> cgLinkCard this}} {{/each}}
       </div>
-      <div style="clear: left"></div>
     </div>
 
     {{/if}}
