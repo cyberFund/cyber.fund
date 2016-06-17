@@ -8,6 +8,7 @@ import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
 import ProfilePageContainer from '../ui/containers/ProfilePageContainer'
 import RadarPageContainer from '../ui/containers/RadarPageContainer'
+import SystemPageContainer from '../ui/containers/SystemPageContainer'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPageContainer from '../ui/containers/FundsPageContainer'
 
@@ -132,7 +133,6 @@ FlowRouter.route("/tracking", {
 
 FlowRouter.route("/system/:name_", {
   name: "System",
-  template: "systemBasic",
   triggersEnter: [
     function setTitle(context, redirect) {
       //var routeName = context.route.name;
@@ -141,9 +141,9 @@ FlowRouter.route("/system/:name_", {
     }
   ],
   action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "systemBasic"
-    });
+      mount(MainLayout, {
+        main: <SystemPageContainer />
+      })
   }
 });
 
