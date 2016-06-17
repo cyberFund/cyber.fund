@@ -1,7 +1,6 @@
 import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { $ } from 'meteor/jquery'
-import Blaze from 'meteor/gadicc:blaze-react-component'
 import { If, Then, Else } from 'react-if'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
@@ -19,7 +18,7 @@ class MainLayout extends React.Component {
         })
     }
  render() {
-     // data is defined in variable on in the state on purpose, because otherwise it is not reactive
+     // data is defined not in state on purpose, because otherwise it is not reactive
      const user = Meteor.user()
      const username = user && user.username ? user.username : ''
      const brandLink = <a
@@ -28,22 +27,21 @@ class MainLayout extends React.Component {
                         href="/">
                         Cyber.Fund
                        </a>
+    console.log(Boolean(user))
+    console.log(Boolean(username))
+    console.log(Boolean(user && username))
+
+    /* show username or just "profile"*/
+    const profileOrUsername = username ? (
+        <a href={`/@${username}`} className="mdl-navigation__link">
+            <img src={user.avatar} alt={`${username}'s avatar`} className="mdl-list__item-avatar" style={{marginRight: '10px'}}/>
+            {username}
+        </a> ) : (
+        <a href={`/@${username}`} className="mdl-navigation__link">Profile</a> )
+
      /* show login button or profile link */
      const loginOrProfileLink =  <If condition={Boolean(user)}>
-                                    <Then>
-                                          {/* show username or just "profile"*/}
-                                          <If condition={Boolean(username)}>
-                                            <Then>{/* TODO: if avatar package changes this class myight not be needed className="mdl-navigation__link" */}
-                                              <a href={`/@${username}`} className="mdl-navigation__link">
-                                                  <Blaze template="avatar" shape="circle" />
-                                                  {username}
-                                              </a>
-                                            </Then>
-                                            <Else>
-                                                <a href={`/@${username}`} className="mdl-navigation__link">Profile</a>
-                                            </Else>
-                                          </If>
-                                    </Then>
+                                    <Then>{profileOrUsername}</Then>
                                     <Else>
                                         <Button href="/welcome" raised accent ripple>Join Us</Button>
                                     </Else>

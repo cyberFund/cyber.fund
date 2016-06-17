@@ -76,7 +76,6 @@ standard-minifier-js
 email
 
 # accounts-password
-utilities:avatar
 jparker:gravatar
 aldeed:template-extension
 meteorhacks:subs-manager
