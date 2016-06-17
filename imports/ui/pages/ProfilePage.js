@@ -1,17 +1,34 @@
 import React from 'react'
-import Blaze from 'meteor/gadicc:blaze-react-component'
 import { Grid, Cell } from 'react-mdl'
+import Loading from '../components/Loading'
 
 const ProfilePage = props => {
-    return (
+    return props.loaded ? (
           <Grid id="LoginPage">
+              {/* USER INFO */}
               <Cell col={12}>
-                  <h1>HELLO WORLD! THIS IS PROFILE PAGE</h1>
-                  <h2>CURRENTLY UNDER CONSTRUCTION</h2>
-                  <Blaze template="atForm" />
+                  avatar
+                  name
+                  info
+                  starred
+                  followers
+                  following
+                  logout button
+              </Cell>
+              {/* PORTFOLIO */}
+              <Cell col={12}>
+                  tab 1:
+                  header
+                  video
+                  graph
+              </Cell>
+              {/* ACCOUNTS */}
+              <Cell col={12}>
+                  tab:
+                  blank
               </Cell>
           </Grid>
-    )
+    ) : <Loading />
 }
 
 export default ProfilePage

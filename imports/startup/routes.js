@@ -6,7 +6,7 @@ import MainLayout from '../ui/pages/MainLayout'
 import IndexPageContainer from '../ui/containers/IndexPageContainer'
 import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
-import ProfilePage from '../ui/pages/ProfilePage'
+import ProfilePageContainer from '../ui/containers/ProfilePageContainer'
 import RadarPageContainer from '../ui/containers/RadarPageContainer'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPageContainer from '../ui/containers/FundsPageContainer'
@@ -151,11 +151,10 @@ FlowRouter.route("/@:username", {
   name: "Profile",
   action: function(params, queryParams) {
       mount(MainLayout, {
-        main: <ProfilePage />
+        main: <ProfilePageContainer />
       })
   },
   triggersEnter: [
-
     function setTitle(context, redirect) {
       var username = context.params.username;
       var user = CF.User.findOneByUsername(username);
