@@ -44,7 +44,7 @@ const IndexPage = props => {
                 title="Active Crowdsales"
                 size="small"
                 items={props.activeCrowdsales} />
-            <Cell col={4} tablet={4} phone={4}>
+            <Cell col={4} tablet={4} phone={4} className="mdl-cell--2-offset-tablet">
                 {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
                 <div className="mdl-card mdl-shadow--4dp" style={{width: '100%'}}>
