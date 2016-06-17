@@ -18,7 +18,8 @@ this solution is temporary
 body {
     margin: 0;
     // main content were not horyzontally aligned
-    .mdl-layout__content {
+    main, .mdl-layout__content { // main = .mdl-layout__content
+        position: relative;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -174,5 +175,15 @@ body {
     }
     p a { // "For Developers" button links
         margin-top: 20px;
+    }
+}
+
+/* MainLayout */
+main {
+    min-height: calc(100vh - 64px) // screen size minus navbar size
+}
+@media (max-width: 1024px){
+    main {
+        min-height: 100vh // navbar is collapsed on mobile and tablets
     }
 }
