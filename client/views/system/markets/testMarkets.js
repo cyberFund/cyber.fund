@@ -77,24 +77,18 @@ Template['testMarkets'].helpers({
     const sys = CurrentData.findOne({_id: _id}, {fields: {token: 1}});
     return sys && sys.token && sys.token.symbol || _id
   },
-  // not used
-  pricePair: function() {
-    return this.last && this.last.native
-  },
-  // not used
-  pricePairBtc: function() {
-    const native = this.last && this.last.native;
-    return this.last && this.last.btcnative / weightedPriceNative(this.base, "Bitcoin")
-  },
-  fiatToken: _fiatToken,
   pricePairFiat: function(){
-    const native = this.last && this.last.native;
-    const ret = native / weightedPriceNative(this.base, "Bitcoin");
-    return ret / weightedPriceNative("Bitcoin", _fiat());
+    let ret = this.last && this.last.btc / weightedPriceNative("Bitcoin", _fiat());
+    if (Template.instance().data.system !== this.quote)
+      ret /= weightedPriceNative(this.base, this.quote);
+    return ret;
+
   },
   volumePairFiat: function() {
-    const native = this.volume && this.volume.native;
-    return this.volume.native/weightedPriceNative(this.quote, "Bitcoin")/
     weightedPriceNative("Bitcoin", _fiat());
+    return this.volume.btc/weightedPriceNative("Bitcoin", _fiat());
+  },
+  updateTime: function (timestamp){
+    return moment(timestamp).fromNow()
   }
 })

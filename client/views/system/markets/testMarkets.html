@@ -20,6 +20,9 @@
         <th class="center">
           <span class="nowrap">Volume daily,&nbsp;{{> fiatSelector display='inline'}}</span>
         </th>
+        <th class="center">
+          Updated
+        </th>
 
       </thead>
       <tbody>
@@ -31,6 +34,7 @@
           <td class="center">{{tokenById quote}}/{{tokenById base}}</td>
           <td class="right-align">{{meaningfulNice4 pricePairFiat}}</td>
           <td class="right-align">{{readableN0 volumePairFiat}}</td>
+          <td class="center">{{updateTime timestamp}}</td>
         </tr>
         {{/each}}
       </tbody>
