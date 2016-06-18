@@ -5,7 +5,7 @@
       Select currency {{> fiatSelector display='inline'}}
     </div-->
 
-    <table>
+    <table style="max-width: 36em; overflow-x: auto;">
       <thead>
         <th class="center">
           Market
@@ -14,11 +14,11 @@
         <th class="center">
           Pair
         </th>
-        <th>
-          <span class="nowrap">Price,&nbsp;{{> fiatSelector display='inline'}}</span>
+        <th class="center">
+          Price,{{> fiatSelector display='inline'}}
         </th>
         <th class="center">
-          <span class="nowrap">Volume daily,&nbsp;{{> fiatSelector display='inline'}}</span>
+          24h Volume
         </th>
         <th class="center">
           Updated

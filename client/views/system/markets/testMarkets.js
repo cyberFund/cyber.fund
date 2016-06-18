@@ -89,6 +89,6 @@ Template['testMarkets'].helpers({
     return this.volume.btc/weightedPriceNative("Bitcoin", _fiat());
   },
   updateTime: function (timestamp){
-    return moment(timestamp).fromNow()
+    return moment(timestamp).fromNow(true)
   }
 })
