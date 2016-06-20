@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
+import Hiring from '../components/Hiring'
 /*import { Counts } from 'meteor/tmeasday:publish-counts'
 import { ReactiveVar } from 'meteor/reactive-var'
 import { Revisions } from '../../api/revisions.js'
@@ -19,9 +20,10 @@ class RatingPage extends Component {
   render() {
     const p = this.props
     return (// p.loaded ?
-      <div id="RatingPage">
-        <h1>HELLO WORLD! <br/> THIS IS RATINGS PAGE</h1>
-      </div>
+      <Grid id="RatingPage">
+        <Cell col={12}> <Hiring /></Cell>
+        <Cell col={12}> <h1>HELLO WORLD! <br/> THIS IS RATINGS PAGE</h1></Cell>
+      </Grid>
     ) // : <Loading />
   }
 }
