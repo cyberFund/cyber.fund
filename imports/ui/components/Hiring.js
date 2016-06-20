@@ -3,7 +3,7 @@ import Brand from '../components/Brand'
 
 const Hiring = props => {
     return   <p className="text-center" {...props}>
-                We are hiring CTO
+                {"We are hiring CTO "}
                 <a
                     style={{textDecoration: 'none', color: '#039be5'}}
                     href="https://github.com/cyberFund/cyber.fund/issues/425"
