@@ -2,17 +2,8 @@ import React, { Component, PropTypes } from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
+import { Grid, Cell } from 'react-mdl'
 import Hiring from '../components/Hiring'
-/*import { Counts } from 'meteor/tmeasday:publish-counts'
-import { ReactiveVar } from 'meteor/reactive-var'
-import { Revisions } from '../../api/revisions.js'
-import { Threads } from '../../api/threads.js'
-import { Skills } from '../../api/skills.js'
-import ThreadsInsert from '../components/ThreadsInsert'
-import Form from '../components/Form'
-import List from '../components/List'
-import Loading from '../components/Loading'*/
-
 
 class RatingPage extends Component {
   _someMethod(type, e) {
@@ -21,7 +12,7 @@ class RatingPage extends Component {
     const p = this.props
     return (// p.loaded ?
       <Grid id="RatingPage">
-        <Cell col={12}> <Hiring /></Cell>
+        <Cell col={12}> <Hiring /> </Cell>
         <Cell col={12}> <h1>HELLO WORLD! <br/> THIS IS RATINGS PAGE</h1></Cell>
       </Grid>
     ) // : <Loading />
