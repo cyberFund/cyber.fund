@@ -8,13 +8,9 @@ const Loading = props => {
       left: "50%",
       transform: "translate(-50%, -50%)"
     }
-    return (// style={{width: 'auto'}}
-        <div>
-            <div style={style}>
+    return <div style={style}>
                 <Spinner />
-            </div>
-        </div>
-    )
+           </div>
 }
 
 export default Loading
