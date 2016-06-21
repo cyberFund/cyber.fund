@@ -1,61 +1,36 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
+import { selector } from "../../userFunds/index"
 import FundsPage from '../pages/FundsPage'
+import get from 'oget'
 
 export default FundsPageContainer = createContainer(() => {
-  const loaded = Meteor.subscribe('crowdsalesAndProjectsList').ready()
-  const {selectors} = CF.CurrentData,
-          crowdsales = CurrentData.find(selectors.crowdsales()).fetch(),
-          projects =  CurrentData.find({
-            $or: [{
-              'crowdsales.start_date': {
-                $gt: new Date()
-              }
-            }, {
-              'crowdsales.start_date': {
-                $exists: false
-              }
-            }],
-            $and: [
-            selectors.projects()]
-          }, {
-            sort: {
-              "calculatable.RATING.vector.LV.sum": -1
-            }
-          }).fetch(),
-          past = CurrentData.find({
-            $and: [selectors.crowdsales(), {
-              'crowdsales.end_date': {
-                $lt: new Date()
-              }
-            }]
-          }, {
-            sort: {
-              'crowdsales.end_date': -1
-            }
-          }).fetch(),
-          upcoming = CurrentData.find({
-            $and: [selectors.crowdsales(), {
-              'crowdsales.start_date': {
-                $gt: new Date()
-              }
-            }]
-          }, {
-            sort: {
-              'crowdsales.start_date': 1
-            }
-          }).fetch(),
-          active = CurrentData.find({
-            $and: [selectors.crowdsales(), {
-              'crowdsales.end_date': {
-                $gt: new Date()
-              }
-            }, {
-              'crowdsales.start_date': {
-                $lt: new Date()
-              }
-            }]
-          }, {sort: {"metrics.currently_raised": -1}}).fetch()
-  return {crowdsales, projects, past, upcoming, active, loaded}
+  const loaded = Meteor.subscribe("usersWithFunds").ready()
+  const user = Meteor.user()
+
+  let iFollow = get(user, 'user.profile.followingUsers', [])
+  if (user) iFollow.push(user._id)
+
+  function fundsIfollow (){
+    if (iFollow) {
+      return Meteor.users.find({_id: {$in: iFollow}}, {
+            sort: {publicFunds: -1}
+            }).fetch()
+    }
+    else return []
+  }
+  function fundsIdontFollow (){
+    if (iFollow) selector._id = {$nin: iFollow}
+    return Meteor.users.find(selector, {
+          limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,
+          sort: {publicFunds: -1}
+        }).fetch()
+  }
+
+  return {
+      loaded,
+      fundsIfollow: fundsIfollow(),
+      fundsIdontFollow: fundsIdontFollow()
+  }
 }, FundsPage)
