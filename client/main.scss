@@ -53,6 +53,11 @@ body {
 .right {
   float: right;
 }
+.center {
+  //display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 // text manipulation
 .text-center {
   text-align: center;
