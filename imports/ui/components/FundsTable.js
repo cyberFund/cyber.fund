@@ -29,10 +29,13 @@ const FundsTable = props => {
                         </tr>
     })
 
-    return <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center">
+    const tableStyle = {width: 545}
+    const tableClasses = "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center"
+
+    return <table style={tableStyle} className={tableClasses} {...props}>
               <thead>
                     <tr>
-                      <th className="mdl-data-table__cell--non-numeric text-center">
+                      <th style={{textAlign: 'center'}} className="mdl-data-table__cell--non-numeric">
                           Fund
                       </th>
                       <th>Valuation in Ƀ</th>
