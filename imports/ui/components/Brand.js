@@ -1,11 +1,14 @@
 import React, { PropTypes } from 'react'
 
 const Brand = props => {
-    return <span {...props}>cyber <span style={{color: '#F44336'}}>•</span> Fund</span>
+    return <props.component {...props}>cyber <span style={{color: '#F44336'}}>•</span> Fund</props.component>
 }
-/*Brand.defaultProps = {
+Brand.defaultProps = {
     component: 'span'
-}*/
+}
+Brand.propTypes = {
+    component: PropTypes.string
+}
 export default Brand
 
 /*return React.createElement(component || (href ? 'a' : 'button'), {
