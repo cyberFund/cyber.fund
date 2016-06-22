@@ -11,8 +11,10 @@ import RadarPageContainer from '../ui/containers/RadarPageContainer'
 import SystemPageContainer from '../ui/containers/SystemPageContainer'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPageContainer from '../ui/containers/FundsPageContainer'
+import DecisionsPage from '../ui/pages/DecisionsPage'
 
-/*const routes = [
+//TODO: refactor routes as done below
+/*[
   ['/', 'Index', <IndexPageContainer />],
   ['/welcome', 'Welcome', <WelcomePage />],
   ['/sign-in', 'SignIn', <LoginPage />],
@@ -244,9 +246,9 @@ FlowRouter.route("/main", {
 FlowRouter.route("/decisions", {
   name: "Decisions",
   action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "decisions"
-    });
+      mount(MainLayout, {
+        main: <DecisionsPage />
+      })
   }
 });
 
