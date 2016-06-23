@@ -7,27 +7,33 @@ import PortfolioTable from '../components/PortfolioTable'
 
 class ProfilePage extends Component {
     constructor(props) {
-    super(props)
-    this.state = { activeTab: 0 };
+    	super(props)
+    	this.state = {
+			activeTab: 0,
+			firstTabStyle: {display: 'initial'},
+			secondTabStyle: {display: 'initial'}
+		 }
     }
+	changeTab(activeTab) {
+		this.setState({ activeTab })
+		// hide&show elements via display property manipulation instead of changes based on state (<Hide /> component for example)
+		// reason: state changes make elements rerender causing embed youtube video to reinitialize multiple times == bad UX
+		if (activeTab == 0 ) {
+			this.setState({
+				firstTabStyle: {display: 'initial'},
+				secondTabStyle: {display: 'none'}
+			})
+		}
+		else {
+			this.setState({
+				firstTabStyle: {display: 'none'},
+				secondTabStyle: {display: 'initial'}
+			})
+		}
+
+	}
     render() {
-        const {props, state} = this
-        const tabContent = ()=> {
-            if (state.activeTab == 0) {
-                return <section>
-                                <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
-                                <div className="video-container">
-                                      <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
-                                </div>
-                                <PortfolioTable />
-                        </section>
-            }
-            else return <section>
-                            {/* ACCOUNTS */}
-                            {/* nothing here yet */}
-                            <i>nothing here yet...</i>
-                        </section>
-        }
+        const {props, state, changeTab} = this
         return props.loaded ? (
               <Grid id="LoginPage">
                   {/* USER INFO */}
@@ -42,11 +48,21 @@ class ProfilePage extends Component {
                       <Button raised colored ripple>Logout</Button>
                   </Cell>
                   <Cell col={9} tablet={12} className="text-center">
-                    <Tabs activeTab={state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
+                    <Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
                         <Tab>Portfolio</Tab>
                         <Tab>Accounts</Tab>
                     </Tabs>
-                    {tabContent()}
+                    <section style={state.firstTabStyle}>
+                            <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
+                            <div className="video-container">
+                                  <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                            <PortfolioTable />
+                    </section>
+					<section style={state.secondTabStyle}>
+                        {/* ACCOUNTS */}
+                        <h4><i>nothing here yet...</i></h4>
+                    </section>
                   </Cell>
                   {/* RED ROUND BUTTON */}
                     <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
