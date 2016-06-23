@@ -111,24 +111,31 @@ const CrowdsaleCard = (props) => {
                       </Cell>
       const smallCard = () =>{
          //const cardStyle = {}
+
          const innerStyle = {
                 display: 'inline-flex',
                 flexDirection: 'row',
+                alignItems: 'center',
                 verticalAlign: 'middle',
                 minHeight: '60px',
                 maxHeight: '100px',
                 width: 'auto'
          },
+         imgStyle = {
+          width: 'auto',
+          height: '45px',
+          marginLeft: '9px'
+         },
          textStyle = {
              verticalAlign: 'middle',
-             margin: 'auto 1em',
+             marginLeft: '1em',
              textAlign: 'center'
          }
          return <Cell col={12}>
                     <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
                        <Card className="hover-shadow" shadow={2} style={{minHeight: 'inherit', width: 'auto'}}>
                            <div style={innerStyle}>
-                             <img src={CF.Chaingear.helpers.cgSystemLogoUrl(item)} alt={`${nickname} logo`}/>
+                             <img style={imgStyle} src={CF.Chaingear.helpers.cgSystemLogoUrl(item)} alt={`${nickname} logo`}/>
                              <span style={textStyle} className="enlarge">{nickname}</span>
                            </div>
                        </Card>

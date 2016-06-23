@@ -25,7 +25,7 @@
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
     "react-dom": "^15.0.2",
-    "react-if": "^2.0.5",
+    "react-if": "^2.1.0",
     "react-mdl": "^1.5.4",
     "react-mounter": "^1.2.0",
     "unirest": "^0.4.2"
