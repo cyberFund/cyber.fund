@@ -124,11 +124,12 @@ const CrowdsaleCard = (props) => {
          imgStyle = {
           width: 'auto',
           height: '45px',
-          marginLeft: '9px'
+          marginLeft: 'auto'
          },
          textStyle = {
              verticalAlign: 'middle',
              marginLeft: '1em',
+			 marginRight: 'auto',
              textAlign: 'center'
          }
          return <Cell col={12}>
