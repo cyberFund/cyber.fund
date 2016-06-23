@@ -32,7 +32,7 @@ body {
     footer {
         /* TL: DR floating round buttons were invisible in footer area because
             see http://stackoverflow.com/questions/5218927/z-index-not-working-with-fixed-positioning */
-        position: absolute;
+        //position: absolute;
         width: 100%;
         @media (max-width: 760px){
                 width: 100%; // full width
