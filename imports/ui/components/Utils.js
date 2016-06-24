@@ -3,14 +3,22 @@ import React, { PropTypes } from 'react'
 function checkValue (value) {
     return Boolean(value)
 }
-// <Show condition={true}> {props.chilcredn} </Show> == shown element
+/* 	checkValue and showOrHide not merged because in future checkValue
+	might have more checks and/or will be used elsewhere */
+function showOrHide(condition, children) {
+	    if (condition) return children
+	    else return null
+}
+// <Show condition={true}> {props.chilcredn} </Show> == show element
 const Show = props => {
-    if (checkValue(props.condition)) return props.children
-    else return null
+    return showOrHide(checkValue(props.condition), props.children)
 }
-// <Hide condition={true}> {props.chilcredn} </Hide> == hidden element
+// <Hide condition={true}> {props.chilcredn} </Hide> == hide element
 const Hide = props => {
-    if (!checkValue(props.condition)) return props.children
-    else return null
+	return showOrHide(!checkValue(props.condition), props.children)
 }
-export { Show, Hide }
+// <If condition={true}> {props.chilcredn} </If> == show element
+const If = props => {
+    return showOrHide(checkValue(props.condition), props.children)
+}
+export { Show, Hide, If }
