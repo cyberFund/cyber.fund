@@ -1,29 +1,42 @@
 import React, { PropTypes }from 'react'
-import { Grid, Cell, DataTable, TableHeader } from 'react-mdl'
+import { Grid, Cell, Tooltip } from 'react-mdl'
+import Image from '../components/Image'
 import helpers from '../helpers'
 
 const Top5Assets = (props) => {
-    let data
-    try {
-      data = props.systems.map( i => {
-          return {
-            system: helpers.displaySystemName(i),
-            cmgr: helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD),
-            months: helpers.readableN0(i.calculatable.RATING.vector.GR.months),
-            rating: helpers.readableN1(i.calculatable.RATING.sum)
-          }
-      })
-    } catch (e) { data = [] }
-    // tooltips
-    // tooltips currently not work properly. Because mdl's tooltips are too small
-    // TODO: implement proper tooltips
-    const cmgrTP = `Key indicator that shows long term profitability of investment. We use monthly calculation in opposite to annual in traditional finance as blockchain markets are faster than tradational thus should be evaulated more frequently.`,
-    monthsTP = `This is time passed since time of sampling 'first price' metric.`
-    ratingTP = `Compound evaluation of a given crypto property. Methodology depend on a stage, type and class of a given cryptoproperty. More than 50 indicators are evaluated in a realtime.`
+	// render rows with data
+  	function renderRows() {
+		return props.systems.map( i => {
+			return  <tr key={i._id}>
+						<td className="mdl-data-table__cell--non-numeric">
+							<a href={`/system/${helpers._toUnderscores(i._id)}`}>
+								<Image
+									avatar
+									src={CF.Chaingear.helpers.cgSystemLogoUrl(i)}
+									style={{marginRight: 24}}
+									/>
+								<span>{helpers.displaySystemName(i)}</span>
+							</a>
+						</td>
+						<td>
+							{helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD)}
+						</td>
+						<td>
+							{helpers.readableN0(i.calculatable.RATING.vector.GR.months)}
+						</td>
+						<td>
+							{helpers.readableN1(i.calculatable.RATING.sum)}
+						</td>
+					</tr>
+		})
+	}
+    // TOOLTIPS TEXT
+	// <br/> is the way MDL implements multiline tooltips
+    const cmgrTP = <span>Key indicator that shows<br/> long term profitability of<br/> investment. We use monthly<br/> calculation in opposite to<br/> annual in traditional finance<br/> as blockchain markets are<br/> faster than tradational thus<br/> should be evaulated more<br/> frequently.</span>
+	const monthsTP = <span>This is time passed since<br/> time of sampling 'first price'<br/> metric.</span>
+	const ratingTP = <span>Compound evaluation of a<br/> given crypto property.<br/>Methodology depend on<br/> a stage, type and class<br/> of a given cryptoproperty.<br/>More than 50 indicators are<br/> evaluated in a realtime.</span>
 
-    const tableStyle = {marginLeft: 'auto', marginRight: 'auto'}
-
-    return (// style={{width: '100%'}}
+    return (
       <div>
         <Grid>
           <Cell col={12}>
@@ -31,30 +44,40 @@ const Top5Assets = (props) => {
           </Cell>
         </Grid>
         <Grid>
-          <Cell col={12}>
-            <DataTable rows={data} style={tableStyle} shadow={0}>
-                <TableHeader name="system">
-                  System
-                </TableHeader>
-                <TableHeader numeric name="cmgr" tooltip="Profitability of investment">
-                  CMGR[$]
-                </TableHeader>
-                <TableHeader numeric name="months" tooltip="This passed since time of sampling">
-                  Months
-                </TableHeader>
-                <TableHeader numeric name="rating" tooltip="Compound evaluation of a crypto property">
-                  Rating
-                </TableHeader>
-            </DataTable>
-          </Cell>
+			<Cell col={12}>
+				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...props}>
+					<thead>
+						<tr>
+							<th style={{textAlign: 'center'}} className="mdl-data-table__cell--non-numeric">
+							    System
+							</th>
+							<th>
+								<Tooltip label={cmgrTP} large>
+								    CMGR[$]
+								</Tooltip>
+							</th>
+							<th>
+								<Tooltip label={monthsTP} large>
+								    Months
+								</Tooltip>
+							</th>
+							<th>
+								<Tooltip label={ratingTP} large>
+								    Rating
+								</Tooltip>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{renderRows()}
+					</tbody>
+				</table>
+			</Cell>
           {/* you can add components after table */}
           {props.children}
         </Grid>
       </div>
   )
-}
-Top5Assets.defaultProps = {
-  systems: []
 }
 Top5Assets.propTypes = {
   systems: PropTypes.array.isRequired
