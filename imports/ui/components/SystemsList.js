@@ -8,7 +8,10 @@ const SystemsList = props => {
 					key={system._id}
 					href={`/system/${helpers._toUnderscores(system._id)}`}
 					title={system._id}>
-					<Image src={CF.Chaingear.helpers.cgSystemLogoUrl(system)} avatar />
+					<Image
+						src={CF.Chaingear.helpers.cgSystemLogoUrl(system)}
+						avatar
+						style={{backgroundColor: 'transparent', borderRadius: 0}} />
 				</a>
 	})
     return <div {...props}>{systems}</div>
