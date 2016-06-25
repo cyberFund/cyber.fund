@@ -1,9 +1,15 @@
 import React, { Component, PropTypes }  from 'react'
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
-import {Hide, Show} from '../components/Utils'
-import Brand from '../components/Brand'
+import get from 'oget'
+import helpers from '../helpers'
+import { If, Show, Hide } from '../components/Utils'
 import Loading from '../components/Loading'
+import Brand from '../components/Brand'
+import Image from '../components/Image'
+import SystemsList from '../components/SystemsList'
 import PortfolioTable from '../components/PortfolioTable'
+import UsersList from '../components/UsersList'
+// TODO sort check dependencies usage
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -32,26 +38,61 @@ class ProfilePage extends Component {
 		}
 
 	}
+	handleLogout() {
+		analytics.track('Sign Out', {
+		  from: 'profile'
+		})
+		Meteor.logout()
+	}
+
     render() {
-        const {props, state, changeTab} = this
+        const {props, state, changeTab, props: {user, isOwnProfile}} = this
         return props.loaded ? (
-              <Grid id="LoginPage">
+              <Grid id="ProfilePage">
                   {/* USER INFO */}
-                  <Cell col={3} tablet={12} className="mdl-cell--order-12-tablet">
-                      <p>avatar</p>
-                      <p>name</p>
-                      <p>info</p>
-                      <p>starred</p>
-                      <p>followers</p>
-                      <p>following</p>
-                      <p>logout button</p>
-                      <Button raised colored ripple>Logout</Button>
+                  <Cell itemscope itemtype="http://schema.org/Person" col={3} tablet={12} className="mdl-cell--order-12-tablet">
+						<Image
+						  src={user.largeAvatar}
+						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
+						  />
+						<h4 itemprop="name">{user.profile.name}</h4>
+						{/*TODO do we need multiple .grey-text classes?*/}
+						<div className="grey-text">
+						  <Show condition={get(user, 'services.twitter', false)}>
+							<a className="grey-text" href={`https://twitter.com/@${user.username}`}>
+							  <span itemprop="alternateName">
+								  @{user.username}
+							  </span>
+							</a>
+						  </Show>
+						  <Hide condition={get(user, 'services.twitter', true)}>
+							  <span className="grey-text">{user.username}</span>
+						  </Hide>
+						  <div>
+							  Joined on {helpers.dateFormat(user.createdAt, "Do MMM, YYYY")}
+						  </div>
+						</div>
+						{/*TODO do we need this .profile-lists wrapper?*/}
+						<div class="profile-lists">
+							<h5>Starred</h5>
+							<SystemsList systems={props.starred} style={{margin: '0 3px 6px'}} />
+							<h5>Followers</h5>
+							<UsersList users={props.followedByUsers} style={{margin: '0 3px 6px'}} />
+							<h5>Following</h5>
+							<UsersList users={props.followingUsers} className="avatar-round" style={{margin: '0 3px 6px'}} />
+						</div>
+						{/* LOGOUT BUTTON */}
+						<If condition={isOwnProfile}>
+							<Button onClick={this.handleLogout()} raised colored ripple>Logout</Button>
+						</If>
                   </Cell>
                   <Cell col={9} tablet={12} className="text-center">
+					{/* TAB SELECTOR*/}
                     <Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
                         <Tab>Portfolio</Tab>
                         <Tab>Accounts</Tab>
                     </Tabs>
+					{/* PORTFOLIO TAB */}
                     <section style={state.firstTabStyle}>
                             <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
                             <div className="video-container">
@@ -59,15 +100,15 @@ class ProfilePage extends Component {
                             </div>
                             <PortfolioTable />
                     </section>
+					{/* ACCOUNTS TAB */}
 					<section style={state.secondTabStyle}>
-                        {/* ACCOUNTS */}
                         <h4><i>nothing here yet...</i></h4>
                     </section>
                   </Cell>
-                  {/* RED ROUND BUTTON */}
-                    <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
-                        <Icon name="add" />
-                    </FABButton>
+                  	{/* RED FLOATING BUTTON */}
+	                <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
+	                    <Icon name="add" />
+	                </FABButton>
               </Grid>
         ) : <Loading />
     }
@@ -87,17 +128,11 @@ class ProfilePage extends Component {
         Meteor.call('followUser', CF.Profile.currentUid(), {
           unfollow: true
         })
-      },
-      'click #at-nav-button': function(e, t) {
-        analytics.track('Sign Out', {
-          from: 'profile'
-        });
-        Meteor.logout()
       }
     });*/
 
 }
-
+// TODO don't forget to add proptypes (reminder: they are same as container returned variables)
 ProfilePage.propTypes = {
  //skills: PropTypes.array.isRequired,
  //numberOfSkills: PropTypes.number.isRequired
