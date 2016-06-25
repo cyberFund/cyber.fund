@@ -11,7 +11,7 @@ class ProfilePage extends Component {
     	this.state = {
 			activeTab: 0,
 			firstTabStyle: {display: 'initial'},
-			secondTabStyle: {display: 'initial'}
+			secondTabStyle: {display: 'none'}
 		 }
     }
 	changeTab(activeTab) {
