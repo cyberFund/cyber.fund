@@ -342,6 +342,19 @@ const helpers = {
   },
   chartdataSubscriptionFetch: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
     return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
-  }
+	},
+	// this is from views/profile/lib/helpers
+	isOwnAssets: function(){
+		return CF.Profile.currentUid() == Meteor.userId();
+	}
 }
+// this is from views/profile/lib/helpers
+CF.Profile.currentUid = function() {
+  var u = CF.User.findOneByUsername(CF.Profile.currentUsername());
+  return u ? u._id : null;
+};
+
+CF.Profile.currentUsername = function(){
+  return FlowRouter.getParam("username");
+};
 export default helpers
