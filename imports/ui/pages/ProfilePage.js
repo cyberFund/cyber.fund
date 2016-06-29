@@ -2,12 +2,12 @@ import React, { Component, PropTypes }  from 'react'
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
-import { If, Show, Hide } from '../components/Utils'
+import { If, Unless } from '../components/Utils'
 import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
-import PortfolioTable from '../components/PortfolioTable'
+import PortfolioTableContainer from '../containers/PortfolioTableContainer'
 import UsersList from '../components/UsersList'
 // TODO sort check dependencies usage
 
@@ -36,7 +36,6 @@ class ProfilePage extends Component {
 				secondTabStyle: {display: 'initial'}
 			})
 		}
-
 	}
 	handleLogout() {
 		analytics.track('Sign Out', {
@@ -50,7 +49,7 @@ class ProfilePage extends Component {
         return props.loaded ? (
               <Grid id="ProfilePage">
                   {/* USER INFO */}
-                  <Cell itemscope itemtype="http://schema.org/Person" col={3} tablet={12} className="mdl-cell--order-12-tablet">
+                  <Cell itemscope itemtype="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
 						  src={user.largeAvatar}
 						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
@@ -58,16 +57,16 @@ class ProfilePage extends Component {
 						<h4 itemprop="name">{user.profile.name}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
 						<div className="grey-text">
-						  <Show condition={get(user, 'services.twitter', false)}>
+						  <If condition={get(user, 'services.twitter', false)}>
 							<a className="grey-text" href={`https://twitter.com/@${user.username}`}>
 							  <span itemprop="alternateName">
 								  @{user.username}
 							  </span>
 							</a>
-						  </Show>
-						  <Hide condition={get(user, 'services.twitter', true)}>
+						  </If>
+						  <Unless condition={get(user, 'services.twitter')}>
 							  <span className="grey-text">{user.username}</span>
-						  </Hide>
+						  </Unless>
 						  <div>
 							  Joined on {helpers.dateFormat(user.createdAt, "Do MMM, YYYY")}
 						  </div>
@@ -81,13 +80,13 @@ class ProfilePage extends Component {
 							<h5>Following</h5>
 							<UsersList users={props.followingUsers} className="avatar-round" style={{margin: '0 3px 6px'}} />
 						</div>
-						{/* LOGOUT BUTTON */}
+						{/* logout button */}
 						<If condition={isOwnProfile}>
 							<Button onClick={this.handleLogout()} raised colored ripple>Logout</Button>
 						</If>
                   </Cell>
-                  <Cell col={9} tablet={12} className="text-center">
-					{/* TAB SELECTOR*/}
+                  <Cell col={9} tablet={5} phone={4} className="text-center">
+					{/* TAB SELECTOR */}
                     <Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
                         <Tab>Portfolio</Tab>
                         <Tab>Accounts</Tab>
@@ -98,7 +97,7 @@ class ProfilePage extends Component {
                             <div className="video-container">
                                   <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
                             </div>
-                            <PortfolioTable />
+                            <PortfolioTableContainer users={props.userAccounts} />
                     </section>
 					{/* ACCOUNTS TAB */}
 					<section style={state.secondTabStyle}>
