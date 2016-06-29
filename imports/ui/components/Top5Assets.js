@@ -12,7 +12,7 @@ const Top5Assets = (props) => {
 							<a href={`/system/${helpers._toUnderscores(i._id)}`}>
 								<Image
 									avatar
-									src={CF.Chaingear.helpers.cgSystemLogoUrl(i)}
+									src={i}
 									style={{marginRight: 24}}
 									/>
 								<span>{helpers.displaySystemName(i)}</span>
