@@ -346,6 +346,22 @@ const helpers = {
 	// this is from views/profile/lib/helpers
 	isOwnAssets: function(){
 		return CF.Profile.currentUid() == Meteor.userId();
+	},
+	// this is from packages/cyberfund-chaingear-client
+	cgSystemLogoUrl: function (that) {
+	  var icon = (that.icon ? that.icon : that._id) || '';
+	  icon = icon.toString().toLowerCase();
+	  return "https://static.cyber.fund/logos/" + icon + ".png";
+	},
+	cgIsActiveCrowdsale: function(system) {
+	  return system.crowdsales && system.crowdsales.start_date < new Date() &&
+		system.crowdsales.end_date > new Date()
+	},
+	cgIsUpcomingCrowdsale: function(system) {
+	  return system.crowdsales && system.crowdsales.start_date > new Date()
+	},
+	cgIsPastCrowdsale: function() {
+	  return system.crowdsales && system.crowdsales.end_date < new Date()
 	}
 }
 // this is from views/profile/lib/helpers
