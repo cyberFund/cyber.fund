@@ -27,9 +27,6 @@ class MainLayout extends React.Component {
                         href="/">
                         Cyber.Fund
                        </a>
-    console.log(Boolean(user))
-    console.log(Boolean(username))
-    console.log(Boolean(user && username))
 
     /* show username or just "profile"*/
     const profileOrUsername = username ? (
