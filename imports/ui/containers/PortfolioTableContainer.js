@@ -30,9 +30,9 @@ function filterData(){
   var ret = [];
   var userId = getUserId();
 
-  gimmeData(userId).forEach(function (account){
-    if (!CF.Accounts.isHidden(account._id)) ret.push(account);
-  });
+  gimmeData(userId).forEach(function(account) {
+    if (!Session.get("hideAccount_"+(account._id))) ret.push(account);
+  })
   return ret;
 }
 
@@ -47,7 +47,7 @@ console.log(userProfileData)
 
 	// data
 	function getSystems() { //  systems to display in portfolio table, including 'starred' systems
-		      var accounts = CF.Accounts.userProfileData();
+	/*	      var accounts = CF.Accounts.userProfileData();
 		      //Template.instance().data && Template.instance().data.accountsData;
 		      var systems = ns.getSystemsFromAccountsObject(accounts);
 
@@ -79,13 +79,13 @@ console.log(userProfileData)
 			   		 ns.getQuantitiesFromAccountsObject(accounts, y._id) / y.metrics.supply: 0;
 
 			   	   return Math.sign(q2 - q1);
-			   	 }
+			   	 }*/
 		      };
 
 		      // for sorter values, see template file. 'f|' is for sorting by system field
 		      // like "by daily price change", no prefix is for using some sort function
 		      // from above
-		      var sorter = CF.Utils._session.get("folioWidgetSort"),
+		      /*var sorter = CF.Utils._session.get("folioWidgetSort"),
 		   	 _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
 		   	 _split = (_sorter || "").split("|");
 
@@ -218,5 +218,6 @@ console.log(userProfileData)
 	      if (sorter[field] == 1) return "↑ ";
 	      return "";
 	    }
-	}
+	}*/
+	return {systems: []}
 }, PortfolioTable)
