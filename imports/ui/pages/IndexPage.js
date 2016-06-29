@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { Meteor } from 'meteor/meteor'
 import helpers from '../helpers'
-import { If, Then, Else } from 'react-if'
+import { Hide } from '../components/Utils'
 import { Button,  Grid, Cell } from 'react-mdl'
 import Top5Assets from '../components/Top5Assets'
 import CybernomicsCap from '../components/CybernomicsCap'
@@ -51,11 +51,9 @@ const IndexPage = props => {
                     <h4> {/* TODO move userId into container+property */}
                         ~{Meteor.userId() ? helpers.readableN2(props.sumBtc) : 0} bitcoins
                     </h4>
-                    <If condition={Boolean(!Meteor.userId())}>
-                        <Then>
-                            <Button component='a' href="/welcome" primary ripple>Join Us</Button>
-                        </Then>
-                    </If>
+                    <Hide condition={Meteor.userId()}>
+                        <Button component='a' href="/welcome" primary ripple>Join Us</Button>
+                    </Hide>
                 </div>
             </Cell>
         </Grid>
