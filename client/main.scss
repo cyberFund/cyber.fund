@@ -166,6 +166,26 @@ body {
         height:100%;
     }
 }
+// rating stars
+.rating  {
+	text-align: center;
+	width: 100%;
+	&[data-value="1"] {
+  	  color: #000000;
+    }
+	&[data-value="2"] {
+		color: #FF1744;
+	}
+	&[data-value="3"] {
+		color: #FF9100;
+	}
+	&[data-value="4"] {
+		color: #FFEA00;
+	}
+	&[data-value="5"] {
+		color: #00E676;
+	}
+}
 
 /**** RADAR PAGE ****/
 #RadarPage {
