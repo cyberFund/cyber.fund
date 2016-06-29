@@ -25,10 +25,7 @@ const If = props => {
 }
 // <Unless condition={true}> {props.children} </Unless> == hide element
 const Unless = props => {
-    return render(
-			!checkValue(props.condition),
-			createElement(props.element, props.children)
-		)
+    return render(!checkValue(props.condition), props)
 }
 
 export { Show, Hide, If, Unless }
