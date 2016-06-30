@@ -7,25 +7,27 @@ import helpers from '../helpers'
 import SystemPage from '../pages/SystemPage'
 
 export default SystemPageContainer = createContainer(() => {
-	// functions
-	function systemName() {
-	  return helpers._toSpaces(FlowRouter.getParam("name_"))
-	}
-	function curData() {
-	  return CurrentData.findOne({
-	    _id: systemName()
-		})
-	}
 	// variables
-	const cfCDs = CF.CurrentData.selectors
+	const systemName = helpers._toSpaces(FlowRouter.getParam("name_"))
+	const {selectors} = CF.CurrentData
 	const loaded = Meteor.subscribe("systemData", {
-						name: systemName()
+						name: systemName
 					}).ready() &&
-					Meteor.subscribe("dependentCoins", systemName()).ready()
-	const data = curData()
+					Meteor.subscribe("dependentCoins", systemName).ready()
+	const system = CurrentData.findOne({ _id: systemName }) || {}
+	// functions
+	function getMainLinks() {
+		if (!system.links || !_.isArray(system.links)) {
+			return []
+		}
 
-	if (data && data.dependencies) {
-		var d = data.dependencies;
+		return _.first(_.filter(system.links, function(link) {
+			return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
+		}), 4)
+	}
+
+	if (system && system.dependencies) {
+		var d = system.dependencies;
 		if (!_.isArray(d)) d = [d];
 		if (d.indexOf("independent") == -1) {
 		  Meteor.subscribe("dependencies", d);
@@ -45,7 +47,8 @@ export default SystemPageContainer = createContainer(() => {
 
   return {
 	  	loaded,
-		system: curData() || {},
+		system,
+		mainLinks: getMainLinks(),
 
 		/* THIS IS OLD SHIT */
 	  yesterdaySupplyMetric: function(){
@@ -59,9 +62,9 @@ export default SystemPageContainer = createContainer(() => {
 		(m.price && (m.price.usd || m.price.btc || m.price.eth)) ||
 		(m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ));
 	  },
-	  systemName: systemName(),
+	  systemName: systemName,
 	  dependents: function() {
-		return CurrentData.find(cfCDs.dependents(systemName()), {
+		return CurrentData.find(selectors.dependents(systemName), {
 		  sort: {
 			_id: 1
 		  }
@@ -69,15 +72,15 @@ export default SystemPageContainer = createContainer(() => {
 	  },
 
 	  depends_on: function() {
-		var self = curData();
+		var self = system;
 		if (!self.dependencies) return [];
 		var deps = self.dependencies;
 		if (!_.isArray(deps)) deps = [deps];
-		return CurrentData.find(cfCDs.dependencies(deps));
+		return CurrentData.find(selectors.dependencies(deps));
 	  },
 
 	  dependentsExist: function() {
-		return CurrentData.find(cfCDs.dependents(systemName())).count();
+		return CurrentData.find(selectors.dependents(systemName)).count();
 	  },
 
 	  symbol: function() {
@@ -160,15 +163,6 @@ export default SystemPageContainer = createContainer(() => {
 		  return CF.Utils.deltaPercents(metrics.tradeVolume,
 			metrics.tradeVolumePrevious.day);
 		}
-	  },
-	  main_links: function() {
-		if (!this.links || !_.isArray(this.links)) {
-		  return [];
-		}
-
-		return _.first(_.filter(this.links, function(link) {
-		  return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1);
-		}), 4);
 	  },
 	  ___join: function(k1, k2) {
 		return k1 + "_" + k2;
