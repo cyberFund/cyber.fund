@@ -137,7 +137,7 @@ const CrowdsaleCard = (props) => {
                        <Card className="hover-shadow" shadow={2} style={{minHeight: 'inherit', width: 'auto'}}>
                            <div style={innerStyle}>
                              <img style={imgStyle} src={CF.Chaingear.helpers.cgSystemLogoUrl(item)} alt={`${nickname} logo`}/>
-                             <span style={textStyle} className="enlarge">{nickname}</span>
+                             <span style={textStyle} className="text-large">{nickname}</span>
                            </div>
                        </Card>
                     </a>
