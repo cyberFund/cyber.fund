@@ -27,5 +27,11 @@ const If = props => {
 const Unless = props => {
     return !check(props.condition) ? render(props) : null
 }
+// this used in cinjuction with <IF />
+// <If condition={true} /> == show element
+// <Else condition={true} />  == hide element
+const Else = props => {
+    return !check(props.condition) ? render(props) : null
+}
 
-export { Show, Hide, If, Unless }
+export { Show, Hide, If, Unless, Else }
