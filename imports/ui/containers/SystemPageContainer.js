@@ -49,6 +49,13 @@ export default SystemPageContainer = createContainer(() => {
 	  	loaded,
 		system,
 		mainLinks: getMainLinks(),
+		isProject: get(system, 'descriptions.state') == "Project",
+		existLinksWith: function(links, tag) {
+			if (!_.isArray(links)) return false
+			return !!_.find(links, function(link) {
+			  return (_.isArray(link.tags) && link.tags.includes(tag))
+			})
+		},
 
 		/* THIS IS OLD SHIT */
 	  yesterdaySupplyMetric: function(){
@@ -90,12 +97,6 @@ export default SystemPageContainer = createContainer(() => {
 	  hashtag: function() {
 		return (this.descriptions && this.descriptions.hashtag) ? this.descriptions.hashtag.slice(1) : "";
 	  },
-	  existLinksWith: function(links, tag) {
-		if (!_.isArray(links)) return false;
-		return !!_.find(links, function(link) {
-		  return (_.isArray(link.tags) && link.tags.indexOf(tag) > -1);
-		});
-	  },
 
 	  mainTags: function() {
 		return ["Wallet", "Exchange", "Analytics", "Magic"];
@@ -114,9 +115,7 @@ export default SystemPageContainer = createContainer(() => {
 		});
 	  },
 
-	  isProject: function() {
-		return this.descriptions && this.descriptions.state == "Project";
-	  },
+
 
 	  // todo: currently, those are using current price to estimate yesterday' trade volume.
 	  // not good. must be fixed.
