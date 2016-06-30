@@ -1,4 +1,4 @@
-
+import get from 'oget'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot
@@ -354,8 +354,11 @@ const helpers = {
 	  return "https://static.cyber.fund/logos/" + icon + ".png";
 	},
 	cgIsActiveCrowdsale: function(system) {
-	  return system.crowdsales && system.crowdsales.start_date < new Date() &&
-		system.crowdsales.end_date > new Date()
+		// Date.now() has better perfomance than new Date()
+		return Boolean(
+			get(system, 'crowdsales.start_date') < Date.now() &&
+			get(system, 'crowdsales.end_date') > Date.now()
+		)
 	},
 	cgIsUpcomingCrowdsale: function(system) {
 	  return system.crowdsales && system.crowdsales.start_date > new Date()

@@ -3,6 +3,7 @@ import { If } from '../components/Utils'
 import Loading from '../components/Loading'
 import Image from '../components/Image'
 import SystemAbout from '../components/SystemAbout'
+import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
@@ -10,6 +11,13 @@ import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, G
 const RadarPage = props => {
 
 const {loaded, system} = props
+const mainLinks = 	<Cell col={12} tablet={8} phone={4}>
+						{props.mainLinks.map(
+							link => <a key={link.name} href={link.url}>{link.name}</a>
+						)}
+					</Cell>
+console.log(system)
+props.mainLinks.map((item) => {console.log(item)})
 return loaded ? (
     <div id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
 		<If condition={system.descriptions.page_state != 'ready'}>
@@ -19,36 +27,8 @@ return loaded ? (
 		</If>
 		<SystemAbout system={system} />
 		<StarredByContainer system={system} />
-		<If condition={helpers.cgIsActiveCrowdsale(system)} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
-				<section className="card light-green lighten-4" >
-					<div className="card-content">
-						<h5> This project is currently in crowdsale phase</h5>
-						<a href={system.crowdsales.funding_terms}
-						   target="_blank" style={{margin: '0 4em'}}>
-						   Funding terms
-						</a>
-						<a href={system.crowdsales.funding_url}
-						   target="_blank" style={{margin: '0 4em'}}>
-						   Invest
-						</a>
-					</div>
-					<If condition={system.metrics.currently_raised_full}>
-						<div className="card-content light-green lighten-5">
-						  <h6>Currently raised: </h6>
-							<sub><i>last updated at: {helpers.dateFormat(system.metrics.currently_raised_updatedAt, "llll")}</i></sub>
-							{/*#each keyValue metrics.currently_raised_full}}
-								<p>{{key}}: {{value}}</p>
-							{{/each} */}
-						  <h6>Crowdsale ends at: {helpers.dateFormat(system.crowdsales.end_date, "llll")}</h6>
-						</div>
-					</If>
-				</section>
-			</Cell>
-		</If>
-        <Grid>
-			system.infoLinks
-		</Grid>
+		<CrowdsaleIsActive system={system} />
+        <Grid>{mainLinks}</Grid>
 		<Grid>
 			system.stats:
 			price cap trade supply
@@ -88,7 +68,8 @@ return loaded ? (
 }
 
 RadarPage.propTypes = {
-	system: PropTypes.object.isRequired
+	system: PropTypes.object.isRequired,
+	mainLinks: PropTypes.array.isRequired
 }
 
 export default RadarPage

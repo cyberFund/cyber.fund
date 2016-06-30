@@ -24,11 +24,11 @@ class WelcomePage extends React.Component {
         // make drawer button white
         // conditional css is pretty much non existent
         // TODO create states for drawer button in MainLayout and apply changes through state manipulation
-        $('.mdl-layout__drawer-button').css('color', 'white !important')
+        //$('.mdl-layout__drawer-button').css('color', 'white !important')
     }
     componentWillUnmount() { // clean up
         $('[href="/sign-in"]').remove()
-        $('.mdl-layout__drawer-button').css('color', 'black')
+        //$('.mdl-layout__drawer-button').css('color', 'black')
     }
     render() {
         const wideSectionStyle = {

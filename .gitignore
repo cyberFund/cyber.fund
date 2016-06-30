@@ -26,3 +26,4 @@ lib/meta.js
 run.sh
 merge_dev_into_master.sh
 server/smtp.js
+server/DEV_USERS_LOGIN.js

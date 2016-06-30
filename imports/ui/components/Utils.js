@@ -1,31 +1,31 @@
 import React, { PropTypes } from 'react'
 // check condition value
-function checkValue (value) {
+function check (value) {
     return Boolean(value)
 }
-/* 	checkValue() and render() not merged because in future checkValue
-	might have more checks and/or will be used elsewhere */
-function render(condition, props) {
+/* 	check() and render() not merged because in future check
+	might have more checks and/or will be used elsewhere  */
+function render(props) {
 	// if component specified create custom element
-	if (condition && props.component) return <props.component {...props} />
-	// else return children or nothing
-	else return condition ? props.children : null
+	if (props.component) return <props.component {...props} />
+	// else return children
+	else return props.children
 }
 // <Show condition={true}> {props.children} </Show> == show element
 const Show = props => {
-    return render(checkValue(props.condition), props)
+	return check(props.condition) ? render(props) : null
 }
 // <Hide condition={true}> {props.children} </Hide> == hide element
 const Hide = props => {
-	return render(!checkValue(props.condition), props)
+	return !check(props.condition) ? render(props) : null
 }
 // <If condition={true}> {props.children} </If> == show element
 const If = props => {
-    return render(checkValue(props.condition), props)
+	return check(props.condition) ? render(props) : null
 }
 // <Unless condition={true}> {props.children} </Unless> == hide element
 const Unless = props => {
-    return render(!checkValue(props.condition), props)
+	return !check(props.condition) ? render(props) : null
 }
 
 export { Show, Hide, If, Unless }

@@ -8,5 +8,5 @@ import '../imports/startup/accounts-config'*/
 // (currently commented out to test if problems are real or not)
 //import '../node_modules/react-mdl/extra/material.min.css'
 import '../node_modules/react-mdl/extra/material.js'
-
+//import '../imports/ui/styles/main.scss'
 import '../imports/startup/routes'

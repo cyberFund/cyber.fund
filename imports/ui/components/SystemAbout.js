@@ -32,10 +32,8 @@ const SystemAbout = props => {
 					</span>
 				</Cell>
 				<Cell col={12} tablet={8} phone={4}>
-					<If condition={get(system, 'descriptions.headline', undefined)}>
-						<p itemProp="description">
-							{system.descriptions.headline}
-						</p>
+					<If condition={get(system, 'descriptions.headline')}>
+						<p itemProp="description">{system.descriptions.headline}</p>
 				    </If>
 				</Cell>
 	        </Grid>

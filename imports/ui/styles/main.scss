@@ -1,3 +1,8 @@
+@import "../../../node_modules/material-design-lite/src/color-definitions";
+//$color-primary: rgb(239, 154, 154) !default;
+//$color-primary-dark: rgb(200, 200, 80) !default;
+//$color-accent: $palette-purple-700 !default;
+@import "./mdl_main";
 /* PLEASE READ */
 /*
 the reason behind not using inline styles in react components are:
@@ -17,40 +22,12 @@ this solution is temporary
 /* MAIN */
 body {
     margin: 0;
-    // main content were not horyzontally aligned
-    main, .mdl-layout__content { // main = .mdl-layout__content
-        position: relative;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-        hr {
-            border: none !important;
-            height: 1px !important;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0)) !important;
-        }
-    }
-    footer {
-        /* TL: DR floating round buttons were invisible in footer area because
-            see http://stackoverflow.com/questions/5218927/z-index-not-working-with-fixed-positioning */
-        //position: absolute;
-        width: 100%;
-        @media (max-width: 760px){
-                width: 100%; // full width
-                max-width: 90%; // but make sure to show all the content
-        }
-    }
 }
-/* SIDEBAR (DRAWER) */
-.mdl-layout__drawer {
-    .mdl-layout-title {
-        padding: 0 !important;
-        a {
-            color: black !important;
-        }
-    }
-    nav {
-        padding-top: 0 !important;
-    }
+// main content were not horyzontally aligned
+.mdl-layout__content {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 /* UTILITIES */
 // component aligment
@@ -59,11 +36,6 @@ body {
 }
 .right {
   float: right;
-}
-.center {
-  //display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 // text manipulation
 .text-center {
@@ -127,12 +99,8 @@ body {
 
 /* Tables */
 // problem: on small screens table cells are too wide
-table {
-	margin-left: auto;
-	margin-right: auto;
-}
 @media (max-width: 375px){
-    table {// make table horyzontally scrollable
+    .table {// make table horyzontally scrollable
         overflow: auto !important;
     }
     // make table cells less wide
@@ -147,7 +115,8 @@ table {
     // navigation bar, content and footer
     .mdl-layout__header-row,
     .mdl-layout__content,
-    .mdl-mega-footer {
+    .mdl-mega-footer__middle-section,
+    .mdl-mega-footer__bottom-section {
         max-width: 1922px;
         margin: 0 auto;
     }// drawer button need to be repositioned
@@ -170,25 +139,9 @@ table {
         height:100%;
     }
 }
-// rating stars
-.rating  {
-	text-align: center;
-	width: 100%;
-	&[data-value="1"] {
-  	  color: #000000;
-    }
-	&[data-value="2"] {
-		color: #FF1744;
-	}
-	&[data-value="3"] {
-		color: #FF9100;
-	}
-	&[data-value="4"] {
-		color: #FFEA00;
-	}
-	&[data-value="5"] {
-		color: #00E676;
-	}
+/**** INDEX PAGE ****/
+#IndexPage {
+    //margin: auto;
 }
 
 /**** RADAR PAGE ****/
@@ -200,25 +153,5 @@ table {
         .mdl-card__supporting-text {
             padding-top: 5px;
         }
-    }
-}
-
-/**** WELCOME PAGE ****/
-#WelcomePage {
-    hr {
-        margin: 80px auto 50px;
-    }
-    p a { // "For Developers" button links
-        margin-top: 20px;
-    }
-}
-
-/* MainLayout */
-main {
-    min-height: calc(100vh - 64px) // screen size minus navbar size
-}
-@media (max-width: 1024px){
-    main {
-        min-height: 100vh // navbar is collapsed on mobile and tablets
     }
 }
