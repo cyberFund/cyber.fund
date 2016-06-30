@@ -1,20 +1,18 @@
 import React, { PropTypes } from 'react'
-import { If } from '../components/Utils'
+import { If, Unless } from '../components/Utils'
 import Loading from '../components/Loading'
 import Image from '../components/Image'
+import Metrics from '../components/Metrics'
 import ChaingearLink from '../components/ChaingearLink'
 import SystemAbout from '../components/SystemAbout'
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
+import get from 'oget'
 
 const RadarPage = props => {
-
-const {loaded, system, mainLinks} = props
-
-console.log(system)
-props.mainLinks.map((item) => {console.log(item)})
+const {loaded, system, system: {metrics, links}, mainLinks, isProject} = props
 
 return loaded ? (
     <div id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
@@ -32,6 +30,57 @@ return loaded ? (
 							<ChaingearLink link={link} />
 						</Cell>
 			)}
+		</Grid>
+		<Unless condition={isProject}>
+			<Grid>
+				<Metrics
+					title="Price"
+					btc={get(metrics, 'price.btc')}
+					usd={get(metrics, 'price.usd')}
+					btcChange={get(metrics, 'priceChangePercents.day.btc')}
+					usdChange={get(metrics, 'priceChangePercents.day.usd')}
+				/>
+				{/*<Metrics
+					title="Cap"
+					btc={}
+					usd={}
+					btcChange={}
+					usdChange={}
+				/>
+				<Metrics
+					title="Trade"
+					btc={}
+					usd={}
+					btcChange={}
+					usdChange={}
+				/>
+				<Metrics
+					title="Supply"
+					btc={}
+					usd={}
+					btcChange={}
+					usdChange={}
+				/>*/}
+			</Grid>
+		</Unless>
+		<If condition={props.existLinksWith(links, 'Science')} component={Grid}>
+			<Cell col={12} tablet={8} phone={4}>
+		    	<h3>Scientific Roots</h3>
+				{helpers.linksWithTag(links, 'Science').map(
+					link => <p key={link.name}><ChaingearLink link={link} /></p>
+				)}
+			</Cell>
+		</If>
+		<If condition={props.existLinksWith(links, 'Code')} component={Grid}>
+			<Cell col={12} tablet={8} phone={4}>
+				<h3>Developers Dimension</h3>
+				{helpers.linksWithTag(links, 'Code').map(
+					link => <p key={link.name}><ChaingearLink link={link} /></p>
+				)}
+			</Cell>
+		</If>
+		<Grid>
+			<p>{system.description}</p>
 		</Grid>
         <Grid>
 			system.infoLinks
