@@ -127,12 +127,8 @@ body {
 
 /* Tables */
 // problem: on small screens table cells are too wide
-table {
-	margin-left: auto;
-	margin-right: auto;
-}
 @media (max-width: 375px){
-    table {// make table horyzontally scrollable
+    .table {// make table horyzontally scrollable
         overflow: auto !important;
     }
     // make table cells less wide

@@ -30,7 +30,7 @@ class StarredBy extends React.Component {
 									onClick={toggleUsersList.bind(this)}
 									component="h5"
 									title="click to see users"
-									raised ripple color>
+									raised ripple>
 									  Starred by {system._usersStarred.length} people
 								</Button>
 								<If condition={state.showUsers}>

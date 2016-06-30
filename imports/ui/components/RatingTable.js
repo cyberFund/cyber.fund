@@ -19,6 +19,7 @@ import helpers from '../helpers'
     }
 */
 
+
 const RatingTable = props => {
     const renderRows = props.systems.map( user => {
         //{{>hitryImage img_url=avatar class="avatar-at-systems" fallback='av'}}
@@ -41,7 +42,8 @@ const RatingTable = props => {
                         </tr>
     })
 
-    return <table style={{width: '100%'}} className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center">
+    return (
+            <table style={{width: '100%'}} className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center">
               <thead>
                 <tr>
                   <th>Rank</th>
@@ -61,10 +63,10 @@ const RatingTable = props => {
                   {/*renderRows*/}
               </tbody>
             </table>
-}
+    )
 
+}
 RatingTable.propTypes = {
   systems: PropTypes.array.isRequired
 }
-
 export default RatingTable
