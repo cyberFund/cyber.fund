@@ -33,7 +33,7 @@ const Metrics = props =>{
 Metrics.defaultProps = {
  shadow: 2,
  // grid properties for <Cell />
- col: 4,
+ col: 3,
  tablet: 4,
  phone: 4
 }
