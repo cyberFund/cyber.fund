@@ -8,7 +8,6 @@ import SystemAbout from '../components/SystemAbout'
 import SystemLinks from '../components/SystemLinks'
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
-import SlowChart from '../components/SlowChart'
 import KeenChart from '../components/KeenChart'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
@@ -70,7 +69,6 @@ return loaded ? (
 			<If condition={anyCards()}>
 				<Cell col={12}><p>Changes given for 24h</p></Cell>
 			</If>
-			<SlowChart system={_id} />
 		</Unless>
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
 			<Cell col={12} tablet={8} phone={4}>
