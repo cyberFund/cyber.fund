@@ -9,4 +9,6 @@ import '../imports/startup/accounts-config'*/
 //import '../node_modules/react-mdl/extra/material.min.css'
 import '../node_modules/react-mdl/extra/material.js'
 
+// import keenIo charts before before components because some rely on it
+import '../imports/startup/keenIo'
 import '../imports/startup/routes'
