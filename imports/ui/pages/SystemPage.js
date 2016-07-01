@@ -1,22 +1,25 @@
 import React, { PropTypes } from 'react'
-import { If, Unless } from '../components/Utils'
+import { If, Else, Unless } from '../components/Utils'
 import Loading from '../components/Loading'
 import Image from '../components/Image'
 import Metrics from '../components/Metrics'
 import ChaingearLink from '../components/ChaingearLink'
 import SystemAbout from '../components/SystemAbout'
+import SystemLinks from '../components/SystemLinks'
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
+import SlowChart from '../components/SlowChart'
 import KeenChart from '../components/KeenChart'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
 import get from 'oget'
 
-const RadarPage = props => {
+const SystemPage = props => {
 // variables
-const {system, system: {metrics, links, _id}} = props
-const {loaded, mainLinks, isProject, existLinksWith, dependentsExist, dependents} = props
-const githubLink =  `https://github.com/cyberFund/chaingear/blob/gh-pages/sources/${_id}/${_id}.toml`
+const {system, system: {metrics, links, _id}} = props,
+	  {loaded, mainLinks, isProject, existLinksWith, dependentsExist, dependents, anyCards} = props,
+	  {linksWithTag} = helpers,
+	  githubLink =  `https://github.com/cyberFund/chaingear/blob/gh-pages/sources/${_id}/${_id}.toml`
 
 return loaded ? (
     <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
@@ -64,15 +67,31 @@ return loaded ? (
 				btcChange={get(metrics, 'priceChangePercents.day.btc')}
 				usdChange={get(metrics, 'priceChangePercents.day.usd')}
 			/>
+			<If condition={anyCards()}>
+				<Cell col={12}><p>Changes given for 24h</p></Cell>
+			</If>
+			<SlowChart system={_id} />
 		</Unless>
+		<SystemLinks links={linksWithTag(links, 'Apps')} />
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
 			<Cell col={12} tablet={8} phone={4}>
 			    <h3>News</h3>
 			    <div>
-					{helpers.linksWithTag(links, 'News').map(
+					{linksWithTag(links, 'News').map(
 						link => <p key={link.name}><ChaingearLink link={link} /></p>
 					)}
 			    </div>
+			</Cell>
+		</If>
+		<If condition={existLinksWith(links, 'Apps')} component={Grid}>
+			<Cell col={12} tablet={8} phone={4}>
+			    <h3>Apps</h3>
+				<If condition={existLinksWith(links, 'Apps').length > 8}>
+					<h1>Greater then 8! SHow tabs!</h1>
+				</If>
+				<Else condition={existLinksWith(links, 'Apps').length > 8}>
+			    	<h1>Lesser then 8! No tabs!</h1>
+			    </Else>
 			</Cell>
 		</If>
 		<If condition={dependentsExist} component={Grid}>
@@ -83,22 +102,28 @@ return loaded ? (
 				</div>
 			</Cell>
 		</If>
-		<If condition={existLinksWith(links, 'Science')} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
-		    	<h3>Scientific Roots</h3>
-				{helpers.linksWithTag(links, 'Science').map(
-					link => <p key={link.name}><ChaingearLink link={link} /></p>
-				)}
-			</Cell>
-		</If>
-		<If condition={existLinksWith(links, 'Code')} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
-				<h3>Developers Dimension</h3>
-				{helpers.linksWithTag(links, 'Code').map(
-					link => <p key={link.name}><ChaingearLink link={link} /></p>
-				)}
-			</Cell>
-		</If>
+		<Grid>
+			<If condition={existLinksWith(links, 'Science')}>
+				<Cell col={6} tablet={8} phone={4}>
+			    	<h3>Scientific Roots</h3>
+						{linksWithTag(links, 'Science').map(
+							link => <p className="text-left" key={link.name}>
+										<ChaingearLink link={link} />
+									</p>
+						)}
+				</Cell>
+			</If>
+			<If condition={existLinksWith(links, 'Code')}>
+				<Cell col={6} tablet={8} phone={4}>
+					<h3>Developers Dimension</h3>
+					{linksWithTag(links, 'Code').map(
+						link => <p className="text-left" key={link.name}>
+									<ChaingearLink link={link} />
+								</p>
+					)}
+				</Cell>
+			</If>
+		</Grid>
 		<Grid>
 			<p>{system.description}</p>
 		</Grid>
@@ -121,12 +146,13 @@ return loaded ? (
 ) : <Loading />
 }
 
-RadarPage.propTypes = {
+SystemPage.propTypes = {
 	system: PropTypes.object.isRequired,
 	mainLinks: PropTypes.array.isRequired,
 	dependentsExist: PropTypes.number.isRequired,
 	dependents: PropTypes.array.isRequired,
-	existLinksWith: PropTypes.func.isRequired
+	existLinksWith: PropTypes.func.isRequired,
+	anyCards: PropTypes.func.isRequired
 }
 
-export default RadarPage
+export default SystemPage
