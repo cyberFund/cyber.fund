@@ -17,12 +17,10 @@ export default SystemPageContainer = createContainer(() => {
 	const system = CurrentData.findOne({ _id: systemName }) || {}
 	// functions
 	function getMainLinks() {
-		if (!system.links || !_.isArray(system.links)) {
-			return []
-		}
+		if (!system.links || !_.isArray(system.links))  return []
 
 		return _.first(_.filter(system.links, function(link) {
-			return (link.tags && _.isArray(link.tags) && link.tags.indexOf("Main") > -1)
+				return (link.tags && _.isArray(link.tags) && link.tags.includes("Main"))
 		}), 4)
 	}
 
@@ -34,28 +32,24 @@ export default SystemPageContainer = createContainer(() => {
 		}
 	}
 
-/* what does this code even do???
-	Meteor.startup(function() {
-	  CF.keenflag = new ReactiveVar();
-	  Keen.ready(function() {
-	    CF.keenflag.set(true);
-	  });
-	});
-*/
-
 	// rework needed
 
-  return {
-	  	loaded,
-		system,
-		mainLinks: getMainLinks(),
-		isProject: get(system, 'descriptions.state') == "Project",
-		existLinksWith: function(links, tag) {
-			if (!_.isArray(links)) return false
-			return !!_.find(links, function(link) {
-			  return (_.isArray(link.tags) && link.tags.includes(tag))
-			})
-		},
+	return {
+			loaded,
+			system,
+			mainLinks: getMainLinks(),
+			isProject: get(system, 'descriptions.state') == "Project",
+			dependentsExist: CurrentData.find(selectors.dependents(systemName)).count(),
+			dependents: CurrentData.find(
+								selectors.dependents(systemName),
+								{ sort: { _id: 1 } }
+							).fetch(),
+			existLinksWith: function(links, tag) {
+					if (!_.isArray(links)) return false
+					return !!_.find(links, function(link) {
+					  return (_.isArray(link.tags) && link.tags.includes(tag))
+					})
+			},
 
 		/* THIS IS OLD SHIT */
 	  yesterdaySupplyMetric: function(){
@@ -70,13 +64,6 @@ export default SystemPageContainer = createContainer(() => {
 		(m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ));
 	  },
 	  systemName: systemName,
-	  dependents: function() {
-		return CurrentData.find(selectors.dependents(systemName), {
-		  sort: {
-			_id: 1
-		  }
-		});
-	  },
 
 	  depends_on: function() {
 		var self = system;
@@ -84,10 +71,6 @@ export default SystemPageContainer = createContainer(() => {
 		var deps = self.dependencies;
 		if (!_.isArray(deps)) deps = [deps];
 		return CurrentData.find(selectors.dependencies(deps));
-	  },
-
-	  dependentsExist: function() {
-		return CurrentData.find(selectors.dependents(systemName)).count();
 	  },
 
 	  symbol: function() {
