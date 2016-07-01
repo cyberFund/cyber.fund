@@ -7,11 +7,11 @@ const Metrics = props =>{
 	const { title, usd, btc, usdChange, btcChange } = props
 	const { greenRedNumber, percentsToTextUpDown, readableN0 } = helpers
 
-	function renderTextBlock(cap, dailyChange) {
+	function renderTextBlock(cap, dailyChange, symbol) {
 		return 	<If condition={cap}>
 					<div style={{marginBottom: 14}}>
 						<div className="text-large">
-							$ {readableN0(cap)}
+							{symbol, readableN0(cap)}
 						</div>
 						<Show condition={dailyChange}>
 							<span className={greenRedNumber(dailyChange)}>
@@ -24,8 +24,8 @@ const Metrics = props =>{
 
     return 	<Cell {...props} className="text-center mdl-card">
 				<h4>{title}</h4>
-				{renderTextBlock(usd, usdChange)}
-				{renderTextBlock(btc, btcChange)}
+				{renderTextBlock(usd, usdChange, '$')}
+				{renderTextBlock(btc, btcChange, 'Ƀ')}
 				{props.children}
     		</Cell>
 }
