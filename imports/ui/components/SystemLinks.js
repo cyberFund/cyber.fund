@@ -12,7 +12,6 @@ class SystemLinks extends React.Component {
 		}
 	}
 	changeTab(activeTab) {
-		console.log(activeTab)
 		this.setState({activeTab})
 	}
 	render() {

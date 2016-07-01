@@ -72,7 +72,6 @@ return loaded ? (
 			</If>
 			<SlowChart system={_id} />
 		</Unless>
-		<SystemLinks links={linksWithTag(links, 'Apps')} />
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
 			<Cell col={12} tablet={8} phone={4}>
 			    <h3>News</h3>
@@ -83,17 +82,7 @@ return loaded ? (
 			    </div>
 			</Cell>
 		</If>
-		<If condition={existLinksWith(links, 'Apps')} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
-			    <h3>Apps</h3>
-				<If condition={existLinksWith(links, 'Apps').length > 8}>
-					<h1>Greater then 8! SHow tabs!</h1>
-				</If>
-				<Else condition={existLinksWith(links, 'Apps').length > 8}>
-			    	<h1>Lesser then 8! No tabs!</h1>
-			    </Else>
-			</Cell>
-		</If>
+		<SystemLinks links={linksWithTag(links, 'Apps')} />
 		<If condition={dependentsExist} component={Grid}>
 			<Cell col={12} tablet={8} phone={4}>
 				<h3>Internal Economy</h3>
