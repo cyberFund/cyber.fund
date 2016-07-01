@@ -50,18 +50,20 @@ export default SystemPageContainer = createContainer(() => {
 					  return (_.isArray(link.tags) && link.tags.includes(tag))
 					})
 			},
+			anyCards: function(){
+				const 	m = system.metrics,
+						p = m.price,
+						c = m.cap
+				if (!m) return
+				return 	m.tradeVolume || m.supply ||
+						(p && (p.usd || p.btc || p.eth)) ||
+						(c && (c.usd || c.btc || c.eth ))
+			},
 
 		/* THIS IS OLD SHIT */
 	  yesterdaySupplyMetric: function(){
 		var m = this.metrics;
 		return (m.supply - m.supplyChange.day) || 0;
-	  },
-	  anyCards: function(){
-		if (!this.metrics) return false;
-		var m = this.metrics;
-		return m.tradeVolume || m.supply ||
-		(m.price && (m.price.usd || m.price.btc || m.price.eth)) ||
-		(m.cap && (m.cap.usd || m.cap.btc || m.cap.eth ));
 	  },
 	  systemName: systemName,
 
