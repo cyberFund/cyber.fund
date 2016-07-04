@@ -8,13 +8,11 @@ import SystemPage from '../pages/SystemPage'
 
 export default SystemPageContainer = createContainer(() => {
 	// variables
-	const systemName = helpers._toSpaces(FlowRouter.getParam("name_"))
-	const {selectors} = CF.CurrentData
-	const loaded = Meteor.subscribe("systemData", {
-						name: systemName
-					}).ready() &&
-					Meteor.subscribe("dependentCoins", systemName).ready()
-	const system = CurrentData.findOne({ _id: systemName }) || {}
+	const 	systemName 		= helpers._toSpaces(FlowRouter.getParam("name_"))
+			dependentsReady = Meteor.subscribe("dependentCoins", systemName).ready(),
+			systemReady		= Meteor.subscribe("systemData", {name: systemName}).ready(),
+			system 			= CurrentData.findOne({ _id: systemName }) || {},
+			{selectors} 	= CF.CurrentData
 	// functions
 	function getMainLinks() {
 		if (!system.links || !_.isArray(system.links))  return []
@@ -35,8 +33,8 @@ export default SystemPageContainer = createContainer(() => {
 	// rework needed
 
 	return {
-			loaded,
 			system,
+			loaded: systemReady && dependentsReady,
 			mainLinks: getMainLinks(),
 			isProject: get(system, 'descriptions.state') == "Project",
 			dependentsExist: CurrentData.find(selectors.dependents(systemName)).count(),

@@ -10,10 +10,11 @@ export default ProfilePageContainer = createContainer(() => {
     const username = FlowRouter.getParam('username'),
 			user = CF.User.findOneByUsername(username),
 			name = get(user, 'profile.name', username),
-			// subscriptions
-            loaded = Meteor.subscribe('friendlyUsers', {username}).ready() &&
-                     Meteor.subscribe('portfolioSystems', {username}).ready() &&
-                     Meteor.subscribe('userProfile', {username}).ready()
+			// subscriptions ready state should not be qued,
+			// do not use loaded = sub1.ready() && sub2.ready()
+            usersReady = 	 Meteor.subscribe('friendlyUsers', {username}).ready(),
+            systemsReady = 	 Meteor.subscribe('portfolioSystems', {username}).ready(),
+            protfolioReady = Meteor.subscribe('userProfile', {username}).ready()
 
     // TODO refactoring, add comments
 
@@ -32,7 +33,7 @@ export default ProfilePageContainer = createContainer(() => {
 
   return {
 		user,
-		loaded,
+		loaded: usersReady && systemsReady && protfolioReady,
 		userAccounts: CF.Accounts.findByRefId(CF.Profile.currentUid()).fetch(),
 		userRegistracionCount: Session.get("userRegistracionCount"),
 		isOwnProfile: Meteor.userId() ? (CF.Profile.currentUsername() == CF.User.username()) : false,

@@ -4,10 +4,13 @@ import { createContainer } from 'meteor/react-meteor-data'
 import IndexPage from '../pages/IndexPage'
 
 export default IndexPageContainer = createContainer(() => {
-    const loaded = Meteor.subscribe("investData").ready() &&
-                    Meteor.subscribe("currentDataRP", {selector: {
-                    }, sort:{"calculatable.RATING.sum": -1}, limit: 5} ).ready() &&
-                    Meteor.subscribe("crowdsalesAndProjectsList").ready()
+    const 	investDataReady  = 	Meteor.subscribe("investData").ready(),
+			crowdsalesReady  = 	Meteor.subscribe("crowdsalesAndProjectsList").ready(),
+			currentDataReady = 	Meteor.subscribe("currentDataRP", {
+										selector: {},
+										sort:{"calculatable.RATING.sum": -1},
+										limit: 5
+								}).ready()
 
     // variables
     // TODO: ??? do we even use any of this?
@@ -53,7 +56,10 @@ export default IndexPageContainer = createContainer(() => {
       sumBtc: sumBtc(),
       usersCount: Counts.get('usersCount'),
       coinsCount: Counts.get('coinsCount'),
-      systems: CurrentData.find({}, {sort:{"calculatable.RATING.sum": -1}, limit: 5}).fetch(),
-      loaded
+      systems: CurrentData.find({}, {
+					  sort:{"calculatable.RATING.sum": -1},
+					  limit: 5
+				  }).fetch(),
+      loaded: investDataReady && crowdsalesReady && currentDataReady
     }
 }, IndexPage)
