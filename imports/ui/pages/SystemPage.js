@@ -10,8 +10,9 @@ import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import KeenChart from '../components/KeenChart'
 import helpers from '../helpers'
-import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell } from 'react-mdl'
+import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell, FABButton, Icon } from 'react-mdl'
 import get from 'oget'
+import Blaze from 'meteor/gadicc:blaze-react-component'
 
 const SystemPage = props => {
 // variables
@@ -22,10 +23,8 @@ const {system, system: {metrics, links, _id}} = props,
 
 return loaded ? (
     <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
-		<If condition={system.descriptions.page_state != 'ready'}>
-		    <p>
-				This page is not ready yet. Follow <a target="_blank" href={githubLink}>fan zone</a> to help us improve it faster!
-		    </p>
+		<If condition={system.descriptions.page_state != 'ready'} component='p'>
+			This page is not ready yet. Follow <a target="_blank" href={githubLink}>fan zone</a> to help us improve it faster!
 		</If>
 		<SystemAbout system={system} />
 		<StarredByContainer system={system} />
@@ -69,9 +68,12 @@ return loaded ? (
 			<If condition={anyCards()}>
 				<Cell col={12}><p>Changes given for 24h</p></Cell>
 			</If>
+			<Cell col={12}>
+				<Blaze template="slowchart" system={_id} />
+			</Cell>
 		</Unless>
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
+			<Cell col={12}>
 			    <h3>News</h3>
 			    <div>
 					{linksWithTag(links, 'News').map(
@@ -82,7 +84,7 @@ return loaded ? (
 		</If>
 		<SystemLinks links={linksWithTag(links, 'Apps')} />
 		<If condition={dependentsExist} component={Grid}>
-			<Cell col={12} tablet={8} phone={4}>
+			<Cell col={12}>
 				<h3>Internal Economy</h3>
 				<div>
 					{dependents.map((item, index) => <p key={index}>{item._id}</p>)}
@@ -122,11 +124,6 @@ return loaded ? (
 		<Grid>
 			<Cell col={12}>
 		 		<KeenChart id="meow" value={_id} />
-			</Cell>
-		</Grid>
-		<Grid>
-			<Cell col={12}>
-				Floating button
 			</Cell>
 		</Grid>
     </section>
