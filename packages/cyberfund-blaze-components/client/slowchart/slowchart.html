@@ -1,0 +1,15 @@
+<template name="slowchart">
+    <div class="card {{#if hasNoData}}hidden{{/if}}">
+        <div class="slowchart" id="slowchart-{{_toAttr system}}">
+            {{#if __ready}} {{else}} LOADING {{/if}}
+        </div>
+        <div class="center slowchart-controls">
+            <a class="btn btn-flat act-go-back">&lt;</a>
+            <a class="btn btn-flat act-go-forth">&gt;</a>
+            <a class="btn btn-flat timeline" len="week">1w</a>
+            <a class="btn btn-flat timeline" len="month">1m</a>
+            <a class="btn btn-flat timeline" len="year">1y</a>
+            <a class="btn btn-flat timeline" len="full">full time</a>
+        </div>
+    </div>
+</template>

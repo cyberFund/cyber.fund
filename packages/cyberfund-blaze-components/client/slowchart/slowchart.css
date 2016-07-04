@@ -1,0 +1,77 @@
+.slowchart {
+  position: relative;
+  bottom: 0;
+  left: 4px;
+  width: 100%;
+  background: #fff;
+  height: 500px;
+  font-size: 10px;
+  margin: 1em auto;
+
+  transition: all 0.3s ease-in-out
+}
+
+.tooltip-box {
+  fill: rgba(200, 200, 200, 0.8);
+}
+
+path.line {
+  fill: none;
+  stroke: #666;
+  stroke-width: 1.5px;
+}
+
+path.area {
+  fill: #e7e7e7;
+}
+
+.axis {
+  /*shape-rendering: crispEdges;*/
+}
+
+.axis .minor {
+  stroke-opacity: .5;
+}
+
+
+.axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width:1;
+}
+
+.axis path {
+  fill: none;
+  stroke: #000;
+  stroke-width:0.9;
+}
+
+.focus-horiz {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
+}
+
+.focus-vert, .focus-vert-full {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
+}
+
+.brush rect {
+  stroke: none;
+  stroke-width: 0;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+}
+
+.sc-line-1 {
+    stroke: red;
+    stroke-width: 2;
+    fill: none;
+    clip-path: url(#clip);
+}

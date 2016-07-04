@@ -1,0 +1,34 @@
+<template name="ratingTableMonthly">
+    <div class="row">
+      <div class="col s12 offset-m6 m6 offset-l9 l3">
+        <a href="/rating"> Switch to daily view </a>
+      </div>
+    </div>
+    {{! #if subReady}}
+    <div class="card" style="padding:10px">
+        <table class="hoverable-my" align="center" id="rating-table">
+
+            <thead id="fixed-thead" class="fixed-thead z20">
+                {{> ratingTableHead _period="month"}}
+            </thead>
+            <thead id="normal-thead">
+                {{> ratingTableHead _period="month"}}
+            </thead>
+            <tbody>
+                {{#each keyValue rows}} {{> ratingTableRow data=this _period="month"}} {{/each}}
+            </tbody>
+        </table>
+    </div>
+    {{! #if hasMore}}
+    <p class="center">
+        We filter illiquid assets and assets with <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">cyber • Rating</a> less than 1
+    </p>
+    <div class="center">
+        <br>
+        <a class="waves-effect waves-light btn show-more deep-orange" href="/tracking">
+      View all opportunities
+    </a>
+    </div>
+    {{! /if}} {{! /if}}
+    <div style="padding-bottom: 40px"></div>
+</template>

@@ -1,0 +1,85 @@
+<template name="ratingTableHead">
+  <th class="center hide-on-small-and-down">Rank</th>
+
+  <th class="left-align">
+    <span class="th-sys">&nbsp;&nbsp;System</span>
+  </th>
+
+  {{#if eq _period "month"}}
+    {{#thSortable class="center hide-on-small-and-down" o=__sorter
+    s="metrics.supplyChangePercents.month"}}Token{{/ thSortable}}
+  {{else}}
+    {{#thSortable class="center hide-on-small-and-down" o=__sorter
+    s="metrics.supplyChangePercents.day"}}Token{{/ thSortable}}
+  {{/if}}
+
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+    s="metrics.turnover"}}Trade{{/ thSortable}}
+
+
+  {{# thSortable o=__sorter class="center hide-on-med-and-down sorter"
+  s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
+    {{# withTooltip}} CMGR[$]
+    {{#tooltip class="tooltip-table-head right0"}}
+      <h5 class="center">Compound Monthly Growth Rate</h5>
+      <p>
+      Key indicator that shows long term profitability of investment.
+      We use monthly calculation in opposite to annual in traditional
+      finance as blockchain markets are faster than tradational thus
+      should be evaulated more frequently</p>
+    {{/ tooltip}} {{/ withTooltip}}
+  {{/ thSortable}}
+
+  {{#thSortable o=__sorter class="center hide-on-med-and-down sorter"
+  s="calculatable.RATING.vector.GR.months"}}
+  {{# withTooltip}} Months
+  {{# tooltip class="tooltip-table-head right0"}}
+
+    <p>Number of periods CMGR has been calculated.
+      Less a number of periods the more risk that CMGR will float</p>
+  {{/ tooltip}} {{/ withTooltip}} {{/ thSortable}}
+
+
+  {{! #thSortable class="right-align hide-on-med-and-down" o=__sorter
+  s="metrics.cap.btc"}}{{! Cap in Ƀ}}{{! / thSortable}}
+
+  {{#if eq _period "month"}}
+    {{! #thSortable class="right-align hide-on-med-and-down" o=__sorter
+    s="metrics.capChangePercents.month.btc"}}{{! 1m&nbsp;Change}}{{! / thSortable}}
+  {{else}}
+    {{! #thSortable class="right-align hide-on-med-and-down" o=__sorter
+    s="metrics.capChangePercents.day.btc"}}{{! 1d&nbsp;Change}}{{! / thSortable}}
+  {{/if}}
+
+
+  {{#thSortable class="right-align" o=__sorter
+  s="metrics.cap.usd"}}Cap in ${{/ thSortable}}
+
+  <th class="center hide-on-small-and-down">Price</th>
+  {{#if eq _period "month"}}
+    {{#thSortable class="right-align" o=__sorter
+    s="metrics.capChangePercents.month.usd"}}1m&nbsp;Change{{/ thSortable}}
+  {{else}}
+    {{#thSortable class="right-align" o=__sorter
+    s="metrics.capChangePercents.day.usd"}}1d&nbsp;Change{{/ thSortable}}
+  {{/if}}
+
+  {{#thSortable class="center hide-on-small-and-down"
+  o=__sorter s="calculatable.RATING.vector.LV.num"}} Stars{{/ thSortable}}
+
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+  s="calculatable.RATING.sum"}}
+    {{# withTooltip}} Rating
+    {{# tooltip class="tooltip-table-head right0"}}
+    <h5 class="center">Rating</h5>
+    <p> Compound evaluation of a given crypto property.
+      Methodology depend on a stage, type and class of a given cryptoproperty.
+      More than 50 indicators are evaluated in a realtime.
+    </p><p>
+      <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/scoring.md">
+        Full methodology</a> and rationale in paper <a target="_blank" href="https://github.com/cyberFund/cyberrating/blob/master/paper.md">
+        cyber•Rating: Cryptoproperty Evaluation</a>
+    </p>
+    {{/ tooltip }} {{/withTooltip}}
+  {{/ thSortable}}
+</template>
