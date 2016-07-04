@@ -388,7 +388,29 @@ const helpers = {
 	  return this.token.symbol
 	}
 	return "";
-  }
+	},
+	// this functions gathered here from random places,
+	//because they were used more then once
+	existLinksWith: function(links, tag) {
+			if (!_.isArray(links)) return false
+			return !!_.find(links, function(link) {
+			  return (_.isArray(link.tags) && link.tags.includes(tag))
+			})
+	},
+
+    linksWithoutTags: function (links, tags) {
+      if (!_.isArray(links)) return [];
+  
+      return _.filter(links, function (link) {
+        var ret = _.isArray(link.tags);
+        _.each(tags, function (tag) {
+          if (link.tags.indexOf(tag) > -1) ret = false;
+        });
+
+        return ret;
+      });
+    }
+
 }
 // this is from views/profile/lib/helpers
 CF.Profile.currentUid = function() {

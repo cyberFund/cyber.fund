@@ -42,12 +42,8 @@ export default SystemPageContainer = createContainer(() => {
 								selectors.dependents(systemName),
 								{ sort: { _id: 1 } }
 							).fetch(),
-			existLinksWith: function(links, tag) {
-					if (!_.isArray(links)) return false
-					return !!_.find(links, function(link) {
-					  return (_.isArray(link.tags) && link.tags.includes(tag))
-					})
-			},
+			existLinksWith: helpers.existLinksWith,
+			linksWithoutTags: helpers.linksWithoutTags,
 			anyCards: function(){
 				const 	m = system.metrics,
 						p = m.price,
@@ -83,19 +79,6 @@ export default SystemPageContainer = createContainer(() => {
 
 	  mainTags: function() {
 		return ["Wallet", "Exchange", "Analytics", "Magic"];
-	  },
-
-	  linksWithoutTags: function(links, tags) {
-		if (!_.isArray(links)) return [];
-
-		return _.filter(links, function(link) {
-		  var ret = _.isArray(link.tags);
-		  _.each(tags, function(tag) {
-			if (link.tags.indexOf(tag) > -1) ret = false;
-		  });
-
-		  return ret;
-		});
 	  },
 
 
