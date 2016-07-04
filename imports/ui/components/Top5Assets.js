@@ -1,31 +1,35 @@
 import React, { PropTypes }from 'react'
 import { Grid, Cell, Tooltip } from 'react-mdl'
+import get from 'oget'
+import { If } from '../components/Utils'
 import Image from '../components/Image'
 import helpers from '../helpers'
 
 const Top5Assets = (props) => {
 	// render rows with data
   	function renderRows() {
-		return props.systems.map( i => {
-			return  <tr key={i._id}>
+		return props.systems.map( system => {
+			const months = get(system, 'calculatable.RATING.vector.GR.months')
+			const monthlyGrowthD = get(system, 'calculatable.RATING.vector.GR.monthlyGrowthD')
+			return  <tr key={system._id}>
 						<td className="mdl-data-table__cell--non-numeric">
-							<a href={`/system/${helpers._toUnderscores(i._id)}`}>
+							<a href={`/system/${helpers._toUnderscores(system._id)}`}>
 								<Image
 									avatar
-									src={i}
+									src={system}
 									style={{marginRight: 24}}
 									/>
-								<span>{helpers.displaySystemName(i)}</span>
+								<span>{helpers.displaySystemName(system)}</span>
 							</a>
 						</td>
 						<td>
-							{helpers.readableN1(i.calculatable.RATING.vector.GR.monthlyGrowthD)}
+							{monthlyGrowthD ? helpers.readableN1(monthlyGrowthD) + '%' : ''}
 						</td>
 						<td>
-							{helpers.readableN0(i.calculatable.RATING.vector.GR.months)}
+							{months ? helpers.readableN0(months) : ''}
 						</td>
 						<td>
-							{helpers.readableN1(i.calculatable.RATING.sum)}
+							{helpers.readableN1(system.calculatable.RATING.sum)}
 						</td>
 					</tr>
 		})
