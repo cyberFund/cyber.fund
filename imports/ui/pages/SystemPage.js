@@ -126,6 +126,12 @@ return loaded ? (
 		 		<KeenChart id="meow" value={_id} />
 			</Cell>
 		</Grid>
+		{/* FLOATING BUTTON */}
+		<Grid>
+			<FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
+				<Icon name="star" />
+			</FABButton>
+		</Grid>
     </section>
 ) : <Loading />
 }
