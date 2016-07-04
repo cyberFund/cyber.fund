@@ -11,10 +11,10 @@ const RadarPage = props => {
     return props.loaded ? (
       <div id="RadarPage">
         {/* INFO SECTION */}
-        <CrowdsaleCardList title="Active Crowdsales" titleComponent="h2" type="active" items={props.active} />
-        <CrowdsaleCardList title="Upcoming Crowdsales" titleComponent="h2" type="upcoming" items={props.upcoming} />
-        <CrowdsaleCardList title="Anticipated Projects" titleComponent="h2" type="projects" items={props.projects} />
-        <CrowdsaleCardList title="Successful Crowdsales" titleComponent="h2" type="past" items={props.past} />
+        <CrowdsaleCardList title="Active Crowdsales" type="active" items={props.active} />
+        <CrowdsaleCardList title="Upcoming Crowdsales" type="upcoming" items={props.upcoming} />
+        <CrowdsaleCardList title="Anticipated Projects" type="projects" items={props.projects} />
+        <CrowdsaleCardList title="Successful Crowdsales" type="past" items={props.past} />
         {/* CALL TO ACTION */}
         <div className="text-center">
           <Grid>

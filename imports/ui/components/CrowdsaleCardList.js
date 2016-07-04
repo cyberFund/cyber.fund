@@ -3,6 +3,8 @@ import CrowdsaleCard from './CrowdsaleCard'
 import { Grid, Cell } from 'react-mdl'
 
 const CrowdsaleCardList = props => {
+	// self explanatory
+	if (!props.items) return null
     // title tag is h5 or titleComponent
     const renderTitle = React.createElement(
                   props.titleComponent,
@@ -22,7 +24,7 @@ const CrowdsaleCardList = props => {
             </div>
 }
 CrowdsaleCardList.defaultProps = {
-    titleComponent: 'h5'
+    titleComponent: 'h2'
 }
 CrowdsaleCardList.propTypes = {
  title: PropTypes.string.isRequired,

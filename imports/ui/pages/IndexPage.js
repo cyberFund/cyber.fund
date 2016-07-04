@@ -43,6 +43,7 @@ const IndexPage = props => {
                 col={4} tablet={4} phone={4}
                 title="Active Crowdsales"
                 size="small"
+				titleComponent='h5'
                 items={props.activeCrowdsales} />
             <Cell col={4} tablet={4} phone={4} className="mdl-cell--2-offset-tablet">
                 {/* TODO: create "my portfolio" component */}
