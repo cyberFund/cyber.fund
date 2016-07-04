@@ -95,11 +95,15 @@ body {
     box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   }
 }
-
+/* fixes */
 // problem: footer were displayed as it is outside of .mdl-layout and had display: static
 // but no such styles were applied to actual tag. Very strange.
 .mdl-layout__inner-container{
   height: auto !important;
+}
+// problem: floating FABButton were invisible in .mdl-card area
+.mdl-card {
+	z-index: 0 !important;
 }
 
 /* HEADER */
