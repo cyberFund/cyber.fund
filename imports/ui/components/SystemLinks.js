@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import { Grid, Cell, Icon, Button, Tabs, Tab } from 'react-mdl'
 import { If } from '../components/Utils'
+import ChaingearLink from '../components/ChaingearLink';
 import helpers from '../helpers'
 
 class SystemLinks extends React.Component {
@@ -22,7 +23,9 @@ class SystemLinks extends React.Component {
 			let linksArray = linksWithTag( links, tags[activeTab] )
 			// if tab == "Earn"
 			if (activeTab == 4) linksArray = linksWithoutTags(links, systemId)
-			return linksArray.map( (link, index)=> <p key={index}>{link.url}</p> )
+			return linksArray.map( (link, index)=> {
+				return 	<ChaingearLink link={link} key={index} />
+			})
 		}
 
 		return  <Grid className="text-center">
