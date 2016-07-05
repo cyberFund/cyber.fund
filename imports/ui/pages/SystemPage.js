@@ -9,6 +9,7 @@ import SystemLinks from '../components/SystemLinks'
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import KeenChart from '../components/KeenChart'
+import StarButton from '../components/StarButton'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell, FABButton, Icon } from 'react-mdl'
 import get from 'oget'
@@ -20,6 +21,7 @@ const {system, system: {metrics, links, _id}} = props,
 	  {loaded, mainLinks, isProject, existLinksWith, dependentsExist, dependents, anyCards} = props,
 	  {linksWithTag} = helpers,
 	  githubLink =  `https://github.com/cyberFund/chaingear/blob/gh-pages/sources/${_id}/${_id}.toml`
+console.log(system)
 
 return loaded ? (
     <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
@@ -82,7 +84,6 @@ return loaded ? (
 			    </div>
 			</Cell>
 		</If>
-		<SystemLinks links={linksWithTag(links, 'Apps')} />
 		{/* TABS / SYSTEMLINKS */}
 		<SystemLinks links={linksWithTag(links, 'Apps')} systemId={_id} />
 		<If condition={dependentsExist} component={Grid}>
@@ -116,7 +117,9 @@ return loaded ? (
 			</If>
 		</Grid>
 		<Grid>
-			<p>{system.description}</p>
+			<Cell col={12}>
+				<h2>Specification Table</h2>
+			</Cell>
 		</Grid>
 		<Grid>
 			<Cell col={12}>
@@ -125,15 +128,11 @@ return loaded ? (
 		</Grid>
 		<Grid>
 			<Cell col={12}>
-		 		<KeenChart id="meow" value={_id} />
+				<KeenChart id="meow" value={_id} />
 			</Cell>
 		</Grid>
 		{/* FLOATING BUTTON */}
-		<Grid>
-			<FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
-				<Icon name="star" />
-			</FABButton>
-		</Grid>
+		<StarButton systemId={_id} />
     </section>
 ) : <Loading />
 }
