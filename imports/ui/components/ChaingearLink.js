@@ -63,15 +63,21 @@ const ChaingearLink = props => {
 		}
 		return "external-link";
 	}
-
-	return 	<a href={link.url} target="_blank" className="cg-link" {...props}>
+	// TODO remove .cg-link?
+	return 	<a
+				href={link.url}
+				target="_blank"
+				style={{textDecoration: 'none'}}
+				className="cg-link"
+				{...props}
+			>
 				<If condition={iconUrl(link)}>
 			    	<i className={`fa fa-${iconUrl(link)}`}></i>
 			    </If>
 				<Else condition={iconUrl(link)}>
     				<i className="fa fa-external-link-square"></i>
     			</Else>
-				{link.name}
+				&nbsp;{link.name}
 			</a>
 }
 
