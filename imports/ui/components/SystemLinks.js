@@ -8,74 +8,61 @@ class SystemLinks extends React.Component {
 		super(params)
 		this.state = {
 			activeTab: 0,
-			// if there are more than 8 links display tabs
+			// display tabs if there are alot of links
 			displayTabs: this.props.links.length > 8
 		}
 	}
-	changeTab(activeTab) {
-		this.setState({activeTab})
-	}
-	renderLinksArea(tag) {
-		function renderLinks(tag) {
-			//helpers.existLinksWith
-
-			return this.props.links.map( (link, i) => <p key={i}>{link.url}</p>)
-		}
-		switch (tag) {
-			case 0:
-				return renderLinks("Exchange")
-			case 1:
-				return renderLinks("Wallet")
-			case 2:
-				return renderLinks("Analytics")
-			case 3:
-				return renderLinks("Magic")
-			default:
-				return renderLinks()
-		}
-	}
 	render() {
-		const {state, props: {links}, setState, changeTab } = this
-		const tags = ['Exchange', 'Wallet', 'Analytics', 'Magic']
-		// TODO maybe create tabs with vanilla mdl instead of react-mdl?
+		const 	{ links, systemId } = this.props,
+				{ activeTab, displayTabs } = this.state,
+				{ linksWithTag, linksWithoutTags, existLinksWith } = helpers,
+				tags = ['Exchange', 'Wallet', 'Analytics', 'Magic']
+
+		function renderLinksArea() {
+			let linksArray = linksWithTag( links, tags[activeTab] )
+			// if tab == "Earn"
+			if (activeTab == 4) linksArray = linksWithoutTags(links, systemId)
+			return linksArray.map( (link, index)=> <p key={index}>{link.url}</p> )
+		}
+
 		return  <Grid className="text-center">
+					{/* TAB SELECTOR */}
 					<Cell col={12}>
-						{/* TAB SELECTOR */}
-						<If condition={state.displayTabs}>
-							<Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
-								<If
-									condition={helpers.existLinksWith(links, 'Exchange')}
-									component={Tab}>
+						<If condition={displayTabs}>
+							<Tabs
+								activeTab={activeTab}
+								onChange={activeTab => this.setState({activeTab})}
+								ripple
+							>
+								<If condition={existLinksWith(links, 'Exchange')} component={Tab}>
 									Buy
 								</If>
-								<If
-									condition={helpers.existLinksWith(links, 'Wallet')}
-									component={Tab}>
+								<If condition={existLinksWith(links, 'Wallet')} component={Tab}>
 									Hold
 								</If>
-								<If
-									condition={helpers.existLinksWith(links, 'Analytics')}
-									component={Tab}>
+								<If condition={existLinksWith(links, 'Analytics')} component={Tab}>
 									Analyze
 								</If>
-								<If
-									condition={helpers.linksWithoutTags(links, tags)}
-									component={Tab}>
+								<If condition={existLinksWith(links, 'Magic')} component={Tab}>
+									Magic
+								</If>
+								<If condition={linksWithoutTags(links, systemId)} component={Tab}>
 									Earn
 								</If>
 							</Tabs>
 						</If>
-						{/* CONTENT */}
-						<section>
-							  {links.map( (link, index) => <p key={index}>{link.name}</p> )}
-						</section>
+					</Cell>
+					{/* CONTENT */}
+					<Cell col={12}>
+						  {renderLinksArea()}
 					</Cell>
 				</Grid>
 	}
 }
 
 SystemLinks.propTypes = {
-	links: PropTypes.array.isRequired
+	links: PropTypes.array.isRequired,
+	systemId: PropTypes.string.isRequired
 }
 
 export default SystemLinks

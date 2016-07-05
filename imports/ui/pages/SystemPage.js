@@ -83,6 +83,8 @@ return loaded ? (
 			</Cell>
 		</If>
 		<SystemLinks links={linksWithTag(links, 'Apps')} />
+		{/* TABS / SYSTEMLINKS */}
+		<SystemLinks links={linksWithTag(links, 'Apps')} systemId={_id} />
 		<If condition={dependentsExist} component={Grid}>
 			<Cell col={12}>
 				<h3>Internal Economy</h3>
