@@ -1,4 +1,5 @@
 import React, { Component, PropTypes }  from 'react'
+import { Meteor } from 'meteor/meteor'
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
@@ -38,10 +39,8 @@ class ProfilePage extends Component {
 		}
 	}
 	handleLogout() {
-		analytics.track('Sign Out', {
-		  from: 'profile'
-		})
-		Meteor.logout()
+		console.warn('User logout fired!')
+		Meteor.logout() && analytics.track('Sign Out', { from: 'profile' })
 	}
 
     render() {
@@ -82,28 +81,28 @@ class ProfilePage extends Component {
 						</div>
 						{/* logout button */}
 						<If condition={isOwnProfile}>
-							<Button onClick={this.handleLogout()} raised colored ripple>Logout</Button>
+							<Button onClick={this.handleLogout} raised colored ripple>Logout</Button>
 						</If>
                   </Cell>
-                  <Cell col={9} tablet={5} phone={4} className="text-center">
-					{/* TAB SELECTOR */}
-                    <Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
-                        <Tab>Portfolio</Tab>
-                        <Tab>Accounts</Tab>
-                    </Tabs>
-					{/* PORTFOLIO TAB */}
-                    <section style={state.firstTabStyle}>
-                            <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
-                            <div className="video-container">
-                                  <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                            <PortfolioTableContainer users={props.userAccounts} />
-                    </section>
-					{/* ACCOUNTS TAB */}
-					<section style={state.secondTabStyle}>
-                        <h4><i>nothing here yet...</i></h4>
-                    </section>
-                  </Cell>
+					<Cell col={9} tablet={5} phone={4} className="text-center">
+						{/* TAB SELECTOR */}
+						<Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
+						    <Tab>Portfolio</Tab>
+						    <Tab>Accounts</Tab>
+						</Tabs>
+						{/* PORTFOLIO TAB */}
+						<section style={state.firstTabStyle}>
+						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
+						        <div className="video-container">
+						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
+						        </div>
+						        <PortfolioTableContainer users={props.userAccounts} />
+						</section>
+						{/* ACCOUNTS TAB */}
+						<section style={state.secondTabStyle}>
+						    <h4><i>nothing here yet...</i></h4>
+						</section>
+					</Cell>
                   	{/* RED FLOATING BUTTON */}
 	                <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
 	                    <Icon name="add" />
