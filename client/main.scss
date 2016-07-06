@@ -104,6 +104,12 @@ body {
 .mdl-layout__inner-container{
   height: auto !important;
 }
+// fab (circular) buttons are usually used to make floating buttons
+.mdl-button--fab, .fab, .float, .float-button, .button-float {
+	position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
 // problem: floating FABButton were invisible in .mdl-card area
 .mdl-card {
 	z-index: 0 !important;
