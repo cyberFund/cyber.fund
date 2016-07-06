@@ -1,26 +1,28 @@
 import React, { PropTypes } from 'react'
 import helpers from '../helpers'
+import { Show } from '../components/Utils'
 import Image from '../components/Image'
-import Loading from '../components/Loading'
 
 const UsersList = props => {
-	const users = props.users.map( user => {
-		return  <a key={user._id}
-					href={`/@${user.username}`}
-				   	title={user.username}>
-				    <Image src={user.avatar} avatar />
-				</a>
-	})
-    return props.loaded ? <div {...props}>{users}</div> : <Loading />
-}
-// TODO do we need loading here?
-UsersList.defaultProps = {
-	loaded: true
+	return 	<Show condition={props.users} component='section' {...props}>
+				<h5>{props.title}</h5>
+				{
+					props.users.map( user => {
+					return  <a key={user._id}
+								href={`/@${user.username}`}
+								title={user.username}
+							>
+								<Image src={user.avatar} avatar />
+							</a>
+					})
+				}
+				{props.children}
+			</Show>
 }
 
 UsersList.propTypes = {
- users: PropTypes.array.isRequired,
- loaded: PropTypes.bool
+	users: PropTypes.array.isRequired,
+	title: PropTypes.string.isRequired
 }
 
 export default UsersList
