@@ -1,7 +1,12 @@
 import React, { PropTypes } from 'react'
+import { _ } from 'meteor/underscore'
 // check condition value
-function check (value) {
-    return Boolean(value)
+function check (props) {
+	const data = props.condition || props.unless
+	// check for empty object or array
+	if ( _.isObject(data) && _.isEmpty(data) ) return false
+	// if 'condition' not specified means 'unless' is used
+    return props.condition ? Boolean(data) : !Boolean(data)
 }
 /* 	check() and render() not merged because in future check
 	might have more checks and/or will be used elsewhere */
@@ -12,26 +17,28 @@ function render(props) {
 	else return props.children
 }
 // <Show condition={true}> {props.children} </Show> == show element
+// <Show unless={true}> {props.children} </Show> == hide element
 const Show = props => {
-    return check(props.condition) ? render(props) : null
+    return check(props) ? render(props) : null
 }
 // <Hide condition={true}> {props.children} </Hide> == hide element
+// <Hide unless={true}> {props.children} </Hide> == show element
 const Hide = props => {
-	return !check(props.condition) ? render(props) : null
+	return !check(props) ? render(props) : null
 }
 // <If condition={true}> {props.children} </If> == show element
 const If = props => {
-    return check(props.condition) ? render(props) : null
+    return check(props) ? render(props) : null
 }
 // <Unless condition={true}> {props.children} </Unless> == hide element
 const Unless = props => {
-    return !check(props.condition) ? render(props) : null
+    return !check(props) ? render(props) : null
 }
 // this used in cinjuction with <IF />
 // <If condition={true} /> == show element
 // <Else condition={true} />  == hide element
 const Else = props => {
-    return !check(props.condition) ? render(props) : null
+    return !check(props) ? render(props) : null
 }
 
 export { Show, Hide, If, Unless, Else }
