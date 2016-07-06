@@ -1,15 +1,17 @@
 import React, { Component, PropTypes }  from 'react'
 import { Meteor } from 'meteor/meteor'
-import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
+import { FlowRouter } from 'meteor/kadira:flow-router'
+import { Grid, Cell, IconButton, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
-import { If, Unless } from '../components/Utils'
+import { If, Else, Unless, Hide } from '../components/Utils'
 import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
 import PortfolioTableContainer from '../containers/PortfolioTableContainer'
 import UsersList from '../components/UsersList'
+import AddAddress from '../components/AddAddress'
 // TODO sort check dependencies usage
 
 class ProfilePage extends Component {
@@ -42,9 +44,21 @@ class ProfilePage extends Component {
 		console.warn('User logout fired!')
 		Meteor.logout() && analytics.track('Sign Out', { from: 'profile' })
 	}
-
+	toggleFollow() {
+		if (!Meteor.user()) FlowRouter.go("/welcome");
+		// if following == true => unfollow and vise versa
+		const unfollow = this.props.following
+		Meteor.call('followUser', CF.Profile.currentUid(), unfollow ? { unfollow } : undefined)
+		analytics.track(
+			unfollow ? 'Followed Person' : 'Followed Person',
+			{ personName: CF.Profile.currentUsername() }
+		)
+	}
     render() {
-        const {props, state, changeTab, props: {user, isOwnProfile}} = this
+        const	{props: {user, isOwnProfile, following, userNumber}, state, props} = 	this,
+				{toggleFollow, changeTab, handleLogout} 	= 	this,
+				listStyle									=	{margin: '0 3px 6px'}
+
         return props.loaded ? (
               <Grid id="ProfilePage">
                   {/* USER INFO */}
@@ -107,28 +121,14 @@ class ProfilePage extends Component {
 					<If condition={isOwnProfile}>
 						<AddAddress />
 					</If>
+					<Else condition={isOwnProfile}>
+						<FABButton onClick={toggleFollow.bind(this)} colored ripple>
+							<Icon name={following ? 'remove circle' : 'person'} />
+		                </FABButton>
+					</Else>
               </Grid>
         ) : <Loading />
     }
-    /*Template['profile'].events({
-      'click .btn-follow': function(e, t) {
-        analytics.track('Followed Person', {
-          personName: CF.Profile.currentUsername()
-        });
-        if (!Meteor.user()) FlowRouter.go("/welcome");
-        Meteor.call('followUser', CF.Profile.currentUid())
-      },
-      'click .btn-unfollow': function(e, t) {
-        analytics.track('Unfollowed Person', {
-          personName: CF.Profile.currentUsername()
-        });
-        if (!Meteor.user()) FlowRouter.go("/welcome");
-        Meteor.call('followUser', CF.Profile.currentUid(), {
-          unfollow: true
-        })
-      }
-    });*/
-
 }
 // TODO don't forget to add proptypes (reminder: they are same as container returned variables)
 ProfilePage.propTypes = {
