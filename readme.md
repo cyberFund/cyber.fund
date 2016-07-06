@@ -29,11 +29,21 @@ $`meteor`
 
 soon. docs will go [there](https://market.mashape.com/21xhipster/cyberfund)
 
+### Collections
 
-
-
-
-
-
-
-
+ - CurrentData
+ - MarketData
+ - accounts
+ - accountsHistory
+ - cronHistory
+ - extras
+ - fast_market_data
+ - meteor_accounts_loginServiceConfiguration
+ - meteor_oauth_pendingCredentials
+ - meteor_oauth_pendingRequestTokens
+ - system.indexes
+ - system.js
+ - users
+ - xchangeCurrent
+ - xchangeVwap
+ - xchangeVwapCurrent
