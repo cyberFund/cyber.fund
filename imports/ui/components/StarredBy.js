@@ -23,7 +23,7 @@ class StarredBy extends React.Component {
 		const {toggleUsersList, state, props: {system, users}} = this
 
 		return  <Grid>
-					<Cell col={12} tablet={8} phone={4}>
+					<Cell col={12}>
 						<If condition={get(system, '_usersStarred.length')}>
 							<section className="text-center">
 								<Button

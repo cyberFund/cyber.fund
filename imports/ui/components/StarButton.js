@@ -18,7 +18,7 @@ class StarButton extends React.Component {
 
 		if (!Meteor.userId()) FlowRouter.go('/welcome')
 
-		// add/remove system to user/.starredSystems
+		// add/remove system to user.starredSystems
 		Meteor.call("toggleStarSys", systemName)
 		// change icon color
 		this.setState({starred: !starred})
@@ -32,12 +32,10 @@ class StarButton extends React.Component {
         const 	{props, toggleStar, state} = this,
 				color = state.starred ? 'yellow' : 'white'
 
-		/* TODO create .float class and add this styles to it, or just ovveride mdl floating  styles */
 		return 	<FABButton
 					onClick={toggleStar.bind(this)}
 					colored
 					ripple
-					style={{position: 'fixed', right: 24, bottom: 24}}
 				>
 					<Icon name="star" style={{color}} />
 				</FABButton>

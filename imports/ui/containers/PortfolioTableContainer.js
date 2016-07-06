@@ -37,7 +37,6 @@ function filterData(){
 }
 
 const userProfileData = filterData()
-console.log(userProfileData)
 /*CF.Accounts.userProfileData = function(){
   return filterData()
 };*/

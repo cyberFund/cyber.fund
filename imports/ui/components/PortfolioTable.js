@@ -22,7 +22,6 @@ import Image from '../components/Image'
 });*/
 
 const PortfolioTable = props => {
-	console.log(props.systems)
 	// render rows with data
   	function renderRows() {
 		return props.systems.map( system => {
