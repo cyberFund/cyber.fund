@@ -103,10 +103,10 @@ class ProfilePage extends Component {
 						    <h4><i>nothing here yet...</i></h4>
 						</section>
 					</Cell>
-                  	{/* RED FLOATING BUTTON */}
-	                <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
-	                    <Icon name="add" />
-	                </FABButton>
+                  	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
+					<If condition={isOwnProfile}>
+						<AddAddress />
+					</If>
               </Grid>
         ) : <Loading />
     }
