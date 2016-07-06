@@ -14,6 +14,9 @@ using !important everywhere because currently mdl-react links styles using <styl
 this solution is temporary
 */
 
+@import url('https://code.getmdl.io/1.1.3/material.blue-red.min.css');
+
+
 /* MAIN */
 body {
     margin: 0;
