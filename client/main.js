@@ -9,6 +9,11 @@ import '../imports/startup/accounts-config'*/
 //import '../node_modules/react-mdl/extra/material.min.css'
 import '../node_modules/react-mdl/extra/material.js'
 
+// Needed for onTouchTap (Material-UI dependency)
+// http://stackoverflow.com/a/34015469/988941
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
+
 // import keenIo charts before before components because some rely on it
 import '../imports/startup/keenIo'
 import '../imports/startup/routes'

@@ -2,6 +2,7 @@ import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { $ } from 'meteor/jquery'
 import { If, Then, Else } from 'react-if'
+import MaterialUiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList, Button } from 'react-mdl'
@@ -62,6 +63,7 @@ class MainLayout extends React.Component {
                        {loginOrProfileLink}
                    </Navigation>
    return (
+	<MaterialUiThemeProvider>
      <Layout>
        {/* HEADER NAV */}
        <Header scroll title={brandLink}>{navLinks}</Header>
@@ -152,6 +154,7 @@ class MainLayout extends React.Component {
             </FooterSection>
         </Footer>
       </Layout>
+  </MaterialUiThemeProvider>
   )}
 }
 
