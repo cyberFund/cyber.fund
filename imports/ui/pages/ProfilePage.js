@@ -69,7 +69,7 @@ class ProfilePage extends Component {
 						  />
 						<h4 itemprop="name">{user.profile.name}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
-						<div className="grey-text">
+						<section className="grey-text">
 						  <If condition={get(user, 'services.twitter', false)}>
 							<a className="grey-text" href={`https://twitter.com/@${user.username}`}>
 							  <span itemprop="alternateName">
@@ -83,19 +83,21 @@ class ProfilePage extends Component {
 						  <div>
 							  Joined on {helpers.dateFormat(user.createdAt, "Do MMM, YYYY")}
 						  </div>
-						</div>
+					    </section>
 						{/*TODO do we need this .profile-lists wrapper?*/}
-						<div class="profile-lists">
-							<h5>Starred</h5>
-							<SystemsList systems={props.starred} style={{margin: '0 3px 6px'}} />
-							<h5>Followers</h5>
-							<UsersList users={props.followedByUsers} style={{margin: '0 3px 6px'}} />
-							<h5>Following</h5>
-							<UsersList users={props.followingUsers} className="avatar-round" style={{margin: '0 3px 6px'}} />
-						</div>
-						{/* logout button */}
-						<If condition={isOwnProfile}>
-							<Button onClick={this.handleLogout} raised colored ripple>Logout</Button>
+						{/* STARRED FOLLOWERS FOLLOWING */}
+						<section class="profile-lists">
+							<SystemsList systems={props.starred} title='Starred' style={listStyle} />
+							<UsersList users={props.followedByUsers} title='Followers' style={listStyle} />
+							<UsersList users={props.followingUsers} title='Following' className="avatar-round" style={listStyle} />
+						</section>
+						{/* logout button and userNumber */}
+						<If condition={isOwnProfile} component='div'>
+							<Button onClick={handleLogout} raised colored ripple>Logout</Button>
+							<Hide unless={userNumber <= 400}>
+								<p>You are user #{userNumber}</p>
+								<p>>We have classified you as group {userNumber <= 100 ? 'A' : 'B'} user</p>
+							</Hide>
 						</If>
                   </Cell>
 					<Cell col={9} tablet={5} phone={4} className="text-center">
