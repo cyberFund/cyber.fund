@@ -4,16 +4,15 @@ import { _ } from 'meteor/underscore'
 function check (props) {
 	const data = props.condition || props.unless
 	// check for empty object or array
-	if ( _.isObject(data) && _.isEmpty(data) ) return false
+	if (_.isObject(data)) return !_.isEmpty(data)
 	// if 'condition' not specified means 'unless' is used
-    return props.condition ? Boolean(data) : !Boolean(data)
+    return _.has(props, 'condition') ? Boolean(data) : !Boolean(data)
 }
 /* 	check() and render() not merged because in future check
 	might have more checks and/or will be used elsewhere */
 function render(props) {
 	// if component specified create custom element
 	if (props.component) return <props.component {...props} />
-	// else return children
 	else return props.children
 }
 // <Show condition={true}> {props.children} </Show> == show element
@@ -34,7 +33,7 @@ const If = props => {
 const Unless = props => {
     return !check(props) ? render(props) : null
 }
-// this used in cinjuction with <IF />
+// this used in conjuction with <IF />
 // <If condition={true} /> == show element
 // <Else condition={true} />  == hide element
 const Else = props => {
