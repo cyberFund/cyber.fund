@@ -9,7 +9,7 @@ class StarButton extends React.Component {
 	constructor(props) {
 		super(props)
 		// state.starred = user has systemId in starredSystems
-		const starredSystems = get(Meteor.user(), 'profile.starredSystems', [])
+		const starredSystems = get(Meteor.user(), 'profile.starredSystems') || []
 		this.state = { starred: starredSystems.includes(this.props.systemId) }
 	}
     toggleStar() {

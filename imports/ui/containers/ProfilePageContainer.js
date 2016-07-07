@@ -1,6 +1,7 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
+import { _ } from 'meteor/underscore'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import get from 'oget'
 import ProfilePage from '../pages/ProfilePage'
@@ -18,7 +19,7 @@ export default ProfilePageContainer = createContainer(() => {
 
     // TODO refactoring, add comments
 
-	if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie){ //crutch
+	if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie) { //crutch
 	  CF.UserAssets.graph.folioPie.update({
 	    labels: [],
 	    series: []
@@ -53,6 +54,6 @@ export default ProfilePageContainer = createContainer(() => {
 		//followingCount: get(user, 'profile.followingUsers.length', 0),
 		//followedByCount: get(user, 'profile.followedBy', 0),
 		//check if current user is following this profile
-		following: get(Meteor.user(), 'profile.followingUsers', []).includes(user._id)
+		following: _.contains(get(Meteor.user(), 'profile.followingUsers') || [], user._id)
   }
 }, ProfilePage)
