@@ -10,30 +10,26 @@ import get from 'oget'
 class StarredBy extends React.Component {
 	constructor(params){
 		super(params)
-		this.state = {
-		  showUsers: false
-		}
+		this.state = {  showUsers: false }
+		this.toggleUsersList = this.toggleUsersList.bind(this)
 	}
 	toggleUsersList() {
-		this.setState({
-			showUsers: !this.state.showUsers
-		})
+		this.setState({ showUsers: !this.state.showUsers })
 	}
 	render() {
-		const {toggleUsersList, state, props: {system, users}} = this
-
+		const {toggleUsersList, state: {showUsers}, props: {system, users}} = this
 		return  <Grid>
 					<Cell col={12}>
 						<If condition={get(system, '_usersStarred.length')}>
 							<section className="text-center">
 								<Button
-									onClick={toggleUsersList.bind(this)}
+									onClick={toggleUsersList}
 									component="h5"
 									title="click to see users"
 									raised ripple>
 									  Starred by {system._usersStarred.length} people
 								</Button>
-								<If condition={state.showUsers}>
+								<If condition={showUsers}>
 									<UsersList users={users} />
 								</If>
 							</section>
