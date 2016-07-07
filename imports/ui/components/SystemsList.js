@@ -23,7 +23,7 @@ const SystemsList = props => {
 
 SystemsList.propTypes = {
 	systems: PropTypes.array.isRequired,
-	title: PropTypes.string.isRequired
+	title: PropTypes.string
 }
 
 export default SystemsList

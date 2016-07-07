@@ -22,7 +22,7 @@ const UsersList = props => {
 
 UsersList.propTypes = {
 	users: PropTypes.array.isRequired,
-	title: PropTypes.string.isRequired
+	title: PropTypes.string
 }
 
 export default UsersList
