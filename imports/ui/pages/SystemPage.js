@@ -6,6 +6,7 @@ import Metrics from '../components/Metrics'
 import ChaingearLink from '../components/ChaingearLink'
 import SystemAbout from '../components/SystemAbout'
 import SystemLinks from '../components/SystemLinks'
+import SpecsTable from '../components/SpecsTable';
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import KeenChart from '../components/KeenChart'
@@ -116,11 +117,7 @@ return loaded ? (
 				</Cell>
 			</If>
 		</Grid>
-		<Grid>
-			<Cell col={12}>
-				<h2>Specification Table</h2>
-			</Cell>
-		</Grid>
+		<SpecsTable system={system} />
 		<Grid>
 			<Cell col={12}>
 				<p>You can <a target="_blank" href={githubLink}> improve {_id}'s page</a> on Github.</p>
