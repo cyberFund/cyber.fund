@@ -221,6 +221,19 @@ body {
         margin-top: 20px;
     }
 }
+/**** LOGIN PAGE ****/
+#LoginPage {
+	height: calc(100vh - 64px); // screen size minus navbar size
+	position: relative;
+	// login/signin template was not centered
+	// first section = .at-form (accounts-ui login/signin template)
+	> section {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
 
 /* MainLayout */
 main {
