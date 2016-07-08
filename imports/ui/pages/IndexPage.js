@@ -3,7 +3,7 @@ import { Meteor } from 'meteor/meteor'
 import helpers from '../helpers'
 import { Hide } from '../components/Utils'
 import { Button,  Grid, Cell } from 'react-mdl'
-import Top5Assets from '../components/Top5Assets'
+import Top5AssetsContainer from '../containers/Top5AssetsContainer'
 import CybernomicsCap from '../components/CybernomicsCap'
 //import BalanceChecker from '../components/BalanceChecker'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
@@ -20,12 +20,11 @@ const IndexPage = props => {
           </Cell>
         </Grid>
         {/* ASSETS TABLE */}
-        <Top5Assets systems={props.systems}>{/* component */}
+        <Top5AssetsContainer systems={props.systems}>{/* component */}
           <Cell col={12} className="text-center">{/* components children */}
             <Button component="a" href="/rating" style={{margin: '0 5px'}} raised colored>Start Investing</Button>
             <Button component="a" href="/listing" style={{margin: '0 5px'}} raised disabled>Attract Investments</Button>
           </Cell>
-        </Top5Assets>
         {/* WIDGETS */}
         <Grid> {/* TODO: move Cell into <DayliWidget /> ? */}
             <Cell col={4} tablet={4} phone={4}>
@@ -66,7 +65,6 @@ IndexPage.propTypes = {
   sumBtc: PropTypes.number.isRequired,
   usersCount: PropTypes.number.isRequired,
   coinsCount: PropTypes.number.isRequired,
-  systems: PropTypes.array.isRequired,
   activeCrowdsales: PropTypes.array.isRequired,
   loaded: PropTypes.bool.isRequired
 }
