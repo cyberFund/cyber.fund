@@ -2,34 +2,32 @@ import React from 'react'
 import { Meteor } from 'meteor/meteor'
 import { createContainer } from 'meteor/react-meteor-data'
 import IndexPage from '../pages/IndexPage'
+import get from 'oget'
 
 export default IndexPageContainer = createContainer(() => {
     const 	investDataReady  = 	Meteor.subscribe("investData").ready(),
-			crowdsalesReady  = 	Meteor.subscribe("crowdsalesAndProjectsList").ready(),
-			currentDataReady = 	Meteor.subscribe("currentDataRP", {
-										selector: {},
-										sort:{"calculatable.RATING.sum": -1},
-										limit: 5
-								}).ready()
+			crowdsalesReady  = 	Meteor.subscribe("crowdsalesAndProjectsList").ready()
 
     // variables
     // TODO: ??? do we even use any of this?
-    const cap = Extras.findOne("total_cap"),
-    capBtc = cap ? cap.btc : 0,
-    capUsd = cap ? cap.usd : 0,
-    capUsdYesterday = cap ? cap.usdDayAgo : 0,
-    capBtcDailyChange = cap && cap.btc ? (cap.btc - cap.btcDayAgo)/cap.btc * 100 : 0,
-    capUsdDailyChange = cap && cap.usd ? (cap.usd - cap.usdDayAgo)/cap.usd * 100 : 0,
-    sumBtc = () => {
-      let ret = 0
-      if (!Meteor.userId()) return ret
-      CF.Accounts.collection
-          .find({refId: Meteor.userId()}).fetch()
-          .forEach(acc =>{
-            ret += acc.vBtc || 0;
-          })
-      return ret;
+    const 	cap = Extras.findOne("total_cap"),
+		    capBtc = get(cap, 'btc', 0),
+		    capUsd = get(cap, 'usd', 0),
+			btcDayAgo = get(cap, 'btcDayAgo', 0),
+			usdDayAgo = get(cap, 'usdDayAgo', 0),
+		    //capUsdYesterday = get(cap, 'usdDayAgo', 0),
+		    capBtcDailyChange = (capBtc - btcDayAgo)/capBtc * 100,
+		    capUsdDailyChange = (capUsd - usdDayAgo)/capUsd * 100
+
+    function sumBtc() {
+		let ret = 0
+		if (!Meteor.userId()) return ret
+		CF.Accounts.collection
+			.find({refId: Meteor.userId()}).fetch()
+			.forEach(acc =>{ ret += acc.vBtc || 0 })
+		return ret;
     }
+
     // TODO: move active corwsales into CrowdsaleCardListContainer with type=active
     const activeCrowdsales = CurrentData.find({
       $and: [{crowdsales: {$exists: true}}, {
@@ -56,10 +54,6 @@ export default IndexPageContainer = createContainer(() => {
       sumBtc: sumBtc(),
       usersCount: Counts.get('usersCount'),
       coinsCount: Counts.get('coinsCount'),
-      systems: CurrentData.find({}, {
-					  sort:{"calculatable.RATING.sum": -1},
-					  limit: 5
-				  }).fetch(),
-      loaded: investDataReady && crowdsalesReady && currentDataReady
+      loaded: investDataReady && crowdsalesReady
     }
 }, IndexPage)
