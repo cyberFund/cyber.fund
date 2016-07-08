@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Grid, Cell, Icon, Button, Tabs, Tab } from 'react-mdl'
+import { _ } from 'meteor/underscore'
 import { If } from '../components/Utils'
 import ChaingearLink from '../components/ChaingearLink';
 import helpers from '../helpers'
@@ -18,6 +19,8 @@ class SystemLinks extends React.Component {
 				{ activeTab, displayTabs } = this.state,
 				{ linksWithTag, linksWithoutTags, existLinksWith } = helpers,
 				tags = ['Exchange', 'Wallet', 'Analytics', 'Magic']
+
+		if (_.isEmpty(links)) return null
 
 		function renderLinksArea() {
 			let linksArray = linksWithTag( links, tags[activeTab] )
