@@ -4,36 +4,45 @@ import {Grid, Cell} from 'react-mdl'
 import helpers from '../helpers'
 
 const SpecsTable = props => {
-	const row = (value, key)=> {
-		return <tr>
-					<td className="mdl-data-table__cell--non-numeric">
+
+	// NOTE table is rendered by mapping system.specs object,
+	// first row == property key, second == property value
+	console.log(props.system.specs)
+	if (_.isEmpty(props.system.specs)) return null
+
+	const tableClasses = "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center"
+	const nonNumeric = "mdl-data-table__cell--non-numeric"
+
+	function renderTableRow(value, key) {
+		// handle nested objects by reruning function
+		if (_.isObject(value)) return _.map(value, renderTableRow)
+		return <tr key={key}>
+					{/* key */}
+					<td className={nonNumeric}>
 						{helpers._specs_(key)}
 					</td>
+					{/* value */}
 					<td>{helpers.readableNumbers(value)}</td>
 				</tr>
 	}
+
     return  <Grid>
 				<Cell col={12}>
-					<h2>Specification Table</h2>
-					<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...props}>
+					<h3 className="text-center">Specification Table</h3>
+					<table className={tableClasses} {...props}>
 						<thead>
 							<tr>
-								<th style={{textAlign: 'center'}} className="mdl-data-table__cell--non-numeric">
+								<th className={nonNumeric}>
 								    Property
 								</th>
 								<th>Value</th>
 							</tr>
 						</thead>
 						<tbody>
-							{_.map(
-									props.system.specs,
-									(value, key)=> row(value, key)
-							)}
+							{_.map(props.system.specs, renderTableRow)}
 						</tbody>
 					</table>
 				</Cell>
-	          {/* you can add components after table */}
-	          {props.children}
 	        </Grid>
 }
 
