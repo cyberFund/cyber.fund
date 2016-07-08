@@ -25,6 +25,7 @@ const IndexPage = props => {
             <Button component="a" href="/rating" style={{margin: '0 5px'}} raised colored>Start Investing</Button>
             <Button component="a" href="/listing" style={{margin: '0 5px'}} raised disabled>Attract Investments</Button>
           </Cell>
+		</Top5AssetsContainer>
         {/* WIDGETS */}
         <Grid> {/* TODO: move Cell into <DayliWidget /> ? */}
             <Cell col={4} tablet={4} phone={4}>
