@@ -29,7 +29,7 @@ const Top5Assets = (props) => {
 							{months ? helpers.readableN0(months) : ''}
 						</td>
 						<td>
-							{helpers.readableN1(system.calculatable.RATING.sum)}
+							{helpers.readableN1(get(system, 'calculatable.RATING.sum', 0))}
 						</td>
 					</tr>
 		})
