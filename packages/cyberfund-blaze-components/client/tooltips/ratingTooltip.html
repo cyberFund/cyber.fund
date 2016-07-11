@@ -1,0 +1,46 @@
+<template name="ratingTooltip">
+    <span>rating: {{readableN1 RATING.sum}}</span>
+</template>
+
+<template name="tickerTooltip">
+  <div>Ticker:
+    <b itemprop="alternateName">{{token.symbol}}</b>
+  </div>
+  <div>Currency name:
+    <b>{{displayCurrencyName this}}</b>
+  </div>
+
+  <div>Current supply:
+    <b>{{readableN0 metrics.supply}}</b>
+  </div>
+  <div>Absolute change:
+    <b>{{readableN0 metrics.supplyChange.day}}</b>
+  </div>
+</template>
+
+<template name="tradeTooltip">
+  <div>Trade volume (24h):<b>{{readableN2 metrics.tradeVolume}}</b>BTC
+  </div>
+  <div>{{#if eq _period "month"}}Monthly{{else}}Daily{{/if}} change :<b>
+    {{#if eq _period "month"}}
+      {{readableN2 (monthToMonthTradeVolumeChange this)}}
+    {{else}}
+      {{readableN2 (dayToDayTradeVolumeChange this)}}
+    {{/if}}
+  </b> %
+  </div>
+
+  <div>Turnover:<b>{{readableN2 (cdTurnover)}}</b> %
+  </div>
+</template>
+
+<template name="itemPropTooltip">
+  <div>
+    <h5>Price per 1 {{displaySystemName this}}:</h5>
+    <br/>
+    <b class="nowrap" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+ <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+ <span itemprop="price" content="{{metrics.price.usd}}">
+   {{metrics.price.usd}}</span></b>
+  </div>
+</template>

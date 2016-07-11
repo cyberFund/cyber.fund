@@ -1,0 +1,32 @@
+.quickchart {
+  position: relative;
+  bottom: 0;
+  left: 4px;
+  width: 140px;
+  background: #fff;
+  border: 1px solid #eef;
+  height: 50px;
+  font-size: 10px;
+}
+
+.ficus {
+  font-size: 12px;
+}
+
+.focus-horiz {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
+}
+
+.focus-vert {
+  stroke-width: 0.9;
+  stroke: yellow;
+  fill: none
+}
+
+.qc-line-1 {
+    stroke: red;
+    stroke-width: 2;
+    fill: none;
+}

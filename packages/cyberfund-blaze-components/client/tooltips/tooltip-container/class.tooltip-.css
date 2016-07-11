@@ -1,0 +1,92 @@
+/*a.tooltip {
+  outline: none;
+}*/
+
+a.tooltip strong {
+  line-height: 30px;
+}
+
+a.tooltip:hover {
+  text-decoration: none;
+}
+
+a.tooltip span {
+  z-index: 10;
+  display: none;
+  margin-top: 60px;
+  margin-left: -160px;
+  width: 300px;
+  line-height: 16px;
+}
+
+a.tooltip:hover span {
+  display: inline;
+  position: absolute;
+  border: 2px solid #FFF;
+  color: #EEE;
+  background: #333;
+}
+
+.with-tooltip {
+  position: relative;
+}
+
+.with-tooltip .tooltip {
+  display: none;
+  visibility: hidden;
+}
+
+.with-tooltip:hover .tooltip, .tooltip-v  {
+  position: absolute;
+  display: block;
+  visibility: visible;
+  z-index: 40;
+}
+
+.tooltip-default {
+  background: white;
+  right: 80%;
+  top: 0;
+}
+
+.tooltip-default, .tooltip-table-head {
+  text-align: left;
+  border-radius: 6px;
+  width: 250px;
+  line-height: 1rem;
+  font-size: 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
+  padding: 1.2em;
+}
+
+.right0{right: 0}
+
+.tooltip-table-head {
+  background: white;
+}
+.tooltip-table-head a {
+  color: darkcyan;
+}
+.tooltip-table-head p, .tooltip-table-head-lite p{
+  text-align: justify; margin: 0.2em 1em
+}
+
+.tooltip-table-head-lite {
+  text-align: inherit;
+  padding: 0.5em;
+  background: #f0d092;
+  font-variant: small-caps;
+  top: 80%;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
+  left: 0;
+}
+
+.tooltip-chartie-head-lite {
+  text-align: inherit;
+  padding: 1em;
+  background: #f0d092;
+  font-variant: small-caps;
+  top: 50%;
+  box-shadow: rgba(0, 0, 0, 0.26) 0 3px 10px 0;
+  left: 70%;
+}

@@ -1,0 +1,15 @@
+<template name="withTooltip">
+  <div class="with-tooltip" style={{style}}>
+    {{> UI.contentBlock}}</div>
+</template>
+
+<template name="tooltipContainer">
+    {{# tooltip dynamic=true class=(tooltipStyleClass this.class)}}
+    {{>Template.dynamic template=ttName data=data}} {{/tooltip}}
+</template>
+
+<template name="tooltip">
+  <div class="z-depth-1 tooltip{{#if dynamic}}-v{{/if}}
+{{#if class}}{{class}}{{else}}tooltip-default{{/if}}">
+    {{> UI.contentBlock}}</div>
+</template>
