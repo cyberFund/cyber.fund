@@ -6,7 +6,7 @@ import MaterialUiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList, Button } from 'react-mdl'
-import BitcoinPrice from '../components/BitcoinPrice'
+import BitcoinPrice from '../../components/BitcoinPrice'
 
 class MainLayout extends React.Component {
     componentDidMount() {

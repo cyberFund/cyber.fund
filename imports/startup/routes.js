@@ -2,7 +2,7 @@ import React from 'react'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import { mount } from 'react-mounter'
 
-import MainLayout from '../ui/pages/MainLayout'
+import MainLayout from '../ui/pages/layouts/MainLayout'
 import IndexPageContainer from '../ui/containers/IndexPageContainer'
 import WelcomePage from '../ui/pages/WelcomePage'
 import LoginPage from '../ui/pages/LoginPage'
