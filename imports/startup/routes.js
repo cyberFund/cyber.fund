@@ -113,7 +113,7 @@ FlowRouter.triggers.enter([
 ]);
 
 
-FlowRouter.route("/tracking", {
+/*FlowRouter.route("/tracking", {
   name: "Tracking",
   triggersEnter: [
     function initPageLimit(context, redirect) {
@@ -130,7 +130,7 @@ FlowRouter.route("/tracking", {
       main: "tracking"
     });
   }
-});
+});*/
 
 
 FlowRouter.route("/system/:name_", {
@@ -198,6 +198,16 @@ FlowRouter.route("/welcome", {
   triggersEnter: [redirectLoggedToProfile]
 });
 
+FlowRouter.route("/decisions", {
+  name: "Decisions",
+  action: function(params, queryParams) {
+      mount(MainLayout, {
+        main: <DecisionsPage />
+      })
+  }
+});
+
+/*
 FlowRouter.route("/cyberep", {
   name: "Cyberep",
   action: function(params, queryParams) {
@@ -243,15 +253,6 @@ FlowRouter.route("/main", {
   }
 });
 
-FlowRouter.route("/decisions", {
-  name: "Decisions",
-  action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <DecisionsPage />
-      })
-  }
-});
-
 FlowRouter.route("/invest", {
   name: "Invest",
   action: function(params, queryParams) {
@@ -260,7 +261,7 @@ FlowRouter.route("/invest", {
     });
   }
 });
-
+*/
 
 // TODO: move to triggers
 var sorters = {
@@ -347,7 +348,7 @@ FlowRouter.route("/rating/:sort", {
   }
 });
 
-FlowRouter.route("/monthly/rating", {
+/*FlowRouter.route("/monthly/rating", {
   name: "rating",
   triggersEnter: [
     function (context, redirect){
@@ -364,7 +365,7 @@ FlowRouter.route("/monthly/rating/:sort", {
       main: "ratingPageMonthly"
     });
   }
-});
+});*/
 
 FlowRouter.route("/radar", {
   name: "Radar",
