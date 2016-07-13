@@ -31,8 +31,8 @@ const SystemAbout = props => {
 						{system.consensus.algorithm}
 					</span>
 				</Cell>
-				<Cell col={12} tablet={8} phone={4}>
-					<If condition={get(system, 'descriptions.headline', undefined)}>
+				<Cell col={12}>
+					<If condition={get(system, 'descriptions.headline')}>
 						<p itemProp="description">
 							{system.descriptions.headline}
 						</p>

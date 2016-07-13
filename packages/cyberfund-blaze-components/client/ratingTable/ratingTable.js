@@ -27,7 +27,8 @@ Template["ratingTable"].onCreated(function() {
 
   var instance = this;
   instance.ready = new ReactiveVar();
-
+  // trying to avoid "Cannot set property 'MarketData' of undefined"
+  // CF.subs = {}
   CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
     selector: tableSelector()
   });

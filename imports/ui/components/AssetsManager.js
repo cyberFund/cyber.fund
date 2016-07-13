@@ -5,7 +5,7 @@ import { If } from '../components/Utils'
 import ChaingearLink from '../components/ChaingearLink';
 import helpers from '../helpers'
 
-class SystemLinks extends React.Component {
+class AssetsManager extends React.Component {
 	constructor(params) {
 		super(params)
 		this.state = {
@@ -66,9 +66,9 @@ class SystemLinks extends React.Component {
 	}
 }
 
-SystemLinks.propTypes = {
+AssetsManager.propTypes = {
 	links: PropTypes.array.isRequired,
 	systemId: PropTypes.string.isRequired
 }
 
-export default SystemLinks
+export default AssetsManager

@@ -3,12 +3,12 @@ import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
 import StarredBy from '../components/StarredBy'
 
-export default StarredByContainer = createContainer( props => {
+export default createContainer( props => {
 
-	const loaded = Meteor.subscribe('avatars', props.system._usersStarred).ready()
-	const users = Meteor.users.find({
-				'profile.starredSystems': props.system._id
-		}).fetch()
-
+	const 	loaded 	= 	Meteor.subscribe('avatars', props.system._usersStarred).ready(),
+			users 	= 	Meteor.users.find({
+							'profile.starredSystems': props.system._id
+						}).fetch()
 	return { loaded, users }
+
 }, StarredBy)

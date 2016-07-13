@@ -14,6 +14,9 @@ using !important everywhere because currently mdl-react links styles using <styl
 this solution is temporary
 */
 
+@import url('https://code.getmdl.io/1.1.3/material.blue-red.min.css');
+
+
 /* MAIN */
 body {
     margin: 0;
@@ -100,6 +103,12 @@ body {
 // but no such styles were applied to actual tag. Very strange.
 .mdl-layout__inner-container{
   height: auto !important;
+}
+// fab (circular) buttons are usually used to make floating buttons
+.mdl-button--fab, .fab, .float, .float-button, .button-float {
+	position: fixed;
+    right: 20px;
+    bottom: 20px;
 }
 // problem: floating FABButton were invisible in .mdl-card area
 .mdl-card {
@@ -211,6 +220,19 @@ body {
     p a { // "For Developers" button links
         margin-top: 20px;
     }
+}
+/**** LOGIN PAGE ****/
+#LoginPage {
+	height: calc(100vh - 64px); // screen size minus navbar size
+	position: relative;
+	// login/signin template was not centered
+	// first section = .at-form (accounts-ui login/signin template)
+	> section {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
 }
 
 /* MainLayout */

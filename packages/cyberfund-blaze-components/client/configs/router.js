@@ -1,46 +1,3 @@
-import React from 'react'
-import { FlowRouter } from 'meteor/kadira:flow-router'
-import { mount } from 'react-mounter'
-
-import MainLayout from '../ui/pages/layouts/MainLayout'
-import IndexPageContainer from '../ui/containers/IndexPageContainer'
-import WelcomePage from '../ui/pages/WelcomePage'
-import LoginPage from '../ui/pages/LoginPage'
-import ProfilePageContainer from '../ui/containers/ProfilePageContainer'
-import RadarPageContainer from '../ui/containers/RadarPageContainer'
-import SystemPageContainer from '../ui/containers/SystemPageContainer'
-import RatingPage from '../ui/pages/RatingPage'
-import FundsPageContainer from '../ui/containers/FundsPageContainer'
-import DecisionsPage from '../ui/pages/DecisionsPage'
-
-//TODO: refactor routes as done below
-/*[
-  ['/', 'Index', <IndexPageContainer />],
-  ['/welcome', 'Welcome', <WelcomePage />],
-  ['/sign-in', 'SignIn', <LoginPage />],
-  ['/radar', 'Radar', <RadarPageContainer />],
-  ['/rating', 'Rating', <RatingPage />],
-  ['/funds', 'Funds', <FundsPageContainer />]
-].forEach( item =>{
-    FlowRouter.route(item[0], {
-        name: item[1]
-        action() {
-            mount(MainLayout, {
-              main: item[2]
-            })
-        }
-    })
-  })
-*/
-FlowRouter.notFound = {
-    action: function() {
-      console.warn('Route not found! Redirecting to index page')
-      mount(MainLayout, {
-        // TODO: create 404Page component
-          main: <IndexPageContainer />
-      })
-    }
-}
 //FlowRouter.triggers.enter([cb1, cb2]);
 //FlowRouter.triggers.exit([cb1, cb2]);
 
@@ -52,7 +9,7 @@ FlowRouter.notFound = {
 // this one redirects user to his profile.
 // so far only twitter accounts are used
 
-function redirectLoggedToProfile(context, redirect) {
+/*function redirectLoggedToProfile(context, redirect) {
   if (Meteor.user()) {
     redirect("/@:username", {
       username: CF.User.username()
@@ -111,30 +68,13 @@ FlowRouter.triggers.enter([
     analytics.page(context.route.name, options);
   }
 ]);
+*/
 
 
-/*FlowRouter.route("/tracking", {
-  name: "Tracking",
-  triggersEnter: [
-    function initPageLimit(context, redirect) {
-      Session.set("ratingPageLimit", CF.Rating.limit1);
-    }
-  ],
-  triggersExit: [
-    function clearPageLimit(context, redirect) {
-      Session.set("ratingPageLimit", 1);
-    }
-  ],
-  action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "tracking"
-    });
-  }
-});*/
-
-
+/*
 FlowRouter.route("/system/:name_", {
   name: "System",
+  template: "systemBasic",
   triggersEnter: [
     function setTitle(context, redirect) {
       //var routeName = context.route.name;
@@ -143,20 +83,21 @@ FlowRouter.route("/system/:name_", {
     }
   ],
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <SystemPageContainer />
-      })
+    BlazeLayout.render("layoutMain", {
+      main: "systemBasic"
+    });
   }
 });
 
 FlowRouter.route("/@:username", {
   name: "Profile",
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <ProfilePageContainer />
-      })
+    BlazeLayout.render("layoutMain", {
+      main: "profile"
+    });
   },
   triggersEnter: [
+
     function setTitle(context, redirect) {
       var username = context.params.username;
       var user = CF.User.findOneByUsername(username);
@@ -174,40 +115,21 @@ FlowRouter.route("/@:username", {
   ]
 });
 
-FlowRouter.route("/sign-in", {
-  name: "SignIn",
-  action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <LoginPage />
-      })
-  },
-  triggersEnter: [redirectLoggedToProfile]
-});
-
 FlowRouter.route("/profile", {
   triggersEnter: [redirectLoggedToProfile, redirectGuestToWelcome]
 });
 
 FlowRouter.route("/welcome", {
+  layoutTemplate: "layoutFullWidth",
   name: "Welcome",
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <WelcomePage />
-      })
+    BlazeLayout.render("layoutFullWidth", {
+      main: "welcome"
+    });
   },
   triggersEnter: [redirectLoggedToProfile]
 });
 
-FlowRouter.route("/decisions", {
-  name: "Decisions",
-  action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <DecisionsPage />
-      })
-  }
-});
-
-/*
 FlowRouter.route("/cyberep", {
   name: "Cyberep",
   action: function(params, queryParams) {
@@ -253,6 +175,15 @@ FlowRouter.route("/main", {
   }
 });
 
+FlowRouter.route("/decisions", {
+  name: "Decisions",
+  action: function(params, queryParams) {
+    BlazeLayout.render("layoutMain", {
+      main: "decisions"
+    });
+  }
+});
+
 FlowRouter.route("/invest", {
   name: "Invest",
   action: function(params, queryParams) {
@@ -261,9 +192,9 @@ FlowRouter.route("/invest", {
     });
   }
 });
-*/
 
-// TODO: move to triggers
+*/
+// todo move to triggers
 var sorters = {
   "metrics.supplyChangePercents.day": {
     "inflation": -1,
@@ -327,69 +258,91 @@ CF.Rating.getSorterByKey = function getSorterByKey(key){
 var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
 
-FlowRouter.route("/rating", {
-  name: "rating",
-  triggersEnter: [
-    function (context, redirect){
-      var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
-      redirect("/rating/:sort", {sort: key || "whales"});
-    }
-  ],
-  triggersExit: [
-  ]
-});
 
-FlowRouter.route("/rating/:sort", {
-  name: "Rating",
-  action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <RatingPage />
-      })
-  }
-});
-
-/*FlowRouter.route("/monthly/rating", {
-  name: "rating",
-  triggersEnter: [
-    function (context, redirect){
-      var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
-      redirect("/monthly/rating/:sort", {sort: key || "whales"});
-    }
-  ]
-});
-
-FlowRouter.route("/monthly/rating/:sort", {
-  name: "Rating",
-  action: function(params, queryParams) {
-    BlazeLayout.render("layoutMain", {
-      main: "ratingPageMonthly"
-    });
-  }
-});*/
-
+// FlowRouter.route("/tracking", {
+//   name: "Tracking",
+//   triggersEnter: [
+//     function initPageLimit(context, redirect) {
+//       Session.set("ratingPageLimit", CF.Rating.limit1);
+//     }
+//   ],
+//   triggersExit: [
+//     function clearPageLimit(context, redirect) {
+//       Session.set("ratingPageLimit", 1);
+//     }
+//   ],
+//   action: function(params, queryParams) {
+//     BlazeLayout.render("layoutMain", {
+//       main: "tracking"
+//     });
+//   }
+// });
+//
+// FlowRouter.route("/rating", {
+//   name: "rating",
+//   triggersEnter: [
+//     function (context, redirect){
+//       var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
+//       redirect("/rating/:sort", {sort: key || "whales"});
+//     }
+//   ],
+//   triggersExit: [
+//   ]
+// });
+//
+// FlowRouter.route("/rating/:sort", {
+//   name: "Rating",
+//   action: function(params, queryParams) {
+//     BlazeLayout.render("layoutMain", {
+//       main: "ratingPage"
+//     });
+//   }
+// });
+//
+// FlowRouter.route("/monthly/rating", {
+//   name: "rating",
+//   triggersEnter: [
+//     function (context, redirect){
+//       var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
+//       redirect("/monthly/rating/:sort", {sort: key || "whales"});
+//     }
+//   ]
+// });
+//
+// FlowRouter.route("/monthly/rating/:sort", {
+//   name: "Rating",
+//   action: function(params, queryParams) {
+//     BlazeLayout.render("layoutMain", {
+//       main: "ratingPageMonthly"
+//     });
+//   }
+// });
+/*
 FlowRouter.route("/radar", {
   name: "Radar",
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <RadarPageContainer />
-      })
+    BlazeLayout.render("layoutMain", {
+      main: "radarPage"
+    });
   }
 });
 
 FlowRouter.route("/", {
   name: "Index",
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <IndexPageContainer />
-      })
+    // FlowRouter.go("/rating")
+    BlazeLayout.render("layoutMain", {
+      main: "main"
+    });
   }
 });
 
 FlowRouter.route("/funds", {
   name: "Funds",
   action: function(params, queryParams) {
-      mount(MainLayout, {
-        main: <FundsPageContainer />
-      })
+    BlazeLayout.render("layoutMain", {
+      main: "funds"
+    });
   }
 });
+*/

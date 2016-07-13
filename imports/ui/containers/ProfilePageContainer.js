@@ -1,6 +1,7 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
+import { _ } from 'meteor/underscore'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import get from 'oget'
 import ProfilePage from '../pages/ProfilePage'
@@ -8,7 +9,7 @@ import ProfilePage from '../pages/ProfilePage'
 export default ProfilePageContainer = createContainer(() => {
 	// constants
     const username = FlowRouter.getParam('username'),
-			user = CF.User.findOneByUsername(username),
+			user = CF.User.findOneByUsername(username) || {},
 			name = get(user, 'profile.name', username),
 			// subscriptions ready state should not be qued,
 			// do not use loaded = sub1.ready() && sub2.ready()
@@ -18,7 +19,7 @@ export default ProfilePageContainer = createContainer(() => {
 
     // TODO refactoring, add comments
 
-	if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie){ //crutch
+	if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie) { //crutch
 	  CF.UserAssets.graph.folioPie.update({
 	    labels: [],
 	    series: []
@@ -27,20 +28,19 @@ export default ProfilePageContainer = createContainer(() => {
 	if (username) Meteor.call("cfAssetsUpdateBalances", {username})
 	document.title = name + ' - ' + 'cyber•Fund'
 
-
 	// TODO which constants are actually used and which are not?
 	//profileName = this.profile && this.profile.name
-
   return {
 		user,
 		loaded: usersReady && systemsReady && protfolioReady,
-		userAccounts: CF.Accounts.findByRefId(CF.Profile.currentUid()).fetch(),
-		userRegistracionCount: Session.get("userRegistracionCount"),
+		userAccounts: CF.Accounts.findByRefId(user._id).fetch(),
+		userNumber: Session.get("userRegistracionCount"),
 		isOwnProfile: Meteor.userId() ? (CF.Profile.currentUsername() == CF.User.username()) : false,
 		starred: CurrentData.find(
 			CF.CurrentData.selectors.system(
 				get(user, 'profile.starredSystems', [])
-			)).fetch(),
+			)
+		).fetch(),
 		followingUsers: Meteor.users.find({
 			    _id: {
 			      $in: get(user, 'profile.followingUsers', [])
@@ -51,9 +51,9 @@ export default ProfilePageContainer = createContainer(() => {
 			      $in: get(user, 'profile.followedBy', [])
 			    }
 			}).fetch(),
-		followingCount: get(user, 'profile.followingUsers.length', 0),
-		followedByCount: get(user, 'profile.followedBy', 0),
-		//whether current user is followed by client user
-		following: _.contains(get(user, 'profile.followingUsers', []), CF.Profile.currentUid())
+		//followingCount: get(user, 'profile.followingUsers.length', 0),
+		//followedByCount: get(user, 'profile.followedBy', 0),
+		//check if current user is following this profile
+		following: _.contains(get(Meteor.user(), 'profile.followingUsers') || [], user._id)
   }
 }, ProfilePage)

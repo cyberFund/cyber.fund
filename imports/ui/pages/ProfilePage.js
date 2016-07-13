@@ -1,15 +1,17 @@
 import React, { Component, PropTypes }  from 'react'
 import { Meteor } from 'meteor/meteor'
-import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
+import { FlowRouter } from 'meteor/kadira:flow-router'
+import { Grid, Cell, IconButton, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
-import { If, Unless } from '../components/Utils'
+import { If, Else, Unless, Hide } from '../components/Utils'
 import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
 import PortfolioTableContainer from '../containers/PortfolioTableContainer'
 import UsersList from '../components/UsersList'
+import AddAddress from '../components/AddAddress'
 // TODO sort check dependencies usage
 
 class ProfilePage extends Component {
@@ -42,9 +44,21 @@ class ProfilePage extends Component {
 		console.warn('User logout fired!')
 		Meteor.logout() && analytics.track('Sign Out', { from: 'profile' })
 	}
-
+	toggleFollow() {
+		if (!Meteor.user()) FlowRouter.go("/welcome");
+		// if following == true => unfollow and vise versa
+		const unfollow = this.props.following
+		Meteor.call('followUser', CF.Profile.currentUid(), unfollow ? { unfollow } : undefined)
+		analytics.track(
+			unfollow ? 'Followed Person' : 'Followed Person',
+			{ personName: CF.Profile.currentUsername() }
+		)
+	}
     render() {
-        const {props, state, changeTab, props: {user, isOwnProfile}} = this
+        const	{props: {user, isOwnProfile, following, userNumber}, state, props} = 	this,
+				{toggleFollow, changeTab, handleLogout} 	= 	this,
+				listStyle									=	{margin: '0 3px 6px'}
+
         return props.loaded ? (
               <Grid id="ProfilePage">
                   {/* USER INFO */}
@@ -55,7 +69,7 @@ class ProfilePage extends Component {
 						  />
 						<h4 itemprop="name">{user.profile.name}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
-						<div className="grey-text">
+						<section className="grey-text">
 						  <If condition={get(user, 'services.twitter', false)}>
 							<a className="grey-text" href={`https://twitter.com/@${user.username}`}>
 							  <span itemprop="alternateName">
@@ -69,19 +83,21 @@ class ProfilePage extends Component {
 						  <div>
 							  Joined on {helpers.dateFormat(user.createdAt, "Do MMM, YYYY")}
 						  </div>
-						</div>
+					    </section>
 						{/*TODO do we need this .profile-lists wrapper?*/}
-						<div class="profile-lists">
-							<h5>Starred</h5>
-							<SystemsList systems={props.starred} style={{margin: '0 3px 6px'}} />
-							<h5>Followers</h5>
-							<UsersList users={props.followedByUsers} style={{margin: '0 3px 6px'}} />
-							<h5>Following</h5>
-							<UsersList users={props.followingUsers} className="avatar-round" style={{margin: '0 3px 6px'}} />
-						</div>
-						{/* logout button */}
-						<If condition={isOwnProfile}>
-							<Button onClick={this.handleLogout} raised colored ripple>Logout</Button>
+						{/* STARRED FOLLOWERS FOLLOWING */}
+						<section class="profile-lists">
+							<SystemsList systems={props.starred} title='Starred' style={listStyle} />
+							<UsersList users={props.followedByUsers} title='Followers' style={listStyle} />
+							<UsersList users={props.followingUsers} title='Following' className="avatar-round" style={listStyle} />
+						</section>
+						{/* logout button and userNumber */}
+						<If condition={isOwnProfile} component='div'>
+							<Button onClick={handleLogout} raised colored ripple>Logout</Button>
+							<Hide unless={userNumber <= 400}>
+								<p>You are user #{userNumber}</p>
+								<p>>We have classified you as group {userNumber <= 100 ? 'A' : 'B'} user</p>
+							</Hide>
 						</If>
                   </Cell>
 					<Cell col={9} tablet={5} phone={4} className="text-center">
@@ -103,32 +119,18 @@ class ProfilePage extends Component {
 						    <h4><i>nothing here yet...</i></h4>
 						</section>
 					</Cell>
-                  	{/* RED FLOATING BUTTON */}
-	                <FABButton colored ripple style={{position: 'fixed', right: 24, bottom: 24}}>
-	                    <Icon name="add" />
-	                </FABButton>
+                  	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
+					<If condition={isOwnProfile}>
+						<AddAddress />
+					</If>
+					<Else condition={isOwnProfile}>
+						<FABButton onClick={toggleFollow.bind(this)} colored ripple>
+							<Icon name={following ? 'remove circle' : 'person'} />
+		                </FABButton>
+					</Else>
               </Grid>
         ) : <Loading />
     }
-    /*Template['profile'].events({
-      'click .btn-follow': function(e, t) {
-        analytics.track('Followed Person', {
-          personName: CF.Profile.currentUsername()
-        });
-        if (!Meteor.user()) FlowRouter.go("/welcome");
-        Meteor.call('followUser', CF.Profile.currentUid())
-      },
-      'click .btn-unfollow': function(e, t) {
-        analytics.track('Unfollowed Person', {
-          personName: CF.Profile.currentUsername()
-        });
-        if (!Meteor.user()) FlowRouter.go("/welcome");
-        Meteor.call('followUser', CF.Profile.currentUid(), {
-          unfollow: true
-        })
-      }
-    });*/
-
 }
 // TODO don't forget to add proptypes (reminder: they are same as container returned variables)
 ProfilePage.propTypes = {
