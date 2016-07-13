@@ -2,17 +2,23 @@ import React, { PropTypes } from 'react'
 import { _ } from 'meteor/underscore'
 // check condition value
 function check (props) {
-	const data = props.condition || props.unless
+	const 	data = props.condition || props.unless,
+			conditionUsed = _.has(props, 'condition')
 	// check for empty object or array
-	if (_.isObject(data)) return !_.isEmpty(data)
-	// if 'condition' not specified means 'unless' is used
-    return _.has(props, 'condition') ? Boolean(data) : !Boolean(data)
+	if (_.isObject(data)) {
+		// revert boolean if 'unless' prop is used
+		return conditionUsed ? !_.isEmpty(data) : _.isEmpty(data)
+	}
+	// revert boolean if 'unless' prop is used
+    return conditionUsed ? Boolean(data) : !Boolean(data)
 }
 /* 	check() and render() not merged because in future check
 	might have more checks and/or will be used elsewhere */
 function render(props) {
 	// if component specified create custom element
 	if (props.component) return <props.component {...props} />
+	// if children are not wrapped in a single element react will throw an error
+	else if (_.isArray(props.children)) return <div {...props} />
 	else return props.children
 }
 // <Show condition={true}> {props.children} </Show> == show element
