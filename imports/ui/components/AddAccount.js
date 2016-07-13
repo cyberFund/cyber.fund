@@ -1,5 +1,8 @@
+// dependencies
 import React, { PropTypes } from 'react'
 import { Meteor } from 'meteor/meteor'
+import { _ } from 'meteor/underscore'
+import { createContainer } from 'meteor/react-meteor-data'
 import { Grid, Cell, Switch, RadioGroup, Radio } from 'react-mdl'
 // material-ui
 import Dialog from 'material-ui/Dialog'
@@ -12,35 +15,48 @@ import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 import TextField from 'material-ui/TextField'
 // icons
-import ContentAdd from 'material-ui/svg-icons/content/add'
-import Public from 'material-ui/svg-icons/social/public'
-//import People from 'material-ui/svg-icons/social/people'
-// import PeopleOutline from 'material-ui/svg-icons/social/people-outline'
-import Lock from 'material-ui/svg-icons/action/lock'
-import LockOutline from 'material-ui/svg-icons/action/lock-outline'
+import ContentAdd from 'material-ui/svg-icons/content/add' 			// floating button
+import Existing from 'material-ui/svg-icons/av/library-books'		// new\existing checkbox
+import New from 'material-ui/svg-icons/av/library-add' 				// new\existing checkbox
+import Public from 'material-ui/svg-icons/social/public' 			// public\private checkbox
+import Lock from 'material-ui/svg-icons/action/lock'				// public\private checkbox
+import LockOutline from 'material-ui/svg-icons/action/lock-outline' // public\private checkbox
+
 // custom
-import { If, Hide } from '../components/Utils'
+import { If, Show, Hide } from '../components/Utils'
 
 class AddAccount extends React.Component {
 	constructor(props) {
 		super(props)
-	  // todo: check user has required thing marked.
+		//TODO: move into namespace
+		CF.Accounts.addressExists = function (address, refId) {
+		  if (!refId) return false;
+		  var accounts = CF.Accounts.findByRefId(refId, {private:true});
+		  var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
+		    return _.map(account.addresses, function (v, k) {
+		      return k;
+		    })
+		  }));
+		  return addresses.indexOf(address) > -1
+		};
+
+	  // TODO: check user has required thing marked.
 	  // not to keep this in profile, as profile intended to be user-modifiable
 		const user = Meteor.user()
 		const hasAccess = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
-
+		// TODO what can be removed?
 		this.state = {
 			open: false,
 			address: '',
 			name: '',
 			isPublic: false,
-			isNewAccount: true,
-			selectedAccount: null,
-			addressError: '',
+			isNewAccount: _.isEmpty(props.userAccounts),
+			selectedAccount: '',
 			nameError: '',
+			addressError: '',
+			selectError: '',
 			disabledTogglePrivacy: hasAccess ? '' : 'disabled',
-			privacyState: CF.User.hasPublicAccess(user) ? '' : 'checked',
-			userAccounts: CF.Accounts.findByRefId(Meteor.userId())
+			privacyState: CF.User.hasPublicAccess(user) ? '' : 'checked'
 		}
 		this.toggleDialog = this.toggleDialog.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
@@ -50,93 +66,87 @@ class AddAccount extends React.Component {
 		this.setState({open: !this.state.open})
 	}
 	// this hadnles all kind of form change events
-	handleChange(type, event) {
+	// this arguments are part of Material-ui onChange events
+	handleChange(key, event, value, selectValue) {
+		//event.preventDefault()
 		console.warn('handleChange is fired!')
-		let state = {} // create empty object
-		// create key with a custom name & assign value from event
-		state[type] = event.target.value
-		this.setState(state)
+		console.log(selectValue)
+		// radio button value cannot be boolean
+		if (value == 'true' || value == 'false') value = JSON.parse(value)
+		let object = {} // create empty object
+		// create key with a custom name
+		object[key] = selectValue || value
+		console.log(value)
+		console.log(typeof value)
+		console.log(object)
+		this.setState(object) // object = { customName: value }
 	}
 
 	handleSubmit() {
 		console.log("handleSubmit is fired!")
 		const 	{ state: { address, name, selectedAccount, isNewAccount, isPublic } } = this,
 				userId = Meteor.userId()
-
-		console.warn(isPublic, name, address)
-		// chec	k address
-		// use default browser functionality? or use snackbar? or input errors?
-		/*if (!address) {
-		  Materialize.toast("please enter address", 4000);
-		  return false;
-		}*/
-		/*if (CF.Accounts.addressExists(address, userId)) {
-			this.setState({ addressError: 'Address already exists!' })
-			return
-		}*/
-		// check name
-		if (!CF.Accounts.accountNameIsValid(name, userId)) {
-			this.setState({ nameError: 'Inavalid Name!' })
+		const setError = object => {
+			this.setState(object)
 			return
 		}
+		console.warn(isPublic, name, address)
+		// check address
+		if (!address) setError({ addressError: "Please enter address" })
+		if (CF.Accounts.addressExists(address, userId)) {
+			setError({ addressError: 'Address already exists!' })
+		}
 
-	    //var name = '';
 	    if (isNewAccount) { // add to new account
-	      /*if (!name) { // use default browser?
-	        Materialize.toast("please enter account name or select existing account", 4000);
-	        return
-	      }*/
-	      /*if (!CF.Accounts.accountNameIsValid(name, userId)) {
-	        return
-	      }*/
-	     // t.$(e.currentTarget).addClass('submitted');
-
-		 Meteor.call("cfAssetsAddAccount", {
-		   isPublic, name, address
-		   }, (err, succes)=> {
-			   //if(err) // TODO: what should be done if error occurs?
-			   // TODO: create snackbar component and add snackbar here
-			   if(succes) {
-				   analytics.track('Created Account', {
-					 accountName: name
-				   })
-				   analytics.track('Added Address', {
-					 accountName: name,
-					 address: address
-				   })
-				   this.toggleDialog()
-			   }
-		 })
-		  // FIXME do i need this returns?
-	      return
+			// check name
+			if (!name) setError({ nameError: 'Please enter name' })
+			if (!CF.Accounts.accountNameIsValid(name, userId)) {
+				setError({ nameError: 'Address already exists' })
+			}
+			// insert data
+			Meteor.call("cfAssetsAddAccount", { isPublic, name, address },
+				(err, succes)=> {
+					console.warn('cfAssetsAddAccount is called!')
+					// TODO: create snackbar component and add snackbar here
+					if (err) console.error(err)
+					else {
+						analytics.track('Created Account', {
+							accountName: name
+						})
+						analytics.track('Added Address', {
+							accountName: name,
+							address: address
+						})
+						this.toggleDialog()
+					}
+				}
+			)
 	    } else { // add to existing account
-	    //   var selected = t.$selectAccount.val().trim();
-		//  TODO dont forget to add required to select
-	    //   if (!accountId) {
-	    //     Materialize.toast("Please select account to add to", 4000);
-	    //     return false;
-	    //   }
-	    //   name = $("option:selected", t.$selectAccount).text();
-		//
-	    //   analytics.track('Added Address', {
-	    //     accountName: name,
-	    //     address: address
-	    //   });
-	    //   Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
-	    //     t.$("#modal-add-account").closeModal();
-	    //     t.$newAccountName.val("");
-	    //     t.$address.val("");
-	    //     return false;
-	    //   });
+			// check select
+			if (!selectedAccount) {
+				setError({ selectError: 'Please select account' })
+			}
+			// insert data
+			Meteor.call("cfAssetsAddAddress", selectedAccount, address,
+				(err, succes)=> {
+					console.warn('cfAssetsAddAccount is called!')
+					// TODO: create snackbar component and add snackbar here
+					if (err) console.error(err)
+					else {
+						analytics.track('Added Address', {
+							accountName: name,
+							address: address
+						})
+						this.toggleDialog()
+					}
+				}
+			)
 	    }
-	  // FIXME do i need this returns?
-	    return false
 	}
 
 	render() {
-		const { toggleDialog, handleSubmit, handleChange,  state } = this
-
-		const dialogButtons = [
+		const 	{ toggleDialog, handleSubmit, handleChange,  state, props } = this,
+				dialogButtons = [
 							<FlatButton
 								label="Cancel"
 								primary={true}
@@ -178,51 +188,82 @@ class AddAccount extends React.Component {
 								value={state.address}
 								errorText={state.addressError}
 								fullWidth
-								required
 							/>
-							<Hide unless={state.userAccounts}>
+							<Hide unless={props.userAccounts}>
 								<Subheader>Add address to:</Subheader>
-								<RadioButtonGroup name="shipSpeed" defaultSelected="existing">
-									<RadioButton value="existing" label="Existing account" />
-									{/* TODO do not forget to make disabled state */}
-									<RadioButton value="new" label="New account" disabled={true} />
-								</RadioButtonGroup>
-								<SelectField
-									floatingLabelText="Select account"
-									value={this.state.value}
-									onChange={this.handleChange}
+								<RadioButtonGroup
+									onChange={handleChange.bind(this, 'isNewAccount')}
+									name="isNewAccount"
+									defaultSelected="false"
 								>
-									<MenuItem value="" primaryText="Choose account" disabled />
-									{state.userAccounts.map(
-										item => <MenuItem value={item._id} primaryText={item.name} />
-									)}
-								</SelectField>
+									<RadioButton
+										value="false"
+										label="Existing account"
+										checkedIcon={<Existing />}
+										uncheckedIcon={<Existing />}
+									/>
+									<RadioButton
+										value="true"
+										label="New account"
+										checkedIcon={<New />}
+										uncheckedIcon={<New />}
+									/>
+								</RadioButtonGroup>
+								<Hide condition={state.isNewAccount}>
+									{/* TODO auto select item if only one exists */}
+									<SelectField
+										floatingLabelText="Select account"
+										value={state.selectedAccount}
+										onChange={handleChange.bind(this, 'selectedAccount')}
+										errorText={state.selectError}
+									>
+										{/*<MenuItem value='' primaryText="Choose account" disabled />*/}
+										{props.userAccounts.map(
+											item => <MenuItem
+														value={item._id}
+														primaryText={item.name}
+														key={item._id}
+													/>
+										)}
+									</SelectField>
+								</Hide>
 							</Hide>
-							<TextField
-								hintText="Account name"
-								onChange={handleChange.bind(this, 'name')}
-								errorText={state.nameError}
-								fullWidth
-								required
-							/>
-							<RadioButtonGroup onChange={handleChange.bind(this, 'isPublic')} name="Account Type" defaultSelected="false">
-								<RadioButton
-									label="Public"
-									value={true}
-									checkedIcon={<Public />}
-	        						uncheckedIcon={<Public />}
+							<If condition={state.isNewAccount}>
+								<TextField
+									hintText="Account name"
+									onChange={handleChange.bind(this, 'name')}
+									errorText={state.nameError}
+									fullWidth
 								/>
-								<RadioButton
-									label="Private"
-									value={false}
-									checkedIcon={<Lock />}
-									uncheckedIcon={<LockOutline />}
-								/>
-							</RadioButtonGroup>
+								{/* TODO dont forget to hide this part */}
+								<RadioButtonGroup onChange={handleChange.bind(this, 'isPublic')} name="Account Type" defaultSelected='false'>
+										<RadioButton
+											label="Public"
+											value='true'
+											checkedIcon={<Public />}
+			        						uncheckedIcon={<Public />}
+										/>
+										<RadioButton
+											label="Private"
+											value='false'
+											checkedIcon={<Lock />}
+											uncheckedIcon={<LockOutline />}
+										/>
+								</RadioButtonGroup>
+							</If>
 						</form>
 			        </Dialog>
 				</section>
 	}
 }
 
-export default AddAccount
+AddAccount.propTypes = {
+	userAccounts: PropTypes.array.isRequired
+}
+
+export default createContainer(() => {
+	const userId = Meteor.userId()
+	return {
+		userAccounts: CF.Accounts.findByRefId(userId).fetch()
+	}
+}, AddAccount)
