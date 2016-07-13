@@ -17,7 +17,19 @@ if (Meteor.isServer) {
     accountId: 1, timestamp: -1
   });
 }
-
+if(Meteor.isClient) {
+	// this used to be in views/profile/accounts/addAccount.js
+	ns.addressExists = function (address, refId) {
+	  if (!refId) return false;
+	  var accounts = ns.findByRefId(refId, {private:true});
+	  var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
+		return _.map(account.addresses, function (v, k) {
+		  return k;
+		})
+	  }));
+	  return addresses.indexOf(address) > -1
+	};
+}
 ns.History.collection.allow({
   insert: function(userId, doc) {
     return false;
