@@ -11,7 +11,8 @@ import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
 import PortfolioTableContainer from '../containers/PortfolioTableContainer'
 import UsersList from '../components/UsersList'
-import AddAddress from '../components/AddAddress'
+import AddAccount from '../components/AddAccount'
+import AssetsManager from '../components/AssetsManager'
 // TODO sort check dependencies usage
 
 class ProfilePage extends Component {
@@ -116,12 +117,12 @@ class ProfilePage extends Component {
 						</section>
 						{/* ACCOUNTS TAB */}
 						<section style={state.secondTabStyle}>
-						    <h4><i>nothing here yet...</i></h4>
+						    <AssetsManager />
 						</section>
 					</Cell>
                   	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
 					<If condition={isOwnProfile}>
-						<AddAddress />
+						<AddAccount />
 					</If>
 					<Else condition={isOwnProfile}>
 						<FABButton onClick={toggleFollow.bind(this)} colored ripple>
