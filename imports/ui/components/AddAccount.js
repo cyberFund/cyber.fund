@@ -28,24 +28,13 @@ import { If, Show, Hide } from '../components/Utils'
 class AddAccount extends React.Component {
 	constructor(props) {
 		super(props)
-		//TODO: move into namespace
-		CF.Accounts.addressExists = function (address, refId) {
-		  if (!refId) return false;
-		  var accounts = CF.Accounts.findByRefId(refId, {private:true});
-		  var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
-		    return _.map(account.addresses, function (v, k) {
-		      return k;
-		    })
-		  }));
-		  return addresses.indexOf(address) > -1
-		};
-
-	  // TODO: check user has required thing marked.
-	  // not to keep this in profile, as profile intended to be user-modifiable
-		const user = Meteor.user()
-		const hasAccess = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
+		// TODO: check user has required thing marked.
+		// not to keep this in profile, as profile intended to be user-modifiable
+		// const user = Meteor.user()
+		// const hasAccess = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
 		// TODO what can be removed?
-		this.state = {
+		// after submit form will be reset using this object
+		this.initialState = {
 			open: false,
 			address: '',
 			name: '',
@@ -54,10 +43,11 @@ class AddAccount extends React.Component {
 			selectedAccount: '',
 			nameError: '',
 			addressError: '',
-			selectError: '',
-			disabledTogglePrivacy: hasAccess ? '' : 'disabled',
-			privacyState: CF.User.hasPublicAccess(user) ? '' : 'checked'
+			selectError: ''
+			// disabledTogglePrivacy: hasAccess ? '' : 'disabled',
+			// privacyState: CF.User.hasPublicAccess(user) ? '' : 'checked'
 		}
+		this.state = this.initialState
 		this.toggleDialog = this.toggleDialog.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
@@ -68,40 +58,39 @@ class AddAccount extends React.Component {
 	// this hadnles all kind of form change events
 	// this arguments are part of Material-ui onChange events
 	handleChange(key, event, value, selectValue) {
-		//event.preventDefault()
 		console.warn('handleChange is fired!')
-		console.log(selectValue)
 		// radio button value cannot be boolean
 		if (value == 'true' || value == 'false') value = JSON.parse(value)
 		let object = {} // create empty object
 		// create key with a custom name
 		object[key] = selectValue || value
-		console.log(value)
-		console.log(typeof value)
-		console.log(object)
-		this.setState(object) // object = { customName: value }
+		this.setState(object)
 	}
 
 	handleSubmit() {
 		console.log("handleSubmit is fired!")
 		const 	{ state: { address, name, selectedAccount, isNewAccount, isPublic } } = this,
 				userId = Meteor.userId()
-		const setError = object => {
-			this.setState(object)
+		console.warn(isNewAccount, isPublic, name, address)
+		// check address
+		if (!address) {
+			this.setState({ addressError: "Please enter address" })
 			return
 		}
-		console.warn(isPublic, name, address)
-		// check address
-		if (!address) setError({ addressError: "Please enter address" })
 		if (CF.Accounts.addressExists(address, userId)) {
-			setError({ addressError: 'Address already exists!' })
+			this.setState({ addressError: 'Address already exists!' })
+			return
 		}
 
 	    if (isNewAccount) { // add to new account
 			// check name
-			if (!name) setError({ nameError: 'Please enter name' })
+			if (!name) {
+				this.setState({ nameError: 'Please enter name' })
+				return
+			}
 			if (!CF.Accounts.accountNameIsValid(name, userId)) {
-				setError({ nameError: 'Address already exists' })
+				this.setState({ nameError: 'Address already exists' })
+				return
 			}
 			// insert data
 			Meteor.call("cfAssetsAddAccount", { isPublic, name, address },
@@ -117,14 +106,15 @@ class AddAccount extends React.Component {
 							accountName: name,
 							address: address
 						})
-						this.toggleDialog()
+						this.setState( this.initialState )
 					}
 				}
 			)
 	    } else { // add to existing account
 			// check select
 			if (!selectedAccount) {
-				setError({ selectError: 'Please select account' })
+				this.setState({ selectError: 'Please select account' })
+				return
 			}
 			// insert data
 			Meteor.call("cfAssetsAddAddress", selectedAccount, address,
@@ -137,7 +127,7 @@ class AddAccount extends React.Component {
 							accountName: name,
 							address: address
 						})
-						this.toggleDialog()
+						this.setState( this.initialState )
 					}
 				}
 			)
@@ -153,7 +143,7 @@ class AddAccount extends React.Component {
 								onTouchTap={toggleDialog}
 							/>,
 							<FlatButton
-								label="Add" // "Submit"
+								label="Add"
 								primary={true}
 								//keyboardFocused={true}
 								onTouchTap={handleSubmit}
