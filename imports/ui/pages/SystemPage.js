@@ -22,7 +22,6 @@ const {system, system: {metrics, links, _id}} = props,
 	  {loaded, mainLinks, isProject, existLinksWith, dependentsExist, dependents, anyCards} = props,
 	  {linksWithTag} = helpers,
 	  githubLink =  `https://github.com/cyberFund/chaingear/blob/gh-pages/sources/${_id}/${_id}.toml`
-console.log(system)
 
 return loaded ? (
     <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
