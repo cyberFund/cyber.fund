@@ -21,10 +21,9 @@ import New from 'material-ui/svg-icons/av/library-add' 				// new\existing check
 import Public from 'material-ui/svg-icons/social/public' 			// public\private checkbox
 import Lock from 'material-ui/svg-icons/action/lock'				// public\private checkbox
 import LockOutline from 'material-ui/svg-icons/action/lock-outline' // public\private checkbox
-
 // custom
 import { If, Show, Hide } from '../components/Utils'
-
+// TODO dont forget to clean up & refactor
 class AddAccount extends React.Component {
 	constructor(props) {
 		super(props)
@@ -49,14 +48,16 @@ class AddAccount extends React.Component {
 		}
 		this.state = this.initialState
 		this.toggleDialog = this.toggleDialog.bind(this)
+		this.handleAddressChange = this.handleAddressChange.bind(this)
+		this.handleNameChange = this.handleNameChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
 	toggleDialog() {
 		this.setState({open: !this.state.open})
 	}
-	// this hadnles all kind of form change events
-	// this arguments are part of Material-ui onChange events
+	// this handless checkbox and select changes
+	// arguments are part of Material-ui onChange events
 	handleChange(key, event, value, selectValue) {
 		console.warn('handleChange is fired!')
 		// radio button value cannot be boolean
@@ -65,6 +66,24 @@ class AddAccount extends React.Component {
 		// create key with a custom name
 		object[key] = selectValue || value
 		this.setState(object)
+	}
+	handleAddressChange(event, address) {
+		console.warn('handleAddressChange is fired!')
+		this.setState({ address })
+		if (CF.Accounts.addressExists(address, Meteor.userId())) {
+			this.setState({ addressError: 'Address already exists!' })
+		}
+		else this.setState({ addressError: '' })
+	}
+	handleNameChange(event, name) {
+		console.warn('handleNameChange is fired!')
+		this.setState({ name })
+		if (!CF.Accounts.accountNameIsValid(name, Meteor.userId())) {
+			this.setState({ nameError: 'Account with that name already exists' })
+		}
+		else this.setState({ nameError: '' })
+		// somehow CF.Accounts.accountNameIsValid returns false on empty string
+		if (name == '') this.setState({ nameError: '' })
 	}
 
 	handleSubmit() {
@@ -77,19 +96,12 @@ class AddAccount extends React.Component {
 			this.setState({ addressError: "Please enter address" })
 			return
 		}
-		if (CF.Accounts.addressExists(address, userId)) {
-			this.setState({ addressError: 'Address already exists!' })
-			return
-		}
+
 
 	    if (isNewAccount) { // add to new account
 			// check name
 			if (!name) {
 				this.setState({ nameError: 'Please enter name' })
-				return
-			}
-			if (!CF.Accounts.accountNameIsValid(name, userId)) {
-				this.setState({ nameError: 'Address already exists' })
 				return
 			}
 			// insert data
@@ -174,7 +186,7 @@ class AddAccount extends React.Component {
 								hintText="Address"
 								//floatingLabelText="Address"
 								autoFocus
-								onChange={handleChange.bind(this, 'address')}
+								onChange={this.handleAddressChange}
 								value={state.address}
 								errorText={state.addressError}
 								fullWidth
@@ -221,7 +233,7 @@ class AddAccount extends React.Component {
 							<If condition={state.isNewAccount}>
 								<TextField
 									hintText="Account name"
-									onChange={handleChange.bind(this, 'name')}
+									onChange={this.handleNameChange}
 									errorText={state.nameError}
 									fullWidth
 								/>
