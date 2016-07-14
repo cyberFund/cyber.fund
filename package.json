@@ -31,6 +31,7 @@
     "unirest": "^0.4.2"
   },
   "devDependencies": {
+    "babel-eslint": "^6.1.0",
     "babel-preset-meteor": "^6.9.0",
     "eslint": "^2.11.1",
     "eslint-plugin-import": "^1.8.1"
