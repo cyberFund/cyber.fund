@@ -24,15 +24,9 @@ import LockOutline from 'material-ui/svg-icons/action/lock-outline' // public\pr
 // custom
 import { If, Show, Hide } from '../components/Utils'
 // TODO dont forget to clean up & refactor
-class AddAccount extends React.Component {
+export default class AddAccount extends React.Component {
 	constructor(props) {
 		super(props)
-		// TODO: check user has required thing marked.
-		// not to keep this in profile, as profile intended to be user-modifiable
-		// const user = Meteor.user()
-		// const hasAccess = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
-		// TODO what can be removed?
-		// after submit form will be reset using this object
 		const userAccounts = CF.Accounts.findByRefId( Meteor.userId() ).fetch()
 		// initial state will be reused after form submit
 		this.initialState = {
@@ -40,31 +34,28 @@ class AddAccount extends React.Component {
 			address: '',
 			name: '',
 			isPublic: false,
-			isNewAccount: _.isEmpty(props.userAccounts),
-			selectedAccount: '',
 			isNewAccount: _.isEmpty(userAccounts),
 			// if there is only one account, autoselect it
 			selectedAccount: userAccounts && userAccounts.length == 1 ? userAccounts[1] : '',
 			nameError: '',
 			addressError: '',
-			selectError: ''
-			// disabledTogglePrivacy: hasAccess ? '' : 'disabled',
-			// privacyState: CF.User.hasPublicAccess(user) ? '' : 'checked'
+			selectError: '',
+			userAccounts
 		}
 		this.state = this.initialState
+
+		// bindings
 		this.toggleDialog = this.toggleDialog.bind(this)
 		this.handleAddressChange = this.handleAddressChange.bind(this)
 		this.handleNameChange = this.handleNameChange.bind(this)
 		this.handleSubmit = this.handleSubmit.bind(this)
 	}
 
-	toggleDialog() {
-		this.setState({open: !this.state.open})
-	}
+	toggleDialog() { this.setState({ open: !this.state.open }) }
+
 	// this handless checkbox and select changes
 	// arguments are part of Material-ui onChange events
 	handleChange(key, event, value, selectValue) {
-		console.warn('handleChange is fired!')
 		// radio button value cannot be boolean
 		if (value == 'true' || value == 'false') value = JSON.parse(value)
 		let object = {} // create empty object
@@ -72,16 +63,16 @@ class AddAccount extends React.Component {
 		object[key] = selectValue || value
 		this.setState(object)
 	}
+
 	handleAddressChange(event, address) {
-		console.warn('handleAddressChange is fired!')
 		this.setState({ address })
 		if (CF.Accounts.addressExists(address, Meteor.userId())) {
 			this.setState({ addressError: 'Address already exists!' })
 		}
 		else this.setState({ addressError: '' })
 	}
+
 	handleNameChange(event, name) {
-		console.warn('handleNameChange is fired!')
 		this.setState({ name })
 		if (!CF.Accounts.accountNameIsValid(name, Meteor.userId())) {
 			this.setState({ nameError: 'Account with that name already exists' })
@@ -92,16 +83,13 @@ class AddAccount extends React.Component {
 	}
 
 	handleSubmit() {
-		console.log("handleSubmit is fired!")
 		const 	{ state: { address, name, selectedAccount, isNewAccount, isPublic } } = this,
 				userId = Meteor.userId()
-		console.warn(isNewAccount, isPublic, name, address)
 		// check address
 		if (!address) {
 			this.setState({ addressError: "Please enter address" })
 			return
 		}
-
 
 	    if (isNewAccount) { // add to new account
 			// check name
@@ -112,7 +100,6 @@ class AddAccount extends React.Component {
 			// insert data
 			Meteor.call("cfAssetsAddAccount", { isPublic, name, address },
 				(err, succes)=> {
-					console.warn('cfAssetsAddAccount is called!')
 					// TODO: create snackbar component and add snackbar here
 					if (err) console.error(err)
 					else {
@@ -136,7 +123,6 @@ class AddAccount extends React.Component {
 			// insert data
 			Meteor.call("cfAssetsAddAddress", selectedAccount, address,
 				(err, succes)=> {
-					console.warn('cfAssetsAddAccount is called!')
 					// TODO: create snackbar component and add snackbar here
 					if (err) console.error(err)
 					else {
@@ -153,6 +139,10 @@ class AddAccount extends React.Component {
 
 	render() {
 		const 	{ toggleDialog, handleSubmit, handleChange,  state, props } = this,
+				// inputs and errors needed to toggle submit button
+				inputs = state.address && (state.name || state.selectedAccount),
+				errors = state.nameError && state.addressError && state.selectError,
+				canSubmit = Boolean(inputs && !errors),
 				dialogButtons = [
 							<FlatButton
 								label="Cancel"
@@ -161,9 +151,10 @@ class AddAccount extends React.Component {
 							/>,
 							<FlatButton
 								label="Add"
-								primary={true}
-								//keyboardFocused={true}
+								disabled={!canSubmit}
+								keyboardFocused={canSubmit}
 								onTouchTap={handleSubmit}
+								primary={true}
 							/>
 						]
 
@@ -183,20 +174,18 @@ class AddAccount extends React.Component {
 			          onRequestClose={toggleDialog}
 			        >
 			            <form onSubmit={handleSubmit}>
-							{/* TODO add bitcoin regex to validate input (maybe server side has one?) */}
-							{/* NOTE check wallet-address-validator @ npm */}
-							{/* bitcoin regex == ^[13][a-km-zA-HJ-NP-Z1-9]{25,34}$ */}
 							{/* TODO add more adddress types to validation */}
+							{/* NOTE check wallet-address-validator @ npm
+								or https://github.com/cyberFund/quantum */}
 							<TextField
 								hintText="Address"
-								//floatingLabelText="Address"
 								autoFocus
 								onChange={this.handleAddressChange}
 								value={state.address}
 								errorText={state.addressError}
 								fullWidth
 							/>
-							<Hide unless={props.userAccounts}>
+						<Hide unless={state.userAccounts}>
 								<Subheader>Add address to:</Subheader>
 								<RadioButtonGroup
 									onChange={handleChange.bind(this, 'isNewAccount')}
@@ -224,8 +213,7 @@ class AddAccount extends React.Component {
 										onChange={handleChange.bind(this, 'selectedAccount')}
 										errorText={state.selectError}
 									>
-										{/*<MenuItem value='' primaryText="Choose account" disabled />*/}
-										{props.userAccounts.map(
+										{state.userAccounts.map(
 											item => <MenuItem
 														value={item._id}
 														primaryText={item.name}
@@ -242,7 +230,6 @@ class AddAccount extends React.Component {
 									errorText={state.nameError}
 									fullWidth
 								/>
-								{/* TODO dont forget to hide this part */}
 								<RadioButtonGroup onChange={handleChange.bind(this, 'isPublic')} name="Account Type" defaultSelected='false'>
 										<RadioButton
 											label="Public"
@@ -263,14 +250,3 @@ class AddAccount extends React.Component {
 				</section>
 	}
 }
-
-AddAccount.propTypes = {
-	userAccounts: PropTypes.array.isRequired
-}
-
-export default createContainer(() => {
-	const userId = Meteor.userId()
-	return {
-		userAccounts: CF.Accounts.findByRefId(userId).fetch()
-	}
-}, AddAccount)
