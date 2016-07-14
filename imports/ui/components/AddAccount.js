@@ -33,6 +33,8 @@ class AddAccount extends React.Component {
 		// const hasAccess = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
 		// TODO what can be removed?
 		// after submit form will be reset using this object
+		const userAccounts = CF.Accounts.findByRefId( Meteor.userId() ).fetch()
+		// initial state will be reused after form submit
 		this.initialState = {
 			open: false,
 			address: '',
@@ -40,6 +42,9 @@ class AddAccount extends React.Component {
 			isPublic: false,
 			isNewAccount: _.isEmpty(props.userAccounts),
 			selectedAccount: '',
+			isNewAccount: _.isEmpty(userAccounts),
+			// if there is only one account, autoselect it
+			selectedAccount: userAccounts && userAccounts.length == 1 ? userAccounts[1] : '',
 			nameError: '',
 			addressError: '',
 			selectError: ''
