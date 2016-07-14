@@ -23,27 +23,17 @@ function render(props) {
 }
 // <Show condition={true}> {props.children} </Show> == show element
 // <Show unless={true}> {props.children} </Show> == hide element
-const Show = props => {
-    return check(props) ? render(props) : null
-}
+const Show = props => check(props) ? render(props) : null
 // <Hide condition={true}> {props.children} </Hide> == hide element
 // <Hide unless={true}> {props.children} </Hide> == show element
-const Hide = props => {
-	return !check(props) ? render(props) : null
-}
+const Hide = props =>  !check(props) ? render(props) : null
 // <If condition={true}> {props.children} </If> == show element
-const If = props => {
-    return check(props) ? render(props) : null
-}
+const If = props => check(props) ? render(props) : null
 // <Unless condition={true}> {props.children} </Unless> == hide element
-const Unless = props => {
-    return !check(props) ? render(props) : null
-}
+const Unless = props => !check(props) ? render(props) : null
 // this used in conjuction with <IF />
 // <If condition={true} /> == show element
 // <Else condition={true} />  == hide element
-const Else = props => {
-    return !check(props) ? render(props) : null
-}
+const Else = props => !check(props) ? render(props) : null
 
 export { Show, Hide, If, Unless, Else }
