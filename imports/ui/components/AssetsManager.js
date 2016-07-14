@@ -16,9 +16,9 @@ class AssetsManager extends React.Component {
 					{
 						accounts
 						? accounts.map( i => <Account key='ad' /> )
-						: <p className="text-center">
-							<i>There are no assets</i>
-						  </p>
+						: <Cell col={12}>
+							<i className="text-center">There are no assets</i>
+						  </Cell>
 					}
 				</Grid>
 	}
@@ -40,8 +40,8 @@ export default createContainer(props => {
 }, AssetsManager)
 
 AssetsManager.propTypes = {
-	ownerId: PropTypes.string.isRequired,
-	accounts: PropTypes.array.isRequired
+	// ownerId: PropTypes.string.isRequired,
+	// accounts: PropTypes.array.isRequired
 }
 
 export default AssetsManager
