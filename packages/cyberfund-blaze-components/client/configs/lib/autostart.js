@@ -1,4 +1,4 @@
-BlazeLayout.setRoot("body");
+//BlazeLayout.setRoot("body");
 
 Tracker.autorun(function () {
 
