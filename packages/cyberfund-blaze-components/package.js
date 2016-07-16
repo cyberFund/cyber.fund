@@ -15,6 +15,9 @@ Package.onUse(function(api) {
   api.use([
 	  "underscore",
 	  "tracker",
+	  // DO NOT REMOVE ECMASCRIPT! or you will get untraceable uglify bundle error
+	  // see https://github.com/meteor/meteor/issues/5387
+	  "ecmascript",
 	  "kadira:blaze-layout",
 	  "kadira:flow-router",
 	  "arillo:flow-router-helpers",
