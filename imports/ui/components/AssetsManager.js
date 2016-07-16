@@ -1,47 +1,36 @@
 import React, { PropTypes } from 'react'
-import { Grid, Cell, Icon, Button, Tabs, Tab } from 'react-mdl'
+import { Grid, Cell } from 'react-mdl'
 import { createContainer } from 'meteor/react-meteor-data'
-import { _ } from 'meteor/underscore'
-import { If } from '../components/Utils'
-import ChaingearLink from '../components/ChaingearLink'
 import Account from '../components/Account'
-import helpers from '../helpers'
 
+// TODO: rename this into accounts list?
 class AssetsManager extends React.Component {
 	render() {
 		const { ownerId, accounts } = this.props
-		console.log(ownerId)
 		console.log(accounts)
 		return 	<Grid owner={ownerId}>
 					{
 						accounts
-						? accounts.map( i => <Account key='ad' /> )
-						: <Cell col={12}>
+						?
+						accounts.map(i => <Account key={i._id} account={i} />)
+						:
+						<Cell col={12}>
 							<i className="text-center">There are no assets</i>
-						  </Cell>
+						</Cell>
 					}
 				</Grid>
 	}
 }
 
-export default createContainer(props => {
-
-	var ns = CF.Accounts
-	ns.currentId = new CF.Utils.SessionVariable("cfAccountsCurrentId")
-
-	const 	ownerId = CF.Profile.currentUid(),
-			accounts =	CF.Accounts.findByRefId(ownerId).fetch()
-
-	return {
-		ownerId: ownerId ? ownerId : {},
-		accounts: accounts ? accounts : []
-	}
-
-}, AssetsManager)
-
 AssetsManager.propTypes = {
-	// ownerId: PropTypes.string.isRequired,
-	// accounts: PropTypes.array.isRequired
+	accounts: PropTypes.array.isRequired
 }
 
-export default AssetsManager
+// NOTE should we merge this into ProfilePageContainer so there will be only one source of data?
+// also because it seems like alot of code is duplicated from ProfilePageContainer
+export default createContainer(props => {
+	const 	ownerId = CF.Profile.currentUid() || {}
+	return {
+		accounts: CF.Accounts.findByRefId(ownerId).fetch()
+	}
+}, AssetsManager)
