@@ -18,8 +18,7 @@ function render(props) {
 	// if component specified create custom element
 	if (props.component) return <props.component {...props} />
 	// if children are not wrapped in a single element react will throw an error
-	else if (_.isArray(props.children)) return <div {...props} />
-	else return props.children
+	return _.isArray(props.children) ? <div {...props} /> : props.children
 }
 // <Show condition={true}> {props.children} </Show> == show element
 // <Show unless={true}> {props.children} </Show> == hide element
@@ -31,7 +30,7 @@ const Hide = props =>  !check(props) ? render(props) : null
 const If = props => check(props) ? render(props) : null
 // <Unless condition={true}> {props.children} </Unless> == hide element
 const Unless = props => !check(props) ? render(props) : null
-// this used in conjuction with <IF />
+// this used in conjuction with <If />
 // <If condition={true} /> == show element
 // <Else condition={true} />  == hide element
 const Else = props => !check(props) ? render(props) : null

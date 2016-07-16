@@ -116,11 +116,14 @@ class ProfilePage extends Component {
 						        <PortfolioTableContainer users={props.userAccounts} />
 						</section>
 						{/* ACCOUNTS TAB */}
+						{/* TODO remove section, leave only assets manager? */}
 						<section style={state.secondTabStyle}>
 						    <AssetsManager />
 						</section>
 					</Cell>
-                  	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
+                	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
+					{/* TODO move condition checking into AddAccount? */}
+					{/* or will it make code less readable? */}
 					<If condition={isOwnProfile}>
 						<AddAccount />
 					</If>
