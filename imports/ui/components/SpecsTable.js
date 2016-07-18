@@ -7,7 +7,6 @@ const SpecsTable = props => {
 
 	// NOTE table is rendered by mapping system.specs object,
 	// first row == property key, second == property value
-	console.log(props.system.specs)
 	if (_.isEmpty(props.system.specs)) return null
 
 	const tableClasses = "mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center"

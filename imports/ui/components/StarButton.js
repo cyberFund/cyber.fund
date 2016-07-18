@@ -1,44 +1,75 @@
 import React, { PropTypes } from 'react'
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
-import { _ } from 'meteor/underscore'
 import { FABButton, Icon } from 'react-mdl'
 import get from 'oget'
+import Snackbar from 'material-ui/Snackbar'
+import autobind from 'react-autobind'
 
 class StarButton extends React.Component {
 	constructor(props) {
 		super(props)
-		// state.starred = user has systemId in starredSystems
+		// state.isStarred = user has systemId in starredSystems
 		const starredSystems = get(Meteor.user(), 'profile.starredSystems') || []
-		this.state = { starred: starredSystems.includes(this.props.systemId) }
+
+		this.state = {
+			isStarred: starredSystems.includes(this.props.systemId),
+			openSnackbar: false,
+			message: ''
+		}
+
+    	autobind(this)
 	}
+
     toggleStar() {
-		const 	{starred} = this.state,
+		const 	{ state: { isStarred }, setState, toggleSnackbar } = this,
 				systemName = this.props.systemId
 
 		if (!Meteor.userId()) FlowRouter.go('/welcome')
 
 		// add/remove system to user.starredSystems
-		Meteor.call("toggleStarSys", systemName)
-		// change icon color
-		this.setState({starred: !starred})
-		// track changes
-		analytics.track(
-			starred ? "Unfollowed System" : "Followed System",
-			{systemName: systemName}
-		)
+		Meteor.call("toggleStarSys", systemName, undefined, (err)=> {
+			if (err) this.toggleSnackbar('Something went wrong')
+			else {
+				// activate changes
+				this.setState({ isStarred: !isStarred })
+				toggleSnackbar()
+				// track changes
+				analytics.track(
+					isStarred ? "Unfollowed System" : "Followed System",
+					{ systemName }
+				)
+			}
+		})
     }
-    render() {
-        const 	{props, toggleStar, state} = this,
-				color = state.starred ? 'yellow' : 'white'
 
-		return 	<FABButton
-					onClick={toggleStar.bind(this)}
-					colored
-					ripple
-				>
-					<Icon name="star" style={{color}} />
-				</FABButton>
+	toggleSnackbar() {
+		const { isStarred, openSnackbar } = this.state
+		this.setState({
+			message: isStarred ? 'System starred!' : 'System unstarred!',
+			openSnackbar: !openSnackbar
+		})
+	}
+
+    render() {
+        const 	{ state } = this,
+				color = state.isStarred ? 'yellow' : 'white'
+
+		return 	<div>
+					<Snackbar
+					  open={state.openSnackbar}
+					  message={state.message}
+					  autoHideDuration={4000}
+					  onRequestClose={this.toggleSnackbar}
+					/>
+					<FABButton
+						onClick={this.toggleStar}
+						colored
+						ripple
+					>
+						<Icon name="star" style={{color}} />
+					</FABButton>
+				</div>
     }
 }
 

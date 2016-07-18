@@ -23,6 +23,7 @@
     "react-addons-test-utils": "^15.0.2",
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
+    "react-autobind": "^1.0.6",
     "react-dom": "^15.0.2",
     "react-if": "^2.1.0",
     "react-mdl": "^1.5.4",
@@ -30,6 +31,7 @@
     "unirest": "^0.4.2"
   },
   "devDependencies": {
+    "babel-eslint": "^6.1.0",
     "babel-preset-meteor": "^6.9.0",
     "eslint": "^2.11.1",
     "eslint-plugin-import": "^1.8.1"

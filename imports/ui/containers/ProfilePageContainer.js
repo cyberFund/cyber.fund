@@ -6,6 +6,9 @@ import { FlowRouter } from 'meteor/kadira:flow-router'
 import get from 'oget'
 import ProfilePage from '../pages/ProfilePage'
 
+// TODO important: looks like this legacy code(including children components like assets manager) is full of unused code and strange variable names.
+// it needs to be redone properly or there will be prooblems
+
 export default ProfilePageContainer = createContainer(() => {
 	// constants
     const username = FlowRouter.getParam('username'),
@@ -30,7 +33,7 @@ export default ProfilePageContainer = createContainer(() => {
 
 	// TODO which constants are actually used and which are not?
 	//profileName = this.profile && this.profile.name
-  return {
+	return {
 		user,
 		loaded: usersReady && systemsReady && protfolioReady,
 		userAccounts: CF.Accounts.findByRefId(user._id).fetch(),
@@ -55,5 +58,5 @@ export default ProfilePageContainer = createContainer(() => {
 		//followedByCount: get(user, 'profile.followedBy', 0),
 		//check if current user is following this profile
 		following: _.contains(get(Meteor.user(), 'profile.followingUsers') || [], user._id)
-  }
+	}
 }, ProfilePage)
