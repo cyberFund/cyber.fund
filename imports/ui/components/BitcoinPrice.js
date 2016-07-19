@@ -13,7 +13,7 @@ BitcoinPrice.propTypes = {
 }
 
 export default createContainer( props => {
-	Meteor.subscribe("currentDataRP", 'Bitcoin')
+	Meteor.subscribe("currentDataRP", {_id:'Bitcoin'})
 
 	const 	dataIsReady = helpers._btcPrice(),
 			bitcoinPrice = dataIsReady ? helpers.readableNumbers(dataIsReady) : 0
