@@ -28,6 +28,7 @@
     "react-if": "^2.1.0",
     "react-mdl": "^1.5.4",
     "react-mounter": "^1.2.0",
+    "react-tap-event-plugin": "^1.0.0",
     "unirest": "^0.4.2"
   },
   "devDependencies": {
