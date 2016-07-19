@@ -4,7 +4,7 @@ import { _ } from 'meteor/underscore'
 import { If } from '../components/Utils'
 import helpers from '../helpers'
 
-const Assets = props => {
+const AssetsList = props => {
 
 	function renderAsset(value, key) {
 		// return 	<li className="collection-item asset-item" asset-key={key}>
@@ -51,8 +51,8 @@ const Assets = props => {
 			</ul>
 }
 
-Assets.propTypes = {
+AssetsList.propTypes = {
     assets: PropTypes.object.isRequired
 }
 
-export default Assets
+export default AssetsList
