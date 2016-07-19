@@ -63,17 +63,17 @@ class ProfilePage extends Component {
         return props.loaded ? (
               <Grid id="ProfilePage">
                   {/* USER INFO */}
-                  <Cell itemscope itemtype="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
+                  <Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
 						  src={user.largeAvatar}
 						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
-						  />
-						<h4 itemprop="name">{user.profile.name}</h4>
+						/>
+					  	<h4 itemProp="name">{user.profile.name}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
 						<section className="grey-text">
 						  <If condition={get(user, 'services.twitter', false)}>
 							<a className="grey-text" href={`https://twitter.com/@${user.username}`}>
-							  <span itemprop="alternateName">
+							  <span itemProp="alternateName">
 								  @{user.username}
 							  </span>
 							</a>
@@ -87,7 +87,7 @@ class ProfilePage extends Component {
 					    </section>
 						{/*TODO do we need this .profile-lists wrapper?*/}
 						{/* STARRED FOLLOWERS FOLLOWING */}
-						<section class="profile-lists">
+						<section className="profile-lists">
 							<SystemsList systems={props.starred} title='Starred' style={listStyle} />
 							<UsersList users={props.followedByUsers} title='Followers' style={listStyle} />
 							<UsersList users={props.followingUsers} title='Following' className="avatar-round" style={listStyle} />
@@ -101,7 +101,7 @@ class ProfilePage extends Component {
 							</Hide>
 						</If>
                   </Cell>
-					<Cell col={9} tablet={5} phone={4} className="text-center">
+					<Cell col={9} tablet={5} phone={4}>
 						{/* TAB SELECTOR */}
 						<Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
 						    <Tab>Portfolio</Tab>
@@ -109,11 +109,13 @@ class ProfilePage extends Component {
 						</Tabs>
 						{/* PORTFOLIO TAB */}
 						<section style={state.firstTabStyle}>
+							<Hide unless={helpers.isOwnAssets()}>
 						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
 						        <div className="video-container">
 						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
 						        </div>
-						        <PortfolioTableContainer users={props.userAccounts} />
+							</Hide>
+						<PortfolioTableContainer users={props.userAccounts} />
 						</section>
 						{/* ACCOUNTS TAB */}
 						{/* TODO remove section, leave only assets manager? */}
