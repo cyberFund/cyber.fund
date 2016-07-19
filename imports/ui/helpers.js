@@ -400,7 +400,7 @@ const helpers = {
 
     linksWithoutTags: function (links, tags) {
       if (!_.isArray(links)) return [];
-  
+
       return _.filter(links, function (link) {
         var ret = _.isArray(link.tags);
         _.each(tags, function (tag) {
@@ -409,7 +409,12 @@ const helpers = {
 
         return ret;
       });
-    }
+	  },
+	  displayBtcUsd: function(vBtc, vUsd) {
+		  if (vUsd && vBtc) return `Ƀ${this.readableN4(vBtc)}/$${this.readableN2(vUsd)}` // ()
+		  if (vUsd || vBtc) return vBtc ? `Ƀ${this.readableN4(vBtc)}` : `$${this.readableN2(vUsd)}`
+		  return ''
+	  }
 
 }
 // this is from views/profile/lib/helpers
