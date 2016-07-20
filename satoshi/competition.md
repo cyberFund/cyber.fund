@@ -1,14 +1,14 @@
-=== FIAT
+# FIAT - DESIGN BENCHMARKS
 
-== Stocks
+## Stocks
 https://www.robinhood.com/
 
-== Managed Funds
+## Managed Funds
 https://viriona.com/en — ForEx
+https://www.blackrock.com/investing/home
 
 
-
-=== CRYPTO
+# CRYPTO
 
 https://web.archive.org/web/20150315025715/http://www.bitcointrust.co/
 https://coinfund.io/
@@ -20,7 +20,7 @@ http://www.glassboxinvestments.com/
 http://grayscale.co/bitcoin-investment-trust/
 
 
-=== Misc
+# Misc
 
-== On crypto ETF's
+## On crypto ETF's
 http://www.forbes.com/sites/laurashin/2016/07/18/as-race-to-offer-first-bitcoin-etf-heats-up-new-company-files-to-create-an-ether-etf/#13f235572d55
