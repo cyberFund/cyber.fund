@@ -411,9 +411,9 @@ const helpers = {
       });
 	  },
 	  displayBtcUsd: function(vBtc, vUsd) {
-		  if (vUsd && vBtc) return `Ƀ${this.readableN4(vBtc)}/$${this.readableN2(vUsd)}` // ()
-		  if (vUsd || vBtc) return vBtc ? `Ƀ${this.readableN4(vBtc)}` : `$${this.readableN2(vUsd)}`
-		  return ''
+		  if (vUsd && vBtc) return `Ƀ${helpers.readableN4(vBtc)}/$${helpers.readableN2(vUsd)}` // ()
+		  if (vUsd || vBtc) return vBtc ? `Ƀ${helpers.readableN4(vBtc)}` : `$${helpers.readableN2(vUsd)}`
+		  return 0
 	  }
 
 }
