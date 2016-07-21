@@ -11,7 +11,7 @@ import FlatButton from 'material-ui/FlatButton'
 // />
 
 const Confirm = props => {
-	
+
 	const 	dialogButtons = [
 						<FlatButton
 							label={props.cancelText}
@@ -20,9 +20,9 @@ const Confirm = props => {
 						/>,
 						<FlatButton
 							label={props.confirmText}
+							primary={true}
 							keyboardFocused={true}
 							onTouchTap={props.onConfirm}
-							primary={true}
 						/>
 					]
 
@@ -47,7 +47,6 @@ Confirm.propTypes = {
 }
 
 Confirm.defaultProps = {
-	title: 'Are you sure?',
 	confirmText: 'confirm',
 	cancelText: 'cancel'
 }
