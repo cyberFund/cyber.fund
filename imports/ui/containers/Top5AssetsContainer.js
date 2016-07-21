@@ -15,10 +15,7 @@ export default createContainer( props => {
 							sort: { "calculatable.RATING.sum": -1 },
 							limit: 5
 						}).fetch()
-			console.log(systems)
-	return {
-		loaded,
-		systems
-	}
+
+	return { loaded, systems }
 
 }, Top5Assets)
