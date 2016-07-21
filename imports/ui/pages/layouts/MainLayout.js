@@ -7,12 +7,13 @@ import { Layout, Content,
   Header, Navigation, Drawer, Textfield,
   Footer, FooterSection, FooterDropDownSection, FooterLinkList, Button } from 'react-mdl'
 import BitcoinPrice from '../../components/BitcoinPrice'
+import Search from '../../components/Search'
 
 class MainLayout extends React.Component {
     componentDidMount() {
         // after link or button click close sidebar
-        // but not if it's expandable search button
-        $('.mdl-layout__drawer .mdl-navigation__link:not(.mdl-textfield--expandable), .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])').click(function(){
+        // but not if it's search component
+        $('.mdl-layout__drawer .mdl-navigation__link:not(input)').click(function(){ // , .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])
             Meteor.setTimeout(function triggerClick(){
               $('.mdl-layout__obfuscator').trigger('click');
             }, 280)
@@ -50,14 +51,8 @@ class MainLayout extends React.Component {
                        <a href="/funds">Funds</a>
                        <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
                        <a href="https://blog.cyber.fund" target="_blank">Blog</a>
-                       <Textfield
-                           value=""
-                           onChange={() => {}}
-                           label="Search for coin"
-                           expandable
-                           expandableIcon="search"
-                       />
-                       <a href="" style={{lineHeight: 'inherit'}}>
+					   <a href=""> <Search /> </a>
+                       <a href="" style={{lineHeight: 'inherit', cursore: 'none'}}>
                            <BitcoinPrice />
                        </a>
                        {loginOrProfileLink}
