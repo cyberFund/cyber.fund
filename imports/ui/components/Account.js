@@ -27,24 +27,17 @@ import {blue300, indigo900} from 'material-ui/styles/colors';
 // CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
 // TODO clean up, add comments
 class Account extends React.Component {
-	constructor(params) {
-		super(params)
-		this.state = {
-			confirmIsOpen: false,
-			promptIsOpen: false,
-			promptText: '',
-			promptError: ''
-		}
-		this.handleUpdate = this.handleUpdate.bind(this)
-		this.handleDelete = this.handleDelete.bind(this)
-		this.handleRename = this.handleRename.bind(this)
-		this.handlePromptChange = this.handlePromptChange.bind(this)
-		this.handlePrivacyToggle = this.handlePrivacyToggle.bind(this)
+	state = {
+		confirmIsOpen: false,
+		promptIsOpen: false,
+		promptText: '',
+		promptError: ''
 	}
 
+	// update balance info on load
 	componentDidMount() { this.handleUpdate() }
 
-	handleDelete() {
+	handleDelete = () => {
 
 		const accountName = this.props.account._id
 		Meteor.call(
@@ -60,7 +53,7 @@ class Account extends React.Component {
 
 	}
 
-	handlePrivacyToggle() {
+	handlePrivacyToggle = () => {
 
 		Meteor.call(
 			"cfAssetsTogglePrivacy",
@@ -74,7 +67,7 @@ class Account extends React.Component {
 
 	}
 
-	handleUpdate() {
+	handleUpdate = () => {
 
 		Meteor.call("cfAssetsUpdateBalances", {
 			  userId: Meteor.userId(),
@@ -85,7 +78,7 @@ class Account extends React.Component {
 
 	}
 
-	handleRename() {
+	handleRename = () => {
 
 		const { account } = this.props
 		const { promptText, promptError } = this.state
@@ -115,7 +108,7 @@ class Account extends React.Component {
 
 	}
 
-	handlePromptChange(event) {
+	handlePromptChange = event => {
 
 		let errorText = '',
 			promptText = event.target.value
