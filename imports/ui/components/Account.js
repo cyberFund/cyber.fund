@@ -42,6 +42,8 @@ class Account extends React.Component {
 		this.handlePrivacyToggle = this.handlePrivacyToggle.bind(this)
 	}
 
+	componentDidMount() { this.handleUpdate() }
+
 	handleDelete() {
 
 		const accountName = this.props.account._id
