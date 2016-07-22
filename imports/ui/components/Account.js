@@ -25,7 +25,7 @@ import {blue300, indigo900} from 'material-ui/styles/colors';
 // var cfCDs = CF.CurrentData .selectors;
 // CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
 // CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
-
+// TODO clean up, add comments
 class Account extends React.Component {
 	constructor(params) {
 		super(params)
@@ -35,6 +35,7 @@ class Account extends React.Component {
 			promptText: '',
 			promptError: ''
 		}
+		this.handleUpdate = this.handleUpdate.bind(this)
 		this.handleDelete = this.handleDelete.bind(this)
 		this.handleRename = this.handleRename.bind(this)
 		this.handlePromptChange = this.handlePromptChange.bind(this)
@@ -47,8 +48,8 @@ class Account extends React.Component {
 		Meteor.call(
 					"cfAssetsRemoveAccount",
 					accountName,
-					(err)=> { // if no error occured submit analytics data
-						if(!err) analytics.track(
+					(err, succes)=> {
+						if(succes) analytics.track(
 									"Deleted Account",
 									{ accountName }
 								)
@@ -72,59 +73,18 @@ class Account extends React.Component {
 	}
 
 	handleUpdate() {
-		console.warn('handleUpdate')
-		// FIXME implement update
 
+		Meteor.call("cfAssetsUpdateBalances", {
+			  userId: Meteor.userId(),
+			  accountKey: this.props.account._id
+			}, function(error, succes) {
+				// TODO add snackbars or any other indentification of action progress and error/succes
+		})
 
-		// Meteor.call("cfAssetUpdateBalance",
-		// 	CF.Accounts.currentId.get(),
-		// 	CF.Accounts.currentAddress.get()
-		// )
-		// "click .req-update-balance.per-address": function(e, t) { //todo: add checker per account/ per user
-		//   //if (!isOwnAssets()) return;
-		//
-		//   var $t = t.$(e.currentTarget);
-		//   var uid = $t.closest(".assets-manager").attr("owner");
-		//   $t.addClass("disabled");
-		//
-		//   Meteor.call("cfAssetsUpdateBalances", {
-		// 	username: Meteor.user() && Meteor.user().username,
-		// 	accountKey: CF.Accounts.currentId.get(),
-		// 	address: CF.Accounts.currentAddress.get()
-		//   }, function(er, re) {
-		// 	$t.removeClass("disabled");
-		//   });
-		// },
-		// "click .per-account": function(e, t) {
-		//   //if (!isOwnAssets()) return;
-		//   var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-id");
-		//   CF.Accounts.currentId.set(accountKey.toString());
-		// },
-		//
-		// "click .req-update-balance.per-account": function(e, t) {
-		//   //todo: add checker per account/ per user
-		//   //if (!isOwnAssets()) return;
-		//
-		//   var $t = t.$(e.currentTarget);
-		//
-		//   var uid = $t.closest(".assets-manager").attr("owner");
-		//   $t.addClass("disabled");
-		//   //$(".req-update-balance.per-address", $t.closest(".account-item"))
-		//   //.addClass("disabled");
-		//
-		//   Meteor.call("cfAssetsUpdateBalances", {
-		// 	userId: Meteor.userId(),
-		// 	accountKey: CF.Accounts.currentId.get()
-		// 	  //  address: CF.Accounts.currentAddress.get()
-		//   }, function(er, re) {
-		// 	$t.removeClass("disabled");
-		// 	//$ (".req-update-balance.per-address", $t.closest(".account-item"))
-		// 	//.removeClass("disabled");
-		//   });
-		// },
 	}
 
 	handleRename() {
+
 		const { account } = this.props
 		const { promptText, promptError } = this.state
 		// do nothing on error
@@ -150,11 +110,13 @@ class Account extends React.Component {
 				}
 			}
 		)
+
 	}
 
 	handlePromptChange(event) {
-		const promptText = event.target.value
-		let errorText = ''
+
+		let errorText = '',
+			promptText = event.target.value
 
 		// check if account name already exists
 		if ( !CF.Accounts.accountNameIsValid(promptText, Meteor.userId()) ) {
@@ -169,24 +131,25 @@ class Account extends React.Component {
 	render() {
 		const 	{ state, props, props: { account } } = this,
 				{ isOwnAssets, userHasPublicAccess, displayBtcUsd } = helpers,
-				lastUpdated = account.updatedAt ? helpers.dateFormat(account.updatedAt) : 'never'
+				lastUpdated = account.updatedAt ? helpers.dateFormat(account.updatedAt, "llll") : 'never'
+
+		// TODO implement 'verified', 'unverified' address
 		// const chip = 	<Chip backgroundColor={blue300}>
 		// 					Colored Chip
 		// 				</Chip>
 
 		const 	icon = name => <i className='material-icons'>{name}</i>
 		const publicityIcon = icon( account.isPrivate ? 'public' : 'vpn_lock' )
-		console.warn(account.isPrivate)
-		console.warn(account)
 
 		return  <Cell col={12} shadow={4} className='mdl-card' account-id={account._id}>
+					{/* TOOLBAR */}
 					<Toolbar>
 						<ToolbarGroup>
 							<ToolbarTitle text={account.name} />
 							<ToolbarTitle text={publicityIcon}/>
 						</ToolbarGroup>
 						<ToolbarGroup>
-							<IconButton tooltip={`last updated at: ${lastUpdated}`}>
+							<IconButton onClick={this.handleUpdate} title={`last updated at: ${lastUpdated}`}>
 					    		{icon('loop')}
 						    </IconButton>
 							<Show condition={isOwnAssets()}>
@@ -196,7 +159,7 @@ class Account extends React.Component {
 											<MoreVertIcon />
 										</IconButton>
 									}
-									// bottom-left position of menu items
+									// open menu from top right to bottom left
 									anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 									targetOrigin={{horizontal: 'right', vertical: 'top'}}
 								>
@@ -248,6 +211,7 @@ Account.propTypes = {
 	// 'data', 'item', 'object', 'asset' ?
 	account: PropTypes.object.isRequired
 }
+
 export default createContainer( props => {
 
 	// FIXME this is a mess. What variables actually used in code?
@@ -255,8 +219,8 @@ export default createContainer( props => {
 			{selectors} = CF.CurrentData
 
 
-	CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress")
-	CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset")
+	// CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress")
+	// CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset")
 
 
 	function isPublicAccount(account) {
