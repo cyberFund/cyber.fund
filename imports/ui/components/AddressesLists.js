@@ -19,94 +19,103 @@ import Chip from 'material-ui/Chip'
 
 
 class AddressesLists extends React.Component {
-	constructor(props) {
-		super(props)
-		//state
-		this.state = {
-			openAddDialog: false,
-			openDeleteDialog: false
-		}
-		// bindings
-		this.toggleDialog = this.toggleDialog.bind(this)
+	state = {
+		selectedAddress: null,
+		selectedAsset: null,
+		openAddDialog: false,
+		openDeleteDialog: false
 	}
 
-	toggleDialog(dialogName) {
-		console.warn(dialogName)
-		const dialog = this.state[dialogName]
-		console.warn(dialog)
+	toggleDialog = (dialogName, selectedAddress, selectedAsset) => {
+
 		this.setState({
+			selectedAddress,
+			selectedAsset,
 			[dialogName]: !this.state[dialogName]
 		})
-		console.warn(this.state)
+
 	}
 
-	handleDelete() {
-		// const 	accountName = CF.Accounts.currentId.get(),
-		// 		address = CF.Accounts.currentAddress.get()
-		// console.warn(accountName, address)
-		// Meteor.call("cfAssetsRemoveAddress",
-		// 	accountName, address,
-		// 	(err, ret) =>{
-		// 	  this.toggleDialog('openDeleteDialog')
-		// })
-		// analytics.track("Deleted Address", { accountName, address })
+	handleDelete = () => {
+
+		const	{ account } = this.props,
+				{ selectedAddress, selectedAsset } = this.state
+
+		Meteor.call("cfAssetsRemoveAddress",
+			account._id,
+			selectedAddress,
+			selectedAsset,
+			(err, succes) => {
+				// TODO add snackbar
+				if(succes) 	analytics.track("Deleted Address", {
+								accountName: account._id,
+								address: selectedAddress
+							})
+				else console.error(err)
+				this.toggleDialog('openDeleteDialog')
+		})
+
 	}
 
 	render() {
-		const {props, state} = this
-		const iconButtonElement = (
-				  <IconButton
-				    touch={true}
-				    tooltip="more"
-				    tooltipPosition="bottom-left"
-				  >
-				    <MoreVertIcon color={grey400} />
-				  </IconButton>
-				)
-		// TODO do not forgert to implement actions
-		const rightIconMenu = (
-			<IconMenu iconButtonElement={iconButtonElement}>
-				<MenuItem
-					primaryText="Add Asset"
-					onClick={this.toggleDialog.bind(this, 'openAddDialog')}
-					leftIcon={<i className='material-icons'>add</i>}
-				/>
-				<MenuItem
-					primaryText="Delete address"
-					onClick={this.toggleDialog.bind(this, 'openDeleteDialog')}
-					leftIcon={<i className='material-icons'>delete</i>}
-				/>
-			</IconMenu>
-		)
+		const 	{props, state, toggleDialog} = this
 
-		// FIXME do not forget to add proper comment
-		/* addresses are structured as object
-			{ addressId (random numbers): {
-				addressName(bitcoin)
-			} }
-		*/
+		// OBJECT STRUCTURE
+		// {
+		// 	props.addresses: {
+		// 		addresId: {
+		// 			assets: {
+		// 				SystemName (ie bitcoin): {data}
+		// 			}
+		// 		},
+		// 		addresId,
+		// 		addresId
+		// 	}
+		// }
 
+		// nested map functions are used because params of first function are used inside second
+		// (ie adress variable is used insude assets)
 		function renderAddress(object, address) {
-			return _.map(object.assets, 	function renderAsset(asset, name) {
-					const 	system = props.getSystem(name),
-					systemLink = (...children) => {
-						return 	<a
-									href={`/system/${helpers._toUnderscores(name)}`}
-									className='text-center'
-								>
-									{children}
-								</a>
-					}
+			console.warn(object, address);
+
+			return _.map(object.assets, (asset, name) => {
+					// TODO do not forgert to implement actions
+					const	system = props.getSystem(name),
+							rightIconMenu = <IconMenu
+													// icon button
+													iconButtonElement={
+														<IconButton
+															touch={true}
+															tooltip="options"
+															tooltipPosition="bottom-left"
+														>
+															<MoreVertIcon color={grey400} />
+														</IconButton>
+													}
+													// open menu from top to bottom left
+													anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+													targetOrigin={{horizontal: 'right', vertical: 'top'}}
+											>
+												<MenuItem
+													primaryText="Add Asset"
+													onClick={toggleDialog.bind(this, 'openAddDialog', address, name)}
+													leftIcon={<i className='material-icons'>add</i>}
+												/>
+												<MenuItem
+													primaryText="Delete address"
+													onClick={toggleDialog.bind(this, 'openDeleteDialog', address, name)}
+													leftIcon={<i className='material-icons'>delete</i>}
+												/>
+											</IconMenu>
+
 					return	<ListItem
 								leftAvatar={
-									systemLink(
-										<Image src={system} avatar />,
-										<br />,
-										// helpers.displaySystemName(system)
-									)
-								}
-								rightIconButton={
-									helpers.isOwnAssets() ?	rightIconMenu : null
+									<a
+										href={`/system/${helpers._toUnderscores(name)}`}
+										className='text-center'
+									>
+												<Image src={system} avatar />
+									</a>
 								}
 								primaryText={
 									<span>{asset.quantity} {helpers.displayCurrencyName(name)}s</span>
@@ -118,6 +127,9 @@ class AddressesLists extends React.Component {
 									{address} {/* <Chip>Unverified Address</Chip> */}
 								</p>
 								}
+								rightIconButton={
+									helpers.isOwnAssets() ?	rightIconMenu : null
+								}
 								secondaryTextLines={4}
 								asset-key={name}
 								key={name}
@@ -125,17 +137,25 @@ class AddressesLists extends React.Component {
 								address-id={address}
 							/>
 				})
+
 		}
+
 		return 	<List>
 		        	<Subheader className='text-big'>{props.title}</Subheader>
 					<Divider inset={false} />
-					{_.map(props.addresses, renderAddress)}
+
+					{/* LIST ITEMS */}
+					{_.map(props.account.addresses, renderAddress.bind(this))}
+
+					{/* DIALOGS */}
 					<Confirm
-						title='Delete address'
+						//title='Delete address'
+						confirmText='delete'
 						open={state.openDeleteDialog}
-						onConfirm={this.handleDelete}						onCancel={this.toggleDialog.bind(this, 'openDeleteDialog')}
+						onConfirm={this.handleDelete}
+						onCancel={toggleDialog.bind(this, 'openDeleteDialog')}
 					>
-						{/*<p>Confirm deletion of {address} address at {account.name} account</p>*/}
+						<b>Confirm deletion of {state.selectedAddress} address at {this.props.account.name} account</b>
 					</Confirm>
 
 					{/*<AddAssetDialog
@@ -143,17 +163,19 @@ class AddressesLists extends React.Component {
 						open={state.openAddDialog}
 						inputLabel='Type amount here'
 						onConfirm={(text) => console.warn(text)}
-						onCancel={this.toggleDialog.bind(this, 'openAddDialog')}
+						onCancel={toggleDialog.bind(this, 'openAddDialog')}
 					/>*/}
 				</List>
 	}
 }
 
 AddressesLists.propTypes = {
+	// TODO maybe change <AddressesLists account={} /> to <AddressesLists addresses={} accountId={} /> ?
+	// the whole account is being passed becaused account._id is used in meteor calls
+	account: PropTypes.object.isRequired,
 	// system is fetched through callback to keep component reusable,
 	// and to stay away from dozens micro containers
 	getSystem: PropTypes.func.isRequired,
-    items: PropTypes.object.isRequired,
 	title: PropTypes.string
 }
 

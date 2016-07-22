@@ -175,7 +175,7 @@ class Account extends React.Component {
 					{/* ADDRESSES */}
 					<AddressesLists
 						title={`(${ displayBtcUsd(account.vBtc, account.vUsd) })`}
-						addresses={account.addresses}
+						account={account}
 						getSystem={props.systemData}
 					/>
 
