@@ -281,3 +281,62 @@ ns.extractAssets = function flatten(doc) {
   }
   return CF.Accounts.accumulate(ret);
 };
+
+
+
+// code below is copypasted from views/profile/portfolio/lib/portfolio.js
+
+// moved code to client only because meteor were throwing errors:
+// "ReferenceError: FlowRouter is not defined"
+if(Meteor.isClient){
+
+//////////////////////////// hide domain
+	ns.isHidden = function isHidden(accountId){
+	  return Session.get("hideAccount_"+(accountId));
+	};
+
+	ns.hiddenToggle = function(accountId){
+	  if (!accountId) return;
+	  Session.set("hideAccount_"+(accountId), !Session.get("hideAccount_"+(accountId)));
+	};
+
+	function getUserId() {
+	  var username = FlowRouter.getParam("username");
+	  var user = CF.Utils.normalizeOptionsPerUser({ username: username });
+	  return user.userId;
+	}
+
+	function gimmeData (refId){
+	  return ns.collection.find({refId: refId});
+	}
+
+	function filterData(){
+	  var ret = [];
+	  var userId = getUserId();
+
+	  gimmeData(userId).forEach(function (account){
+	    if (!ns.isHidden(account._id)) ret.push(account);
+	  });
+	  return ret;
+	}
+
+	ns.userProfileData = function(){
+	  return filterData();
+	};
+
+	////////////////////////////// accounting domain
+
+	/*
+	* @param docs: array of
+	* @param accumulator: object to sum data from docs array - MUTABLE
+	* @returns accumulator
+	*/
+
+
+	ns.portfolioTableData = function tableData() {
+		  return  ns.accumulate(ns.userProfileData().map(function(it) {
+		      return ns.extractAssets(it);
+		    }
+	  	  ));
+	}
+}

@@ -13,6 +13,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom("1.1.0.3");
   api.use(["cyberfund:cyberfund-currentdata"]);
+  api.use(["kadira:flow-router"], "client"); // for ns.userProfileData()
   api.use(["underscore"], ["client", "server"]);
   api.use(["ui", "templating"], "client");
   api.addFiles(["accounts.js", "cyberfund-userassets.js"], ["client", "server"]);
