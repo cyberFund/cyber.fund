@@ -84,13 +84,16 @@ return loaded ? (
 			    </div>
 			</Cell>
 		</If>
+
 		{/* TABS / SYSTEMLINKS */}
 		<SystemLinks links={linksWithTag(links, 'Apps')} systemId={_id} />
 		<If condition={dependentsExist} component={Grid}>
 			<Cell col={12}>
 				<h3>Internal Economy</h3>
 				<div>
-					{dependents.map((item, index) => <p key={index}>{item._id}</p>)}
+					{dependents.map(
+						link => <p key={link.name}> <ChaingearLink link={link} /> </p>
+					)}
 				</div>
 			</Cell>
 		</If>
@@ -116,7 +119,9 @@ return loaded ? (
 				</Cell>
 			</If>
 		</Grid>
+
 		<SpecsTable system={system} />
+
 		<Grid>
 			<Cell col={12}>
 				<p>You can <a target="_blank" href={githubLink}> improve {_id}'s page</a> on Github.</p>
@@ -127,8 +132,10 @@ return loaded ? (
 				<KeenChart id="meow" value={_id} />
 			</Cell>
 		</Grid>
+
 		{/* FLOATING BUTTON */}
 		<StarButton systemId={_id} />
+
     </section>
 ) : <Loading />
 }
