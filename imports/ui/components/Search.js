@@ -36,6 +36,10 @@ class Search extends React.Component {
 	}
 }
 
+Search.propTypes = {
+	callback: PropTypes.func
+}
+
 export default createContainer(() => {
 	Meteor.subscribe("currentDataRP")
 	return { systems: CurrentData.find().fetch() }
