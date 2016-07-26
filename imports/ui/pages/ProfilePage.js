@@ -1,30 +1,34 @@
+// functions
 import React, { Component, PropTypes }  from 'react'
 import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
-import { Grid, Cell, IconButton, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
+
+// components
+import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import { If, Else, Unless, Hide } from '../components/Utils'
 import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
-import PortfolioTableContainer from '../containers/PortfolioTableContainer'
+import AccountsTotalTable from '../components/AccountsTotalTable'
+// TODO check this dependency
+// import PortfolioTableContainer from '../containers/PortfolioTableContainer'
+import PortfolioTable from '../components/PortfolioTable'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
-// TODO sort check dependencies usage
 
 class ProfilePage extends Component {
-    constructor(props) {
-    	super(props)
-    	this.state = {
-			activeTab: 0,
-			firstTabStyle: {display: 'initial'},
-			secondTabStyle: {display: 'none'}
-		 }
-    }
-	changeTab(activeTab) {
+
+	state = {
+		activeTab: 0,
+		firstTabStyle: {display: 'initial'},
+		secondTabStyle: {display: 'none'}
+	}
+
+	changeTab = (activeTab) => {
 		this.setState({ activeTab })
 		// hide&show elements via display property manipulation instead of changes based on state (<Hide /> component for example)
 		// reason: state changes make elements rerender causing embed youtube video to reinitialize multiple times == bad UX
@@ -41,20 +45,31 @@ class ProfilePage extends Component {
 			})
 		}
 	}
+
 	handleLogout() {
-		console.warn('User logout fired!')
-		Meteor.logout() && analytics.track('Sign Out', { from: 'profile' })
+		( Meteor.logout() && analytics.track('Sign Out', { from: 'profile' }) )
 	}
-	toggleFollow() {
-		if (!Meteor.user()) FlowRouter.go("/welcome");
-		// if following == true => unfollow and vise versa
+
+	toggleFollow = () => {
+
+		if (!Meteor.user()) FlowRouter.go("/welcome")
+
+		// if following == true => unfollow and vice versa
 		const unfollow = this.props.following
-		Meteor.call('followUser', CF.Profile.currentUid(), unfollow ? { unfollow } : undefined)
-		analytics.track(
-			unfollow ? 'Followed Person' : 'Followed Person',
-			{ personName: CF.Profile.currentUsername() }
+		Meteor.call(
+			'followUser',
+			CF.Profile.currentUid(),
+			unfollow ? { unfollow } : undefined,
+			err => {
+				if(!err) analytics.track(
+							unfollow ? 'Followed Person' : 'Followed Person',
+							{ personName: CF.Profile.currentUsername() }
+						)
+			}
 		)
+
 	}
+
     render() {
         const	{props: {user, isOwnProfile, following, userNumber}, state, props} = 	this,
 				{toggleFollow, changeTab, handleLogout} 	= 	this,
@@ -62,7 +77,9 @@ class ProfilePage extends Component {
 
         return props.loaded ? (
               <Grid id="ProfilePage">
+
                   {/* USER INFO */}
+
                   <Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
 						  src={user.largeAvatar}
@@ -92,8 +109,8 @@ class ProfilePage extends Component {
 							<UsersList users={props.followedByUsers} title='Followers' style={listStyle} />
 							<UsersList users={props.followingUsers} title='Following' className="avatar-round" style={listStyle} />
 						</section>
-						{/* logout button and userNumber */}
-						<If condition={isOwnProfile} component='div'>
+						{/* LOGOUN BUTTON AND USER NUMBER */}
+						<If condition={isOwnProfile}>
 							<Button onClick={handleLogout} raised colored ripple>Logout</Button>
 							<Hide unless={userNumber <= 400}>
 								<p>You are user #{userNumber}</p>
@@ -101,36 +118,36 @@ class ProfilePage extends Component {
 							</Hide>
 						</If>
                   </Cell>
+
+				  	{/* TABS SECTION */}
+
 					<Cell col={9} tablet={5} phone={4}>
 						{/* TAB SELECTOR */}
-						<Tabs activeTab={state.activeTab} onChange={changeTab.bind(this)} ripple>
+						<Tabs activeTab={state.activeTab} onChange={changeTab} ripple>
 						    <Tab>Portfolio</Tab>
 						    <Tab>Accounts</Tab>
 						</Tabs>
 						{/* PORTFOLIO TAB */}
 						<section style={state.firstTabStyle}>
-							<Hide unless={helpers.isOwnAssets()}>
+							<Hide unless={helpers.isOwnAssets() && props.userAccounts.length == 0}>
 						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
 						        <div className="video-container">
 						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
 						        </div>
 							</Hide>
-						<PortfolioTableContainer users={props.userAccounts} />
+							<AccountsTotalTable accounts={props.userAccounts} />
+							<PortfolioTable accounts={props.userAccounts} />
+							{/*<PortfolioTableContainer users={props.userAccounts} />*/}
 						</section>
 						{/* ACCOUNTS TAB */}
-						{/* TODO remove section, leave only assets manager? */}
-						<section style={state.secondTabStyle}>
-						    <AssetsManager />
-						</section>
+						<AssetsManager style={state.secondTabStyle} accounts={props.userAccounts} />
 					</Cell>
                 	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
-					{/* TODO move condition checking into AddAccount? */}
-					{/* or will it make code less readable? */}
-					<If condition={isOwnProfile}>
-						<AddAccount />
-					</If>
+					{/* TODO move condition checking into AddAccount?
+						Or will it make code less readable? */}
+					<If condition={isOwnProfile}> <AddAccount /> </If>
 					<Else condition={isOwnProfile}>
-						<FABButton onClick={toggleFollow.bind(this)} colored ripple>
+						<FABButton onClick={toggleFollow} colored ripple>
 							<Icon name={following ? 'remove circle' : 'person'} />
 		                </FABButton>
 					</Else>
@@ -138,6 +155,7 @@ class ProfilePage extends Component {
         ) : <Loading />
     }
 }
+
 // TODO don't forget to add proptypes (reminder: they are same as container returned variables)
 ProfilePage.propTypes = {
  //skills: PropTypes.array.isRequired,
