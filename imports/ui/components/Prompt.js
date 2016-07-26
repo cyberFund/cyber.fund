@@ -55,7 +55,7 @@ Prompt.propTypes = {
 	onCancel: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
 	onChange: PropTypes.func,
-	label: PropTypes.text,
+	label: PropTypes.string,
 	errorText: PropTypes.string,
 	submitText: PropTypes.string,
     cancelText: PropTypes.string
