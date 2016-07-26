@@ -33,6 +33,8 @@ const ChaingearLink = props => {
 			break;
 		}
 		switch (link.icon.toLowerCase()) {
+
+		switch ( get(link, 'icon', ' ').toLowerCase() ) {
 		  case "wiki.png":
 			return "wikipedia-w";
 		  case "twitter.png":
