@@ -80,8 +80,8 @@ class Account extends React.Component {
 
 	handleRename = () => {
 
-		const { account } = this.props
-		const { promptText, promptError } = this.state
+		const 	{ account } = this.props,
+				{ promptText, promptError } = this.state
 		// do nothing on error
 		if(promptError) return
 		// or make a call
@@ -130,13 +130,14 @@ class Account extends React.Component {
 
 		// TODO implement 'verified', 'unverified' address
 		// const chip = 	<Chip backgroundColor={blue300}>
-		// 					Colored Chip
-		// 				</Chip>
+		// 						Colored Chip
+		// 					</Chip>
 
 		const 	icon = name => <i className='material-icons'>{name}</i>
 		const publicityIcon = icon( account.isPrivate ? 'public' : 'vpn_lock' )
 
 		return  <Cell col={12} shadow={4} className='mdl-card' account-id={account._id}>
+
 					{/* TOOLBAR */}
 					<Toolbar>
 						<ToolbarGroup>
