@@ -1,19 +1,21 @@
 import React, { PropTypes } from 'react'
 import { Grid, Cell } from 'react-mdl'
-import { createContainer } from 'meteor/react-meteor-data'
 import Account from '../components/Account'
 
 // TODO: rename this into accounts list?
-class AssetsManager extends React.Component {
+
+export default class AssetsManager extends React.Component {
 	render() {
+		
 		const { ownerId, accounts } = this.props
-		console.log(accounts)
-		return 	<Grid owner={ownerId}>
+
+		// NOTE no idea what 'owner' property does. Maybe it's a selector, maybe it's for SEO
+		return 	<Grid owner={CF.Profile.currentUid() || {}} {...this.props}>
 					{
 						accounts
-						?
+						? // render assets
 						accounts.map(i => <Account key={i._id} account={i} />)
-						:
+						: // or empty column
 						<Cell col={12}>
 							<i className="text-center">There are no assets</i>
 						</Cell>
@@ -25,12 +27,3 @@ class AssetsManager extends React.Component {
 AssetsManager.propTypes = {
 	accounts: PropTypes.array.isRequired
 }
-
-// NOTE should we merge this into ProfilePageContainer so there will be only one source of data?
-// also because it seems like alot of code is duplicated from ProfilePageContainer
-export default createContainer(props => {
-	const 	ownerId = CF.Profile.currentUid() || {}
-	return {
-		accounts: CF.Accounts.findByRefId(ownerId).fetch()
-	}
-}, AssetsManager)
