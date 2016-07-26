@@ -6,14 +6,13 @@ import ChaingearLink from '../components/ChaingearLink';
 import helpers from '../helpers'
 
 class SystemLinks extends React.Component {
-	constructor(params) {
-		super(params)
-		this.state = {
-			activeTab: 0,
-			// display tabs if there are alot of links
-			displayTabs: this.props.links.length > 8
-		}
+
+	state = {
+		activeTab: 0,
+		// display tabs if there are alot of links
+		displayTabs: this.props.links.length > 8
 	}
+
 	render() {
 		const 	{ links, systemId } = this.props,
 				{ activeTab, displayTabs } = this.state,
