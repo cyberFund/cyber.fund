@@ -80,8 +80,7 @@ return loaded ? (
 			    <h3>News</h3>
 			    <div>
 					{linksWithTag(links, 'News').map(
-						// link => <p key={link.name}><ChaingearLink link={link} card /></p>
-						link => <ChaingearLink link={link}  key={link.name} card />
+						link => <ChaingearLink link={link} key={link.name} card />
 					)}
 			    </div>
 			</Cell>
