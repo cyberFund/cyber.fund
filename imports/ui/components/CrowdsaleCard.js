@@ -2,15 +2,19 @@ import React, { PropTypes } from 'react'
 import { Card, CardTitle, CardText, CardActions, CardMenu, IconButton, Cell, Button } from 'react-mdl'
 import moment from 'moment'
 import get from 'oget'
+import helpers from '../helpers'
+import SystemLink from '../components/SystemLink'
+
 // TODO: refactoring needed. Hint: maybe separate into multiple components?
-/* some documents do not have proper structure, so
-   "cannot read property of undefined" can occur anywhere
-   so seems like brute force checking existence of data is the only way */
 
 const CrowdsaleCard = (props) => {
+	
     /* CARDFOOTER */
     const CardFooter = () => {
       // variables
+	  /* some documents do not have proper structure, so
+	     "cannot read property of undefined" can occur anywhere
+	     so seems like brute force checking existence of data is the only way */
       const {item} = props,
             fundUrl = get(item, 'crowdsales.funding_url', ''),
             termsUrl = get(item, 'crowdsales.funding_terms', ''),
@@ -74,9 +78,10 @@ const CrowdsaleCard = (props) => {
       // render footer or not
       return displayFooter(props.type) ? <div>{footerTop}{footerBottom}</div> : null
     }
+
     /* CARDMAIN */
     /* variables */
-    const {item} = props,
+    const 	{ item } = props,
             nickname = get(item, 'aliases.nickname', item._id),
             usersStarred = get(item, '_usersStarred.length', 0)
 
@@ -109,46 +114,16 @@ const CrowdsaleCard = (props) => {
                           {CardFooter()}
                         </Card>
                       </Cell>
-      const smallCard = () =>{
-         //const cardStyle = {}
 
-         const innerStyle = {
-                display: 'inline-flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-                verticalAlign: 'middle',
-                minHeight: '60px',
-                maxHeight: '100px',
-                width: 'auto'
-         },
-         imgStyle = {
-          width: 'auto',
-          height: '45px',
-          marginLeft: 'auto'
-         },
-         textStyle = {
-             verticalAlign: 'middle',
-             marginLeft: '1em',
-			 marginRight: 'auto',
-             textAlign: 'center'
-         }
-         return <Cell col={12}>
-                    <a href={`/system/${item._id.replace(/\ /g, "_")}`} style={linkStyle}>
-                       <Card className="hover-shadow" shadow={2} style={{minHeight: 'inherit', width: 'auto'}}>
-                           <div style={innerStyle}>
-                             <img style={imgStyle} src={CF.Chaingear.helpers.cgSystemLogoUrl(item)} alt={`${nickname} logo`}/>
-                             <span style={textStyle} className="text-large">{nickname}</span>
-                           </div>
-                       </Card>
-                    </a>
-                 </Cell>
-      }
+    const smallCard = <SystemLink system={item} card />
+
+	// choose which card to return
     switch (props.size) {
-    case 'small':
-        return smallCard()
-    case 'big':
-    default:
-        return bigCard
+	    case 'small':
+	        return smallCard
+	    case 'big':
+	    default:
+	        return bigCard
     }
 }
 
