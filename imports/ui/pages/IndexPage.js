@@ -63,11 +63,15 @@ const IndexPage = props => {
 }
 
 IndexPage.propTypes = {
-  sumBtc: PropTypes.number.isRequired,
-  usersCount: PropTypes.number.isRequired,
-  coinsCount: PropTypes.number.isRequired,
-  activeCrowdsales: PropTypes.array.isRequired,
-  loaded: PropTypes.bool.isRequired
+	capUsd: PropTypes.number.isRequired,
+	capBtc: PropTypes.number.isRequired,
+	capUsdDailyChange: PropTypes.number.isRequired,
+	capBtcDailyChange: PropTypes.number.isRequired,
+	sumBtc: PropTypes.number.isRequired,
+	usersCount: PropTypes.number.isRequired,
+	coinsCount: PropTypes.number.isRequired,
+	activeCrowdsales: PropTypes.array.isRequired,
+	loaded: PropTypes.bool.isRequired
 }
 
 export default IndexPage
