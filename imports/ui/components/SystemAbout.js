@@ -7,7 +7,13 @@ import helpers from '../helpers'
 import get from 'oget'
 
 const SystemAbout = props => {
-	const {system} = props
+	const 	{system} = props,
+			centerAlign = {
+				position: 'absolute',
+				    left: '50%',
+				    top: '50%',
+				    transform: 'translate(-50%, -50%)'
+			}
 
 	return 	<Grid className="text-center">
 				<Cell col={4} tablet={2} phone={1} style={{height: '8em'}}>
@@ -19,17 +25,19 @@ const SystemAbout = props => {
 					</h1>
 					<h2 itemProp="alternateName">{system.symbol}</h2>
 				</Cell>
-				<Cell col={4} tablet={2} phone={1}>
-		            <div itemProp="aggregateRating" content={get(system, 'ratings.rating_cyber')}>
-						<Rating value={system.calculatable.RATING.sum} />
-		            </div>
-					<span style={{fontSize: 12}}>
-						{system.descriptions.state}
-						{system.descriptions.system_type}
-						<br />
-						{system.consensus.type}
-						{system.consensus.algorithm}
-					</span>
+				<Cell col={4} tablet={2} phone={1} style={{ position: 'relative' }}>
+					<section style={centerAlign}>
+			            <div itemProp="aggregateRating" content={get(system, 'ratings.rating_cyber')} style={{ fontSize: '2.4rem' }}>
+							<Rating value={system.calculatable.RATING.sum} />
+			            </div>
+						<span style={{fontSize: 12}}>
+							{system.descriptions.state}
+							{system.descriptions.system_type}
+							<br />
+							{system.consensus.type}
+							{system.consensus.algorithm}
+						</span>
+					</section>
 				</Cell>
 				<Cell col={12}>
 					<If condition={get(system, 'descriptions.headline')}>
