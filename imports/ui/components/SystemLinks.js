@@ -25,9 +25,9 @@ class SystemLinks extends React.Component {
 			let linksArray = linksWithTag( links, tags[activeTab] )
 			// if tab == "Earn"
 			if (activeTab == 4) linksArray = linksWithoutTags(links, systemId)
-			return linksArray.map( (link, index)=> {
-				return 	<ChaingearLink link={link} key={index} />
-			})
+			return 	linksArray.map(
+						(link, index)=> <ChaingearLink link={link} key={index} card />
+					)
 		}
 
 		return  <Grid className="text-center">

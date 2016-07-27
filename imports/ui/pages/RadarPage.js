@@ -10,11 +10,13 @@ const RadarPage = props => {
 
     return props.loaded ? (
       <div id="RadarPage">
+
         {/* INFO SECTION */}
         <CrowdsaleCardList title="Active Crowdsales" type="active" items={props.active} />
         <CrowdsaleCardList title="Upcoming Crowdsales" type="upcoming" items={props.upcoming} />
         <CrowdsaleCardList title="Anticipated Projects" type="projects" items={props.projects} />
         <CrowdsaleCardList title="Successful Crowdsales" type="past" items={props.past} />
+
         {/* CALL TO ACTION */}
         <div className="text-center">
           <Grid>
