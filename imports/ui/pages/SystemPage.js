@@ -6,6 +6,7 @@ import Metrics from '../components/Metrics'
 import ChaingearLink from '../components/ChaingearLink'
 import SystemAbout from '../components/SystemAbout'
 import SystemLinks from '../components/SystemLinks'
+import SystemLink from '../components/SystemLink'
 import SpecsTable from '../components/SpecsTable';
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
@@ -88,14 +89,12 @@ return loaded ? (
 		{/* TABS / SYSTEMLINKS */}
 		<SystemLinks links={linksWithTag(links, 'Apps')} systemId={_id} />
 		<If condition={dependentsExist} component={Grid}>
-			<Cell col={12}>
-				<h3>Internal Economy</h3>
-				<div>
-					{dependents.map(
-						link => <p key={link.name}> <ChaingearLink link={link} /> </p>
-					)}
-				</div>
-			</Cell>
+			<Cell col={12}> <h3>Internal Economy</h3> </Cell>
+			{dependents.map(
+				system =>  	<Cell col={3} tablet={4} phone={4} key={system._id}>
+								<SystemLink system={system} card />
+							</Cell>
+			)}
 		</If>
 		<Grid>
 			<If condition={existLinksWith(links, 'Science')}>
