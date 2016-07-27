@@ -15,7 +15,6 @@ export default IndexPageContainer = createContainer(() => {
 		    capUsd = get(cap, 'usd', 0),
 			btcDayAgo = get(cap, 'btcDayAgo', 0),
 			usdDayAgo = get(cap, 'usdDayAgo', 0),
-		    //capUsdYesterday = get(cap, 'usdDayAgo', 0),
 		    capBtcDailyChange = (capBtc - btcDayAgo)/capBtc * 100,
 		    capUsdDailyChange = (capUsd - usdDayAgo)/capUsd * 100
 
@@ -30,20 +29,16 @@ export default IndexPageContainer = createContainer(() => {
 
     // TODO: move active corwsales into CrowdsaleCardListContainer with type=active
     const activeCrowdsales = CurrentData.find({
-      $and: [{crowdsales: {$exists: true}}, {
-        "crowdsales.end_date": {
-          $gt: new Date()
-        }
-      }, {
-        "crowdsales.start_date": {
-          $lt: new Date()
-        }
-      }]
-    }, {sort: {"metrics.currently_raised": -1}}).fetch();
-
-    /* TODO: seems like we need only sumBtc variable
-    can we make getSumBtc() which does try {return cap.btc*cap.usd bla bla... OR return 0}
-    this will make code more readable */
+						      $and: [{crowdsales: {$exists: true}}, {
+						        "crowdsales.end_date": {
+						          $gt: new Date()
+						        }
+						      }, {
+						        "crowdsales.start_date": {
+						          $lt: new Date()
+						        }
+						      }]
+						    }, {sort: {"metrics.currently_raised": -1}}).fetch();
 
     return {
       capUsd,
