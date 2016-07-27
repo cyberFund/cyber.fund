@@ -1,43 +1,47 @@
 import React, { PropTypes } from 'react'
-import {$} from 'meteor/jquery'
+import { $ } from 'meteor/jquery'
 import classNames from 'classnames'
+import helpers from '../helpers'
 
 class Image extends React.Component {
-	// if image cannot be loaded use default image
-    handleError() {
-        $(this.refs.img).attr('src', 'https://www.gravatar.com/avatar?d=mm&s=48')
-    }
+
     render() {
-        const {props, handleError} = this
+        let { src, small, avatar, className, style = {} } = this.props
+
 	    // add extra classes based of attributes
-	    const classes = classNames( props.className, {
-	            'mdl-list__item-avatar': props.avatar
-	        })
-		let src = props.src
-		let style = props.style || {}
+	    const classes = classNames( className, { 'mdl-list__item-avatar': avatar || small })
+
 		/* add custom styles to image */
-		// for avatar auto height, for normal images limited (to avoid images being bigger than parent element)
-		_.extend(style, {maxHeight: props.avatar ? 'auto' : '100%'})
-		// if props.src is object means system image is requested
-		if(typeof props.src == 'object') {
-			// get system logo url
-			src = CF.Chaingear.helpers.cgSystemLogoUrl(props.src)
-			// extend style object with system specific css
+		// if src is object means system image is requested
+		// for system and small images reset backgroundColor and borderRadius
+		if (small || typeof src == 'object') {
 			style = _.extend(style, {backgroundColor: 'transparent', borderRadius: 0})
 		}
-        return <img
-					{...props}
-					src={src}
+		// for avatar set auto height, for normal images limited (to avoid images being bigger than parent element)
+		_.extend(style, {maxHeight: avatar ? 'auto' : '100%'})
+
+		// do not forget: {...this.props} must be first because we overide it's properties
+        return 	<img
+					{...this.props}
+					src={typeof src == 'object' ? helpers.cgSystemLogoUrl(src) : src}
 					className={classes}
 					style={style}
-					onError={handleError.bind(this)}
-					ref='img' />
+					onError={this.handleError}
+					ref='img'
+				/>
     }
+
+	// if image cannot be loaded use default image
+	handleError = () => $(this.refs.img).attr('src', 'https://www.gravatar.com/avatar?d=mm&s=48')
+
 }
 
 Image.propTypes = {
 	// url string or system object
-	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
+	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+	avatar: PropTypes.bool,
+	// if small prop is used, styles will be similar with avatar, except no border radius and background color
+	small: PropTypes.bool
 }
 
 export default Image
