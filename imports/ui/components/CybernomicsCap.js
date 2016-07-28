@@ -1,45 +1,48 @@
 import React, { PropTypes } from 'react'
-import { If, Then, Else } from 'react-if'
+import { If, Else } from '../components/Utils'
 import { Cell } from 'react-mdl'
 import helpers from '../helpers'
 
+// usage example
+{/*
+	<CybernomicsCap
+		col={12}
+		capUsd={props.capUsd}
+		capBtc={props.capBtc}
+		capBtcDailyChange={props.capBtcDailyChange}
+		capUsdDailyChange={props.capUsdDailyChange}
+	/>
+*/}
+
 const CybernomicsCap = props =>{
+
+	// renders comparison of cap and dailyChange values
+	function renderTextBlock(selector, currencySymbol) {
+
+		const	cap = props[selector],
+				dailyChange = props[selector + 'DailyChange'],
+				{ readableN0, greenRedNumber, percentsToTextUpDown } = helpers
+
+		return	<If condition={cap}>
+				  <div style={{marginBottom: '14px'}}>
+					<div className="text-large"> {currencySymbol} &nbsp; {readableN0(cap)} </div>
+					<If
+						condition={dailyChange}
+						className={greenRedNumber(dailyChange)}
+						component='span'
+					>
+						{percentsToTextUpDown(dailyChange, 4)}
+					</If>
+					<Else condition={dailyChange}>&nbsp;</Else>
+				  </div>
+				</If>
+	}
+
     return  <Cell {...props} className="text-center mdl-card">
-				<h4>{props.title}</h4> {/* default is: 'Cybernomics Cap' */}
-				<If condition={Boolean(props.capUsd)}>
-					<Then>
-					  <div style={{marginBottom: '14px'}}>
-					    <div className="text-large">
-					      $&nbsp;{helpers.readableN0(props.capUsd)}
-					    </div>
-					    <If condition={Boolean(props.capUsdDailyChange)}>
-					      <Then>
-					        <span className={helpers.greenRedNumber(props.capUsdDailyChange)}>
-					          {helpers.percentsToTextUpDown(props.capUsdDailyChange, 4)}
-					        </span>
-					      </Then>
-					      <Else>&nbsp;</Else>
-					    </If>
-					  </div>
-					</Then>
-				</If>
-				<If condition={Boolean(props.capBtc)}>
-					<Then>
-					  <div style={{marginBottom: '14px'}}>
-					      <div className="text-large">
-					        Ƀ&nbsp;{helpers.readableN0(props.capBtc)}
-					      </div>
-					      <If condition={Boolean(props.capBtcDailyChange)}>
-					        <Then>
-					          <span className={helpers.greenRedNumber(props.capBtcDailyChange)}>
-					            {helpers.percentsToTextUpDown(props.capBtcDailyChange, 4)}
-					          </span>
-					        </Then>
-					        <Else>&nbsp;</Else>
-					      </If>
-					  </div>
-					</Then>
-				</If>
+				{/* default is: 'Cybernomics Cap' */}
+				<h4>{props.title}</h4>
+				{ renderTextBlock('capUsd', '$') }
+				{ renderTextBlock('capBtc', 'Ƀ') }
 			</Cell>
 }
 
@@ -49,7 +52,6 @@ CybernomicsCap.defaultProps = {
 }
 
 CybernomicsCap.propTypes = {
- title: PropTypes.string,
  shadow: PropTypes.number,
  capBtc: PropTypes.number.isRequired,
  capUsd: PropTypes.number.isRequired,

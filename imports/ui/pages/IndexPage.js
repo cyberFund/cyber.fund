@@ -30,11 +30,12 @@ const IndexPage = props => {
         <Grid> {/* TODO: move Cell into <DayliWidget /> ? */}
             <Cell col={4} tablet={4} phone={4}>
                 <h5>Daily Widget</h5>
-                <CybernomicsCap col={12}
-                capUsd={props.capUsd}
-                capBtc={props.capBtc}
-                capBtcDailyChange={props.capBtcDailyChange}
-                capUsdDailyChange={props.capUsdDailyChange}
+                <CybernomicsCap
+					col={12}
+	                capUsd={props.capUsd}
+	                capBtc={props.capBtc}
+	                capBtcDailyChange={props.capBtcDailyChange}
+	                capUsdDailyChange={props.capUsdDailyChange}
                 />
                 {/*<BalanceChecker col={12} />*/}
                 <Button component='a' href="/funds" primary ripple>Funds</Button>
