@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react'
 import { If, Else, Unless } from '../components/Utils'
 import Loading from '../components/Loading'
 import Image from '../components/Image'
-import Metrics from '../components/Metrics'
 import ChaingearLink from '../components/ChaingearLink'
+import SystemMetrics from '../components/SystemMetrics'
 import SystemAbout from '../components/SystemAbout'
 import SystemLinks from '../components/SystemLinks'
 import SystemLink from '../components/SystemLink'
@@ -26,12 +26,15 @@ const {system, system: {metrics, links, _id}} = props,
 
 return loaded ? (
     <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
-		<If condition={system.descriptions.page_state != 'ready'} component='p'>
+
+		<Unless condition={system.descriptions.page_state == 'ready'} component='p'>
 			This page is not ready yet. Follow <a target="_blank" href={githubLink}>fan zone</a> to help us improve it faster!
-		</If>
+		</Unless>
+
 		<SystemAbout system={system} />
 		<StarredByContainer system={system} />
 		<CrowdsaleIsActive system={system} />
+
 		<Grid>
 			{mainLinks.map(
 				link => <Cell key={link.name} col={3} tablet={4} phone={4}>
@@ -39,42 +42,14 @@ return loaded ? (
 						</Cell>
 			)}
 		</Grid>
-		<Unless condition={isProject} component={Grid}>
-			<Metrics
-				title="Price"
-				btc={get(metrics, 'price.btc')}
-				usd={get(metrics, 'price.usd')}
-				btcChange={get(metrics, 'priceChangePercents.day.btc')}
-				usdChange={get(metrics, 'priceChangePercents.day.usd')}
-			/>
-			<Metrics
-				title="Cap"
-				btc={get(metrics, 'price.btc')}
-				usd={get(metrics, 'price.usd')}
-				btcChange={get(metrics, 'priceChangePercents.day.btc')}
-				usdChange={get(metrics, 'priceChangePercents.day.usd')}
-			/>
-			<Metrics
-				title="Trade"
-				btc={get(metrics, 'price.btc')}
-				usd={get(metrics, 'price.usd')}
-				btcChange={get(metrics, 'priceChangePercents.day.btc')}
-				usdChange={get(metrics, 'priceChangePercents.day.usd')}
-			/>
-			<Metrics
-				title="Supply"
-				btc={get(metrics, 'price.btc')}
-				usd={get(metrics, 'price.usd')}
-				btcChange={get(metrics, 'priceChangePercents.day.btc')}
-				usdChange={get(metrics, 'priceChangePercents.day.usd')}
-			/>
-			<If condition={anyCards()}>
-				<Cell col={12}><p>Changes given for 24h</p></Cell>
-			</If>
+
+		<Unless condition={isProject}>
+			<SystemMetrics system={system} />
 			<Cell col={12}>
 				<Blaze template="slowchart" system={_id} />
 			</Cell>
 		</Unless>
+
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
 			<Cell col={12}>
 			    <h3>News</h3>
