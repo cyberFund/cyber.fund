@@ -1,29 +1,36 @@
 import React, { PropTypes } from 'react'
-import Image from '../components/Image'
+import { Cell } from 'react-mdl'
+import CardLink from './CardLink'
 import helpers from '../helpers'
 
-const ChaingearLink = props => {
-	const { link } = props
+// usage example:
+// <ChaingearLink link={props.link} card />
+// "card" is optional
 
-	let content
+const ChaingearLink = props => {
+	const { link, link: { name, url, icon } } = props
+
 	 // if card prop is specified render card with image
-	if (props.card)	content = 	<span className="text-large text-center cglinkcard-text">
-									<Image src={"https://static.cyber.fund/logos/" + link.icon} small />
-									&nbsp;{link.name}
-								</span>
-	// else render inline link
-	else 			content = 	<span>
-									<i className={`fa fa-${ helpers.iconUrl(link) || 'fa-external-link-square' }`}></i>
-									&nbsp;{link.name}
-								</span>
-								
+	if (props.card)	return 	<Cell col={3} tablet={4} phone={4} key={name} {...props}>
+								<CardLink
+									text={name}
+									href={url}
+									src={"https://static.cyber.fund/logos/" + icon}
+									alt={name + "'s logo"}
+								/>
+							</Cell>
+
+	// else return link with icon
 	return 	<a
-				href={link.url}
+				href={url}
 				target="_blank"
 				style={{textDecoration: 'none'}}
 				{...props}
 			>
-				{content}
+				<span>
+					<i className={`fa fa-${ helpers.iconUrl(link) || 'fa-external-link-square' }`}></i>
+					&nbsp;{name}
+				</span>
 			</a>
 }
 
