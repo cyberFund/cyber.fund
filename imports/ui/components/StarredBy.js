@@ -6,35 +6,49 @@ import { Button, Grid, Cell } from 'react-mdl'
 import helpers from '../helpers'
 import get from 'oget'
 
-// TODO rename this to UsersStarred?
+// NOTE rename this to UsersStarred?
 class StarredBy extends React.Component {
 
-	state = {  showUsers: false }
+	state = {
+				loadUsersList: false,
+				showUsersList: false
+			}
 
 	toggleUsersList = () => {
-		this.setState({ showUsers: !this.state.showUsers })
+
+		this.setState({
+			// on first click load element and never unload it,
+			// it's vital for multiple clicks on button.
+			loadUsersList: true,
+			showUsersList: !this.state.showUsersList
+		})
+
 	}
 
 	render() {
 
-		const 	{ state: {showUsers}, props: {system, users} } = this,
+		const 	{ state: {showUsersList, loadUsersList}, props: {system, users} } = this,
+				displayOrNot = { display: showUsersList ? 'block' : 'none' },
 				numberOfStars = get(system, '_usersStarred', []).length
 
 		return  <Grid>
 					<Cell col={12}>
 						<If condition={numberOfStars}>
 							<section className="text-center">
+
 								<Button
 									onClick={this.toggleUsersList}
 									component="h5"
 									title="click to see users"
 									raised ripple
 								>
-									  Starred by {numberOfStars} people
+									Starred by {numberOfStars} people
 								</Button>
-								<If condition={showUsers}>
-									<UsersList users={users} />
+
+								<If condition={loadUsersList}>
+									<UsersList users={users} style={displayOrNot} />
 								</If>
+
 							</section>
 					    </If>
 					</Cell>
