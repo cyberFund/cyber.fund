@@ -8,26 +8,29 @@ import get from 'oget'
 
 // TODO rename this to UsersStarred?
 class StarredBy extends React.Component {
-	constructor(params){
-		super(params)
-		this.state = {  showUsers: false }
-		this.toggleUsersList = this.toggleUsersList.bind(this)
-	}
-	toggleUsersList() {
+
+	state = {  showUsers: false }
+
+	toggleUsersList = () => {
 		this.setState({ showUsers: !this.state.showUsers })
 	}
+
 	render() {
-		const {toggleUsersList, state: {showUsers}, props: {system, users}} = this
+
+		const 	{ state: {showUsers}, props: {system, users} } = this,
+				numberOfStars = get(system, '_usersStarred', []).length
+
 		return  <Grid>
 					<Cell col={12}>
-						<If condition={get(system, '_usersStarred.length')}>
+						<If condition={numberOfStars}>
 							<section className="text-center">
 								<Button
-									onClick={toggleUsersList}
+									onClick={this.toggleUsersList}
 									component="h5"
 									title="click to see users"
-									raised ripple>
-									  Starred by {system._usersStarred.length} people
+									raised ripple
+								>
+									  Starred by {numberOfStars} people
 								</Button>
 								<If condition={showUsers}>
 									<UsersList users={users} />
