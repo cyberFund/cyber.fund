@@ -32,7 +32,8 @@ const SystemLink = props => {
 					<div style={innerStyle}>
 						<img
 							style={imgStyle}
-							src={CF.Chaingear.helpers.cgSystemLogoUrl(system)} alt={system._id + 'logo'}
+							src={CF.Chaingear.helpers.cgSystemLogoUrl(system)}
+							alt={system._id + 'logo'}
 						/>
 						<span style={textStyle} className="text-large">{system._id}</span>
 					</div>

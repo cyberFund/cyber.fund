@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { If, Show } from '../components/Utils'
 import { Grid, Cell } from 'react-mdl'
 import helpers from '../helpers'
-
+// TODO add comments, refactoring
 const SystemMetrics = props =>{
 	const 	{ metrics } = props.system
 
