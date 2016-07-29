@@ -25,7 +25,9 @@ const CybernomicsCap = props =>{
 
 		return	<If condition={cap}>
 				  <div style={{marginBottom: '14px'}}>
-					<div className="text-large"> {currencySymbol} &nbsp; {readableN0(cap)} </div>
+					<div className="text-large">
+						{currencySymbol} &nbsp; {readableN0(cap)}
+					</div>
 					<If
 						condition={dailyChange}
 						className={greenRedNumber(dailyChange)}
@@ -36,6 +38,7 @@ const CybernomicsCap = props =>{
 					<Else condition={dailyChange}>&nbsp;</Else>
 				  </div>
 				</If>
+
 	}
 
     return  <Cell {...props} className="text-center mdl-card">
@@ -48,10 +51,13 @@ const CybernomicsCap = props =>{
 
 CybernomicsCap.defaultProps = {
  title: 'Cybernomics Cap',
+ col: 12,
  shadow: 2
 }
 
 CybernomicsCap.propTypes = {
+ title: PropTypes.string,
+ col: PropTypes.number,
  shadow: PropTypes.number,
  capBtc: PropTypes.number.isRequired,
  capUsd: PropTypes.number.isRequired,
