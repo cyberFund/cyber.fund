@@ -58,9 +58,7 @@ class SystemLinks extends React.Component {
 						</If>
 					</Cell>
 					{/* CONTENT */}
-					<Cell col={12}>
-						  {renderLinksArea()}
-					</Cell>
+					{renderLinksArea()}
 				</Grid>
 	}
 }

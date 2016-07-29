@@ -7,7 +7,7 @@ import SystemMetrics from '../components/SystemMetrics'
 import SystemAbout from '../components/SystemAbout'
 import SystemLinks from '../components/SystemLinks'
 import SystemLink from '../components/SystemLink'
-import SpecsTable from '../components/SpecsTable';
+import SpecsTable from '../components/SpecsTable'
 import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import KeenChart from '../components/KeenChart'
@@ -45,20 +45,14 @@ return loaded ? (
 
 		<Unless condition={isProject}>
 			<SystemMetrics system={system} />
-			<Cell col={12}>
-				<Blaze template="slowchart" system={_id} />
-			</Cell>
+			<Blaze template="slowchart" system={_id} style="width: 100%" />
 		</Unless>
 
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
-			<Cell col={12}>
-			    <h3>News</h3>
-			    <div>
-					{linksWithTag(links, 'News').map(
-						link => <ChaingearLink link={link} key={link.name} card />
-					)}
-			    </div>
-			</Cell>
+		    <Cell col={12}> <h3>News</h3> </Cell>
+			{linksWithTag(links, 'News').map(
+					link => <ChaingearLink link={link} key={link.name} card />
+			)}
 		</If>
 
 		{/* TABS / SYSTEMLINKS */}
