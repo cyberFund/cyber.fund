@@ -4,11 +4,9 @@ import { Meteor } from 'meteor/meteor'
 import { FlowRouter } from 'meteor/kadira:flow-router'
 import get from 'oget'
 import helpers from '../helpers'
-
 // components
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import { If, Else, Unless, Hide } from '../components/Utils'
-import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
@@ -19,6 +17,8 @@ import PortfolioTable from '../components/PortfolioTable'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
+// hoc's
+import PageLoading from '../higherOrderComponents/PageLoading'
 
 class ProfilePage extends Component {
 
@@ -75,8 +75,7 @@ class ProfilePage extends Component {
 				{toggleFollow, changeTab, handleLogout} 	= 	this,
 				listStyle									=	{margin: '0 3px 6px'}
 
-        return props.loaded ? (
-              <Grid id="ProfilePage">
+        return 	<Grid id="ProfilePage">
 
                   {/* USER INFO */}
 
@@ -152,7 +151,6 @@ class ProfilePage extends Component {
 		                </FABButton>
 					</Else>
               </Grid>
-        ) : <Loading />
     }
 }
 
@@ -162,4 +160,4 @@ ProfilePage.propTypes = {
  //numberOfSkills: PropTypes.number.isRequired
 }
 
-export default ProfilePage
+export default PageLoading(ProfilePage)
