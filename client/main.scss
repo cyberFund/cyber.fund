@@ -57,6 +57,13 @@ body {
     }
 }
 /* UTILITIES */
+// visibility manipulaton
+.hidden, .display-none {
+	display: none;
+}
+.visible, .display-initial {
+	display: initial;
+}
 // component aligment
 .left {
   float: left;
