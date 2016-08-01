@@ -16,7 +16,7 @@ class Search extends React.Component {
 
 	render() {
 		const 	{ state, props, handleSubmit } = this,
-				colorWhite = { color: 'white' }
+				colorWhite = { color: props.color || 'white' }
 
 		return 	<AutoComplete
 		          hintText="Search for coin"
@@ -34,7 +34,10 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-	callback: PropTypes.func
+	// function to call on on system select
+	callback: PropTypes.func,
+	// hintText color
+	color: PropTypes.string
 }
 
 export default createContainer(() => {
