@@ -1,8 +1,10 @@
-Template['radarCard'].rendered = function () {
-
+Template["radarCard"].rendered = function () {
+  // meteor._session.set("somekey", null)
+  // TODO: already wasfactored out somehow.
+  // TODO: !!!!!!!!!!!!!!11
 };
 
-Template['radarCard'].helpers({
+Template["radarCard"].helpers({
 
   name_: function () { //TODO: move to global helpers ?
     return Blaze._globalHelpers._toUnderscores(this._id);
@@ -10,12 +12,15 @@ Template['radarCard'].helpers({
   raised: function() {
     if (this.metrics && this.metrics.currently_raised) return this.metrics.currently_raised;
     if (this.crowdsales && this.crowdsales.btc_raised) return this.crowdsales.btc_raised;
-    return 0
+    return 0;
+  },
+  active: function (){
+    return  false;// return meteor._session.get("somekey")
   }
 });
 
-Template['radarCard'].events({
-  'click .bar': function (e, t) {
+Template["radarCard"].events({
+  "click .bar": function (e, t) {
 
   }
 });

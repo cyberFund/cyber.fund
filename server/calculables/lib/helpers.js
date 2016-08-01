@@ -43,7 +43,7 @@ helpers = {
     return ret;
   },
   _getState: function(system) {
-    states = ['Pre-Public', 'Private', 'Project', 'Public', 'Running'];
+    states = ["Pre-Public", "Private", "Project", "Public", "Running"];
     var state, states;
     state = system.descriptions && system.descriptions.state;
     if (!state || !_.contains(states, state)) {
@@ -54,13 +54,13 @@ helpers = {
   _getType: function(system) {
     var types;
     // todo: throw if type not in types?
-    types = ['cryptocurrentcy', 'cryptoasset', 'cryptoservice', 'cryptoproject'];
+    types = ["cryptocurrentcy", "cryptoasset", "cryptoservice", "cryptoproject", "fiat"];
     return system.descriptions && system.descriptions.system_type;
   },
 
   // score weight is between 0 and 1. see params.linkWeightsCS
   linksScoreWeight: function (n, weightsD){
-    weightsD = weightsD || []
+    weightsD = weightsD || [];
     for (var i=0; i <= weightsD.length-1; i++){
       if (n<=weightsD[i][0]) return weightsD[i][1];
     }

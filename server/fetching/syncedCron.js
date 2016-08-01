@@ -5,10 +5,9 @@ SyncedCron.config({
   utc: true
 });
 
-{
-
+Meteor.startup(function(){
   if (!Meteor.settings.noFetch) {
     console.log("starting synced cron");
     SyncedCron.start();
   }
-}
+});

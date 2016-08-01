@@ -1,11 +1,11 @@
 <template name="testMarkets">
-  <div class="testMarkets">
-    {{#if rows.length}}
-    <div style="display: inline-block">
-      Select currency {{> fiatSelector}}
-    </div>
+  <div class="test-markets">
+    {{#if rows.count}}
+    <!--div style="display: inline-block">
+      Select currency {{> fiatSelector display='inline'}}
+    </div-->
 
-    <table>
+    <table class="centered" style="max-width: 36em; overflow-x: auto; margin: 0 auto">
       <thead>
         <th class="center">
           Market
@@ -14,11 +14,14 @@
         <th class="center">
           Pair
         </th>
-        <th>
-          <span class="nowrap">Price,&nbsp;{{fiatToken}}</span>
+        <th class="center">
+          Price,{{> fiatSelector display='inline'}}
         </th>
         <th class="center">
-          <span class="nowrap">Volume daily,&nbsp;{{fiatToken}}</span>
+          24h Volume
+        </th>
+        <th class="center">
+          Updated
         </th>
 
       </thead>
@@ -31,6 +34,7 @@
           <td class="center">{{tokenById quote}}/{{tokenById base}}</td>
           <td class="right-align">{{meaningfulNice4 pricePairFiat}}</td>
           <td class="right-align">{{readableN0 volumePairFiat}}</td>
+          <td class="center font-size-075">{{updateTime timestamp}}</td>
         </tr>
         {{/each}}
       </tbody>

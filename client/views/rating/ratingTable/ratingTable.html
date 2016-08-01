@@ -1,9 +1,4 @@
 <template name="ratingTable">
-    <div class="row">
-      <div class="col s12 offset-m6 m6 offset-l9 l3">
-        <a href="/monthly/rating"> Switch to monthly view </a>
-      </div>
-    </div>
     {{! #if subReady}}
     <div class="card" style="padding:10px">
         <table class="hoverable-my" align="center" id="rating-table">
@@ -25,6 +20,11 @@
     <p class="center">
         We filter illiquid assets and assets with <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">cyber • Rating</a> less than 1
     </p>
+    <div class="row">
+      <div class="col s12 offset-m5 m2 offset-l5 l2">
+        <a href="/monthly/rating"><p class="center"> Switch to monthly view </p></a>
+      </div>
+    </div>
     <div class="center">
         <br>
         <a class="waves-effect waves-light btn show-more deep-orange" href="/tracking">

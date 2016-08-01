@@ -38,212 +38,221 @@
     </div>
     {{/if}}
 
-    <div id="main" class="section scrollspy row">
-      {{#each main_links}}
-      <div class="col m6 s6 l3 center">
-        {{> cgLink this}}
-      </div>
-      {{/each}}
+    <ul class="tabs">
+        <li class="tab">
+            <a href="#tab-overview">Overview</a>
+        </li>
+        <li class="tab">
+            <a href="#tab-markets">Markets</a>
+        </li>
+    </ul>
+    <div id="tab-markets">
+      {{> testMarkets system=_id}}
     </div>
+    <div id="tab-overview">
+      <div id="main" class="section scrollspy row">
+        {{#each main_links}}
+        <div class="col m6 s6 l3 center">
+          {{> cgLink this}}
+        </div>
+        {{/each}}
+      </div>
 
-    {{#if not isProject}}
-    <div id="market" class="row scrollspy center">
-      {{#if and metrics metrics.price}} {{#if or metrics.price.usd metrics.price.btc}}
+      {{#if not isProject}}
+      <div id="market" class="row scrollspy center">
+        {{#if and metrics metrics.price}} {{#if or metrics.price.usd metrics.price.btc}}
 
-      {{#cardMarkt title=" Price "}}
-          {{#if metrics.price.usd}}<p>
-              <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
-                  <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
-                  <span itemprop="price" content="{{metrics.price.usd}}">
-                      {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
-              </span>
-              <br> {{#if metrics.priceChangePercents.day.usd}}
-              <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
-                  {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>
+        {{#cardMarkt title=" Price "}}
+            {{#if metrics.price.usd}}<p>
+                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
+                    <span itemprop="priceCurrency" content="USD">$&nbsp;</span>
+                    <span itemprop="price" content="{{metrics.price.usd}}">
+                        {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
+                </span>
+                <br> {{#if metrics.priceChangePercents.day.usd}}
+                <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
+                    {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>
+                {{else}}&nbsp; {{/if}}
+            </p>{{/if}}
+
+            {{#if metrics.price.btc}}<p>
+                <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
+                    <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
+                        {{satoshi_decimals metrics.price.btc 8}}</span>
+                </span>
+                <br> {{#if metrics.priceChangePercents.day.btc}}
+                <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
+                    {{percentsToTextUpDown metrics.priceChangePercents.day.btc 2}}</span>
+                {{else}}&nbsp; {{/if}}
+            </p>{{/if}}
+        {{/cardMarkt}} {{/if}} {{/if}}
+
+
+        {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
+        {{#cardMarkt title=" Cap "}}
+            {{#if metrics.cap.usd}}
+            <p>
+              <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
+              <br> {{#if metrics.capChangePercents.day.usd}}
+
+              <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
+                {{percentsToTextUpDown metrics.capChangePercents.day.usd 2}}</span>
+              {{else}} &nbsp; {{/if}}
+            </p>
+            {{/if}}{{#if metrics.cap.btc}}
+            <p>
+              <span class="enlarge">Ƀ&nbsp;{{readableN0 metrics.cap.btc}}</span>
+              <br> {{#if metrics.capChangePercents.day.btc}}
+
+              <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
+                {{percentsToTextUpDown metrics.capChangePercents.day.btc 2}}</span>
               {{else}}&nbsp; {{/if}}
-          </p>{{/if}}
-
-          {{#if metrics.price.btc}}<p>
-              <span itemprop="offers" itemscope itemtype="http://schema.org/Offer" class="enlarge nowrap">
-                  <span itemprop="priceCurrency" content="BTC">Ƀ&nbsp;</span><span itemprop="price" content="{{metrics.price.btc}}">
-                      {{satoshi_decimals metrics.price.btc 8}}</span>
-              </span>
-              <br> {{#if metrics.priceChangePercents.day.btc}}
-              <span class="{{greenRedNumber metrics.priceChangePercents.day.btc}}">
-                  {{percentsToTextUpDown metrics.priceChangePercents.day.btc 2}}</span>
-              {{else}}&nbsp; {{/if}}
-          </p>{{/if}}
-      {{/cardMarkt}} {{/if}} {{/if}}
-
-
-      {{#if and metrics metrics.cap}} {{#if or metrics.cap.btc metrics.cap.usd}}
-      {{#cardMarkt title=" Cap "}}
-          {{#if metrics.cap.usd}}
-          <p>
-            <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
-            <br> {{#if metrics.capChangePercents.day.usd}}
-
-            <span class="{{greenRedNumber metrics.capChangePercents.day.usd}}">
-              {{percentsToTextUpDown metrics.capChangePercents.day.usd 2}}</span>
-            {{else}} &nbsp; {{/if}}
-          </p>
-          {{/if}}{{#if metrics.cap.btc}}
-          <p>
-            <span class="enlarge">Ƀ&nbsp;{{readableN0 metrics.cap.btc}}</span>
-            <br> {{#if metrics.capChangePercents.day.btc}}
-
-            <span class="{{greenRedNumber metrics.capChangePercents.day.btc}}">
-              {{percentsToTextUpDown metrics.capChangePercents.day.btc 2}}</span>
-            {{else}}&nbsp; {{/if}}
-          </p>
-          {{/if}}
-      {{/cardMarkt }} {{/if}} {{/if}}
-
-            {{#if todayVolumeUsd}}
-            {{#cardMarkt title=" Trade "}}
-                <p>
-                  <span class="enlarge">$&nbsp;{{readableN0 todayVolumeUsd}}</span>
-                  <br> {{#if yesterdayVolumeUsd}}
-                              <span class="{{greenRedNumber usdVolumeChange }}">
-                                {{percentsToTextUpDown usdVolumeChange 2}}</span>
-                              {{else}}&nbsp; {{/if}}
-                </p>
-
-                <p>
-                  <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
-
-                  <br> {{#if yesterdayVolumeBtc}}
-                          <span class="{{greenRedNumber btcVolumeChange }}">
-                            {{percentsToTextUpDown btcVolumeChange 2}}</span>
-                          {{else}}&nbsp; {{/if}}
-                </p>
-            {{/cardMarkt}}{{/if}}
-
-
-
-            {{#if and metrics metrics.supply}}
-
-            {{#cardMarkt title=" Supply "}}
-              <p>
-                <span class="enlarge">{{readableN0 metrics.supply}}
-                  {{displayCurrencyName this}}s</span>
-                  {{#if metrics.supplyChangePercents.day}}
-                  <br />
-                            <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">
-                  {{percentsToTextUpDown metrics.supplyChangePercents.day 2}}</span>
-                  {{/if}}
-              </p>
-              <p>
-                {{#if metrics.supplyChange}}
-                      {{withSign metrics.supplyChange.day}} {{displayCurrencyName this}}s
-                {{/if}}
-              </p>
-            {{/cardMarkt}}
+            </p>
             {{/if}}
-    </div>
-    {{#if anyCards}}
-    <div class="row" style="margin-top: -20px">
-      <div class="col s12 center">
-        Changes given for 24h
+        {{/cardMarkt }} {{/if}} {{/if}}
+
+              {{#if todayVolumeUsd}}
+              {{#cardMarkt title=" Trade "}}
+                  <p>
+                    <span class="enlarge">$&nbsp;{{readableN0 todayVolumeUsd}}</span>
+                    <br> {{#if yesterdayVolumeUsd}}
+                                <span class="{{greenRedNumber usdVolumeChange }}">
+                                  {{percentsToTextUpDown usdVolumeChange 2}}</span>
+                                {{else}}&nbsp; {{/if}}
+                  </p>
+
+                  <p>
+                    <span class="enlarge">Ƀ&nbsp;{{readableN0 todayVolumeBtc}}</span>
+
+                    <br> {{#if yesterdayVolumeBtc}}
+                            <span class="{{greenRedNumber btcVolumeChange }}">
+                              {{percentsToTextUpDown btcVolumeChange 2}}</span>
+                            {{else}}&nbsp; {{/if}}
+                  </p>
+              {{/cardMarkt}}{{/if}}
+
+
+
+              {{#if and metrics metrics.supply}}
+
+              {{#cardMarkt title=" Supply "}}
+                <p>
+                  <span class="enlarge">{{readableN0 metrics.supply}}
+                    {{displayCurrencyName this}}s</span>
+                    {{#if metrics.supplyChangePercents.day}}
+                    <br />
+                              <span class="{{greenRedNumber metrics.supplyChangePercents.day}}">
+                    {{percentsToTextUpDown metrics.supplyChangePercents.day 2}}</span>
+                    {{/if}}
+                </p>
+                <p>
+                  {{#if metrics.supplyChange}}
+                        {{withSign metrics.supplyChange.day}} {{displayCurrencyName this}}s
+                  {{/if}}
+                </p>
+              {{/cardMarkt}}
+              {{/if}}
       </div>
-    </div>
-    {{/if}}
-    <div class="row"></div>
-
-    {{> slowchart system=_id}}
-    {{/if}}
-
-    {{#if existLinksWith links 'News'}}
-    <h3 class="center">News</h3>
-    <div id="news" class="section scrollspy cglinxbox">
-      {{#each linksWithTag links "News"}}
-        {{> cgLinkCard this}}
-      {{/each}}
-    </div>
-    {{/if}}
-
-    {{#if existLinksWith links 'Apps'}}
-    <h3 class="center">Apps</h3>
-    <div id="apps" class="section scrollspy">
-        {{#with linksWithTag links "Apps"}}
-        {{#if gte this.length 8}}
-            {{> systemLinksTabs links=this system=../_id}}
-        {{else}}
-          <div style="float: left">
-            {{! > testMarkets system=../_id}}
-          </div>
-          <div class="cglinxbox">
-            {{#each this}} {{> cgLinkCard this}} {{/each}}
-          </div>
-          <div style="clear: left"></div>
-        {{/if}} {{/with}}
-    </div>
-    {{/if}}
-
-    {{#if dependentsExist}}
-    <div id="dapps" class="section scrollspy">
-    <h3 class="center">Internal Economy</h3>
-    <div class="cglinxbox">
-      {{#each dependents}}
-        {{> cgLinkToSystemCard}}
-      {{/each}}
-    </div>
-    </div>
-    {{/if}}
-
-    {{#if false}}
-    <div id="hashtag" class="row scrollspy center">
-      {{! #if hashtag}}
-      <a class="twitter-timeline" href="https://twitter.com/hashtag/{{hashtag}}" data-widget-id="615439140906233857">{{descriptions.hashtag}}
-                        Tweets</a>
-      <script>
-        ! function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0],
-            p = /^http:/.test(d.location) ? 'http' : 'https';
-          if (!d.getElementById(id)) {
-            js = d.createElement(s);
-            js.id = id;
-            js.src = p + '://platform.twitter.com/widgets.js';
-            fjs.parentNode.insertBefore(js, fjs);
-          }
-        }(document, 'script', 'twitter-wjs');
-      </script>
-      {{! /if}}
-    </div>
-    {{/if}}
-
-    <div id="science" class="section scrollspy row">
-      {{#if existLinksWith links 'Science'}}
-      <h3 class="center">Scientific Roots</h3>
-      {{#each linksWithTag links "Science"}}
-      <div class="row">
-        {{> cgLink this}}
+      {{#if anyCards}}
+      <div class="row" style="margin-top: -20px">
+        <div class="col s12 center">
+          Changes given for 24h
+        </div>
       </div>
-      {{/each}} {{/if}}
-    </div>
+      {{/if}}
+      <div class="row"></div>
 
-    <div id="code" class="section scrollspy row">
-      {{#if existLinksWith links 'Code'}}
-      <h3 class="center">Developers Dimension</h3>
+      {{> slowchart system=_id}}
+      {{/if}}
 
-      {{#each linksWithTag links "Code"}}
-      <div class="row">
-        {{> cgLink this}}
+      {{#if existLinksWith links 'News'}}
+      <h3 class="center">News</h3>
+      <div id="news" class="section scrollspy cglinxbox">
+        {{#each linksWithTag links "News"}}
+          {{> cgLinkCard this}}
+        {{/each}}
       </div>
-      {{/each}} {{/if}}
-    </div>
+      {{/if}}
 
-    <div id="description" class="row scrollspy center">
-      <p>{{description}}</p>
-    </div>
-    {{> systemSpecs this}}
+      {{#if existLinksWith links 'Apps'}}
+      <h3 class="center">Apps</h3>
+      <div id="apps" class="section scrollspy">
+          {{#with linksWithTag links "Apps"}}
+          {{#if gte this.length 8}}
+              {{> systemLinksTabs links=this system=../_id}}
+          {{else}}
+            <div class="cglinxbox">
+              {{#each this}} {{> cgLinkCard this}} {{/each}}
+            </div>
+          {{/if}} {{/with}}
+      </div>
+      {{/if}}
 
-    <div id="improve" class="row scrollspy center">
-      <p>You can
-        <a target="_blank" href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
-          improve {{_id}}'s page
-        </a> on Github.
-      </p>
+      {{#if dependentsExist}}
+      <div id="dapps" class="section scrollspy">
+      <h3 class="center">Internal Economy</h3>
+      <div class="cglinxbox">
+        {{#each dependents}}
+          {{> cgLinkToSystemCard}}
+        {{/each}}
+      </div>
+      </div>
+      {{/if}}
+
+      {{#if false}}
+      <div id="hashtag" class="row scrollspy center">
+        {{! #if hashtag}}
+        <a class="twitter-timeline" href="https://twitter.com/hashtag/{{hashtag}}" data-widget-id="615439140906233857">{{descriptions.hashtag}}
+                          Tweets</a>
+        <script>
+          ! function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+              js = d.createElement(s);
+              js.id = id;
+              js.src = p + '://platform.twitter.com/widgets.js';
+              fjs.parentNode.insertBefore(js, fjs);
+            }
+          }(document, 'script', 'twitter-wjs');
+        </script>
+        {{! /if}}
+      </div>
+      {{/if}}
+
+      <div id="science" class="section scrollspy row">
+        {{#if existLinksWith links 'Science'}}
+        <h3 class="center">Scientific Roots</h3>
+        {{#each linksWithTag links "Science"}}
+        <div class="row">
+          {{> cgLink this}}
+        </div>
+        {{/each}} {{/if}}
+      </div>
+
+      <div id="code" class="section scrollspy row">
+        {{#if existLinksWith links 'Code'}}
+        <h3 class="center">Developers Dimension</h3>
+
+        {{#each linksWithTag links "Code"}}
+        <div class="row">
+          {{> cgLink this}}
+        </div>
+        {{/each}} {{/if}}
+      </div>
+
+      <div id="description" class="row scrollspy center">
+        <p>{{description}}</p>
+      </div>
+      {{> systemSpecs this}}
+
+      <div id="improve" class="row scrollspy center">
+        <p>You can
+          <a target="_blank" href="https://github.com/cyberFund/chaingear/blob/gh-pages/sources/{{_id}}/{{_id}}.toml">
+            improve {{_id}}'s page
+          </a> on Github.
+        </p>
+      </div>
     </div>
   </div>
 
@@ -259,5 +268,7 @@
     </a>
   </div>
   {{/with}}
+  {{else}}
+  <h5 class="center"> Please wait, loading data</h5>
   {{/if}}
 </template>
