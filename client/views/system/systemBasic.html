@@ -47,7 +47,6 @@
         </li>
     </ul>
     <div id="tab-markets">
-      &nbsp;
       <div class="centar-align">
       {{> testMarkets system=(getMarketsBy _id)}}
     </div></div>
@@ -164,7 +163,7 @@
       {{/if}}
       <div class="row"></div>
 
-      {{> slowchart system=_id}}
+      {{> slowchart system=(getMarketsBy _id)}}
       {{/if}}
 
       {{#if existLinksWith links 'News'}}
