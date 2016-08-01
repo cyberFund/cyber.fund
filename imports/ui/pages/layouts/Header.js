@@ -9,29 +9,29 @@ class HeaderNav extends React.Component {
 
 	render() {
 
-		// data is defined not in state on purpose, because otherwise it is not reactive
-		const 	user = Meteor.user(),
-				brandLink = <Button href="/" style={{color: 'white'}} ripple> Cyber.Fund </Button>
+		const 	user = Meteor.user()
 
-	    /* show login button or profile link */
-	    const loginOrProfileLink =	user
-									? <ProfileLink user={user} />
-									: <Button href="/welcome" raised accent ripple>Join Us</Button>
-
-	    const navLinks = <Navigation>
-	                       <a href="/radar">Crowdsales</a>
-	                       <a href="/rating">Assets</a>
-	                       <a href="/funds">Funds</a>
-	                       <a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
-	                       <a href="https://blog.cyber.fund" target="_blank">Blog</a>
-						   <a href=""> <Search /> </a>
-	                       <a href="" style={{lineHeight: 'inherit', cursore: 'none'}}>
-	                           <BitcoinPrice />
-	                       </a>
-	                       {loginOrProfileLink}
-	                   </Navigation>
-
-		return	<Header scroll title={brandLink}>{navLinks}</Header>
+		return	<Header
+					scroll
+					// HOME BUTTON
+					title={
+						<Button href="/" style={{color: 'white'}} ripple> Cyber.Fund </Button>
+					}
+				>
+					{/* LINKS */}
+					<Navigation>
+						<a href=""> <Search color={{ color: 'inherit' }} fullWidth /> </a>
+						<a href="" style={{lineHeight: 'inherit', cursor: 'none'}}>
+							<BitcoinPrice />
+						</a>
+						{/* show login button or profile link */}
+						{
+							user
+							? <ProfileLink user={user} />
+							: <Button href="/welcome" raised accent ripple>Join Us</Button>
+						}
+					</Navigation>
+				</Header>
 
   }
 }
