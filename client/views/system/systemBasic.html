@@ -1,6 +1,9 @@
 <!-- originally created for cyber.fund project-->
 <template name="systemBasic">
   {{#if subReady}}
+  {{else}}
+  <h5 class="center"> Please wait, loading data</h5>
+  {{/if}}
   {{#with curData}}
   <div itemscope itemtype="http://schema.org/Product" class="nar-row">
 
@@ -37,7 +40,6 @@
       </div>
     </div>
     {{/if}}
-
     <ul class="tabs">
         <li class="tab">
             <a href="#tab-overview">Overview</a>
@@ -47,9 +49,10 @@
         </li>
     </ul>
     <div id="tab-markets">
-      <div class="centar-align">
+      <div class="center-align">
       {{> testMarkets system=(getMarketsBy _id)}}
     </div></div>
+
     <div id="tab-overview">
       <div id="main" class="section scrollspy row">
         {{#each main_links}}
@@ -269,7 +272,4 @@
     </a>
   </div>
   {{/with}}
-  {{else}}
-  <h5 class="center"> Please wait, loading data</h5>
-  {{/if}}
 </template>
