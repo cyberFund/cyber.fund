@@ -85,7 +85,7 @@ class ProfilePage extends Component {
 						  src={user.largeAvatar}
 						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
 						/>
-					  	<h4 itemProp="name">{user.profile.name}</h4>
+					<h4 itemProp="name">{get(user, 'profile.name', '')}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
 						<section className="grey-text">
 						  <If condition={get(user, 'services.twitter', false)}>
