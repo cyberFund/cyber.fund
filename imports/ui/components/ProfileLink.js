@@ -11,7 +11,7 @@ const ProfileLink = props => {
 	const	avatar = get(props.user, 'avatar', ''),
 			username = get(props.user, 'username', '')
 
-	return 	<a href={`/@${username}`} className="mdl-navigation__link">
+	return 	<a href={`/@${username}`} className="mdl-navigation__link" {...props}>
 				<img
 					src={avatar}
 					alt={`${username}'s avatar`}
