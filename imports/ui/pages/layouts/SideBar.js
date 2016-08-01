@@ -8,41 +8,49 @@ import ProfileLink from '../../components/ProfileLink'
 
 class HeaderNav extends React.Component {
 
+	// attach event listeners
     componentDidMount() {
         // after link or button click close sidebar
-        // but not if it's search component
-        $('.mdl-layout__drawer .mdl-navigation__link:not(input)').click(function(){ // , .mdl-layout__drawer .mdl-button:not([for="textfield-Searchforcoin"])
-            Meteor.setTimeout(function triggerClick(){
-              $('.mdl-layout__obfuscator').trigger('click');
-            }, 280)
+        // but not if it's a search component
+        $('.mdl-layout__drawer .mdl-navigation__link:not(.search)').click(
+			function() {
+	            Meteor.setTimeout(
+					() =>  $('.mdl-layout__obfuscator').trigger('click'),
+					280
+				)
         })
     }
 
 	render() {
 
-		// data is defined not in state on purpose, because otherwise it is not reactive
 		const 	user = Meteor.user(),
-				brandLink = <Button href="/" style={{color: 'white'}} ripple> Cyber.Fund </Button>
+				brandLink = <Button href="/" ripple> Cyber.Fund </Button>
 
 	    /* show login button or profile link */
 	    const loginOrProfileLink =	user
 									? <ProfileLink user={user} />
 									: <Button href="/welcome" raised accent ripple>Join Us</Button>
 
-	    const navLinks = 	<Navigation>
-								<a href="/radar">Crowdsales</a>
-								<a href="/rating">Assets</a>
-								<a href="/funds">Funds</a>
-								<a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
-								<a href="https://blog.cyber.fund" target="_blank">Blog</a>
-								<a href=""> <Search /> </a>
-								<a href="" style={{lineHeight: 'inherit', cursore: 'none'}}>
-									<BitcoinPrice />
-								</a>
-								{loginOrProfileLink}
-							</Navigation>
-
-		return	<Drawer title={brandLink} className="text-center">{navLinks}</Drawer>
+		return	<Drawer title={ <Button href="/" ripple> Cyber.Fund </Button> } className="text-center">
+					<Navigation>
+						<a href="/radar">Crowdsales</a>
+						<a href="/rating">Assets</a>
+						<a href="/funds">Funds</a>
+						<a href="https://www.academia.edu/22691395/cyber_Rating_Crypto_Property_Evaluation" target="_blank">Whitepaper</a>
+						<a href="https://blog.cyber.fund" target="_blank">Blog</a>
+						<a
+							href=""
+							className="search"
+							style={{ padding: '0 50px' }}
+						>
+							<Search color="inherit" fullWidth />
+						</a>
+						<a href="" style={{lineHeight: 'inherit', cursor: 'none'}}>
+							<BitcoinPrice />
+						</a>
+						{loginOrProfileLink}
+					</Navigation>
+				</Drawer>
 
   }
 }
