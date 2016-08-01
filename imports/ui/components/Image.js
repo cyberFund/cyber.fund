@@ -6,7 +6,7 @@ import helpers from '../helpers'
 class Image extends React.Component {
 
     render() {
-        let { src, small, avatar, className, style = {} } = this.props
+        let { src, small, avatar, className, style = {}, margin } = this.props
 
 	    // add extra classes based of attributes
 	    const classes = classNames( className, { 'mdl-list__item-avatar': avatar || small })
@@ -17,8 +17,15 @@ class Image extends React.Component {
 		if (small || typeof src == 'object') {
 			style = _.extend(style, {backgroundColor: 'transparent', borderRadius: 0})
 		}
+
 		// for avatar set auto height, for normal images limited (to avoid images being bigger than parent element)
-		_.extend(style, {maxHeight: avatar ? 'auto' : '100%'})
+		_.extend(
+			style,
+			{ maxHeight: avatar ? 'auto' : '100%' },
+			// add margin only if prop is specified
+			// (specify as third param to avoid override of "style" margin)
+			(margin ? { margin: '0 6px 6px' } : undefined)
+		)
 
 		// do not forget: {...this.props} must be first because we overide it's properties
         return 	<img
@@ -41,7 +48,9 @@ Image.propTypes = {
 	src: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
 	avatar: PropTypes.bool,
 	// if small prop is used, styles will be similar with avatar, except no border radius and background color
-	small: PropTypes.bool
+	small: PropTypes.bool,
+	// if margin is specified, margin rule will be added to styles
+	margin: PropTypes.bool
 }
 
 export default Image
