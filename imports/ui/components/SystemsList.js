@@ -13,7 +13,7 @@ const SystemsList = props => {
 								href={`/system/${helpers._toUnderscores(system._id)}`}
 								title={system._id}
 							>
-								<Image src={system} avatar />
+								<Image src={system} avatar margin />
 							</a>
 					})
 				}

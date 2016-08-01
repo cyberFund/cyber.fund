@@ -12,7 +12,7 @@ const UsersList = props => {
 								href={`/@${user.username}`}
 								title={user.username}
 							>
-								<Image src={user.avatar} avatar />
+								<Image src={user.avatar} avatar margin />
 							</a>
 					})
 				}
