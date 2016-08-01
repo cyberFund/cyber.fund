@@ -48,6 +48,10 @@ Template["systemBasic"].onRendered(function() {
 });
 
 Template["systemBasic"].helpers({
+  getMarketsBy: function(_id){
+    if (_id == 'SteemPower') return 'Steem'
+    return _id
+  },
   yesterdaySupplyMetric: function(){
     var m = this.metrics;
     return (m.supply - m.supplyChange.day) || 0;
