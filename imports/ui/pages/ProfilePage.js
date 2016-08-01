@@ -7,6 +7,7 @@ import helpers from '../helpers'
 // components
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import { If, Else, Unless, Hide } from '../components/Utils'
+import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
@@ -17,8 +18,6 @@ import PortfolioTable from '../components/PortfolioTable'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
-// hoc's
-import PageLoading from '../higherOrderComponents/PageLoading'
 
 class ProfilePage extends Component {
 
@@ -47,14 +46,15 @@ class ProfilePage extends Component {
 	}
 
 	handleLogout() {
-		( Meteor.logout() && analytics.track('Sign Out', { from: 'profile' }) )
+		Meteor.logout()
+		analytics.track('Sign Out', { from: 'profile' })
 	}
 
 	toggleFollow = () => {
 
 		if (!Meteor.user()) FlowRouter.go("/welcome")
 
-		// if following == true => unfollow and vice versa
+		// if following == true => unfollow() and vice versa
 		const unfollow = this.props.following
 		Meteor.call(
 			'followUser',
@@ -71,11 +71,12 @@ class ProfilePage extends Component {
 	}
 
     render() {
-        const	{props: {user, isOwnProfile, following, userNumber}, state, props} = 	this,
+        const	{props: {user, isOwnProfile, following, userNumber, userAccounts}, state, props} = 	this,
 				{toggleFollow, changeTab, handleLogout} 	= 	this,
 				listStyle									=	{margin: '0 3px 6px'}
 
-        return 	<Grid id="ProfilePage">
+        return 	props.loaded
+				? <Grid id="ProfilePage">
 
                   {/* USER INFO */}
 
@@ -128,18 +129,18 @@ class ProfilePage extends Component {
 						</Tabs>
 						{/* PORTFOLIO TAB */}
 						<section style={state.firstTabStyle}>
-							<Hide unless={helpers.isOwnAssets() && props.userAccounts.length == 0}>
+							<Hide unless={helpers.isOwnAssets() && userAccounts.length == 0}>
 						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
 						        <div className="video-container">
 						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
 						        </div>
 							</Hide>
-							<AccountsTotalTable accounts={props.userAccounts} />
-							<PortfolioTable accounts={props.userAccounts} />
-							{/*<PortfolioTableContainer users={props.userAccounts} />*/}
+							<AccountsTotalTable accounts={userAccounts} />
+							<PortfolioTable accounts={userAccounts} />
+							{/*<PortfolioTableContainer users={userAccounts} />*/}
 						</section>
 						{/* ACCOUNTS TAB */}
-						<AssetsManager style={state.secondTabStyle} accounts={props.userAccounts} />
+						<AssetsManager style={state.secondTabStyle} accounts={userAccounts} />
 					</Cell>
                 	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
 					{/* TODO move condition checking into AddAccount?
@@ -151,6 +152,7 @@ class ProfilePage extends Component {
 		                </FABButton>
 					</Else>
               </Grid>
+			  : <Loading />
     }
 }
 
@@ -160,4 +162,4 @@ ProfilePage.propTypes = {
  //numberOfSkills: PropTypes.number.isRequired
 }
 
-export default PageLoading(ProfilePage)
+export default ProfilePage
