@@ -11,7 +11,12 @@ const ChaingearLink = props => {
 	const { link, link: { name, url, icon } } = props
 
 	 // if card prop is specified render card with image
-	if (props.card)	return 	<Cell col={3} tablet={4} phone={4} key={name} {...props}>
+	if (props.card)	return 	<Cell
+								col={3} tablet={4} phone={4}
+								style={{ display: 'inline-block'}}
+								key={name}
+								{...props}
+							>
 								<CardLink
 									text={name}
 									href={url}
