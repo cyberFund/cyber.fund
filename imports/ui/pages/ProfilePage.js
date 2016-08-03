@@ -15,6 +15,7 @@ import AccountsTotalTable from '../components/AccountsTotalTable'
 // TODO check this dependency
 // import PortfolioTableContainer from '../containers/PortfolioTableContainer'
 import PortfolioTable from '../components/PortfolioTable'
+import PortfolioChart from '../components/PortfolioChart'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
@@ -136,6 +137,7 @@ class ProfilePage extends Component {
 						        </div>
 							</Hide>
 							<AccountsTotalTable accounts={userAccounts} />
+							<PortfolioChart />
 							<PortfolioTable accounts={userAccounts} />
 							{/*<PortfolioTableContainer users={userAccounts} />*/}
 						</section>
