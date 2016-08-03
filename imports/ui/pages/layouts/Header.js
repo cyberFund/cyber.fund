@@ -27,8 +27,8 @@ class HeaderNav extends React.Component {
 						{/* show login button or profile link */}
 						{
 							user
-							? <ProfileLink user={user} />
-							: <Button href="/welcome" raised accent ripple>Join Us</Button>
+							? <ProfileLink user={user} style={{ paddingRight: 0 }} />
+							: <Button href="/welcome" style={{ lineHeight: '39px' }} raised accent ripple>Join Us</Button>
 						}
 					</Navigation>
 				</Header>
