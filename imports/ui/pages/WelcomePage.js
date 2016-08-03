@@ -8,11 +8,11 @@ import helpers from '../helpers'
 // TODO: test .mdl-cell--stretch on wide element. Dunno if this class works properly
 
 class WelcomePage extends React.Component {
-    // redirect user if he is logged in
-    componentWillMount() {
-        // TODO: move this to FlowRouter.route(triggersEnter: function)
-        if(Meteor.userId()) FlowRouter.go('/profile')
-    }
+    // // redirect user if he is logged in
+    // componentWillMount() {
+    //     // TODO: move this to FlowRouter.route(triggersEnter: function)
+    //     if(Meteor.userId()) FlowRouter.go('/profile')
+    // }
     componentDidMount() {
         // self explanatory
         $('[href="/sign-in"]').on('click', () => {
