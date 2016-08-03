@@ -8,14 +8,12 @@ const FundsPage = props => {
     return 	<Grid id="FundsPage" className="text-center">
 	            <Cell col={12}>
 	                <Show condition={Meteor.userId()}>
-	                    <div>
-	                        <h4>Top Funds You Follow</h4>
-	                        <FundsTable funds={props.fundsIfollow} />
-	                    </div>
+                        <h4>Top Funds You Follow</h4>
+                        <FundsTable funds={props.fundsIfollow} />
 	                </Show>
 	                <Hide condition={Meteor.userId()}>
-	                        <Button href="/welcome" raised accent ripple>Join Us</Button>
-	                 </Hide>
+                    	<Button href="/welcome" raised accent ripple>Join Us</Button>
+	                </Hide>
 	            </Cell>
 	            <Cell col={12}>
 	                <h4>Top Funds You Don't Follow</h4>
@@ -26,8 +24,8 @@ const FundsPage = props => {
 }
 
 FundsPage.propTypes = {
- fundsIfollow: PropTypes.array.isRequired,
- fundsIdontFollow: PropTypes.array.isRequired
+	fundsIfollow: PropTypes.array.isRequired,
+	fundsIdontFollow: PropTypes.array.isRequired
 }
 
 export default PageLoading(FundsPage)
