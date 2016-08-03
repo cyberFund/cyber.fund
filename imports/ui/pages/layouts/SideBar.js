@@ -23,15 +23,14 @@ class HeaderNav extends React.Component {
 
 	render() {
 
-		const 	user = Meteor.user(),
-				brandLink = <Button href="/" ripple> Cyber.Fund </Button>
+		const 	user = Meteor.user()
 
-	    /* show login button or profile link */
-	    const loginOrProfileLink =	user
-									? <ProfileLink user={user} />
-									: <Button href="/welcome" raised accent ripple>Join Us</Button>
-
-		return	<Drawer title={ <Button href="/" ripple> Cyber.Fund </Button> } className="text-center">
+		return	<Drawer
+					title={
+						<Button href="/" ripple> Cyber.Fund </Button>
+					}
+					className="text-center"
+				>
 					<Navigation>
 						<a href="/radar">Crowdsales</a>
 						<a href="/rating">Assets</a>
@@ -48,7 +47,12 @@ class HeaderNav extends React.Component {
 						<a href="" style={{lineHeight: 'inherit', cursor: 'none'}}>
 							<BitcoinPrice />
 						</a>
-						{loginOrProfileLink}
+						{/* show login button or profile link */}
+						{
+							user
+							? <ProfileLink user={user} />
+							: <Button href="/welcome" raised accent ripple>Join Us</Button>
+						}
 					</Navigation>
 				</Drawer>
 
