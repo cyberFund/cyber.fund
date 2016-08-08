@@ -34,11 +34,16 @@ const SystemLink = props => {
 					marginRight: 'auto',
 					textAlign: 'center'
 			},
+			cardStyle = {
+				minHeight: 'inherit',
+				// marginBottom: 10,
+				width: 'auto'
+			},
 			linkStyle = {color: 'inherit', textDecoration: 'none'}
 
 	// render link as card or inline
 	if (props.card)	return 	<a href={`/system/${helpers._toUnderscores(system._id)}`} style={linkStyle}>
-								<Card className="hover-shadow" shadow={2} style={{minHeight: 'inherit', width: 'auto'}}>
+								<Card className="hover-shadow" shadow={2} style={cardStyle}>
 									<div style={innerStyle}>
 										<img
 											style={imgStyle}

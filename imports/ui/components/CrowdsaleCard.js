@@ -8,7 +8,7 @@ import SystemLink from '../components/SystemLink'
 // TODO: refactoring needed. Hint: maybe separate into multiple components?
 
 const CrowdsaleCard = (props) => {
-	
+
     /* CARDFOOTER */
     const CardFooter = () => {
       // variables
@@ -115,7 +115,9 @@ const CrowdsaleCard = (props) => {
                         </Card>
                       </Cell>
 
-    const smallCard = <SystemLink system={item} card />
+    const smallCard = 	<Cell col={12}>
+							<SystemLink system={item} card />
+						</Cell>
 
 	// choose which card to return
     switch (props.size) {
