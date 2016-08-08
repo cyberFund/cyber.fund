@@ -46,6 +46,7 @@ return loaded ? (
 		<Unless condition={isProject}>
 			<SystemMetrics system={system} />
 			<Grid>
+				<Cell col={12} className="mdl-card mdl-shadow--4dp">
 					<Blaze template="slowchart" system={_id} style="width: 100%" />
 				</Cell>
 			</Grid>
