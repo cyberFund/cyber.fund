@@ -41,5 +41,12 @@ const Unless = props => !check(props) ? render(props) : null
 // <If condition={true} /> == show element
 // <Else condition={true} />  == hide element
 const Else = props => !check(props) ? render(props) : null
+function toggleState(selector) {
+	this.setState({ [selector]: !this.state[selector] })
+}
 
-export { Show, Hide, If, Unless, Else }
+function handleChange(selector, event) {
+	this.setState({ [selector]: event.target.value })
+}
+
+export { Show, Hide, If, Unless, Else, toggleState, handleChange }
