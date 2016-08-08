@@ -15,7 +15,7 @@ function check (props) {
 }
 
 /* 	check() and render() not merged because in future check
-	might have more checks and/or will be used elsewhere */
+	might have more checks and/or will be used elsewhere 	*/
 function render(props) {
 	// if component specified create custom element
 	if (props.component) return <props.component {...props} />
@@ -25,22 +25,22 @@ function render(props) {
 
 // <Show condition={true}> {props.children} </Show> == show element
 // <Show unless={true}> {props.children} </Show> == hide element
-const Show = props => check(props) ? render(props) : null
+const Show 	= props => check(props) ? render(props) : null
 
 // <Hide condition={true}> {props.children} </Hide> == hide element
 // <Hide unless={true}> {props.children} </Hide> == show element
-const Hide = props =>  !check(props) ? render(props) : null
+const Hide 	= props =>  !check(props) ? render(props) : null
 
 // <If condition={true}> {props.children} </If> == show element
-const If = props => check(props) ? render(props) : null
+const If 	= props => check(props) ? render(props) : null
+// this used in conjuction with <If />
+// <If condition={true} /> == show element
+// <Else condition={true} />  == hide element
+const Else 	= props => !check(props) ? render(props) : null
 
 // <Unless condition={true}> {props.children} </Unless> == hide element
 const Unless = props => !check(props) ? render(props) : null
 
-// this used in conjuction with <If />
-// <If condition={true} /> == show element
-// <Else condition={true} />  == hide element
-const Else = props => !check(props) ? render(props) : null
 function toggleState(selector) {
 	this.setState({ [selector]: !this.state[selector] })
 }
