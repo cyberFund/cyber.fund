@@ -5,7 +5,6 @@ import { Hide } from '../components/Utils'
 import { Button,  Grid, Cell } from 'react-mdl'
 import Top5AssetsContainer from '../containers/Top5AssetsContainer'
 import CybernomicsCap from '../components/CybernomicsCap'
-//import BalanceChecker from '../components/BalanceChecker'
 import CrowdsaleCardList from '../components/CrowdsaleCardList'
 import PageLoading from '../higherOrderComponents/PageLoading'
 
@@ -29,7 +28,8 @@ const IndexPage = props => {
 		</Top5AssetsContainer>
 
         {/* WIDGETS */}
-        <Grid> {/* TODO: move Cell into <DayliWidget /> ? */}
+        <Grid>
+
             <Cell col={4} tablet={4} phone={4}>
                 <h5>Daily Widget</h5>
                 <CybernomicsCap
@@ -39,9 +39,9 @@ const IndexPage = props => {
 	                capBtcDailyChange={props.capBtcDailyChange}
 	                capUsdDailyChange={props.capUsdDailyChange}
                 />
-                {/*<BalanceChecker col={12} />*/}
-                <Button component='a' href="/funds" primary ripple>Funds</Button>
+                <Button href="/funds" primary ripple>Funds</Button>
             </Cell>
+
             <CrowdsaleCardList
                 col={4} tablet={4} phone={4}
                 title="Active Crowdsales"
@@ -49,6 +49,7 @@ const IndexPage = props => {
 				titleComponent='h5'
                 items={props.activeCrowdsales}
 			/>
+
             <Cell col={4} tablet={4} phone={4} className="mdl-cell--2-offset-tablet">
                 {/* TODO: create "my portfolio" component */}
                 <h5>My Portfolio</h5>
@@ -57,10 +58,11 @@ const IndexPage = props => {
                         ~{Meteor.userId() ? helpers.readableN2(props.sumBtc) : 0} bitcoins
                     </h4>
                     <Hide condition={Meteor.userId()}>
-                        <Button component='a' href="/welcome" primary ripple>Join Us</Button>
+                        <Button href="/welcome" primary ripple>Join Us</Button>
                     </Hide>
                 </div>
             </Cell>
+
         </Grid>
 
       </div>
