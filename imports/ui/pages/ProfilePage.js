@@ -7,7 +7,6 @@ import helpers from '../helpers'
 // components
 import { Grid, Cell, FABButton, Icon, Button, Tabs, Tab } from 'react-mdl'
 import { If, Else, Unless, Hide } from '../components/Utils'
-import Loading from '../components/Loading'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
@@ -19,6 +18,8 @@ import PortfolioChart from '../components/PortfolioChart'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
+// HOC's
+import PageLoading from '../higherOrderComponents/PageLoading'
 
 class ProfilePage extends Component {
 
@@ -76,10 +77,7 @@ class ProfilePage extends Component {
 				{toggleFollow, changeTab, handleLogout} 	= 	this,
 				listStyle									=	{margin: '0 3px 6px'}
 
-        return 	props.loaded
-				? <Grid id="ProfilePage">
-
-                  {/* USER INFO */}
+        return 	<Grid id="ProfilePage">
 
                   <Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
@@ -153,8 +151,8 @@ class ProfilePage extends Component {
 							<Icon name={following ? 'remove circle' : 'person'} />
 		                </FABButton>
 					</Else>
-              </Grid>
-			  : <Loading />
+
+            	</Grid>
     }
 }
 
@@ -164,4 +162,4 @@ ProfilePage.propTypes = {
  //numberOfSkills: PropTypes.number.isRequired
 }
 
-export default ProfilePage
+export default PageLoading(ProfilePage)
