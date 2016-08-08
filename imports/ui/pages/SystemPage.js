@@ -45,7 +45,10 @@ return loaded ? (
 
 		<Unless condition={isProject}>
 			<SystemMetrics system={system} />
-			<Blaze template="slowchart" system={_id} style="width: 100%" />
+			<Grid>
+					<Blaze template="slowchart" system={_id} style="width: 100%" />
+				</Cell>
+			</Grid>
 		</Unless>
 
 		<If condition={existLinksWith(links, 'News')} component={Grid}>
