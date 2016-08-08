@@ -1,37 +1,39 @@
 import React, { PropTypes } from 'react'
 import { Grid, Cell } from 'react-mdl'
 import { _ } from 'meteor/underscore'
+import ChartistGraph from 'react-chartist'
 
 // usage example:
-// <PortfolioChart />
+// <PortfolioChart assets={array} />
 
 class PortfolioChart extends React.Component {
 
-	// create wrapper for chart
-	render() { return <div className="ct-chart folio-pie"></div> }
+	render() {
 
-	// create chart on mount
-	componentDidMount() {
-		// get systems
-		const data = CF.Accounts.portfolioTableData()
+		const { assets } = this.props
+
 		// chart dependencies
 		let	series = [],
-			labels = _.keys(data)
+			labels = _.keys(assets)
 
 		// fill series array with values
-		_.map(data, system => {
+		_.map(assets, (system) => {
 			var sum = 	_.reduce(
-							_.map(data, it => it.vBtc),
+							_.map(assets, it => it.vBtc),
 							(memo, num) => memo + num,
 							0
 						)
 			series.push(system.vBtc / sum)
 		})
 
-		// create chart instance
-		new Chartist.Pie('.ct-chart', { labels, series, donut: true })
+		return <ChartistGraph data={{ series, labels }} type={'Pie'} className="ct-chart folio-pie" />
+
 	}
 
+}
+
+PortfolioChart.propTypes = {
+	assets: PropTypes.array.isRequired
 }
 
 export default PortfolioChart
