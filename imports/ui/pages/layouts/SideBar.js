@@ -23,7 +23,14 @@ class HeaderNav extends React.Component {
 
 	render() {
 
+		// data
 		const 	user = Meteor.user()
+
+		// styles
+		const	buttonStyle = {
+					height: 'auto',
+					color: 'white'
+				}
 
 		return	<Drawer
 					title={
@@ -50,8 +57,8 @@ class HeaderNav extends React.Component {
 						{/* show login button or profile link */}
 						{
 							user
-							? <ProfileLink user={user} />
-							: <Button href="/welcome" raised accent ripple>Join Us</Button>
+							? <ProfileLink user={user} style={{ padding: 10 }} />
+							: <Button href="/welcome" style={buttonStyle} raised accent ripple>Join Us</Button>
 						}
 					</Navigation>
 				</Drawer>
