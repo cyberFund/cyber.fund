@@ -10,11 +10,7 @@ import { If, Else, Unless, Hide } from '../components/Utils'
 import Brand from '../components/Brand'
 import Image from '../components/Image'
 import SystemsList from '../components/SystemsList'
-import AccountsTotalTable from '../components/AccountsTotalTable'
-// TODO check this dependency
-// import PortfolioTableContainer from '../containers/PortfolioTableContainer'
-import PortfolioTable from '../components/PortfolioTable'
-import PortfolioChart from '../components/PortfolioChart'
+import ProfileInfo from '../components/ProfileInfo'
 import UsersList from '../components/UsersList'
 import AddAccount from '../components/AddAccount'
 import AssetsManager from '../components/AssetsManager'
@@ -134,10 +130,7 @@ class ProfilePage extends Component {
 						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
 						        </div>
 							</Hide>
-							<AccountsTotalTable accounts={userAccounts} />
-							<PortfolioChart />
-							<PortfolioTable accounts={userAccounts} />
-							{/*<PortfolioTableContainer users={userAccounts} />*/}
+							<ProfileInfo accounts={userAccounts} />
 						</section>
 						{/* ACCOUNTS TAB */}
 						<AssetsManager style={state.secondTabStyle} accounts={userAccounts} />
