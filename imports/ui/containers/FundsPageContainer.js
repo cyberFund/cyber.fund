@@ -6,31 +6,38 @@ import FundsPage from '../pages/FundsPage'
 import get from 'oget'
 
 export default FundsPageContainer = createContainer(() => {
-  const loaded = Meteor.subscribe("usersWithFunds").ready()
-  const user = Meteor.user()
+	const 	user = Meteor.user(),
+			loaded = Meteor.subscribe("usersWithFunds").ready(),
+			sort = {
+				publicFunds: -1,
+				'profile.followedBy': -1
+			}
 
-  let iFollow = get(user, 'user.profile.followingUsers', [])
-  if (user) iFollow.push(user._id)
+	let iFollow = get(user, 'profile.followingUsers', [])
 
-  function fundsIfollow (){
-    if (iFollow) {
-      return Meteor.users.find({_id: {$in: iFollow}}, {
-            sort: {publicFunds: -1}
-            }).fetch()
-    }
-    else return []
-  }
-  function fundsIdontFollow (){
-    if (iFollow) selector._id = {$nin: iFollow}
-    return Meteor.users.find(selector, {
-          limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,
-          sort: {publicFunds: -1}
-        }).fetch()
-  }
+	if (user) iFollow.push(user._id)
 
-  return {
-      loaded,
-      fundsIfollow: fundsIfollow(),
-      fundsIdontFollow: fundsIdontFollow()
-  }
+	function fundsIfollow() {
+		if (iFollow) {
+			return 	Meteor.users.find(
+						{ _id: { $in: iFollow } },
+						{ sort }
+					).fetch()
+		}
+		else return []
+	}
+
+	function fundsIdontFollow() {
+		if (iFollow) selector._id = {$nin: iFollow}
+		return Meteor.users.find(selector, {
+			sort,
+			limit: Session.get("showAllUsersAtFunds") ? 1000 : 50
+		}).fetch()
+	}
+
+	return {
+		loaded,
+		fundsIfollow: fundsIfollow(),
+		fundsIdontFollow: fundsIdontFollow()
+	}
 }, FundsPage)
