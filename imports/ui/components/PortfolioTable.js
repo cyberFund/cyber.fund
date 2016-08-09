@@ -4,205 +4,201 @@ import { _ } from 'meteor/underscore'
 import { Grid, Cell } from 'react-mdl'
 import get from 'oget'
 import helpers from '../helpers'
-import Image from '../components/Image'
+import SystemLink from '../components/SystemLink'
 
-// TODO implement sorting
+// renders big table with all accounts info
+
+// usage example:
+// <PortfolioChart accounts={object} />
+
+// TODO add comments. Nothing is obvious. How does sorting work?
+// TODO fix remaining sorting and add onClick animation/styles
 // NOTE sorting is already done in portfolioWidgetTable.js, just copy it & modify properly
 // TODO do not forget to also implement analytics data submission on sorting event
 
-const PortfolioTable = props => {
+class PortfolioTable extends React.Component {
 
-	if(!props.accounts) return null
+	state = { systems: [] }
 
-	// NOTE remove this accounts fetching process and just pass accounts throw container?
-	const 	ns = CF.UserAssets,
-			{ selectors } = CF.CurrentData,
-			r = CF.Accounts.portfolioTableData(),
-			accounts =  CF.Accounts.userProfileData(),
-			{ percents1, readableN0, readableN2, readableN3, readableN4, greenRedNumber } = helpers
+	// fill table with data on mount
+	componentDidMount() { this.getSystems() }
 
-	// FIXME this stack of functions is a mess. Refactor, move some to helpers
-	function getSystems() { //  systems to display in portfolio table, including 'starred' systems
+	// this function fetches data and sorts it by setting state.systems
+	getSystems = (selector = 'byValue') => { // selector == sorter
+		// FIXME this stack of functions is a mess. Refactor, move some to helpers
+		//  systems to display in portfolio table, including 'starred' systems
 
-		       var systems = ns.getSystemsFromAccountsObject(accounts);
-
-		       if (helpers.isOwnAssets()) {
-		         var user = Meteor.user();
-		         var stars = user.profile.starredSystems;
-		         if (stars && stars.length) {
-		           systems = _.uniq(_.union(systems, stars));
-		         }
-		       }
-
-		       var sort = {
-		         // sort portfolio items by their cost, from higher to lower.
-		         // return -1 if x > y; return 1 if y > x
-		         byValue: function (x, y) {
-		           var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
-		           var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
-		           return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
-		         },
-		         byAmount: function (x, y) {
-		           var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
-		           var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
-		           return Math.sign(q2 - q1);
-		         },
-		         byEquity: function (x, y) {
-		           var q1 = (x.metrics && x.metrics.supply) ?
-		             ns.getQuantitiesFromAccountsObject(accounts, x._id)/ x.metrics.supply : 0;
-		           var q2 = (y.metrics && y.metrics.supply) ?
-		             ns.getQuantitiesFromAccountsObject(accounts, y._id) / y.metrics.supply: 0;
-
-		           return Math.sign(q2 - q1);
-		         }
-		       };
-
-		       // for sorter values, see template file. 'f|' is for sorting by system field
-		       // like "by daily price change", no prefix is for using some sort function
-		       // from above
-		       var sorter = CF.Utils._session.get("folioWidgetSort"),
-		         _sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
-		         _split = (_sorter || "").split("|");
-
-		       if (_sorter && _split) {
-		         if (_split.length == 2 && _split[0] == "f") {
-		           var r = CurrentData.find(selectors.system(systems))
-		             .fetch()
-		             .sort(sort[_split[1]]);
-
-		           var val = sorter && _.isObject(sorter) && _.values(sorter)
-		             && _.values(sorter)[0];
-		           if (val == 1) r = r.reverse();
-		           return r;
-		         }
-		         return CurrentData.find(selectors.system(systems), {sort: sorter});
-		       }
-
-		       return CurrentData.find(selectors.system(systems))
-		         .fetch().sort(sort.byValue);
-     }
-
-	 function quantity(system) {
-       if (!system._id) return NaN;
-       return ns.getQuantitiesFromAccountsObject(accounts, system._id);
-     }
-
-     function btcCost(system) {
-       return r && r[system._id] && r[system._id].vBtc;
-       if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
-
-       return (ns.getQuantitiesFromAccountsObject(
-         accounts, system._id) * system.metrics.price.btc);
-     }
-     function usdCost(system) {
-       return (r && r[system._id] && r[system._id].vUsd);
-       if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
+			// dependencies
+			const	{ UserAssets } = CF,
+					{ selectors } = CF.CurrentData,
+					getQuantities = UserAssets.getQuantitiesFromAccountsObject
+			// data
+			const	accounts = 	this.props.accounts.filter(acc => acc.checked == true),
+					systems = UserAssets.getSystemsFromAccountsObject(accounts)
 
 
-       return (ns.getQuantitiesFromAccountsObject(
-           accounts, system._id) * system.metrics.price.usd);
-     }
+			if (helpers.isOwnAssets()) {
+				var user = Meteor.user(),
+					stars = user.profile.starredSystems;
+				if (stars && stars.length) {
+					systems = _.uniq(_.union(systems, stars));
+				}
+			}
 
-     function equity(system) {
-       var q = 0.0;
-	   var { _id } = system
-	   var supply = get(system, 'metrics.supply', 0)
+			var sort = {
+				// sort portfolio items by their cost, from higher to lower.
+				// return -1 if x > y; return 1 if y > x
+				byValue(x, y) {
+					var q1 = getQuantities(accounts, x._id);
+					var q2 = getQuantities(accounts, y._id);
+					return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
+				},
+				byAmount(x, y) {
+					var q1 = getQuantities(accounts, x._id);
+					var q2 = getQuantities(accounts, y._id);
+					return Math.sign(q2 - q1);
+				},
+				byEquity(x, y) {
+					var q1 = (x.metrics && x.metrics.supply) ?
+					getQuantities(accounts, x._id)/ x.metrics.supply : 0;
+					var q2 = (y.metrics && y.metrics.supply) ?
+					getQuantities(accounts, y._id) / y.metrics.supply: 0;
 
-       if (r[system._id]) q = r[_id] && r[_id].quantity || 0
+					return Math.sign(q2 - q1);
+				}
+			}
 
-       return supply ? 10000 * q / supply : 0.0
-     }
-     function share(system) {
-       if (system._id && r[system._id]) {
-         var vBtc = r[system._id].vBtc;
+			this.setState({
+				systems: 	CurrentData
+								.find(selectors.system(systems))
+								.fetch()
+								.sort(sort[selector])
+			})
 
-         var sum = _.reduce(_.map(r, function(it){
-           return it.vBtc;
-	   }), function(memo, num){ return memo + num; }, 0);
+		// NOTE below code is legacy. I have no idea what the fuck it does.
 
-         return vBtc / sum;
-       }
-       return 0;
-     }
-     function usdPrice(system) {
-       var prices = CF.CurrentData.getPricesByDoc(system);
-       return prices && prices.usd || 0;
-     }
-     function usdPriceChange1d(system) {
-       return get(system, 'metrics.priceChangePercents.day.usd', 0)
-     }
-     function usdCap(system) {
-		    const	supply 	= get(system, 'metrics.supply', 0),
-					usd 	= get(system, 'metrics.price.usd', 0)
+		// // for sorter values, see template file. 'f|' is for sorting by system field
+		// // like "by daily price change", no prefix is for using some sort function
+		// // from above
+		// var sorter =	CF.Utils._session.get("folioWidgetSort"),
+		// 				_sorter = sorter && _.isObject(sorter) && _.keys(sorter) && _.keys(sorter)[0],
+		// 				_split = (_sorter || "").split("|");
+		//
+		// if (_sorter && _split) {
+		// 	if (_split.length == 2 && _split[0] == "f") {
+		// 		var r = 	CurrentData
+		// 					.find(selectors.system(systems))
+		// 					.fetch()
+		// 					.sort(sort[_split[1]])
+		//
+		// 		var val = 	sorter
+		// 					&& _.isObject(sorter)
+		// 					&& _.values(sorter)
+		// 					&& _.values(sorter)[0]
+		// 		if (val == 1) r = r.reverse()
+		// 		return r
+		// 	}
+		// 	return CurrentData.find(selectors.system(systems), {sort: sorter})
+		// }
 
-			return supply * usd
-     }
+	}
 
-	//  TODO implement tooltips (or not?)
-     function btcPriceChange1d(system) {
-		return get(system, 'metrics.priceChangePercents.day.btc', 0)
-     }
+	render() {
+		if(!this.props.accounts) return null
 
-     function btcCap(system) {
-		const	supply 	= get(system, 'metrics.supply', 0),
-				btc 	= get(system, 'metrics.price.btc', 0)
+		const 	{ UserAssets } = CF,
+				getQuantities = UserAssets.getQuantitiesFromAccountsObject,
+				// TODO explain diffrence between tableData and accounts
+				tableData = CF.Accounts.portfolioTableData(),
+				// accounts array containing only needed data
+				accounts = 	this.props.accounts.filter(acc => acc.checked == true),
+				{ percents1, readableN0, readableN2, readableN3, readableN4, greenRedNumber } = helpers
 
-		return btc * supply
-     }
+		const	assets = CF.Accounts.accumulate(
+					accounts.map(account => {
+						if(account.checked) return CF.Accounts.extractAssets(account)
+				}))
 
-    return  <Grid>
-				<Cell col={12}>
-					<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...props}>
+		function quantity(system) {
+			if (!system._id) return NaN
+			return getQuantities(accounts, system._id)
+		}
 
-						<thead>
-							<tr>
-								<th style={{textAlign: 'center'}} className="mdl-data-table__cell--non-numeric">
-								    System
-								</th>
-								<th>Amount</th>
-								<th>Equity</th>
-								<th>Portfolio Share</th>
-								<th>Value in BTC</th>
-								<th>Value in USD</th>
-								<th>USD Price<sup>1d Change</sup></th>
-								<th>USD Cap</th>
-							</tr>
-						</thead>
+		function equity(_id, supply, q = 0.0) {
+			if (assets[_id]) q = assets[_id] && assets[_id].quantity || 0
+			return supply ? 10000 * q / supply : 0.0
+		}
 
-						<tbody>
-							{
-								getSystems().map( system => {
-									return  <tr key={system._id}>
-												<td className="mdl-data-table__cell--non-numeric">
-													<a href={`/system/${helpers._toUnderscores(system._id)}`}>
-														<Image
-															src={system}
-															style={{marginRight: 24}}
-															avatar
-														/>
-														<span>{helpers.displaySystemName(system)}</span>
-													</a>
-												</td>
-												<td> {readableN2( quantity(system) )} </td>
-												<td> {readableN3( equity(system) )}‱ </td>
-												<td> {percents1( share(system) )} </td>
-												<td> {readableN2( btcCost(system) )} </td>
-												<td> {readableN0( usdCost(system) )} </td>
-												<td>
-												  {readableN2(usdPrice(system))}
-												  <sup className={greenRedNumber(usdPriceChange1d(system))}>
-													{readableN2(usdPriceChange1d(system))}%
-												  </sup>
-												</td>
-												<td> {readableN0(usdCap(system))} </td>
-											</tr>
-								})
-							}
-						</tbody>
+		function share(_id) {
+			if (_id && assets[_id]) {
+				var vBtc 	= 	assets[_id].vBtc
+				var sum 	= 	_.reduce(
+									_.map(assets, obj => obj.vBtc),
+									(memo, num) => memo + num,
+									0
+								)
+				return vBtc / sum
+			}
+			return 0
+		}
 
-					</table>
-				</Cell>
-	        </Grid>
+		//  TODO implement tooltips (or not?)
+
+	    return  <Grid>
+					<Cell col={12} className="overflow-auto">
+						<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...this.props}>
+
+							<thead>
+								<tr>
+									<th className="mdl-data-table__cell--non-numeric text-center">
+									    System
+									</th>
+									<th onClick={this.getSystems.bind(this, 'byAmount')}>Amount</th>
+									<th onClick={this.getSystems.bind(this, 'byEquity')}>Equity</th>
+									<th>Portfolio Share</th>
+									<th onClick={this.getSystems.bind(this, 'byValue')}>Value in BTC</th>
+									<th onClick={this.getSystems.bind(this, 'byValue')}>Value in USD</th>
+									<th>USD Price<sup>1d Change</sup></th>
+									<th>USD Cap</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{
+									this.state.systems.map( system => {
+
+										const	{ _id, metrics } = system,
+												supply 	= get(metrics, 'supply', 0),
+												usd 	= get(metrics, 'price.usd', 0),
+												usdPrice = get(CF.CurrentData.getPricesByDoc(system), 'usd', 0),
+												usdPriceChange1d = get(metrics, 'priceChangePercents.day.usd', 0)
+
+										return  <tr key={system._id}>
+													<td className="mdl-data-table__cell--non-numeric">
+														<SystemLink system={system} />
+													</td>
+													<td> {readableN2( quantity(system) )} </td>
+													<td> {readableN3( equity(_id, supply) )}‱ </td>
+													<td> {percents1( share(_id) )} </td>
+													<td> {readableN2( get(tableData[system._id], 'vBtc') )} </td>
+													<td> {readableN0( get(tableData[system._id], 'vUsd') )} </td>
+													<td>
+													{readableN2(usdPrice)}
+													<sup className={greenRedNumber(usdPriceChange1d)}>
+														{readableN2(usdPriceChange1d)}%
+													</sup>
+													</td>
+													<td> {readableN0(supply * usd)} </td>
+												</tr>
+									})
+								}
+							</tbody>
+
+						</table>
+					</Cell>
+		        </Grid>
+	}
+
 }
 
 PortfolioTable.propTypes = {
