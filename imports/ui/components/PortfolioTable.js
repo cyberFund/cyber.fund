@@ -32,9 +32,10 @@ class PortfolioTable extends React.Component {
 			const	{ UserAssets } = CF,
 					{ selectors } = CF.CurrentData,
 					getQuantities = UserAssets.getQuantitiesFromAccountsObject
+
 			// data
-			const	accounts = 	this.props.accounts.filter(acc => acc.checked == true),
-					systems = UserAssets.getSystemsFromAccountsObject(accounts)
+			let	accounts = 	this.props.accounts.filter(acc => acc.checked == true),
+				systems	 = 	UserAssets.getSystemsFromAccountsObject(accounts)
 
 
 			if (helpers.isOwnAssets()) {
