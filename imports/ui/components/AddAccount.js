@@ -22,8 +22,10 @@ import Public from 'material-ui/svg-icons/social/public' 			// public\private ch
 import Lock from 'material-ui/svg-icons/action/lock'				// public\private checkbox
 import LockOutline from 'material-ui/svg-icons/action/lock-outline' // public\private checkbox
 // custom
-import { If, Show, Hide } from '../components/Utils'
+import { If, Show, Hide, toggleState } from '../components/Utils'
+
 // TODO dont forget to clean up & refactor
+
 export default class AddAccount extends React.Component {
 	constructor(props) {
 		super(props)
@@ -45,13 +47,9 @@ export default class AddAccount extends React.Component {
 		this.state = this.initialState
 
 		// bindings
-		this.toggleDialog = this.toggleDialog.bind(this)
 		this.handleAddressChange = this.handleAddressChange.bind(this)
 		this.handleNameChange = this.handleNameChange.bind(this)
-		this.handleSubmit = this.handleSubmit.bind(this)
 	}
-
-	toggleDialog() { this.setState({ open: !this.state.open }) }
 
 	// this handless checkbox and select changes
 	// arguments are part of Material-ui onChange events
@@ -82,7 +80,7 @@ export default class AddAccount extends React.Component {
 		if (name == '') this.setState({ nameError: '' })
 	}
 
-	handleSubmit() {
+	handleSubmit = () => {
 		const 	{ state: { address, name, selectedAccount, isNewAccount, isPublic } } = this,
 				userId = Meteor.userId()
 		// check address
@@ -138,40 +136,44 @@ export default class AddAccount extends React.Component {
 	}
 
 	render() {
-		const 	{ toggleDialog, handleSubmit, handleChange,  state, props } = this,
+		const 	{ handleSubmit, handleChange,  state, props } = this,
 				// inputs and errors needed to toggle submit button
 				inputs = state.address && (state.name || state.selectedAccount),
 				errors = state.nameError && state.addressError && state.selectError,
 				canSubmit = Boolean(inputs && !errors),
 				dialogButtons = [
-							<FlatButton
-								label="Cancel"
-								primary={true}
-								onTouchTap={toggleDialog}
-							/>,
-							<FlatButton
-								label="Add"
-								disabled={!canSubmit}
-								keyboardFocused={canSubmit}
-								onTouchTap={handleSubmit}
-								primary={true}
-							/>
-						]
+									<FlatButton
+										label="Cancel"
+										primary={true}
+										onTouchTap={toggleState.bind(this, 'open')}
+									/>,
+									<FlatButton
+										label="Add"
+										disabled={!canSubmit}
+										keyboardFocused={canSubmit}
+										onTouchTap={handleSubmit}
+										primary={true}
+									/>
+								]
 
 		return 	<section>
+
+					{/* FLOATING BUTTON */}
 					<FloatingActionButton
-						onTouchTap={toggleDialog}
+						onTouchTap={toggleState.bind(this, 'open')}
 						secondary={true}
 						className='fab'
 					>
 						<ContentAdd />
 					</FloatingActionButton>
+
+					{/* ACTUAL DIALOG */}
 			        <Dialog
 			          title="Add address"
 			          actions={dialogButtons}
 			          modal={false}
 			          open={state.open}
-			          onRequestClose={toggleDialog}
+			          onRequestClose={toggleState.bind(this, 'open')}
 			        >
 			            <form onSubmit={handleSubmit}>
 							{/* TODO add more adddress types to validation */}
@@ -179,13 +181,13 @@ export default class AddAccount extends React.Component {
 								or https://github.com/cyberFund/quantum */}
 							<TextField
 								hintText="Address"
-								autoFocus
 								onChange={this.handleAddressChange}
 								value={state.address}
 								errorText={state.addressError}
+								autoFocus
 								fullWidth
 							/>
-						<Hide unless={state.userAccounts}>
+							<Hide unless={state.userAccounts}>
 								<Subheader>Add address to:</Subheader>
 								<RadioButtonGroup
 									onChange={handleChange.bind(this, 'isNewAccount')}
@@ -230,7 +232,11 @@ export default class AddAccount extends React.Component {
 									errorText={state.nameError}
 									fullWidth
 								/>
-								<RadioButtonGroup onChange={handleChange.bind(this, 'isPublic')} name="Account Type" defaultSelected='false'>
+								<RadioButtonGroup
+									onChange={handleChange.bind(this, 'isPublic')}
+									name="Account Type"
+									defaultSelected='false'
+								>
 										<RadioButton
 											label="Public"
 											value='true'
