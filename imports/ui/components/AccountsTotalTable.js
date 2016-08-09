@@ -1,97 +1,87 @@
 import React, { PropTypes } from 'react'
-import { Meteor } from 'meteor/meteor'
-import { _ } from 'meteor/underscore'
 import { Grid, Cell } from 'react-mdl'
+import { _ } from 'meteor/underscore'
 import helpers from '../helpers'
-// import PortfolioChart from './PortfolioChart'
+import get from 'oget'
+import Checkbox from 'material-ui/Checkbox'
 
-const AccountsTotalTable = props => {
-	if(!props.accounts) return null
+// displays headers with total sums of all accounts
+// and table with all assets(systems) used in said accounts
 
-	const 	assets = CF.Accounts.portfolioTableData()
-			// this variables are used in checkboxes and porfolio chart
-			// flattenData = CF.Accounts.portfolioTableData(),
-			// filteredAccountsData = CF.Accounts.userProfileData(),
-			// shouldShowCheckboxes = CF.Accounts.findByRefId(CF.Profile.currentUid()).count() > 1
+// usage example:
+// <AccountsTotalTable accounts={object} assets={array} callback={function} />
+// callback() toggles display of account or all accounts
 
-	function getSum(selector) {
+class AccountsTotalTable extends React.Component {
 
-		let sum = 0
-		if (_.keys(assets).length) {
-		  _.each(assets, asset => sum += asset[selector] || 0)
+	render() {
+		const 	{ props: {accounts, assets, callback}, state } = this,
+				{ readableN4, readableN2, readableN0 } = helpers,
+				nonNumeric = "mdl-data-table__cell--non-numeric",
+				allAccountsChecked = accounts.every(acc => acc.checked)
+
+		// returns total amount of selected values (btc or usd)
+		function getSum(selector, sum = 0) {
+			_.each(assets, (asset) => {
+				sum += asset[selector] || 0
+			})
+			return sum
 		}
-		return sum
+
+		return	<Grid>
+					<Cell col={12} m={4}>
+
+						{/* HEADERS */}
+						<h1 className="text-center">Ƀ {readableN2(getSum('vBtc'))} </h1>
+						<h2 className="text-center">$ {readableN0(getSum('vUsd'))} </h2>
+
+						{/* TABLE */}
+						<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
+							<thead>
+								{/* toggle all accounts on click */}
+								{/* if boolean passed to callback() all account ill be toggled */}
+								<tr onClick={callback.bind(this, allAccountsChecked)}>
+									<th className={nonNumeric}> <Checkbox checked={allAccountsChecked} /> </th>
+									<th className={nonNumeric}>Account</th>
+									<th>Σ Ƀ</th>
+									<th>Σ $</th>
+								</tr>
+							</thead>
+
+							<tbody>
+								{
+									accounts.map( account => {
+										return (
+											// toggle single account on row click
+											<tr
+												onClick={callback.bind(this, account)}
+												key={account._id}
+												// dataMdlDataTableSelectableName="accounts[]"
+												// dataMdlDataTableSelectableValue={account._id}
+											>
+												<td className={nonNumeric}> <Checkbox checked={account.checked} /> </td>
+												<td className={nonNumeric}> {get(account, 'name', '')} </td>
+												<td> {readableN4(get(account, 'vBtc', 0))} </td>
+												<td> {readableN2(get(account, 'vUsd', 0))} </td>
+											</tr>
+										)
+									})
+								}
+							</tbody>
+						</table>
+					</Cell>
+				</Grid>
 
 	}
 
-    return  <Grid>
-				<Cell col={12} m={4}>
-
-			        <h1 className="text-center">Ƀ {helpers.readableN2(getSum('vBtc'))} </h1>
-			        <h2 className="text-center">$ {helpers.readableN0(getSum('vUsd'))} </h2>
-
-					{/* TODO IMPLEMENT CHECKBOXES AND STUFF */}
-			        <table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" {...props}>
-						<thead>
-							<th className="mdl-data-table__cell--non-numeric">
-								Account
-							</th>
-							<th>Σ Ƀ</th>
-							<th>Σ $</th>
-						</thead>
-						<tbody>
-							{
-								props.accounts.map(account => {
-									return 	<tr>
-												<td>{account.name}</td>
-												<td>{helpers.readableN4(account.vBtc)}</td>
-												<td>{helpers.readableN2(account.vUsd)}</td>
-											</tr>
-								})
-							}
-						{/*{{#each accountsData}}
-							<tr>
-							  {{#if shouldShowCheckboxes}}
-							    {{#if isOwnAssets}}
-							    <td class="left-align ">
-							      <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
-							      class="count-account checkbox-green filled-in"
-							         />
-							      <label class="grey-text black-text" for="toggle-account-{{_id}}">
-							        <i class="tiny grey-text material-icons">{{#if isPrivate}}visibility_off{{else}}visibility{{/if}}</i>
-							       </label>
-							    </td>
-							    <td> {{name}} </td>
-							    {{else}}
-							    <td>
-							      <input {{showAccount}} type="checkbox" account-id="{{_id}}" id="toggle-account-{{_id}}"
-							      class="count-account checkbox-green filled-in"
-							         />
-							      <label class="black-text" for="toggle-account-{{_id}}">{{name}}</label>
-							    </td>
-							    {{/if}}
-							  {{else}}
-							    <td> {{name}} </td>
-							  {{/if}}
-							  <td class="right-align">{{readableN4 vBtc}}</td>
-							  <td class="right-align">{{readableN2 vUsd}}</td>
-							</tr>
-						{{/each}}*/}
-						</tbody>
-			        </table>
-				</Cell>
-
-				<Cell col={12} m={4}>
-					{/* TODO implement portfolio chart */}
-				    {/*{{> folioChart accountsData=flattenData}}*/}
-					{/*<PortfolioChart />*/}
-				</Cell>
-	        </Grid>
 }
 
-
 AccountsTotalTable.propTypes = {
-    accounts: PropTypes.object.isRequired
+	accounts: PropTypes.object.isRequired,
+	assets: PropTypes.array.isRequired,
+	// function to call on row click
+	// this toggles display of account
+    callback: PropTypes.func
 }
 
 export default AccountsTotalTable
