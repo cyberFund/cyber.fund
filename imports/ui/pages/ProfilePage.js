@@ -19,29 +19,7 @@ import PageLoading from '../higherOrderComponents/PageLoading'
 
 class ProfilePage extends Component {
 
-	state = {
-		activeTab: 0,
-		firstTabStyle: {display: 'initial'},
-		secondTabStyle: {display: 'none'}
-	}
-
-	changeTab = (activeTab) => {
-		this.setState({ activeTab })
-		// hide&show elements via display property manipulation instead of changes based on state (<Hide /> component for example)
-		// reason: state changes make elements rerender causing embed youtube video to reinitialize multiple times == bad UX
-		if (activeTab == 0 ) {
-			this.setState({
-				firstTabStyle: {display: 'initial'},
-				secondTabStyle: {display: 'none'}
-			})
-		}
-		else {
-			this.setState({
-				firstTabStyle: {display: 'none'},
-				secondTabStyle: {display: 'initial'}
-			})
-		}
-	}
+	state = { activeTab: 0 }
 
 	handleLogout() {
 		Meteor.logout()
@@ -69,18 +47,19 @@ class ProfilePage extends Component {
 	}
 
     render() {
-        const	{props: {user, isOwnProfile, following, userNumber, userAccounts}, state, props} = 	this,
+        const	{props: {user, isOwnProfile, following, userNumber, userAccounts, toggleAccount}, state, props} = 	this,
 				{toggleFollow, changeTab, handleLogout} 	= 	this,
 				listStyle									=	{margin: '0 3px 6px'}
 
         return 	<Grid id="ProfilePage">
 
-                  <Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
+                  	{/* USER INFO */}
+                  	<Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
 						  src={user.largeAvatar}
 						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
 						/>
-					<h4 itemProp="name">{get(user, 'profile.name', '')}</h4>
+						<h4 itemProp="name">{get(user, 'profile.name', '')}</h4>
 						{/*TODO do we need multiple .grey-text classes?*/}
 						<section className="grey-text">
 						  <If condition={get(user, 'services.twitter', false)}>
@@ -97,14 +76,16 @@ class ProfilePage extends Component {
 							  Joined on {helpers.dateFormat(user.createdAt, "Do MMM, YYYY")}
 						  </div>
 					    </section>
-						{/*TODO do we need this .profile-lists wrapper?*/}
+
 						{/* STARRED FOLLOWERS FOLLOWING */}
+						{/*TODO do we need this .profile-lists wrapper?*/}
 						<section className="profile-lists">
 							<SystemsList systems={props.starred} title='Starred' style={listStyle} />
 							<UsersList users={props.followedByUsers} title='Followers' style={listStyle} />
 							<UsersList users={props.followingUsers} title='Following' className="avatar-round" style={listStyle} />
 						</section>
-						{/* LOGOUN BUTTON AND USER NUMBER */}
+
+						{/* LOGOUT BUTTON AND USER NUMBER */}
 						<If condition={isOwnProfile}>
 							<Button onClick={handleLogout} raised colored ripple>Logout</Button>
 							<Hide unless={userNumber <= 400}>
@@ -112,18 +93,23 @@ class ProfilePage extends Component {
 								<p>>We have classified you as group {userNumber <= 100 ? 'A' : 'B'} user</p>
 							</Hide>
 						</If>
-                  </Cell>
+                	</Cell>
 
 				  	{/* TABS SECTION */}
-
 					<Cell col={9} tablet={5} phone={4}>
+
 						{/* TAB SELECTOR */}
-						<Tabs activeTab={state.activeTab} onChange={changeTab} ripple>
+						<Tabs
+							activeTab={state.activeTab}
+							onChange={activeTab => this.setState({ activeTab })}
+							ripple
+						>
 						    <Tab>Portfolio</Tab>
 						    <Tab>Accounts</Tab>
 						</Tabs>
+
 						{/* PORTFOLIO TAB */}
-						<section style={state.firstTabStyle}>
+						<section className={state.activeTab == 0 ? 'visible' : 'hidden'}>
 							<Hide unless={helpers.isOwnAssets() && userAccounts.length == 0}>
 						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
 						        <div className="video-container">
@@ -132,9 +118,12 @@ class ProfilePage extends Component {
 							</Hide>
 							<ProfileInfo accounts={userAccounts} />
 						</section>
+
 						{/* ACCOUNTS TAB */}
-						<AssetsManager style={state.secondTabStyle} accounts={userAccounts} />
+						<AssetsManager  className={state.activeTab == 1 ? 'visible' : 'hidden'} accounts={userAccounts} />
+
 					</Cell>
+
                 	{/* "FOLLOW" OR "ADD ADRESS" BUTTON */}
 					{/* TODO move condition checking into AddAccount?
 						Or will it make code less readable? */}
