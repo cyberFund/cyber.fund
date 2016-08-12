@@ -6,7 +6,9 @@ import PageLoading from '../higherOrderComponents/PageLoading'
 
 const FundsPage = props => {
     return 	<Grid id="FundsPage" className="text-center">
-	            <Cell col={12}>
+	            <Cell col={12} className="table-overflow">
+
+					{/* FUNDS I FOLLOW TABLE */}
 	                <Show condition={Meteor.userId()}>
                         <h4>Top Funds You Follow</h4>
                         <FundsTable funds={props.fundsIfollow} />
@@ -14,11 +16,12 @@ const FundsPage = props => {
 	                <Hide condition={Meteor.userId()}>
                     	<Button href="/welcome" raised accent ripple>Join Us</Button>
 	                </Hide>
-	            </Cell>
-	            <Cell col={12}>
+
+					{/* FUNDS I DON'T FOLLOW TABLE */}
 	                <h4>Top Funds You Don't Follow</h4>
 	                <p>We currently only list here people with 3+ followers</p>
 	                <FundsTable funds={props.fundsIdontFollow} />
+
 	            </Cell>
 	        </Grid>
 }
