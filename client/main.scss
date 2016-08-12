@@ -99,8 +99,12 @@ body {
   color: #4CAF50;
 }
 // various
-.overflow-auto {
-	overflow: auto;
+
+// show horizontal scroll (used mainly on big tables for responsiveness)
+// must be used on tables container
+.table-overflow {
+	overflow-x: auto;
+	overflow-y: hidden;
 }
 
 // adds animated shadow effect on hover
@@ -151,17 +155,43 @@ body {
 
 
 /* Tables */
-// problem: on small screens table cells are too wide
-@media (max-width: 375px){
-    .table {// make table horyzontally scrollable
-        overflow: auto !important;
-    }
-    // make table cells less wide
-    .mdl-data-table td, .mdl-data-table th {
-        padding-left: 10px !important;
-        padding-right: 10px !important;
-    }
+
+table {
+	// limit columns text width
+	.mdl-data-table__cell--non-numeric {
+		max-width: 200px;
+	    text-overflow: ellipsis;
+	    overflow: hidden;
+	}
 }
+
+// tablets
+@media (max-width: 839px) and (min-width: 480px){
+
+}
+
+// phones
+@media (max-width: 479px){
+	.mdl-data-table {
+		// limit padding
+		th, td {
+			padding-left: 9px;
+			padding-right: 9px;
+		}
+		td:first-of-type, th:first-of-type {
+			padding-left: 16px;
+		}
+		td:last-of-type, th:last-of-type {
+			padding-right: 16px;
+		}
+		// limit columns text width
+		.mdl-data-table__cell--non-numeric {
+			max-width: 180px;
+		}
+	}
+}
+
+/* END Tables */
 
 // super wide screen styles
 @media screen and (min-width: 1921px) {
