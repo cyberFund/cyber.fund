@@ -6,7 +6,7 @@ import Image from '../components/Image'
 import helpers from '../helpers'
 
 const Top5Assets = (props) => {
-
+	
 	// render rows with data
   	function renderRows() {
 		return props.systems.map( system => {
@@ -68,7 +68,7 @@ const Top5Assets = (props) => {
       <div>
         <h5 className="center"> Top 5 Rated Assets </h5>
         <Grid>
-			<Cell col={12} className="table-overflow">
+			<Cell col={12}>
 				<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...props}>
 					<thead>
 						<tr>
