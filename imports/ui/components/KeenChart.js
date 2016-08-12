@@ -1,9 +1,18 @@
 import React, { PropTypes } from 'react'
+import { Grid, Cell } from 'react-mdl'
 
 class KeenChart extends React.Component {
+
 	render() {
-		return <section id={this.props.id} className='keen-chart'></section>
+		return 	<Grid>
+					<Cell
+						col={12}
+						id={this.props.id}
+						className='keen-chart table-overflow'
+					/>
+				</Grid>
 	}
+
 	componentDidMount() {
 		/* TODO why do we need CF.keenflag? What does it do?
 		If nothign remove this and ui/startup/keenIo */
@@ -35,6 +44,7 @@ class KeenChart extends React.Component {
 			}
 		)
 	}
+
 }
 
 KeenChart.defaultProps = {
