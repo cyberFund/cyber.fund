@@ -146,7 +146,7 @@ class PortfolioTable extends React.Component {
 		//  TODO implement tooltips (or not?)
 
 	    return  <Grid>
-					<Cell col={12} className="overflow-auto">
+					<Cell col={12} className="table-overflow">
 						<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...this.props}>
 
 							<thead>
