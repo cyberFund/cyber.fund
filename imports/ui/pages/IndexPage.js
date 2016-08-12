@@ -20,12 +20,11 @@ const IndexPage = props => {
         </Grid>
 
         {/* ASSETS TABLE */}
-        <Top5AssetsContainer systems={props.systems}>{/* component */}
-          <Cell col={12} className="text-center">{/* components children */}
-            <Button component="a" href="/rating" style={{margin: '0 5px'}} raised colored>Start Investing</Button>
-            <Button component="a" href="/listing" style={{margin: '0 5px'}} raised disabled>Attract Investments</Button>
-          </Cell>
-		</Top5AssetsContainer>
+        <Top5AssetsContainer systems={props.systems} />
+		<Cell col={12} className="text-center">
+			<Button href="/rating" style={{margin: '0 5px 10px'}} raised colored>Start Investing</Button>
+			<Button href="/listing" style={{margin: '0 5px 10px'}} raised disabled>Attract Investments</Button>
+		</Cell>
 
         {/* WIDGETS */}
         <Grid>
