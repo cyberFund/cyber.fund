@@ -5,17 +5,36 @@ import Top5Assets from '../components/Top5Assets'
 
 export default createContainer( props => {
 
-	const 	selector = 	{
-							selector: {},
-							sort: { "calculatable.RATING.sum": -1 } //,
-							// limit: 5
-						},
-			loaded 	= 	Meteor.subscribe("currentDataRP", selector).ready(),
-			systems = 	CurrentData.find({}, {
+	// NOTE this is a copy paste from ratings table component
+	// reason this is used: other subscriptions somehow didn't give proper data
+	// problem and how ot solve it is currently unknown
+	function tableSelector() {
+	  return {
+	    "flags.rating_do_not_display": {
+	      $ne: true
+	    },
+	    "calculatable.RATING.sum": {
+	      $gte: 1
+	    },
+	    "metrics.tradeVolume": {
+	      $gte: 0.2
+	    }
+	  };
+	}
+
+	CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
+	  selector: tableSelector()
+	});
+
+	CF.SubsMan.subscribe("currentDataRP", {
+	  selector: tableSelector()
+	});
+
+	const	systems = 	CurrentData.find({}, {
 							sort: { "calculatable.RATING.sum": -1 },
 							limit: 5
 						}).fetch()
 
-	return { loaded, systems }
+	return 	{ systems }
 
 }, Top5Assets)
