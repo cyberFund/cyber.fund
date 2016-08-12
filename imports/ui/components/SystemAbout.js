@@ -6,28 +6,46 @@ import Rating from '../components/Rating'
 import helpers from '../helpers'
 import get from 'oget'
 
+// renders system image, name, headline, rating and description
+// usage example:
+// <SystemAbout system={Object} />
+
 const SystemAbout = props => {
-	const 	{system} = props,
+	const 	{ system } = props,
 			centerAlign = {
 				position: 'absolute',
 				    left: '50%',
 				    top: '50%',
 				    transform: 'translate(-50%, -50%)'
-			}
+			},
+			sameHeight = { height: '8em' }
 
 	return 	<Grid className="text-center">
-				<Cell col={4} tablet={2} phone={1} style={{height: '8em'}}>
+
+				{/* IMAGE */}
+				<Cell col={4} tablet={2} phone={4} style={sameHeight}>
 					<Image src={system} itemProp='logo' />
 				</Cell>
-				<Cell col={4} tablet={4} phone={2}>
-					<h1 itemProp="name">
-						{helpers.displaySystemName(system)}
-					</h1>
+
+				{/* NAME/HEADLINE */}
+				<Cell col={4} tablet={4} phone={4}>
+					<h1 itemProp="name">{helpers.displaySystemName(system)}</h1>
 					<h2 itemProp="alternateName">{system.symbol}</h2>
+					<If condition={get(system, 'descriptions.headline')}>
+						<p itemProp="description">
+							{system.descriptions.headline}
+						</p>
+					</If>
 				</Cell>
-				<Cell col={4} tablet={2} phone={1} style={{ position: 'relative' }}>
+
+				{/* RATING */}
+				<Cell col={4} tablet={2} phone={4} style={{ position: 'relative', height: '8em' }}>
 					<section style={centerAlign}>
-			            <div itemProp="aggregateRating" content={get(system, 'ratings.rating_cyber')} style={{ fontSize: '2.4rem' }}>
+			            <div
+							temProp="aggregateRating"
+							content={get(system, 'ratings.rating_cyber')}
+							style={{ fontSize: '2.4rem' }}
+						>
 							<Rating value={system.calculatable.RATING.sum} />
 			            </div>
 						<span style={{fontSize: 12}}>
@@ -38,13 +56,6 @@ const SystemAbout = props => {
 							{system.consensus.algorithm}
 						</span>
 					</section>
-				</Cell>
-				<Cell col={12}>
-					<If condition={get(system, 'descriptions.headline')}>
-						<p itemProp="description">
-							{system.descriptions.headline}
-						</p>
-				    </If>
 				</Cell>
 	        </Grid>
 }
