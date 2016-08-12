@@ -98,6 +98,7 @@ body {
 .green-text, .text-green {
   color: #4CAF50;
 }
+
 // various
 
 // show horizontal scroll (used mainly on big tables for responsiveness)
@@ -201,7 +202,8 @@ table {
     .mdl-mega-footer {
         max-width: 1922px;
         margin: 0 auto;
-    }// drawer button need to be repositioned
+    }
+	// drawer button need to be repositioned
     .mdl-layout__drawer-button {
         left: 25%;
     }
@@ -242,6 +244,19 @@ table {
 	}
 }
 
+
+/* PAGES */
+
+/**** SYSTEM PAGE ****/
+#SystemPage {
+	// make rating stars smaller on tablets and down
+	// (to avoid collapsing due to small container size)
+	@media (max-width: 900px){
+		.rating {
+			font-size: 1.9rem;
+		}
+	}
+}
 /**** RADAR PAGE ****/
 #RadarPage {
     .mdl-card {
@@ -253,7 +268,6 @@ table {
         }
     }
 }
-
 /**** WELCOME PAGE ****/
 #WelcomePage {
     hr {
@@ -279,6 +293,7 @@ table {
 }
 
 /* MainLayout */
+// make main section full size to avoid header/footer collapsing on loading
 main {
     min-height: calc(100vh - 64px) // screen size minus navbar size
 }
