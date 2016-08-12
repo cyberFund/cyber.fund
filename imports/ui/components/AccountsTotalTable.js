@@ -29,7 +29,7 @@ class AccountsTotalTable extends React.Component {
 		}
 
 		return	<Grid>
-					<Cell col={12} m={4}>
+					<Cell col={12} m={4} className="table-overflow">
 
 						{/* HEADERS */}
 						<h1 className="text-center">Ƀ {readableN2(getSum('vBtc'))} </h1>
