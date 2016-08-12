@@ -247,6 +247,47 @@ table {
 
 /* PAGES */
 
+/**** INDEX PAGE ****/
+#IndexPage {
+	// small phones
+	@media (max-width: 375px){
+		// make column size smaller to fit the screen
+		.mdl-data-table {
+			th, td {
+				padding-left: 5px;
+				padding-left: 5px;
+			}
+			// smaller padding of first column and last column
+			td:first-of-type, th:first-of-type {
+				padding-left: 10px;
+			}
+			td:last-of-type, th:last-of-type {
+				padding-right: 10px;
+			}
+		}
+	}
+	// super small phones
+	@media (max-width: 335px){
+		// make column size smaller to fit the screen
+		.mdl-data-table {
+			th, td {
+				padding-left: 0;
+				padding-right: 5px;
+				// smaller margin of system image
+				// using !important to override inline styles -
+				// (SystemLink does not have own css file yet: ;)
+				img {
+				    margin-right: 12px !important;
+				}
+			}
+			// but leave some left paddiung in first column
+			td:first-of-type, th:first-of-type {
+				padding-left: 5px;
+			}
+		}
+
+	}
+}
 /**** SYSTEM PAGE ****/
 #SystemPage {
 	// make rating stars smaller on tablets and down
