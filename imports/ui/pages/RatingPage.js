@@ -5,11 +5,11 @@ import RatingTableContainer from '../containers/RatingTableContainer'
 import Blaze from 'meteor/gadicc:blaze-react-component'
 
 const RatingPage = props => {
-      return <Grid id="RatingPage">
-                <Cell col={12}> <Hiring /> </Cell>
-                {/*<Cell col={12}> <RatingTableContainer /> </Cell>*/}
-				<Cell col={12}> <Blaze template="ratingTable" /> </Cell>
-              </Grid>
+      	return	<Grid id="RatingPage">
+                	<Cell col={12}> <Hiring /> </Cell>
+                	<RatingTableContainer />
+					<Cell col={12}> <Blaze template="ratingTable" /> </Cell>
+              	</Grid>
  }
 
 export default RatingPage

@@ -15,7 +15,7 @@ import Checkbox from 'material-ui/Checkbox'
 class AccountsTotalTable extends React.Component {
 
 	render() {
-		const 	{ props: {accounts, assets, callback}, state } = this,
+		const 	{ props: {accounts, assets, callback}, props, state } = this,
 				{ readableN4, readableN2, readableN0 } = helpers,
 				nonNumeric = "mdl-data-table__cell--non-numeric",
 				allAccountsChecked = accounts.every(acc => acc.checked)
@@ -28,14 +28,14 @@ class AccountsTotalTable extends React.Component {
 			return sum
 		}
 
-		return	<Grid>
-					<Cell col={12} m={4} className="table-overflow">
+		return	<Cell col={12} {...props}>
 
-						{/* HEADERS */}
-						<h1 className="text-center">Ƀ {readableN2(getSum('vBtc'))} </h1>
-						<h2 className="text-center">$ {readableN0(getSum('vUsd'))} </h2>
+					{/* HEADERS */}
+					<h1 className="text-center">Ƀ {readableN2(getSum('vBtc'))} </h1>
+					<h2 className="text-center">$ {readableN0(getSum('vUsd'))} </h2>
 
-						{/* TABLE */}
+					{/* TABLE */}
+					<div className="table-overflow">
 						<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable">
 							<thead>
 								{/* toggle all accounts on click */}
@@ -69,8 +69,8 @@ class AccountsTotalTable extends React.Component {
 								}
 							</tbody>
 						</table>
-					</Cell>
-				</Grid>
+					</div>
+				</Cell>
 
 	}
 

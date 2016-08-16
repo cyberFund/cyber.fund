@@ -1,4 +1,5 @@
 import React from 'react'
+import { Grid, Cell } from 'react-mdl'
 import PortfolioTable from '../components/PortfolioTable'
 import PortfolioChart from '../components/PortfolioChart'
 import AccountsTotalTable from '../components/AccountsTotalTable'
@@ -50,11 +51,25 @@ class ProfileInfo extends React.Component {
 						if(account.checked) return CF.Accounts.extractAssets(account)
 				}))
 
-		return 	<div>
-					<AccountsTotalTable accounts={accounts} assets={assets} callback={toggleAccount} />
-					<PortfolioChart assets={assets} />
-					<PortfolioTable accounts={accounts} />
-				</div>
+		return 	<section>
+					<Grid>
+						<AccountsTotalTable
+							accounts={accounts}
+							assets={assets}
+							callback={toggleAccount}
+							col={6} tablet={4} phone={4}
+						/>
+						<PortfolioChart
+							assets={assets}
+							col={6}
+							tablet={4}
+							phone={4}
+						/>
+					</Grid>
+					<Grid>
+						<PortfolioTable accounts={accounts} />
+					</Grid>
+				</section>
 	}
 
 }

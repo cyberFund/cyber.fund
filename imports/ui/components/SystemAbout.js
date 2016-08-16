@@ -52,8 +52,8 @@ const SystemAbout = props => {
 							{system.descriptions.state}
 							{system.descriptions.system_type}
 							<br />
-							{system.consensus.type}
-							{system.consensus.algorithm}
+							{get(system, 'consensus.type')}
+							{get(system, 'consensus.algorithm')}
 						</span>
 					</section>
 				</Cell>

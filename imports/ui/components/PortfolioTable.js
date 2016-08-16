@@ -145,59 +145,57 @@ class PortfolioTable extends React.Component {
 
 		//  TODO implement tooltips (or not?)
 
-	    return  <Grid>
-					<Cell col={12} className="table-overflow">
-						<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...this.props}>
+	    return  <Cell col={12} className="table-overflow" {...this.props}>
+					<table className="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp center" {...this.props}>
 
-							<thead>
-								<tr>
-									<th className="mdl-data-table__cell--non-numeric text-center">
-									    System
-									</th>
-									<th onClick={this.getSystems.bind(this, 'byAmount')}>Amount</th>
-									<th onClick={this.getSystems.bind(this, 'byEquity')}>Equity</th>
-									<th>Portfolio Share</th>
-									<th onClick={this.getSystems.bind(this, 'byValue')}>Value in BTC</th>
-									<th onClick={this.getSystems.bind(this, 'byValue')}>Value in USD</th>
-									<th>USD Price<sup>1d Change</sup></th>
-									<th>USD Cap</th>
-								</tr>
-							</thead>
+						<thead>
+							<tr>
+								<th className="mdl-data-table__cell--non-numeric text-center">
+								    System
+								</th>
+								<th onClick={this.getSystems.bind(this, 'byAmount')}>Amount</th>
+								<th onClick={this.getSystems.bind(this, 'byEquity')}>Equity</th>
+								<th>Portfolio Share</th>
+								<th onClick={this.getSystems.bind(this, 'byValue')}>Value in BTC</th>
+								<th onClick={this.getSystems.bind(this, 'byValue')}>Value in USD</th>
+								<th>USD Price<sup>1d Change</sup></th>
+								<th>USD Cap</th>
+							</tr>
+						</thead>
 
-							<tbody>
-								{
-									this.state.systems.map( system => {
+						<tbody>
+							{
+								this.state.systems.map( system => {
 
-										const	{ _id, metrics } = system,
-												supply 	= get(metrics, 'supply', 0),
-												usd 	= get(metrics, 'price.usd', 0),
-												usdPrice = get(CF.CurrentData.getPricesByDoc(system), 'usd', 0),
-												usdPriceChange1d = get(metrics, 'priceChangePercents.day.usd', 0)
+									const	{ _id, metrics } = system,
+											supply 	= get(metrics, 'supply', 0),
+											usd 	= get(metrics, 'price.usd', 0),
+											usdPrice = get(CF.CurrentData.getPricesByDoc(system), 'usd', 0),
+											usdPriceChange1d = get(metrics, 'priceChangePercents.day.usd', 0)
 
-										return  <tr key={system._id}>
-													<td className="mdl-data-table__cell--non-numeric">
-														<SystemLink system={system} />
-													</td>
-													<td> {readableN2( quantity(system) )} </td>
-													<td> {readableN3( equity(_id, supply) )}‱ </td>
-													<td> {percents1( share(_id) )} </td>
-													<td> {readableN2( get(tableData[system._id], 'vBtc') )} </td>
-													<td> {readableN0( get(tableData[system._id], 'vUsd') )} </td>
-													<td>
+									return  <tr key={system._id}>
+												<td className="mdl-data-table__cell--non-numeric">
+													<SystemLink system={system} />
+												</td>
+												<td> {readableN2( quantity(system) )} </td>
+												<td> {readableN3( equity(_id, supply) )}‱ </td>
+												<td> {percents1( share(_id) )} </td>
+												<td> {readableN2( get(tableData[system._id], 'vBtc') )} </td>
+												<td> {readableN0( get(tableData[system._id], 'vUsd') )} </td>
+												<td>
 													{readableN2(usdPrice)}
 													<sup className={greenRedNumber(usdPriceChange1d)}>
 														{readableN2(usdPriceChange1d)}%
 													</sup>
-													</td>
-													<td> {readableN0(supply * usd)} </td>
-												</tr>
-									})
-								}
-							</tbody>
+												</td>
+												<td> {readableN0(supply * usd)} </td>
+											</tr>
+								})
+							}
+						</tbody>
 
-						</table>
-					</Cell>
-		        </Grid>
+					</table>
+				</Cell>
 	}
 
 }

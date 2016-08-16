@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react'
-import { Grid, Cell } from 'react-mdl'
+import { Cell } from 'react-mdl'
 import { _ } from 'meteor/underscore'
 import ChartistGraph from 'react-chartist'
 
@@ -26,7 +26,9 @@ class PortfolioChart extends React.Component {
 			series.push(system.vBtc / sum)
 		})
 
-		return <ChartistGraph data={{ series, labels }} type={'Pie'} className="ct-chart folio-pie" />
+		return 	<Cell col={12} {...this.props}>
+					<ChartistGraph data={{ series, labels }} type={'Pie'} className="ct-chart folio-pie" />
+				</Cell>
 
 	}
 

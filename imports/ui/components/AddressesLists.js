@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react'
 import { _ } from 'meteor/underscore'
 import Image from '../components/Image'
 import Confirm from '../components/Confirm'
-// import AddAssetDialog from '../components/AddAssetDialog'
+import AddAssetDialog from '../components/AddAssetDialog'
 import { If } from '../components/Utils'
 import helpers from '../helpers'
 
@@ -76,9 +76,9 @@ class AddressesLists extends React.Component {
 		// nested map functions are used because params of first function are used inside second
 		// (ie adress variable is used insude assets)
 		function renderAddress(object, address) {
-			console.warn(object, address);
 
 			return _.map(object.assets, (asset, name) => {
+
 					// TODO do not forgert to implement actions
 					const	system = props.getSystem(name),
 							rightIconMenu = <IconMenu
@@ -92,7 +92,7 @@ class AddressesLists extends React.Component {
 															<MoreVertIcon color={grey400} />
 														</IconButton>
 													}
-													// open menu from top to bottom left
+													// open menu from top right to bottom left
 													anchorOrigin={{horizontal: 'right', vertical: 'top'}}
 													targetOrigin={{horizontal: 'right', vertical: 'top'}}
 											>
@@ -158,13 +158,13 @@ class AddressesLists extends React.Component {
 						<b>Confirm deletion of {state.selectedAddress} address at {this.props.account.name} account</b>
 					</Confirm>
 
-					{/*<AddAssetDialog
-						title='Add asset'
+					{/*<AddAssetDialog />*/}
+
+					<AddAssetDialog
 						open={state.openAddDialog}
-						inputLabel='Type amount here'
-						onConfirm={(text) => console.warn(text)}
-						onCancel={toggleDialog.bind(this, 'openAddDialog')}
-					/>*/}
+						account={this.props.account}
+						//onCancel={toggleDialog.bind(this, 'openDeleteDialog')}
+					/>
 				</List>
 	}
 }

@@ -21,7 +21,7 @@ class HeaderNav extends React.Component {
 					{/* LINKS */}
 					<Navigation>
 						<a href=""> <Search color={{ color: 'inherit' }} fullWidth /> </a>
-						<a href="" style={{lineHeight: 'inherit', cursor: 'none'}}>
+						<a href="" style={{lineHeight: 'inherit', cursor: 'none', paddingLeft: 0}}>
 							<BitcoinPrice />
 						</a>
 						{/* show login button or profile link */}

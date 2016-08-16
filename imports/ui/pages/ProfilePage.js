@@ -54,7 +54,7 @@ class ProfilePage extends Component {
         return 	<Grid id="ProfilePage">
 
                   	{/* USER INFO */}
-                  	<Cell itemScope itemType="http://schema.org/Person" col={3} tablet={3} phone={4} className="mdl-cell--order-12-tablet">
+                  	<Cell itemScope itemType="http://schema.org/Person" col={3} tablet={8} phone={4} className="mdl-cell--order-12-tablet">
 						<Image
 						  src={user.largeAvatar}
 						  style={{verticalAlign: 'middle', marginTop: 12, maxWidth: '100%'}}
@@ -96,7 +96,7 @@ class ProfilePage extends Component {
                 	</Cell>
 
 				  	{/* TABS SECTION */}
-					<Cell col={9} tablet={5} phone={4}>
+					<Cell col={9} tablet={8} phone={4}>
 
 						{/* TAB SELECTOR */}
 						<Tabs
@@ -113,7 +113,7 @@ class ProfilePage extends Component {
 							<Hide unless={helpers.isOwnAssets() && userAccounts.length == 0}>
 						        <h3>Welcome to <Brand />!! Here is short video to help you get started.</h3>
 						        <div className="video-container">
-						              <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
+						            <iframe width="853" height="480" src="//www.youtube.com/embed/VPQhbLOQIyc?rel=0" frameborder="0" allowfullscreen></iframe>
 						        </div>
 							</Hide>
 							<ProfileInfo accounts={userAccounts} />
