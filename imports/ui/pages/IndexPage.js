@@ -23,7 +23,7 @@ const IndexPage = props => {
         <Top5AssetsContainer systems={props.systems} />
 		<Cell col={12} className="text-center">
 			<Button href="/rating" style={{margin: '0 5px 10px'}} raised colored>Start Investing</Button>
-			<Button href="/listing" style={{margin: '0 5px 10px'}} raised disabled>Attract Investments</Button>
+			<Button href="/listing" style={{margin: '0 5px 10px'}} raised accent>Attract Investments</Button>
 		</Cell>
 
         {/* WIDGETS */}

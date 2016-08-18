@@ -9,6 +9,7 @@ import LoginPage from '../ui/pages/LoginPage'
 import ProfilePageContainer from '../ui/containers/ProfilePageContainer'
 import RadarPageContainer from '../ui/containers/RadarPageContainer'
 import SystemPageContainer from '../ui/containers/SystemPageContainer'
+import ListingPage from '../ui/pages/ListingPage'
 import RatingPage from '../ui/pages/RatingPage'
 import FundsPageContainer from '../ui/containers/FundsPageContainer'
 import DecisionsPage from '../ui/pages/DecisionsPage'
@@ -203,6 +204,15 @@ FlowRouter.route("/decisions", {
   action: function(params, queryParams) {
       mount(MainLayout, {
         main: <DecisionsPage />
+      })
+  }
+});
+
+FlowRouter.route("/listing", {
+  name: "Listing",
+  action() {
+      mount(MainLayout, {
+        main: <ListingPage />
       })
   }
 });
