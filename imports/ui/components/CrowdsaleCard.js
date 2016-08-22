@@ -107,8 +107,8 @@ const CrowdsaleCard = (props) => {
                             <div style={imageStyle}></div>
                             {/*<CardTitle style={titleStyle}>{nickname}</CardTitle>*/}
                             <CardText>
-                              <h2 className="mdl-card__title-text">{nickname}</h2>
-                              <p style={{minHeight: 48}}>{item.descriptions.headline}</p>
+                              <h2 className="mdl-card__title-text text-center">{nickname}</h2>
+                              <p className="text-center" style={{minHeight: 48}}>{item.descriptions.headline}</p>
                             </CardText>
                           </a>
                           {CardFooter()}
