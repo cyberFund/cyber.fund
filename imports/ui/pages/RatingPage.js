@@ -7,7 +7,8 @@ import Blaze from 'meteor/gadicc:blaze-react-component'
 const RatingPage = props => {
       	return	<Grid id="RatingPage">
                 	<Cell col={12}> <Hiring /> </Cell>
-                	<RatingTableContainer />
+                    {/* // NOTE: get rid off container? */}
+                    <RatingTableContainer />
 					<Cell col={12}> <Blaze template="ratingTable" /> </Cell>
               	</Grid>
  }

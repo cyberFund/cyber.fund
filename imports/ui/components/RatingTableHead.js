@@ -3,7 +3,7 @@ import { Grid, Cell } from 'react-mdl'
 import get from 'oget'
 import { If, Show } from '../components/Utils'
 import helpers from '../helpers'
-
+// FIXME check this component and delete
 const RatingTableHead = props => {
 
 	//

@@ -6,9 +6,6 @@ import RatingTable from '../components/RatingTable'
 import get from 'oget'
 
 export default RatingTableContainer = createContainer(() => {
-	//
-	// CF.subs.MarketData = 	CF.subs.MarketData
-	// 						|| Meteor.subscribe("marketDataRP", {selector})
 
 	const 	selector = 	{
 							"flags.rating_do_not_display": { $ne: true },
@@ -16,23 +13,18 @@ export default RatingTableContainer = createContainer(() => {
 							"metrics.tradeVolume": { $gte: 0.2 }
 						}
 
-			// trying to avoid "Cannot set property 'MarketData' of undefined"
-		    // CF.subs = {}
-		    CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
-		      selector
-		    });
+	// trying to avoid "Cannot set property 'MarketData' of undefined"
+	// FIXME delete this?
+    CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", selector);
 
-		    // var handle = CF.SubsMan.subscribe("currentDataRP", {
-		    //   selector: tableSelector()
-		    // });
-			const loaded = CF.SubsMan.subscribe("currentDataRP", { selector }).ready()
+	const 	loaded 	= 	CF.SubsMan.subscribe("currentDataRP", selector).ready(),
+			systems = 	CurrentData.find(
+							 selector,
+							// { sort }
+						).fetch()
 
-	return {
-		loaded,
-		systems: 	CurrentData.find(
-						{ selector },
-						// { sort }
-					).fetch()
-		}
+	console.warn(systems.length)
+
+	return { loaded, systems }
 
 }, RatingTable)
