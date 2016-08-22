@@ -5,14 +5,24 @@
             <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
               <div class="center-align"
                    style="height: 150px; margin:24px auto">
-                   {{#if  _usersStarred.length}}
+                   {{#if lt 4 _usersStarred.length}}
                      <div class='right-align black-text' style='float: right; margin-right: 12px' >
-
-                        <span >
+                        <span>
                           <i class="material-icons yellow-text"
                             style="font-size: 1.8rem; vertical-align: text-bottom">stars</i>
-                          <span style="font-size: 1.7rem; margin: auto">{{_usersStarred.length}}</span></span>
-                       </div>
+                          <span style="font-size: 1.7rem; margin: auto">{{_usersStarred.length}}</span>
+                        </span>
+                     </div>
+                     {{else}}
+                        <!-- if less than 5 stars show "not verified" with exaplanation tooltip -->
+                         {{# withTooltip}}
+                            <div class='right-align red-text' style='float: right; margin-right: 12px' >
+                                Not Verified
+                            </div>
+                             {{#tooltip class="tooltip-table-head right0"}}
+                               <p class="black-text">to make project verified need 5 stars</p>
+                             {{/tooltip}}
+                         {{/ withTooltip}}
                    {{/if}}
                    <div class="center-align" style="position: absolute; left: 50%; width: 150px; margin-left: -75px;">
                    {{> cgSystemLogo system=this class="logo-fullwh"}}
@@ -37,9 +47,12 @@
                     </div>
                     <div class="right">
                         {{#if raised}}
-                            <strong>Currently
-                                raised: </strong>{{readableN1 raised}}
-                            Ƀ
+                            {{#if neq -1 raised}}
+                                <strong>Currently raised: </strong>
+                                {{readableN1 raised}} Ƀ
+                            {{else}}
+                                <strong class="text-red">Non-compliant</strong>
+                            {{/if}}
                         {{/if}}
                     </div>
                     <div style="height: 12px">&nbsp;</div>
