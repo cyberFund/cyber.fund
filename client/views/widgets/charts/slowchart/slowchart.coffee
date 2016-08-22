@@ -392,7 +392,11 @@ Template['slowchart'].helpers
   hasNoData: ->
     return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
 
-getSystemId = ()->Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
+getSystemId = ()->
+  ret = Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))
+  if ret == "SteemPower" then return "Steem"
+  return ret
+
 
 Template['slowchart'].onRendered ->
   instance = this

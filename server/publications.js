@@ -271,6 +271,32 @@ Meteor.publish("userProfile", function(options){
   return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
+Meteor.publish('accountsHistoryIndexForUser', function(options){
+  if (!options.userId) return this.ready();
+  let private = this.userId == userId;
+  let selector = {
+    type: 'index',
+    refId: options.userId
+  }
+  let fields = {}
+  if (!private) fields.full = 0
+  return CF.Accounts.History.collection.find(selector, {fields: fields})
+});
+
+
+Meteor.publish('accountsHistoryDetailsForUser', function(options){
+  if (!options.userId) return this.ready();
+  let private = this.userId == userId;
+  let selector = {
+    refId: options.userId
+  }
+  if (!options.name) selector.name = options.name
+  else selector.name = {$exists: true} // don t take index entries
+
+  if (!private) selector.isPrivate = {$ne: true}
+  return CF.Accounts.History.collection.find(selector)
+})
+
 /*
   support subscription for assets manager, loads info to display,
    currency links in portfolio, depends on list of systems

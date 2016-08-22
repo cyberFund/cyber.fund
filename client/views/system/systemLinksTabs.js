@@ -20,7 +20,7 @@ Template['systemLinksTabs'].helpers ({
         if (link.tags.indexOf(tag) > -1) ret = false;
       });
 
-      return ret;
+    return ret;
     });
   }
 });

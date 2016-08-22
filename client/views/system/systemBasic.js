@@ -39,15 +39,28 @@ Meteor.startup(function() {
   });
 });
 
+Template["systemBasic"].rendered =function() {
+  this.autorun(function(c){
+    if (curData()) $('ul.tabs').tabs();
+  })
+};
+
 Template["systemBasic"].onRendered(function() {
   $(".scrollspy").scrollSpy();
+
   var curDataDoc = curData();
+
   /*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
       Meteor.call("initAverageValues", curDataDoc._id);
     } */
 });
 
+
 Template["systemBasic"].helpers({
+  getMarketsBy: function(_id){
+    if (_id == 'SteemPower') return 'Steem'
+    return _id
+  },
   yesterdaySupplyMetric: function(){
     var m = this.metrics;
     return (m.supply - m.supplyChange.day) || 0;
