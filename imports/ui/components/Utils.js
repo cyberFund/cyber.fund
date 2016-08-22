@@ -4,14 +4,14 @@ import { _ } from 'meteor/underscore'
 // check condition value
 function check (props) {
 	const 	data = props.condition || props.unless,
-			conditionUsed = _.has(props, 'condition')
+			conditionIsUsed = _.has(props, 'condition')
 	// check for empty object or array
 	if (_.isObject(data)) {
 		// revert boolean if 'unless' prop is used
-		return conditionUsed ? !_.isEmpty(data) : _.isEmpty(data)
+		return conditionIsUsed ? !_.isEmpty(data) : _.isEmpty(data)
 	}
 	// revert boolean if 'unless' prop is used
-    return conditionUsed ? Boolean(data) : !Boolean(data)
+    else return conditionIsUsed ? Boolean(data) : !Boolean(data)
 }
 
 /* 	check() and render() not merged because in future check
