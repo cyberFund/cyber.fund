@@ -12,6 +12,7 @@ import CrowdsaleIsActive from '../components/CrowdsaleIsActive'
 import StarredByContainer from '../containers/StarredByContainer'
 import KeenChart from '../components/KeenChart'
 import StarButton from '../components/StarButton'
+import PageLoading from '../higherOrderComponents/PageLoading'
 import helpers from '../helpers'
 import { Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton, Grid, Cell, FABButton, Icon } from 'react-mdl'
 import get from 'oget'
@@ -24,8 +25,7 @@ const {system, system: {metrics, links, _id}} = props,
 	  {linksWithTag} = helpers,
 	  githubLink =  `https://github.com/cyberFund/chaingear/blob/gh-pages/sources/${_id}/${_id}.toml`
 
-return loaded ? (
-    <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
+return <section id="SystemPage" className="text-center" itemScope itemType="http://schema.org/Product">
 
 		{/* IF SYSTEM NOT READY */}
 		<Hide condition={system.descriptions.page_state == 'ready'} component='p'>
@@ -119,7 +119,6 @@ return loaded ? (
 		<StarButton systemId={_id} />
 
     </section>
-) : <Loading />
 }
 
 SystemPage.propTypes = {
@@ -131,4 +130,4 @@ SystemPage.propTypes = {
 	anyCards: PropTypes.func.isRequired
 }
 
-export default SystemPage
+export default PageLoading(SystemPage)
