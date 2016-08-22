@@ -37,21 +37,23 @@ const FundsTable = props => {
                         </tr>
     })
 
-    return <table className={tableClasses} {...props}>
-              <thead>
-                    <tr>
-                      <th style={{textAlign: 'center'}} className={nonNumeric}>
-                          Fund
-                      </th>
-                      <th>Valuation in Ƀ</th>
-                      <th>Valuation in $</th>
-                      <th>Followed By</th>
-                    </tr>
-              </thead>
-              <tbody>
-                    {renderRows}
-              </tbody>
-           </table>
+    return 	<section className="table-overflow" {...props}>
+				<table className={tableClasses}>
+	              <thead>
+	                    <tr>
+	                      <th style={{textAlign: 'center'}} className={nonNumeric}>
+	                          Fund
+	                      </th>
+	                      <th>Valuation in Ƀ</th>
+	                      <th>Valuation in $</th>
+	                      <th>Followed By</th>
+	                    </tr>
+	              </thead>
+	              <tbody>
+	                    {renderRows}
+	              </tbody>
+	            </table>
+		   </section>
 }
 FundsTable.propTypes = {
   funds: PropTypes.array.isRequired
