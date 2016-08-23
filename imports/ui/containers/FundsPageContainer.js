@@ -1,7 +1,7 @@
 import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
-import { selector } from "../../userFunds/index"
+import { selector } from "../../api/userFunds/index"
 import FundsPage from '../pages/FundsPage'
 import get from 'oget'
 

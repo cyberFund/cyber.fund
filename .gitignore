@@ -1,6 +1,7 @@
 private/
 node_modules
 dist
+.meteor/platforms
 .eslintrc.js
 .tmp
 .sass-cache

@@ -2,7 +2,7 @@ import React from 'react'
 import { createContainer } from 'meteor/react-meteor-data'
 import { Meteor } from 'meteor/meteor'
 import helpers from '../helpers'
-import { selector } from "../../userFunds/index"
+import { selector } from "../../api/userFunds/index"
 import PortfolioTable from '../components/PortfolioTable'
 import get from 'oget'
 // TODO do not forget check dependencies
