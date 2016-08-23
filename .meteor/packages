@@ -5,11 +5,11 @@
 # but you can also edit it by hand.
 
 mquandalle:bower
-http@1.2.9
+http
 momentjs:moment
 
-reactive-var@1.0.10
-ddp-client@1.3.1
+reactive-var
+ddp-client
 amplify
 
 cyberfund:cyberfund-base
@@ -20,15 +20,15 @@ cyberfund:cyberfund-marketdata
 cyberfund:cyberfund-es
 cyberfund:cyberfund-blaze-components
 
-accounts-twitter@1.1.11
+accounts-twitter
 useraccounts:mdl
 # ground-user makes Meteor.user() store data on LocalStorage
 # never again you will see Meteor.user() = undefined on startup
 gwendall:ground-user
 
 gwendall:body-events
-service-configuration@1.0.10
-twitter@1.1.12
+service-configuration
+twitter
 mfpierre:chartist-js
 
 tmeasday:publish-counts
@@ -48,40 +48,38 @@ abiabsurd:flow-routing-react
 zimme:active-route
 
 
-meteor-base@1.0.4
-mobile-experience@1.0.4
-mongo@1.1.11
-session@1.1.6
-jquery@1.11.9
-tracker@1.1.0
-logging@1.1.15
-reload@1.1.10
-random@1.0.10
-ejson@1.0.12
-spacebars@1.0.12
-check@1.2.3
+meteor-base
+mobile-experience
+mongo
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
 # use blaze components in react
 # installed for early react development, remove in future
 gadicc:blaze-react-component
 react-meteor-data
-static-html@1.1.12
+static-html
 
 npm-container
 d3js:d3
-coffeescript@1.2.4
+coffeescript
 fourseven:scss
 # same as standard-minifier-css but with autoprefixer
 seba:minifiers-autoprefixer
-standard-minifier-js@1.2.0
+standard-minifier-js
 
-email@1.1.17
+email
 
 # accounts-password
 jparker:gravatar
 aldeed:template-extension
 meteorhacks:subs-manager
 meteorhacks:picker
-ecmascript@0.5.8
+ecmascript
 gadicc:babel-compiler-babelrc
-dfischer:prerenderio
-shell-server
