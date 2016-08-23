@@ -330,7 +330,7 @@ Meteor.publish("allSystems", function(){
 });
 
 Meteor.publish("usersWithFunds", function(){
-  const selector = require("../imports/userFunds/").selector
+  const selector = require("../imports/api/userFunds/").selector
   const user = Meteor.users.findOne({_id:this.userId});
   let ids = user && user.profile && user.profile.followingUsers || [];
   ids.push(this.userId);
