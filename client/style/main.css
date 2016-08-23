@@ -284,3 +284,12 @@ body {
 
 .font-size-0625 { font-size: 0.625em }
 .font-size-075 { font-size: 0.75em }
+
+/* position tooltip of "currently raised" higher */
+.radar-card .raised .with-tooltip:hover {
+    top: -50px
+}
+/* hide text to prevent seeing it ontop of tooltip */
+.radar-card .raised .with-tooltip:hover strong {
+    display: none;
+}

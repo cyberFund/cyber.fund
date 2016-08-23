@@ -20,7 +20,7 @@
                                 Not Verified
                             </div>
                              {{#tooltip class="tooltip-table-head right0"}}
-                               <p class="black-text">to make project verified need 5 stars</p>
+                               <p class="black-text">Verified project need 5 stars</p>
                              {{/tooltip}}
                          {{/ withTooltip}}
                    {{/if}}
@@ -45,13 +45,19 @@
                         <strong>{{daysLeft crowdsales.end_date}} days
                             left</strong>
                     </div>
-                    <div class="right">
+                    <div class="right raised">
                         {{#if raised}}
+                            <!-- if raised equals -1 show "Non-compliant" text with explanation tooltip -->
                             {{#if neq -1 raised}}
                                 <strong>Currently raised: </strong>
                                 {{readableN1 raised}} Ƀ
                             {{else}}
-                                <strong class="text-red">Non-compliant</strong>
+                             {{# withTooltip}}
+                                <strong class="red-text">Non-compliant</strong>
+                                 {{#tooltip class="tooltip-table-head right0"}}
+                                   <p class="black-text">A project did not provide public crowdsale address. You will not be able to have a proof of raised money as well as allocation of funds</p>
+                                 {{/tooltip}}
+                             {{/ withTooltip}}
                             {{/if}}
                         {{/if}}
                     </div>

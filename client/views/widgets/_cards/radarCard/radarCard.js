@@ -10,13 +10,12 @@ Template["radarCard"].helpers({
     return Blaze._globalHelpers._toUnderscores(this._id);
   },
   raised: function() {
-    if (this.metrics && this.metrics.currently_raised) return this.metrics.currently_raised;
-    if (this.crowdsales && this.crowdsales.btc_raised) return this.crowdsales.btc_raised;
     // if crowdsale is raising money through non mainstream way,
     // return -1 to display "non compliant message"
-    if (_.has(this, 'currently_raised') || _.has(this, 'btc_raised')) {
-        return -1
-    }
+    if (!this.crowdsales.genesis_address) return -1
+
+    if (this.metrics && this.metrics.currently_raised) return this.metrics.currently_raised;
+    if (this.crowdsales && this.crowdsales.btc_raised) return this.crowdsales.btc_raised;
     return 0;
   },
   active: function (){
