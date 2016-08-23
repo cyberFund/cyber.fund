@@ -1,5 +1,5 @@
-const selectorService = require("../../imports/userFunds").selectorService;
-const updateUserFunds = require("../../imports/userFunds/userHistory").updateUserFunds;
+const selectorService = require("../../imports/api/userFunds").selectorService;
+const updateUserFunds = require("../../imports/api/userFunds/userHistory").updateUserFunds;
 const handleArrayWithInterval = require("../../imports/api/handleArray").handleArrayWithInterval
 
 const print = CF.Utils.logger.getLogger('FUNDS').print

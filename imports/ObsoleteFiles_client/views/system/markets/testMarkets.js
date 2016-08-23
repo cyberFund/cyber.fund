@@ -1,8 +1,8 @@
 
 const ROWS_SHORT = 20
 
-const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
-const fiats = require("../../../../imports/vwap/marketsList").fiats
+const markets = require("../../../../imports/api/vwap/marketsList").xchangeMarkets
+const fiats = require("../../../../imports/api/vwap/marketsList").fiats
 CF.test = CF.test || {}
 CF.test.printPairs = function(){
   console.log(xchangeFeeds.find().fetch())

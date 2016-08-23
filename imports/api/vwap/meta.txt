@@ -1,0 +1,2 @@
+volume weighted average prices  - util for calculating/fetching average prices
+from stock market feeds
