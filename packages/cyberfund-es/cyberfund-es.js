@@ -13,8 +13,8 @@ _.extend(CF.ES, {
   _getClient: function() {
     return new esLib.Client({
       host: 'http://' +
-        process.env.ES_USERNAME +
-        ':' + process.env.ES_PASSWORD +
+        Meteor.settings.elasticCredentials.login +
+        ':' + Meteor.settings.elasticCredentials.password +
         '@es.index.cyber.fund'
     });
   },
@@ -298,7 +298,7 @@ _.extend(ns, {
       }
     },
 
-    vwap_data: { //only for tests here.. 
+    vwap_data: { //only for tests here..
       client_allowed: true,
       getQueryObj: function(params) { //not "latest" anymore
         params = params || {}
