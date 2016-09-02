@@ -41,7 +41,7 @@ function flatten(obj) { //todo move to utils..
       if (_.isArray(v)) {
         add(key, v);
       } else {
-        if (_.isObject(v)) {
+        if (_.isObject(v) && !(_.isDate(v) || _.isArray(v)) ) {
           iter(key, v);
         } else {
           add(key, v);
@@ -53,7 +53,7 @@ function flatten(obj) { //todo move to utils..
   iter("", obj);
   return result;
 }
-
+var print = CF.Utils.logger.getLogger("chaingear fetcher").print
 var fetch = function() {
   logger.info("Fetching data from cyberFund - chaingear");
   try {
@@ -94,9 +94,11 @@ var fetch = function() {
               if (_.isString(system.crowdsales.start_date)) {
                 system.crowdsales.start_date = new Date(system.crowdsales.start_date);
               }
+
               if (_.isString(system.crowdsales.end_date)) {
                 system.crowdsales.end_date = new Date(system.crowdsales.end_date);
               }
+              print ("system " + system._id + " crowdsale object", system.crowdsales);
               crowdsalesList.push(system._id);
             }
 
@@ -127,6 +129,7 @@ var fetch = function() {
               CurrentData.insert(system);
             } else {
               var set = flatten(system); //_.omit(system, ['system']); //system:
+
               if (system.specs) {
 
                 // check if we can hotfix price
@@ -148,7 +151,8 @@ var fetch = function() {
         //          }
                 }
               }
-
+              if (system._id == "Golem")
+                print ("system "+ system._id + "set is", set)
               var modifier = {
                 $set: set
               };
