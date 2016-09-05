@@ -98,7 +98,7 @@ var fetch = function() {
               if (_.isString(system.crowdsales.end_date)) {
                 system.crowdsales.end_date = new Date(system.crowdsales.end_date);
               }
-              print ("system " + system._id + " crowdsale object", system.crowdsales);
+
               crowdsalesList.push(system._id);
             }
 
@@ -128,31 +128,17 @@ var fetch = function() {
               console.log("inserting system " + system._id);
               CurrentData.insert(system);
             } else {
-              var set = flatten(system); //_.omit(system, ['system']); //system:
+              var set = flatten(system);
+              //_.omit(system, ['system']); //system:
 
               if (system.specs) {
-
-                // check if we can hotfix price
                 if (system.specs.cap && system.specs.supply) {
-                  // check if need hotfixing price
-
-                  // if price missing
-  //                if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd || !doc.metrics.price.btc) {
-    //                if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.usd && system.specs.cap.usd) {
-                      //set.metrics = set.metrics || {};
-                      //set.metrics.price = set.metrics.price || {};
                   set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
-      //              }
-        //            if (!doc.metrics || !doc.metrics.price || !doc.metrics.price.btc && system.specs.cap.btc) {
-                      //set.metrics = set.metrics || {};
-                      //set.metrics.price = set.metrics.price || {};
+
                   set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
-          //          }
-        //          }
                 }
               }
-              if (system._id == "Golem")
-                print ("system "+ system._id + "set is", set)
+
               var modifier = {
                 $set: set
               };

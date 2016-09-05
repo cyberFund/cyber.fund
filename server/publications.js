@@ -373,4 +373,10 @@ Meteor.publish("usersWithFunds", function(){
   });
 });
 
+import dailyPrices from '../imports/api/vetalPrices/collection'
+
+Meteor.publish("dailyPrices", function(options) {
+   return dailyPrices.find()
+})
+
 require("../imports/vwap/publications")
