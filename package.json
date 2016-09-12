@@ -23,7 +23,9 @@
     "react-dom": "^15.0.2",
     "unirest": "^0.4.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-preset-meteor": "^6.12.0"
+  },
   "scripts": {
     "test": "meteor test"
   },

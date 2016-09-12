@@ -1,10 +1,11 @@
 // this file describes fetching of data from chaingear
 
-var sourceUrl = "http://static.cyber.fund/chaingear/full.json";
+var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchTimeout = 15 * 1000;
 
-var logger = CF.Utils.logger.getLogger("meteor-fetching");
-
+var logger = CF.Utils.logger.getLogger("fetching - chaingear : v.0.3");
+let print = logger.print;
+print("sourceUrl", sourceUrl)
 CF.fetching.cyberFund = {};
 
 CF.fetching.cyberFund.processData = function(data, callback) {
@@ -53,7 +54,6 @@ function flatten(obj) { //todo move to utils..
   iter("", obj);
   return result;
 }
-var print = CF.Utils.logger.getLogger("chaingear fetcher").print
 var fetch = function() {
   logger.info("Fetching data from cyberFund - chaingear");
   try {
@@ -189,7 +189,7 @@ SyncedCron.add({
   name: "fetch chaingear data",
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.cron("0/5 * * * *", false);
+    return parser.cron("0/2 * * * *", false);
   },
   job: function() {
     fetch();
