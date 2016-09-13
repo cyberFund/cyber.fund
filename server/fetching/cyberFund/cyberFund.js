@@ -1,6 +1,6 @@
 // this file describes fetching of data from chaingear
 
-var sourceUrl = "http://static.cyber.fund/chaingear/full.json";
+var sourceUrl = "https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchTimeout = 15 * 1000;
 
 var logger = CF.Utils.logger.getLogger("meteor-fetching");
