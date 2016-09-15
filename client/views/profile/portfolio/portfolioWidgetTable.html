@@ -41,13 +41,13 @@
               {{readableN2 usdPriceChange1d}}%
             </sup>
             {{#tooltip}}
-            BTC Price: {{readableN2 btcPrice}}
+            BTC Price: {{readableN8 btcPrice}}
             <sup class="left-align {{greenRedNumber usdPriceChange1d}}">
               {{readableN2 btcPriceChange1d}}%
             </sup>
             {{/tooltip}}
             {{/withTooltip}}
-          </td> {{! cap}}
+          </td>
 
           <td class="right-align  hide-on-med-and-down ">
             {{#withTooltip}}

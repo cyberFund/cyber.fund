@@ -125,12 +125,13 @@ var helpers = {
   readableN2: escapeNaN(CF.Utils.formatters.readableN2),
   readableN3: escapeNaN(CF.Utils.formatters.readableN3),
   readableN4: escapeNaN(CF.Utils.formatters.readableN4),
+  readableN8: escapeNaN(CF.Utils.formatters.readableN8),
   roundedN4: escapeNaN(CF.Utils.formatters.roundedN4),
   meaningful3: escapeNaN(CF.Utils.formatters.meaningful3),
   meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
   meaningfulNice4: function(value){
     return escapeNaN(value >= 1000 ? CF.Utils.formatters.readableN0 :
-    CF.Utils.formatters.meaningful4)(value); 
+    CF.Utils.formatters.meaningful4)(value);
   },
   meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
   withSign: escapeNaN(CF.Utils.formatters.withSign),
