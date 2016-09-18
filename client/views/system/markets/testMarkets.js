@@ -85,7 +85,6 @@ Template['testMarkets'].helpers({
 
   },
   volumePairFiat: function() {
-    weightedPriceNative("Bitcoin", _fiat());
     return this.volume.btc/weightedPriceNative("Bitcoin", _fiat());
   },
   updateTime: function (timestamp){
