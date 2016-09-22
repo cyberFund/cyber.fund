@@ -5,9 +5,25 @@
       <br>
     {{/if}}
 
+    <!-- buttons for fast forward navigation on mobile -->
+    <div class="row hide-on-med-and-up center floating-menu">
+        <div class="col s3">
+            <a href="" title="active" class="waves-effect waves-teal btn col s12" style="margin-bottom: 10px">Active Crowdsales</a>
+        </div>
+        <div class="col s3">
+            <a href="" title="upcoming" class="waves-effect waves-teal btn col s12" style="margin-bottom: 10px">Upcoming Crowdsales</a>
+        </div>
+        <div class="col s3">
+            <a href="" title="anticipated" class="waves-effect waves-teal btn col s12" style="margin-bottom: 10px">Anticipated Projects</a>
+        </div>
+        <div class="col s3">
+            <a href="" title="successful" class="waves-effect waves-teal btn col s12" style="margin-bottom: 10px">Successful Crowdsales</a>
+        </div>
+    </div>
+
     {{#if crowdsaleActive.count}}
     <div class="row">
-        <h4 class="center">Active Crowdsales</h4>
+        <h4 id="active" class="center">Active Crowdsales</h4>
         {{#each crowdsaleActive}}
             {{> radarCard this}}
         {{/each}}
@@ -16,7 +32,7 @@
 
     {{#if crowdsaleUpcoming.count}}
     <div class="row">
-        <h4 class="center">Upcoming Crowdsales</h4>
+        <h4 id="upcoming" class="center">Upcoming Crowdsales</h4>
         {{#each crowdsaleUpcoming}}
             {{> radarCard this}}
         {{/each}}
@@ -25,7 +41,7 @@
 
     {{#if project.count}}
     <div class="row">
-        <h4 class="center">Anticipated Projects</h4>
+        <h4 id="anticipated" class="center">Anticipated Projects</h4>
         {{#each project}}
             {{> projectCard this}}
         {{/each}}
@@ -34,7 +50,7 @@
 
     {{#if crowdsalePast.count}}
     <div class="row">
-        <h4 class="center">Successful Crowdsales</h4>
+        <h4 id="successful" class="center">Successful Crowdsales</h4>
         {{#each crowdsalePast}}
             {{> radarCard this}}
         {{/each}}
