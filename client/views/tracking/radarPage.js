@@ -93,4 +93,11 @@ Template['radarPage'].helpers({
     return !(_project().count() + _crowdsale().count())
   },
 });
-Template['radarPage'].events({});
+Template['radarPage'].events({
+    'click .btn': function(e) {
+        var selector = e.currentTarget.title
+        $('html, body').animate({
+            scrollTop: $("#" + selector).offset().top - 65 // 65 == header height
+        }, 1000);
+    }
+});
