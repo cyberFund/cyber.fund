@@ -15,7 +15,7 @@ class HeaderNav extends React.Component {
 					scroll
 					// HOME BUTTON
 					title={
-						<Button href="/" style={{color: 'white'}} ripple> Cyber.Fund </Button>
+						<Button href="/" style={{color: 'white'}} ripple> Cyber.Fund beta</Button>
 					}
 				>
 					{/* LINKS */}
