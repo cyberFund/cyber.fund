@@ -1,0 +1,25 @@
+<template name="SystemUpcomingCrowdsaleCard">
+  <div class="row">
+    <div class="col offset-s2 s8 center">
+      <div class="card light-green lighten-4" >
+        <div class="card-content">
+          <h5> This project starts crowdsale in {{daysLeft crowdsales.start_date}} days</h5>
+          <a href="{{crowdsales.funding_terms}}"
+             target="_blank" style="margin: 0 4em;"> Funding terms </a>
+          <a href="{{crowdsales.funding_url}}"
+             target="_blank" style="margin: 0 4em;"> Invest </a>
+        </div>
+
+        {{log crowdsales}}
+        {{#if and crowdsales.genesis_address crowdsales.genesis_address.[0]}}
+          <h6> Known funding addresses list
+            (check officially before investing)</h6>
+          <p>
+          {{#each crowdsales.genesis_address}}
+            {{this}}<br/>
+          {{/each}}</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</Template>

@@ -27,7 +27,7 @@
                 <div style="text-align: center; min-height: 3em;">
                     {{descriptions.headline}}
                 </div>
-                {{#if and and crowdsales crowdsales.start_date isBeforeNow crowdsales.start_date}}
+                {{#if and (and crowdsales crowdsales.start_date) (isBeforeNow crowdsales.start_date)}}
                 <div>
                   Crowdsale starts in {{daysLeft}} days ()
                 </div>
