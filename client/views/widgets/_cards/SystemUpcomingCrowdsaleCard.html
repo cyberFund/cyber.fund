@@ -6,9 +6,11 @@
           <h5> This project starts crowdsale in {{daysLeft crowdsales.start_date}} days</h5>
           <a href="{{crowdsales.funding_terms}}"
              target="_blank" style="margin: 0 4em;"> Funding terms </a>
+          <h6>Start: {{dateFormat crowdsales.start_date "llll"}}</h6>
+          <h6>End: {{dateFormat crowdsales.end_date "llll"}}</h6>
         </div>
 
-        {{log crowdsales}}
+        
         {{#if and crowdsales.genesis_address crowdsales.genesis_address.[0]}}
           <h6> Known funding addresses list
             (check officially before investing)</h6>
