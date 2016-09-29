@@ -173,13 +173,9 @@ console.log(process.env.CF_SCRIPTS_PATH);
 
 Picker.route('/webhooks/github/01', function(params, req, res, next) {
     if (req.method == 'POST') {
-        console.log("hoooooooooook ")
-        Extras.remove({
-            _id: 'chaingearEtag'
-        });
-        console.log(Extras.find({
-            _id: 'chaingearEtag'
-        }))
+        console.log("new push to chaingear repo detected. ");
+        Extras.remove({        _id: 'chaingearEtag'});
+
         var scriptToRun = path.join(process.env.CF_SCRIPTS_PATH, 'chg-update.sh');
         fs.exists(scriptToRun, function(exists) {
             if (exists) {
@@ -188,8 +184,6 @@ Picker.route('/webhooks/github/01', function(params, req, res, next) {
                 });
             }
         });
-        res.end("ok")
-    } else {
-        res.end("ok")
     }
+    res.end("ok")
 });
