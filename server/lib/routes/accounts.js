@@ -155,8 +155,11 @@ Picker.route('/api03', function(params, req, res, next){
 });
 
 Picker.route('/webhooks/github/01', function(params, req, res, next){
-    console.log(req.method)
-    console.log ("hoooooooooook ")
-    Extras.remove({_id:'chaingearEtag'});
-    res.end("ok")
+    if (req.method=='POST') {
+        console.log ("hoooooooooook ")
+        Extras.remove({_id:'chaingearEtag'});
+        console.log(Extras.find({_id:'chaingearEtag'}))
+        res.end("ok")
+    }
+    else res.end('ok')
 });
