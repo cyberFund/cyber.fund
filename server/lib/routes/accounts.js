@@ -152,4 +152,11 @@ Picker.route('/api03/username/:username/accounts', function(params, req, res, ne
 
 Picker.route('/api03', function(params, req, res, next){
   res.end(drink(accountsApi, 'description'));
-})
+});
+
+Picker.route('/webhooks/github/01', function(params, req, res, next){
+    console.log(req.method)
+    console.log ("hoooooooooook ")
+    Extras.remove({_id:'chaingearEtag'});
+    res.end("ok")
+});
