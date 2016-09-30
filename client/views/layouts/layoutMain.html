@@ -4,9 +4,19 @@
         <div class="w90">
             {{> Template.dynamic template=main}}
         </div>
-        <div class="hiddendiv common"></div>
         {{> footer}}
     </div>
+</template>
+
+<template name="layoutMainExtended">
+  {{> sandStone}}
+  <div id="contain-all" class="contain-all">
+      <div class="w90">
+          {{> Template.dynamic template=main}}
+      </div>
+      {{> Template.dynamic template=extra}}
+      {{> footer}}
+  </div>
 </template>
 
 <template name="layoutFullWidth">
@@ -15,7 +25,6 @@
         <div class="w100">
             {{> Template.dynamic template=main}}
         </div>
-        <div class="hiddendiv common"></div>
         {{> footer}}
     </div>
 </template>
