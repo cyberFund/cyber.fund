@@ -6,12 +6,12 @@ const print = CF.Utils.logger.getLogger('FUNDS').print
 
 function dealWithPopulars(){
   print("starting hourly funds recalculation (for lucky funds)", true)
-  handleArrayWithInterval( _.pluck( Meteor.users.find(selectorService, {fields: {_id: 1}}).fetch(), '_id'), 8000, updateUserFunds)
+  handleArrayWithInterval( _.pluck( Meteor.users.find(selectorService, {fields: {_id: 1}}).fetch(), '_id'), 20000, updateUserFunds)
 }
 
 function dealWithAll(){
   print("starting daily/3 funds recalculation (for all funds)", true)
-  handleArrayWithInterval( _.pluck( Meteor.users.find({}, {fields: {_id: 1}}).fetch(), '_id'), 8000, updateUserFunds)
+  handleArrayWithInterval( _.pluck( Meteor.users.find({}, {fields: {_id: 1}}).fetch(), '_id'), 50000, updateUserFunds)
 }
 
 SyncedCron.add({

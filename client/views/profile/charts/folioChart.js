@@ -128,13 +128,11 @@ Template["folioChart"].onRendered(function() {
 
     // final data check
     if (ticks.length > 1) {
-      console.log(ns.folioPie, labels, ticks);
       instance.showView({
         labels: labels,
         series: ticks
       });
     } else {
-      console.log("hiding");
       instance.hideView();
     }
   });
