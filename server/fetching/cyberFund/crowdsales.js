@@ -34,7 +34,7 @@ function updateCrowdsales() {
           if (_.isArray(addr)) {
             var raised = {};
             _.each(addr, function(address) {
-              var balances = CF.Accounts.quantumCheck(address);
+              var balances = CF.Accounts.quantumCheck(address); //TODO: use imports here.
               if (!balances || balances[0] == 'error') return;
               _.each(balances, function(b) {
                 if (b.quantity && b.asset) {
@@ -82,11 +82,11 @@ Meteor.startup(function() {
   updateCrowdsales()
 })
 
-SyncedCron.add({
+if (Meteor.settings.qcCrowdsales) SyncedCron.add({
   name: 'update active crowdsales',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 3 minutes');
+    return parser.text('every 12 minutes');
   },
   job: function() {
     updateCrowdsales()

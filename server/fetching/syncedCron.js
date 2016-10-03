@@ -7,7 +7,7 @@ SyncedCron.config({
 
 Meteor.startup(function(){
   if (!Meteor.settings.noFetch) {
-    console.log("starting synced cron");
+    console.log("--  -- starting synced cron");
     SyncedCron.start();
   }
 });
