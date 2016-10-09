@@ -285,6 +285,9 @@ var helpers = {
   },
   isInDevelopmentMode: function isInDevelopmentMode(){
     return CF._mode;
+  },
+  pxViewportWidth: function getPxViewportWidth(){
+    return $.width().toString();
   }
 };
 

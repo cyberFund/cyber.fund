@@ -4,9 +4,13 @@
   <div class="navbar-fixed z-depth-1">
     <nav class="white" role="navigation">
         <div class="nav-wrapper w95">
-        <a href="/" class="waves-effect brand-logo center">
+        <a href="/" class="waves-effect brand-logo center hide-on-large-only">
             <img style="margin-top:0.618vh" src="https://cyber.fund/images/cyberFund.svg"/>
         </a>
+        <a href="/" class="waves-effect brand-logo center hide-on-med-and-down">
+            <img style="max-height: 1.7em; margin-top:0.382vh" src="https://cyber.fund/images/cybF.svg"/>
+        </a>
+
         <ul class="hide-on-med-and-down">
           {{> navbarItem path="/radar" text="Crowdsales"}}
           {{> navbarItem path="/rating" text="Assets"}}
@@ -66,6 +70,7 @@
     {{#if currentUser.username}}
 
       <a href="{{pathFor '/@:username' username=ownUsername}}" style="vertical-align: middle">
+        {{log pxViewportWidth}}
         {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.avatar}}
         {{currentUser.username}}
       </a>
