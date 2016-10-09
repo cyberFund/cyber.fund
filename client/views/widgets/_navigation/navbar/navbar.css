@@ -8,7 +8,7 @@ nav .brand-logo {
 }
 /* same as previous */
 #nav-mobile li:last-child:hover {
-    background-color: transparent;
+    background-color: rgba(255,255,255, 0.7);
 }
 /* sidebar items aligned by center, not to the left */
 #nav-mobile li {

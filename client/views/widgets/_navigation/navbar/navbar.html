@@ -1,9 +1,10 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
+
   <div class="navbar-fixed z-depth-1">
     <nav class="white" role="navigation">
-      <div class="nav-wrapper w95">
-        <a href="/" class="waves-effect brand-logo center">
+        <div class="nav-wrapper w95">
+        <a href="/" class="waves-effect brand-logo center hide-on-med-and-down">
           <img src="https://cyber.fund/images/cybF.svg" style="height: 2.4em; margin-top: -5px;"/>
         </a>
         <ul class="hide-on-med-and-down">
@@ -32,6 +33,9 @@
           {{> navbarItem path="/radar" text="Crowdsales"}}
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/funds" text="Funds"}}
+          <li class="waves-effect" >
+              <a href="https://cyber.fund"><img style="height: 60px; margin-top: 3px" src="https://cyber.fund/images/cybF.svg" /></a>
+          </li>
           <li class="search-wrap" style="height: 64px;">
               {{> searchItem1}}
           </li>
@@ -43,11 +47,13 @@
           </li>
 
         </ul>
-        <a href="#" data-activates="nav-mobile" class="button-collapse"><i
-            class="mdi-navigation-menu"></i></a>
-      </div>
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i>
+          <img src="https://cyber.fund/images/cybF.svg" style="margin-top: 3px; height: 60px;">
+        </i></a>
+        </div>
     </nav>
   </div>
+
 </template>
 
 <template name="navbarItem">
