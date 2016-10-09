@@ -11,7 +11,7 @@
   "type": "CryptoToken",
   "divisibility": 6,
   "link_to_website": true,
-  "icon_url": "https://cyber.fund/images/cyberfund_icon.png",
-  "image_url": "https://cyber.fund/images/cyberfund_icon.png",
+  "icon_url": "/images/cyberfund_icon.png",
+  "image_url": "/images/cyberfund_icon.png",
   "version": "1.0"
 }
