@@ -97,10 +97,11 @@ myGraph = (el, instance) ->
     d.timestamp
   ).left
   formatValue = d3.format(',.4f')
-
+  formatBTCValue = d3.format(',.8f')
   formatCurrency = (d) ->
-    '$' + formatValue(d)
-
+    formatValue(d)
+  formatBTC = (d) ->
+    formatBTCValue(d)
   volumeChart = svg.append('g')
   volumeChart.__top = marginTop + mBetween + hMain
   volumeChart
@@ -191,8 +192,8 @@ myGraph = (el, instance) ->
   .attr('x1', 0).attr('x2', 0).attr('y1', hMain+marginTop+hVolume+mBetween).attr 'y2', hMain+marginTop+hVolume+mBetween+hZoom
 
   tooltip = focus.append('g')
-  tooltip.__w = 102
-  tooltip.__h = 40
+  tooltip.__w = 130
+  tooltip.__h = 52
   tooltip.append('rect')
     .attr 'x', 8
     .attr 'width', tooltip.__w
@@ -206,9 +207,12 @@ myGraph = (el, instance) ->
   tooltip.append('text').attr('class', 'price')
     .attr 'dx', '14'
     .attr 'dy', '24'
-  tooltip.append('text').attr('class', 'volume')
+  tooltip.append('text').attr('class', 'price-btc')
     .attr 'dx', '14'
     .attr 'dy', '36'
+  tooltip.append('text').attr('class', 'volume')
+    .attr 'dx', '14'
+    .attr 'dy', '48'
 
   day = 1000 * 60 * 60 * 24
   extentLen = (extent) ->
@@ -312,9 +316,10 @@ myGraph = (el, instance) ->
 
     focus.selectAll('.focus-vert-full').attr('x1', x3(grab.t(d))).attr 'x2', x3(grab.t(d))
 
-    tooltip.select('text.price').text "price " + formatCurrency(grab.sp(d))
+    tooltip.select('text.price').text "price $: " + formatCurrency(grab.sp(d))
+    tooltip.select('text.price-btc').text "price BTC: " + formatBTC(grab.bp(d))
     tooltip.select('text.date').text _timestampino(d)
-    tooltip.select('text.volume').text "daily volume " +d3.format(',.0f')(grab.bvd(d))
+    tooltip.select('text.volume').text "daily volume: " +d3.format(',.0f')(grab.bvd(d))
     tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
 
     return
@@ -380,7 +385,7 @@ grab =
 
 _timestampino = (fruit) ->
   timestamp = grab.t(fruit)
-  format = if fruit.interval is 'hourly' then 'ddd D-MM HH:mm' else 'ddd D-MM'
+  format = if fruit.interval is 'hourly' then 'ddd D MMM HH:mm' else 'ddd D MMM'
   # date format. maybe better use d3-provided ?
   moment(timestamp).format format
 
