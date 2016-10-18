@@ -1,0 +1,24 @@
+<template name="userDropdown">
+  {{#if currentUser}}
+    {{#if currentUser.username}}
+      <a href="{{pathFor '/@:username' username=ownUsername}}" style="vertical-align: middle">
+        {{log pxViewportWidth}}
+        {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.avatar}}
+        {{currentUser.username}}
+      </a>
+    {{else}}
+      {{#if not loggingIn}}
+        <a href="{{pathFor '/@:username' username=ownUsername}}">
+          {{#if currentUser.username}}
+            {{currentUser.username}}
+          {{else}}
+            Profile
+          {{/if}}
+        </a>
+      {{/if}}
+    {{/if}}
+  {{else}}
+      <a href="/welcome" class="green waves-effect white-text waves-light btn enlarge"><strong>Join Us</strong></a>
+    {{! enable with accounts-password > atNavButton text='sign in' }}
+  {{/if}}
+</template>

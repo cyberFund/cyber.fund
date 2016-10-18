@@ -40,9 +40,12 @@ input.search-input.at-navbar{
   border: 1px solid #DDD;
   border-radius: 3px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  min-width: 340px;
+  min-width: 250px;
+  max-width: 340px;
   margin-top: 28px;
-  padding-right: -80px;
+  margin-left: -30px;
+  padding-right: -30px;
+  left: 0 !important;
   display: block;
   z-index: 1000;
 }
@@ -58,6 +61,7 @@ input.search-input.at-navbar{
   display: block;
   width: 100%;
   padding: 0 10px 0;
+  margin-right: 10px;
   border-bottom: 1px solid #DDD;
 }
 
@@ -65,4 +69,5 @@ input.search-input.at-navbar{
   color: white;
   background: #FF9100;
   text-decoration: none;
+  font-size: 110%;
 }
