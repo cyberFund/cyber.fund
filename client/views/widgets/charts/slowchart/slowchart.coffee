@@ -200,7 +200,7 @@ myGraph = (el, instance) ->
     .attr 'y', 0
     .attr 'height', tooltip.__h
     .attr 'class', 'tooltip-box'
-  tooltip.attr('transform', 'translate(40,0)')
+  tooltip.attr('transform', 'translate(-130,0)')
   tooltip.append('text').attr('class', 'date')
     .attr 'dx', '14'
     .attr 'dy', '12'
@@ -297,8 +297,8 @@ myGraph = (el, instance) ->
 
   mousemove = ->
     limitX = (v) ->
-      if (chartWidth - tooltip.__w > v) then v
-      else v - tooltip.__w - 16
+      if (tooltip.__w < v + 16) then v - tooltip.__w - 16
+      else v
 
       #Math.min(v, wf - tooltip.__w)
     limitY = (v) -> Math.min(v, marginTop + hMain - tooltip.__h)
