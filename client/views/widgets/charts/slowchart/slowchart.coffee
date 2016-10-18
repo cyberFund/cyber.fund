@@ -320,7 +320,7 @@ myGraph = (el, instance) ->
     tooltip.select('text.price-btc').text "price BTC: " + formatBTC(grab.bp(d))
     tooltip.select('text.date').text _timestampino(d)
     tooltip.select('text.volume').text "daily volume: " +d3.format(',.0f')(grab.bvd(d))
-    tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-20)})")
+    tooltip.attr('transform', "translate(#{limitX (xv+5)},#{limitY (d3.mouse(this)[1]-40)})")
 
     return
 
