@@ -1,6 +1,10 @@
 var cfCDs = CF.CurrentData .selectors;
 // recalculate raised amount crutch
 var print = false ? CF.Utils.logger.print : function() {}
+Meteor.startup(function(){
+print (Meteor.settings);
+})
+
 
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
@@ -86,7 +90,7 @@ if (Meteor.settings.qcCrowdsales) SyncedCron.add({
   name: 'update active crowdsales',
   schedule: function(parser) {
     // parser is a later.parse object
-    return parser.text('every 12 minutes');
+   return parser.cron("8/10 * * * *", false);
   },
   job: function() {
     updateCrowdsales()
