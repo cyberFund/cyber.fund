@@ -18,7 +18,8 @@ var accountsApi = {
     description: "currently, api paths are prefixed with /api03/\n" +
         "/api03/account/:_id returns data for certain account;\n" +
         "/api03/username/:username/accounts  returns list of public accounts\n\n" +
-        "private accounts are currently invisible."
+        "private accounts are currently invisible.\n\n\n"+
+        "/api03/crowdsale/:system_name return s crowdsale part of certain system - if any. Within system name spaces d converted to underscores."
 }
 
 var drink = function(bottle, label, args) {
@@ -158,6 +159,19 @@ Picker.route('/api03/username/:username/accounts', function(params, req, res, ne
                 }
             }) // todo: log instead echoing
     }
+    res.end(JSON.stringify(ret, null, (options.pretty ? options.tabs ?
+        parseInt(options.tabs) : 2 : null)));
+});
+
+
+Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
+    var options = normalizeOptions(url.parse(req.url, true).query);
+    var getSystem = function(system_name){
+      return CurrentData.findOne({_id: system_name.replace(/\_/g, ' ')}, {fields: {crowdsales: 1}}) || {
+        error: "not found"
+      };
+    }
+    var ret = getSystem(params.system_name);
     res.end(JSON.stringify(ret, null, (options.pretty ? options.tabs ?
         parseInt(options.tabs) : 2 : null)));
 });
