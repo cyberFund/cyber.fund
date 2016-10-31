@@ -167,7 +167,7 @@ Picker.route('/api03/username/:username/accounts', function(params, req, res, ne
 Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
     var options = normalizeOptions(url.parse(req.url, true).query);
     var getSystem = function(system_name){
-      return CurrentData.findOne({_id: system_name.replace(/\_/g, ' ')}, {fields: {crowdsales: 1}}) || {
+      return CurrentData.findOne({_id: system_name.replace(/\_/g, ' ')}, {fields: {crowdsales: 1, metrics: 1}}) || {
         error: "not found"
       };
     }
