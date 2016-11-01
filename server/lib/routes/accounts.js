@@ -178,6 +178,7 @@ Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
 
     res.setHeader('Content-Type', 'application/json');
     res.setHeader('Content-Length', Buffer.byteLength(ret)),
+    res.setHeader('Access-Control-Allow-Origin', '*')
     res.statusCode = 200;
     res.end(ret);
 });
