@@ -173,9 +173,13 @@ Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
     }
     var ret = getSystem(params.system_name);
     res.setHeader('Content-Type', 'application/json');
+    ret = JSON.stringify(ret, null, (options.pretty ? options.tabs ?
+        parseInt(options.tabs) : 2 : null))
+
+    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Length', Buffer.byteLength(ret)),
     res.statusCode = 200;
-    res.end(JSON.stringify(ret, null, (options.pretty ? options.tabs ?
-        parseInt(options.tabs) : 2 : null)));
+    res.end(ret);
 });
 
 Picker.route('/api03', function(params, req, res, next) {
