@@ -3,6 +3,8 @@ _chartdata = (systemId) ->
     return null
   MarketData.find { systemId: systemId }, sort: timestamp: -1
 
+day = 1000 * 60 * 60 * 24
+
 myGraph = (el, instance) ->
 
   settings =
@@ -11,7 +13,6 @@ myGraph = (el, instance) ->
         tickSize: -6
       y:
         tickSize: -6
-
 
   data = instance.theData #_chartdata(instance.data.system).fetch()
     .sort((a, b) -> a.timestamp - (b.timestamp))
@@ -22,7 +23,6 @@ myGraph = (el, instance) ->
     scaleButtons = parent.selectAll(".slowchart-controls .timeline.btn")
     backButton = parent.select(".slowchart-controls .act-go-back.btn")
     forthButton = parent.select(".slowchart-controls .act-go-forth.btn")
-
 
   @selectedNode = null
 
@@ -45,11 +45,11 @@ myGraph = (el, instance) ->
   hVolume = chartHeight*split[1] / splitsum
   hZoom = chartHeight*split[2] / splitsum
 
-
   x = d3.time.scale().domain([
     d3.min(data, grab.t)
     Date.now() #Math.max(d3.max(data, grab.t), Date.now())
   ]).range [ 0, chartWidth ]
+
   y = d3.scale.linear().domain([
     d3.min(data, grab.sp)
     d3.max(data, grab.sp)
@@ -61,6 +61,7 @@ myGraph = (el, instance) ->
     .orient('left').ticks(6)
     .tickSize(settings.axes.y.tickSize)
     #.tickFormat(d3.format(',g'))
+
   svg = d3.select(el).append('svg:svg')
     .attr('id', 'svg-' + instance.data.system).attr('pointer-events', 'all')
     .attr('class', 'slowchart-svg')
@@ -68,6 +69,7 @@ myGraph = (el, instance) ->
     #.attr('height', hf)
     .attr('viewBox', '0 0 ' + wf + ' ' + hf)
     .attr('preserveAspectRatio', 'xMinYMid')
+
   mainChart = svg.append('g')
     #.attr('width', chartWidth)
     #//attr().height(hMain)
@@ -201,20 +203,16 @@ myGraph = (el, instance) ->
     .attr 'height', tooltip.__h
     .attr 'class', 'tooltip-box'
   tooltip.attr('transform', 'translate(-130,0)')
-  tooltip.append('text').attr('class', 'date')
-    .attr 'dx', '14'
-    .attr 'dy', '12'
-  tooltip.append('text').attr('class', 'price')
-    .attr 'dx', '14'
-    .attr 'dy', '24'
-  tooltip.append('text').attr('class', 'price-btc')
-    .attr 'dx', '14'
-    .attr 'dy', '36'
-  tooltip.append('text').attr('class', 'volume')
-    .attr 'dx', '14'
-    .attr 'dy', '48'
+  tooltip_lines = [{"class": "date", "dx": '14', "dy":'12'},
+    {"class": "price", "dx": '14', "dy":'24'},
+    {"class": "price-btc", "dx": '14', "dy":'36'},
+    {"class": "volume", "dx": '14', "dy":'48'},
+  ]
+  _.each tooltip_lines, (line)->
+    ret = tooltip.append('text');
+    _.each line, (value, key)->
+      ret = ret.attr(key, value)
 
-  day = 1000 * 60 * 60 * 24
   extentLen = (extent) ->
     return extent[1].valueOf() - extent[0].valueOf()
 
