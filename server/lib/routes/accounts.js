@@ -176,6 +176,20 @@ Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
         parseInt(options.tabs) : 2 : null)));
 });
 
+Picker.route('/api03/cyberrating/top25', function(params, req, res, next) {
+    var options = normalizeOptions(url.parse(req.url, true).query);
+    var data = CurrentData.find({"calculatable.RATING.sum": {$gt: 1.4}},
+    {fields: {"metrics.cap":1, "metrics.price":1, "metrics.supply":1,
+    "calculatable.RATING.sum": 1, "calculatable.RATING.vector.LV.num":1},
+    sort: {"metrics.cap.btc":-1}, limit: 30})
+
+    var ret = data.fetch()
+
+    res.end(JSON.stringify(ret, null, (options.pretty ? options.tabs ?
+        parseInt(options.tabs) : 2 : null)));
+});
+
+
 Picker.route('/api03', function(params, req, res, next) {
     res.end(drink(accountsApi, 'description'));
 });
