@@ -180,7 +180,7 @@ Picker.route('/api03/cyberrating/top25', function(params, req, res, next) {
     var options = normalizeOptions(url.parse(req.url, true).query);
     var data = CurrentData.find({"calculatable.RATING.sum": {$gt: 1.4}},
     {fields: {"metrics.cap":1, "metrics.price":1, "metrics.supply":1,
-      "metrics.tradeVolumePrevious.month": 1
+      "metrics.tradeVolumePrevious.month": 1,
       "calculatable.RATING.sum": 1, "calculatable.RATING.vector.LV.num":1},
     sort: {"metrics.cap.btc":-1}, limit: 30})
 
