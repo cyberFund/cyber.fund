@@ -57,8 +57,10 @@ function myGraph(el, system, instance) {
   data = data.sort(function(a, b) {
     return a.timestamp - b.timestamp;
   });
+
   var lastData = CurrentData.findOne({_id:system});
-  if (lastData && lastData.lastData) data.push(lastData.lastData);
+  console.log(lastData, data)
+  if (lastData && lastData.metrics && lastData.metrics.price && lastData.metrics.price.usd)                data.push({timestamp: new Date(), price_usd: lastData.metrics.price.usd});
 
   var wf = 140;
   var w = 140;
