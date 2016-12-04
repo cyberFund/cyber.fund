@@ -1,5 +1,8 @@
+import {cfIsAccountHidden} from '/imports/api/cfAccount'
+
 var cfCDs = CF.CurrentData.selectors;
 var ns = CF.UserAssets;
+
 
 Template["portfolioWidgetView"].helpers({
   shouldShowCheckboxes: function(){
@@ -36,7 +39,7 @@ Template["portfolioWidgetView"].helpers({
 
 Template["pwvRow"].onRendered(function() {
   var t = this;
-  t.$(".count-account").prop("checked", !CF.Accounts.isHidden(t.data._id));
+  t.$(".count-account").prop("checked", !cfIsAccountHidden(t.data._id));
 });
 
 Template["pwvRow"].helpers({
