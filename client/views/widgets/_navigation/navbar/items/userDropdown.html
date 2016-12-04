@@ -3,6 +3,7 @@
     {{#if currentUser.username}}
       <a href="{{pathFor '/@:username' username=ownUsername}}" style="vertical-align: middle">
         {{log pxViewportWidth}}
+        {{log pxViewportHeight}}
         {{> hitryImage style="vertical-align: middle" class="avatar-round" img_url=currentUser.avatar}}
         {{currentUser.username}}
       </a>

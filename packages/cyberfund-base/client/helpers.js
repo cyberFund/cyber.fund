@@ -281,14 +281,17 @@ var helpers = {
     }
   },
   userHasPublicAccess: function userHasPublicAccess() {
-    return CF.User.hasPublicAccess(Meteor.user());
+    return true;
   },
   isInDevelopmentMode: function isInDevelopmentMode(){
     return CF._mode;
   },
   pxViewportWidth: function getPxViewportWidth(){
-    return $.width().toString();
-  }
+    return window.innerWidth;
+  },
+  pxViewportHeight: function getPxViewportWidth(){
+    return window.Height;
+  },
 };
 
 _.each(helpers, function (helper, key) {

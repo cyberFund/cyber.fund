@@ -43,6 +43,7 @@ fastclick@1.0.11
 fortawesome:fontawesome@4.5.0
 fourseven:scss@3.4.3
 gadicc:babel-compiler-babelrc@6.6.4_2
+gadicohen:reactive-window@1.0.6
 gadicohen:robots-txt@0.0.10
 gadicohen:sitemaps@0.0.24
 geojson-utils@1.0.8
@@ -84,6 +85,7 @@ mongo@1.1.7
 mongo-id@1.0.4
 mongo-livedata@1.0.12
 mquandalle:bower@1.5.2_1
+mrt:isolate-value@2.0.2
 npm-container@1.2.0
 npm-mongo@1.4.43
 oauth@1.1.10

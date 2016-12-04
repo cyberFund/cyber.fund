@@ -71,3 +71,4 @@ meteorhacks:picker
 ecmascript
 gadicc:babel-compiler-babelrc
 es5-shim
+gadicohen:reactive-window

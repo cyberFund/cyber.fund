@@ -27,10 +27,6 @@ CF.User.get = function getUser() {
   return Meteor.user();
 }
 
-CF.User.hasPublicAccess = function hasPublicAccess(user){
-  return true;
-}
-
 CF.User.findOneByUsername = function findOneByUsername(username) {
   return Meteor.users.findOne({
     "username": username

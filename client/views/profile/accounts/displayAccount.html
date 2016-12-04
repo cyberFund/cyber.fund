@@ -61,6 +61,7 @@
 
                           <ul class="collection assets-list">
                               {{#each keyValue value.assets}}
+                                {{#if or value.vUsd value.vBtc}}
                                   <li class="collection-item asset-item"
                                       asset-key="{{key}}">
                                       <a href="{{pathFor '/system/:name_' name_=(_toUnderscores name_of_system)}}">
@@ -68,6 +69,7 @@
                                       {{displaySystemName systemData}}</a>
                                       : {{value.quantity}} {{displayCurrencyName key}}s
                                       {{#with value}}
+                                        
                                       {{#if or vUsd vBtc}}({{#if vBtc}}Ƀ{{readableN4 vBtc}}{{/if}}
                                         {{#if and vUsd vBtc}}/{{/if}}
                                         {{#if vUsd}}${{readableN2 vUsd}}{{/if}}){{/if}}{{/with}}
@@ -98,6 +100,7 @@
                                               {{/if}}
                                           </div>
                                   </li>
+                                {{/if}}
                               {{/each}}
                           </ul>
                       </li>
