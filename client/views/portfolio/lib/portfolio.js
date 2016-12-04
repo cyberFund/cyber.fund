@@ -1,7 +1,9 @@
 //////////////////////////// hide domain
-CF.Accounts.isHidden = function isHidden(accountId){
+import {cfIsAccountHidden} from '/imports/api/cfAccount'
+console.log(cfIsAccountHidden, "...");
+/*CF.Accounts.isHidden = function isHidden(accountId){
   return Session.get("hideAccount_"+(accountId));
-};
+};*/
 
 CF.Accounts.hiddenToggle = function(accountId){
   if (!accountId) return;
@@ -23,7 +25,7 @@ function filterData(){
   var userId = getUserId();
 
   gimmeData(userId).forEach(function (account){
-    if (!CF.Accounts.isHidden(account._id)) ret.push(account);
+    if (!cfIsAccountHidden(account._id)) ret.push(account);
   });
   return ret;
 }
