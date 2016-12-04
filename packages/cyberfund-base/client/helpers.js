@@ -289,8 +289,8 @@ var helpers = {
   pxViewportWidth: function getPxViewportWidth(){
     return window.innerWidth;
   },
-  pxViewportHeight: function getPxViewportWidth(){
-    return window.Height;
+  pxViewportHeight: function getPxViewportHeight(){
+    return window.innerHeight;
   },
 };
 
