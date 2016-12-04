@@ -77,13 +77,17 @@ Template['addAccount'].helpers({
   disabledTogglePrivacy: function () {
 // todo: check user has required thing marked.
 // not to keep this in profile, as profile intended to be user-modifiable
+    var isOwnAssets = Blaze._globalHelpers.isOwnAssets;
+    console.log(" disabledTogglePrivacy helper :::   ", isOwnAssets())
     var user = Meteor.user();
-    var ret = CF.UserAssets.isPrivateAccountsEnabled(user) && CF.User.hasPublicAccess(user)
+    var ret = CF.UserAssets.isPrivateAccountsEnabled(user) && true//CF.User.hasPublicAccess(user)
     return ( ret ? '' : 'disabled')
   },
-  privacyState: function () {
+  privacyState: function (data) {
+    console.log("IN A HELPER OF addAccount TEMPLATE NAMED privacyState , and 'this' is ", this)
+    console.log("ALSO< DATA IS", data.main)
     var user = Meteor.user();
-    var ret = CF.User.hasPublicAccess(user)
+    var ret = true;//CF.User.hasPublicAccess(user)
     return  (ret ? "" : "checked");
   },
   currentUserAccounts: function(){
