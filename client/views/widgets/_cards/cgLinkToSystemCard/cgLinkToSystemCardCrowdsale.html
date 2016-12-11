@@ -1,0 +1,26 @@
+<template name="cgLinkToSystemCardCrowdsale">
+  <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+      <div class="card hover-shadow">
+          <div class="cglinkcard">
+              {{> cgSystemLogo system=this class="cglinkcard-icon"}}
+
+              <div class="enlarge center cglinkcard-text">
+                    {{_id}}
+              </div>
+
+          </div>
+          <div class="black-text" style="padding-bottom: 1em">
+            {{#if crowdsales.end_date}}{{daysLeft crowdsales.end_date}} days
+              left
+            {{/if}}<br />
+            {{#if raised}}
+                <!-- if raised equals -1 show "Non-compliant" text with explanation tooltip -->
+                {{#if neq -1 raised}}
+                    <strong>Currently raised: </strong>
+                    {{readableN1 raised}} Ƀ
+                {{/if}}
+            {{/if}}
+          </div>
+      </div>
+  </a>
+</template>
