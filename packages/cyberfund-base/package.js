@@ -15,7 +15,7 @@ var c= "client", s= "server", cs = ["client", "server"];
 Npm.depends({"crypto-balance":  "0.0.20"});
 
 Package.onUse(function(api) {
-  api.versionsFrom('1.1.0.2');
+  api.versionsFrom('1.4');
   api.use(["underscore", "accounts-base", "d3js:d3"], cs);
   api.use(["templating"], c);
   api.addFiles(['cyberfund-base.js', 'cf-user.js', 'cf-utils.js'], cs);

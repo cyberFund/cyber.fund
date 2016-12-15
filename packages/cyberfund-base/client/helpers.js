@@ -1,4 +1,4 @@
-import {hasPublicAccess} from '/imports/api/cfUser'
+//import {hasPublicAccess} from '/imports/api/cfUser'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot
@@ -281,7 +281,7 @@ var helpers = {
     }
   },
   userHasPublicAccess: function userHasPublicAccess() {
-    return hasPublicAccess(Meteor.user());
+    return true;//hasPublicAccess(Meteor.user()); PACKAGES CANNOT IMPORT!!111
   },
   isInDevelopmentMode: function isInDevelopmentMode(){
     return CF._mode;
