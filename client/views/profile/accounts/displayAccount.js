@@ -1,3 +1,4 @@
+import {hasPublicAccess} from '/imports/api/cfUser'
 var cfCDs = CF.CurrentData .selectors;
 CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
 CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
@@ -133,7 +134,7 @@ Template["displayAccount"].events({
   },
   "click .req-toggle-private": function(e, t){
     var user = Meteor.user();
-    if (!CF.User.hasPublicAccess(user)) return false;
+    if (!hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
     CF.Accounts.currentId.set($item.attr("account-id"));
