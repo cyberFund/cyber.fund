@@ -146,7 +146,6 @@ Meteor.methods({
       _id: this.userId
     });
     if (!user) return;
-    if (!CF.User.hasPublicAccess(user)) obj.isPublic = false;
     if (!ns.accountNameIsValid(obj.name, this.userId)) return {
       err: "invalid acc name"
     };
@@ -192,7 +191,6 @@ Meteor.methods({
     });
     var account = CF.Accounts.findById(accountKey);
     var toKey = (fromKey == "accounts" ? "accountsPrivate" : "accounts"); //TODO - remove strings, not needed
-    if (!CF.User.hasPublicAccess(user)) toKey = "accountsPrivate";
 
 
     if (account.refId == this.userId) {

@@ -133,7 +133,8 @@ Template["displayAccount"].events({
   },
   "click .req-toggle-private": function(e, t){
     var user = Meteor.user();
-    if (!CF.User.hasPublicAccess(user)) return false;
+    if (!user) return false;
+    //if (!CF.User.hasPublicAccess(user)) return false;
     //{{! todo: add check if user is able using this feature}}
     var $item = t.$(e.currentTarget).closest(".account-item");
     CF.Accounts.currentId.set($item.attr("account-id"));
