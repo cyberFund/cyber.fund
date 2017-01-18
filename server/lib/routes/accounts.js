@@ -17,7 +17,8 @@ var accountsApi = {
     },
     description: "currently, api paths are prefixed with /api03/\n" +
         "/api03/account/:_id returns data for certain account;\n" +
-        "/api03/username/:username/accounts  returns list of public accounts\n\n" +
+        "/api03/username/:username/accounts  returns list of public account ids \n" +
+        "/api03/username/:username/accounts/full  returns list of public accounts \n\n" +
         "private accounts are currently invisible.\n\n\n"+
         "/api03/crowdsale/:system_name return s crowdsale part of certain system - if any. Within system name spaces d converted to underscores."
 }
