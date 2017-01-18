@@ -117,11 +117,23 @@ var getAccountIdsByUsername = function(username, options) {
     })
 }
 
+var getAccountsByUsername = function(username, options) {
+    //only allow publics until auth/security for apis are not established.
+    var user = CF.User.findOneByUsername(username);
+    if (!user) return [];
+
+    return CF.Accounts.collection.find({
+        refId: user._id,
+        isPrivate: {
+            $ne: true
+        }
+    }).fetch()
+}
+
 
 //////////////////////////////////// routes domain
 
 Picker.route('/api03/account/:_id', function(params, req, res, next) {
-    console.log('here')
     var bottle = accountsApi;
     var options = normalizeOptions(url.parse(req.url, true).query);
 
@@ -163,6 +175,25 @@ Picker.route('/api03/username/:username/accounts', function(params, req, res, ne
         parseInt(options.tabs) : 2 : null)));
 });
 
+Picker.route('/api03/username/:username/accounts/full', function(params, req, res, next) {
+    var bottle = accountsApi;
+    var options = normalizeOptions(url.parse(req.url, true).query);
+
+    var ret = {
+        accounts: getAccountsByUsername(params.username, options)
+    }
+
+    ret = applyOptionsFinal(bottle, ret, options);
+    if (ret.meta) {
+        _.extend(ret.meta, {
+                request: {
+                    username: params.username
+                }
+            }) // todo: log instead echoing
+    }
+    res.end(JSON.stringify(ret, null, (options.pretty ? options.tabs ?
+        parseInt(options.tabs) : 2 : null)));
+});
 
 Picker.route('/api03/crowdsale/:system_name', function(params, req, res, next) {
     var options = normalizeOptions(url.parse(req.url, true).query);
