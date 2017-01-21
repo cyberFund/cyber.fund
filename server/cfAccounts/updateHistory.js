@@ -1,7 +1,7 @@
 const selectorService = require("../../imports/userFunds").selectorService;
 const updateUserFunds = require("../../imports/userFunds/userHistory").updateUserFunds;
 const handleArrayWithInterval = require("../../imports/api/handleArray").handleArrayWithInterval
-
+const selectorSatoshiPie = require("../../imports/userFunds").selectorSatoshiPie;
 const print = CF.Utils.logger.getLogger('FUNDS').print
 
 function dealWithPopulars(){
@@ -24,7 +24,20 @@ SyncedCron.add({
   }
 })
 
-
+SyncedCron.add({
+  name: 'frequent update of satoshi account',
+  schedule: function (parser) {
+    return parser.cron('0/5 * * * *', false);
+  },
+  job: function(){
+    print("starting 0/5 satoshi-fund recalculation", true);
+    var user = Meteor.users.findOne(selectorSatoshiPie);
+    var accounts = CF.Accounts.collection.find({refId: user._id}).fetch()
+    handleArrayWithInterval(accounts, 15000, function(it){
+      CF.Accounts._updateBalanceAccount(it, {private: true})
+    });
+  }
+})
 
 SyncedCron.add({
   name: 'daily user history',

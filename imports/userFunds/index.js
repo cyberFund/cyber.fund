@@ -6,3 +6,7 @@ exports.selector = {
 exports.selectorService = {
   "profile.followedBy.2": {$exists: true}
 };
+
+exports.selectorSatoshiPie = {
+  "username": "satoshi_pie"
+}

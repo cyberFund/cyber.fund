@@ -10,7 +10,7 @@ if (Meteor.isServer) {
     const updatedAt = new Date()
     let sum = 0,
       sumUsd = 0,
-      sumFull = 0;
+      sumFull = 0
     sumFullUsd = 0;
     let historyPointsIndex = [],
       historyPoints = []

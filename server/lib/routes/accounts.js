@@ -20,7 +20,8 @@ var accountsApi = {
         "/api03/username/:username/accounts  returns list of public account ids \n" +
         "/api03/username/:username/accounts/full  returns list of public accounts \n\n" +
         "private accounts are currently invisible.\n\n\n"+
-        "/api03/crowdsale/:system_name return s crowdsale part of certain system - if any. Within system name spaces d converted to underscores."
+        "/api03/crowdsale/:system_name return s crowdsale part of certain system - if any. Within system name spaces d converted to underscores.\n"+
+        "/api03/cyberrating/top25 returns basic metrics of top cyberrated systems\n"
 }
 
 var drink = function(bottle, label, args) {
