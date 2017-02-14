@@ -27,9 +27,12 @@
         </div>
         <ul id="nav-mobile" style="left: -250px" class="side-nav">
           <li class="waves-effect" >
-              <a href="https://cyber.fund"><img style="max-height: 20px; width: 140px; margin-top: 12px; " src="https://cyber.fund/images/cyberFund.svg" /></a>
+              <a href="https://cyber.fund"><img class="mobile-logo" src="https://cyber.fund/images/cyberFund.svg" /></a>
           </li>
-          <li class="search-wrap" style="height: 64px;">
+          <li class="waves-effect {{isActiveOwnProfile}}">
+            {{> userDropdown}}
+          </li>
+          <li class="search-wrap">
               {{> searchItem1}}
           </li>
           {{> navbarItem path="/radar" text="Crowdsales"}}
@@ -37,9 +40,6 @@
           {{> navbarItem path="/funds" text="Funds"}}
           <li>
             <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a></li>
-          <li class="waves-effect {{isActiveOwnProfile}}">
-            {{> userDropdown}}
-          </li>
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu">
         </i></a>

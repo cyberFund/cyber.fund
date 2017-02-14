@@ -31,8 +31,8 @@ input.search-input {
   width: 8em;
 }
 input.search-input.at-navbar{
-  vertical-align: bottom;
-  margin-bottom: 34px;
+  vertical-align: middle;
+  font-size: 1.4em;
 }
 .search-wrap .-autocomplete-container {
   position: absolute;

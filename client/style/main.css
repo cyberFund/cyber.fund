@@ -293,5 +293,23 @@ body {
 }
 /* hide text to prevent seeing it ontop of tooltip */
 .radar-card .raised .with-tooltip:hover strong {
-    display: none;
+  display: none;
+}
+/* cssfix for mobile menus*/
+.mobile-logo{
+  max-height: 33px;
+  width: 179px;
+  margin-top: 14px;
+}
+.side-nav a {
+  font-size: 1.4rem;
+}
+.mobile-logo-center{
+  max-width: 186px;
+  margin-top: 8px;
+}
+nav .button-collapse i {
+    font-size: 3rem;
+    margin-left: 18px;
+    color: red;
 }
