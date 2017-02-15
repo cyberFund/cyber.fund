@@ -317,6 +317,7 @@ nav .button-collapse i {
     font-family: Trebuchet MS;
     font-weight: bold;
     margin-top: 19px;
+    font-size: 2.8rem;
 }
 .text-logo-mobile{
     font-family: Trebuchet MS;
@@ -331,9 +332,19 @@ nav .button-collapse i {
     font-size: 48px;
 }
 /*fonts*/
+h2 {
+    font-size: 3.4rem;
+  }
 h5 {
     font-size: 1.4rem;
 }
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
   }
+/*main page buttons*/
+.mpbtn {
+  margin-bottom: 24px;
+}
+.mredtxt {
+    font-size: 1.24rem;
+}
