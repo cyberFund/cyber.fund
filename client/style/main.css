@@ -295,7 +295,7 @@ body {
 .radar-card .raised .with-tooltip:hover strong {
   display: none;
 }
-/* cssfix for mobile menus*/
+/*fix for mobile menus*/
 .mobile-logo{
   max-height: 33px;
   width: 179px;
@@ -313,3 +313,27 @@ nav .button-collapse i {
     margin-left: 18px;
     color: red;
 }
+.text-logo{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 19px;
+}
+.text-logo-mobile{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 24px;
+    font-size: 30px;
+}
+.text-logo-footer{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 48px;
+}
+/*fonts*/
+h5 {
+    font-size: 1.4rem;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }

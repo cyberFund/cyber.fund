@@ -26,13 +26,12 @@ nav .brand-logo {
 input.search-input {
   border: 0;
   display: inline;
-  height: 1rem;
   line-height: 1rem;
   width: 8em;
 }
 input.search-input.at-navbar{
   vertical-align: middle;
-  font-size: 1.4em;
+  font-size: 14px;
 }
 .search-wrap .-autocomplete-container {
   position: absolute;
