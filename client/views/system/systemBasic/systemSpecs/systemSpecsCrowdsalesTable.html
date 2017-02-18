@@ -3,53 +3,52 @@
     {{#if and (isObject (crowdsales)) (not (isEmpty (crowdsales))) }}
     <div class="col offset-l3 l6 offset-m1 m10 s12">
       <h3 class="center"> Crowdsale </h3>
-      <table>
+      <table class="width_1_2 nowrap">
         <thead>
           <tr>
             <th> - Key - </th>
             <th> - Value - </th>
-
           </tr>
         </thead>
 
         <tbody>
           <tr>
-            <td>Start Date</td>
-            <td>{{formatDate crowdsales.start_date}}</td>
+            <td class="width_1_2">Start Date</td>
+            <td class="width_1_2">{{formatDate crowdsales.start_date}}</td>
           </tr>
           <tr>
             <td>End Date</td>
             <td>{{formatDate crowdsales.end_date}}</td>
           </tr>
 
-
-
-
           <tr>
             <td>Escrow Addresses</td>
             <td>{{> escrowAddressesList crowdsales}}</td>
           </tr>
+
           <tr>
             <td>Funding Terms</td>
-            <td>{{ crowdsales.funding_terms}}</td>
+            <td><a href="{{crowdsales.funding_terms}}">{{crowdsales.funding_terms}}</a>
+            </td>
           </tr>
           <tr>
             <td>Funding URL</td>
-            <td>{{ crowdsales.funding_url }}</td>
-          </tr>
-          <tr>
-            <td>Tokens Sold</td>
-            <td>{{ crowdsales.tokens_sold }}</td>
+            <td><a href="{{crowdsales.funding_url}}">{{crowdsales.funding_url}}</a></td>
           </tr>
 
           <tr>
+            <td>Tokens Sold</td>
+            <td>{{readableN0 crowdsales.tokens_sold }}</td>
+          </tr>
+          <tr>
             <td>Tokens Issued</td>
-            <td>{{ crowdsales.tokens_issued }}</td>
+            <td>{{readableN0 crowdsales.tokens_issued }}</td>
           </tr>
           <tr>
             <td>BTC Raised</td>
-            <td>{{ crowdsales.btc_raised }}</td>
+            <td>{{readableN1 crowdsales.btc_raised }}</td>
           </tr>
+
         </tbody>
       </table>
     </div>
