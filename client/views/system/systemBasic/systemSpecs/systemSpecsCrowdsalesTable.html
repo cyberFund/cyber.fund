@@ -1,0 +1,59 @@
+<Template name="systemSpecsCrowdsalesTable">
+  <div id="specs-crowdsales-table" class="row center scrollspy  striped">
+    {{#if and (isObject (crowdsales)) (not (isEmpty (crowdsales))) }}
+    <div class="col offset-l3 l6 offset-m1 m10 s12">
+      <h3 class="center"> Crowdsale </h3>
+      <table>
+        <thead>
+          <tr>
+            <th> - Key - </th>
+            <th> - Value - </th>
+
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Start Date</td>
+            <td>{{formatDate crowdsales.start_date}}</td>
+          </tr>
+          <tr>
+            <td>End Date</td>
+            <td>{{formatDate crowdsales.end_date}}</td>
+          </tr>
+
+
+
+
+          <tr>
+            <td>Escrow Addresses</td>
+            <td>{{> escrowAddressesList crowdsales}}</td>
+          </tr>
+          <tr>
+            <td>Funding Terms</td>
+            <td>{{ crowdsales.funding_terms}}</td>
+          </tr>
+          <tr>
+            <td>Funding URL</td>
+            <td>{{ crowdsales.funding_url }}</td>
+          </tr>
+          <tr>
+            <td>Tokens Sold</td>
+            <td>{{ crowdsales.tokens_sold }}</td>
+          </tr>
+
+          <tr>
+            <td>Tokens Issued</td>
+            <td>{{ crowdsales.tokens_issued }}</td>
+          </tr>
+          <tr>
+            <td>BTC Raised</td>
+            <td>{{ crowdsales.btc_raised }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {{/if}}
+    <div class="col l3 m1 hide-"></div>
+  </div>
+</Template>

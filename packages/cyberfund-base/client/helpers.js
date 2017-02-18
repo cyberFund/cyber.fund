@@ -29,7 +29,7 @@ function group3decimal(input, sep) {
 
 function escapeNaN(formatter){
   return function(value){
-    return isNaN(value) ? "" : formatter(value);
+    return isNaN(value) ? "_#_" : formatter(value);
   };
 }
 
@@ -62,14 +62,17 @@ var helpers = {
   or: function (value1, value2) {
     return value1 || value2;
   },
-  contains: function (list, value) {
+
+  contains: function (list, value) { // if given list contains given value or not
     return _.contains(list, value);
   },
-  slice: function (list, start, end) {
+
+  slice: function (list, start, end) { // apply javascript array 'slice' operation
     list = list || [];
 
     return list.slice(start, end);
   },
+
   keyValue: function (context) {
     return _.map(context, function (value, key) {
       return {
@@ -85,7 +88,7 @@ var helpers = {
   dif: function (v1, v2) {
     return parseInt(v1) - parseInt(v2);
   },
-  cfRatingRound: function(v) {
+  mathCeil: function(v) {
     return Math.ceil(v);
   },
   session: function (key) {

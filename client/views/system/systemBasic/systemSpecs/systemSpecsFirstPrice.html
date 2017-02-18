@@ -1,0 +1,27 @@
+<Template name="systemSpecsFirstPrice">
+  <div id="specs-basic" class="row center scrollspy  striped">
+    {{#if and (isObject (first_price)) (not (isEmpty (first_price))) }}
+    <div class="col offset-l3 l6 offset-m1 m10 s12">
+      <h3 class="center">First Price</h3>
+      <table>
+        <thead>
+          <tr>
+            <th data-field="date">Date</th>
+            <th data-field="price">Price, BTC</th>
+            <th data-field="price_usd">Price, USD</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>{{formatDate first_price.date}}</td>
+            <td>{{first_price.btc}}</td>
+            <td>{{first_price.usd}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {{/if}}
+    <div class="col l3 m1 hide-"></div>
+  </div>
+</Template>
