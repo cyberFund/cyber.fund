@@ -3,7 +3,7 @@
     {{#if and (isObject (crowdsales)) (not (isEmpty (crowdsales))) }}
     <div class="col offset-l3 l6 offset-m1 m10 s12">
       <h3 class="center"> Crowdsale </h3>
-      <table class="width_1_2 nowrap">
+      <table class="nowrap">
         <thead>
           <tr>
             <th> Property </th>
@@ -13,8 +13,8 @@
 
         <tbody>
           <tr>
-            <td class="width_1_2">Start Date</td>
-            <td class="width_1_2">{{dateFormat crowdsales.start_date 'LL[,]dddd'}}</td>
+            <td >Start Date</td>
+            <td>{{dateFormat crowdsales.start_date 'LL[,]dddd'}}</td>
           </tr>
           <tr>
             <td>End Date</td>
