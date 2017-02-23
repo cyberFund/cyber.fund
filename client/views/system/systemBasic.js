@@ -33,10 +33,12 @@ Template["systemBasic"].onCreated(function() {
 });
 
 Meteor.startup(function() {
-  CF.keenflag = new ReactiveVar();
-  Keen.ready(function() {
-    CF.keenflag.set(true);
-  });
+  if (Keen) {
+    CF.keenflag = new ReactiveVar();
+    Keen.ready(function() {
+      CF.keenflag.set(true);
+    });
+  }
 });
 
 Template["systemBasic"].rendered =function() {
