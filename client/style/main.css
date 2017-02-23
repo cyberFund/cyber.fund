@@ -13,6 +13,7 @@ html {
 nav ul a,
 nav .brand-logo {
   color: #444;
+  font-weight: bold;
 }
 
 .logo-sys {
@@ -292,5 +293,58 @@ body {
 }
 /* hide text to prevent seeing it ontop of tooltip */
 .radar-card .raised .with-tooltip:hover strong {
-    display: none;
+  display: none;
+}
+/*fix for mobile menus*/
+.mobile-logo{
+  max-height: 33px;
+  width: 179px;
+  margin-top: 14px;
+}
+.side-nav a {
+  font-size: 1.4rem;
+}
+.mobile-logo-center{
+  max-width: 186px;
+  margin-top: 8px;
+}
+nav .button-collapse i {
+    font-size: 3rem;
+    margin-left: 18px;
+    color: red;
+}
+.text-logo{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 19px;
+    font-size: 2.8rem;
+}
+.text-logo-mobile{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 24px;
+    font-size: 30px;
+}
+.text-logo-footer{
+    font-family: Trebuchet MS;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 48px;
+}
+/*fonts*/
+h2 {
+    font-size: 3.4rem;
+  }
+h5 {
+    font-size: 1.4rem;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
+/*main page buttons*/
+.mpbtn {
+  margin-bottom: 24px;
+}
+.mredtxt {
+    font-size: 1.24rem;
 }

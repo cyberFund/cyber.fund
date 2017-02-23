@@ -1,9 +1,7 @@
 <!-- originally created for cyber.fund project-->
 <template name="navbar">
-
   <div class="navbar-fixed z-depth-1">
     <nav class="white" role="navigation">
-
         <div class="nav-wrapper w95">
           {{> longLogo}}
           {{> tallLogo}}
@@ -11,29 +9,32 @@
           {{> navbarItem path="/radar" text="Crowdsales"}}
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/funds" text="Funds"}}
-          <li class="search-wrap" style="height: 64px; display: inline">
-              {{> searchItem1}}
+          <li class="waves-effect">
+            <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a>
           </li>
         </ul>
-
         <ul class="right hide-on-med-and-down">
-          <li class="waves-effect">
-            <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a></li>
+            <li class="search-wrap" style="height: 64px; display: inline">
+              {{> searchItem1}}
+          </li>
           <li>{{> btcPriceSimple class="w9em black-text center" loadingWidget="loadingWidget"}}</li>
           <li class="{{#if not currentUser}}waves-effect{{/if}} {{isActiveOwnProfile}}">
             {{> userDropdown}}
           </li>
         </ul>
-
         <div class="w5em right hide-on-large-only lh12em" style="padding-top: 1.2em">
           {{> btcPriceSimple class="black-text" loadingWidget="loadingWidget"}}
         </div>
-
         <ul id="nav-mobile" style="left: -250px" class="side-nav">
           <li class="waves-effect" >
-              <a href="https://cyber.fund"><img style="max-height: 32px; margin-top: 12px; " src="https://cyber.fund/images/cyberFund.svg" /></a>
+            <a href="https://cyber.fund">
+              <p class="black-text text-logo-mobile">cyber<span class="red-text">●</span>Fund</p>
+            </a>
           </li>
-          <li class="search-wrap" style="height: 64px;">
+          <li class="waves-effect {{isActiveOwnProfile}}">
+            {{> userDropdown}}
+          </li>
+          <li class="search-wrap">
               {{> searchItem1}}
           </li>
           {{> navbarItem path="/radar" text="Crowdsales"}}
@@ -41,14 +42,8 @@
           {{> navbarItem path="/funds" text="Funds"}}
           <li>
             <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a></li>
-
-          <li class="waves-effect {{isActiveOwnProfile}}">
-            {{> userDropdown}}
-          </li>
-
         </ul>
-
-        <a href="#" data-activates="nav-mobile" class="button-collapse" style="display: block"><i class="mdi-navigation-menu">
+        <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu">
         </i></a>
         </div>
     </nav>

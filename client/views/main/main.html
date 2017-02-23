@@ -13,7 +13,7 @@
                   <p>
                   Key indicator that shows long term profitability of investment.
                   We use monthly calculation in opposite to annual in traditional
-                  finance as blockchain markets are faster than tradational thus
+                  finance as blockchain markets are faster than traditional thus
                   should be evaulated more frequently</p>
                 {{/ tooltip}} {{/ withTooltip}}
             </th>
@@ -40,7 +40,6 @@
 
             </th>
           </thead>
-
           <!-- 5 top rated systems-->
           {{#each systems}}
           <tr class="">
@@ -69,7 +68,6 @@
       </table>
     </div>
 </template>
-
 <template name="mainPageCrowdasalesWidget">
     <h5><a href="/radar">Active Crowdsales</a></h5>
     <br />
@@ -77,7 +75,6 @@
       {{> cgLinkToSystemCardCrowdsale this }}
     {{/each}}
 </template>
-
 <template name="main">
     <style>
       @media only screen and (max-width: 600px) {
@@ -88,21 +85,17 @@
       }
     </style>
     <div class="row center-align">
-        <div class="">
-            <br>
+        <div>
             <h2>Blockchains Grow Here</h2>
-            <br>
-            <h5>{{usersCount}} people are ready to invest in {{coinsCount}} groundbreaking systems</h5>
+                  <div class="col s12 m12 mpbtn">
+        <a style="margin-right: 28px" class="blue waves-effect waves-light btn" href="/rating">Start Investing</a>
+        <a class="green waves-effect waves-light btn" href="/listing">Attract Investments</a>
+      </div>
+            <h6 class="red-text mredtxt">{{usersCount}} people are ready to invest in {{coinsCount}} groundbreaking systems</h6>
         </div>
     </div>
     {{> mainPageSystemsWidget}}
-    <br>
-    <br>
     <div class="row center-align" id="top5-links">
-      <div class="col s12 m12">
-        <a style="margin-right: 10px" class="blue waves-effect waves-light btn" href="/rating">Start Investing</a>
-        <a class="green waves-effect waves-light btn" href="/listing">Attract Investments</a>
-      </div>
     </div>
     <br>
     <div class="row center-align _flexbox">
@@ -123,7 +116,6 @@
                 <p>
                     <span class="enlarge">Ƀ&nbsp;{{readableN0 capBtc}}</span>
                     <br> {{#if capBtcDailyChange}}
-
                     <span class="{{greenRedNumber capBtcDailyChange}}">
             {{percentsToTextUpDown capBtcDailyChange 4}}</span> {{else}}&nbsp; {{/if}}
                 </p>
@@ -135,7 +127,6 @@
               {{! > fiatSelector}}
             </div>
         </div>
-
         <div class="col s6 m6 l4 center valign" style="padding:10px">
             {{> mainPageCrowdasalesWidget}}
         </div>
