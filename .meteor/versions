@@ -67,8 +67,6 @@ logging@1.0.12
 materialize:materialize@0.97.0
 meteor@1.1.14
 meteor-base@1.0.4
-meteorhacks:kadira@2.28.5
-meteorhacks:meteorx@1.4.1
 meteorhacks:picker@1.0.3
 meteorhacks:subs-manager@1.6.4
 mfpierre:chartist-js@1.6.1
@@ -83,7 +81,6 @@ modules-runtime@0.6.3
 momentjs:moment@2.13.1
 mongo@1.1.7
 mongo-id@1.0.4
-mongo-livedata@1.0.12
 mquandalle:bower@1.5.2_1
 mrt:isolate-value@2.0.2
 npm-container@1.2.0

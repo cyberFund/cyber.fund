@@ -1,4 +1,5 @@
-var cfCDs = CF.CurrentData .selectors;
+import cfCDs from '../../../imports/currentData/selectors'
+
 // recalculate raised amount crutch
 var print = false ? CF.Utils.logger.print : function() {}
 Meteor.startup(function(){
@@ -38,8 +39,20 @@ function updateCrowdsales() {
           if (_.isArray(addr)) {
             var raised = {};
             _.each(addr, function(address) {
-              var balances = CF.Accounts.quantumCheck(address); //TODO: use imports here.
-              if (!balances || balances[0] == 'error') return;
+              var balances = CF.Accounts.quantumCheck(address);
+              console.log('---')
+              console.log(balances)
+              console.log(address)
+              console.log('...')
+              console.log('')
+               //TODO: use imports here.
+              if (!balances || balances[0] == 'error') {
+                console.log("error")
+                console.log("address + CF.Accounts.quantumCheck(address)")
+                console.log("results in ")
+                console.log("balances")
+                return;
+              }
               _.each(balances, function(b) {
                 if (b.quantity && b.asset) {
                   var val = typeof b.quantity == 'number' ? b.quantity : parseFloat(b.quantity);
@@ -48,6 +61,7 @@ function updateCrowdsales() {
                 }
               })
             });
+            console.log('---', raised, '...');
             var sum = 0;
             var date = new Date();
             _.each(raised, function(v, k) {

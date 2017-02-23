@@ -1,6 +1,5 @@
 import {cfIsAccountHidden} from '/imports/api/cfAccount'
-
-var cfCDs = CF.CurrentData.selectors;
+import cfCDs from '../../../../imports/currentData/selectors'
 var ns = CF.UserAssets;
 
 

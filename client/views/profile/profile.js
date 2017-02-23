@@ -1,4 +1,4 @@
-var cfCDs = CF.CurrentData .selectors;
+import cfCDs from '../../../imports/currentData/selectors'
 
 Template['profile'].onCreated(function() {
   var instance = this;
