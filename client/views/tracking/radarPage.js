@@ -1,4 +1,4 @@
-import cfCDs from '../../../imports/currentData/selectors'
+import cfCDs from '/imports/currentData/selectors'
 
 Template['radarPage'].onCreated(function() {
   var self = this;

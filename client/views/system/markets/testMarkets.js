@@ -1,9 +1,9 @@
 const ROWS_SHORT = 20
-const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
-const fiats = require("../../../../imports/vwap/marketsList").fiats
-const flatten = require("../../../../imports/elastic/traverseAggregations").flatten
-const collections = require("../../../../imports/vwap/collections")
-const selectors = require("../../../../imports/vwap/selectors")
+const markets = require("/imports/vwap/marketsList").xchangeMarkets
+const fiats = require("/imports/vwap/marketsList").fiats
+const flatten = require("/imports/elastic/traverseAggregations").flatten
+const collections = require("/imports/vwap/collections")
+const selectors = require("/imports/vwap/selectors")
 const feedsCurrent = collections.feedsCurrent
 const feedsVwapCurrent = collections.feedsVwapCurrent
 
@@ -16,7 +16,7 @@ CF.test.printPairsWeighted = function(){
   console.log(feedsVwapCurrent.find().fetch())
 }
 
-import {default as weightedPriceNative} from '../../../../imports/vwap/weightedPriceNative'
+import {default as weightedPriceNative} from '/imports/vwap/weightedPriceNative'
 
 
 

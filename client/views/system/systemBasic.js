@@ -1,4 +1,4 @@
-import cfCDs from '../../../imports/currentData/selectors'
+import cfCDs from '/imports/currentData/selectors'
 
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
