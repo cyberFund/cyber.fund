@@ -1,4 +1,6 @@
-var cfCDs = CF.CurrentData .selectors;
+
+import cfCDs from '../imports/currentData/selectors'
+//var cfCDs = CF.CurrentData .selectors;
 /**
  * currentData, just fields enough to draw rating table..
  */

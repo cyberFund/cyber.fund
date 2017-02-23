@@ -1,5 +1,8 @@
 nav .btc-price-widget, .btc-price-widget {
-  display: inline;
-  text-align: center;
-  justify-content: center;
+    display: inline;
+    text-align: center;
+    margin-right: 17px;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: 3px;
 }

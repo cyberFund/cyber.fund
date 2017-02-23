@@ -47,11 +47,11 @@
                             left</strong>
                     </div>
                     <div class="right raised">
-                        {{#if raised}}
+                        {{#if _raised}}
                             <!-- if raised equals -1 show "Non-compliant" text with explanation tooltip -->
-                            {{#if neq -1 raised}}
+                            {{#if neq -1 _raised}}
                                 <strong>Currently raised: </strong>
-                                {{readableN1 raised}} Ƀ
+                                {{readableN1 _raised}} Ƀ
                             {{else}}
                              {{# withTooltip}}
                                 <strong class="red-text">Non-compliant</strong>

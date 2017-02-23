@@ -9,7 +9,7 @@ Template["radarCard"].helpers({
   name_: function () { //TODO: move to global helpers ?
     return Blaze._globalHelpers._toUnderscores(this._id);
   },
-  raised: function() {
+  _raised: function() {
     // if crowdsale is raising money through non mainstream way,
     // return -1 to display "non compliant message"
     if (!this.crowdsales.genesis_address) return -1

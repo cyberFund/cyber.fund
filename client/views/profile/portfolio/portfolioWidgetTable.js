@@ -1,4 +1,4 @@
-var cfCDs = CF.CurrentData .selectors;
+import cfCDs from '../../../../imports/currentData/selectors'
 var ns = CF.UserAssets;
 
 var tableData = CF.Accounts.portfolioTableData;

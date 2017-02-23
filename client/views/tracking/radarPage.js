@@ -1,4 +1,4 @@
-var cfCDs = CF.CurrentData .selectors;
+import cfCDs from '../../../../imports/currentData/selectors'
 
 Template['radarPage'].onCreated(function() {
   var self = this;
