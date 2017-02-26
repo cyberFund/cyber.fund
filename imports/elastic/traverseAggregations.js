@@ -1,3 +1,4 @@
+import winston from 'winston'
 //buckethead
 
 //  == Elasticsearch related feature
@@ -39,9 +40,15 @@
 //     return []
 // }
 
+const print = function(label, value, dense){
+  winston.log('info', "esFlatten " + label)
+  winston.log('log', value)
+}
+const print_ = function(label, value){
+  winston.log('info', label, value);
+}
+
 function flattenAggregations(resultObject, keysIn){
-  const print = CF.Utils.logger.getLogger("esFlatten").print
-  const print_ = CF.Utils.logger.print;
   let keys = keysIn.slice();
   print ("running with keys", keys, true);
   let lengths = [];

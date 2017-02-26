@@ -1,5 +1,8 @@
+import { Template } from 'meteor/templating';
+import './cgLink.html';
+
 Template['cgLink'].rendered = function () {
-  
+
 };
 
 Template['cgLink'].helpers({

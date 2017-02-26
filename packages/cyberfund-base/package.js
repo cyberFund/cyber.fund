@@ -19,7 +19,7 @@ Package.onUse(function(api) {
   api.use(["underscore", "accounts-base", "d3js:d3"], cs);
   api.use(["templating"], c);
   api.addFiles(['cyberfund-base.js', 'cf-user.js', 'cf-utils.js'], cs);
-  api.addFiles(['server/utils-server.js', 'server/assetsCryptoBalance.js',
+  api.addFiles(['server/assetsCryptoBalance.js',
   'server/cf-social-server.js'], s);
   api.addFiles(['client/utils-client.js', 'client/helpers.js'], c);
   api.export("CF");

@@ -1,3 +1,4 @@
+import _session from '/imports/api/client/cfUtils/_session'
 var initialLimit = CF.Rating.limit0;
 
 Template["trackingWidget"].onCreated(function () {
@@ -6,11 +7,11 @@ Template["trackingWidget"].onCreated(function () {
   instance.ready = new ReactiveVar();
   instance.autorun(function () {
     var selector = {"flags.rating_do_not_display": {$ne: true}};
-    if (_.keys(CF.Utils._session.get("coinSorter")).length )
-      selector[ _.keys(CF.Utils._session.get("coinSorter"))[0] ] = {$exists: true};
+    if (_.keys(_session.get("coinSorter")).length )
+      selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
     var handle = CF.SubsMan.subscribe("currentDataRP", {
       /*limit: 150,//Session.get('ratingPageLimit'),
-      sort: CF.Utils._session.get('coinSorter'),*/
+      sort: _session.get('coinSorter'),*/
       selector: selector
     });
     instance.ready.set(instance.ready.get() || handle.ready());
@@ -87,7 +88,7 @@ Template["trackingWidget"].helpers({
     return this.first_price || {  };
   },
   rows: function () {
-    var sort = CF.Utils._session.get("coinSorter");
+    var sort = _session.get("coinSorter");
     return CurrentData.find({}, {sort: sort}).fetch();
   },
   symbol: function () {

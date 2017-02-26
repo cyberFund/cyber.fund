@@ -1,6 +1,7 @@
 var initialLimit = CF.Rating.limit0;
 
 import tableSelector from '/imports/api/rating/daily/tableSelector'
+import _session from '/imports/api/client/cfUtils/_session'
 
 var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;
@@ -8,7 +9,7 @@ var getKeyBySorter = CF.Rating.getKeyBySorter;
 Template["ratingTable"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
   if (sort) {
-    CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
+    _session.set ("coinSorter", getSorterByKey(sort));
   }
 
   Session.set("ratingPageLimit", initialLimit);
@@ -25,7 +26,7 @@ Template["ratingTable"].onCreated(function() {
   });
 
   instance.autorun(function() {
-    var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
+    var key = getKeyBySorter(_session.get("coinSorter"));
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
@@ -72,7 +73,7 @@ Template["ratingTable"].onRendered (function() {
 
 Template["ratingTable"].helpers({
   rows: function() {
-    var sort = CF.Utils._session.get("coinSorter");
+    var sort = _session.get("coinSorter");
     return CurrentData.find(tableSelector(), {
       sort: sort
     }).fetch();

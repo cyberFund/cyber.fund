@@ -1,11 +1,11 @@
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
+import winston from 'winston'
 import FastData from '/imports/api/fastData'
-
+import escapeRegExp from '/imports/api/server/escapeRegExp'
 
 //var currentData = {meta: {}};
 var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000
-var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
   // sym_sys is alike 'SYMBL|System'
@@ -58,11 +58,13 @@ JSON.unflatten = function(data) {
   return resultholder[""] || resultholder;
 };
 
-var print = CF.Utils.logger.print;
+var print = function(label, data){
+  winston.log('info', `label + ${data}`)
+}
 
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
-    logger.error(rejection);
+    winston.error(rejection);
   },
 
   latest_values: function parseLatestValues(today, yesterday, monthAgo) {
@@ -349,8 +351,8 @@ var esParsers = {
 
     handleArrayWithInterval(todayBuckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){
       if (notFounds.length) {
-        logger.warn("not found any currentData for ");
-        logger.warn(notFounds);
+        winston.warn("not found any currentData for ");
+        winston.warn(notFounds);
       }
     });
   },
@@ -377,7 +379,7 @@ var esParsers = {
           console.log(set);
         }
       } else {
-        // logger.info("no averages for " + bucket.key);
+        // winston.info("no averages for " + bucket.key);
       }
     };
     handleArrayWithInterval(buckets, process.env.ELASTIC_INTERVAL_DELAY || 0, handleBucket, function(items){});
@@ -395,7 +397,7 @@ var esParsers = {
 
     if (!result || !result.aggregations || !result.aggregations.by_system
       || !result.aggregations.by_system.buckets) {
-      this.errorLogger(result);
+      winston.error(result);
       return;
     }
 
@@ -491,8 +493,8 @@ function fetchLatest(params) {
     esParsers.latest_values(today, yesterday, monthAgo);
 
   } catch (e) {
-    logger.warn("could not fetch latest values");
-    logger.warn(e);
+    winston.warn("could not fetch latest values");
+    winston.warn(e);
     return e;
   }
 }
@@ -505,8 +507,8 @@ function fetchAverage15m(params) {
     console.log(" received response to query 'averages_last_15m' after "+ n.diff(d, "milliseconds")+" milliseconds");
     esParsers.averages_l15(result);
   } catch (e) {
-    logger.warn("could not fetch latest_!5m_averages");
-    logger.warn(e);
+    winston.warn("could not fetch latest_!5m_averages");
+    winston.warn(e);
     throw (e);
   }
 }
@@ -631,13 +633,13 @@ Meteor.methods({
           }
         });
       } catch (e) { // if something went wrong - just do not set flag
-        logger.warn("couinld not fetch average_values_date_histogram hourly");
-        logger.warn(e);
+        winston.warn("couinld not fetch average_values_date_histogram hourly");
+        winston.warn(e);
         return;
       }
     } catch (e) {
-      logger.warn("couinld not fetch average_values_date_histogram daily");
-      logger.warn(e);
+      winston.warn("couinld not fetch average_values_date_histogram daily");
+      winston.warn(e);
       return; // just do not set flag if something went wrong
     }
   }

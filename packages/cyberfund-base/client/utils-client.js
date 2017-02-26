@@ -65,24 +65,11 @@ CF.Utils.monetaryFormatter = function(input) {
   return formatter(value) + postfix;
 };
 
-CF.Utils.SessionVariable = function(key) {
-  if (!key) throw ("no key provided for SessionVariable constructor");
-  var me = this;
-  this._sessname = key;
+//CF.Utils.SessionVariable =
 
-  this.get = function() {
-    return Session.get(me._sessname);
-  };
-  this.set = function(v) {
-    Session.set(me._sessname, v);
-  };
-};
-// provides memoizing of session values. depends on 'amplify' script/package
-// simply use CF.Utils._session instead of Session to store global things, like
-// sorting preference etc
 
 // using session as it already reactive. and storing changes via amplify
-CF.Utils._session = {
+_session = {
   _prefixKey: "Session|",
 
   /**
@@ -90,18 +77,21 @@ CF.Utils._session = {
    * @param key
    */
   get: function(key) {
-    ret = amplify.store(CF.Utils._session._prefixKey + key);
+    const _session = this;
+    ret = amplify.store(_session._prefixKey + key);
     if (Session.get(key) != ret) Session.set(key, ret);
     return ret;
   },
 
   set: function(key, value) {
-    amplify.store(CF.Utils._session._prefixKey + key, value);
+    const _session = this;
+    amplify.store(_session._prefixKey + key, value);
     Session.set(key, value);
   },
 
   default: function(key, value) {
-    if (CF.Utils._session.get(key) == undefined) CF.Utils._session.set(key, value);
+    const _session = this;
+    if (_session.get(key) == undefined) _session.set(key, value);
   }
 };
 

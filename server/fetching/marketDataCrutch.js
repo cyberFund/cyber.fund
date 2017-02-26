@@ -1,4 +1,4 @@
-import printError from '/imports/server/api/printError'
+import printError from '/imports/api/server/printError'
 const request = Npm.require("request");
 const config = {
   xcm: {

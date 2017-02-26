@@ -1,8 +1,7 @@
 // data array; function to handle single item; delay in ms.
 // suitable for small arrays, and when we re sure calls won't interfere one another
 // (i.e. call period > delay*array.length)
-
-const print = CF.Utils.logger.getLogger("handleArrayWithInterval").print
+import winston from 'winston'
 
 exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay, handler, handlerAfter){
 
@@ -17,7 +16,7 @@ exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay,
         --callbacksCount;
         callbacksAverage += callbacksCount/length;
         if (current === length) {
-          print("callbacksAverage", callbacksAverage)
+          winston.log('info', 'callbacksAverage ' + callbacksAverage)
         }
     }
 
@@ -30,7 +29,8 @@ exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay,
       } else {
         Meteor.clearInterval(interval);
         if (handlerAfter) handlerAfter(array, function(){
-          print("done pushing items to handler, handled items", current)
+          winston.log('info', "done pushing items to handler, handled items ")
+          winston.log('log', current )
         });
       }
     }, delay);

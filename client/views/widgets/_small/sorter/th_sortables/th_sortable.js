@@ -1,6 +1,7 @@
+import _session from '/imports/api/client/cfUtils/_session'
 Template["thSorter"].helpers({
   grok: function(sorting, field) {
-    var sorter = CF.Utils._session.get(sorting);
+    var sorter = _session.get(sorting);
     if (!_.isObject(sorter)) return "";
     if (sorter[field] == -1) return "↓ ";
     if (sorter[field] == 1) return "↑ ";
@@ -21,7 +22,7 @@ Template["thSortable"].events({
     // sorting key
     var newSorter = $e.attr("data-sorter");
     var tableId = $e.closest("table").attr("id");
-    var sort = CF.Utils._session.get(sortingMatter);
+    var sort = _session.get(sortingMatter);
 
     if (sort[newSorter]) {
       sort[newSorter] = -sort[newSorter];
@@ -34,6 +35,6 @@ Template["thSortable"].events({
       sort: sort
     });
 
-    CF.Utils._session.set(sortingMatter, sort);
+    _session.set(sortingMatter, sort);
   }
 });

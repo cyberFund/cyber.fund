@@ -1,5 +1,6 @@
+import logger from '/imports/logger'
 var url = Meteor.npmRequire('url');
-var print = CF.Utils.logger.print;
+var print = logger.print;
 var debug = false;
 
 /////////////////////  vending machine domain

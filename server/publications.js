@@ -1,4 +1,4 @@
-
+import logger from '/imports/logger'
 import cfCDs from '../imports/currentData/selectors'
 import FastData from '/imports/api/fastData'
 //var cfCDs = CF.CurrentData .selectors;
@@ -268,7 +268,7 @@ Meteor.publish("avatars", function(uidArray) {
 /*
   user profile by username or id
  */
-var print = CF.Utils.logger.print;
+var print = logger.print;
 Meteor.publish("userProfile", function(options){
   options = CF.Utils.normalizeOptionsPerUser(options);
   var uid = options.userId;

@@ -1,9 +1,10 @@
+import logger  from '/imports/logger'
 var ns = CF.CurrentData.calculatables;
 var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
 
-var print = CF.Utils.logger.print;
+var print = _logger.print;
 ns.lib.calcs.calcCS = function calcCS(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);

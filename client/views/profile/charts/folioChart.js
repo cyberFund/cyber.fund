@@ -5,6 +5,14 @@ CF.UserAssets.graph.minimalShare = 0.025;
 
 var ns = CF.UserAssets.graph;
 
+Math.sign = Math.sign || function(x) {
+  x = +x;
+  if (x === 0 || isNaN(x)) {
+    return x;
+  }
+  return x > 0 ? 1 : -1;
+};
+
 Template["folioChart"].onRendered(function() {
 
   var instance = this;

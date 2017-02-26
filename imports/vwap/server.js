@@ -1,7 +1,8 @@
+import winston from 'winston'
+import extractFromPromise from '/imports/api/server/extractFromPromise'
 const xchangeCurrent = require("./collections").feedsCurrent;
 const xchangeVwap = require("./collections").feedsVwapCurrent;
 const feedUrl = 'http://kong.cyber.fund/xcm'
-const print = CF.Utils.logger.getLogger("Xchange Feeds").print;
 
 
 import {default as weightedPriceNative} from './weightedPriceNative'
@@ -19,7 +20,7 @@ function fetchDirect() {
   var res = HTTP.get(feedUrl, {
     timeout: 10000
   }, function(err, res) {
-    if (err) print("Coukd not fetch", err, true)
+    if (err) winston.log('error', "Coukd not fetch", err, true)
     else {
       if (res.data && Array.isArray(res.data)) {
         res.data.forEach(function(it) {
@@ -36,7 +37,7 @@ function fetchDirect() {
 const flatten = require("../elastic/traverseAggregations").flatten
 
 const _fetchXchangeData = () => {
-  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+  const data = extractFromPromise(CF.ES.sendQuery ("xchangeData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
   else
@@ -44,7 +45,7 @@ const _fetchXchangeData = () => {
 }
 
 const _fetchXchangeVwapData = () => {
-  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
+  const data = extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'latest']);
   else
@@ -71,7 +72,7 @@ exports.fetchXchangeData = () => {
     it.volume = {native: item._source.volume}
     it.volume.btc = volumeBtc(it)
     it.last.btc = priceBtc(it);
-    
+
     xchangeCurrent.upsert({
       _id: _id, market: it.market, quote: it.quote, base: it.base
     }, {$set: it})

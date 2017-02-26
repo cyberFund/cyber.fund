@@ -1,10 +1,12 @@
+import winston from 'winston'
 // this file describes fetching of data from chaingear
 
 var sourceUrl = "https://static.cyber.fund/chaingear/full.json"; //"https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchTimeout = 15 * 1000;
 
-var logger = CF.Utils.logger.getLogger("fetching - chaingear : v.0.3");
-let print = logger.print;
+let print = function(label, value){
+  winston.log('info', `label + ${value}`)
+}
 //print("sourceUrl", sourceUrl)
 
 CF.fetching.cyberFund = {};
@@ -56,7 +58,7 @@ function flatten(obj) { //todo move to utils..
   return result;
 }
 var fetch = function() {
-  logger.info("Fetching data from cyberFund - chaingear");
+  winston.info("Fetching data from cyberFund - chaingear");
   try {
     var res = HTTP.call("HEAD", sourceUrl, {
       timeout: fetchTimeout
@@ -69,14 +71,14 @@ var fetch = function() {
     if (!res || !res.headers || !res.headers.etag) return;
     var debug = false;
     if (!previous || (previous.etag != res.headers.etag) || debug) {
-      logger.info("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
+      winston.info("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
 
       CF.fetching.get(sourceUrl, {
         timeout: fetchTimeout
       },
         function(error, getResult) {
           if (error) {
-            logger.error("Error while fetching cyberfund:", error);
+            winston.error("Error while fetching cyberfund:", error);
             return;
           }
 
@@ -86,7 +88,7 @@ var fetch = function() {
             system._id = system._id || system.system;
 
             if (!system.token) {
-              logger.info("no .token for system '" + system._id + "'");
+              winston.info("no .token for system '" + system._id + "'");
               return;
             }
 

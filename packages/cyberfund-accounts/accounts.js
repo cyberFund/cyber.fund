@@ -79,8 +79,6 @@ Meteor.startup(function() {
   ns.remove = ns.collection.remove;
 });
 
-var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger("CF.Accounts").print;
-
 var _k = CF.Utils._k;
 
 ns.collection.allow({
@@ -136,7 +134,9 @@ Meteor.methods({
     if (!this.userId) return {
       err: "no userid"
     };
-    print("in add account", obj);
+    analytics.track("tmp In Method cfAssetsAddAccount", {
+      isPublic: obj.isPublic
+    })
     check(obj, Match.ObjectIncluding({
       isPublic: Boolean,
       name: String
@@ -194,7 +194,11 @@ Meteor.methods({
 
 
     if (account.refId == this.userId) {
-      print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
+      analytics.track("Ordered Account Change", {
+        user: this.userId,
+        from: fromKey,
+        to: toKey
+      })
 
       CF.Accounts.collection.update({
         _id: accountKey

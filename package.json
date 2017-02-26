@@ -7,9 +7,12 @@
     "test": "tests"
   },
   "dependencies": {
+    "amplify": "0.0.11",
     "babel-runtime": "^6.9.0",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
+    "fibers": "^1.0.15",
+    "meteor-node-stubs": "^0.2.5",
     "ramda": "^0.21.0",
     "react": "^15.0.2",
     "react-addons-create-fragment": "^15.0.2",
@@ -22,7 +25,8 @@
     "react-addons-update": "^15.0.2",
     "react-dom": "^15.0.2",
     "request": "^2.79.0",
-    "unirest": "^0.4.2"
+    "unirest": "^0.4.2",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "babel-preset-meteor": "^6.12.0"

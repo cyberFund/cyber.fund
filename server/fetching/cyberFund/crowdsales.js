@@ -1,12 +1,12 @@
+import logger  from '/imports/logger'
 import cfCDs from '../../../imports/currentData/selectors'
 
-// recalculate raised amount crutch
-var print = false ? CF.Utils.logger.print : function() {}
+var print = false ? _logger.print : function() {}
 Meteor.startup(function(){
 print (Meteor.settings);
 })
 
-
+// recalculate raised amount crutch
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
     $and: [cfCDs.crowdsales(), {

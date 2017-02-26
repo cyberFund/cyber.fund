@@ -1,5 +1,4 @@
 var _k = CF.Utils._k;
-var print = CF.Utils.logger.getLogger("CF.Accounts").print;
 var ns = CF.Accounts;
 
 ns.collection._ensureIndex({
@@ -75,7 +74,7 @@ Meteor.methods({
   cfAssetsUpdateBalances: function(options) {
     options = CF.Utils.normalizeOptionsPerUser(options);
 
-    print("cfAssetsUpdateBalances was called with options", options, true);
+    //print("cfAssetsUpdateBalances was called with options", options, true);
     options.refId = options.userId || this.userId;
     options.private = options.userId == this.userId;
     if (!options.userId && !options.accountKey) return {
@@ -162,7 +161,6 @@ ns.quantumCheck = function(address) {
   try {
     var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
     if (r.statusCode == 200) {
-      print("address", address);
       return transform(r.data);
     } else {
       return ["error", {
@@ -170,8 +168,6 @@ ns.quantumCheck = function(address) {
       }];
     }
   } catch (e) {
-    print("on checking address " + address + " quantum returned code ",
-      e.response && e.response.statusCode, true);
     return ["error", {
       statusCode: e.response && e.response.statusCode
     }];
@@ -191,11 +187,7 @@ ns._updateBalanceAddress = function(accountIn, address) {
     $unset: {}
   };
 
-  if (!account || !addressObj) {
-    print("no account or address object; account", account, true);
-    print("address", address);
-    return;
-  }
+  if (!account || !addressObj) return;
 
   var balances = ns.quantumCheck(address);
   if (balances[0] == "error") return;
@@ -244,7 +236,7 @@ ns._updateBalanceAccount = function(accountIn, options) {
     $unset: {}
   };
   var account = typeof accountIn === "string" ? CF.Accounts.collection.findOne({_id: accountIn}) : accountIn;
-  
+
   if (!account || !account.addresses) {
     print("no account or addresses on it", account, true);
   }

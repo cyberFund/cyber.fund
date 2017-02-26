@@ -4,11 +4,9 @@ var ns = CF.ES;
 var esLib = Npm.require("elasticsearch");
 
 const LAST = "price"
-const print = CF.Utils.logger.getLogger("DEBUG INFO").print
 
 Meteor.startup(function() {
   if (!ns._client) ns._client = ns._getClient();
-  print("meteor settings", Meteor.settings)
 });
 
 _.extend(CF.ES, {
@@ -293,8 +291,7 @@ _.extend(ns, {
             }
           }
         };
-        var print = CF.Utils.logger.print;
-        print("latest_values query", ret.body.query);
+        console.log("latest_values query", ret.body.query);
         if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
@@ -360,8 +357,8 @@ _.extend(ns, {
             }
           }
         };
-        var print = CF.Utils.logger.print;
-        print("vwap_data query", ret.body.query);
+
+        console.log("vwap_data query", ret.body.query);
         //if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
@@ -419,8 +416,7 @@ _.extend(ns, {
             }
           }
         };
-        var print = CF.Utils.logger.print;
-        print("vwap_data query", ret.body.query);
+        console.log("vwap_data query", ret.body.query);
         //if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
@@ -495,8 +491,7 @@ _.extend(ns, {
             }
           }
         };
-        var print = CF.Utils.logger.print;
-        print("vwap_data query", ret.body.query.bool);
+        console.log("vwap_data query", ret.body.query.bool);
         //if (params) return CF.ES.queries._parametrize(ret, params);
         return ret;
       }
@@ -579,8 +574,7 @@ _.extend(ns, {
             }
           }
         };
-        var print = CF.Utils.logger.print;
-        print("vwap_data query", ret.body.query.bool);
+        console.log("vwap_data query", ret.body.query.bool);
         return ret;
       }
     }

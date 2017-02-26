@@ -1,5 +1,6 @@
 var ns = CF.Accounts;
-ns.currentId = new CF.Utils.SessionVariable("cfAccountsCurrentId");
+import SessionVariable from '/imports/api/client/SessionVariable'
+ns.currentId = new SessionVariable("cfAccountsCurrentId");
 
 Template["assetsManager"].onRendered (function() {
   this.$renameAccountInput = this.$("#rename-account-in");
