@@ -1,8 +1,10 @@
+
 Meteor.startup(function() {
 
 	MarketData._ensureIndex({ timestamp: 1 });
 	// Neither name, nor symbol are unique, but their pair is.
 
+//
 	MarketData._ensureIndex({
 		systemId: 1,
 		timestamp: 1,
@@ -15,6 +17,7 @@ Meteor.startup(function() {
 
 	//CurrentData._ensureIndex({ name: 1, symbol: 1 });
 
+// obsolete schema
 	CurrentData._ensureIndex({
 		"_id": 1,
 		"token.symbol": 1
@@ -29,8 +32,7 @@ Meteor.startup(function() {
 		"username": 1
 	}, {unique: 1} )
 
-	FastData._ensureIndex({"timestamp": 1}, {expireAfterSeconds: 86400});
-	FastData._ensureIndex({"systemId": 1});
+
 	CurrentData._ensureIndex({"ratings.rating_cyber": 1, "metrics.cap.btc": 1});
 	CurrentData._ensureIndex({"metrics.supplyChangePercents.day": 1}, {sparse: true});
 	CurrentData._ensureIndex({"metrics.cap.btc": 1});

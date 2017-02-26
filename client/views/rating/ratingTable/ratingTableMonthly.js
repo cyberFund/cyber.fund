@@ -1,18 +1,6 @@
 var initialLimit = CF.Rating.limit0;
 
-function tableSelector() {
-  return {
-    "flags.rating_do_not_display": {
-      $ne: true
-    },
-    "calculatable.RATING.sum": {
-      $gte: 1
-    },
-    "metrics.tradeVolume": {
-      $gte: 0.2
-    }
-  };
-}
+import tableSelector from '/imports/api/rating/monthly/tableSelector'
 
 var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;

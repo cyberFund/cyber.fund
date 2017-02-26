@@ -1,4 +1,6 @@
+import FastData from '/imports/api/fastData'
 var ns = CF.Chartist;
+
 Template['dailyGraph'].rendered = function () {
 
   var self = this;
@@ -96,12 +98,12 @@ Template['dailyGraph'].rendered = function () {
 
 Template['dailyGraph'].helpers({
   'foo': function () {
-    
+
   }
 });
 
 Template['dailyGraph'].events({
   'click .bar': function (e, t) {
-    
+
   }
 });

@@ -21,6 +21,7 @@
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
     "react-dom": "^15.0.2",
+    "request": "^2.79.0",
     "unirest": "^0.4.2"
   },
   "devDependencies": {

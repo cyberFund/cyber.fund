@@ -1,5 +1,7 @@
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
+import FastData from '/imports/api/fastData'
+
 
 //var currentData = {meta: {}};
 var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000

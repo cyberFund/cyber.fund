@@ -14,10 +14,10 @@
 
     {{> systemBasicAbout this}} {{> systemBasicHeadline this}} {{> systemStarredBy this}}
 
-    {{#if cgIsActiveCrowdsale}}
+    {{#if cgIsActiveCrowdsale this}}
       {{> SystemActiveCrowdsaleCard this}}
     {{/if}}
-    {{#if cgIsUpcomingCrowdsale}}
+    {{#if cgIsUpcomingCrowdsale this}}
       {{> SystemUpcomingCrowdsaleCard}}
     {{/if}}
     <ul class="tabs">

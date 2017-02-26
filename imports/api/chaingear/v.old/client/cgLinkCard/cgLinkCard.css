@@ -1,0 +1,38 @@
+.cglinxbox {
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0.5em;
+}
+
+.cglinxbox .card {
+  margin-bottom: 0.5rem;
+}
+
+.cglinkcard {
+    display: inline-flex;
+    flex-direction: row;
+    vertical-align: middle;
+    min-height: 60px;
+    max-height: 100px;
+    /*padding: 10px 0;
+    margin: 2px 0;*/
+}
+.cglinkcard-icon {
+    height: 40px;
+    margin: auto;
+    margin-right: 0;
+    margin-left: 10px;
+/*    margin-right: -4px;
+    margin-left: 10px;
+
+
+    vertical-align: middle */
+}
+.cglinkcard-text {
+    vertical-align: middle;
+    margin: auto 1em;
+    /*margin-left: -10px;*/
+}

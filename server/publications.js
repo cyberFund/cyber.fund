@@ -1,5 +1,6 @@
 
 import cfCDs from '../imports/currentData/selectors'
+import FastData from '/imports/api/fastData'
 //var cfCDs = CF.CurrentData .selectors;
 /**
  * currentData, just fields enough to draw rating table..
@@ -170,6 +171,7 @@ Meteor.publish("dependentCoins", function(system) {
   provides data to draw daily chart
    - this currently is stored apart from CurrentData documents
  */
+ // obsoletes for sake of providedBy
 Meteor.publish("fastData", function(systemName) {
   var _id = CurrentData.findOne({
     _id: systemName
@@ -180,6 +182,19 @@ Meteor.publish("fastData", function(systemName) {
     systemId: _id
   });
 });
+
+Meteor.publish("fastDataProvidedBy", function(systemName, providerId) {
+  var _id = CurrentData.findOne({
+    _id: systemName
+  });
+  if (!_id) return this.ready();
+  if (!providerId) providerId = "2015"
+  return FastData.find({
+    systemId: _id,
+    source: providerId
+  });
+});
+
 
 /*
  provides details on coins   that current coin depends on . accepts

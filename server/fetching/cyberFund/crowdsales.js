@@ -48,9 +48,7 @@ function updateCrowdsales() {
                //TODO: use imports here.
               if (!balances || balances[0] == 'error') {
                 console.log("error")
-                console.log("address + CF.Accounts.quantumCheck(address)")
-                console.log("results in ")
-                console.log("balances")
+                console.log(`${address} + CF.Accounts.quantumCheck(address)`)
                 return;
               }
               _.each(balances, function(b) {

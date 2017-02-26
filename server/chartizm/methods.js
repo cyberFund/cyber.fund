@@ -1,4 +1,6 @@
-var day = 1000 * 60 * 60 * 24;
+import FastData from '/imports/api/fastData'
+const day = 1000 * 60 * 60 * 24
+
 Meteor.methods({
   fetchMarketData1: function(systemId){
     return MarketData.find({

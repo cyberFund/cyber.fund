@@ -2,9 +2,11 @@ Template['cgSystemLogo'].rendered = function () {
 
 };
 
+import {cgSystemLogoUrl} from '/imports/api/chaingear/v.old/client/cyberfund-chaingear-client'
+
 Template['cgSystemLogo'].helpers({
     img_url: function () {
-      return CF.Chaingear.helpers.cgSystemLogoUrl(this.system)
+      return cgSystemLogoUrl(this.system)
     }
 });
 
