@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 var removeAllOldHourlyData = function () {
   var weekAgo = moment.utc().subtract(7, 'days');
   var year = weekAgo.year();

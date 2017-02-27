@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 
 Meteor.startup(function() {
 

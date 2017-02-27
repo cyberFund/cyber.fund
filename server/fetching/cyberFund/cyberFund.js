@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import winston from 'winston'
 // this file describes fetching of data from chaingear
 

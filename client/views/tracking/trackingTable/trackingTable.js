@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import _session from '/imports/api/cfUtils/_session'
 var initialLimit = CF.Rating.limit0;
 

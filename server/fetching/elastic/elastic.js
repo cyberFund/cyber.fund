@@ -1,5 +1,6 @@
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
+import {CurrentData} from '/imports/api/collections'
 import winston from 'winston'
 import FastData from '/imports/api/server/fastData'
 import escapeRegExp from '/imports/api/server/escapeRegExp'

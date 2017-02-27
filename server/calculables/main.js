@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 setRatingPlaces = function(){
   var idx = 1;
   CurrentData.find({}, {sort: {"calculatable.RATING.sum": -1}}).forEach(function(it){

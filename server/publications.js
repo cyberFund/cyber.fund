@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import FastData from '/imports/api/server/fastData'
 import winston from 'winston'

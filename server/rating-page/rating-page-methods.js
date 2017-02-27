@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 Meteor.methods({
   // handles clicking on 'star'
   toggleStarSys: function (sys) {

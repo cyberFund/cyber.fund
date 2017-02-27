@@ -16,7 +16,6 @@ Package.onUse(function(api) {
   api.use(["coffeescript", "underscore"]);
   api.use(["templating"], "client");
   api.versionsFrom("1.1.0.2");
-  api.addFiles("cyberfund-currentdata.js");
   api.addFiles(["server/calculatables.coffee"], "server");
   api.addFiles(["client/helpers.js"], "client");
 });

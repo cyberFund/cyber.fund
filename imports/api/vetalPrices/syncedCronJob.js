@@ -1,4 +1,5 @@
 import prices from './collection'
+import {CurrentData} from '/imports/api/collections'
 
 function pushPrices() {
     CurrentData.find({

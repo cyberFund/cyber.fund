@@ -1,5 +1,7 @@
 import cfCDs from '/imports/api/currentData/selectors' //CF.CurrentData .selectors;
 import SessionVariable from '/imports/api/client/SessionVariable'
+import {CurrentData} from '/imports/api/collections'
+
 CF.Accounts.currentAddress = new SessionVariable("cfAccountsCurrentAddress");
 CF.Accounts.currentAsset = new SessionVariable("cfAccountsCurrentAsset");
 var isOwnAssets = function(){

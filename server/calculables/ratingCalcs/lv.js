@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 var ns = CF.CurrentData.calculatables;
 
 ns.lib.calcs.calcLV = function calcLV(system) {

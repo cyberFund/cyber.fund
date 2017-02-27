@@ -7,7 +7,7 @@ import selectors from '/imports/vwap/selectors'
 import {feedsCurrent, feedsVwapCurrent} from '/imports/vwap/collections'
 
 import {default as weightedPriceNative} from '/imports/vwap/weightedPriceNative'
-
+import {CurrentData} from '/imports/api/collections'
 
 
 // return name of currently picked fiat. as it s given by xchange

@@ -1,3 +1,5 @@
+import {CurrentData} from '/imports/api/collections'
+
 _.extend CF.CurrentData.calculatables,
   {
     ns: "CF.CurrentData.calculatables",
@@ -34,7 +36,7 @@ _.extend CF.CurrentData.calculatables,
       if _.isString selector
         selector = selector.split ','
         _.each selector, (item) -> item = item.trim()
-        selector = {_id: {$in: selector}} 
+        selector = {_id: {$in: selector}}
 
       # iterate over selector
       cursor = @getCursor selector

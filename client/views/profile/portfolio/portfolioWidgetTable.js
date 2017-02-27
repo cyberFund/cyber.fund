@@ -1,5 +1,7 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import _session from '/imports/api/cfUtils/_session'
+import {CurrentData} from '/imports/api/collections'
+
 var ns = CF.UserAssets;
 
 var tableData = CF.Accounts.portfolioTableData;

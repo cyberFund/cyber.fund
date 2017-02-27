@@ -1,12 +1,6 @@
-//#
+import {CurrentData} from '/imports/api/collections'
 
-
-Meteor.startup(function(){
-  //var p = CF.CurrentData.calculatable( CurrentData.findOne({_id: "Bitcoin"}) );
-  //console.log(p);
-})
-
-CF.CurrentData = {                // helpers related to collection CurrentData
+var cfCd = {                // helpers related to collection CurrentData
   calculatables: {                          // some field names, selectors etc
     fields: { "calculatable": 1 },
     fieldsExclude: {'calculatable': 0},
@@ -80,10 +74,10 @@ CF.CurrentData = {                // helpers related to collection CurrentData
   }
 };
 
-CF.CurrentData.getPricesByDoc = function getPricesByDoc(doc) {
+cfCd.getPricesByDoc = function getPricesByDoc(doc) {
   var ret = doc && doc.metrics && doc.metrics.price && doc.metrics.price;
   if (ret && ret.eth && !ret.btc){
-    var priceEth = CF.CurrentData.getPricesById('Ethereum');
+    var priceEth = cfCd.getPricesById('Ethereum');
     if (priceEth) {
       ret.btc = ret.eth * priceEth.btc || 0;
       ret.usd = ret.eth * priceEth.usd || 0;
@@ -92,7 +86,7 @@ CF.CurrentData.getPricesByDoc = function getPricesByDoc(doc) {
   return ret;
 }
 
-CF.CurrentData.getPricesById = function getPricesById(docId) {
+cfCd.getPricesById = function getPricesById(docId) {
   var doc = CurrentData.findOne({
     _id: docId
   }, {
@@ -100,5 +94,8 @@ CF.CurrentData.getPricesById = function getPricesById(docId) {
       "metrics.price": 1
     }
   });
-  return CF.CurrentData.getPricesByDoc(doc);
+  return cfCd.getPricesByDoc(doc);
 }
+
+
+export default cfCd

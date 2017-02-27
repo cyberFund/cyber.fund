@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 var initialLimit = CF.Rating.limit0;
 
 import tableSelector from '/imports/api/rating/monthly/tableSelector'

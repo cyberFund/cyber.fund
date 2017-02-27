@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 function _cap() {
   return Extras.findOne({
     _id: "total_cap"
