@@ -1,4 +1,4 @@
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 var initialLimit = CF.Rating.limit0;
 
 Template["trackingWidget"].onCreated(function () {

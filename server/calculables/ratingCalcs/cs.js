@@ -1,10 +1,12 @@
-import logger  from '/imports/logger'
+import winston from 'winston'
 var ns = CF.CurrentData.calculatables;
 var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
 
-var print = _logger.print;
+var print = function(label, value){
+  winston.log(label, `${value}`)
+}
 ns.lib.calcs.calcCS = function calcCS(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);

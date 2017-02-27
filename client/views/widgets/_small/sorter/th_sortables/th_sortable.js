@@ -1,4 +1,4 @@
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 Template["thSorter"].helpers({
   grok: function(sorting, field) {
     var sorter = _session.get(sorting);

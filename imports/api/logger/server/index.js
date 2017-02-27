@@ -1,5 +1,4 @@
 "use strict";
-import winston from 'winston'
 import util from ('util')
 
 var ansi = {
@@ -25,15 +24,4 @@ var ansi = {
   "bg_magenta": "\x1B[45m",
   "bg_cyan": "\x1B[46m",
   "bg_white": "\x1B[47m"
-}
-
-_.extend(CF.Utils, {
-
-
-  logger: logger,
-});
-
-export default {
-  logger: logger,
-//  getLogger: Logger
 }

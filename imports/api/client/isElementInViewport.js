@@ -1,4 +1,4 @@
-function isElementInViewport (el) { //stackoverflow
+export default isElementInViewport (el) { //stackoverflow
 
   //special bonus for those using jQuery
   if (typeof jQuery === "function" && el instanceof jQuery) {
@@ -14,9 +14,3 @@ function isElementInViewport (el) { //stackoverflow
     rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
   );
 }
-
-if (!CF._devTools)
-  CF._devTools = {
-    isElementInViewport: isElementInViewport
-  }
-else CF._devTools.isElementInViewport = isElementInViewport

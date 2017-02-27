@@ -1,6 +1,9 @@
-import logger from '/imports/logger'
+import winston from 'winston'
+function print(label, value){
+  winston.log(label, `${value}`)
+}
 var url = Meteor.npmRequire('url');
-var print = logger.print;
+
 var debug = false;
 
 /////////////////////  vending machine domain

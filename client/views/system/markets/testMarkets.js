@@ -1,4 +1,4 @@
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 const ROWS_SHORT = 20
 const markets = require("../../../../imports/vwap/marketsList").xchangeMarkets
 const fiats = require("../../../../imports/vwap/marketsList").fiats
@@ -8,16 +8,7 @@ const selectors = require("../../../../imports/vwap/selectors")
 const feedsCurrent = collections.feedsCurrent
 const feedsVwapCurrent = collections.feedsVwapCurrent
 
-
-CF.test = CF.test || {}
-CF.test.printPairs = function(){
-  console.log(feedsCurrent.find().fetch())
-}
-CF.test.printPairsWeighted = function(){
-  console.log(feedsVwapCurrent.find().fetch())
-}
-
-import {default as weightedPriceNative} from '../../../../imports/vwap/weightedPriceNative'
+import {default as weightedPriceNative} from '/imports/vwap/weightedPriceNative'
 
 
 
@@ -40,7 +31,6 @@ function _fiatToken(){
 }
 
 
-CF.test.gwp = weightedPriceNative;
 Template["testMarkets"].onCreated(function(){
   const system = Template.currentData().system;
 

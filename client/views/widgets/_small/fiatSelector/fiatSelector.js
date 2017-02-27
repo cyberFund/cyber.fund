@@ -1,5 +1,5 @@
 
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 
 Template['fiatSelector'].onRendered(function(){
   this.$select = this.$("select");

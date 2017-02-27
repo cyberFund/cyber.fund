@@ -1,4 +1,3 @@
-import logger  from '/imports/logger'
 setRatingPlaces = function(){
   var idx = 1;
   CurrentData.find({}, {sort: {"calculatable.RATING.sum": -1}}).forEach(function(it){

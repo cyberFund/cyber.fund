@@ -1,5 +1,5 @@
 import cfCDs from '../../../../imports/currentData/selectors'
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 var ns = CF.UserAssets;
 
 var tableData = CF.Accounts.portfolioTableData;

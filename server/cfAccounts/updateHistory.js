@@ -1,8 +1,12 @@
+import winston from 'winston'
+const print = function(label, value){
+  winston.log(label, `${value}`)
+}
 const selectorService = require("../../imports/userFunds").selectorService;
 const updateUserFunds = require("../../imports/userFunds/userHistory").updateUserFunds;
 const handleArrayWithInterval = require("../../imports/api/handleArray").handleArrayWithInterval
 const selectorSatoshiPie = require("../../imports/userFunds").selectorSatoshiPie;
-const print = CF.Utils.logger.getLogger('FUNDS').print
+
 
 function dealWithPopulars(){
   print("starting hourly funds recalculation (for lucky funds)", true)
@@ -23,7 +27,7 @@ SyncedCron.add({
     dealWithPopulars();
   }
 })
-// 
+//
 // SyncedCron.add({
 //   name: 'frequent update of satoshi account',
 //   schedule: function (parser) {

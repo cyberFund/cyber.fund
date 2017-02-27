@@ -1,7 +1,7 @@
 var initialLimit = CF.Rating.limit0;
 
 import tableSelector from '/imports/api/rating/daily/tableSelector'
-import _session from '/imports/api/client/cfUtils/_session'
+import _session from '/imports/api/cfUtils/_session'
 
 var getSorterByKey = CF.Rating.getSorterByKey;
 var getKeyBySorter = CF.Rating.getKeyBySorter;

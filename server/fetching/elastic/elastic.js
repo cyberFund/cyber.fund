@@ -90,7 +90,7 @@ var esParsers = {
     var yesterdayBuckets = getBuckets (yesterday);
     var monthAgoBuckets = getBuckets (monthAgo);
 
-    console.log ("total of " + todayBuckets.length + " buckets");
+    winston.log ("total of " + todayBuckets.length + " buckets");
     var notFounds = [];
 
     handleBucket = function handleBucket(bucket) {
@@ -103,11 +103,11 @@ var esParsers = {
       var sMonthAgo = getHit( getSameBucket(monthAgoBuckets, bucket.key) );
 
       /* debug
-      console.log(bucket.key)
+      winston.log(bucket.key)
       if (bucket.key == 'DAO|TheDAO') {
-        console.log(bucket.latest.hits.hits)
-        console.log(sNow);
-        console.log(sDayAgo)
+        winston.log(bucket.latest.hits.hits)
+        winston.log(sNow);
+        winston.log(sDayAgo)
       }
       /debug */
 
@@ -373,10 +373,10 @@ var esParsers = {
             $set: set
           });
         } catch (e) {
-          console.log("could not update currentData: ");
-          console.log(e);
-          console.log(_searchSelector(bucket.key));
-          console.log(set);
+          winston.log("could not update currentData: ");
+          winston.log(e);
+          winston.log(_searchSelector(bucket.key));
+          winston.log(set);
         }
       } else {
         // winston.info("no averages for " + bucket.key);
@@ -390,9 +390,9 @@ var esParsers = {
     var hourly = params.interval == "hour";
 
     if (!hourly && !daily) {
-      console.warn("averages_date_hist es parser: ");
-      console.warn("only 'hour' and 'day' currently supported as intervals for data");
-      console.log();
+      winston.warn("averages_date_hist es parser: ");
+      winston.warn("only 'hour' and 'day' currently supported as intervals for data");
+      winston.log();
     }
 
     if (!result || !result.aggregations || !result.aggregations.by_system
@@ -405,7 +405,7 @@ var esParsers = {
     if (!_.isArray(buckets)) return;
 
     var notFounds = [];
-    console.log("length of buckets (averages_date_hist): ", buckets.length);
+    winston.log("length of buckets (averages_date_hist): ", buckets.length);
     handleBucket = function handleBucket(sysBucket) {
       var systemKey = sysBucket.key;
       var id = CurrentData.findOne(_searchSelector(systemKey));
@@ -456,7 +456,7 @@ var esParsers = {
           try { // for some reason, there s unique index over. indexing of market data is a separate task
             MarketData.insert(doc);
           } catch (e) {
-            console.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"));
+            winston.log("MarketData dupl: Int: %s, System: %s, UTC: %s", interval, id, utc.format("YYYY-MM-DD:HH-mm-ss"));
           }
         }
       });
@@ -473,14 +473,14 @@ function fetchLatest(params) {
     var d = moment();
     var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p1));
     var n = moment();
-    console.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+    winston.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
     var p2 = {"from": "now-1d-15m", "to": "now-1d"};
     _.extend(p2, params);
     d = moment();
     var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p2));
     n = moment();
-    console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+    winston.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
     var p3 = {"from": "now-1M-15m", "to": "now-1M"};
     _.extend(p3, params);
@@ -488,7 +488,7 @@ function fetchLatest(params) {
 
     var monthAgo = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
     n = moment();
-    console.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+    winston.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
     esParsers.latest_values(today, yesterday, monthAgo);
 
@@ -504,7 +504,7 @@ function fetchAverage15m(params) {
     var d = moment();
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
     var n = moment();
-    console.log(" received response to query 'averages_last_15m' after "+ n.diff(d, "milliseconds")+" milliseconds");
+    winston.log(" received response to query 'averages_last_15m' after "+ n.diff(d, "milliseconds")+" milliseconds");
     esParsers.averages_l15(result);
   } catch (e) {
     winston.warn("could not fetch latest_!5m_averages");
@@ -517,7 +517,7 @@ function fetchAverages(params) {
   var d = moment();
   var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   var n = moment();
-  console.log(" received response to query 'average_values_date_histogram' after "+ n.diff(d, "milliseconds")+" milliseconds" );
+  winston.log(" received response to query 'average_values_date_histogram' after "+ n.diff(d, "milliseconds")+" milliseconds" );
   esParsers.averages_date_hist(result);
 }
 
@@ -535,7 +535,7 @@ var hourlyAves = {
     _.extend(params, {
       systems: gatherSymSys({})
     });
-    console.log ("average hour");
+    winston.log ("average hour");
     var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
@@ -658,7 +658,7 @@ SyncedCron.add({
         systems: s
       });
     } catch (e) {
-      console.log("could not fetch elastic data (15m averages)");
+      winston.log("could not fetch elastic data (15m averages)");
     }
   }
 });
@@ -677,7 +677,7 @@ SyncedCron.add({
         systems: s
       });
     } catch (e) {
-      console.log("could not fetch elastic data (latest)");
+      winston.log("could not fetch elastic data (latest)");
     }
   }
 });
@@ -733,7 +733,7 @@ var saveTotalCap = function() {
   };
 
   var cap = calcTotalCap();
-  //console.log(cap);
+  //winston.log(cap);
   if (cap) {
     Extras.upsert({
       _id: "total_cap"
@@ -743,7 +743,7 @@ var saveTotalCap = function() {
       usdDayAgo: cap.btcDayAgo * btcPriceDayAgo,
       btcDayAgo: cap.btcDayAgo
     }));
-    //console.log(Extras.findOne({_id: 'total_cap'}));
+    //winston.log(Extras.findOne({_id: 'total_cap'}));
   }
 };
 
@@ -761,14 +761,14 @@ SyncedCron.add({
     try {
       saveTotalCap();
     } catch (e) {
-      console.log("could not fetch elastic data (latest)");
+      winston.log("could not fetch elastic data (latest)");
     }
   }
 });
 
 Meteor.methods({
   "print_currentData": function() {
-    console.log(currentData);
+    winston.log(currentData);
   }
 });
 

@@ -1,4 +1,3 @@
-
 export default function SessionVariable(key) {
   if (!key) throw ("no key provided for SessionVariable constructor");
   var me = this;

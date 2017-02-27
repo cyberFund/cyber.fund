@@ -1,6 +1,9 @@
-import logger from '/imports/logger'
 import cfCDs from '../imports/currentData/selectors'
 import FastData from '/imports/api/fastData'
+import winston from 'winston'
+function print(value, label){
+  winston.log(label, `${value}`)
+}
 //var cfCDs = CF.CurrentData .selectors;
 /**
  * currentData, just fields enough to draw rating table..
@@ -71,7 +74,7 @@ Meteor.publish("ownAssets", function(){
 Meteor.publish("systemData", function(options) {
   options = options || {};
   var name =  (typeof options === "string") ? options : options.name;
-  console.log ("requested system "+ name);
+  winston.log ("requested system ", name);
   if (name) {
     return CurrentData.find(cfCDs.system(name));
   }
@@ -268,7 +271,8 @@ Meteor.publish("avatars", function(uidArray) {
 /*
   user profile by username or id
  */
-var print = logger.print;
+
+
 Meteor.publish("userProfile", function(options){
   options = CF.Utils.normalizeOptionsPerUser(options);
   var uid = options.userId;

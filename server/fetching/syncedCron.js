@@ -1,13 +1,14 @@
+import winston from 'winston'
 SyncedCron.config({
   log: true,
-  //logger: CF.Utils.logger.getLogger("synced-cron"),
+  logger: winston,
   collectionTTL: 604800,
   utc: true
 });
 
 Meteor.startup(function(){
   if (!Meteor.settings.noFetch) {
-    console.log("--  -- starting synced cron");
+    winston.log("--  -- starting synced cron");
     SyncedCron.start();
   }
 });

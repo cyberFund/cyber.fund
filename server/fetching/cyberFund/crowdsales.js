@@ -1,9 +1,10 @@
-import logger  from '/imports/logger'
-import cfCDs from '../../../imports/currentData/selectors'
-
-var print = false ? _logger.print : function() {}
+import cfCDs from '/imports/currentData/selectors'
+import winston from 'winston'
+var print = function(label, value) {
+  winston.log(label, `${value}`)
+}
 Meteor.startup(function(){
-print (Meteor.settings);
+  print (Meteor.settings);
 })
 
 // recalculate raised amount crutch
