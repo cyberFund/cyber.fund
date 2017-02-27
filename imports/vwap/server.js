@@ -7,11 +7,11 @@ const print = CF.Utils.logger.getLogger("Xchange Feeds").print;
 import {default as weightedPriceNative} from './weightedPriceNative'
 
 xchangeCurrent._ensureIndex({
-  market: 1, base: 1, quote: 1
+  source: 1, market: 1, base: 1, quote: 1
 }, {unique: true, dropDups: true});
 
 xchangeVwap._ensureIndex({
-  base: 1, quote: 1
+  source: 1, base: 1, quote: 1
 }, {unique: true, dropDups: true});
 
 
@@ -71,7 +71,7 @@ exports.fetchXchangeData = () => {
     it.volume = {native: item._source.volume}
     it.volume.btc = volumeBtc(it)
     it.last.btc = priceBtc(it);
-    
+
     xchangeCurrent.upsert({
       _id: _id, market: it.market, quote: it.quote, base: it.base
     }, {$set: it})
