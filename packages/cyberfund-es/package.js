@@ -10,19 +10,16 @@ Package.describe({
   documentation: 'README.md'
 });
 
-Npm.depends({
-  "elasticsearch": "10.1.2"//,
-  //"request-promise": "^0.4.2"
-});
-
+/*
 Package.onUse(function(api) {
   api.use(['cyberfund:cyberfund-base', "underscore"]);
   api.versionsFrom('1.1.0.2');
   api.addFiles('cyberfund-es.js', 'server');
-});
-
+});*/
+/*
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('cyberfund:cyberfund-es', "server");
   api.addFiles('cyberfund-es-tests.js');
 });
+*/

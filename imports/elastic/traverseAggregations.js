@@ -30,10 +30,10 @@ import winston from 'winston'
 
 //                                  sample usage
 //
-// const flatten = require("..//imports/elastic/traverseAggregations").flatten
+// const flatten = require("/imports/elastic/traverseAggregations").flatten
 //
 // fetchXchangeData = () => {
-//   const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+//   const data = extractFromPromise(cfEs.sendQuery ("xchangeData"));
 //   if (data && data.aggregations)
 //     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
 //   else

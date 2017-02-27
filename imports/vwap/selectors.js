@@ -1,4 +1,4 @@
-module.exports = {
+export default {
 
   // all pairs (direct + reverse) for a system
   pairsById: (system) => { return { $or: [{base: system}, {quote: system}] }},

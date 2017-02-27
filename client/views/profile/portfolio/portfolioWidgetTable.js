@@ -1,4 +1,4 @@
-import cfCDs from '../../../../imports/currentData/selectors'
+import cfCDs from '/imports/api/currentData/selectors'
 import _session from '/imports/api/cfUtils/_session'
 var ns = CF.UserAssets;
 

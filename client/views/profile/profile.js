@@ -1,4 +1,4 @@
-import cfCDs from '../../../imports/currentData/selectors'
+import cfCDs from '/imports/api/currentData/selectors'
 
 Template['profile'].onCreated(function() {
   var instance = this;

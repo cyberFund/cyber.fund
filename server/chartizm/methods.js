@@ -1,4 +1,4 @@
-import FastData from '/imports/api/fastData'
+import FastData from '/imports/api/server/fastData'
 const day = 1000 * 60 * 60 * 24
 
 Meteor.methods({
