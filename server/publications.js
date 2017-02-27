@@ -400,4 +400,13 @@ Meteor.publish("dailyPrices", function(options) {
    return dailyPrices.find()
 })
 
+// EXTRAS
+Meteor.publish('investData', function () {
+  return Extras.find( {_id: {$in: ['total_cap','invest_balance']}},  {fields: {'txc': 0}} )
+})
+
+Meteor.publish('maxLove', function(){
+  return Extras.find( {_id: {$in: ['maxLove']}} )
+})
+
 require("/imports/vwap/publications")

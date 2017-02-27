@@ -2,10 +2,13 @@ Template['cgSystemLogo'].rendered = function () {
 
 };
 
-import {cgSystemLogoUrl} from '/imports/api/chaingear/v.old/client/cyberfund-chaingear-client'
-
 Template['cgSystemLogo'].helpers({
     img_url: function () {
+      function cgSystemLogoUrl (that) {
+        var icon = (that.icon ? that.icon : that._id) || '';
+        icon = icon.toString().toLowerCase();
+        return "https://static.cyber.fund/logos/" + icon + ".png";
+      }
       return cgSystemLogoUrl(this.system)
     }
 });

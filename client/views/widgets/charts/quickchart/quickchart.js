@@ -59,7 +59,6 @@ function myGraph(el, system, instance) {
   });
 
   var lastData = CurrentData.findOne({_id:system});
-  console.log(lastData, data)
   if (lastData && lastData.metrics && lastData.metrics.price && lastData.metrics.price.usd)                data.push({timestamp: new Date(), price_usd: lastData.metrics.price.usd});
 
   var wf = 140;

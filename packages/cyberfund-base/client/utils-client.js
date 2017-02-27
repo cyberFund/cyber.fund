@@ -68,34 +68,6 @@ CF.Utils.monetaryFormatter = function(input) {
 //CF.Utils.SessionVariable =
 
 
-// using session as it already reactive. and storing changes via amplify
-_session = {
-  _prefixKey: "Session|",
-
-  /**
-   * loads value from
-   * @param key
-   */
-  get: function(key) {
-    const _session = this;
-    ret = amplify.store(_session._prefixKey + key);
-    if (Session.get(key) != ret) Session.set(key, ret);
-    return ret;
-  },
-
-  set: function(key, value) {
-    const _session = this;
-    amplify.store(_session._prefixKey + key, value);
-    Session.set(key, value);
-  },
-
-  default: function(key, value) {
-    const _session = this;
-    if (_session.get(key) == undefined) _session.set(key, value);
-  }
-};
-
-
 CF.Utils.jqHide = function(jQ) {
   if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
     jQ.addClass("hidden");
