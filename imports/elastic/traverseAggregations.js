@@ -29,7 +29,7 @@
 
 //                                  sample usage
 //
-// const flatten = require("..//imports/elastic/traverseAggregations").flatten
+// const flatten = require("/imports/elastic/traverseAggregations").flatten
 //
 // fetchXchangeData = () => {
 //   const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));

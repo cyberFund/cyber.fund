@@ -1,2 +1,2 @@
 CF.Utils.elastic = CF.Utils.elastic || {};
-CF.Utils.elastic.flatten = require("../../imports/elastic/traverseAggregations").flatten;
+CF.Utils.elastic.flatten = require("/imports/elastic/traverseAggregations").flatten;

@@ -34,7 +34,7 @@ function _searchSelector(bucketKey) {
 }
 
 const handleArrayWithInterval = require(
-  "../../../imports/api/handleArray").handleArrayWithInterval;
+  "/imports/api/handleArray").handleArrayWithInterval;
 
 JSON.unflatten = function(data) {
   "use strict";

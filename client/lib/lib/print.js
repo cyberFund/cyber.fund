@@ -20,5 +20,5 @@ var logger = {
 };
 CF.Utils.logger = logger;
 
-// import { Metric as Metric } from '../../../imports/namespaces'
+// import { Metric as Metric } from '/imports/namespaces'
 // console.log (Metric)

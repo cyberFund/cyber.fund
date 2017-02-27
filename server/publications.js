@@ -1,5 +1,5 @@
 
-import cfCDs from '../imports/currentData/selectors'
+import cfCDs from '/imports/currentData/selectors'
 //var cfCDs = CF.CurrentData .selectors;
 /**
  * currentData, just fields enough to draw rating table..
@@ -358,7 +358,7 @@ Meteor.publish("allSystems", function(){
 });
 
 Meteor.publish("usersWithFunds", function(){
-  const selector = require("../imports/userFunds/").selector
+  const selector = require("/imports/userFunds/").selector
   const user = Meteor.users.findOne({_id:this.userId});
   let ids = user && user.profile && user.profile.followingUsers || [];
   ids.push(this.userId);
@@ -375,10 +375,10 @@ Meteor.publish("usersWithFunds", function(){
   });
 });
 
-import dailyPrices from '../imports/api/vetalPrices/collection'
+import dailyPrices from '/imports/api/vetalPrices/collection'
 
 Meteor.publish("dailyPrices", function(options) {
    return dailyPrices.find()
 })
 
-require("../imports/vwap/publications")
+require("/imports/vwap/publications")

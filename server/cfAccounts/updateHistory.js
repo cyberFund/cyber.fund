@@ -1,7 +1,7 @@
-const selectorService = require("../../imports/userFunds").selectorService;
-const updateUserFunds = require("../../imports/userFunds/userHistory").updateUserFunds;
-const handleArrayWithInterval = require("../../imports/api/handleArray").handleArrayWithInterval
-const selectorSatoshiPie = require("../../imports/userFunds").selectorSatoshiPie;
+const selectorService = require("/imports/userFunds").selectorService;
+const updateUserFunds = require("/imports/userFunds/userHistory").updateUserFunds;
+const handleArrayWithInterval = require("/imports/api/handleArray").handleArrayWithInterval
+const selectorSatoshiPie = require("/imports/userFunds").selectorSatoshiPie;
 const print = CF.Utils.logger.getLogger('FUNDS').print
 
 function dealWithPopulars(){
