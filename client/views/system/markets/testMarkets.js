@@ -2,8 +2,8 @@ import _session from '/imports/api/cfUtils/_session'
 const ROWS_SHORT = 20
 const markets = require("/imports/vwap/marketsList").xchangeMarkets
 import {fiats} from '/imports/vwap/marketsList'
-import {flatten} from 'imports/elastic/traverseAggregations'
-import selectors from ('/imports/vwap/selectors')
+import {flatten} from '/imports/elastic/traverseAggregations'
+import selectors from '/imports/vwap/selectors'
 import {feedsCurrent, feedsVwapCurrent} from '/imports/vwap/collections'
 
 import {default as weightedPriceNative} from '/imports/vwap/weightedPriceNative'
