@@ -27,7 +27,7 @@ function fundsIFollow(){
   return iFollow
 }
 
-import {selector as _selector} from "/imports/userFunds/"
+import {selector as _selector} from "/imports/api/userFunds/"
 
 Template.funds.helpers({
   rows: function(){
@@ -48,8 +48,8 @@ Template.funds.helpers({
   rowsIDontFollow: function(){
     const iFollow = fundsIFollow();
     let selector = _.clone(_selector)
-    //import {selector} from "/imports/userFunds/"
-    //let selector = import ("/imports/userFunds/").selector
+    //import {selector} from "/imports/api/userFunds/"
+    //let selector = import ("/imports/api/userFunds/").selector
     if (iFollow) selector._id = {$nin: iFollow}
     return Meteor.users.find(selector, {
       limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,

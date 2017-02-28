@@ -1,4 +1,4 @@
-import cfCDs from '/imports/currentData/selectors'
+import cfCDs from '/imports/api/currentData/selectors'
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.025;

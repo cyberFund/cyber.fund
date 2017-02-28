@@ -21,9 +21,11 @@
     "react-addons-transition-group": "^15.0.2",
     "react-addons-update": "^15.0.2",
     "react-dom": "^15.0.2",
-    "unirest": "^0.4.2"
+    "unirest": "^0.4.2",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
+    "ava": "^0.18.2",
     "babel-preset-meteor": "^6.12.0"
   },
   "scripts": {

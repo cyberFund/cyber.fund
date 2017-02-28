@@ -1,4 +1,4 @@
-import cfCDs from '/imports/currentData/selectors'
+import cfCDs from '/imports/api/currentData/selectors'
 
 // recalculate raised amount crutch
 var print = false ? CF.Utils.logger.print : function() {}
