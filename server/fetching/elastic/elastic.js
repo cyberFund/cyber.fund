@@ -763,12 +763,6 @@ SyncedCron.add({
   }
 });
 
-Meteor.methods({
-  "print_currentData": function() {
-    console.log(currentData);
-  }
-});
-
 function gatherSymSys(selector) {
   var ret = [];
   CurrentData.find(selector).forEach(function(item) {

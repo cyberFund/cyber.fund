@@ -37,9 +37,6 @@ ns.segmentIoPublicKey = function() {
       };
       analytics.SNIPPET_VERSION = "3.0.1";
       analytics.load(CF.Utils.segmentIoPublicKey());
-
-      // # debug clause.
-      // console.log(CF.Utils.segmentIoPublicKey());
     }
 }();
 

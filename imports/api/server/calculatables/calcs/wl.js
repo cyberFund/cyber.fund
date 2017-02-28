@@ -1,6 +1,4 @@
-var ns = CF.CurrentData.calculatables;
-
-ns.lib.calcs.calcWL = function calcWL(system) {
+var calcWL = function (system) {
   // weighted liquidity
   var ret = {
     sum: 0,
@@ -48,3 +46,5 @@ ns.lib.calcs.calcWL = function calcWL(system) {
   }
   return ret;
 };
+
+module.exports = calcWL

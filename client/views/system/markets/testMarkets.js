@@ -11,10 +11,10 @@ const feedsVwapCurrent = collections.feedsVwapCurrent
 
 CF.test = CF.test || {}
 CF.test.printPairs = function(){
-  console.log(feedsCurrent.find().fetch())
+  //console.log(feedsCurrent.find().fetch())
 }
 CF.test.printPairsWeighted = function(){
-  console.log(feedsVwapCurrent.find().fetch())
+  //console.log(feedsVwapCurrent.find().fetch())
 }
 
 import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'

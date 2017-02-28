@@ -1,11 +1,13 @@
-import {reinit, data} from '/imports/api/server/metrics/cmc'
+import cmc from '/imports/api/server/metrics/cmc'
 
 module.exports = function(){
   Meteor.startup(function(){
-    reinit();
-    console.log(data)
     Meteor.setTimeout(function(){
-      console.log(data)
-    }, 25000)
+      cmc.reinit();
+    }, 5000)
+
+    Meteor.setTimeout(function(){
+      console.log(cmc)
+    }, 10000)
   })
 }

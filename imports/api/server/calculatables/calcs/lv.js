@@ -1,7 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
-var ns = CF.CurrentData.calculatables;
 
-ns.lib.calcs.calcLV = function calcLV(system) {
+var calcLV = function (system) {
   var sel = {
     _id: 'maxLove'
   };
@@ -52,3 +51,5 @@ ns.lib.calcs.calcLV = function calcLV(system) {
     sum: (n / maxLove.value) || 0
   }
 }
+
+module.exports = calcLV

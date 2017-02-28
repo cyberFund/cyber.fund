@@ -8,7 +8,6 @@ const print = CF.Utils.logger.getLogger("DEBUG INFO").print
 
 Meteor.startup(function() {
   if (!ns._client) ns._client = ns._getClient();
-  print("meteor settings", Meteor.settings)
 });
 
 _.extend(CF.ES, {

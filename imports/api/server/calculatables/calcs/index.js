@@ -3,7 +3,7 @@ import calcBR from './br'
 import calcCS from './cs'
 import calcGR from './gr'
 import calcLV from './lv'
-import calcWL from './WL'
+import calcWL from './wl'
 
 module.exports = {
   calcAM: calcAM,

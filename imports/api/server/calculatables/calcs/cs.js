@@ -1,6 +1,4 @@
-import ns from '/imports/api/server/calculatables'
-var helpers = ns.lib.helpers;
-var params = ns.lib.params;
+import {helpers, params} from '../'
 
 var calcCS = function (system) {
   var state = helpers._getState(system);

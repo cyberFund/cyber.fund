@@ -1,9 +1,7 @@
-var ns = CF.CurrentData.calculatables;
-var helpers = ns.lib.helpers;
-var params = ns.lib.params;
-var calcs = ns.lib.calcs;
+import {helpers, params, calcs} from '/imports/api/server/calculatables'
+import calculatables from '/imports/api/server/calculatables'
 
-CF.CurrentData.calculatables.addCalculatable('RATING', function(system) {
+calculatables.addCalculatable('RATING', function(system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);
 

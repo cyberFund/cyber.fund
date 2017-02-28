@@ -4,6 +4,7 @@ import crc from '/imports/constants/return_codes'
 
 var chaingearData = {status: 'noinit'}
 function fetch(callback) {
+  console.log("in cg fetch")
   HTTP.get('http://api.cyber.fund/cg', {
     timeout: 10000
   }, function(err, res) {
@@ -19,9 +20,11 @@ function fetch(callback) {
 
 module.exports = {
   reinit: function(){
-    chaingearData.status = 'fetching..'
-    if (status !== 'fetching..') {
+    console.log("in chaingear reinit")
+    if (chaingearData.status !== 'fetching..') {
+      chaingearData.status = 'fetching..'
       fetch(function(cbData){
+        console.log(`chaingear data length: ${cbData.length}`)
         if (crc.isNotOk(cbData)) {
           chaingearData = {
             status: 'error'

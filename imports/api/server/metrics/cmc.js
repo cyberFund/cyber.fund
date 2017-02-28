@@ -1,12 +1,15 @@
-import chaingear from '../chaingear'
+import chaingear from '/imports/api/server/chaingear'
 import crc from '/imports/constants/return_codes'
+const _source = 'cmc2017'
+const sampleData =require('/imports/sampleData/cmc.json')
 var cmcids = null;
 function matchItemToCG(item) {
-  if (!cmcids) {
+
+  /*if (!cmcids) {
     console.log(`matchItemToCG: /imports/api/server/metrics/cmc was not initialized properly. use reinit method`)
     return;
-  }
-  return _.find(chaingear.data, function(cg_item) {
+  }*/
+  return _.find(chaingear.data(), function(cg_item) {
     if ((!cg_item.aliases) ||
      (!cg_item.token) ||
      (!cg_item.aliases.coinmarketcap)) return false;
@@ -19,19 +22,24 @@ function matchItemToCG(item) {
   });
 }
 
-module.exports = {
+var cmc = {
   data: {
-    cmcids: cmcids
+    cmcids: {}
   },
   reinit: function(){
-    let cgData = chaingear.data;
     let store = {}
+    sampleData.forEach(function(data){
 
-    sample.forEach(function(data){
       let match = matchItemToCG(data)
+      if (data.id == 'bitcoin') {
+        console.log(data)
+        console.log(match)
+      }
       if (match && match.system) store[data.id] = match.system
     })
-    cmcids = store;
-    console.log(Object.count())
+    this.data.cmcids = store;
+    console.log(this)
   }
 }
+
+module.exports = cmc

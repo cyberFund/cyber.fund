@@ -1,8 +1,17 @@
-var ns = CF.CurrentData.calculatables;
+var crutch = {
+  fields: { "calculatable": 1 },
+  fieldsExclude: {'calculatable': 0},
+  fieldName: "calculatable",
+  timestamps: {
+    fieldName: '_t_calc',
+    fields: {'_t_calc': 1},
+    fieldsExclude: {'_t_calc': 0}
+  }
+}
 
-ns.lib.calcs.calcGR = function calcGR(system) {
+var calcGR = function (system) {
   if (!system) return undefined;
-  var nm = CF.CurrentData.calculatables.fieldName;
+  var nm = crutch.fieldName;
 
   var fp = system.first_price,
     fpb = fp ? fp.btc : null,
@@ -50,3 +59,5 @@ ns.lib.calcs.calcGR = function calcGR(system) {
     sum: 0.1
   }
 };
+
+module.exports = calcGR
