@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 var ns = CF.UserAssets;
 

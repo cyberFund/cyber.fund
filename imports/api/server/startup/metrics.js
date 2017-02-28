@@ -1,4 +1,4 @@
-import {reinit, data} from '/imports/api/server/startup/metrics'
+import {reinit, data} from '/imports/api/server/metrics/cmc'
 
 module.exports = function(){
   Meteor.startup(function(){

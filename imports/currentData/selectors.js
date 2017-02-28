@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 export default {       // selectors to return elements of CurrentData collection
   system_symbol: function (name, symbol) {   // by system ChG name and token
     return {

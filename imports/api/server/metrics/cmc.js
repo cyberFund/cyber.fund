@@ -1,5 +1,5 @@
 import chaingear from '../chaingear'
-import crc from '/imports/api/return_codes'
+import crc from '/imports/constants/return_codes'
 var cmcids = null;
 function matchItemToCG(item) {
   if (!cmcids) {

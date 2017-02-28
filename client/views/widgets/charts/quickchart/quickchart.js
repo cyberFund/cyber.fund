@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 chartdata = function(systemId) {
   if (!systemId) return null;
 

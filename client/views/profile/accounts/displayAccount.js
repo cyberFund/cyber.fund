@@ -1,4 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors' //CF.CurrentData .selectors;
+import {CurrentData} from '/imports/api/collections'
 CF.Accounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
 CF.Accounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
 var isOwnAssets = function(){

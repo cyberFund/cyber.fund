@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
 

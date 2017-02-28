@@ -1,5 +1,5 @@
-
-CF.CurrentData.calculatables.addCalculatable('firstDatePrice', function(system) {
+import calculatables from '/imports/api/server/calculatables'
+calculatables.addCalculatable('firstDatePrice', function(system) {
   if (!system) return undefined;
 
   //Migration 2: instead, take 1st point at MarketData.

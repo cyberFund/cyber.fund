@@ -1,6 +1,4 @@
-var ns = CF.CurrentData.calculatables;
-
-ns.lib.calcs.calcBR =  function calcBR(system) {
+var calcBR = function(system) {
   function getFlag() {
     if (!system.metrics || !system.metrics.supply) {
       return false;
@@ -17,3 +15,4 @@ ns.lib.calcs.calcBR =  function calcBR(system) {
     sum: 0//flag ? 1 : 0
   }
 };
+module.exports = calcBR

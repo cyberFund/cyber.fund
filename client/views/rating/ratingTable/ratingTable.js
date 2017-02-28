@@ -1,5 +1,5 @@
 var initialLimit = CF.Rating.limit0;
-
+import {CurrentData} from '/imports/api/collections'
 function tableSelector() {
   return {
     "flags.rating_do_not_display": {

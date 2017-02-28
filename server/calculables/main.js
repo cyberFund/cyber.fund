@@ -1,3 +1,5 @@
+import {CurrentData, Metrics, FastData} from '/imports/api/collections'
+import calculatables from '/imports/api/server/calculatables'
 setRatingPlaces = function(){
   var idx = 1;
   CurrentData.find({}, {sort: {"calculatable.RATING.sum": -1}}).forEach(function(it){
@@ -30,7 +32,7 @@ SyncedCron.add({
     return parser.cron("40 * * * *", false);
   },
   job: function () {
-    CF.CurrentData.calculatables.triggerCalc("firstDatePrice");
+    calculatables.triggerCalc("firstDatePrice");
   }
 });
 
@@ -41,7 +43,7 @@ SyncedCron.add({
     return parser.cron("41 * * * *", false);
   },
   job: function () {
-    CF.CurrentData.calculatables.triggerCalc("nLinksWithTag");
+    calculatables.triggerCalc("nLinksWithTag");
   }
 });
 

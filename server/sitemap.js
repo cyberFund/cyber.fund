@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 sitemaps.add('/sitemap.xml', function () {
   var ret = [];
   ret.push({

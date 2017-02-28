@@ -1,3 +1,4 @@
+import calculatables from '/imports/api/server/calculatables'
 var tags = { // NB: mongo query: db.CurrentData.distinct("links.tags")
   "0" : "Main",
   "1" : "News",
@@ -46,7 +47,7 @@ var types = { // NB: mongo query: db.CurrentData.distinct("links.type")
   "25" : "earn"
 };
 
-CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
+calculatables.addCalculatable('nLinksWithTag', function(system) {
 
   if (!system) return undefined;
 
@@ -60,7 +61,7 @@ CF.CurrentData.calculatables.addCalculatable('nLinksWithTag', function(system) {
   return ret;
 });
 
-CF.CurrentData.calculatables.addCalculatable('nLinksWithType', function(system) {
+calculatables.addCalculatable('nLinksWithType', function(system) {
   if (!system) return undefined;
 
   var links = system.links;

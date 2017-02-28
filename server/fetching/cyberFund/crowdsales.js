@@ -1,5 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors'
-
+import {CurrentData} from '/imports/api/collections'
 // recalculate raised amount crutch
 var print = false ? CF.Utils.logger.print : function() {}
 Meteor.startup(function(){

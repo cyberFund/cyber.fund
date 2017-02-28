@@ -1,5 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors'
-
+import {CurrentData} from '/imports/api/collections'
 Template['profile'].onCreated(function() {
   var instance = this;
 

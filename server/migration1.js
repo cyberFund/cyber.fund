@@ -1,3 +1,4 @@
+
 Meteor.startup(function() {
 /*  CurrentData.find({}).forEach(function(item) {
     if (item._id != item.system) {

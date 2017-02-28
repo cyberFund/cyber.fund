@@ -1,5 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors'
-
+import {CurrentData} from '/imports/api/collections'
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
 }

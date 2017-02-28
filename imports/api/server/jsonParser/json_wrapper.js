@@ -1,4 +1,4 @@
-import crc from '../../constants/return_codes'
+import crc from '/imports/constants/return_codes'
 import parse from './json_parser'
 
 module.exports = function(str){

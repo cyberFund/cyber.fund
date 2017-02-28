@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};

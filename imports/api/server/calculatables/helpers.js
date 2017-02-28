@@ -1,8 +1,4 @@
-var helpers;
-
-CF.CurrentData.calculatables.lib = CF.CurrentData.calculatables.lib || {};
-
-helpers = {
+var helpers = {
   _getValue: function(v, k, subk) {
     var i;
     if (!v) {
@@ -68,4 +64,4 @@ helpers = {
   }
 };
 
-_.extend(CF.CurrentData.calculatables.lib, {helpers: helpers});
+module.exports = helpers

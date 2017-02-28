@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 // this file describes fetching of data from chaingear
 
 var sourceUrl = "https://static.cyber.fund/chaingear/full.json"; //"https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";

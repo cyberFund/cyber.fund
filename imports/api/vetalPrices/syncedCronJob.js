@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 import prices from './collection'
 
 function pushPrices() {

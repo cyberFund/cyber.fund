@@ -1,4 +1,4 @@
-
+import {CurrentData} from '/imports/api/collections'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot

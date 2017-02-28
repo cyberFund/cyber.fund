@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 var url = Meteor.npmRequire('url');
 var print = CF.Utils.logger.print;
 var debug = false;

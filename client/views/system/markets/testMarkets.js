@@ -1,3 +1,4 @@
+import {CurrentData} from '/imports/api/collections'
 const ROWS_SHORT = 20
 const markets = require("/imports/api/vwap/marketsList").xchangeMarkets
 const fiats = require("/imports/api/vwap/marketsList").fiats

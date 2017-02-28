@@ -1,10 +1,8 @@
-var ns = CF.CurrentData.calculatables;
+import ns from '/imports/api/server/calculatables'
 var helpers = ns.lib.helpers;
 var params = ns.lib.params;
 
-
-var print = CF.Utils.logger.print;
-ns.lib.calcs.calcCS = function calcCS(system) {
+var calcCS = function (system) {
   var state = helpers._getState(system);
   var type = helpers._getType(system);
   // convert from links to 1/0
@@ -61,3 +59,5 @@ ns.lib.calcs.calcCS = function calcCS(system) {
     state: state
   }
 };
+
+module.exports = calcCS

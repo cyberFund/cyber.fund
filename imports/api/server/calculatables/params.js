@@ -1,7 +1,3 @@
-var params;
-
-CF.CurrentData.calculatables.lib = CF.CurrentData.calculatables.lib || {};
-
 var clone = function _clone(item) {
   return _.clone(item);
 }
@@ -40,7 +36,7 @@ var scoreWeightsPerLinksCount = {
   ]
 }
 
-params = {
+var params = {
   CSkeys: ['site', 'community', 'updates', 'code', 'science', 'knowledge',
   'buy', 'hold', 'analyze', 'earn', 'dapp'],
 
@@ -175,6 +171,4 @@ params = {
   }
 };
 
-_.extend(CF.CurrentData.calculatables.lib, {
-  params: params
-});
+module.exports = params
