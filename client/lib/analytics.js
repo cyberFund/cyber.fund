@@ -1,6 +1,4 @@
-var ns = CF.Utils
-
-ns.segmentIoPublicKey = function() {
+segmentIoPublicKey = function() {
   try {
     return Meteor.settings.public.analyticsSettings["Segment.io"].apiKey;
   } catch (e) {
@@ -36,7 +34,7 @@ ns.segmentIoPublicKey = function() {
         n.parentNode.insertBefore(e, n)
       };
       analytics.SNIPPET_VERSION = "3.0.1";
-      analytics.load(CF.Utils.segmentIoPublicKey());
+      analytics.load(segmentIoPublicKey());
     }
 }();
 

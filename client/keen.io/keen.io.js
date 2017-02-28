@@ -1,3 +1,13 @@
+var keenflag = new ReactiveVar();
+
+Meteor.startup(function() {
+  if (Keen) {
+    Keen.ready(function() {
+      keenflag.set(true);
+    });
+  }
+});
+
 Template['keenIo'].onRendered(function() {
   var instance = this;
   var client = new Keen({
@@ -6,7 +16,7 @@ Template['keenIo'].onRendered(function() {
   });
 
   instance.autorun(function() {
-    if (!CF.keenflag.get()) return;
+    if (!keenflag.get()) return;
     var key = FlowRouter.getParam("name_");
     if (!key) return;
 

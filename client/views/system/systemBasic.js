@@ -32,15 +32,6 @@ Template["systemBasic"].onCreated(function() {
   });
 });
 
-Meteor.startup(function() {
-  if (Keen) {
-    CF.keenflag = new ReactiveVar();
-    Keen.ready(function() {
-      CF.keenflag.set(true);
-    });
-  }
-});
-
 Template["systemBasic"].rendered =function() {
   this.autorun(function(c){
     if (curData()) $('ul.tabs').tabs();
