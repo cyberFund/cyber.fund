@@ -5,9 +5,5 @@ module.exports = function(){
     Meteor.setTimeout(function(){
       cmc.reinit();
     }, 5000)
-
-    Meteor.setTimeout(function(){
-      console.log(cmc)
-    }, 10000)
   })
 }
