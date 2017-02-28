@@ -1,0 +1,4522 @@
+[ {
+  "timestamp" : 1488247411000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "ShadowCash",
+  "last" : {
+    "native" : 0.00125363
+  },
+  "volume" : {
+    "native" : 19240.12844242
+  }
+}, {
+  "timestamp" : 1488248669000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Burst",
+  "last" : {
+    "native" : 0.00000073
+  },
+  "volume" : {
+    "native" : 42074706.36331900
+  }
+}, {
+  "timestamp" : 1473125224000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "GroestlCoin",
+  "last" : {
+    "native" : 0.00000278
+  },
+  "volume" : {
+    "native" : 256026.17815265
+  }
+}, {
+  "timestamp" : 1488248383000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "Qora",
+  "last" : {
+    "native" : 0.00000701
+  },
+  "volume" : {
+    "native" : 481380.51840355
+  }
+}, {
+  "timestamp" : 1473121354000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "bitUSD",
+  "last" : {
+    "native" : 0.00142129
+  },
+  "volume" : {
+    "native" : 608.01924067
+  }
+}, {
+  "timestamp" : 1488249351000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.00000017
+  },
+  "volume" : {
+    "native" : 216161942.87113085
+  }
+}, {
+  "timestamp" : 1488248455000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "Bytecoin",
+  "last" : {
+    "native" : 0.00000493
+  },
+  "volume" : {
+    "native" : 1892529.47418105
+  }
+}, {
+  "timestamp" : 1488248544000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "DigiByte",
+  "last" : {
+    "native" : 0.00000021
+  },
+  "volume" : {
+    "native" : 71258482.90834647
+  }
+}, {
+  "timestamp" : 1488248540000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00059450
+  },
+  "volume" : {
+    "native" : 33177.80554119
+  }
+}, {
+  "timestamp" : 1488245379000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "IOCoin",
+  "last" : {
+    "native" : 0.00033403
+  },
+  "volume" : {
+    "native" : 22881.80637839
+  }
+}, {
+  "timestamp" : 1473122036000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Swarm",
+  "last" : {
+    "native" : 0.00000500
+  },
+  "volume" : {
+    "native" : 942088.53396522
+  }
+}, {
+  "timestamp" : 1488245238000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 0.00003554
+  },
+  "volume" : {
+    "native" : 42486.71561630
+  }
+}, {
+  "timestamp" : 1488245405000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "GridCoin",
+  "last" : {
+    "native" : 0.00000528
+  },
+  "volume" : {
+    "native" : 346833.22469813
+  }
+}, {
+  "timestamp" : 1488249104000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 28.60000009
+  },
+  "volume" : {
+    "native" : 4097.10070148
+  }
+}, {
+  "timestamp" : 1488249328000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1197.78024411
+  },
+  "volume" : {
+    "native" : 1470.40335243
+  }
+}, {
+  "timestamp" : 1488246562000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Spells of Genesis",
+  "last" : {
+    "native" : 0.00013895
+  },
+  "volume" : {
+    "native" : 40676.14656485
+  }
+}, {
+  "timestamp" : 1488247664000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Solomon Islands Dollar",
+  "last" : {
+    "native" : 0.00083510
+  },
+  "volume" : {
+    "native" : 821.08036550
+  }
+}, {
+  "timestamp" : 1473205437000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "HyperStake",
+  "last" : {
+    "native" : 0.00000410
+  },
+  "volume" : {
+    "native" : 8327676.80492037
+  }
+}, {
+  "timestamp" : 1483589423000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "LTBcoin",
+  "last" : {
+    "native" : 0.00000012
+  },
+  "volume" : {
+    "native" : 15831515.51360327
+  }
+}, {
+  "timestamp" : 1488249355000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Sia",
+  "last" : {
+    "native" : 0.00000026
+  },
+  "volume" : {
+    "native" : 258776297.24824306
+  }
+}, {
+  "timestamp" : 1473125276000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Crypti",
+  "last" : {
+    "native" : 0.00000401
+  },
+  "volume" : {
+    "native" : 1728000.73968120
+  }
+}, {
+  "timestamp" : 1488247867000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Riecoin",
+  "last" : {
+    "native" : 0.00001196
+  },
+  "volume" : {
+    "native" : 213149.28387254
+  }
+}, {
+  "timestamp" : 1488242613000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 0.40811299
+  },
+  "volume" : {
+    "native" : 26.50717998
+  }
+}, {
+  "timestamp" : 1488247606000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Horizon",
+  "last" : {
+    "native" : 0.00000020
+  },
+  "volume" : {
+    "native" : 3299120.95709691
+  }
+}, {
+  "timestamp" : 1464979532000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogeparty",
+  "last" : {
+    "native" : 0.00002113
+  },
+  "volume" : {
+    "native" : 3427.16715925
+  }
+}, {
+  "timestamp" : 1488247777000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00699292
+  },
+  "volume" : {
+    "native" : 108357.67673579
+  }
+}, {
+  "timestamp" : 1488249322000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Stellar",
+  "last" : {
+    "native" : 0.00000151
+  },
+  "volume" : {
+    "native" : 31221061.97227806
+  }
+}, {
+  "timestamp" : 1488241196000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.00026647
+  },
+  "volume" : {
+    "native" : 7013.32835753
+  }
+}, {
+  "timestamp" : 1488248333000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 0.00021813
+  },
+  "volume" : {
+    "native" : 2757.67804921
+  }
+}, {
+  "timestamp" : 1488248597000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Stellar",
+  "last" : {
+    "native" : 0.00179603
+  },
+  "volume" : {
+    "native" : 939286.43623931
+  }
+}, {
+  "timestamp" : 1473124884000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Mintcoin",
+  "last" : {
+    "native" : 0.00000010
+  },
+  "volume" : {
+    "native" : 96689726.92323804
+  }
+}, {
+  "timestamp" : 1488248561000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "DNotes",
+  "last" : {
+    "native" : 0.00000504
+  },
+  "volume" : {
+    "native" : 264111.29808908
+  }
+}, {
+  "timestamp" : 1488249290000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "MaidSafeCoin",
+  "last" : {
+    "native" : 0.01526819
+  },
+  "volume" : {
+    "native" : 12391.70873091
+  }
+}, {
+  "timestamp" : 1488246819000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "FoldingCoin",
+  "last" : {
+    "native" : 0.00000107
+  },
+  "volume" : {
+    "native" : 1820765.38662505
+  }
+}, {
+  "timestamp" : 1488249068000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 2.44736413
+  },
+  "volume" : {
+    "native" : 193.16061663
+  }
+}, {
+  "timestamp" : 1488249102000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.00404501
+  },
+  "volume" : {
+    "native" : 11206.75480294
+  }
+}, {
+  "timestamp" : 1488249333000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00320566
+  },
+  "volume" : {
+    "native" : 52732.01088766
+  }
+}, {
+  "timestamp" : 1488249142000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "CureCoin",
+  "last" : {
+    "native" : 0.00004000
+  },
+  "volume" : {
+    "native" : 14783.89260750
+  }
+}, {
+  "timestamp" : 1488249101000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Expanse",
+  "last" : {
+    "native" : 0.00019191
+  },
+  "volume" : {
+    "native" : 61235.19524114
+  }
+}, {
+  "timestamp" : 1473124223000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 0.00001162
+  },
+  "volume" : {
+    "native" : 217496.97501093
+  }
+}, {
+  "timestamp" : 1473118906000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Coinomat",
+  "last" : {
+    "native" : 0.00013160
+  },
+  "volume" : {
+    "native" : 4289.38928060
+  }
+}, {
+  "timestamp" : 1488249364000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Ripple",
+  "last" : {
+    "native" : 0.00000461
+  },
+  "volume" : {
+    "native" : 40286731.35012107
+  }
+}, {
+  "timestamp" : 1483741216000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "DigitalNote",
+  "last" : {
+    "native" : 0.00000600
+  },
+  "volume" : {
+    "native" : 6269129.39206400
+  }
+}, {
+  "timestamp" : 1488249376000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.01320000
+  },
+  "volume" : {
+    "native" : 835809.91390985
+  }
+}, {
+  "timestamp" : 1488249318000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Factom",
+  "last" : {
+    "native" : 0.00241489
+  },
+  "volume" : {
+    "native" : 96049.27037668
+  }
+}, {
+  "timestamp" : 1488249104000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.00310228
+  },
+  "volume" : {
+    "native" : 3068.73969478
+  }
+}, {
+  "timestamp" : 1488249358000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.00979499
+  },
+  "volume" : {
+    "native" : 128038.11832068
+  }
+}, {
+  "timestamp" : 1488249169000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Decred",
+  "last" : {
+    "native" : 0.00189500
+  },
+  "volume" : {
+    "native" : 22944.24666622
+  }
+}, {
+  "timestamp" : 1488246755000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "NuShares",
+  "last" : {
+    "native" : 0.00000015
+  },
+  "volume" : {
+    "native" : 17749283.64218543
+  }
+}, {
+  "timestamp" : 1483585440000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "MMNXT",
+  "last" : {
+    "native" : 0.00000717
+  },
+  "volume" : {
+    "native" : 70330.47833464
+  }
+}, {
+  "timestamp" : 1483589349000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "GeoCoin",
+  "last" : {
+    "native" : 0.00002870
+  },
+  "volume" : {
+    "native" : 13530.54993226
+  }
+}, {
+  "timestamp" : 1488249152000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 11.75100000
+  },
+  "volume" : {
+    "native" : 11543.73177227
+  }
+}, {
+  "timestamp" : 1488249021000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Bytecoin",
+  "last" : {
+    "native" : 0.00000004
+  },
+  "volume" : {
+    "native" : 72903449.80648163
+  }
+}, {
+  "timestamp" : 1488249272000,
+  "market" : "http://poloniex.com",
+  "base" : "Monero",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.32760380
+  },
+  "volume" : {
+    "native" : 561.91332763
+  }
+}, {
+  "timestamp" : 1488247919000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "SuperNET",
+  "last" : {
+    "native" : 0.00210000
+  },
+  "volume" : {
+    "native" : 42.29493046
+  }
+}, {
+  "timestamp" : 1483591975000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "ReddCoin",
+  "last" : {
+    "native" : 0.00000002
+  },
+  "volume" : {
+    "native" : 174620904.41310722
+  }
+}, {
+  "timestamp" : 1488249037000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Ripple",
+  "last" : {
+    "native" : 0.00551000
+  },
+  "volume" : {
+    "native" : 990863.73273008
+  }
+}, {
+  "timestamp" : 1488249335000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "NautilusCoin",
+  "last" : {
+    "native" : 0.00006864
+  },
+  "volume" : {
+    "native" : 1087529.24529765
+  }
+}, {
+  "timestamp" : 1465012037000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "GetGems",
+  "last" : {
+    "native" : 0.00000407
+  },
+  "volume" : {
+    "native" : 130706.82955333
+  }
+}, {
+  "timestamp" : 1488248874000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "SysCoin",
+  "last" : {
+    "native" : 0.00000898
+  },
+  "volume" : {
+    "native" : 6796589.37282331
+  }
+}, {
+  "timestamp" : 1488248996000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00000578
+  },
+  "volume" : {
+    "native" : 3017957.52856387
+  }
+}, {
+  "timestamp" : 1473119009000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "HyperStake",
+  "last" : {
+    "native" : 0.00000019
+  },
+  "volume" : {
+    "native" : 19887969.37483941
+  }
+}, {
+  "timestamp" : 1488249368000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Synereo",
+  "last" : {
+    "native" : 0.00003335
+  },
+  "volume" : {
+    "native" : 1614211.82387426
+  }
+}, {
+  "timestamp" : 1488249219000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Storjcoin X",
+  "last" : {
+    "native" : 0.00012294
+  },
+  "volume" : {
+    "native" : 227574.50821837
+  }
+}, {
+  "timestamp" : 1488248478000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 0.00397618
+  },
+  "volume" : {
+    "native" : 441.14469541
+  }
+}, {
+  "timestamp" : 1463437549000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "GameCredits",
+  "last" : {
+    "native" : 0.00006670
+  },
+  "volume" : {
+    "native" : 64336.12593034
+  }
+}, {
+  "timestamp" : 1488248938000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "NEM",
+  "last" : {
+    "native" : 0.00000542
+  },
+  "volume" : {
+    "native" : 9351738.29570256
+  }
+}, {
+  "timestamp" : 1488249214000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 4.85790871
+  },
+  "volume" : {
+    "native" : 176.79544025
+  }
+}, {
+  "timestamp" : 1488245291000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Qora",
+  "last" : {
+    "native" : 0.00000006
+  },
+  "volume" : {
+    "native" : 93990511.26847161
+  }
+}, {
+  "timestamp" : 1488249327000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 15.76601115
+  },
+  "volume" : {
+    "native" : 78206.57013387
+  }
+}, {
+  "timestamp" : 1488249315000,
+  "market" : "http://poloniex.com",
+  "base" : "Tether",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.83969639
+  },
+  "volume" : {
+    "native" : 6595.11495363
+  }
+}, {
+  "timestamp" : 1488247932000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.00002781
+  },
+  "volume" : {
+    "native" : 19775.71569234
+  }
+}, {
+  "timestamp" : 1465011292000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "NobleNXT",
+  "last" : {
+    "native" : 0.00001362
+  },
+  "volume" : {
+    "native" : 25834.98389980
+  }
+}, {
+  "timestamp" : 1488248636000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.00003552
+  },
+  "volume" : {
+    "native" : 913209.00675533
+  }
+}, {
+  "timestamp" : 1488248959000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Counterparty",
+  "last" : {
+    "native" : 0.00275533
+  },
+  "volume" : {
+    "native" : 5632.58047709
+  }
+}, {
+  "timestamp" : 1488248299000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "FlorinCoin",
+  "last" : {
+    "native" : 0.00000513
+  },
+  "volume" : {
+    "native" : 435960.27619578
+  }
+}, {
+  "timestamp" : 1488248773000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Clams",
+  "last" : {
+    "native" : 0.00070436
+  },
+  "volume" : {
+    "native" : 19896.24298118
+  }
+}, {
+  "timestamp" : 1488249148000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Navajo",
+  "last" : {
+    "native" : 0.00003128
+  },
+  "volume" : {
+    "native" : 364078.54013873
+  }
+}, {
+  "timestamp" : 1488248024000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Viacoin",
+  "last" : {
+    "native" : 0.00003055
+  },
+  "volume" : {
+    "native" : 44512.58059625
+  }
+}, {
+  "timestamp" : 1488249231000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.00003004
+  },
+  "volume" : {
+    "native" : 610457.00487226
+  }
+}, {
+  "timestamp" : 1488249322000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "BitShares",
+  "last" : {
+    "native" : 0.00000311
+  },
+  "volume" : {
+    "native" : 6212351.92728931
+  }
+}, {
+  "timestamp" : 1483592192000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "DigitalNote",
+  "last" : {
+    "native" : 0.00000007
+  },
+  "volume" : {
+    "native" : 56631767.09395974
+  }
+}, {
+  "timestamp" : 1488247432000,
+  "market" : "http://poloniex.com",
+  "base" : "Ethereum",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.30512121
+  },
+  "volume" : {
+    "native" : 3956.00631934
+  }
+}, {
+  "timestamp" : 1488249360000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "PotCoin",
+  "last" : {
+    "native" : 0.00001444
+  },
+  "volume" : {
+    "native" : 1253914.63782157
+  }
+}, {
+  "timestamp" : 1483584846000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "bitCNY",
+  "last" : {
+    "native" : 0.00010001
+  },
+  "volume" : {
+    "native" : 4356.44128829
+  }
+}, {
+  "timestamp" : 1488249375000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 0.02390000
+  },
+  "volume" : {
+    "native" : 71006.18096563
+  }
+}, {
+  "timestamp" : 1488249374000,
+  "market" : "http://poloniex.com",
+  "base" : "Bitcoin",
+  "quote" : "MaidSafeCoin",
+  "last" : {
+    "native" : 0.00014988
+  },
+  "volume" : {
+    "native" : 1468457.15880899
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "US Dollar",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 11.788
+  },
+  "volume" : {
+    "native" : 4916.92180142
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.0032286
+  },
+  "volume" : {
+    "native" : 9215.71800668
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1204.2
+  },
+  "volume" : {
+    "native" : 13721.99355418
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.013249
+  },
+  "volume" : {
+    "native" : 68542.7580875
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.8698
+  },
+  "volume" : {
+    "native" : 11621.22785424
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "US Dollar",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 15.887
+  },
+  "volume" : {
+    "native" : 163304.40715737
+  }
+}, {
+  "timestamp" : 1488249290752,
+  "market" : "http://api.bitfinex.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.0098155
+  },
+  "volume" : {
+    "native" : 3220.65712361
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://www.okcoin.cn",
+  "base" : "Chinese Yuan",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 25.99
+  },
+  "volume" : {
+    "native" : 194647.60002205
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://www.okcoin.cn",
+  "base" : "Chinese Yuan",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 7998.49
+  },
+  "volume" : {
+    "native" : 9823.456
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://www.bitstamp.net",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1195.00
+  },
+  "volume" : {
+    "native" : 5041.13329743
+  }
+}, {
+  "timestamp" : 1488249381084,
+  "market" : "https://lakebtc.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1192.02
+  },
+  "volume" : {
+    "native" : 4441.589642
+  }
+}, {
+  "timestamp" : 1484180775906,
+  "market" : "https://lakebtc.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 5028.39
+  },
+  "volume" : {
+    "native" : 7741.6874
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.312
+  },
+  "volume" : {
+    "native" : 17999.4816
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Litecoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 4.14837
+  },
+  "volume" : {
+    "native" : 5561.52644
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Russian Ruble",
+  "quote" : "US Dollar",
+  "last" : {
+    "native" : 55.7
+  },
+  "volume" : {
+    "native" : 70883.25909
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Euro",
+  "last" : {
+    "native" : 1.058
+  },
+  "volume" : {
+    "native" : 15949.92752
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 0.262
+  },
+  "volume" : {
+    "native" : 6701.5725
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.79484
+  },
+  "volume" : {
+    "native" : 34756.99671
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Bitcoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.00026
+  },
+  "volume" : {
+    "native" : 5189.21114
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Novacoin",
+  "last" : {
+    "native" : 0.563
+  },
+  "volume" : {
+    "native" : 6821.15717
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Bitcoin",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 0.00022
+  },
+  "volume" : {
+    "native" : 17687.10762
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Euro",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 14.79391
+  },
+  "volume" : {
+    "native" : 2232.47927
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Euro",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.573
+  },
+  "volume" : {
+    "native" : 645.92875
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Russian Ruble",
+  "quote" : "Euro",
+  "last" : {
+    "native" : 58.7602
+  },
+  "volume" : {
+    "native" : 2813.22387
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 15.65
+  },
+  "volume" : {
+    "native" : 43337.74599
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Russian Ruble",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 211.803
+  },
+  "volume" : {
+    "native" : 2406.49233
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1118.24
+  },
+  "volume" : {
+    "native" : 65.57554
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Bitcoin",
+  "quote" : "Novacoin",
+  "last" : {
+    "native" : 0.00049
+  },
+  "volume" : {
+    "native" : 2516.17128
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00321
+  },
+  "volume" : {
+    "native" : 46415.43452
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1181.383
+  },
+  "volume" : {
+    "native" : 5110.69344
+  }
+}, {
+  "timestamp" : 1488249335000,
+  "market" : "http://btc-e.com",
+  "base" : "Russian Ruble",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 870
+  },
+  "volume" : {
+    "native" : 3196.8013
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://btc-e.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.01326
+  },
+  "volume" : {
+    "native" : 22480.65968
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://btc-e.com",
+  "base" : "Russian Ruble",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 65615.26744
+  },
+  "volume" : {
+    "native" : 246.32991
+  }
+}, {
+  "timestamp" : 1488249385542,
+  "market" : "http://coinbase.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1204.25
+  },
+  "volume" : {
+    "native" : null
+  }
+}, {
+  "timestamp" : 1468938689979,
+  "market" : "http://api.kraken.com",
+  "base" : "Litecoin",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 160.56500
+  },
+  "volume" : {
+    "native" : 8.35107665
+  }
+}, {
+  "timestamp" : 1488239754626,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.000000160
+  },
+  "volume" : {
+    "native" : 1309816.62503835
+  }
+}, {
+  "timestamp" : 1481871737904,
+  "market" : "http://api.kraken.com",
+  "base" : "Japanese Yen",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 350.00000
+  },
+  "volume" : {
+    "native" : 140.00000000
+  }
+}, {
+  "timestamp" : 1488249198514,
+  "market" : "http://api.kraken.com",
+  "base" : "Japanese Yen",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 1808.10200
+  },
+  "volume" : {
+    "native" : 3749.99976638
+  }
+}, {
+  "timestamp" : 1488247454326,
+  "market" : "http://api.kraken.com",
+  "base" : "British Pound Sterling",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 12.56555
+  },
+  "volume" : {
+    "native" : 2157.58338112
+  }
+}, {
+  "timestamp" : 1488249249571,
+  "market" : "http://api.kraken.com",
+  "base" : "US Dollar",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 11.73000000
+  },
+  "volume" : {
+    "native" : 3013.26854419
+  }
+}, {
+  "timestamp" : 1488249086629,
+  "market" : "http://api.kraken.com",
+  "base" : "Euro",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 4.54500
+  },
+  "volume" : {
+    "native" : 840.91665133
+  }
+}, {
+  "timestamp" : 1488249082758,
+  "market" : "http://api.kraken.com",
+  "base" : "Japanese Yen",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 136594.400
+  },
+  "volume" : {
+    "native" : 73.59072200
+  }
+}, {
+  "timestamp" : 1488247450820,
+  "market" : "http://api.kraken.com",
+  "base" : "British Pound Sterling",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 943.03700
+  },
+  "volume" : {
+    "native" : 31.75776380
+  }
+}, {
+  "timestamp" : 1468941016903,
+  "market" : "http://api.kraken.com",
+  "base" : "Dogecoin",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 2730000.00000
+  },
+  "volume" : {
+    "native" : 1.75873293
+  }
+}, {
+  "timestamp" : 1468926988999,
+  "market" : "http://api.kraken.com",
+  "base" : "Ripple",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 103842.16100
+  },
+  "volume" : {
+    "native" : 14.01458377
+  }
+}, {
+  "timestamp" : 1481998653305,
+  "market" : "http://api.kraken.com",
+  "base" : "Canadian Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 4.80908
+  },
+  "volume" : {
+    "native" : 183.25810000
+  }
+}, {
+  "timestamp" : 1488245135166,
+  "market" : "http://api.kraken.com",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.86781
+  },
+  "volume" : {
+    "native" : 774.89883773
+  }
+}, {
+  "timestamp" : 1488249131975,
+  "market" : "http://api.kraken.com",
+  "base" : "Euro",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 14.79164
+  },
+  "volume" : {
+    "native" : 168957.62193155
+  }
+}, {
+  "timestamp" : 1488249097005,
+  "market" : "http://api.kraken.com",
+  "base" : "Euro",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.59000
+  },
+  "volume" : {
+    "native" : 4656.02057831
+  }
+}, {
+  "timestamp" : 1488249057152,
+  "market" : "http://api.kraken.com",
+  "base" : "Euro",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 10.97140000
+  },
+  "volume" : {
+    "native" : 6366.39528303
+  }
+}, {
+  "timestamp" : 1488247217546,
+  "market" : "http://api.kraken.com",
+  "base" : "US Dollar",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 4.95951
+  },
+  "volume" : {
+    "native" : 63.27882468
+  }
+}, {
+  "timestamp" : 1480108122122,
+  "market" : "http://api.kraken.com",
+  "base" : "Canadian Dollar",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 5.31756
+  },
+  "volume" : {
+    "native" : 0.20000000
+  }
+}, {
+  "timestamp" : 1488249106195,
+  "market" : "http://api.kraken.com",
+  "base" : "Canadian Dollar",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 19.46000
+  },
+  "volume" : {
+    "native" : 655.23449324
+  }
+}, {
+  "timestamp" : 1488249140634,
+  "market" : "http://api.kraken.com",
+  "base" : "US Dollar",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 15.83101
+  },
+  "volume" : {
+    "native" : 73950.20699129
+  }
+}, {
+  "timestamp" : 1488249334452,
+  "market" : "http://api.kraken.com",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1122.92400
+  },
+  "volume" : {
+    "native" : 6003.93068588
+  }
+}, {
+  "timestamp" : 1488249084859,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.004043
+  },
+  "volume" : {
+    "native" : 1719.52464131
+  }
+}, {
+  "timestamp" : 1488249021666,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00322100
+  },
+  "volume" : {
+    "native" : 18384.33346896
+  }
+}, {
+  "timestamp" : 1463947644332,
+  "market" : "http://api.kraken.com",
+  "base" : "Namecoin",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1271.46148
+  },
+  "volume" : {
+    "native" : 0.08813075
+  }
+}, {
+  "timestamp" : 1488247411569,
+  "market" : "http://api.kraken.com",
+  "base" : "Canadian Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1431.00000
+  },
+  "volume" : {
+    "native" : 78.78926581
+  }
+}, {
+  "timestamp" : 1488249310406,
+  "market" : "http://api.kraken.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1198.59200
+  },
+  "volume" : {
+    "native" : 2044.85040611
+  }
+}, {
+  "timestamp" : 1488249055585,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Ripple",
+  "last" : {
+    "native" : 0.000004580
+  },
+  "volume" : {
+    "native" : 8671392.82173883
+  }
+}, {
+  "timestamp" : 1488249328824,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.013219
+  },
+  "volume" : {
+    "native" : 144247.74225821
+  }
+}, {
+  "timestamp" : 1488249092003,
+  "market" : "http://api.kraken.com",
+  "base" : "Ethereum",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.305920
+  },
+  "volume" : {
+    "native" : 1173.29825255
+  }
+}, {
+  "timestamp" : 1488249241805,
+  "market" : "http://api.kraken.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.00980600
+  },
+  "volume" : {
+    "native" : 7243.38865029
+  }
+}, {
+  "timestamp" : 1488249343871,
+  "market" : "https://api.quoine.com",
+  "base" : "Singapore Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1678.71
+  },
+  "volume" : {
+    "native" : 1265.75638164
+  }
+}, {
+  "timestamp" : 1488249344211,
+  "market" : "https://api.quoine.com",
+  "base" : "Australian Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1564.4
+  },
+  "volume" : {
+    "native" : 1998.29984352
+  }
+}, {
+  "timestamp" : 1488249343987,
+  "market" : "https://api.quoine.com",
+  "base" : "Hong Kong Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 9333.2
+  },
+  "volume" : {
+    "native" : 417.05570592
+  }
+}, {
+  "timestamp" : 1488249343655,
+  "market" : "https://api.quoine.com",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1134.1
+  },
+  "volume" : {
+    "native" : 1455.02554354
+  }
+}, {
+  "timestamp" : 1488249343765,
+  "market" : "https://api.quoine.com",
+  "base" : "Japanese Yen",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 136094.01
+  },
+  "volume" : {
+    "native" : 29085.75779398
+  }
+}, {
+  "timestamp" : 1488249343306,
+  "market" : "https://api.quoine.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1200.7
+  },
+  "volume" : {
+    "native" : 6375.70109836
+  }
+}, {
+  "timestamp" : 1488249344098,
+  "market" : "https://api.quoine.com",
+  "base" : "Indonesian Rupiah",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 16011623.0
+  },
+  "volume" : {
+    "native" : 2737.7715797
+  }
+}, {
+  "timestamp" : 1488249344535,
+  "market" : "https://api.quoine.com",
+  "base" : "Philippine Peso",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 60218.0
+  },
+  "volume" : {
+    "native" : 866.50504128
+  }
+}, {
+  "timestamp" : 1488249347511,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 26.190000
+  },
+  "volume" : {
+    "native" : 208.2817
+  }
+}, {
+  "timestamp" : 1488249348026,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 0.352000
+  },
+  "volume" : {
+    "native" : 522.004
+  }
+}, {
+  "timestamp" : 1488249349852,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.048000
+  },
+  "volume" : {
+    "native" : 5345.1086
+  }
+}, {
+  "timestamp" : 1488249350233,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 0.018310
+  },
+  "volume" : {
+    "native" : 5240.5968
+  }
+}, {
+  "timestamp" : 1488249351368,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.195499
+  },
+  "volume" : {
+    "native" : 471.455
+  }
+}, {
+  "timestamp" : 1488249350610,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.001420
+  },
+  "volume" : {
+    "native" : 2997706.6036
+  }
+}, {
+  "timestamp" : 1488249349055,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Ripple",
+  "last" : {
+    "native" : 0.039700
+  },
+  "volume" : {
+    "native" : 39216.627
+  }
+}, {
+  "timestamp" : 1488249350988,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.287000
+  },
+  "volume" : {
+    "native" : 51383.451
+  }
+}, {
+  "timestamp" : 1488249348541,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 2.155000
+  },
+  "volume" : {
+    "native" : 248.5844
+  }
+}, {
+  "timestamp" : 1488249346997,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 7798.000000
+  },
+  "volume" : {
+    "native" : 13.8627
+  }
+}, {
+  "timestamp" : 1488249349472,
+  "market" : "http://www.jubi.com",
+  "base" : "Chinese Yuan",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.247000
+  },
+  "volume" : {
+    "native" : 2040.733
+  }
+}, {
+  "timestamp" : 1488235950000,
+  "market" : "http://bitbay.pl",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1133.98
+  },
+  "volume" : {
+    "native" : 33.32369948
+  }
+}, {
+  "timestamp" : 1488248536000,
+  "market" : "http://bitbay.pl",
+  "base" : "Polish Zloty",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 4852.05
+  },
+  "volume" : {
+    "native" : 811.14869564
+  }
+}, {
+  "timestamp" : 1487938872000,
+  "market" : "http://bitbay.pl",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.0042
+  },
+  "volume" : {
+    "native" : 0.26190475
+  }
+}, {
+  "timestamp" : 1488246953000,
+  "market" : "http://bitbay.pl",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1230.99
+  },
+  "volume" : {
+    "native" : 22.89860733
+  }
+}, {
+  "timestamp" : 1487707590000,
+  "market" : "http://bitbay.pl",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.9
+  },
+  "volume" : {
+    "native" : 1.04449999
+  }
+}, {
+  "timestamp" : 1487460768000,
+  "market" : "http://bitbay.pl",
+  "base" : "Euro",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 8
+  },
+  "volume" : {
+    "native" : 0.125
+  }
+}, {
+  "timestamp" : 1488232270000,
+  "market" : "http://bitbay.pl",
+  "base" : "Polish Zloty",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 15.99
+  },
+  "volume" : {
+    "native" : 99.00416505
+  }
+}, {
+  "timestamp" : 1488249352133,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Sia",
+  "last" : {
+    "native" : 0.000000243
+  },
+  "volume" : {
+    "native" : 41500
+  }
+}, {
+  "timestamp" : 1467651442607,
+  "market" : "http://hitbtc.com",
+  "base" : "US Dollar",
+  "quote" : "Euro",
+  "last" : {
+    "native" : 0.0000
+  },
+  "volume" : {
+    "native" : 0
+  }
+}, {
+  "timestamp" : 1488249349333,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Bytecoin",
+  "last" : {
+    "native" : 0.0000000513
+  },
+  "volume" : {
+    "native" : 917914200
+  }
+}, {
+  "timestamp" : 1488249351656,
+  "market" : "http://hitbtc.com",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.999
+  },
+  "volume" : {
+    "native" : 0.3
+  }
+}, {
+  "timestamp" : 1488249352650,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Waves",
+  "last" : {
+    "native" : 0.0002311
+  },
+  "volume" : {
+    "native" : 12.72
+  }
+}, {
+  "timestamp" : 1488249351137,
+  "market" : "http://hitbtc.com",
+  "base" : "Euro",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 13.9788
+  },
+  "volume" : {
+    "native" : 2.092
+  }
+}, {
+  "timestamp" : 1488249351499,
+  "market" : "http://hitbtc.com",
+  "base" : "Euro",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.858
+  },
+  "volume" : {
+    "native" : 0.0
+  }
+}, {
+  "timestamp" : 1488249350637,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.000000175
+  },
+  "volume" : {
+    "native" : 464000
+  }
+}, {
+  "timestamp" : 1488249351745,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00000572
+  },
+  "volume" : {
+    "native" : 33
+  }
+}, {
+  "timestamp" : 1467651442607,
+  "market" : "http://hitbtc.com",
+  "base" : "US Dollar",
+  "quote" : "British Pound Sterling",
+  "last" : {
+    "native" : 0.0000
+  },
+  "volume" : {
+    "native" : 0
+  }
+}, {
+  "timestamp" : 1488249349333,
+  "market" : "http://hitbtc.com",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1105.36
+  },
+  "volume" : {
+    "native" : 0.02
+  }
+}, {
+  "timestamp" : 1488249351301,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00321
+  },
+  "volume" : {
+    "native" : 188.2
+  }
+}, {
+  "timestamp" : 1467651510323,
+  "market" : "http://hitbtc.com",
+  "base" : "British Pound Sterling",
+  "quote" : "Euro",
+  "last" : {
+    "native" : 0.0000
+  },
+  "volume" : {
+    "native" : 0
+  }
+}, {
+  "timestamp" : 1488249349333,
+  "market" : "http://hitbtc.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1194.01
+  },
+  "volume" : {
+    "native" : 2.12
+  }
+}, {
+  "timestamp" : 1488249350834,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Emercoin",
+  "last" : {
+    "native" : 0.00012515
+  },
+  "volume" : {
+    "native" : 0.6
+  }
+}, {
+  "timestamp" : 1488249350957,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.013220
+  },
+  "volume" : {
+    "native" : 91827.192
+  }
+}, {
+  "timestamp" : 1488249352449,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "NEM",
+  "last" : {
+    "native" : 0.00000542
+  },
+  "volume" : {
+    "native" : 2428809
+  }
+}, {
+  "timestamp" : 1488249352246,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "DigitalNote",
+  "last" : {
+    "native" : 0.0000001031
+  },
+  "volume" : {
+    "native" : 38823300
+  }
+}, {
+  "timestamp" : 1488249351935,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Solomon Islands Dollar",
+  "last" : {
+    "native" : 0.00108
+  },
+  "volume" : {
+    "native" : 0.001
+  }
+}, {
+  "timestamp" : 1488249349333,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 0.023880
+  },
+  "volume" : {
+    "native" : 2767.446
+  }
+}, {
+  "timestamp" : 1488249352451,
+  "market" : "http://hitbtc.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.009924
+  },
+  "volume" : {
+    "native" : 5073.98
+  }
+}, {
+  "timestamp" : 1485640196507,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Megacoin",
+  "last" : {
+    "native" : 0.00001575
+  },
+  "volume" : {
+    "native" : 15805.58612363
+  }
+}, {
+  "timestamp" : 1488249151072,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "ShadowCash",
+  "last" : {
+    "native" : 0.00126380
+  },
+  "volume" : {
+    "native" : 3925.25919132
+  }
+}, {
+  "timestamp" : 1488249242287,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Burst",
+  "last" : {
+    "native" : 0.00000073
+  },
+  "volume" : {
+    "native" : 3713319.45771113
+  }
+}, {
+  "timestamp" : 1488249259927,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "GroestlCoin",
+  "last" : {
+    "native" : 0.00000362
+  },
+  "volume" : {
+    "native" : 9686.31955794
+  }
+}, {
+  "timestamp" : 1488249345213,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Saudi Riyal",
+  "last" : {
+    "native" : 0.00003500
+  },
+  "volume" : {
+    "native" : 40340.82698912
+  }
+}, {
+  "timestamp" : 1488249348353,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Waves",
+  "last" : {
+    "native" : 0.00017680
+  },
+  "volume" : {
+    "native" : 120967.44581083
+  }
+}, {
+  "timestamp" : 1488248666037,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Auroracoin",
+  "last" : {
+    "native" : 0.00011200
+  },
+  "volume" : {
+    "native" : 9054.26750546
+  }
+}, {
+  "timestamp" : 1488248764011,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.00000017
+  },
+  "volume" : {
+    "native" : 24837014.37064253
+  }
+}, {
+  "timestamp" : 1488249271038,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Startcoin",
+  "last" : {
+    "native" : 0.00000600
+  },
+  "volume" : {
+    "native" : 341245.35079226
+  }
+}, {
+  "timestamp" : 1485639364087,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Neucoin",
+  "last" : {
+    "native" : 0.00000001
+  },
+  "volume" : {
+    "native" : 16086992.59309415
+  }
+}, {
+  "timestamp" : 1488249241863,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "DigiByte",
+  "last" : {
+    "native" : 0.00000022
+  },
+  "volume" : {
+    "native" : 3416677.50574158
+  }
+}, {
+  "timestamp" : 1485590512797,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Jumbucks",
+  "last" : {
+    "native" : 0.00034282
+  },
+  "volume" : {
+    "native" : 226963.37617408
+  }
+}, {
+  "timestamp" : 1488249327307,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "IOCoin",
+  "last" : {
+    "native" : 0.00033909
+  },
+  "volume" : {
+    "native" : 192.99500343
+  }
+}, {
+  "timestamp" : 1488249223317,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Emercoin",
+  "last" : {
+    "native" : 0.00015726
+  },
+  "volume" : {
+    "native" : 3726.96253205
+  }
+}, {
+  "timestamp" : 1488249225927,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "BitBay",
+  "last" : {
+    "native" : 0.00000136
+  },
+  "volume" : {
+    "native" : 9727091.55121922
+  }
+}, {
+  "timestamp" : 1488249292413,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "GridCoin",
+  "last" : {
+    "native" : 0.00000539
+  },
+  "volume" : {
+    "native" : 24843.88551607
+  }
+}, {
+  "timestamp" : 1488236134083,
+  "market" : "http://bittrex.com",
+  "base" : "Ethereum",
+  "quote" : "DigixGlobal",
+  "last" : {
+    "native" : 0.60800000
+  },
+  "volume" : {
+    "native" : 1.09677372
+  }
+}, {
+  "timestamp" : 1488249348051,
+  "market" : "http://bittrex.com",
+  "base" : "Tether",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1208.19900003
+  },
+  "volume" : {
+    "native" : 17.33596205
+  }
+}, {
+  "timestamp" : 1488249328093,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Spells of Genesis",
+  "last" : {
+    "native" : 0.00013760
+  },
+  "volume" : {
+    "native" : 931.39355347
+  }
+}, {
+  "timestamp" : 1488193648333,
+  "market" : "http://bittrex.com",
+  "base" : "bitCNY",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 8001.00000000
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249281035,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Solomon Islands Dollar",
+  "last" : {
+    "native" : 0.00082813
+  },
+  "volume" : {
+    "native" : 1588.79064894
+  }
+}, {
+  "timestamp" : 1488249333015,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Bahamian Dollar",
+  "last" : {
+    "native" : 0.00000590
+  },
+  "volume" : {
+    "native" : 217212.34668207
+  }
+}, {
+  "timestamp" : 1488174717203,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Horizon",
+  "last" : {
+    "native" : 0.00000020
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488248163082,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "DogeCoinDark",
+  "last" : {
+    "native" : 0.00000002
+  },
+  "volume" : {
+    "native" : 6261657.90358439
+  }
+}, {
+  "timestamp" : 1488244087085,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Project Decorum",
+  "last" : {
+    "native" : 0.00000953
+  },
+  "volume" : {
+    "native" : 120434.50483617
+  }
+}, {
+  "timestamp" : 1488249194091,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Electronic Gulden",
+  "last" : {
+    "native" : 0.00001435
+  },
+  "volume" : {
+    "native" : 37525.21005178
+  }
+}, {
+  "timestamp" : 1488249218473,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.00026575
+  },
+  "volume" : {
+    "native" : 2190.13398870
+  }
+}, {
+  "timestamp" : 1488244188213,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "FoldingCoin",
+  "last" : {
+    "native" : 0.00000112
+  },
+  "volume" : {
+    "native" : 16439.69014222
+  }
+}, {
+  "timestamp" : 1488249313993,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.00406000
+  },
+  "volume" : {
+    "native" : 145.91258638
+  }
+}, {
+  "timestamp" : 1488249345197,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00324230
+  },
+  "volume" : {
+    "native" : 4735.18266885
+  }
+}, {
+  "timestamp" : 1488249186077,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "CureCoin",
+  "last" : {
+    "native" : 0.00004145
+  },
+  "volume" : {
+    "native" : 1888.96017252
+  }
+}, {
+  "timestamp" : 1488248315453,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "FairCoin",
+  "last" : {
+    "native" : 0.00002061
+  },
+  "volume" : {
+    "native" : 1198.03058577
+  }
+}, {
+  "timestamp" : 1488248902082,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Expanse",
+  "last" : {
+    "native" : 0.00019538
+  },
+  "volume" : {
+    "native" : 5781.54118612
+  }
+}, {
+  "timestamp" : 1488249281523,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Ripple",
+  "last" : {
+    "native" : 0.00000458
+  },
+  "volume" : {
+    "native" : 2079176.07819225
+  }
+}, {
+  "timestamp" : 1471663037072,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "RibbitRewards",
+  "last" : {
+    "native" : 0.00000112
+  },
+  "volume" : {
+    "native" : 4380818.47084066
+  }
+}, {
+  "timestamp" : 1488249347004,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.01312434
+  },
+  "volume" : {
+    "native" : 19779.77982198
+  }
+}, {
+  "timestamp" : 1488249343273,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Factom",
+  "last" : {
+    "native" : 0.00246159
+  },
+  "volume" : {
+    "native" : 1739.14044373
+  }
+}, {
+  "timestamp" : 1488249345009,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.00980000
+  },
+  "volume" : {
+    "native" : 2958.41005929
+  }
+}, {
+  "timestamp" : 1488249219457,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Decred",
+  "last" : {
+    "native" : 0.00190445
+  },
+  "volume" : {
+    "native" : 2356.53157026
+  }
+}, {
+  "timestamp" : 1488249289099,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "GeoCoin",
+  "last" : {
+    "native" : 0.00003613
+  },
+  "volume" : {
+    "native" : 6182.30366255
+  }
+}, {
+  "timestamp" : 1488247684007,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Safex",
+  "last" : {
+    "native" : 0.00000033
+  },
+  "volume" : {
+    "native" : 8336974.98320757
+  }
+}, {
+  "timestamp" : 1488248899413,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "ReddCoin",
+  "last" : {
+    "native" : 0.00000002
+  },
+  "volume" : {
+    "native" : 35193519.03221999
+  }
+}, {
+  "timestamp" : 1488249318383,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "NautilusCoin",
+  "last" : {
+    "native" : 0.00007030
+  },
+  "volume" : {
+    "native" : 25822.81379993
+  }
+}, {
+  "timestamp" : 1488249347917,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00000583
+  },
+  "volume" : {
+    "native" : 319306.76099290
+  }
+}, {
+  "timestamp" : 1488249348727,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "SysCoin",
+  "last" : {
+    "native" : 0.00000901
+  },
+  "volume" : {
+    "native" : 354581.29636451
+  }
+}, {
+  "timestamp" : 1488249232113,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "GetGems",
+  "last" : {
+    "native" : 0.00000250
+  },
+  "volume" : {
+    "native" : 14706.18550478
+  }
+}, {
+  "timestamp" : 1488249239006,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Hyper",
+  "last" : {
+    "native" : 0.00000700
+  },
+  "volume" : {
+    "native" : 10835.04627123
+  }
+}, {
+  "timestamp" : 1488244993059,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "DigixGlobal",
+  "last" : {
+    "native" : 0.00773051
+  },
+  "volume" : {
+    "native" : 455.55804216
+  }
+}, {
+  "timestamp" : 1488249347068,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Synereo",
+  "last" : {
+    "native" : 0.00003288
+  },
+  "volume" : {
+    "native" : 101799.92266303
+  }
+}, {
+  "timestamp" : 1488249321007,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Storjcoin X",
+  "last" : {
+    "native" : 0.00012650
+  },
+  "volume" : {
+    "native" : 4040.37721071
+  }
+}, {
+  "timestamp" : 1488249344065,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 0.00401942
+  },
+  "volume" : {
+    "native" : 112.05683481
+  }
+}, {
+  "timestamp" : 1488249220067,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Diamond",
+  "last" : {
+    "native" : 0.00018814
+  },
+  "volume" : {
+    "native" : 12497.38415284
+  }
+}, {
+  "timestamp" : 1488249281977,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "NEM",
+  "last" : {
+    "native" : 0.00000539
+  },
+  "volume" : {
+    "native" : 1969155.67149810
+  }
+}, {
+  "timestamp" : 1488248287233,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "MazaCoin",
+  "last" : {
+    "native" : 0.00000016
+  },
+  "volume" : {
+    "native" : 2108343.87535744
+  }
+}, {
+  "timestamp" : 1488249335103,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "CannabisCoin",
+  "last" : {
+    "native" : 0.00000245
+  },
+  "volume" : {
+    "native" : 124962.80059373
+  }
+}, {
+  "timestamp" : 1488249323043,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "FuelCoin",
+  "last" : {
+    "native" : 0.00000510
+  },
+  "volume" : {
+    "native" : 5135.34312590
+  }
+}, {
+  "timestamp" : 1488249347667,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "SolarCoin",
+  "last" : {
+    "native" : 0.00008900
+  },
+  "volume" : {
+    "native" : 56765.43595097
+  }
+}, {
+  "timestamp" : 1488249308507,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "MonaCoin",
+  "last" : {
+    "native" : 0.00002506
+  },
+  "volume" : {
+    "native" : 40786.87418629
+  }
+}, {
+  "timestamp" : 1488249346001,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.00002817
+  },
+  "volume" : {
+    "native" : 1640.62105584
+  }
+}, {
+  "timestamp" : 1488248629103,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.00003503
+  },
+  "volume" : {
+    "native" : 122566.43148809
+  }
+}, {
+  "timestamp" : 1488249345273,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Counterparty",
+  "last" : {
+    "native" : 0.00279000
+  },
+  "volume" : {
+    "native" : 641.57275878
+  }
+}, {
+  "timestamp" : 1488249286507,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "FlorinCoin",
+  "last" : {
+    "native" : 0.00000516
+  },
+  "volume" : {
+    "native" : 37049.00351404
+  }
+}, {
+  "timestamp" : 1488249336076,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Clams",
+  "last" : {
+    "native" : 0.00078178
+  },
+  "volume" : {
+    "native" : 33.70249283
+  }
+}, {
+  "timestamp" : 1488249304367,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Navajo",
+  "last" : {
+    "native" : 0.00003087
+  },
+  "volume" : {
+    "native" : 40872.30778662
+  }
+}, {
+  "timestamp" : 1488249341029,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "CloakCoin",
+  "last" : {
+    "native" : 0.00010000
+  },
+  "volume" : {
+    "native" : 7990.63750914
+  }
+}, {
+  "timestamp" : 1488249268553,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Guldencoin",
+  "last" : {
+    "native" : 0.00001750
+  },
+  "volume" : {
+    "native" : 1169675.55108934
+  }
+}, {
+  "timestamp" : 1488249235363,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Viacoin",
+  "last" : {
+    "native" : 0.00003092
+  },
+  "volume" : {
+    "native" : 33086.32128508
+  }
+}, {
+  "timestamp" : 1488249334993,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "European Monetary Unit",
+  "last" : {
+    "native" : 0.00018914
+  },
+  "volume" : {
+    "native" : 451.27591899
+  }
+}, {
+  "timestamp" : 1488249330913,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.00003000
+  },
+  "volume" : {
+    "native" : 72572.22964909
+  }
+}, {
+  "timestamp" : 1488249341021,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "BitShares",
+  "last" : {
+    "native" : 0.00000309
+  },
+  "volume" : {
+    "native" : 355004.86326611
+  }
+}, {
+  "timestamp" : 1488249057747,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "GoldCoin",
+  "last" : {
+    "native" : 0.00001108
+  },
+  "volume" : {
+    "native" : 55983.75318450
+  }
+}, {
+  "timestamp" : 1474687924063,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "YbCoin",
+  "last" : {
+    "native" : 0.00280001
+  },
+  "volume" : {
+    "native" : 1.31596390
+  }
+}, {
+  "timestamp" : 1485640168099,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Digitalcoin",
+  "last" : {
+    "native" : 0.00000705
+  },
+  "volume" : {
+    "native" : 10105.22458968
+  }
+}, {
+  "timestamp" : 1488249329046,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Unobtanium",
+  "last" : {
+    "native" : 0.00181230
+  },
+  "volume" : {
+    "native" : 230.87012144
+  }
+}, {
+  "timestamp" : 1488240167327,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "DigitalNote",
+  "last" : {
+    "native" : 0.00000010
+  },
+  "volume" : {
+    "native" : 3434120.18953334
+  }
+}, {
+  "timestamp" : 1488249345917,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "PotCoin",
+  "last" : {
+    "native" : 0.00001470
+  },
+  "volume" : {
+    "native" : 36227.11422475
+  }
+}, {
+  "timestamp" : 1488249346947,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 0.02403627
+  },
+  "volume" : {
+    "native" : 5105.25325161
+  }
+}, {
+  "timestamp" : 1488249329079,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "Feathercoin",
+  "last" : {
+    "native" : 0.00000480
+  },
+  "volume" : {
+    "native" : 227144.36012776
+  }
+}, {
+  "timestamp" : 1488249331227,
+  "market" : "http://bittrex.com",
+  "base" : "Bitcoin",
+  "quote" : "MaidSafeCoin",
+  "last" : {
+    "native" : 0.00014946
+  },
+  "volume" : {
+    "native" : 23688.08590779
+  }
+}, {
+  "timestamp" : 1488249356201,
+  "market" : "http://www.loyalbit.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 725.00
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249366000,
+  "market" : "http://cex.io",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1128.5967
+  },
+  "volume" : {
+    "native" : 71.05240736
+  }
+}, {
+  "timestamp" : 1488249355000,
+  "market" : "http://cex.io",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00322129
+  },
+  "volume" : {
+    "native" : 333.98803755
+  }
+}, {
+  "timestamp" : 1488249354000,
+  "market" : "http://cex.io",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1206.4533
+  },
+  "volume" : {
+    "native" : 576.72169314
+  }
+}, {
+  "timestamp" : 1488249354000,
+  "market" : "http://cex.io",
+  "base" : "US Dollar",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 3.87
+  },
+  "volume" : {
+    "native" : 720.53602142
+  }
+}, {
+  "timestamp" : 1482933790000,
+  "market" : "http://cex.io",
+  "base" : "Euro",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 4.2313
+  },
+  "volume" : {
+    "native" : 77.70019925
+  }
+}, {
+  "timestamp" : 1483552474000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Megacoin",
+  "last" : {
+    "native" : 0.00001301
+  },
+  "volume" : {
+    "native" : 235.476
+  }
+}, {
+  "timestamp" : 1488189894000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 2.45
+  },
+  "volume" : {
+    "native" : 501.764
+  }
+}, {
+  "timestamp" : 1483585478000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Mintcoin",
+  "last" : {
+    "native" : 0.0001999
+  },
+  "volume" : {
+    "native" : 25012.51
+  }
+}, {
+  "timestamp" : 1488248032000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.00000018
+  },
+  "volume" : {
+    "native" : 2912139.613
+  }
+}, {
+  "timestamp" : 1488247607000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 1.77
+  },
+  "volume" : {
+    "native" : 806.246
+  }
+}, {
+  "timestamp" : 1488249073000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 26.13
+  },
+  "volume" : {
+    "native" : 144.952
+  }
+}, {
+  "timestamp" : 1483536683000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 0.036
+  },
+  "volume" : {
+    "native" : 10
+  }
+}, {
+  "timestamp" : 1483094082000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Mastercoin (Omni)",
+  "last" : {
+    "native" : 0.0005121
+  },
+  "volume" : {
+    "native" : 46.876
+  }
+}, {
+  "timestamp" : 1487942305000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 58.9408
+  },
+  "volume" : {
+    "native" : 0.021
+  }
+}, {
+  "timestamp" : 1488221274000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 0.00003701
+  },
+  "volume" : {
+    "native" : 180
+  }
+}, {
+  "timestamp" : 1488249294000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 109.39
+  },
+  "volume" : {
+    "native" : 2259.83
+  }
+}, {
+  "timestamp" : 1483488648000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "BitBay",
+  "last" : {
+    "native" : 0.00000073
+  },
+  "volume" : {
+    "native" : 442.188
+  }
+}, {
+  "timestamp" : 1488248102000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 83.915
+  },
+  "volume" : {
+    "native" : 667.179
+  }
+}, {
+  "timestamp" : 1483545734000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Nxttycoin",
+  "last" : {
+    "native" : 0.00000004
+  },
+  "volume" : {
+    "native" : 881412.393
+  }
+}, {
+  "timestamp" : 1488222291000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.0468
+  },
+  "volume" : {
+    "native" : 1807.81
+  }
+}, {
+  "timestamp" : 1480696972000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "SuperNET",
+  "last" : {
+    "native" : 28.6
+  },
+  "volume" : {
+    "native" : 0.035
+  }
+}, {
+  "timestamp" : 1473269605000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Crypti",
+  "last" : {
+    "native" : 0.00000506
+  },
+  "volume" : {
+    "native" : 1267.804
+  }
+}, {
+  "timestamp" : 1483586013000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Quark",
+  "last" : {
+    "native" : 0.0135
+  },
+  "volume" : {
+    "native" : 192.696
+  }
+}, {
+  "timestamp" : 1488238578000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.00028
+  },
+  "volume" : {
+    "native" : 55.471
+  }
+}, {
+  "timestamp" : 1488236276000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 0.00022007
+  },
+  "volume" : {
+    "native" : 69.336
+  }
+}, {
+  "timestamp" : 1467158030000,
+  "market" : "http://bter.com",
+  "base" : "Nxt",
+  "quote" : "SuperNET",
+  "last" : {
+    "native" : 100
+  },
+  "volume" : {
+    "native" : 1.664
+  }
+}, {
+  "timestamp" : 1483476404000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Mintcoin",
+  "last" : {
+    "native" : 0.00000003
+  },
+  "volume" : {
+    "native" : 30000.417
+  }
+}, {
+  "timestamp" : 1488173841000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.0037
+  },
+  "volume" : {
+    "native" : 0.101
+  }
+}, {
+  "timestamp" : 1488235998000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00321
+  },
+  "volume" : {
+    "native" : 51.5803
+  }
+}, {
+  "timestamp" : 1483587049000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 0.00000400
+  },
+  "volume" : {
+    "native" : 2728.627
+  }
+}, {
+  "timestamp" : 1488248700000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.014098
+  },
+  "volume" : {
+    "native" : 223.1735
+  }
+}, {
+  "timestamp" : 1483584429000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Nxttycoin",
+  "last" : {
+    "native" : 0.00020
+  },
+  "volume" : {
+    "native" : 650000
+  }
+}, {
+  "timestamp" : 1488207022000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Monero",
+  "last" : {
+    "native" : 0.00977841
+  },
+  "volume" : {
+    "native" : 15.53
+  }
+}, {
+  "timestamp" : 1483572986000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "NuShares",
+  "last" : {
+    "native" : 0.00000016
+  },
+  "volume" : {
+    "native" : 1564
+  }
+}, {
+  "timestamp" : 1488241054000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Counterparty",
+  "last" : {
+    "native" : 29.88
+  },
+  "volume" : {
+    "native" : 3.5083
+  }
+}, {
+  "timestamp" : 1483045722000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.1201
+  },
+  "volume" : {
+    "native" : 2398.061
+  }
+}, {
+  "timestamp" : 1483578617000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.27
+  },
+  "volume" : {
+    "native" : 4.683
+  }
+}, {
+  "timestamp" : 1482733579000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "SuperNET",
+  "last" : {
+    "native" : 0.002
+  },
+  "volume" : {
+    "native" : 0.2204
+  }
+}, {
+  "timestamp" : 1478111116000,
+  "market" : "http://bter.com",
+  "base" : "Nxt",
+  "quote" : "BitShares",
+  "last" : {
+    "native" : 1.099
+  },
+  "volume" : {
+    "native" : 0.185
+  }
+}, {
+  "timestamp" : 1487880282000,
+  "market" : "http://bter.com",
+  "base" : "Nxt",
+  "quote" : "Counterparty",
+  "last" : {
+    "native" : 3489
+  },
+  "volume" : {
+    "native" : 0.97
+  }
+}, {
+  "timestamp" : 1483575076000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "GetGems",
+  "last" : {
+    "native" : 0.00000215
+  },
+  "volume" : {
+    "native" : 465.116
+  }
+}, {
+  "timestamp" : 1488222287000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Nxt",
+  "last" : {
+    "native" : 0.00000580
+  },
+  "volume" : {
+    "native" : 4942.375
+  }
+}, {
+  "timestamp" : 1483587065000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.281
+  },
+  "volume" : {
+    "native" : 500
+  }
+}, {
+  "timestamp" : 1488245789000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "BitShares",
+  "last" : {
+    "native" : 0.0272
+  },
+  "volume" : {
+    "native" : 2899.32
+  }
+}, {
+  "timestamp" : 1483586012000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Quark",
+  "last" : {
+    "native" : 0.00000151
+  },
+  "volume" : {
+    "native" : 205.868
+  }
+}, {
+  "timestamp" : 1483072562000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 0.0028
+  },
+  "volume" : {
+    "native" : 0.098
+  }
+}, {
+  "timestamp" : 1488239963000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Feathercoin",
+  "last" : {
+    "native" : 0.039
+  },
+  "volume" : {
+    "native" : 2187.27822
+  }
+}, {
+  "timestamp" : 1488224057000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "NEM",
+  "last" : {
+    "native" : 0.00000498
+  },
+  "volume" : {
+    "native" : 6899.997
+  }
+}, {
+  "timestamp" : 1474716966000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Qora",
+  "last" : {
+    "native" : 0.00000015
+  },
+  "volume" : {
+    "native" : 1103.8
+  }
+}, {
+  "timestamp" : 1488249259000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 8100
+  },
+  "volume" : {
+    "native" : 32.584
+  }
+}, {
+  "timestamp" : 1483583660000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Megacoin",
+  "last" : {
+    "native" : 0.13
+  },
+  "volume" : {
+    "native" : 198.35
+  }
+}, {
+  "timestamp" : 1488247863000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.00142
+  },
+  "volume" : {
+    "native" : 39496178.73
+  }
+}, {
+  "timestamp" : 1483467484000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.00003100
+  },
+  "volume" : {
+    "native" : 22.581
+  }
+}, {
+  "timestamp" : 1488249287000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 193.1
+  },
+  "volume" : {
+    "native" : 80.177
+  }
+}, {
+  "timestamp" : 1483582486000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.00003130
+  },
+  "volume" : {
+    "native" : 13.396
+  }
+}, {
+  "timestamp" : 1488242066000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Counterparty",
+  "last" : {
+    "native" : 0.00399
+  },
+  "volume" : {
+    "native" : 6.466
+  }
+}, {
+  "timestamp" : 1488221277000,
+  "market" : "http://bter.com",
+  "base" : "Chinese Yuan",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 0.305
+  },
+  "volume" : {
+    "native" : 179.82
+  }
+}, {
+  "timestamp" : 1483587067000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.00002800
+  },
+  "volume" : {
+    "native" : 209.359
+  }
+}, {
+  "timestamp" : 1488236246000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "BitShares",
+  "last" : {
+    "native" : 0.00000310
+  },
+  "volume" : {
+    "native" : 208415.707
+  }
+}, {
+  "timestamp" : 1481304188000,
+  "market" : "http://bter.com",
+  "base" : "Nxt",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 500
+  },
+  "volume" : {
+    "native" : 0.027
+  }
+}, {
+  "timestamp" : 1488249285000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 0.02424
+  },
+  "volume" : {
+    "native" : 85.42
+  }
+}, {
+  "timestamp" : 1488234963000,
+  "market" : "http://bter.com",
+  "base" : "Bitcoin",
+  "quote" : "Feathercoin",
+  "last" : {
+    "native" : 0.00000490
+  },
+  "volume" : {
+    "native" : 5823.687
+  }
+}, {
+  "timestamp" : 1488249272731,
+  "market" : "http://coinmate.io",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 1124.11
+  },
+  "volume" : {
+    "native" : 62.06697867
+  }
+}, {
+  "timestamp" : 1470921650000,
+  "market" : "https://data.mexbt.com",
+  "base" : "Mexican Peso",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 13598
+  },
+  "volume" : {
+    "native" : 1.70842858
+  }
+}, {
+  "timestamp" : 1470842580000,
+  "market" : "https://data.mexbt.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 605
+  },
+  "volume" : {
+    "native" : 2
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Megacoin",
+  "last" : {
+    "native" : 0.00000900
+  },
+  "volume" : {
+    "native" : 112.00000000
+  }
+}, {
+  "timestamp" : 1488249366000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Guldencoin",
+  "last" : {
+    "native" : 98.00000000
+  },
+  "volume" : {
+    "native" : 105.35293227
+  }
+}, {
+  "timestamp" : 1488249367000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Digitalcoin",
+  "last" : {
+    "native" : 25.00000001
+  },
+  "volume" : {
+    "native" : 15.23629805
+  }
+}, {
+  "timestamp" : 1488249367000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Novacoin",
+  "last" : {
+    "native" : 3299.99999978
+  },
+  "volume" : {
+    "native" : 0.02197107
+  }
+}, {
+  "timestamp" : 1488249367000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 120.00000033
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Dogecoin",
+  "last" : {
+    "native" : 0.00000018
+  },
+  "volume" : {
+    "native" : 1024862.08317015
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 153.00000010
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249373000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "PotCoin",
+  "last" : {
+    "native" : 85.50000000
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249373000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Startcoin",
+  "last" : {
+    "native" : 0.00000679
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249368000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Unobtanium",
+  "last" : {
+    "native" : 10633.00000000
+  },
+  "volume" : {
+    "native" : 9.56942193
+  }
+}, {
+  "timestamp" : 1488249373000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "IOCoin",
+  "last" : {
+    "native" : 0.00033120
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249368000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 0.00003694
+  },
+  "volume" : {
+    "native" : 10027.89188954
+  }
+}, {
+  "timestamp" : 1488249368000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "ReddCoin",
+  "last" : {
+    "native" : 0.12000000
+  },
+  "volume" : {
+    "native" : 416015.32185751
+  }
+}, {
+  "timestamp" : 1463705205000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "DogeCoinDark",
+  "last" : {
+    "native" : 0.00000007
+  },
+  "volume" : {
+    "native" : 371130.73554788
+  }
+}, {
+  "timestamp" : 1488249373000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Canada eCoin",
+  "last" : {
+    "native" : 0.00000132
+  },
+  "volume" : {
+    "native" : 92024.84913293
+  }
+}, {
+  "timestamp" : 1488249368000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Quark",
+  "last" : {
+    "native" : 7.00000000
+  },
+  "volume" : {
+    "native" : 9.62019230
+  }
+}, {
+  "timestamp" : 1488249373000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Electronic Gulden",
+  "last" : {
+    "native" : 0.00001406
+  },
+  "volume" : {
+    "native" : 298.20190446
+  }
+}, {
+  "timestamp" : 1488249369000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 0.00027000
+  },
+  "volume" : {
+    "native" : 3.40196302
+  }
+}, {
+  "timestamp" : 1488249369000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 0.00021394
+  },
+  "volume" : {
+    "native" : 0.05496276
+  }
+}, {
+  "timestamp" : 1470666901000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Mintcoin",
+  "last" : {
+    "native" : 0.00000009
+  },
+  "volume" : {
+    "native" : 2098851.64890883
+  }
+}, {
+  "timestamp" : 1488249374000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Litecoin",
+  "last" : {
+    "native" : 0.00331899
+  },
+  "volume" : {
+    "native" : 74.74059207
+  }
+}, {
+  "timestamp" : 1488249374000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Expanse",
+  "last" : {
+    "native" : 0.00020697
+  },
+  "volume" : {
+    "native" : 106.47227514
+  }
+}, {
+  "timestamp" : 1488249374000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 0.00000269
+  },
+  "volume" : {
+    "native" : 655.07402024
+  }
+}, {
+  "timestamp" : 1488249369000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "SolarCoin",
+  "last" : {
+    "native" : 559.36412488
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1470666897000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Mintcoin",
+  "last" : {
+    "native" : 0.21111111
+  },
+  "volume" : {
+    "native" : 15243.19706631
+  }
+}, {
+  "timestamp" : 1488249374000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "MonaCoin",
+  "last" : {
+    "native" : 100.00000009
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249377000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.01330000
+  },
+  "volume" : {
+    "native" : 90.66871687
+  }
+}, {
+  "timestamp" : 1488249378000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Decred",
+  "last" : {
+    "native" : 0.00185475
+  },
+  "volume" : {
+    "native" : 15.32812993
+  }
+}, {
+  "timestamp" : 1488249378000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Electronic Gulden",
+  "last" : {
+    "native" : 52.00000002
+  },
+  "volume" : {
+    "native" : 2.28260000
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Canada eCoin",
+  "last" : {
+    "native" : 5.50902383
+  },
+  "volume" : {
+    "native" : 2.93248939
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Namecoin",
+  "last" : {
+    "native" : 1202.86000001
+  },
+  "volume" : {
+    "native" : 0.09467057
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Peercoin",
+  "last" : {
+    "native" : 1656.47000000
+  },
+  "volume" : {
+    "native" : 3.24611413
+  }
+}, {
+  "timestamp" : 1488249369000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Clams",
+  "last" : {
+    "native" : 5000.00000000
+  },
+  "volume" : {
+    "native" : 0.02158520
+  }
+}, {
+  "timestamp" : 1488249379000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "ReddCoin",
+  "last" : {
+    "native" : 0.00000002
+  },
+  "volume" : {
+    "native" : 201503.18742259
+  }
+}, {
+  "timestamp" : 1463705214000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "DogeCoinDark",
+  "last" : {
+    "native" : 0.12000172
+  },
+  "volume" : {
+    "native" : 123.66838023
+  }
+}, {
+  "timestamp" : 1488249369000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Expanse",
+  "last" : {
+    "native" : 850.00000010
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249380000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Quark",
+  "last" : {
+    "native" : 0.00000135
+  },
+  "volume" : {
+    "native" : 18076.65536722
+  }
+}, {
+  "timestamp" : 1488249370000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 72222.22222222
+  },
+  "volume" : {
+    "native" : 0.05000000
+  }
+}, {
+  "timestamp" : 1488249380000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 0.00405001
+  },
+  "volume" : {
+    "native" : 2.07697543
+  }
+}, {
+  "timestamp" : 1488249370000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Decred",
+  "last" : {
+    "native" : 14999.99990000
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249370000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Megacoin",
+  "last" : {
+    "native" : 51.00000000
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249380000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "CannabisCoin",
+  "last" : {
+    "native" : 0.00000270
+  },
+  "volume" : {
+    "native" : 3497.40498362
+  }
+}, {
+  "timestamp" : 1488249370000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "WorldCoin",
+  "last" : {
+    "native" : 13.45000001
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249380000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "MonaCoin",
+  "last" : {
+    "native" : 0.00002252
+  },
+  "volume" : {
+    "native" : 1.64539099
+  }
+}, {
+  "timestamp" : 1488249381000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "SolarCoin",
+  "last" : {
+    "native" : 0.00007990
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249370000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "CannabisCoin",
+  "last" : {
+    "native" : 21.00000000
+  },
+  "volume" : {
+    "native" : 2.47157343
+  }
+}, {
+  "timestamp" : 1488249381000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "VeriCoin",
+  "last" : {
+    "native" : 0.00003075
+  },
+  "volume" : {
+    "native" : 11.67655516
+  }
+}, {
+  "timestamp" : 1488249371000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Vertcoin",
+  "last" : {
+    "native" : 0.00003760
+  },
+  "volume" : {
+    "native" : 1951.44011172
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 131686.00000001
+  },
+  "volume" : {
+    "native" : 0.00264108
+  }
+}, {
+  "timestamp" : 1488249382000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Startcoin",
+  "last" : {
+    "native" : 30.50000001
+  },
+  "volume" : {
+    "native" : 0.96016222
+  }
+}, {
+  "timestamp" : 1488249383000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Clams",
+  "last" : {
+    "native" : 0.00090006
+  },
+  "volume" : {
+    "native" : 0.19820411
+  }
+}, {
+  "timestamp" : 1488249383000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Guldencoin",
+  "last" : {
+    "native" : 0.00001735
+  },
+  "volume" : {
+    "native" : 257.31453613
+  }
+}, {
+  "timestamp" : 1488249371000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "IOCoin",
+  "last" : {
+    "native" : 2000.00000000
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249383000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 0.00003028
+  },
+  "volume" : {
+    "native" : 331.59022952
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Novacoin",
+  "last" : {
+    "native" : 0.00045000
+  },
+  "volume" : {
+    "native" : 80.64688837
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Digitalcoin",
+  "last" : {
+    "native" : 0.00000404
+  },
+  "volume" : {
+    "native" : 9897.98921463
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Unobtanium",
+  "last" : {
+    "native" : 0.00190000
+  },
+  "volume" : {
+    "native" : 15.82104793
+  }
+}, {
+  "timestamp" : 1488249371000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "BlackCoin",
+  "last" : {
+    "native" : 230.51363939
+  },
+  "volume" : {
+    "native" : 25.49830739
+  }
+}, {
+  "timestamp" : 1488249371000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "PotCoin",
+  "last" : {
+    "native" : 0.00001711
+  },
+  "volume" : {
+    "native" : 4.73802682
+  }
+}, {
+  "timestamp" : 1488249384000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "Primecoin",
+  "last" : {
+    "native" : 286.20000000
+  },
+  "volume" : {
+    "native" : 4.61774966
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://bleutrade.com",
+  "base" : "Dogecoin",
+  "quote" : "BitcoinDark",
+  "last" : {
+    "native" : 17003.00000009
+  },
+  "volume" : {
+    "native" : 0.00000000
+  }
+}, {
+  "timestamp" : 1488249372000,
+  "market" : "http://bleutrade.com",
+  "base" : "Bitcoin",
+  "quote" : "Dash",
+  "last" : {
+    "native" : 0.02403909
+  },
+  "volume" : {
+    "native" : 0.70463485
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "Hong Kong Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 3597.1
+  },
+  "volume" : {
+    "native" : 1015.59841472
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "Euro",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 402.76
+  },
+  "volume" : {
+    "native" : 2517.48967800
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "Bitcoin",
+  "quote" : "Augur",
+  "last" : {
+    "native" : 0.014477
+  },
+  "volume" : {
+    "native" : 467.21197563
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "US Dollar",
+  "quote" : "Bitcoin",
+  "last" : {
+    "native" : 455.1
+  },
+  "volume" : {
+    "native" : 2147.03114112
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "Bitcoin",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 0.022816
+  },
+  "volume" : {
+    "native" : 214364.91197848
+  }
+}, {
+  "timestamp" : 1463155317000,
+  "market" : "http://www.gatecoin.com",
+  "base" : "Euro",
+  "quote" : "Ethereum",
+  "last" : {
+    "native" : 9.13000001
+  },
+  "volume" : {
+    "native" : 10718.37899525
+  }
+} ]

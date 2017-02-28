@@ -1,4 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
+import calculatables from '/imports/api/server/calculatables'
+
 Meteor.methods({
   // handles clicking on 'star'
   toggleStarSys: function (sys) {
@@ -20,7 +22,7 @@ Meteor.methods({
       CurrentData.update({_id: sys},
         {$pull: {'_usersStarred': uid}});
     }
-    CF.CurrentData.calculatables.triggerCalc ('RATING', sys);
+    calculatables.triggerCalc ('RATING', sys);
   },
 
   // is used internally. to star a system when user adds its balance
@@ -42,6 +44,6 @@ Meteor.methods({
         }
       }
     }
-    CF.CurrentData.calculatables.triggerCalc ('RATING', sys);
+    calculatables.triggerCalc ('RATING', sys);
   }
 });

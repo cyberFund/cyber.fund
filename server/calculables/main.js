@@ -13,10 +13,10 @@ Meteor.startup(function() {/*
       "disabled from meteor settings");
     return;
   }
-  CF.CurrentData.calculatables.triggerCalc('firstDatePrice');
-  CF.CurrentData.calculatables.triggerCalc('nLinksWithTag');
-  CF.CurrentData.calculatables.triggerCalc('nLinksWithType');
-  CF.CurrentData.calculatables.triggerCalc('RATING');
+  calculatables.triggerCalc('firstDatePrice');
+  calculatables.triggerCalc('nLinksWithTag');
+  calculatables.triggerCalc('nLinksWithType');
+  calculatables.triggerCalc('RATING');
   setRatingPlaces();
 
   var print = CF.Utils.logger.print
@@ -54,7 +54,7 @@ SyncedCron.add({
     return parser.cron("42 * * * *", false);
   },
   job: function () {
-    CF.CurrentData.calculatables.triggerCalc("nLinksWithType");
+    calculatables.triggerCalc("nLinksWithType");
   }
 });
 
@@ -65,7 +65,7 @@ SyncedCron.add({
     return parser.cron("43 * * * *", false);
   },
   job: function () {
-    CF.CurrentData.calculatables.triggerCalc("RATING");
+    calculatables.triggerCalc("RATING");
     setRatingPlaces();
   }
 });
