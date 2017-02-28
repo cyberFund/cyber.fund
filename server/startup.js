@@ -20,8 +20,10 @@ SyncedCron.add({
 
           //console.log(`systemId: ${cmc.systemIdFromCmcId(data.id)}; cmcId: ${data.id}`)
           let metrics = cmc.applyMetrics(cmc.extractMetrics(data))
-          CurrentData.update({_id: systemId}, {$set: metrics})
-          console.log(metrics)
+          CurrentData.update({_id: systemId}, {$set: metrics}, function(e, r){
+            console.log(r)
+          })
+
         }
       })
     })
