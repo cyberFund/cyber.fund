@@ -36,7 +36,7 @@ var _user = function(){
 
 Template['profile'].helpers({
   userAccounts: function(){
-    return CF.Accounts.findByRefId(CF.Profile.currentUid()).fetch();
+    return CF.Acounts.findByRefId(CF.Profile.currentUid()).fetch();
   },
   profileName: function() {
     return this.profile && this.profile.name

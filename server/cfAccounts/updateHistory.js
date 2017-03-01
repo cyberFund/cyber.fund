@@ -32,9 +32,9 @@ SyncedCron.add({
 //   job: function(){
 //     print("starting 0/5 satoshi-fund recalculation", true);
 //     var user = Meteor.users.findOne(selectorSatoshiPie);
-//     var accounts = CF.Accounts.collection.find({refId: user._id}).fetch()
+//     var accounts = CF.Acounts.collection.find({refId: user._id}).fetch()
 //     handleArrayWithInterval(accounts, 15000, function(it){
-//       CF.Accounts._updateBalanceAccount(it, {private: true})
+//       CF.Acounts._updateBalanceAccount(it, {private: true})
 //     });
 //   }
 // })

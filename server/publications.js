@@ -1,4 +1,4 @@
-import {CurrentData, FastData, Metrics, Extras, AccountsHistory} from '/imports/api/collections'
+import {CurrentData, FastData, Metrics, Extras, Acounts, AcountsHistory} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 //var cfCDs = CF.CurrentData .selectors;
 /**
@@ -62,7 +62,7 @@ Meteor.publish("userDetails", function() {
 
 Meteor.publish("ownAssets", function(){
   if (!this.userId) return this.ready();
-  return CF.Accounts.collection.find({refId:this.userId});
+  return Acounts.find({refId:this.userId});
 });
 /**
  * fetch full currentData document
@@ -268,7 +268,7 @@ Meteor.publish("userProfile", function(options){
   };
   var ret = [];
   ret.push (Meteor.users.find({_id: uid}, {fields: fields}));
-  ret.push (CF.Accounts.collection.find({refId:uid, isPrivate: {$ne: true}}) );
+  ret.push (Acounts.find({refId:uid, isPrivate: {$ne: true}}) );
   return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
@@ -281,7 +281,7 @@ Meteor.publish('accountsHistoryIndexForUser', function(options){
   }
   let fields = {}
   if (!private) fields.full = 0
-  return AccountsHistory.find(selector, {fields: fields})
+  return AcountsHistory.find(selector, {fields: fields})
 });
 
 
@@ -295,7 +295,7 @@ Meteor.publish('accountsHistoryDetailsForUser', function(options){
   else selector.name = {$exists: true} // don t take index entries
 
   if (!private) selector.isPrivate = {$ne: true}
-  return AccountsHistory.find(selector)
+  return AcountsHistory.find(selector)
 })
 
 /*
@@ -325,7 +325,7 @@ Meteor.publish("portfolioSystems", function(options) {
   if (!userId) return this.ready();
   var user = Meteor.users.findOne({_id: userId});
 
-  var accounts = CF.Accounts.findByRefId(userId, {private: private});
+  var accounts = CF.Acounts.findByRefId(userId, {private: private});
   var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
   if (private) {

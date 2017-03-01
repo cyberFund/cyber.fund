@@ -2,7 +2,7 @@ import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 var ns = CF.UserAssets;
 
-var tableData = CF.Accounts.portfolioTableData;
+var tableData = CF.Acounts.portfolioTableData;
 
 Meteor.startup(function(){
   CF.Utils._session.default("folioWidgetSort", {"f|byValue": -1});
@@ -16,7 +16,7 @@ Template["portfolioWidgetTable"].helpers({
 
   },
   pSystems: function () { //  systems to display in portfolio table, including 'starred' systems
-    var accounts = CF.Accounts.userProfileData();
+    var accounts = CF.Acounts.userProfileData();
     //Template.instance().data && Template.instance().data.accountsData;
     var systems = ns.getSystemsFromAccountsObject(accounts);
 
@@ -76,12 +76,12 @@ Template["portfolioWidgetTable"].helpers({
       .fetch().sort(sort.byValue);
   },
   chartData: function () {
-    return  CF.Accounts.userProfileData();
+    return  CF.Acounts.userProfileData();
   },
   quantity: function () {
     var system = this;
     if (!system._id) return NaN;
-    var accounts =  CF.Accounts.userProfileData();
+    var accounts =  CF.Acounts.userProfileData();
 
     return ns.getQuantitiesFromAccountsObject(accounts, system._id);
   },
@@ -91,7 +91,7 @@ Template["portfolioWidgetTable"].helpers({
     return r && r[system._id] && r[system._id].vBtc;
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
-    var accounts =  CF.Accounts.userProfileData();
+    var accounts =  CF.Acounts.userProfileData();
     return (ns.getQuantitiesFromAccountsObject(
       accounts, system._id) * system.metrics.price.btc);
   },
@@ -100,7 +100,7 @@ Template["portfolioWidgetTable"].helpers({
     var r= tableData();
     return (r && r[system._id] && r[system._id].vUsd);
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
-    var accounts = CF.Accounts.userProfileData();
+    var accounts = CF.Acounts.userProfileData();
 
     return (ns.getQuantitiesFromAccountsObject(
         accounts, system._id) * system.metrics.price.usd);
@@ -112,7 +112,7 @@ Template["portfolioWidgetTable"].helpers({
     var system = this;
     var q = 0.0;
     var r = tableData();
-    //var accounts = CF.Accounts.userProfileData();
+    //var accounts = CF.Acounts.userProfileData();
 
     if (system._id && r[system._id]) {
       q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);

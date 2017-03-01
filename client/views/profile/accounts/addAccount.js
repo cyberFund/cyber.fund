@@ -1,8 +1,9 @@
+import {CurrentData, Extras, Acounts} from '/imports/api/collections'
 //todo: move into namespace
 
-CF.Accounts.addressExists = function (address, refId) {
+CF.Acounts.addressExists = function (address, refId) {
   if (!refId) return false;
-  var accounts = CF.Accounts.findByRefId(refId, {private:true});
+  var accounts = CF.Acounts.findByRefId(refId, {private:true});
   var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
     return _.map(account.addresses, function (v, k) {
       return k;
@@ -13,7 +14,7 @@ CF.Accounts.addressExists = function (address, refId) {
 
 function accountsExist(){
   var userId = Meteor.userId();
-  return !!userId && !!CF.Accounts.collection.find({refId: userId}).count();
+  return !!userId && !!Acounts.find({refId: userId}).count();
 }
 
 Template['addAccount'].onRendered( function () {
@@ -40,7 +41,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAccountNameExists = function (newName) {
-    var c = newName && CF.Accounts.accountNameIsValid(newName, Meteor.userId());
+    var c = newName && CF.Acounts.accountNameIsValid(newName, Meteor.userId());
     if (!c) {
       t.$newAccountName.addClass("invalid");
       t.$failLabelAccount.removeClass("hidden");
@@ -50,7 +51,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAddressExists = function (address) {
-    var c = CF.Accounts.addressExists(address, Meteor.userId());
+    var c = CF.Acounts.addressExists(address, Meteor.userId());
     if (c) {
       t.$address.addClass("invalid");
       t.$failLabelAddress.removeClass("hidden");
@@ -91,7 +92,7 @@ Template['addAccount'].helpers({
     return  (ret ? "" : "checked");
   },
   currentUserAccounts: function(){
-    return CF.Accounts.findByRefId(Meteor.userId())
+    return CF.Acounts.findByRefId(Meteor.userId())
   }
 });
 
@@ -113,7 +114,7 @@ Template['addAccount'].events({
       Materialize.toast("please enter address", 4000);
       return false;
     }
-    if (CF.Accounts.addressExists(address, Meteor.userId())) {
+    if (CF.Acounts.addressExists(address, Meteor.userId())) {
       return false;
     }
     var name = '';
@@ -123,7 +124,7 @@ Template['addAccount'].events({
         Materialize.toast("please enter account name or select existing account", 4000);
         return false;
       }
-      if (!CF.Accounts.accountNameIsValid(name, Meteor.userId())) {
+      if (!CF.Acounts.accountNameIsValid(name, Meteor.userId())) {
         return false;
       }
       t.$(e.currentTarget).addClass('submitted');

@@ -1,12 +1,6 @@
 //////////////////////////// hide domain
 import {cfIsAccountHidden} from '/imports/api/client/cf/account'
-
-
-CF.Accounts.hiddenToggle = function(accountId){
-  if (!accountId) return;
-  Session.set("hideAccount_"+(accountId), !Session.get("hideAccount_"+(accountId)));
-};
-
+import {Acounts} from '/imports/api/collections'
 function getUserId() {
   var username = FlowRouter.getParam("username");
   var user = CF.Utils.normalizeOptionsPerUser({username:username});
@@ -14,7 +8,7 @@ function getUserId() {
 }
 
 function gimmeData (refId){
-  return CF.Accounts.collection.find({refId: refId});
+  return Acounts.find({refId: refId});
 }
 
 function filterData(){
@@ -46,7 +40,7 @@ function filterData(){
   return ret;
 }
 
-CF.Accounts.userProfileData = function(){
+CF.Acounts.userProfileData = function(){
   return filterData();
 };
 
@@ -61,9 +55,9 @@ CF.Accounts.userProfileData = function(){
 
 //
 function tableData() {
-  return  CF.Accounts.accumulate(CF.Accounts.userProfileData().map(function(it) {
-    return CF.Accounts.extractAssets(it);
+  return  CF.Acounts.accumulate(CF.Acounts.userProfileData().map(function(it) {
+    return CF.Acounts.extractAssets(it);
   }));
 }
 
-CF.Accounts.portfolioTableData = tableData;
+CF.Acounts.portfolioTableData = tableData;

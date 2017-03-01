@@ -1,6 +1,8 @@
-var _k = CF.Utils._k;
-var print = CF.Utils.logger.getLogger("CF.Accounts").print;
-var ns = CF.Accounts;
+import {Acounts} from '/imports/api/collections'
+import {_k} from '/imports/api/utils'
+
+var print = CF.Utils.logger.getLogger("CF.Acounts").print;
+var ns = CF.Acounts;
 
 ns.collection._ensureIndex({
   refId: 1
@@ -44,7 +46,7 @@ ns._importFromUser = function(userId) {
 
 var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
-  var account = CF.Accounts.collection.findOne({
+  var account = Acounts.findOne({
     _id: accountKey,
     refId: userId
   });
@@ -112,8 +114,8 @@ Meteor.methods({
       updatedAt: new Date()
     };
 
-    CF.Accounts.collection.update(sel, modify);
-    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+    Acounts.update(sel, modify);
+    ns._updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   },
@@ -126,8 +128,8 @@ Meteor.methods({
       $unset: {}
     };
     unset.$unset[key] = true;
-    CF.Accounts.collection.update(sel, unset);
-    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+    Acounts.update(sel, unset);
+    ns._updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   },
@@ -142,8 +144,8 @@ Meteor.methods({
     };
     var key = _k(["addresses", address, "assets", asset]);
     modify.$unset[key] = true;
-    CF.Accounts.collection.update(sel, modify);
-    ns._updateBalanceAccount(CF.Accounts.collection.findOne(sel), {
+    Acounts.update(sel, modify);
+    ns._updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   }
@@ -184,7 +186,7 @@ ns.quantumCheck = function(address) {
 // todo: operate at account level?
 // private should be set by server.
 ns._updateBalanceAddress = function(accountIn, address) {
-  var account = typeof accountIn === "string" ? CF.Accounts.collection.findOne({_id: accountIn}) : accountIn;
+  var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
   var addressObj = account && account.addresses && account.addresses[address];
   var modify = {
     $set: {},
@@ -243,8 +245,8 @@ ns._updateBalanceAccount = function(accountIn, options) {
     $set: {},
     $unset: {}
   };
-  var account = typeof accountIn === "string" ? CF.Accounts.collection.findOne({_id: accountIn}) : accountIn;
-  
+  var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
+
   if (!account || !account.addresses) {
     print("no account or addresses on it", account, true);
   }
@@ -313,7 +315,7 @@ ns._updateBalances = function(options) { //todo: optimize
     _id: accountKey
   });
 
-  CF.Accounts.collection.find(selector).forEach(function(account) {
+  Acounts.find(selector).forEach(function(account) {
     ns._updateBalanceAccount(account, options);
   });
 };

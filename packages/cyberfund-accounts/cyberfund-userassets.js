@@ -1,10 +1,11 @@
+import {Acounts} from '/imports/api/collections'
 CF.UserAssets = {};
 
-CF.Accounts.accountNameIsValid = function(name, refId, oldName) {
+CF.Acounts.accountNameIsValid = function(name, refId, oldName) {
   if (!name || !_.isString(name)) return false;
   if (oldName && (name === oldName) || !refId) return true;
   var ret = true;
-  CF.Accounts.collection.find({
+  Acounts.find({
     refId: refId
   }).forEach(function(account) {
     if (name == account.name) ret = false;
@@ -39,7 +40,7 @@ CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
 
 /**
  * return quantity of specified coins in niven accountsObjects
- * @param accountsObject - array of account objects, as they are in CF.Accounts.collection
+ * @param accountsObject - array of account objects, as they are in Acounts
  * @param key - system _id to check against
  * @returns {number} quantity of specified coins from accountsObject
  */
@@ -92,6 +93,6 @@ CF.UserAssets.isPrivateAccountsEnabled = function(user) {
  */
 
 CF.UserAssets.getAccountPrivacyType = function(accountKey) {
-  var ret = CF.Accounts.findById(accountKey);
+  var ret = CF.Acounts.findById(accountKey);
   return ret ? (ret.isPrivate ? 'accountsPrivate' : 'accounts') : 'undefined'
 };

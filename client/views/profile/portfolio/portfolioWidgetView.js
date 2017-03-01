@@ -2,13 +2,17 @@ import {cfIsAccountHidden} from '/imports/api/client/cf/account'
 import cfCDs from '/imports/api/currentData/selectors'
 var ns = CF.UserAssets;
 
+function hiddenToggle (accountId){
+  if (!accountId) return;
+  Session.set("hideAccount_"+(accountId), !Session.get("hideAccount_"+(accountId)));
+};
 
 Template["portfolioWidgetView"].helpers({
   shouldShowCheckboxes: function(){
-    return CF.Accounts.findByRefId(CF.Profile.currentUid()).count() > 1;
+    return CF.Acounts.findByRefId(CF.Profile.currentUid()).count() > 1;
   },
   sumB: function() {
-    var assets = CF.Accounts.portfolioTableData();
+    var assets = CF.Acounts.portfolioTableData();
     var sum = 0;
     if (_.keys(assets).length) {
       _.each(assets, function(asset) {
@@ -18,7 +22,7 @@ Template["portfolioWidgetView"].helpers({
     return sum;
   },
   sumU: function() {
-    var assets = CF.Accounts.portfolioTableData();
+    var assets = CF.Acounts.portfolioTableData();
     var sum = 0;
     if (_.keys(assets).length) {
       _.each(assets, function(asset) {
@@ -28,12 +32,12 @@ Template["portfolioWidgetView"].helpers({
     return sum;
   },
   filteredAccountsData: function() {
-    return CF.Accounts.userProfileData();
+    return CF.Acounts.userProfileData();
   },
   flat: function() {
-    return CF.Accounts.extractAssets(this);
+    return CF.Acounts.extractAssets(this);
   },
-  flattenData: CF.Accounts.portfolioTableData
+  flattenData: CF.Acounts.portfolioTableData
 });
 
 Template["pwvRow"].onRendered(function() {
@@ -46,12 +50,12 @@ Template["pwvRow"].helpers({
     return Session.get("hideAccount_" + this._id) ? "" : "checked";
   },
   shouldShowCheckboxes: function(){ //TODO dedupe
-    return CF.Accounts.findByRefId(CF.Profile.currentUid()).count() > 1;
+    return CF.Acounts.findByRefId(CF.Profile.currentUid()).count() > 1;
   }
 });
 
 Template["pwvRow"].events({
   "change .count-account": function(e, t) {
-    CF.Accounts.hiddenToggle(t.$(e.currentTarget).attr("account-id"));
+    hiddenToggle(t.$(e.currentTarget).attr("account-id"));
   }
 });

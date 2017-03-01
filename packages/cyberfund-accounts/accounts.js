@@ -1,30 +1,6 @@
-import {AccountsHistory} from '/imports/api/collections'
-var ns = CF.Accounts;
-if (Meteor.isServer) {
-  AccountsHistory._ensureIndex({
-    timestamp: -1
-  });
-
-  AccountsHistory._ensureIndex({
-    refId: 1, timestamp: -1
-  });
-
-  AccountsHistory._ensureIndex({
-    accountId: 1, timestamp: -1
-  });
-}
-
-AccountsHistory.allow({
-  insert: function(userId, doc) {
-    return false;
-  },
-  update: function(userId, doc, fieldNames, modifier) {
-    return false;
-  },
-  remove: function(userId, doc) {
-    return false;
-  }
-});
+import {AccountsHistory, Acounts} from '/imports/api/collections'
+import {_k} from '/imports/api/utils'
+var ns = CF.Acounts;
 
 // mutates asset
 function setValues(asset, assetId) {
@@ -75,9 +51,7 @@ Meteor.startup(function() {
   ns.remove = ns.collection.remove;
 });
 
-var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger("CF.Accounts").print;
-
-var _k = CF.Utils._k;
+var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger("CF.Acounts").print;
 
 ns.collection.allow({
   insert: function(userId, doc) {
@@ -120,7 +94,7 @@ ns.findById = function(_id, options) {
 
 var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
-  var account = CF.Accounts.collection.findOne({
+  var account = Acounts.findOne({
     _id: accountKey,
     refId: userId
   });
@@ -146,7 +120,7 @@ Meteor.methods({
       err: "invalid acc name"
     };
 
-    var key = CF.Accounts.collection.insert({
+    var key = Acounts.insert({
       name: obj.name,
       addresses: {},
       isPrivate: !obj.isPublic,
@@ -174,7 +148,7 @@ Meteor.methods({
         $set: {}
       };
       set.$set[k] = newName.toString();
-      CF.Accounts.collection.update(sel, set);
+      Acounts.update(sel, set);
     }
   },
   cfAssetsTogglePrivacy: function(accountKey, fromKey) {
@@ -185,14 +159,14 @@ Meteor.methods({
     var user = Meteor.users.findOne({
       _id: this.userId
     });
-    var account = CF.Accounts.findById(accountKey);
+    var account = CF.Acounts.findById(accountKey);
     var toKey = (fromKey == "accounts" ? "accountsPrivate" : "accounts"); //TODO - remove strings, not needed
 
 
     if (account.refId == this.userId) {
       print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
 
-      CF.Accounts.collection.update({
+      Acounts.update({
         _id: accountKey
       }, {
         $set: {
@@ -205,7 +179,7 @@ Meteor.methods({
   cfAssetsRemoveAccount: function(accountKey) {
     if (checkAllowed(accountKey, this.userId)) //todo - maybe direct,
     // not method (setup allow/deny for collection)
-      CF.Accounts.collection.remove({
+      Acounts.remove({
         _id: accountKey
       });
   },
@@ -221,7 +195,7 @@ Meteor.methods({
       assets: {}
     };
     //push account to dictionary of accounts, so can use in autocomplete later
-    CF.Accounts.collection.update({
+    Acounts.update({
       _id: accountKey
     }, set);
 
@@ -261,5 +235,5 @@ ns.extractAssets = function flatten(doc) {
       }
     });
   }
-  return CF.Accounts.accumulate(ret);
+  return CF.Acounts.accumulate(ret);
 };

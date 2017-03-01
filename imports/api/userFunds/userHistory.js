@@ -1,4 +1,4 @@
-import {History} from '/imports/api/collections'
+import {AcountsHistory, Acounts} from '/imports/api/collections'
 const HOUR = 1000 * 60 * 60;
 const historyInterval = 24 * HOUR;
 const accountActual = historyInterval / 2;
@@ -16,7 +16,7 @@ if (Meteor.isServer) {
     let historyPointsIndex = [],
       historyPoints = []
 
-    var accounts = CF.Accounts.collection.find({
+    var accounts = Acounts.find({
       refId: userId
     }, {
       fields: {
@@ -52,24 +52,24 @@ if (Meteor.isServer) {
       }
     });
 
-    CF.Accounts.History.collection.insert({
+    AcountsHistory.insert({
       type: 'index',
       refId: userId,
       timestamp: updatedAt,
       public: {
         vBtc: sum,
         vUsd: sumUsd,
-        shares: CF.Accounts.accumulate(historyPoints.map(function(it) {
+        shares: CF.Acounts.accumulate(historyPoints.map(function(it) {
           if (it.isPrivate) return {};
-          return CF.Accounts.extractAssets(it);
+          return CF.Acounts.extractAssets(it);
         })),
         points: _.filter(historyPointsIndex, function(it) {
           return !it.isPrivate
         })
       },
       full: {
-        shares: CF.Accounts.accumulate(historyPoints.map(function(it) {
-          return CF.Accounts.extractAssets(it);
+        shares: CF.Acounts.accumulate(historyPoints.map(function(it) {
+          return CF.Acounts.extractAssets(it);
         })),
         vBtc: sumFull,
         vUsd: sumFullUsd,

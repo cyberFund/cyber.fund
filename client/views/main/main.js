@@ -1,4 +1,4 @@
-import {CurrentData, Extras} from '/imports/api/collections'
+import {CurrentData, Extras, Acounts} from '/imports/api/collections'
 function _cap() {
   return Extras.findOne({
     _id: "total_cap"
@@ -30,7 +30,7 @@ Template["main"].helpers({
   sumBtc: function(){
     var ret = 0;
     if (!Meteor.userId()) return ret;
-    CF.Accounts.collection.find({refId: Meteor.userId()}).fetch().forEach(function (acc){
+    Acounts.find({refId: Meteor.userId()}).fetch().forEach(function (acc){
       ret += acc.vBtc || 0;
     });
     return ret;

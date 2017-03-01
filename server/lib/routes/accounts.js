@@ -1,4 +1,5 @@
-import {CurrentData} from '/imports/api/collections'
+import {CurrentData, Acounts} from '/imports/api/collections'
+import {findOneByUsername} from '/imports/api/utils/user'
 var url = Meteor.npmRequire('url');
 var print = CF.Utils.logger.print;
 var debug = false;
@@ -107,10 +108,10 @@ var getAccountById = function(_id, options) {
 // 2
 var getAccountIdsByUsername = function(username, options) {
     //only allow publics until auth/security for apis are not established.
-    var user = CF.User.findOneByUsername(username);
+    var user = findOneByUsername(username);
     if (!user) return [];
 
-    return CF.Accounts.collection.find({
+    return Acounts.find({
         refId: user._id,
         isPrivate: {
             $ne: true
@@ -122,10 +123,10 @@ var getAccountIdsByUsername = function(username, options) {
 
 var getAccountsByUsername = function(username, options) {
     //only allow publics until auth/security for apis are not established.
-    var user = CF.User.findOneByUsername(username);
+    var user = findOneByUsername(username);
     if (!user) return [];
 
-    return CF.Accounts.collection.find({
+    return Acounts.find({
         refId: user._id,
         isPrivate: {
             $ne: true
@@ -140,7 +141,7 @@ Picker.route('/api03/account/:_id', function(params, req, res, next) {
     var bottle = accountsApi;
     var options = normalizeOptions(url.parse(req.url, true).query);
 
-    var ret = CF.Accounts.collection.findOne(getAccountById(params._id, options)) || {
+    var ret = Acounts.findOne(getAccountById(params._id, options)) || {
         error: "not found",
         NB: "private accounts not working yet"
     };

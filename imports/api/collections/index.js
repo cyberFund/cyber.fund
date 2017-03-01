@@ -9,7 +9,37 @@ var Feeds = require("/imports/api/vwap/collections").feeds;
 var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
 var Metrics = require('./Metrics')
 var Extras = new Meteor.Collection("extras");
-var AccountsHistory = new Meteor.Collection("accountsHistory")
+var AcountsHistory = new Meteor.Collection("accountsHistory")
+if (Meteor.isServer) {
+  AcountsHistory._ensureIndex({
+    timestamp: -1
+  });
+
+  AcountsHistory._ensureIndex({
+    refId: 1, timestamp: -1
+  });
+
+  AcountsHistory._ensureIndex({
+    accountId: 1, timestamp: -1
+  });
+}
+
+AcountsHistory.allow({
+  insert: function(userId, doc) {
+    return false;
+  },
+  update: function(userId, doc, fieldNames, modifier) {
+    return false;
+  },
+  remove: function(userId, doc) {
+    return false;
+  }
+});
+import {Acounts} from './Acounts' 
+
+
+
+
 module.exports = {
   CurrentData: CurrentData,
   FastData: FastData,
@@ -17,5 +47,5 @@ module.exports = {
   FeedsVwap: FeedsVwap,
   Metrics: Metrics,
   Extras: Extras,
-  AccountsHistory: AccountsHistory
+  AcountsHistory: AcountsHistory
 }
