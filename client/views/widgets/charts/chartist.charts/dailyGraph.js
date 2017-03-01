@@ -1,4 +1,3 @@
-var ns = CF.Chartist;
 Template['dailyGraph'].rendered = function () {
 
   var self = this;
@@ -27,10 +26,10 @@ Template['dailyGraph'].rendered = function () {
       iterate = iterate.add(15, "minutes");
     }
 
-    var data = ns.fn.daily.getData(ticks);
+    var data = CF.Chartist.fn.daily.getData(ticks);
 
     if (self.data.metrics && self.data.metrics.cap && self.data.metrics.price) {
-      var dta = current.format(ns.dateformats.daily).replace("&nbsp;", " ");
+      var dta = current.format(CF.Chartist.dateformats.daily).replace("&nbsp;", " ");
       data.labels.push("");//current.format("D HH"));
 
       data.capB.push(
@@ -55,39 +54,39 @@ Template['dailyGraph'].rendered = function () {
       if (data.trade[i] == null) data.trade[i] = 0;
     }
 
-    ns.fn.interpolate([data.capB, data.capU]);
+    CF.Chartist.fn.interpolate([data.capB, data.capU]);
 
-    self.$(".ct-chart-cap-btc").css("height", ns.heights.cap);
+    self.$(".ct-chart-cap-btc").css("height", CF.Chartist.heights.cap);
     new Chartist.Line('.ct-chart-cap-btc', {labels: data.labels, series: [data.capB]}, {
-      chartPadding: ns.options.chartPadding.cap,
-      axisY: ns.options.axisY,
+      chartPadding: CF.Chartist.options.chartPadding.cap,
+      axisY: CF.Chartist.options.axisY,
       plugins: [
-        Chartist.plugins.tooltip(ns.options.plugins.tooltip.cap.btc),
-        Chartist.plugins.ctAxisTitle( ns.options.plugins.ctAxisTitle.cap.btc)
+        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.cap.btc),
+        Chartist.plugins.ctAxisTitle( CF.Chartist.options.plugins.ctAxisTitle.cap.btc)
       ]
     });
 
-    self.$(".ct-chart-cap-usd").css("height", ns.heights.cap);
+    self.$(".ct-chart-cap-usd").css("height", CF.Chartist.heights.cap);
     new Chartist.Line('.ct-chart-cap-usd',  {labels: data.labels, series: [data.capU]}, {
-      chartPadding: ns.options.chartPadding.cap,
+      chartPadding: CF.Chartist.options.chartPadding.cap,
       axisY: {
         labelInterpolationFnc: function (value) {
           return CF.Utils.monetaryFormatter(value);
         }
       },
       plugins: [
-        Chartist.plugins.tooltip(ns.options.plugins.tooltip.cap.usd),
-        Chartist.plugins.ctAxisTitle(ns.options.plugins.ctAxisTitle.cap.usd)
+        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.cap.usd),
+        Chartist.plugins.ctAxisTitle(CF.Chartist.options.plugins.ctAxisTitle.cap.usd)
       ]
     });
 
-    self.$(".ct-chart-vol").css("height", ns.heights.trade);
+    self.$(".ct-chart-vol").css("height", CF.Chartist.heights.trade);
     new Chartist.Bar('.ct-chart-vol',  {labels: data.labels, series: [data.trade]}, {
-      chartPadding: ns.options.chartPadding.trade,
-      axisY: ns.options.axisY,
+      chartPadding: CF.Chartist.options.chartPadding.trade,
+      axisY: CF.Chartist.options.axisY,
       plugins: [
-        Chartist.plugins.tooltip(ns.options.plugins.tooltip.trade),
-        Chartist.plugins.ctAxisTitle(ns.options.plugins.ctAxisTitle.trade)
+        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.trade),
+        Chartist.plugins.ctAxisTitle(CF.Chartist.options.plugins.ctAxisTitle.trade)
       ]
     });
 
@@ -96,12 +95,12 @@ Template['dailyGraph'].rendered = function () {
 
 Template['dailyGraph'].helpers({
   'foo': function () {
-    
+
   }
 });
 
 Template['dailyGraph'].events({
   'click .bar': function (e, t) {
-    
+
   }
 });

@@ -1,5 +1,4 @@
 import {Extras} from '/imports/api/collections'
-import {extractFromPromise} from '/imports/api/server/utils'
 
 Meteor.methods({
 

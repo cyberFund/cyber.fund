@@ -394,5 +394,26 @@ cgIsUpcomingCrowdsale: function() {
 },
 cgIsPastCrowdsale: function() {
   return this.crowdsales && this.crowdsales.end_date < new Date()
-}
+},
+
+
+////// cf-accounts
+tagMatchesTags: function (tag, tags) {
+  return tags.indexOf(tag) > -1;
+},
+
+cdTurnover: function turnover () {
+  var metrics = this.metrics;
+    if (metrics.cap && metrics.cap.btc) {
+        return 100.0 * metrics.turnover;
+    }
+  return 0;
+},
+
+cdSymbol: function symbol () {
+  if (this.token && this.token.symbol) {
+    return this.token.symbol
+  }
+  return "";
+},
 };

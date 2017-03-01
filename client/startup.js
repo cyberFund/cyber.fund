@@ -1,7 +1,8 @@
+import {_session} from '/imports/api/client/utils/base'
 Meteor.startup(function () {
-  CF.Utils._session.default("fiat", "");
+  _session.default("fiat", "USD");
 });
 
 Meteor.autorun(function(){
-  Meteor.subscribe("fiatPair", CF.Utils._session.get("fiat"));
+  Meteor.subscribe("fiatPair", _session.get("fiat"));
 });

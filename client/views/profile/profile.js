@@ -1,5 +1,8 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
+import {findOneByUsername} from '/imports/api/utils/user'
+import {findByRefId} from '/imports/api/cf/account/utils'
+
 Template['profile'].onCreated(function() {
   var instance = this;
 
@@ -20,7 +23,7 @@ Template['profile'].onCreated(function() {
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
-    var user = CF.User.findOneByUsername(username)
+    var user = findOneByUsername(username)
     var name = user && user.profile && user.profile.name || username;
     document.title = name + ' - ' + 'cyber•Fund';
   });
@@ -31,12 +34,12 @@ Template['profile'].onRendered(function(){
 })
 
 var _user = function(){
-  return CF.User.findOneByUsername(FlowRouter.getParam('username'));
+  return findOneByUsername(FlowRouter.getParam('username'));
 }
 
 Template['profile'].helpers({
   userAccounts: function(){
-    return CF.Acounts.findByRefId(CF.Profile.currentUid()).fetch();
+    return findByRefId(CF.Profile.currentUid()).fetch();
   },
   profileName: function() {
     return this.profile && this.profile.name

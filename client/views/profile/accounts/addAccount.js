@@ -1,16 +1,8 @@
 import {CurrentData, Extras, Acounts} from '/imports/api/collections'
-//todo: move into namespace
 
-CF.Acounts.addressExists = function (address, refId) {
-  if (!refId) return false;
-  var accounts = CF.Acounts.findByRefId(refId, {private:true});
-  var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
-    return _.map(account.addresses, function (v, k) {
-      return k;
-    })
-  }));
-  return addresses.indexOf(address) > -1
-};
+import {findByRefId, accountNameIsValid} from '/imports/api/cf/account/utils'
+import {addressExists} from '/imports/api/client/utils/accounts'
+//todo: move into namespace
 
 function accountsExist(){
   var userId = Meteor.userId();
@@ -41,7 +33,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAccountNameExists = function (newName) {
-    var c = newName && CF.Acounts.accountNameIsValid(newName, Meteor.userId());
+    var c = newName && accountNameIsValid(newName, Meteor.userId());
     if (!c) {
       t.$newAccountName.addClass("invalid");
       t.$failLabelAccount.removeClass("hidden");
@@ -51,7 +43,7 @@ Template['addAccount'].onRendered( function () {
     }
   };
   this.uiAddressExists = function (address) {
-    var c = CF.Acounts.addressExists(address, Meteor.userId());
+    var c = addressExists(address, Meteor.userId());
     if (c) {
       t.$address.addClass("invalid");
       t.$failLabelAddress.removeClass("hidden");
@@ -81,18 +73,18 @@ Template['addAccount'].helpers({
     var isOwnAssets = Blaze._globalHelpers.isOwnAssets;
     console.log(" disabledTogglePrivacy helper :::   ", isOwnAssets())
     var user = Meteor.user();
-    var ret = CF.UserAssets.isPrivateAccountsEnabled(user) && true//CF.User.hasPublicAccess(user)
+    var ret = true
     return ( ret ? '' : 'disabled')
   },
   privacyState: function (data) {
     console.log("IN A HELPER OF addAccount TEMPLATE NAMED privacyState , and 'this' is ", this)
     console.log("ALSO< DATA IS", data.main)
     var user = Meteor.user();
-    var ret = true;//CF.User.hasPublicAccess(user)
+    var ret = true;
     return  (ret ? "" : "checked");
   },
   currentUserAccounts: function(){
-    return CF.Acounts.findByRefId(Meteor.userId())
+    return findByRefId(Meteor.userId())
   }
 });
 
@@ -114,7 +106,7 @@ Template['addAccount'].events({
       Materialize.toast("please enter address", 4000);
       return false;
     }
-    if (CF.Acounts.addressExists(address, Meteor.userId())) {
+    if (addressExists(address, Meteor.userId())) {
       return false;
     }
     var name = '';
@@ -124,7 +116,7 @@ Template['addAccount'].events({
         Materialize.toast("please enter account name or select existing account", 4000);
         return false;
       }
-      if (!CF.Acounts.accountNameIsValid(name, Meteor.userId())) {
+      if (!accountNameIsValid(name, Meteor.userId())) {
         return false;
       }
       t.$(e.currentTarget).addClass('submitted');

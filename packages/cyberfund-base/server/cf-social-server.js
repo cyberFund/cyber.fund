@@ -1,3 +1,4 @@
+import {normalizeOptionsPerUser} from '/imports/api/utils'
 Meteor.methods({
   followUser: function(targetId, options){
     options = options || {};
@@ -16,7 +17,7 @@ Meteor.methods({
 })
 
 Meteor.publish("friendlyUsers", function(options){
-  options = CF.Utils.normalizeOptionsPerUser(options)
+  options = normalizeOptionsPerUser(options)
   var userId = options.userId;
 
   if (!userId) return this.ready();

@@ -1,4 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
+import {_session} from '/imports/api/client/utils/base'
 var initialLimit = CF.Rating.limit0;
 
 function tableSelector() {

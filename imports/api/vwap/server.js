@@ -3,6 +3,7 @@ const xchangeVwap = require("./collections").feedsVwapCurrent; //TODO: use same 
 const feedUrl = 'http://kong.cyber.fund/xcm'
 import {extractFromPromise} from '/imports/api/server/utils'
 import {default as weightedPriceNative} from './weightedPriceNative'
+import cfEs from '/imports/api/server/cfEs'
 
 xchangeCurrent._ensureIndex({
   source: 1, market: 1, base: 1, quote: 1
@@ -34,7 +35,7 @@ function fetchDirect() {
 const flatten = require("../elastic/traverseAggregations").flatten
 
 const _fetchXchangeData = () => {
-  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+  const data = extractFromPromise(CF.ES.sendQuery ("xchangeData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
   else
@@ -42,7 +43,7 @@ const _fetchXchangeData = () => {
 }
 
 const _fetchXchangeVwapData = () => {
-  const data = CF.Utils.extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
+  const data = extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'latest']);
   else

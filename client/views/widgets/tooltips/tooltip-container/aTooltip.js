@@ -1,17 +1,17 @@
-var ns = CF
+var CF = CF
 // for reporting purpose. var nsn = "CF"
 
 //I: Isolation
 
-ns .tooltip = ns.tooltip || {}
+CF .tooltip = CF.tooltip || {}
 
-ns.tooltip .fire = function(action) {
+CF.tooltip .fire = function(action) {
   action();
 }
 
 //S: Stylesheet
 
-ns.tooltip .styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klazz"
+CF.tooltip .styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klazz"
  kla = kla || 'default'; // "" => ".tooltip-default"
  return ['tooltip', kla].join("-");
 } // note this only prepends _first_ klassname, and rest of them go unchanged //
@@ -21,7 +21,7 @@ ns.tooltip .styleClass =function(kla) { // "der-klazz" => ".tooltip-der-klazz"
 // this one implements simple wait for mouse pointer being inside
 // chosen element for 300 milliseconds
 
-ns.tooltip .timer = {
+CF.tooltip .timer = {
 
   // too old for this stuff   state: 'idle',
   keeper: null,
@@ -36,7 +36,7 @@ ns.tooltip .timer = {
     // this.state = 'idle';
   },
 
-  getParentObject: function() { return ns.tooltip; },
+  getParentObject: function() { return CF.tooltip; },
 
   reset: function(action, timeLeft) {
     this.stop();

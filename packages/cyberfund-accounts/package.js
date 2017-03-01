@@ -15,12 +15,10 @@ Package.onUse(function(api) {
   api.use(["cyberfund:cyberfund-currentdata"]);
   api.use(["underscore"], ["client", "server"]);
   api.use(["ui", "templating"], "client");
-  api.addFiles(["accounts.js", "cyberfund-userassets.js"], ["client", "server"]);
+  api.addFiles(["accounts.js"], ["client", "server"]);
   api.addFiles(["server/accounts-server.js"], "server");
 });
 
 Package.onTest(function(api) {
-  api.use("tinytest");
-  api.use("cyberfund-userassets");
   api.addFiles("cyberfund-userassets-tests.js");
 });

@@ -3,9 +3,23 @@ import cfCDs from '/imports/api/currentData/selectors'
 
 CF.UserAssets.graph = CF.UserAssets.graph || {};
 CF.UserAssets.graph.minimalShare = 0.025;
+jqHide = function(jQ) {
+  if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
+    jQ.addClass("hidden");
+  //  jQ.attr("visibility", "hidden");
+    return jQ;
+  }
+  console.log("condition failure");
+};
 
-var ns = CF.UserAssets.graph;
-
+jqShow = function(jQ) {
+  if (jQ && jQ.removeClass && typeof jQ.removeClass == "function") {
+    jQ.removeClass("hidden");
+    jQ.attr("visibility", "inherit");
+    return jQ;
+  }
+  console.log("condition failure");
+};
 Template["folioChart"].onRendered(function() {
 
   var instance = this;
@@ -35,27 +49,27 @@ Template["folioChart"].onRendered(function() {
   // does not expect null/undef values before non-null/non-undef
   instance.chart = function(selector, data) {
     if (selector && data) {
-      //if (ns.folioPie && ns.folioPie.update) {
-        //ns.folioPie.update(data);
+      //if (CF.UserAssets.graph.folioPie && CF.UserAssets.graph.folioPie.update) {
+        //CF.UserAssets.graph.folioPie.update(data);
       //} else
-      ns.folioPie = new Chartist.Pie(selector, data, instance.options);
-      //return ns.folioPie;
+      CF.UserAssets.graph.folioPie = new Chartist.Pie(selector, data, instance.options);
+      //return CF.UserAssets.graph.folioPie;
     }
 
     if (!data) {
-      if (ns.folioPie && ns.folioPie.update)
-        ns.folioPie.update(emptyData);
+      if (CF.UserAssets.graph.folioPie && CF.UserAssets.graph.folioPie.update)
+        CF.UserAssets.graph.folioPie.update(emptyData);
     }
-    return ns.folioPie;
+    return CF.UserAssets.graph.folioPie;
   };
 
   instance.hideView = function() {
     var ret = instance.chart();
-    CF.Utils.jqHide(instance.$(".folio-pie"));
+    jqHide(instance.$(".folio-pie"));
   };
 
   instance.showView = function(data) {
-    CF.Utils.jqShow(instance.$(".folio-pie"));
+    jqShow(instance.$(".folio-pie"));
     instance.chart(instance._selector, data);
   };
 
@@ -106,7 +120,7 @@ Template["folioChart"].onRendered(function() {
 
     // push smalls into 'others'
     _.each(datum, function(point) {
-      if (point.b / sum >= ns.minimalShare) {
+      if (point.b / sum >= CF.UserAssets.graph.minimalShare) {
         labels.push(point.symbol);
         ticks.push({
           value: point.u,

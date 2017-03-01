@@ -14,6 +14,8 @@ Tracker.autorun(function () {
   }
 });
 
+
+// flowrouter
 FlowRouter.wait();
 Meteor.startup(function () {
   CF.SubsMan = new SubsManager();

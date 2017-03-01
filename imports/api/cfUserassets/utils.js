@@ -1,17 +1,6 @@
-import {Acounts} from '/imports/api/collections'
-CF.UserAssets = {};
+import {findById} from '/imports/api/cf/account/utils'
 
-CF.Acounts.accountNameIsValid = function(name, refId, oldName) {
-  if (!name || !_.isString(name)) return false;
-  if (oldName && (name === oldName) || !refId) return true;
-  var ret = true;
-  Acounts.find({
-    refId: refId
-  }).forEach(function(account) {
-    if (name == account.name) ret = false;
-  });
-  return ret;
-};
+var cfUserAssets = {};
 
 /**
  *
@@ -20,7 +9,7 @@ CF.Acounts.accountNameIsValid = function(name, refId, oldName) {
  * @returns {Array} of system names
  */
 // obsolete
-CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
+cfUserAssets.getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
   //  console.log(accounts);
 
@@ -44,7 +33,7 @@ CF.UserAssets.getSystemsFromAccountsObject = function(accounts) {
  * @param key - system _id to check against
  * @returns {number} quantity of specified coins from accountsObject
  */
-CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
+cfUserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   var sum = 0.0;
   if (accountsObject && key) {
 
@@ -74,16 +63,6 @@ CF.UserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
   return sum;
 };
 
-/**
- * checks whether this user is allowed to use private accounts
- * currently just checks flag 'services.privateAccountsEnabled'
- * and we later will need this to be not flag, but have some time limits there..
- * @param user - user object.
- */
-CF.UserAssets.isPrivateAccountsEnabled = function(user) {
-  return true;
-  //return !!(user && user.services && user.services.privateAccountsEnabled)
-};
 
 /**
  * returns 'accounts' or 'accountsPrivate' or ''
@@ -92,7 +71,9 @@ CF.UserAssets.isPrivateAccountsEnabled = function(user) {
  * @returns {String} that indicates account type (public or private)
  */
 
-CF.UserAssets.getAccountPrivacyType = function(accountKey) {
+cfUserAssets.getAccountPrivacyType = function(accountKey) {
   var ret = CF.Acounts.findById(accountKey);
   return ret ? (ret.isPrivate ? 'accountsPrivate' : 'accounts') : 'undefined'
 };
+
+module.exports = cfUserAssets

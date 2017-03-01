@@ -22,7 +22,3 @@ Package.onUse(function(api) {
   api.export("CF");
 
 });
-
-Package.onTest(function(api) {
-
-});

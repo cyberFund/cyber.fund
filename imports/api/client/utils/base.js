@@ -1,12 +1,15 @@
-CF.Utils.noClick = function() {
+import d3 from 'd3'
+var CF {}
+
+cfUtils.noClick = function() {
   return false;
 };
 
-CF.Utils.deltaPercents = function deltaPercents(base, another) {
+cfUtils.deltaPercents = function deltaPercents(base, another) {
   return 100 * (base - another) / base;
 };
 
-CF.Utils.readableNumbers = function(input) {
+cfUtils.readableNumbers = function(input) {
   var f = true;
   while (/(\d+)(\d{3})/.test(input.toString()) && f) {
     input = input.toString().replace(/(\d+)(\d{3})/, "$1" + "," + "$2");
@@ -14,19 +17,19 @@ CF.Utils.readableNumbers = function(input) {
   return input;
 };
 
-CF.Utils.numberWithCommas = function(x) {
+cfUtils.numberWithCommas = function(x) {
   var parts = x.toString().split(".");
   parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   return parts.join(".");
 };
 
-CF.Utils.readableN = function(input, roundTo) { //roundTo - how many digits after dot
+cfUtils.readableN = function(input, roundTo) { //roundTo - how many digits after dot
   //var ret = parseFloat(input);
   //if (isNaN(ret)) return "";
-  return d3.format(",."+roundTo+"f");//CF.Utils.numberWithCommas(ret.toFixed(roundTo));
+  return d3.format(",."+roundTo+"f");//cfUtils.numberWithCommas(ret.toFixed(roundTo));
 };
 
-CF.Utils.formatters = {
+cfUtils.formatters = {
   readableN0: d3.format(",.0f"),
   readableN1: d3.format(",.1f"),
   readableN2: d3.format(",.2f"),
@@ -45,14 +48,14 @@ CF.Utils.formatters = {
   withSign: d3.format("+,")
 };
 
-CF.Utils.monetaryFormatter = function(input) {
+cfUtils.monetaryFormatter = function(input) {
   var postfix = "",
     value = input,
-    formatter = CF.Utils.formatters.readableN2;
+    formatter = cfUtils.formatters.readableN2;
   if (input > 5000) {
     postfix = "k";
     value = input / 1000;
-    formatter = CF.Utils.formatters.readableN3;
+    formatter = cfUtils.formatters.readableN3;
   }
   if (input > 1000000) {
     postfix = "M";
@@ -65,24 +68,13 @@ CF.Utils.monetaryFormatter = function(input) {
   return formatter(value) + postfix;
 };
 
-CF.Utils.SessionVariable = function(key) {
-  if (!key) throw ("no key provided for SessionVariable constructor");
-  var me = this;
-  this._sessname = key;
 
-  this.get = function() {
-    return Session.get(me._sessname);
-  };
-  this.set = function(v) {
-    Session.set(me._sessname, v);
-  };
-};
 // provides memoizing of session values. depends on 'amplify' script/package
-// simply use CF.Utils._session instead of Session to store global things, like
+// simply use cfUtils._session instead of Session to store global things, like
 // sorting preference etc
 
 // using session as it already reactive. and storing changes via amplify
-CF.Utils._session = {
+cfUtils._session = {
   _prefixKey: "Session|",
 
   /**
@@ -90,36 +82,21 @@ CF.Utils._session = {
    * @param key
    */
   get: function(key) {
-    ret = amplify.store(CF.Utils._session._prefixKey + key);
-    if (Session.get(key) != ret) Session.set(key, ret);
-    return ret;
+  ////  ret = amplify.store(cfUtils._session._prefixKey + key);
+  ////  if (Session.get(key) != ret) Session.set(key, ret);
+  ////  return ret;
+    return Session.get(key)
   },
 
   set: function(key, value) {
-    amplify.store(CF.Utils._session._prefixKey + key, value);
+  ////  amplify.store(cfUtils._session._prefixKey + key, value);
+  ////  Session.set(key, value);
     Session.set(key, value);
   },
 
   default: function(key, value) {
-    if (CF.Utils._session.get(key) == undefined) CF.Utils._session.set(key, value);
+    if (cfUtils._session.get(key) == undefined) cfUtils._session.set(key, value);
   }
 };
 
-
-CF.Utils.jqHide = function(jQ) {
-  if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
-    jQ.addClass("hidden");
-  //  jQ.attr("visibility", "hidden");
-    return jQ;
-  }
-  console.log("condition failure");
-};
-
-CF.Utils.jqShow = function(jQ) {
-  if (jQ && jQ.removeClass && typeof jQ.removeClass == "function") {
-    jQ.removeClass("hidden");
-    jQ.attr("visibility", "inherit");
-    return jQ;
-  }
-  console.log("condition failure");
-};
+module.exports = cfUtils

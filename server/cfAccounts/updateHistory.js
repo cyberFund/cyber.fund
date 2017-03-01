@@ -23,21 +23,6 @@ SyncedCron.add({
     dealWithPopulars();
   }
 })
-//
-// SyncedCron.add({
-//   name: 'frequent update of satoshi account',
-//   schedule: function (parser) {
-//     return parser.cron('0/5 * * * *', false);
-//   },
-//   job: function(){
-//     print("starting 0/5 satoshi-fund recalculation", true);
-//     var user = Meteor.users.findOne(selectorSatoshiPie);
-//     var accounts = CF.Acounts.collection.find({refId: user._id}).fetch()
-//     handleArrayWithInterval(accounts, 15000, function(it){
-//       CF.Acounts._updateBalanceAccount(it, {private: true})
-//     });
-//   }
-// })
 
 SyncedCron.add({
   name: 'daily user history',

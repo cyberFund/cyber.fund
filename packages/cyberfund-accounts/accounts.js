@@ -1,105 +1,4 @@
-import {AccountsHistory, Acounts} from '/imports/api/collections'
-import {_k} from '/imports/api/utils'
-var ns = CF.Acounts;
-
-// mutates asset
-function setValues(asset, assetId) {
-  var prices = CF.CurrentData.getPricesById(assetId) || {};
-
-  asset.vUsd = (prices.usd || 0) * (asset.quantity || 0);
-  asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
-}
-
-ns._setValues = setValues;
-
-ns.collection = new Meteor.Collection("accounts", {
-
-  transform: function(doc) {
-    if (doc.addresses) {
-      var accBtc = 0;
-      var accUsd = 0;
-      _.each(doc.addresses, function(assetsDoc, address) {
-        var addrUsd = 0;
-        var addrBtc = 0;
-
-        if (assetsDoc.assets) {
-          _.each(assetsDoc.assets, function(asset, assetId) {
-
-            setValues(asset, assetId);
-            addrUsd += asset.vUsd;
-            addrBtc += asset.vBtc;
-          });
-        }
-
-        assetsDoc.vUsd = addrUsd;
-        assetsDoc.vBtc = addrBtc;
-        accBtc += addrBtc;
-        accUsd += addrUsd;
-      });
-
-      doc.vBtc = accBtc;
-      doc.vUsd = accUsd;
-    }
-    return doc;
-  }
-
-});
-
-Meteor.startup(function() {
-  ns.find = ns.collection.find;
-  ns.update = ns.collection.update;
-  ns.remove = ns.collection.remove;
-});
-
-var print = Meteor.isClient ? function() {} : CF.Utils.logger.getLogger("CF.Acounts").print;
-
-ns.collection.allow({
-  insert: function(userId, doc) {
-    return userId && (doc.refId == userId);
-  },
-  update: function(userId, doc, fieldNames, modifier) {
-    if (fieldNames["refId"] || fieldNames["value"] || fieldNames["createdAt"]) return false;
-    if (doc.refId != userId) return false;
-    return true;
-  },
-  remove: function(userId, doc) {
-    return doc.refId == userId;
-  }
-});
-
-ns.findByRefId = function(userId, options) {
-  var selector = {
-    refId: userId
-  };
-
-  // have to supply isPrivate flag internally on server
-  if (Meteor.isServer && !options.private) _.extend(selector, {
-    isPrivate: {
-      $ne: true
-    }
-  });
-  return ns.collection.find(selector);
-};
-
-ns.findById = function(_id, options) {
-  if (!_id) return {};
-  options = options || {};
-  var selector = {
-    _id: _id
-  };
-    //if (Meteor.isServer) {} && !options.private)
-    //  _.extend (selector, {isPrivate: {$ne: true}})
-  return ns.collection.findOne(selector);
-};
-
-var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
-  if (!userId) return false;
-  var account = Acounts.findOne({
-    _id: accountKey,
-    refId: userId
-  });
-  return account;
-};
+import {accountNameIsValid, findById} from '/imports/api/cf/account/utils'
 
 Meteor.methods({
   cfAssetsAddAccount: function(obj) {
@@ -116,7 +15,7 @@ Meteor.methods({
       _id: this.userId
     });
     if (!user) return;
-    if (!ns.accountNameIsValid(obj.name, this.userId)) return {
+    if (!accountNameIsValid(obj.name, this.userId)) return {
       err: "invalid acc name"
     };
 
@@ -141,7 +40,7 @@ Meteor.methods({
       _id: accountKey
     };
 
-    var checkName = ns.accountNameIsValid(newName, this.userId, account.name);
+    var checkName = accountNameIsValid(newName, this.userId, account.name);
     if (checkName) {
       var k = "name";
       var set = {
@@ -159,7 +58,7 @@ Meteor.methods({
     var user = Meteor.users.findOne({
       _id: this.userId
     });
-    var account = CF.Acounts.findById(accountKey);
+    var account = findById(accountKey);
     var toKey = (fromKey == "accounts" ? "accountsPrivate" : "accounts"); //TODO - remove strings, not needed
 
 
@@ -206,34 +105,3 @@ Meteor.methods({
     });
   }
 });
-
-ns.accumulate = function(docs, accumulator){
-  var ret = accumulator || {};
-  docs.forEach(function(doc){
-    _.each(doc, function(asset, assetId){
-      if (ret[assetId]) {
-        ret[assetId].quantity += asset.quantity || 0;
-        ret[assetId].vUsd += asset.vUsd || 0;
-        ret[assetId].vBtc += asset.vBtc || 0;
-      }
-      else ret[assetId] = {
-        quantity: asset.quantity || 0,
-        vUsd: asset.vUsd || 0,
-        vBtc: asset.vBtc || 0
-      };
-    });
-  });
-  return ret;
-};
-
-ns.extractAssets = function flatten(doc) {
-  var ret = [];
-  if (doc.addresses) {
-    _.each(doc.addresses, function(assetsDoc, address) {
-      if (assetsDoc.assets) {
-        ret.push(assetsDoc.assets);
-      }
-    });
-  }
-  return CF.Acounts.accumulate(ret);
-};

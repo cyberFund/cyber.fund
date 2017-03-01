@@ -1,8 +1,9 @@
 import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
-var ns = CF.UserAssets;
-
-var tableData = CF.Acounts.portfolioTableData;
+import {portfolioTableData} from '/imports/api/client/utils/portfolio'
+import {_session} from '/imports/api/client/utils/base'
+import {userProfileData} from '/imports/api/client/utils/portfolio'
+var tableData = portfolioTableData;
 
 Meteor.startup(function(){
   CF.Utils._session.default("folioWidgetSort", {"f|byValue": -1});
@@ -16,9 +17,9 @@ Template["portfolioWidgetTable"].helpers({
 
   },
   pSystems: function () { //  systems to display in portfolio table, including 'starred' systems
-    var accounts = CF.Acounts.userProfileData();
+    var accounts = userProfileData();
     //Template.instance().data && Template.instance().data.accountsData;
-    var systems = ns.getSystemsFromAccountsObject(accounts);
+    var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
 
     if (Blaze._globalHelpers.isOwnAssets()) {
       var user = Meteor.user();
@@ -32,20 +33,20 @@ Template["portfolioWidgetTable"].helpers({
       // sort portfolio items by their cost, from higher to lower.
       // return -1 if x > y; return 1 if y > x
       byValue: function (x, y) {
-        var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
-        var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id);
+        var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
       },
       byAmount: function (x, y) {
-        var q1 = ns.getQuantitiesFromAccountsObject(accounts, x._id);
-        var q2 = ns.getQuantitiesFromAccountsObject(accounts, y._id);
+        var q1 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id);
+        var q2 = CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id);
         return Math.sign(q2 - q1);
       },
       byEquity: function (x, y) {
         var q1 = (x.metrics && x.metrics.supply) ?
-          ns.getQuantitiesFromAccountsObject(accounts, x._id)/ x.metrics.supply : 0;
+          CF.UserAssets.getQuantitiesFromAccountsObject(accounts, x._id)/ x.metrics.supply : 0;
         var q2 = (y.metrics && y.metrics.supply) ?
-          ns.getQuantitiesFromAccountsObject(accounts, y._id) / y.metrics.supply: 0;
+          CF.UserAssets.getQuantitiesFromAccountsObject(accounts, y._id) / y.metrics.supply: 0;
 
         return Math.sign(q2 - q1);
       }
@@ -76,14 +77,14 @@ Template["portfolioWidgetTable"].helpers({
       .fetch().sort(sort.byValue);
   },
   chartData: function () {
-    return  CF.Acounts.userProfileData();
+    return userProfileData();
   },
   quantity: function () {
     var system = this;
     if (!system._id) return NaN;
-    var accounts =  CF.Acounts.userProfileData();
+    var accounts = userProfileData();
 
-    return ns.getQuantitiesFromAccountsObject(accounts, system._id);
+    return CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
   },
   btcCost: function () {
     var system = this;
@@ -91,8 +92,8 @@ Template["portfolioWidgetTable"].helpers({
     return r && r[system._id] && r[system._id].vBtc;
     if (!system.metrics || !system.metrics.price || !system.metrics.price.btc) return "no btc price found..";
 
-    var accounts =  CF.Acounts.userProfileData();
-    return (ns.getQuantitiesFromAccountsObject(
+    var accounts = userProfileData();
+    return (CF.UserAssets.getQuantitiesFromAccountsObject(
       accounts, system._id) * system.metrics.price.btc);
   },
   usdCost: function () {
@@ -100,9 +101,9 @@ Template["portfolioWidgetTable"].helpers({
     var r= tableData();
     return (r && r[system._id] && r[system._id].vUsd);
     if (!system.metrics || !system.metrics.price || !system.metrics.price.usd) return "no usd price found..";
-    var accounts = CF.Acounts.userProfileData();
+    var accounts =userProfileData();
 
-    return (ns.getQuantitiesFromAccountsObject(
+    return (CF.UserAssets.getQuantitiesFromAccountsObject(
         accounts, system._id) * system.metrics.price.usd);
   },
   name_of_system: function () {
@@ -112,10 +113,10 @@ Template["portfolioWidgetTable"].helpers({
     var system = this;
     var q = 0.0;
     var r = tableData();
-    //var accounts = CF.Acounts.userProfileData();
+    //var accounts =userProfileData();
 
     if (system._id && r[system._id]) {
-      q = r[system._id] && r[system._id].quantity || 0; //]ns.getQuantitiesFromAccountsObject(accounts, system._id);
+      q = r[system._id] && r[system._id].quantity || 0; //]CF.UserAssets.getQuantitiesFromAccountsObject(accounts, system._id);
     }
     if (system.metrics && system.metrics.supply) {
       q = 10000 * q / system.metrics.supply;

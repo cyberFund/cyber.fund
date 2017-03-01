@@ -1,6 +1,7 @@
 import {cfIsAccountHidden} from '/imports/api/client/cf/account'
 import cfCDs from '/imports/api/currentData/selectors'
-var ns = CF.UserAssets;
+import {portfolioTableData, userProfileData} from '/imports/api/client/utils/portfolio'
+import {extractAssets, findById, findByRefId} from '/imports/api/cf/account/utils'
 
 function hiddenToggle (accountId){
   if (!accountId) return;
@@ -9,10 +10,10 @@ function hiddenToggle (accountId){
 
 Template["portfolioWidgetView"].helpers({
   shouldShowCheckboxes: function(){
-    return CF.Acounts.findByRefId(CF.Profile.currentUid()).count() > 1;
+    return findByRefId(CF.Profile.currentUid()).count() > 1;
   },
   sumB: function() {
-    var assets = CF.Acounts.portfolioTableData();
+    var assets = portfolioTableData();
     var sum = 0;
     if (_.keys(assets).length) {
       _.each(assets, function(asset) {
@@ -22,7 +23,7 @@ Template["portfolioWidgetView"].helpers({
     return sum;
   },
   sumU: function() {
-    var assets = CF.Acounts.portfolioTableData();
+    var assets = portfolioTableData();
     var sum = 0;
     if (_.keys(assets).length) {
       _.each(assets, function(asset) {
@@ -32,12 +33,12 @@ Template["portfolioWidgetView"].helpers({
     return sum;
   },
   filteredAccountsData: function() {
-    return CF.Acounts.userProfileData();
+    return userProfileData();
   },
   flat: function() {
-    return CF.Acounts.extractAssets(this);
+    return extractAssets(this);
   },
-  flattenData: CF.Acounts.portfolioTableData
+  flattenData: portfolioTableData
 });
 
 Template["pwvRow"].onRendered(function() {
@@ -50,7 +51,7 @@ Template["pwvRow"].helpers({
     return Session.get("hideAccount_" + this._id) ? "" : "checked";
   },
   shouldShowCheckboxes: function(){ //TODO dedupe
-    return CF.Acounts.findByRefId(CF.Profile.currentUid()).count() > 1;
+    return findByRefId(CF.Profile.currentUid()).count() > 1;
   }
 });
 

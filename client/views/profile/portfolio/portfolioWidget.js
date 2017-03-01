@@ -3,6 +3,7 @@
  * @param accountsData - accounts object
  * @returns {number} assets value in bitcoins
  */
+import {findByRefId} from '/imports/api/cf/account/utils'
 
 Template['portfolioWidget'].helpers({
   subReady: function(){ return CF.subs.Assets && CF.subs.Assets.ready() },
@@ -13,7 +14,7 @@ Template['portfolioWidget'].helpers({
           _id: CF.Profile.currentUid()
         });
         if (!user) return false;
-        return !(CF.Acounts.findByRefId(user._id).count())
+        return !(findByRefId(user._id).count())
     } else return false
   },
   isOwnAssets: function(){

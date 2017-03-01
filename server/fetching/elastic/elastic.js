@@ -474,7 +474,7 @@ function fetchLatest(params) {
     var p2 = {"from": "now-1d-15m", "to": "now-1d"};
     _.extend(p2, params);
     d = moment();
-    var yesterday = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p2));
+    var yesterday = extractFromPromise(CF.ES.sendQuery ("latest_values", p2));
     n = moment();
     console.log(" received response to query 'latest_values (yesterday)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
@@ -482,7 +482,7 @@ function fetchLatest(params) {
     _.extend(p3, params);
     d = moment();
 
-    var monthAgo = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
+    var monthAgo = extractFromPromise(CF.ES.sendQuery ("latest_values", p3));
     n = moment();
     console.log(" received response to query 'latest_values (monthAgo)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 
@@ -498,7 +498,7 @@ function fetchLatest(params) {
 function fetchAverage15m(params) {
   try {
     var d = moment();
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
+    var result = extractFromPromise(CF.ES.sendQuery("averages_last_15m", params));
     var n = moment();
     console.log(" received response to query 'averages_last_15m' after "+ n.diff(d, "milliseconds")+" milliseconds");
     esParsers.averages_l15(result);
@@ -511,7 +511,7 @@ function fetchAverage15m(params) {
 
 function fetchAverages(params) {
   var d = moment();
-  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  var result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   var n = moment();
   console.log(" received response to query 'average_values_date_histogram' after "+ n.diff(d, "milliseconds")+" milliseconds" );
   esParsers.averages_date_hist(result);
@@ -532,7 +532,7 @@ var hourlyAves = {
       systems: gatherSymSys({})
     });
     console.log ("average hour");
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+    var result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
 };
@@ -550,7 +550,7 @@ SyncedCron.add({
       to: "now/d",
       interval: "day"
     };
-    var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+    var result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
     esParsers.averages_date_hist(result, params);
   }
 });
@@ -562,7 +562,7 @@ Meteor.startup(function(){
     to: "now/d",
     interval: "day"
   };
-  var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  var result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);
 
   params = {
@@ -570,7 +570,7 @@ Meteor.startup(function(){
     to: "now-1d/d",
     interval: "day"
   };
-  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);
 
   params = {
@@ -578,7 +578,7 @@ Meteor.startup(function(){
     to: "now-2d/d",
     interval: "day"
   };
-  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);
 
   params = {
@@ -586,7 +586,7 @@ Meteor.startup(function(){
     to: "now-3d/d",
     interval: "day"
   };
-  result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+  result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
   esParsers.averages_date_hist(result, params);
 
 });
@@ -607,7 +607,7 @@ Meteor.methods({
       system: system
     };
     try {
-      var result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+      var result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
       esParsers.averages_date_hist(result, params);
 
       // fetch hourlies for past week;
@@ -618,7 +618,7 @@ Meteor.methods({
         system: system
       };
       try {
-        result = CF.Utils.extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
+        result = extractFromPromise(CF.ES.sendQuery("average_values_date_histogram", params));
         esParsers.averages_date_hist(result, params);
 
         CurrentData.update({

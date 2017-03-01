@@ -1,8 +1,8 @@
 import cfCDs from '/imports/api/currentData/selectors' //CF.CurrentData .selectors;
 import {CurrentData} from '/imports/api/collections'
 import {username} from '/imports/api/utils/user'
-CF.Acounts.currentAddress = new CF.Utils.SessionVariable("cfAccountsCurrentAddress");
-CF.Acounts.currentAsset = new CF.Utils.SessionVariable("cfAccountsCurrentAsset");
+import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
+
 var isOwnAssets = function(){
   return CF.Profile.currentUsername() == username();
 };
@@ -73,10 +73,10 @@ Template["displayAccount"].events({
     $("button[type=submit]", "#delete-address-form").focus();
   },
   "click .submit-remove-address": function (e, t) {
-    Meteor.call("cfAssetsRemoveAddress", CF.Acounts.currentId.get(),
-    CF.Acounts.currentAddress.get(), function (err, ret) {
+    Meteor.call("cfAssetsRemoveAddress", cfCurrentId.get(),
+    cfCurrentAddress.get(), function (err, ret) {
       if (!err) {
-        CF.Acounts.currentAddress.set(null);
+        cfCurrentAddress.set(null);
         t.$("#modal-delete-address").closeModal();
       }
     });
@@ -87,8 +87,8 @@ Template["displayAccount"].events({
   },
   "click .per-address": function(e, t){
     var $asset = $(e.currentTarget).closest(".address-item");
-    CF.Acounts.currentAddress.set($asset.attr("address-id"));
-    CF.Acounts.currentId.set($asset.closest(".account-item")
+    cfCurrentAddress.set($asset.attr("address-id"));
+    cfCurrentId.set($asset.closest(".account-item")
       .attr("account-id"));
   },
   "click .req-delete-address": function(e, t) {
@@ -96,24 +96,24 @@ Template["displayAccount"].events({
     $("button[type=submit]", "#delete-address-form").focus();
   },
   "click .req-add-asset-to-address": function(e, t){
-    CF.Acounts.currentAsset.set(null);
+    cfCurrentAsset.set(null);
     $("#modal-add-asset").openModal();
   },
   "click .req-update-address": function(e, t){
     Meteor.call("cfAssetUpdateBalance",
-      CF.Acounts.currentId.get(),
-      CF.Acounts.currentAddress.get());
+      cfCurrentId.get(),
+      cfCurrentAddress.get());
   },
   "click .req-delete-asset": function(e, t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
-    CF.Acounts.currentAsset.set(
+    cfCurrentAsset.set(
       CurrentData.findOne(cfCDs.system( $item.attr("asset-key")),
       {fields: {token: 1, aliases: 1, icon: 1}}));
-    if (CF.Acounts.currentAsset.get()) {
+    if (cfCurrentAsset.get()) {
       $item = $item.closest(".address-item");
-      CF.Acounts.currentAddress.set($item.attr("address-id"));
+      cfCurrentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.Acounts.currentId.set($item.attr("account-id"));
+      cfCurrentId.set($item.attr("account-id"));
       $("#modal-delete-asset").openModal();
       $("button[type=submit]", "#delete-asset-form").focus();
     }
@@ -122,24 +122,23 @@ Template["displayAccount"].events({
   "click .req-edit-asset": function(e,t){
     var $item = t.$(e.currentTarget).closest(".asset-item");
 
-    CF.Acounts.currentAsset.set(
+    cfCurrentAsset.set(
       CurrentData.findOne(cfCDs.system($item.attr("asset-key")),
       {fields: {token: 1, aliases: 1, icon: 1}}));
-    if (CF.Acounts.currentAsset.get()) {
+    if (cfCurrentAsset.get()) {
       $item = $item.closest(".address-item");
-      CF.Acounts.currentAddress.set($item.attr("address-id"));
+      cfCurrentAddress.set($item.attr("address-id"));
       $item = $item.closest(".account-item");
-      CF.Acounts.currentId.set($item.attr("account-id"));
+      cfCurrentId.set($item.attr("account-id"));
       $("#modal-edit-asset").openModal();
     }
   },
   "click .req-toggle-private": function(e, t){
     var user = Meteor.user();
     if (!user) return false;
-    //if (!CF.User.hasPublicAccess(user)) return false;
-    //{{! todo: add check if user is able using this feature}}
+  
     var $item = t.$(e.currentTarget).closest(".account-item");
-    CF.Acounts.currentId.set($item.attr("account-id"));
+    cfCurrentId.set($item.attr("account-id"));
     $("#modal-toggle-private").openModal();
   }
 });
