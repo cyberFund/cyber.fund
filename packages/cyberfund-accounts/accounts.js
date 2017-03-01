@@ -1,24 +1,20 @@
-CF.Accounts = {
-  History: {
-    collection: new Meteor.Collection("accountsHistory")
-  }
-};
+import {AccountsHistory} from '/imports/api/collections'
 var ns = CF.Accounts;
 if (Meteor.isServer) {
-  ns.History.collection._ensureIndex({
+  AccountsHistory._ensureIndex({
     timestamp: -1
   });
 
-  ns.History.collection._ensureIndex({
+  AccountsHistory._ensureIndex({
     refId: 1, timestamp: -1
   });
 
-  ns.History.collection._ensureIndex({
+  AccountsHistory._ensureIndex({
     accountId: 1, timestamp: -1
   });
 }
 
-ns.History.collection.allow({
+AccountsHistory.allow({
   insert: function(userId, doc) {
     return false;
   },

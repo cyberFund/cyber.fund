@@ -1,3 +1,4 @@
+import {History} from '/imports/api/collections'
 const HOUR = 1000 * 60 * 60;
 const historyInterval = 24 * HOUR;
 const accountActual = historyInterval / 2;

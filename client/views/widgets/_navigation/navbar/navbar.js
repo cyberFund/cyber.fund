@@ -1,3 +1,10 @@
+Template.navbar.onCreated(function(){
+  this.subscribe("usersCount");
+  this.subscribe("coinsCount");
+  this.subscribe("allSystems");
+  this.subscribe("ownAssets");
+})
+
 Template['navbar'].rendered = function () {
   $('.button-collapse').sideNav();
 };

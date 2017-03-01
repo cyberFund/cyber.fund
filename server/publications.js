@@ -1,4 +1,4 @@
-import {CurrentData, FastData, Metrics} from '/imports/api/collections'
+import {CurrentData, FastData, Metrics, Extras, AccountsHistory} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 //var cfCDs = CF.CurrentData .selectors;
 /**
@@ -253,7 +253,6 @@ Meteor.publish("avatars", function(uidArray) {
 /*
   user profile by username or id
  */
-var print = CF.Utils.logger.print;
 Meteor.publish("userProfile", function(options){
   options = CF.Utils.normalizeOptionsPerUser(options);
   var uid = options.userId;
@@ -282,7 +281,7 @@ Meteor.publish('accountsHistoryIndexForUser', function(options){
   }
   let fields = {}
   if (!private) fields.full = 0
-  return CF.Accounts.History.collection.find(selector, {fields: fields})
+  return AccountsHistory.find(selector, {fields: fields})
 });
 
 
@@ -296,7 +295,7 @@ Meteor.publish('accountsHistoryDetailsForUser', function(options){
   else selector.name = {$exists: true} // don t take index entries
 
   if (!private) selector.isPrivate = {$ne: true}
-  return CF.Accounts.History.collection.find(selector)
+  return AccountsHistory.find(selector)
 })
 
 /*
@@ -352,7 +351,8 @@ Meteor.publish("allSystems", function(){
       "aliases": 1,
       "metrics": 1,
       "token": 1,
-      "icon": 1
+      "icon": 1,
+      "system": 1
     }
   });
 });

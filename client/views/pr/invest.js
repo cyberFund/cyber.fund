@@ -1,3 +1,5 @@
+import {Extras} from '/imports/api/collections'
+
 Meteor.startup(function() {
   Meteor.setInterval(function() {
     var sT = moment().diff(moment("2016-01-01 00:00:00"), "seconds");

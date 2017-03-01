@@ -1,11 +1,9 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
 // recalculate raised amount crutch
-var print = false ? CF.Utils.logger.print : function() {}
 Meteor.startup(function(){
-print (Meteor.settings);
+  console.log(Meteor.settings);
 })
-
 
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({

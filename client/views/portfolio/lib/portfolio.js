@@ -1,5 +1,5 @@
 //////////////////////////// hide domain
-import {cfIsAccountHidden} from '/imports/api/cfAccount'
+import {cfIsAccountHidden} from '/imports/api/client/cf/account'
 
 
 CF.Accounts.hiddenToggle = function(accountId){

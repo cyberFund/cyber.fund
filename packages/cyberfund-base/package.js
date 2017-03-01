@@ -18,16 +18,11 @@ Package.onUse(function(api) {
   api.versionsFrom('1.1.0.2');
   api.use(["underscore", "accounts-base", "d3js:d3"], cs);
   api.use(["templating"], c);
-  api.addFiles(['cyberfund-base.js', 'cf-user.js', 'cf-utils.js'], cs);
-  api.addFiles(['server/utils-server.js', 'server/assetsCryptoBalance.js',
-  'server/cf-social-server.js'], s);
-  api.addFiles(['client/utils-client.js', 'client/helpers.js'], c);
+
   api.export("CF");
-  api.export("Extras");
+
 });
 
 Package.onTest(function(api) {
-  api.use('tinytest');
-  api.use('cyberfund:cyberfund-base');
-  api.addFiles('cyberfund-base-tests.js');
+
 });

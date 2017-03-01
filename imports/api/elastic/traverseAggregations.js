@@ -1,3 +1,5 @@
+import winston from 'winston'
+
 //buckethead
 
 //  == Elasticsearch related feature
@@ -40,10 +42,9 @@
 // }
 
 function flattenAggregations(resultObject, keysIn){
-  const print = CF.Utils.logger.getLogger("esFlatten").print
-  const print_ = CF.Utils.logger.print;
+
   let keys = keysIn.slice();
-  print ("running with keys", keys, true);
+  //print ("running with keys", keys, true);
   let lengths = [];
   let results = resultObject['aggregations'];
 
@@ -83,7 +84,7 @@ function flattenAggregations(resultObject, keysIn){
     results = keys.length > 0 ? gimmeBuckets(results, key) : gimmeHits(results, key)
     lengths.push(results.length);
   } while (keys.length > 0)
-  print_ ("resulting buckets by level", lengths, true)
+  //print_ ("resulting buckets by level", lengths, true)
   return results;
 }
 

@@ -1,15 +1,7 @@
-var balance = Npm.require("crypto-balance");
-CF.checkBalance = balance;
+import {Extras} from '/imports/api/collections'
+import {extractFromPromise} from '/imports/api/server/utils'
 
 Meteor.methods({
-  /**
-   * thin wrapper around Lars Kluge' crypto-balance package.
-   * @param wallet_
-   * @returns {*|promise}
-   */
-  cfCheckBalance: function (wallet_) { //obsolete, was only used for tests
-    return CF.Utils.extractFromPromise(balance(wallet_));
-  },
 
   /*  retrieves our unique address balance, to display invest stats
    currently let s just

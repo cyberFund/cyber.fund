@@ -1,7 +1,12 @@
+import helpers from '/imports/api/client/cf/base/helpers'
+
+_.each(helpers, function (helper, key) {
+  Template.registerHelper(key, helper);
+});
+
 BlazeLayout.setRoot("body");
 
 Tracker.autorun(function () {
-
   if (Meteor.user()) {
     Meteor.call("getUserNumber", function (err, ret) {
       Session.set("userRegistracionCount", ret);
@@ -18,9 +23,4 @@ Meteor.startup(function () {
       FlowRouter.initialize();
     }
   });
-  Meteor.subscribe("usersCount");
-  Meteor.subscribe("coinsCount");
-  Meteor.subscribe("allSystems");
-  Meteor.subscribe("ownAssets");
-  CF._mode = Meteor.call("getEnv");
 });

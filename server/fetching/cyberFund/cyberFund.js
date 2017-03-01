@@ -1,12 +1,10 @@
-import {CurrentData} from '/imports/api/collections'
+import {CurrentData, Extras} from '/imports/api/collections'
 // this file describes fetching of data from chaingear
 
 var sourceUrl = "https://static.cyber.fund/chaingear/full.json"; //"https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchTimeout = 15 * 1000;
 
 var logger = CF.Utils.logger.getLogger("fetching - chaingear : v.0.3");
-let print = logger.print;
-//print("sourceUrl", sourceUrl)
 
 CF.fetching.cyberFund = {};
 

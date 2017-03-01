@@ -2,8 +2,6 @@
 // suitable for small arrays, and when we re sure calls won't interfere one another
 // (i.e. call period > delay*array.length)
 
-const print = CF.Utils.logger.getLogger("handleArrayWithInterval").print
-
 exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay, handler, handlerAfter){
 
   function withDelay(array, delay, handler, handlerAfter){
@@ -17,7 +15,7 @@ exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay,
         --callbacksCount;
         callbacksAverage += callbacksCount/length;
         if (current === length) {
-          print("callbacksAverage", callbacksAverage)
+          //print("callbacksAverage", callbacksAverage)
         }
     }
 
@@ -30,7 +28,7 @@ exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay,
       } else {
         Meteor.clearInterval(interval);
         if (handlerAfter) handlerAfter(array, function(){
-          print("done pushing items to handler, handled items", current)
+          //print("done pushing items to handler, handled items", current)
         });
       }
     }, delay);

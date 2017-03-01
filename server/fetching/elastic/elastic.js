@@ -1,10 +1,11 @@
 import {CurrentData} from '/imports/api/collections'
+import winston from 'winston'
+import {extractFromPromise} from '/imports/api/server/utils'
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
 
 //var currentData = {meta: {}};
 var epoch = new Date("2000-01-01 00:00:00.000").valueOf(); //946677600000
-var logger = CF.Utils.logger.getLogger("meteor-fetching-es");
 
 function _searchSelector(bucketKey) {
   // sym_sys is alike 'SYMBL|System'
@@ -56,8 +57,6 @@ JSON.unflatten = function(data) {
   }
   return resultholder[""] || resultholder;
 };
-
-var print = CF.Utils.logger.print;
 
 var esParsers = {
   errorLogger: function esErrorHandler(rejection) {
@@ -468,7 +467,7 @@ function fetchLatest(params) {
     _.extend(p1, params);
 
     var d = moment();
-    var today = CF.Utils.extractFromPromise(CF.ES.sendQuery ("latest_values", p1));
+    var today = extractFromPromise(CF.ES.sendQuery ("latest_values", p1));
     var n = moment();
     console.log(" received response to query 'latest_values (current)' after "+ n.diff(d, "milliseconds")+" milliseconds" );
 

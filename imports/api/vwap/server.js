@@ -1,9 +1,7 @@
 const xchangeCurrent = require("./collections").feedsCurrent;
-const xchangeVwap = require("./collections").feedsVwapCurrent;
+const xchangeVwap = require("./collections").feedsVwapCurrent; //TODO: use same names
 const feedUrl = 'http://kong.cyber.fund/xcm'
-const print = CF.Utils.logger.getLogger("Xchange Feeds").print;
-
-
+import {extractFromPromise} from '/imports/api/server/utils'
 import {default as weightedPriceNative} from './weightedPriceNative'
 
 xchangeCurrent._ensureIndex({
@@ -19,7 +17,7 @@ function fetchDirect() {
   HTTP.get(feedUrl, {
     timeout: 10000
   }, function(err, res) {
-    if (err) print("Coukd not fetch", err, true)
+    if (err) winston.log("Coukd not fetch", err, true)
     else {
       if (res.data && Array.isArray(res.data)) {
         res.data.forEach(function(it) {

@@ -3,7 +3,7 @@ Meteor.methods({
     if (!this.userId) return;
     var user = Meteor.users.findOne({_id: this.userId});
     if (!user) return;
-    CF.Profile.patch(user);
+    _patch(user);
   }
 });
 
@@ -13,7 +13,7 @@ function biggerTwitterImg(url){
 }
 // reason for that is user.services.twitter.screenName is delivered by subscriptions,
 // while we also want avatar url and name
-CF.Profile.patch = function(user){
+function _patch (user){
   if (!user) return;
 
   var isTwitter = !!(user.services && user.services.twitter)
@@ -54,7 +54,7 @@ SyncedCron.add({
 
 
     Meteor.users.find({}).forEach(function(user){
-      CF.Profile.patch(user)
+      _patch(user)
     });
   }
 });

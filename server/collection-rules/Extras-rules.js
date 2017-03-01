@@ -1,3 +1,4 @@
+import {Extras} from '/imports/api/collections'
 /**
  * Created by angelo on 6/22/15.
  */
