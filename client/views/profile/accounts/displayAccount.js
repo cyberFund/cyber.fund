@@ -1,10 +1,11 @@
-import cfCDs from '/imports/api/currentData/selectors' //CF.CurrentData .selectors;
+import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
 import {username} from '/imports/api/utils/user'
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
+import {currentUsername} from '/imports/api/cf/profile'
 
 var isOwnAssets = function(){
-  return CF.Profile.currentUsername() == username();
+  return currentUsername() == username();
 };
 
 Template["displayAccount"].rendered = function () {
@@ -136,7 +137,7 @@ Template["displayAccount"].events({
   "click .req-toggle-private": function(e, t){
     var user = Meteor.user();
     if (!user) return false;
-  
+
     var $item = t.$(e.currentTarget).closest(".account-item");
     cfCurrentId.set($item.attr("account-id"));
     $("#modal-toggle-private").openModal();

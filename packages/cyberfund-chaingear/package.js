@@ -11,18 +11,9 @@ Package.describe({
 });
 
 Package.onUse(function(api) {
-  api.versionsFrom("1.1.0.2");
-  api.use(["underscore", "cyberfund:cyberfund-base"]);
-  api.use(["ui", "templating"], "client");
-  api.addFiles("cyberfund-chaingear.js", ["client", "server"]);
-  api.addFiles(["client/cyberfund-chaingear-client.js", "client/cgLink/cgLink.html",
-  "client/cgLink/cgLink.js", "client/cgLink/cgLink.css",
-  "client/cgLinkCard/cgLinkCard.html", "client/cgLinkCard/cgLinkCard.js",
-  "client/cgLinkCard/cgLinkCard.css"], "client");
+
 });
 
 Package.onTest(function(api) {
-  api.use("tinytest");
-  api.use("cyberfund:cyberfund-chaingear");
-  api.addFiles("cyberfund-chaingear-tests.js");
+
 });

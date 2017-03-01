@@ -1,4 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors'
+import {deltaPercents} from '/imports/api/client/utils/base'
 import {CurrentData} from '/imports/api/collections'
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
@@ -163,7 +164,7 @@ Template["systemBasic"].helpers({
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.price && metrics.tradeVolume && metrics.price) {
 
-      return CF.Utils.deltaPercents(metrics.price.usd / metrics.price.btc * metrics.tradeVolume,
+      return deltaPercents(metrics.price.usd / metrics.price.btc * metrics.tradeVolume,
         metrics.price.usd / metrics.price.btc * metrics.tradeVolumePrevious.day);
     }
   },
@@ -172,7 +173,7 @@ Template["systemBasic"].helpers({
     if (metrics && metrics.tradeVolumePrevious &&
       metrics.tradeVolumePrevious.day && metrics.tradeVolume) {
 
-      return CF.Utils.deltaPercents(metrics.tradeVolume,
+      return deltaPercents(metrics.tradeVolume,
         metrics.tradeVolumePrevious.day);
     }
   },

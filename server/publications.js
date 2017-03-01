@@ -2,7 +2,8 @@ import {normalizeOptionsPerUser} from '/imports/api/utils'
 import {CurrentData, FastData, Metrics, Extras, Acounts, AcountsHistory} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import {findByRefId} from '/imports/api/cf/account/utils'
-//var cfCDs = CF.CurrentData .selectors;
+import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets'
+
 /**
  * currentData, just fields enough to draw rating table..
  */
@@ -328,7 +329,7 @@ Meteor.publish("portfolioSystems", function(options) {
   var user = Meteor.users.findOne({_id: userId});
 
   var accounts = findByRefId(userId, {private: private});
-  var systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
+  var systems = getSystemsFromAccountsObject(accounts);
 
   if (private) {
     if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {

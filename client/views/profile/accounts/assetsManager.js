@@ -1,7 +1,8 @@
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
 import {findByRefId, findById, accountNameIsValid, privateToString} from '/imports/api/cf/account/utils'
 import {addressExists} from '/imports/api/client/utils/accounts'
-
+import {currentUid} from '/imports/api/cf/profile'
+import {getAccountPrivacyType, getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 Template["assetsManager"].onRendered (function() {
   this.$renameAccountInput = this.$("#rename-account-in");
   this.$renameAccountErrorLabel = this.$("#account-rename-exists");
@@ -13,11 +14,11 @@ var isOwnAssets = Blaze._globalHelpers.isOwnAssets;
 
 Template["assetsManager"].helpers({
   assetsOwnerId: function() {
-    return CF.Profile.currentUid();
+    return currentUid();
   },
 
   _accounts: function() { //todo - pass as parameter.
-    return findByRefId(CF.Profile.currentUid()).fetch();
+    return findByRefId(currentUid()).fetch();
   },
 
   currentAccount: function() {
@@ -66,14 +67,11 @@ Template["assetsManager"].helpers({
 Template["assetsManager"].onCreated(function() {
   var instance = this;
 
-  //if own profile, else getting data from user' "profile.assets" -
-  // this all going to be actual once we get to private accounts
-//  CF.subs.Assets = instance.subscribe('profileAssets', CF.Profile.currentUsername());
   Tracker.autorun(function() {
     var user = Meteor.user();
     if (user && (user.username == FlowRouter.getParam("username"))) {
       var accounts = findByRefId(Meteor.userId());
-      systems = CF.UserAssets.getSystemsFromAccountsObject(accounts);
+      systems = getSystemsFromAccountsObject(accounts);
       Meteor.subscribe("assetsSystems", systems);
     }
   });
@@ -340,7 +338,7 @@ Template["assetsManager"].events({
     if (!isOwnAssets()) return false;
 
     Meteor.call("cfAssetsTogglePrivacy", cfCurrentId.get(),
-      CF.UserAssets.getAccountPrivacyType(cfCurrentId.get()),
+      getAccountPrivacyType(cfCurrentId.get()),
       function(err, ret) {
         t.$("#modal-toggle-private").closeModal();
       });

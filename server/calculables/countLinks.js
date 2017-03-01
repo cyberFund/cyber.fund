@@ -56,7 +56,7 @@ calculatables.addCalculatable('nLinksWithTag', function(system) {
 
   if (!links || !links.length) return undefined;
   _.each(tags, function(tag) {
-    ret[tag] = CF.CurrentData.linksWithTag(links, tag).length;
+    ret[tag] = linksWithTag(links, tag).length;
   });
   return ret;
 });

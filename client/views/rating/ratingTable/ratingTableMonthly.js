@@ -1,6 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
-var initialLimit = CF.Rating.limit0;
+import cfRating from '/imports/api/cf/rating'
+var initialLimit = cfRatinglimit0;
 
 function tableSelector() {
   return {
@@ -16,13 +17,13 @@ function tableSelector() {
   };
 }
 
-var getSorterByKey = CF.Rating.getSorterByKey;
-var getKeyBySorter = CF.Rating.getKeyBySorter;
+var getSorterByKey = cfRatinggetSorterByKey;
+var getKeyBySorter = cfRatinggetKeyBySorter;
 
 Template["ratingTableMonthly"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
   if (sort) {
-    CF.Utils._session.set ("coinSorter", getSorterByKey(sort));
+    _session.set ("coinSorter", getSorterByKey(sort));
   }
 
   Session.set("ratingPageLimit", initialLimit);
@@ -39,7 +40,7 @@ Template["ratingTableMonthly"].onCreated(function() {
   });
 
   instance.autorun(function() {
-    var key = getKeyBySorter(CF.Utils._session.get("coinSorter"));
+    var key = getKeyBySorter(_session.get("coinSorter"));
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
@@ -86,7 +87,7 @@ Template["ratingTableMonthly"].onRendered (function() {
 
 Template["ratingTableMonthly"].helpers({
   rows: function() {
-    var sort = CF.Utils._session.get("coinSorter");
+    var sort = _session.get("coinSorter");
     return CurrentData.find(tableSelector(), {
       sort: sort
     }).fetch();
@@ -114,7 +115,7 @@ Template["ratingTableMonthly"].helpers({
 
 Template["ratingTableMonthly"].events({
   "click .show-more": function(e, t) {
-    var step = CF.Rating.step;
+    var step = cfRatingstep;
     var limit = Session.get("ratingPageLimit");
     limit += step;
     analytics.track("Viewed Crap", {

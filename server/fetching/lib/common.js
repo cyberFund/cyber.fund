@@ -1,7 +1,7 @@
-CF.fetching = {};
+cfFetching = {};
 
 
-CF.fetching.get = function (url, options, callback) {
+cfFetching.get = function (url, options, callback) {
   HTTP.get(url, options, function (error, result) {
     var parsedData, errorMessage;
 

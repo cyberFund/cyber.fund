@@ -1,6 +1,6 @@
 
 
-CF.Chartist = {
+var cfChartist = {
   labelOffset: {
     x: 0,
     y: -20
@@ -18,7 +18,7 @@ CF.Chartist = {
   }
 };
 
-_.extend(CF.Chartist, {
+_.extend(cfChartist, {
   fn: {
     tickData: function (tick, key) {
       return (tick && tick.value) ? tick.value[key] || null : null;
@@ -31,25 +31,25 @@ _.extend(CF.Chartist, {
     },
     pushTick: function (tick, data, dte, format) {
       data.labels.push(tick.needKey ? dte.format(format) : "");
-      if (_.contains([CF.Chartist.dateformats.weekly, CF.Chartist.dateformats.daily], format)) {
+      if (_.contains([cfChartist.dateformats.weekly, cfChartist.dateformats.daily], format)) {
         format += "[ UTC]";
       }
       data.capB.push(
         {
-          value: CF.Chartist.fn.tickData(tick, "cap_btc"),
-          meta: [CF.Chartist.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join('|')
+          value: cfChartist.fn.tickData(tick, "cap_btc"),
+          meta: [cfChartist.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join('|')
         });
 
       data.capU.push(
         {
-          value: CF.Chartist.fn.tickData(tick, "cap_usd"),
-          meta: [CF.Chartist.fn.tickString(tick, "price_usd"), dte.format(format).replace("&nbsp;", " ")].join("|")
+          value: cfChartist.fn.tickData(tick, "cap_usd"),
+          meta: [cfChartist.fn.tickString(tick, "price_usd"), dte.format(format).replace("&nbsp;", " ")].join("|")
         });
 
       data.trade.push(
         {
-          value: CF.Chartist.fn.tickData(tick, "volume24_btc"),
-          meta: [CF.Chartist.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join("|")
+          value: cfChartist.fn.tickData(tick, "volume24_btc"),
+          meta: [cfChartist.fn.tickString(tick, "price_btc"), dte.format(format).replace("&nbsp;", " ")].join("|")
         });
     },
     daily: {}, weekly: {}, monthly: {}, fulltime: {},
@@ -112,16 +112,16 @@ _.extend(CF.Chartist, {
       tooltip: {
         cap: {
           usd: {
-            labelOffset: CF.Chartist.labelOffset,
+            labelOffset: cfChartist.labelOffset,
             tooltipFnc: CF.MarketData.tooltipFncS
           },
           btc: {
-            labelOffset: CF.Chartist.labelOffset,
+            labelOffset: cfChartist.labelOffset,
             tooltipFnc: CF.MarketData.tooltipFncB
           }
         },
         trade: {
-          labelOffset: CF.Chartist.labelOffset,
+          labelOffset: cfChartist.labelOffset,
           tooltipFnc: CF.MarketData.tooltipFncT
         }
       },
@@ -175,31 +175,31 @@ _.extend(CF.Chartist, {
 });
 
 
-_.extend(CF.Chartist.fn.daily, {
+_.extend(cfChartist.fn.daily, {
   getData: function (ticks) {
-    var data = CF.Chartist.fn.dataStencil();
+    var data = cfChartist.fn.dataStencil();
     _.each(ticks, function (tick) {
 
       var dta = tick.key.split(".");
-      var format = CF.Chartist.dateformats.daily;
+      var format = cfChartist.dateformats.daily;
       var dte = moment.utc({
         day: dta[0],
         hour: dta[1],
         minute: dta[2]
       });
-      CF.Chartist.fn.pushTick(tick, data, dte, format);
+      cfChartist.fn.pushTick(tick, data, dte, format);
     });
     return data
   }
 });
 
-_.extend(CF.Chartist.fn.weekly, {
+_.extend(cfChartist.fn.weekly, {
   getData: function (ticks) {
-    var data = CF.Chartist.fn.dataStencil();
+    var data = cfChartist.fn.dataStencil();
     _.each(ticks, function (tick) {
 
       var dta = tick.key.split(".");
-      var format = CF.Chartist.dateformats.weekly;
+      var format = cfChartist.dateformats.weekly;
       var dte = moment.utc({
         year: dta[0],
         month: dta[1],
@@ -207,45 +207,45 @@ _.extend(CF.Chartist.fn.weekly, {
         hour: dta[3]
       });
 
-      CF.Chartist.fn.pushTick(tick, data, dte, format);
+      cfChartist.fn.pushTick(tick, data, dte, format);
     });
     return data
   }
 });
 
-_.extend(CF.Chartist.fn.monthly, {
+_.extend(cfChartist.fn.monthly, {
   getData: function (ticks) {
-    var data = CF.Chartist.fn.dataStencil();
+    var data = cfChartist.fn.dataStencil();
     _.each(ticks, function (tick) {
 
       var dta = tick.key.split(".");
-      var format = CF.Chartist.dateformats.monthly;
+      var format = cfChartist.dateformats.monthly;
       var dte = moment.utc({
         year: dta[0],
         month: dta[1],
         day: dta[2]
       });
-      CF.Chartist.fn.pushTick(tick, data, dte, format);
+      cfChartist.fn.pushTick(tick, data, dte, format);
     });
     return data
   }
 });
 
-_.extend(CF.Chartist.fn.fulltime, {
+_.extend(cfChartist.fn.fulltime, {
   getData: function (ticks) {
-    var data = CF.Chartist.fn.dataStencil();
+    var data = cfChartist.fn.dataStencil();
     _.each(ticks, function (tick) {
       var dta = tick.key.split(".");
-      var format = (dta[1] == 11) ? CF.Chartist.dateformats.fulltimeLong : CF.Chartist.dateformats.fulltime;
+      var format = (dta[1] == 11) ? cfChartist.dateformats.fulltimeLong : cfChartist.dateformats.fulltime;
       var dte = moment.utc({
         year: dta[0],
         month: dta[1],
         day: dta[2]
       });
-      CF.Chartist.fn.pushTick(tick, data, dte, format);
+      cfChartist.fn.pushTick(tick, data, dte, format);
     });
     return data
   }
 });
 
-module.exports = "cf.chartist"
+module.exports = cfChartist

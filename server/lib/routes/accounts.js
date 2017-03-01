@@ -1,7 +1,8 @@
+// todo: dispose of
+
 import {CurrentData, Acounts} from '/imports/api/collections'
 import {findOneByUsername} from '/imports/api/utils/user'
 var url = Meteor.npmRequire('url');
-var print = CF.Utils.logger.print;
 var debug = false;
 
 /////////////////////  vending machine domain
@@ -34,9 +35,6 @@ var drink = function(bottle, label, args) {
 }
 
 ///////////////////////// querystrings domain
-Meteor.startup(function() {
-    //print ('double accountsApi.version', drink( accountsApi, 'double', [drink (accountsApi, 'version')]) );
-})
 
 // comma separated string (no spaces so far..), not css
 var cssToArray = function(str) {
@@ -75,10 +73,6 @@ var applyOptionsFinal = function applyOptionsFinal(bottle, result, options) {
                     return drink(bottle, param)
                 });
                 var item = item.slice(0, gotcha["index"]);
-
-                if (debug) print("gotcha", extractParams(item), true)
-                if (debug) print("item", item, true);
-                if (debug) print("drinkmap", drinkmap)
 
                 return result.meta[item] = drink(bottle, item, drinkmap)
             } // result.meta[item] =

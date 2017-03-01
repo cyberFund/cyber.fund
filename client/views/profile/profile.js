@@ -2,14 +2,16 @@ import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
 import {findOneByUsername} from '/imports/api/utils/user'
 import {findByRefId} from '/imports/api/cf/account/utils'
+import {currentUid, currentUsername} from '/imports/api/cf/profile'
+import uaGraph from '/imports/api/cf/userAssets/graph'
 
 Template['profile'].onCreated(function() {
   var instance = this;
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
-    if (CF.UserAssets.graph && CF.UserAssets.graph.folioPie){ //crutch
-      CF.UserAssets.graph.folioPie.update({
+    if (uaGraph && uaGraph.folioPie){ //crutch
+      uaGraph.folioPie.update({
         labels: [],
         series: []
       })
@@ -39,7 +41,7 @@ var _user = function(){
 
 Template['profile'].helpers({
   userAccounts: function(){
-    return findByRefId(CF.Profile.currentUid()).fetch();
+    return findByRefId(currentUid()).fetch();
   },
   profileName: function() {
     return this.profile && this.profile.name
@@ -49,7 +51,7 @@ Template['profile'].helpers({
   },
   isOwnProfile: function() {
     if (!Meteor.userId()) return false;
-    return (CF.Profile.currentUsername() == CF.User.username());
+    return (currentUsername() == CF.User.username());
   },
   user: function() {
     return _user();
@@ -58,7 +60,7 @@ Template['profile'].helpers({
     var user = Meteor.user();
     if (!user) return false;
     return user.profile && user.profile.followingUsers &&
-      _.contains(user.profile.followingUsers, CF.Profile.currentUid());
+      _.contains(user.profile.followingUsers, currentUid());
   },
   followingCount: function() { //
     var user = _user();
@@ -96,17 +98,17 @@ Template['profile'].helpers({
 Template['profile'].events({
   'click .btn-follow': function(e, t) {
     analytics.track('Followed Person', {
-      personName: CF.Profile.currentUsername()
+      personName: currentUsername()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
-    Meteor.call('followUser', CF.Profile.currentUid())
+    Meteor.call('followUser', currentUid())
   },
   'click .btn-unfollow': function(e, t) {
     analytics.track('Unfollowed Person', {
-      personName: CF.Profile.currentUsername()
+      personName: currentUsername()
     });
     if (!Meteor.user()) FlowRouter.go("/welcome");
-    Meteor.call('followUser', CF.Profile.currentUid(), {
+    Meteor.call('followUser', currentUid(), {
       unfollow: true
     })
   },

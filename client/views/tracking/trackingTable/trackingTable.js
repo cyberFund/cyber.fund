@@ -1,5 +1,7 @@
 import {CurrentData, Extras} from '/imports/api/collections'
-var initialLimit = CF.Rating.limit0;
+import cfRating from '/imports/api/cf/rating'
+import {_session} from '/imports/api/client/utils/base'
+var initialLimit = cfRatinglimit0;
 
 Template["trackingWidget"].onCreated(function () {
   var instance = this;
@@ -7,11 +9,11 @@ Template["trackingWidget"].onCreated(function () {
   instance.ready = new ReactiveVar();
   instance.autorun(function () {
     var selector = {"flags.rating_do_not_display": {$ne: true}};
-    if (_.keys(CF.Utils._session.get("coinSorter")).length )
-      selector[ _.keys(CF.Utils._session.get("coinSorter"))[0] ] = {$exists: true};
+    if (_.keys(_session.get("coinSorter")).length )
+      selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
     var handle = CF.SubsMan.subscribe("currentDataRP", {
       /*limit: 150,//Session.get('ratingPageLimit'),
-      sort: CF.Utils._session.get('coinSorter'),*/
+      sort: _session.get('coinSorter'),*/
       selector: selector
     });
     instance.ready.set(instance.ready.get() || handle.ready());
@@ -88,7 +90,7 @@ Template["trackingWidget"].helpers({
     return this.first_price || {  };
   },
   rows: function () {
-    var sort = CF.Utils._session.get("coinSorter");
+    var sort = _session.get("coinSorter");
     return CurrentData.find({}, {sort: sort}).fetch();
   },
   symbol: function () {
@@ -123,7 +125,7 @@ Template["trackingWidget"].helpers({
 
 Template["trackingWidget"].events({
   "click .show-more": function (e, t) {
-    var step = CF.Rating.step;
+    var step = cfRatingstep;
     var limit = Session.get("ratingPageLimit");
     limit += step;
     analytics.track("Viewed Crap",

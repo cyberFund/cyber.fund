@@ -1,8 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
-
-CF.UserAssets.graph = CF.UserAssets.graph || {};
-CF.UserAssets.graph.minimalShare = 0.025;
+import uaGraph from '/imports/api/cf/userAssets/graph'
+import {getPrice} from '/imports/api/currentData/cyberfund-currentdata'
 jqHide = function(jQ) {
   if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
     jQ.addClass("hidden");
@@ -21,7 +20,6 @@ jqShow = function(jQ) {
   console.log("condition failure");
 };
 Template["folioChart"].onRendered(function() {
-
   var instance = this;
   instance._selector = ".folio-pie";
   instance.options = {
@@ -49,18 +47,18 @@ Template["folioChart"].onRendered(function() {
   // does not expect null/undef values before non-null/non-undef
   instance.chart = function(selector, data) {
     if (selector && data) {
-      //if (CF.UserAssets.graph.folioPie && CF.UserAssets.graph.folioPie.update) {
-        //CF.UserAssets.graph.folioPie.update(data);
+      //if (instance.folioPie && instance.folioPie.update) {
+        //instance.folioPie.update(data);
       //} else
-      CF.UserAssets.graph.folioPie = new Chartist.Pie(selector, data, instance.options);
-      //return CF.UserAssets.graph.folioPie;
+      instance.folioPie = new Chartist.Pie(selector, data, instance.options);
+      //return instance.folioPie;
     }
 
     if (!data) {
-      if (CF.UserAssets.graph.folioPie && CF.UserAssets.graph.folioPie.update)
-        CF.UserAssets.graph.folioPie.update(emptyData);
+      if (instance.folioPie && instance.folioPie.update)
+        instance.folioPie.update(emptyData);
     }
-    return CF.UserAssets.graph.folioPie;
+    return instance.folioPie;
   };
 
   instance.hideView = function() {
@@ -89,7 +87,7 @@ Template["folioChart"].onRendered(function() {
     var data = r.fetch().sort(function(x, y) {
       var q1 = accounts[x._id] && accounts[x._id].quantity || 0,
         q2 = accounts[y._id] && accounts[y._id].quantity || 0;
-      return Math.sign(q2 * CF.CurrentData.getPrice(y) - q1 * CF.CurrentData.getPrice(x)) || Math.sign(q2 - q1);
+      return Math.sign(q2 * getPrice(y) - q1 * getPrice(x)) || Math.sign(q2 - q1);
     });
 
     var sum = 0; // this to be used o determine if minor actives
@@ -120,7 +118,7 @@ Template["folioChart"].onRendered(function() {
 
     // push smalls into 'others'
     _.each(datum, function(point) {
-      if (point.b / sum >= CF.UserAssets.graph.minimalShare) {
+      if (point.b / sum >= uaGraph.minimalShare) {
         labels.push(point.symbol);
         ticks.push({
           value: point.u,

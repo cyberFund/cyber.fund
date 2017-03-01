@@ -1,6 +1,6 @@
 import {AccountsHistory, Acounts} from '/imports/api/collections'
 import {_k} from '/imports/api/utils'
-
+import {getPricesById} from '/imports/api/currentData/cyberfund-currentdata'
 var cfAccountsUtils = {}
 
 //import {findById, extractAssets} from '/imports/api/cf/account/utils'
@@ -8,7 +8,7 @@ var cfAccountsUtils = {}
 
 // mutates asset
 function setValues(asset, assetId) {
-  var prices = CF.CurrentData.getPricesById(assetId) || {};
+  var prices = getPricesById(assetId) || {};
 
   asset.vUsd = (prices.usd || 0) * (asset.quantity || 0);
   asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);

@@ -3,6 +3,8 @@ import cfCDs from '/imports/api/currentData/selectors'
 import {portfolioTableData, userProfileData} from '/imports/api/client/utils/portfolio'
 import {extractAssets, findById, findByRefId} from '/imports/api/cf/account/utils'
 
+import {currentUid} from '/imports/api/cf/profile'
+
 function hiddenToggle (accountId){
   if (!accountId) return;
   Session.set("hideAccount_"+(accountId), !Session.get("hideAccount_"+(accountId)));
@@ -10,7 +12,7 @@ function hiddenToggle (accountId){
 
 Template["portfolioWidgetView"].helpers({
   shouldShowCheckboxes: function(){
-    return findByRefId(CF.Profile.currentUid()).count() > 1;
+    return findByRefId(currentUid()).count() > 1;
   },
   sumB: function() {
     var assets = portfolioTableData();
@@ -51,7 +53,7 @@ Template["pwvRow"].helpers({
     return Session.get("hideAccount_" + this._id) ? "" : "checked";
   },
   shouldShowCheckboxes: function(){ //TODO dedupe
-    return findByRefId(CF.Profile.currentUid()).count() > 1;
+    return findByRefId(currentUid()).count() > 1;
   }
 });
 

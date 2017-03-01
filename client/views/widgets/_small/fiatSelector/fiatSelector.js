@@ -1,3 +1,4 @@
+import {_session} from '/imports/api/client/utils/base'
 Template['fiatSelector'].onRendered(function(){
   this.$select = this.$("select");
   this.$select.material_select();
@@ -5,12 +6,12 @@ Template['fiatSelector'].onRendered(function(){
 
 Template['fiatSelector'].helpers({
   isSelected: (fiat) => {
-    return CF.Utils._session.get("fiat") === fiat ? 'selected' : ''
+    return _session.get("fiat") === fiat ? 'selected' : ''
   }
 })
 
 Template['fiatSelector'].events({
   'change .fiat-selector': function (e, t){
-    CF.Utils._session.set('fiat', $(e.currentTarget).val());
+    _session.set('fiat', $(e.currentTarget).val());
   }
 })

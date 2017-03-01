@@ -1,4 +1,4 @@
-CF.processing = {
+var processing = {
 
   _deref: function (obj, dotNotationString) {
     var i = 0;
@@ -27,7 +27,7 @@ CF.processing = {
       }
 
       if (system) {
-        query.system = system.system; 
+        query.system = system.system;
         query["token.symbol"] = system.symbol;
       }
 
@@ -85,7 +85,7 @@ CF.processing = {
   },
 
   getNearestTimestamp: function (source, nearestTo) {
-    return CF.processing.getNearestDocument(source, nearestTo, null, "timestamp");
+    return processing.getNearestDocument(source, nearestTo, null, "timestamp");
   },
 
   getAllNearest: function (source, nearestTo, fields) {
@@ -99,7 +99,7 @@ CF.processing = {
       processedFields = fields;
     }
 
-    var timestamp = CF.processing.getNearestTimestamp(source, nearestTo);
+    var timestamp = processing.getNearestTimestamp(source, nearestTo);
     if (timestamp) {
       return MarketData.find({timestamp: timestamp, source: source}, {
         fields: processedFields,
@@ -130,17 +130,17 @@ CF.processing = {
       skip: Math.floor(count / 2)
     });
 
-    return medianDocument ? CF.processing._deref(medianDocument, fieldName) : null;
+    return medianDocument ? processing._deref(medianDocument, fieldName) : null;
   },
 
   _postprocessors: [],
 
   addPostprocessor: function (postprocessor) {
-    CF.processing._postprocessors.push(postprocessor);
+    processing._postprocessors.push(postprocessor);
   },
 
   doPostprocessing: function (source, timestamp, data) {
-    CF.processing._postprocessors.forEach(function (postprocessor) {
+    processing._postprocessors.forEach(function (postprocessor) {
         postprocessor(source, timestamp, data);
     });
   }

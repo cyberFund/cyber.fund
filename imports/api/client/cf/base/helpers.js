@@ -1,4 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
+import {formatters, deltaPercents} from '/imports/api/client/utils/base'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot
@@ -123,29 +124,29 @@ var helpers = {
   readableN: function(input, roundTo){
     return escapeNaN(d3.format(",."+roundTo||0+"f"))(input);
   },
-  readableN0: escapeNaN(CF.Utils.formatters.readableN0),
-  readableN1: escapeNaN(CF.Utils.formatters.readableN1),
-  readableN2: escapeNaN(CF.Utils.formatters.readableN2),
-  readableN3: escapeNaN(CF.Utils.formatters.readableN3),
-  readableN4: escapeNaN(CF.Utils.formatters.readableN4),
-  readableN8: escapeNaN(CF.Utils.formatters.readableN8),
-  roundedN4: escapeNaN(CF.Utils.formatters.roundedN4),
-  meaningful3: escapeNaN(CF.Utils.formatters.meaningful3),
-  meaningful4: escapeNaN(CF.Utils.formatters.meaningful4),
+  readableN0: escapeNaN(formatters.readableN0),
+  readableN1: escapeNaN(formatters.readableN1),
+  readableN2: escapeNaN(formatters.readableN2),
+  readableN3: escapeNaN(formatters.readableN3),
+  readableN4: escapeNaN(formatters.readableN4),
+  readableN8: escapeNaN(formatters.readableN8),
+  roundedN4: escapeNaN(formatters.roundedN4),
+  meaningful3: escapeNaN(formatters.meaningful3),
+  meaningful4: escapeNaN(formatters.meaningful4),
   meaningfulNice4: function(value){
-    return escapeNaN(value >= 1000 ? CF.Utils.formatters.readableN0 :
-    CF.Utils.formatters.meaningful4)(value);
+    return escapeNaN(value >= 1000 ? formatters.readableN0 :
+    formatters.meaningful4)(value);
   },
-  meaningful4Si: escapeNaN(CF.Utils.formatters.meaningful4Si),
-  withSign: escapeNaN(CF.Utils.formatters.withSign),
+  meaningful4Si: escapeNaN(formatters.meaningful4Si),
+  withSign: escapeNaN(formatters.withSign),
   isNumber: function (value) {
     return _.isNumber(value);
   },
-  percents: escapeNaN(CF.Utils.formatters.percents),
-  percents0: escapeNaN(CF.Utils.formatters.percents0),
-  percents1: escapeNaN(CF.Utils.formatters.percents1),
-  percents2: escapeNaN(CF.Utils.formatters.percents2),
-  percents3: escapeNaN(CF.Utils.formatters.percents3),
+  percents: escapeNaN(formatters.percents),
+  percents0: escapeNaN(formatters.percents0),
+  percents1: escapeNaN(formatters.percents1),
+  percents2: escapeNaN(formatters.percents2),
+  percents3: escapeNaN(formatters.percents3),
 
   isObject: function (value) {
     return _.isObject(value);
@@ -298,10 +299,6 @@ var helpers = {
     return tags.indexOf(tag) > -1;
   },
 
-  linksWithTag: function(links, tag) { //todo: move to cyberfund-currentdata ?
-    return CF.CurrentData.linksWithTag(links, tag)
-  },
-
   cdTurnover: function turnover () {
     var metrics = this.metrics;
       if (metrics.cap && metrics.cap.btc) {
@@ -357,14 +354,14 @@ percentsToTextUpDown: function (percents, precision) {
 dayToDayTradeVolumeChange: function(system) {
   var metrics = system.metrics;
   if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
-    return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
+    return deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
   }
   return 0;
 },
 monthToMonthTradeVolumeChange: function(system) {
   var metrics = system.metrics;
   if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.month) {
-    return CF.Utils.deltaPercents(metrics.tradeVolumePrevious.month, metrics.tradeVolume);
+    return deltaPercents(metrics.tradeVolumePrevious.month, metrics.tradeVolume);
   }
   return 0;
 },

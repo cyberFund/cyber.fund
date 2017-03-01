@@ -1,4 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
+import {_session} from '/imports/api/client/utils/base'
 const ROWS_SHORT = 20
 const markets = require("/imports/api/vwap/marketsList").xchangeMarkets
 const fiats = require("/imports/api/vwap/marketsList").fiats
@@ -18,7 +19,7 @@ import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNat
 // return name of currently picked fiat. as it s given by xchange
 // todo: move to imports
 function _fiat(){
-  const fiat = CF.Utils._session.get('fiat');
+  const fiat = _session.get('fiat');
   if (fiat==='') return 'Bitcoin';
   return fiat;
 }
@@ -26,7 +27,7 @@ function _fiat(){
 // return token of currently picked fiat. see `fiatSelector` template
 // todo: move to imports
 function _fiatToken(){
-  const fiat = CF.Utils._session.get('fiat');
+  const fiat = _session.get('fiat');
   if (fiat==="") return `BTC`;
   //todo exploit chg
   if (fiat==="Euro") return 'EUR';

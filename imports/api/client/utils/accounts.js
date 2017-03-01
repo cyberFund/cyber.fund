@@ -1,9 +1,7 @@
 import {Acounts} from '/imports/api/collections'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
-
-
 import {findByRefId} from '/imports/api/cf/account/utils'
-import {addressExists} from '/imports/api/client/utils/accounts'
+import {quantumCheck} from '/imports/api/client/utils/acounts'
 
 var cfAccountsUtilsClient = {}
 cfClientAccountUtils._importFromUser = function(userId) {
@@ -150,7 +148,7 @@ Meteor.methods({
 });
 
 // get auto balances per address
-cfClientAccountUtils.quantumCheck = function(address) {
+cfAccountsUtilsClient.quantumCheck = function(address) {
   function transform(data) {
     _.each(data, function(asset) {
       if (typeof asset.quantity == "string")

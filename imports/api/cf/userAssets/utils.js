@@ -1,5 +1,5 @@
 import {findById} from '/imports/api/cf/account/utils'
-
+import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets'
 var cfUserAssets = {};
 
 /**
@@ -9,7 +9,7 @@ var cfUserAssets = {};
  * @returns {Array} of system names
  */
 // obsolete
-cfUserAssets.getSystemsFromAccountsObject = function(accounts) {
+getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
   //  console.log(accounts);
 
@@ -72,8 +72,9 @@ cfUserAssets.getQuantitiesFromAccountsObject = function(accountsObject, key) {
  */
 
 cfUserAssets.getAccountPrivacyType = function(accountKey) {
-  var ret = CF.Acounts.findById(accountKey);
+  var ret = findById(accountKey);
   return ret ? (ret.isPrivate ? 'accountsPrivate' : 'accounts') : 'undefined'
 };
-
+import graph from './graph'
+cfUserAssets.graph = graph
 module.exports = cfUserAssets

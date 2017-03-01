@@ -1,4 +1,4 @@
-import {CurrentData} from '/imports/api/collections'
+/*import {CurrentData} from '/imports/api/collections'
 import winston from 'winston'
 import {extractFromPromise} from '/imports/api/server/utils'
 // this file describes fetching data from our elasticsearch servers
@@ -97,15 +97,6 @@ var esParsers = {
       // past day data
       var sDayAgo = getHit( getSameBucket(yesterdayBuckets, bucket.key) );
       var sMonthAgo = getHit( getSameBucket(monthAgoBuckets, bucket.key) );
-
-      /* debug
-      console.log(bucket.key)
-      if (bucket.key == 'DAO|TheDAO') {
-        console.log(bucket.latest.hits.hits)
-        console.log(sNow);
-        console.log(sDayAgo)
-      }
-      /debug */
 
       var set = {}; // changes object, to be used within doc update
       var m = moment(sNow.timestamp);
@@ -777,3 +768,4 @@ function symSys(system) {
 
   return sym ? [sym, sys].join("|") : null;
 }
+*/
