@@ -66,7 +66,7 @@ function tableData() {
 
 
 
-module.exports {
+module.exports = {
   portfolioTableData: tableData,
   userProfileData: userProfileData
 }

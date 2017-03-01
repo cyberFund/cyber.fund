@@ -1,6 +1,6 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
-import {quantumCheck} from '/imports/api/client/utils/acounts'
+import {quantumCheck} from '/imports/api/client/utils/accounts'
 // recalculate raised amount crutch
 Meteor.startup(function(){
   console.log(Meteor.settings);

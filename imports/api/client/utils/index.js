@@ -15,7 +15,7 @@ var cfCurrentAddress = new SessionVariable("cfAccountsCurrentAddress");
 var cfCurrentAsset = new SessionVariable("cfAccountsCurrentAsset");
 var cfCurrentId = new SessionVariable("cfAccountsCurrentId");
 
-module.exports {
+module.exports = {
   SessionVariable: SessionVariable,
   cfCurrentAsset: cfCurrentAsset,
   cfCurrentAddress: cfCurrentAddress,

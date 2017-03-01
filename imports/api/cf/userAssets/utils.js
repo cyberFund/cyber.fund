@@ -1,5 +1,4 @@
 import {findById} from '/imports/api/cf/account/utils'
-import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets'
 var cfUserAssets = {};
 
 /**
@@ -9,7 +8,7 @@ var cfUserAssets = {};
  * @returns {Array} of system names
  */
 // obsolete
-getSystemsFromAccountsObject = function(accounts) {
+cfUserAssets.getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
   //  console.log(accounts);
 

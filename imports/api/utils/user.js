@@ -30,7 +30,7 @@ module.exports = {
     return r ? r._id : null
   },
   selectors: {
-    userByUsername = function userByUsername(username) {
+    userByUsername: function userByUsername(username) {
       return ({
         "username": username
       });

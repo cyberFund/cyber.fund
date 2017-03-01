@@ -1,7 +1,6 @@
 import {Acounts} from '/imports/api/collections'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/account/utils'
-import {quantumCheck} from '/imports/api/client/utils/acounts'
 
 var cfAccountsUtilsClient = {}
 cfClientAccountUtils._importFromUser = function(userId) {
@@ -327,4 +326,5 @@ cfClientAccountUtils.addressExists = function (address, refId) {
   }));
   return addresses.indexOf(address) > -1
 };
-module exports = cfClientAccountUtils
+
+module.exports = cfClientAccountUtils
