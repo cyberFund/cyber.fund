@@ -8,10 +8,9 @@ import {findByRefId} from '/imports/api/cf/account/utils'
 import {currentUid} from '/imports/api/cf/profile'
 
 Template['portfolioWidget'].helpers({
-  subReady: function(){ return CF.subs.Assets && CF.subs.Assets.ready() },
   showAccountsAdvertise: function() {
-    var instance = Template.instance();
-    if (CF.subs.Assets.ready()) {
+    var instance = Template.instance()
+    if (instance.subscriptionsReady()) {
         var user = Meteor.users.findOne({
           _id: currentUid()
         });

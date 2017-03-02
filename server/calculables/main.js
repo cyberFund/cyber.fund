@@ -7,24 +7,6 @@ setRatingPlaces = function(){
   });
 };
 
-Meteor.startup(function() {/*
-  if (Meteor.settings.byPassStartupCalculations) {
-    console.log ("initial calculations of CurrentData.calculables were " +
-      "disabled from meteor settings");
-    return;
-  }
-  calculatables.triggerCalc('firstDatePrice');
-  calculatables.triggerCalc('nLinksWithTag');
-  calculatables.triggerCalc('nLinksWithType');
-  calculatables.triggerCalc('RATING');
-  setRatingPlaces();
-
-  var print = CF.Utils.logger.print
-  print ("settings", Meteor.settings)
-  if (Meteor.settings.printCF) print ("CF", CF);
-*/
-});
-
 SyncedCron.add({
   name: "daily calculations 1",
   schedule: function (parser) {

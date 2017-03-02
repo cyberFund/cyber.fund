@@ -1,4 +1,4 @@
-import {CurrentData} from '/imports/api/collections'
+import {CurrentData, MarketData} from '/imports/api/collections'
 chartdata = function(systemId) {
   if (!systemId) return null;
 
@@ -19,7 +19,7 @@ _timestampino = function(timestamp) {
 
 Template["quickchart"].helpers({
   __ready: function() {
-    return Template.instance()._ready.get() ;//|| CF.subs.MarketData.ready();
+    return Template.instance().subscriptionsReady()
   }
 });
 
@@ -45,6 +45,7 @@ var grab = {
 };
 
 Template["quickchart"].onCreated(function(){
+  console.log(this)
   this._ready = new ReactiveVar();
 });
 
@@ -60,7 +61,6 @@ function myGraph(el, system, instance) {
   });
 
   var lastData = CurrentData.findOne({_id:system});
-  console.log(lastData, data)
   if (lastData && lastData.metrics && lastData.metrics.price && lastData.metrics.price.usd)                data.push({timestamp: new Date(), price_usd: lastData.metrics.price.usd});
 
   var wf = 140;
@@ -187,7 +187,7 @@ function myGraph(el, system, instance) {
 Template["quickchart"].onRendered(function() {
   var instance = this;
   instance.autorun(function(c) {
-    if (CF.subs.MarketData.ready()) instance._ready.set(true);
+    if (instance.subscriptionsReady()) instance._ready.set(true);
   });
 
   instance.autorun(function(c) {

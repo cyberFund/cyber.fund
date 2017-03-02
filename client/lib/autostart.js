@@ -1,9 +1,3 @@
-import helpers from '/imports/api/client/cf/base/helpers'
-
-_.each(helpers, function (helper, key) {
-  Template.registerHelper(key, helper);
-});
-
 BlazeLayout.setRoot("body");
 
 Tracker.autorun(function () {
@@ -18,8 +12,6 @@ Tracker.autorun(function () {
 // flowrouter
 FlowRouter.wait();
 Meteor.startup(function () {
-  CF.SubsMan = new SubsManager();
-  CF.subs = {};
   Meteor.subscribe("userDetails", {
     onReady: function(){
       FlowRouter.initialize();

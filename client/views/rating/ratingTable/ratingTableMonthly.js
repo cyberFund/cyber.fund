@@ -1,7 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
 import cfRating from '/imports/api/cf/rating'
-var initialLimit = cfRatinglimit0;
+var initialLimit = cfRating.limit0;
 
 function tableSelector() {
   return {
@@ -17,8 +17,8 @@ function tableSelector() {
   };
 }
 
-var getSorterByKey = cfRatinggetSorterByKey;
-var getKeyBySorter = cfRatinggetKeyBySorter;
+var getSorterByKey = cfRating.getSorterByKey;
+var getKeyBySorter = cfRating.getKeyBySorter;
 
 Template["ratingTableMonthly"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
@@ -30,21 +30,20 @@ Template["ratingTableMonthly"].onCreated(function() {
 
   var instance = this;
   instance.ready = new ReactiveVar();
+  instance.autorun(function(){
+    instance.subscribe("marketDataRP", {
+      selector: tableSelector()
+    });
+  })
 
-  CF.subs.MarketData = CF.subs.MarketData || Meteor.subscribe("marketDataRP", {
-    selector: tableSelector()
-  });
 
-  var handle = CF.SubsMan.subscribe("currentDataRP", {
-    selector: tableSelector()
-  });
 
   instance.autorun(function() {
     var key = getKeyBySorter(_session.get("coinSorter"));
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
-    instance.ready.set(instance.ready.get() || handle.ready());
+    instance.ready.set(instance.ready.get() || instance.SubscriptionsReady());
   });
 });
 

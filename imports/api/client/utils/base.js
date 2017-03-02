@@ -1,6 +1,4 @@
-import d3 from 'd3'
-import {_session} from '/imports/api/client/utils/base'
-
+var cfUtils = {}
 cfUtils.noClick = function() {
   return false;
 };

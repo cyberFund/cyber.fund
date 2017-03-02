@@ -1,5 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
-import {formatters, deltaPercents} from '/imports/api/client/utils/base'
+import {deltaPercents, formatters, readableNumbers} from '/imports/api/client/utils/base'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot
@@ -120,7 +120,7 @@ var helpers = {
   randomOf: function (from, to) {
     return from + Math.floor(Math.random() * (to - from + 1));
   },
-  readableNumbers: CF.Utils.readableNumbers,
+  readableNumbers: readableNumbers,
   readableN: function(input, roundTo){
     return escapeNaN(d3.format(",."+roundTo||0+"f"))(input);
   },
@@ -276,14 +276,6 @@ var helpers = {
   usersListFromIds: function(listFromIds) {
     return CF.User.listFromIds(listFromIds);
   },
-  _btcPrice: function(){
-    var btc = CurrentData.findOne({_id: "Bitcoin"});
-    try {// try to return a value
-      return parseFloat(btc.metrics.price.usd);
-    } catch (err) {// if value undefined return nothing
-      return;
-    }
-  },
   userHasPublicAccess: function userHasPublicAccess() {
     return true;
   },
@@ -314,103 +306,108 @@ var helpers = {
     return "";
   },
 
-//////////////// marketdata helperss
-dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
-  if (!absolute) {
-    return needDigit ? 0 : "Normal";
-  }
-
-  if (Math.abs(volumeDaily / absolute) === 0) return needDigit ? 0 : "Illiquid";
-  if (Math.abs(volumeDaily / absolute) < 0.0001) return needDigit ? 0.1 : "Very Low";
-  if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.2 : "Low";
-  if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.3 : "Normal";
-  if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
-  return needDigit ? 0.5 : "Very High";
-},
-greenRedNumber: function (value) {
-  return (value < 0) ? "red-text" : "green-text";
-},
-inflationToText: function (percents) {
-  if (percents < 0) {
-    return "Deflation " + (-percents).toFixed(2) + "%";
-  } else if (percents > 0) {
-    return "Inflation " + percents.toFixed(2) + "%";
-  } else {
-    return "Stable";
-  }
-},
-percentsToTextUpDown: function (percents, precision) {
-  if (!precision) precision = 2;
-  if (precision == 100) precision = 0;
-
-  if (percents < 0) {
-    return "↓ " + (-percents.toFixed(precision)) + "%";
-  } else if (percents > 0) {
-    return "↑ " + percents.toFixed(precision) + "%";
-  } else {
-    return "= 0%";
-  }
-},
-dayToDayTradeVolumeChange: function(system) {
-  var metrics = system.metrics;
-  if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
-    return deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
-  }
-  return 0;
-},
-monthToMonthTradeVolumeChange: function(system) {
-  var metrics = system.metrics;
-  if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.month) {
-    return deltaPercents(metrics.tradeVolumePrevious.month, metrics.tradeVolume);
-  }
-  return 0;
-},
-chartdata: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
-  return MarketData.find({systemId: systemId});
-},
-chartdataOrdered: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
-  return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}});
-},
-chartdataSubscriptionFetch: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
-  return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
-},
-
-
-/////////////// chaingear helpers
-cgSystemLogoUrl: function (that) {
-  var icon = (that.icon ? that.icon : that._id) || '';
-  icon = icon.toString().toLowerCase();
-  return "https://static.cyber.fund/logos/" + icon + ".png";
-},
-cgIsActiveCrowdsale: function() {
-  return this.crowdsales && this.crowdsales.start_date < new Date() &&
-    this.crowdsales.end_date > new Date()
-},
-cgIsUpcomingCrowdsale: function() {
-  return this.crowdsales && this.crowdsales.start_date > new Date()
-},
-cgIsPastCrowdsale: function() {
-  return this.crowdsales && this.crowdsales.end_date < new Date()
-},
-
-
-////// cf-accounts
-tagMatchesTags: function (tag, tags) {
-  return tags.indexOf(tag) > -1;
-},
-
-cdTurnover: function turnover () {
-  var metrics = this.metrics;
-    if (metrics.cap && metrics.cap.btc) {
-        return 100.0 * metrics.turnover;
+  //////////////// marketdata helperss
+  dailyTradeVolumeToText: function (volumeDaily, absolute, needDigit) {
+    if (!absolute) {
+      return needDigit ? 0 : "Normal";
     }
-  return 0;
-},
 
-cdSymbol: function symbol () {
-  if (this.token && this.token.symbol) {
-    return this.token.symbol
+    if (Math.abs(volumeDaily / absolute) === 0) return needDigit ? 0 : "Illiquid";
+    if (Math.abs(volumeDaily / absolute) < 0.0001) return needDigit ? 0.1 : "Very Low";
+    if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.2 : "Low";
+    if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.3 : "Normal";
+    if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
+    return needDigit ? 0.5 : "Very High";
+  },
+  greenRedNumber: function (value) {
+    return (value < 0) ? "red-text" : "green-text";
+  },
+  inflationToText: function (percents) {
+    if (percents < 0) {
+      return "Deflation " + (-percents).toFixed(2) + "%";
+    } else if (percents > 0) {
+      return "Inflation " + percents.toFixed(2) + "%";
+    } else {
+      return "Stable";
+    }
+  },
+  percentsToTextUpDown: function (percents, precision) {
+    if (!precision) precision = 2;
+    if (precision == 100) precision = 0;
+
+    if (percents < 0) {
+      return "↓ " + (-percents.toFixed(precision)) + "%";
+    } else if (percents > 0) {
+      return "↑ " + percents.toFixed(precision) + "%";
+    } else {
+      return "= 0%";
+    }
+  },
+  dayToDayTradeVolumeChange: function(system) {
+    var metrics = system.metrics;
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.day) {
+      return deltaPercents(metrics.tradeVolumePrevious.day, metrics.tradeVolume);
+    }
+    return 0;
+  },
+  monthToMonthTradeVolumeChange: function(system) {
+    var metrics = system.metrics;
+    if (metrics.tradeVolumePrevious && metrics.tradeVolumePrevious.month) {
+      return deltaPercents(metrics.tradeVolumePrevious.month, metrics.tradeVolume);
+    }
+    return 0;
+  },
+  chartdata: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId});
+  },
+  chartdataOrdered: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}});
+  },
+  chartdataSubscriptionFetch: function(systemId/*, interval:: oneof ['daily', 'hourly']*/) {
+    return MarketData.find({systemId: systemId}, {sort: {timestamp: -1}}). fetch();
+  },
+
+
+  /////////////// chaingear helpers
+  cgSystemLogoUrl: function (that) {
+    var icon = (that.icon ? that.icon : that._id) || '';
+    icon = icon.toString().toLowerCase();
+    return "https://static.cyber.fund/logos/" + icon + ".png";
+  },
+  cgIsActiveCrowdsale: function() {
+    return this.crowdsales && this.crowdsales.start_date < new Date() &&
+      this.crowdsales.end_date > new Date()
+  },
+  cgIsUpcomingCrowdsale: function() {
+    return this.crowdsales && this.crowdsales.start_date > new Date()
+  },
+  cgIsPastCrowdsale: function() {
+    return this.crowdsales && this.crowdsales.end_date < new Date()
+  },
+
+
+  ////// cf-accounts
+  tagMatchesTags: function (tag, tags) {
+    return tags.indexOf(tag) > -1;
+  },
+
+  cdTurnover: function turnover () {
+    var metrics = this.metrics;
+      if (metrics.cap && metrics.cap.btc) {
+          return 100.0 * metrics.turnover;
+      }
+    return 0;
+  },
+
+  cdSymbol: function symbol () {
+    if (this.token && this.token.symbol) {
+      return this.token.symbol
+    }
+    return "";
   }
-  return "";
-},
-};
+}
+
+
+_.each(helpers, function (helper, key) {
+  Template.registerHelper(key, helper);
+});

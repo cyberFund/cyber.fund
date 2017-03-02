@@ -5,7 +5,7 @@ Meteor.methods({
     if (!this.userId) return {
       err: "no userid"
     };
-    print("in add account", obj);
+    // print("in add account", obj);
     check(obj, Match.ObjectIncluding({
       isPublic: Boolean,
       name: String
@@ -63,7 +63,7 @@ Meteor.methods({
 
 
     if (account.refId == this.userId) {
-      print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
+      // print("user " + this.userId + " ordered turning account " + account.name + " to", toKey);
 
       Acounts.update({
         _id: accountKey

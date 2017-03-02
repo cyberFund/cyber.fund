@@ -1,4 +1,4 @@
-import {CurrentData, FastData} from '/imports/api/collections'
+import {CurrentData, FastData, MarketData} from '/imports/api/collections'
 Meteor.startup(function() {
 
 	MarketData._ensureIndex({ timestamp: 1 });

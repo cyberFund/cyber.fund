@@ -1,4 +1,5 @@
 // TODO: rename file
+/*
 var cfEs = {};
 var esLib = Npm.require("elasticsearch");
 
@@ -17,13 +18,12 @@ _.extend(cfEs, {
         '@es.index.cyber.fund'
     });
   },
-  /**
-   * idea is: if we re going to provide some data to client via meteor methods
-   * - let s extract what really needed first.
-   * not used so far..
-   * @param queryName
-   * @returns {*}
-   */
+
+  // * idea is: if we re going to provide some data to client via meteor methods
+  // * - let s extract what really needed first.
+  // * not used so far..
+  // * @param queryName
+  // * @returns {*}
   getTransform: function(queryName) {
     if (cfEs.queries[queryName] && _.isFunction(cfEs.queries[queryName].transform)) {
       return cfEs.queries[queryName].transform;
@@ -32,12 +32,12 @@ _.extend(cfEs, {
       return data;
     }
   },
-  /**
-   * get query result based on its name and params
-   * @param queryName - query name to get results from
-   * @param params -
-   * @returns  promise
-   */
+
+  // * get query result based on its name and params
+  // * @param queryName - query name to get results from
+  // * @param params -
+  // * @returns  promise
+  // *
   sendQuery: function(queryName, params) {
     if (!cfEs.queries[queryName]) return {};
     var queryObject = cfEs.queries[queryName].getQueryObj(params);
@@ -81,18 +81,18 @@ var most_recent_values = {
 
 _.extend(cfEs, {
   queries: {
-    /**
-     * extends query object, if there are recognized parameters
-     * this probably won't stay for long, but seems as good idea for handling aggregations.
-     */
+
+    // * extends query object, if there are recognized parameters
+    // * this probably won't stay for long, but seems as good idea for handling aggregations.
+
     _parametrize: function(qObj, params) {
-      /**
-       * adds query by system/systems to the aggregation query
-       * aware of both cases there is query and there is no query before
-       * @param qObj - full query object (including index, type, aggregations...)
-       * @param extension
-       * @returns {*} query extended by searching specific systems
-       */
+
+      // * adds query by system/systems to the aggregation query
+      // * aware of both cases there is query and there is no query before
+    //   * @param qObj - full query object (including index, type, aggregations...)
+  //     * @param extension
+//       * @returns {*} query extended by searching specific systems
+
       function _extendQuery(qObj, extension) {
         if (!qObj.body.query) {
           qObj.body.query = extension;
@@ -578,3 +578,4 @@ _.extend(cfEs, {
     }
   }
 });
+*/

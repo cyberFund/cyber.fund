@@ -10,8 +10,6 @@ const feedsCurrent = collections.feedsCurrent
 const feedsVwapCurrent = collections.feedsVwapCurrent
 
 
-CF.test = CF.test || {}
-
 import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
 
 
@@ -33,21 +31,6 @@ function _fiatToken(){
   if (fiat==="Euro") return 'EUR';
   if (fiat==="US Dollar") return 'USD';
 }
-
-
-CF.test.gwp = weightedPriceNative;
-Template["testMarkets"].onCreated(function(){
-  const system = Template.currentData().system;
-
-  this.subscribe("pairsToBitcoinWeighted"); // weighted prices to bitcoin
-
-  this.autorun(() => {
-    this.subscribe("systemPairs", system);
-  })
-
-  this.showAll = new ReactiveVar
-  this.showAll.set(false);
-});
 
 Template['testMarkets'].helpers({
   rows: function(){

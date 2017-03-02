@@ -1,7 +1,7 @@
 import {CurrentData, Extras} from '/imports/api/collections'
 import cfRating from '/imports/api/cf/rating'
-import {_session} from '/imports/api/client/utils/base'
-var initialLimit = cfRatinglimit0;
+import {readableNumbers, _session} from '/imports/api/client/utils/base'
+var initialLimit = cfRating.limit0;
 
 Template["trackingWidget"].onCreated(function () {
   var instance = this;

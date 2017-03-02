@@ -77,11 +77,11 @@ var applyOptionsFinal = function applyOptionsFinal(bottle, result, options) {
                 return result.meta[item] = drink(bottle, item, drinkmap)
             } // result.meta[item] =
 
-            if (debug) print("key", keyId, true)
-            if (debug) print("item", item)
+          //  if (debug) print("key", keyId, true)
+          //  if (debug) print("item", item)
             result.meta[item] = drink(bottle, item)
         })
-        if (debug) print("whole urlqueryparams", options.meta)
+        // if (debug) print("whole urlqueryparams", options.meta)
     }
     return result;
 }

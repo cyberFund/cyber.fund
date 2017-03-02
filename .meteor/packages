@@ -12,13 +12,6 @@ reactive-var
 ddp-client
 amplify
 
-cyberfund:cyberfund-base
-cyberfund:cyberfund-chaingear
-cyberfund:cyberfund-currentdata
-cyberfund:cyberfund-accounts
-cyberfund:cyberfund-marketdata
-cyberfund:cyberfund-es
-
 accounts-twitter
 
 gwendall:body-events

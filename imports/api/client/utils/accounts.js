@@ -3,7 +3,7 @@ import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/account/utils'
 
 var cfAccountsUtilsClient = {}
-cfClientAccountUtils._importFromUser = function(userId) {
+cfAccountsUtilsClient._importFromUser = function(userId) {
   var user = Meteor.users.findOne({
     _id: userId
   });
@@ -48,139 +48,16 @@ var checkAllowed = function(accountKey, userId) { // TODO move to collection rul
   return account;
 };
 
-Meteor.methods({
-  importAccounts: function(sel) {
-    var user = Meteor.user();
-    if (!user) return;
-    if (!user.hasSuperPowers) sel = {
-      _id: this.userId
-    };
-    return;
-    Meteor.users.find(sel || {
-      _id: "ErwxCME6azQS7KcNm"
-    }, {
-      fields: {
-        _id: 1
-      }
-    }).forEach(function(user) {
-      console.log(user._id);
-      cfClientAccountUtils._importFromUser(user._id);
-    });
-  },
-
-  // autoupdate balances for user
-  cfAssetsUpdateBalances: function(options) {
-    options = CF.Utils.normalizeOptionsPerUser(options);
-
-    print("cfAssetsUpdateBalances was called with options", options, true);
-    options.refId = options.userId || this.userId;
-    options.private = options.userId == this.userId;
-    if (!options.userId && !options.accountKey) return {
-      error: "neither userId nor accountKey passed"
-    };
-      //this.unblock(); //? not sure this is what needed
-    Meteor.defer(function() {
-      return cfClientAccountUtils._updateBalances(options);
-    });
-    return true;
-  },
-  checkBalance: function(address) {
-    return cfClientAccountUtils.quantumCheck(address.toString());
-  },
-  // manual set
-  cfAssetsAddAsset: function(accountKey, address, asset, q) {
-    if (typeof q == "string") try {
-      q = parseFloat(q);
-    } catch (e) {
-      return;
-    }
-    if (!checkAllowed(accountKey, this.userId)) return;
-    var sel = {
-      _id: accountKey
-    };
-    var modify = {
-      $set: {}
-    };
-    var key = _k(["addresses", address, "assets", asset]);
-
-    modify.$set[key] = {
-      quantity: q,
-      update: "manual",
-      updatedAt: new Date()
-    };
-
-    Acounts.update(sel, modify);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
-      private: true
-    });
-  },
-  cfAssetsRemoveAddress: function(accountKey, asset) {
-    if (!checkAllowed(accountKey, this.userId)) return;
-    if (!asset) return;
-    var sel = { _id: accountKey };
-    var key = _k(["addresses", asset]);
-    var unset = {
-      $unset: {}
-    };
-    unset.$unset[key] = true;
-    Acounts.update(sel, unset);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
-      private: true
-    });
-  },
-
-  cfAssetsDeleteAsset: function(accountKey, address, asset) {
-    if (!checkAllowed(accountKey, this.userId)) return;
-    var sel = {
-      _id: accountKey
-    };
-    var modify = {
-      $unset: {}
-    };
-    var key = _k(["addresses", address, "assets", asset]);
-    modify.$unset[key] = true;
-    Acounts.update(sel, modify);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
-      private: true
-    });
-  }
-});
 
 // get auto balances per address
-cfAccountsUtilsClient.quantumCheck = function(address) {
-  function transform(data) {
-    _.each(data, function(asset) {
-      if (typeof asset.quantity == "string")
-        asset.quantity = parseFloat(asset.quantity);
-    });
-    return data;
-  }
 
-  try {
-    var r = HTTP.call("GET", "http://quantum.cyber.fund:3001?address=" + address);
-    if (r.statusCode == 200) {
-      print("address", address);
-      return transform(r.data);
-    } else {
-      return ["error", {
-        statusCode: r.statusCode
-      }];
-    }
-  } catch (e) {
-    print("on checking address " + address + " quantum returned code ",
-      e.response && e.response.statusCode, true);
-    return ["error", {
-      statusCode: e.response && e.response.statusCode
-    }];
-  }
-};
 
 //
 
 // per single address.
 // todo: operate at account level?
 // private should be set by server.
-cfClientAccountUtils._updateBalanceAddress = function(accountIn, address) {
+cfAccountsUtilsClient._updateBalanceAddress = function(accountIn, address) {
   var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
   var addressObj = account && account.addresses && account.addresses[address];
   var modify = {
@@ -189,8 +66,8 @@ cfClientAccountUtils._updateBalanceAddress = function(accountIn, address) {
   };
 
   if (!account || !addressObj) {
-    print("no account or address object; account", account, true);
-    print("address", address);
+  //  print("no account or address object; account", account, true);
+  //  print("address", address);
     return;
   }
 
@@ -234,7 +111,7 @@ cfClientAccountUtils._updateBalanceAddress = function(accountIn, address) {
 
 
 // is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
-cfClientAccountUtils._updateBalanceAccount = function(accountIn, options) {
+cfAccountsUtilsClient._updateBalanceAccount = function(accountIn, options) {
 
   var modify = {
     $set: {},
@@ -243,7 +120,7 @@ cfClientAccountUtils._updateBalanceAccount = function(accountIn, options) {
   var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
 
   if (!account || !account.addresses) {
-    print("no account or addresses on it", account, true);
+  //  print("no account or addresses on it", account, true);
   }
 
   if (!options.private) {
@@ -294,7 +171,7 @@ cfClientAccountUtils._updateBalanceAccount = function(accountIn, options) {
 // autoupdate balances.
 // 1. userId passed - do for all accounts
 // 2. accountKey passed - do for that accountKey (use userId too.)
-cfClientAccountUtils._updateBalances = function(options) { //todo: optimize
+cfAccountsUtilsClient._updateBalances = function(options) { //todo: optimize
   check(options, Object);
 
   var refId = options.refId;
@@ -314,9 +191,9 @@ cfClientAccountUtils._updateBalances = function(options) { //todo: optimize
     cfClientAccountUtils._updateBalanceAccount(account, options);
   });
 };
-cfClientAccountUtils.privateToString = function(private){ return private ? 'private': 'public'};
+cfAccountsUtilsClient.privateToString = function(private){ return private ? 'private': 'public'};
 
-cfClientAccountUtils.addressExists = function (address, refId) {
+cfAccountsUtilsClient.addressExists = function (address, refId) {
   if (!refId) return false;
   var accounts = findByRefId(refId, {private:true});
   var addresses = _.flatten(_.map(accounts.fetch(), function (account) {
@@ -327,4 +204,4 @@ cfClientAccountUtils.addressExists = function (address, refId) {
   return addresses.indexOf(address) > -1
 };
 
-module.exports = cfClientAccountUtils
+module.exports = cfAccountsUtilsClient

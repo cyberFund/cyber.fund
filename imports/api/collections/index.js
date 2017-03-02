@@ -9,6 +9,7 @@ var Feeds = require("/imports/api/vwap/collections").feeds;
 var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
 var Metrics = require('./Metrics')
 var Extras = new Meteor.Collection("extras");
+var MarketData = new Meteor.Collection("MarketData");
 var AcountsHistory = new Meteor.Collection("accountsHistory")
 if (Meteor.isServer) {
   AcountsHistory._ensureIndex({
@@ -35,7 +36,7 @@ AcountsHistory.allow({
     return false;
   }
 });
-import {Acounts} from './Acounts' 
+import {Acounts} from './Acounts'
 
 
 
@@ -47,5 +48,6 @@ module.exports = {
   FeedsVwap: FeedsVwap,
   Metrics: Metrics,
   Extras: Extras,
-  AcountsHistory: AcountsHistory
+  AcountsHistory: AcountsHistory,
+  MarketData: MarketData
 }

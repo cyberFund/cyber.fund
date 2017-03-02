@@ -3,7 +3,7 @@ Template['ratingTableRow'].helpers({
     return tv && (tv >= 0.2);
   },
   _ready: function(){
-    return CF.subs.currentData.ready();
+    return Template.instance().subscriptionsReady()
   },
-  
+
 })

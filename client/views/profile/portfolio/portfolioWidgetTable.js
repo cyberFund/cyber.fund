@@ -2,7 +2,7 @@ import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import {portfolioTableData, userProfileData} from '/imports/api/client/utils/portfolio'
 import {_session} from '/imports/api/client/utils/base'
-import {getSystemsFromAccountsObject, getQuantitiesFromAccountsObject} from '/imports/api/cf/userAssets/utils.js'
+import {getSystemsFromAccountsObject, getQuantitiesFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 import {getPricesByDoc, getPrice} from '/imports/api/currentData/cyberfund-currentdata'
 
 var tableData = portfolioTableData;

@@ -1,7 +1,18 @@
+import {readableNumbers} from '/imports/api/client/utils/base'
+import {CurrentData} from '/imports/api/collections'
+function _btcPrice (){
+  var btc = CurrentData.findOne({_id: "Bitcoin"});
+  try {// try to return a value
+    return parseFloat(btc.metrics.price.usd);
+  } catch (err) {// if value undefined return nothing
+    return;
+  }
+}
+
 Template['btcPriceSimple'].helpers({
   price: function(){
-    var btcPrice  =  Blaze._globalHelpers._btcPrice()
-    if (btcPrice) return Blaze._globalHelpers.readableNumbers( btcPrice );
+    var btcPrice = _btcPrice()
+    if (btcPrice) return readableNumbers( btcPrice );
     return ''
   }
 });

@@ -1,6 +1,6 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
-import {quantumCheck} from '/imports/api/client/utils/accounts'
+import {quantumCheck} from '/imports/api/cf/account/accounts'
 // recalculate raised amount crutch
 Meteor.startup(function(){
   console.log(Meteor.settings);
@@ -72,9 +72,9 @@ function updateCrowdsales() {
               } else console.log("could not calculate crowdsale correctly, coin ", k, " has no btc price.");
             })
             if (sum) {
-              print("crowdsale", crowdsale._id, true);
-              print("raised", raised, true);
-              print("sum", sum);
+          //    print("crowdsale", crowdsale._id, true);
+              // print("raised", raised, true);
+              // print("sum", sum);
               CurrentData.update({
                 _id: crowdsale._id
               }, {

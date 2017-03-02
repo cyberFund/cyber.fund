@@ -12,6 +12,7 @@ import userUtils from '/imports/api/utils/user'
 import cfRating from '/imports/api/cf/rating'
 import {_session} from '/imports/api/client/utils/base'
 
+
 function redirectLoggedToProfile(context, redirect) {
   if (Meteor.user()) {
     redirect("/@:username", {
@@ -230,76 +231,17 @@ FlowRouter.route("/invest", {
   }
 });
 
-
-// todo move to triggers
-var sorters = {
-  "metrics.supplyChangePercents.day": {
-    "inflation": -1,
-    "deflation": 1
-  },
-  "metrics.turnover": {
-    "active": -1,
-    "passive": 1
-  },
-  "calculatable.RATING.vector.GR.monthlyGrowthD": {
-    "profit": -1,
-    "loss": 1
-  },
-  "calculatable.RATING.vector.GR.months": {
-    "mature": -1,
-    "young": 1
-  },
-  "metrics.cap.usd": {
-    "whales": -1,
-    "dolphins": 1
-  },
-  "metrics.capChangePercents.day.usd": {
-    "bulls": -1,
-    "bears": 1
-  },
-  "calculatable.RATING.vector.LV.num": {
-    "love": -1,
-    "hate": 1
-  },
-  "calculatable.RATING.sum": {
-    "leaders": -1,
-    "suckers": 1
-  }
-};
-
 // if sorterobj is undefined (ie if no session value ) make it empty object
-cfRatinggetKeyBySorter =  function getKeyBySorter( sorterobj = {} ){
-  var ret = null;
-  var key = _.keys(sorterobj).length && _.keys(sorterobj)[0];
-  if (!key) return ret;
-  var value = sorterobj[key];
-  var obj = sorters[key];
-  if (!obj) return ret;
-  _.each(obj, function(v, k){
-    if (v == value) ret = k;
-  });
-  return ret;
-};
 
-cfRatinggetSorterByKey = function getSorterByKey(key){
-  var ret = {};
-  _.each(sorters, function(sorter, sorterKey){
-    _.each(sorter, function(v, k){
-      if (k == key) ret[sorterKey] = v;
-    });
-  });
-  return ret;
-};
-
-var getSorterByKey = cfRatinggetSorterByKey;
-var getKeyBySorter = cfRatinggetKeyBySorter;
+var getSorterByKey = cfRating.getSorterByKey;
+var getKeyBySorter = cfRating.getKeyBySorter;
 
 FlowRouter.route("/rating", {
   name: "rating",
   triggersEnter: [
     function (context, redirect){
-      var key = getKeyBySorter(_session.get("coinSorter"));
-      redirect("/rating/:sort", {sort: key || "whales"});
+        var key = getKeyBySorter(_session.get("coinSorter"));
+        redirect("/rating/:sort", {sort: key || "whales"});
     }
   ],
   triggersExit: [
@@ -319,8 +261,8 @@ FlowRouter.route("/monthly/rating", {
   name: "rating",
   triggersEnter: [
     function (context, redirect){
-      var key = getKeyBySorter(_session.get("coinSorter"));
-      redirect("/monthly/rating/:sort", {sort: key || "whales"});
+        var key = getKeyBySorter(_session.get("coinSorter"));
+        redirect("/monthly/rating/:sort", {sort: key || "whales"});
     }
   ]
 });
