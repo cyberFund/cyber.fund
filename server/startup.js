@@ -17,13 +17,9 @@ SyncedCron.add({
       data.forEach(function(data){
         let systemId = cmc.systemIdFromCmcId(data.id);
         if ( systemId ) {
-
           //console.log(`systemId: ${cmc.systemIdFromCmcId(data.id)}; cmcId: ${data.id}`)
           let metrics = cmc.applyMetrics(cmc.extractMetrics(data))
-          CurrentData.update({_id: systemId}, {$set: metrics}, function(e, r){
-            console.log(r)
-          })
-
+          CurrentData.update({_id: systemId}, {$set: metrics})
         }
       })
     })

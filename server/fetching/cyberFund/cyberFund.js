@@ -1,4 +1,5 @@
 import {CurrentData, Extras} from '/imports/api/collections'
+import {flatten} from '/imports/api/utils'
 // this file describes fetching of data from chaingear
 
 var sourceUrl = "https://static.cyber.fund/chaingear/full.json"; //"https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
@@ -18,40 +19,8 @@ cfFetching.cyberFund.processData = function(data, callback) {
   callback(null, processedData);
 };
 
-/**
- *
- * @param obj
- * @returns {{}} object with keys flattened. ok to use in conjunction with
- * collection.update({..}, {$set: flatten(obj)})
- */
-function flatten(obj) { //todo move to utils..
-  if (!_.isObject(obj)) return;
 
-  var result = {};
 
-  function add(key, prop) {
-    result[key] = prop;
-  }
-
-  function iter(currentKey, object) {
-    _.each(object, function(v, k) {
-
-      var key = currentKey ? currentKey + "." + k : k;
-      if (_.isArray(v)) {
-        add(key, v);
-      } else {
-        if (_.isObject(v) && !(_.isDate(v) || _.isArray(v)) ) {
-          iter(key, v);
-        } else {
-          add(key, v);
-        }
-      }
-    });
-  }
-
-  iter("", obj);
-  return result;
-}
 var fetch = function() {
   console.log("Fetching data from cyberFund - chaingear");
   try {

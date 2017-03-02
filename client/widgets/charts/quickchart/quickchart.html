@@ -1,6 +1,6 @@
 <template name="quickchart">
   <div class="quickchart" id="quickchart-{{_toAttr system}}">
-    {{#if __ready}}
+    {{#if Template.subscriptionsReady}}
     {{else}}
     <div style="position: absolute; bottom: 0; top: 0; left: 0; right: 0; margin: auto">LOADING</div>
     {{/if}}

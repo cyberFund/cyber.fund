@@ -7,7 +7,7 @@ function fetch(callback) {
   HTTP.get('http://api.cyber.fund/cg', {
     timeout: 10000
   }, function(err, res) {
-    if (err) winston.err(`Coukd not fetch ${'http://api.cyber.fund/cg'}`, err, true)
+    if (err) winston.log(`Coukd not fetch ${'http://api.cyber.fund/cg'}`, err, true)
     else {
       if (res.data) {
         return callback(res.data)

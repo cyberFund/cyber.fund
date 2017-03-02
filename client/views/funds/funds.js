@@ -55,5 +55,6 @@ Template.funds.helpers({
       limit: Session.get("showAllUsersAtFunds") ? 1000 : 50,
       sort: {publicFunds: -1}
     });
-  }
+  },
+  
 });

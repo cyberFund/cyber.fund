@@ -15,10 +15,10 @@ Template["systemBasic"].onCreated(function() {
   var instance = this;
   instance.ready = new ReactiveVar();
   instance.autorun(function() {
-    var handle = CF.SubsMan.subscribe("systemData", {
+    instance.subscribe("systemData", {
       name: systemName()
     });
-    instance.ready.set(instance.ready.get() || handle.ready());
+    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
     instance.subscribe("dependentCoins", systemName());
 
     var data = curData();

@@ -1,13 +1,11 @@
-// TODO: rename file
-/*
-var cfEs = {};
-var esLib = Npm.require("elasticsearch");
+import esLib from 'elasticsearch'
 
 const LAST = "price"
+var cfEs = {}
 
 Meteor.startup(function() {
   if (!cfEs._client) cfEs._client = cfEs._getClient();
-});
+})
 
 _.extend(cfEs, {
   _getClient: function() {
@@ -39,16 +37,16 @@ _.extend(cfEs, {
   // * @returns  promise
   // *
   sendQuery: function(queryName, params) {
-    if (!cfEs.queries[queryName]) return {};
+    if (!cfEs.queries[queryName]) return {}
     var queryObject = cfEs.queries[queryName].getQueryObj(params);
     //console.log(cfEs._client);
-    return cfEs._client.search(queryObject);
+    return cfEs._client.search(queryObject)
   },
 
   isClientQueryAllowed: function(queryName) {
     return cfEs.queries[queryName] && cfEs.queries[queryName].clientAllowed;
   }
-});
+})
 
 Meteor.methods({
   //method to provide client ability to execute es queries. probably, not needed.
@@ -498,15 +496,12 @@ _.extend(cfEs, {
     xchangeDataBySystem: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
-        console.log(params)
-        console.log(1111)
         params = params || {}
         if (!params.from || !params.to) {
           params.from = "now-10m";
           params.to = "now";
         }
         if (!params.system) {
-          console.log(222)
           throw {error: "no system passed"};
         }
 
@@ -578,4 +573,3 @@ _.extend(cfEs, {
     }
   }
 });
-*/

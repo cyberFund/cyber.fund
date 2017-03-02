@@ -2,7 +2,6 @@ import {CurrentData, Extras, Acounts} from '/imports/api/collections'
 
 import {findByRefId, accountNameIsValid} from '/imports/api/cf/account/utils'
 import {addressExists} from '/imports/api/client/utils/accounts'
-//todo: move into namespace
 
 function accountsExist(){
   var userId = Meteor.userId();
@@ -68,11 +67,6 @@ Template['addAccount'].onRendered( function () {
 
 Template['addAccount'].helpers({
   disabledTogglePrivacy: function () {
-// todo: check user has required thing marked.
-// not to keep this in profile, as profile intended to be user-modifiable
-    var isOwnAssets = Blaze._globalHelpers.isOwnAssets;
-    console.log(" disabledTogglePrivacy helper :::   ", isOwnAssets())
-    var user = Meteor.user();
     var ret = true
     return ( ret ? '' : 'disabled')
   },

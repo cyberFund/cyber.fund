@@ -35,7 +35,7 @@ function fetchDirect() {
 const flatten = require("../elastic/traverseAggregations").flatten
 
 const _fetchXchangeData = () => {
-  const data = extractFromPromise(CF.ES.sendQuery ("xchangeData"));
+  const data = extractFromPromise(cfEs.sendQuery ("xchangeData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
   else
@@ -43,7 +43,7 @@ const _fetchXchangeData = () => {
 }
 
 const _fetchXchangeVwapData = () => {
-  const data = extractFromPromise(CF.ES.sendQuery ("xchangeVwapData"));
+  const data = extractFromPromise(cfEs.sendQuery ("xchangeVwapData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'latest']);
   else

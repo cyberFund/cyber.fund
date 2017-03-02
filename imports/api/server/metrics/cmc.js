@@ -1,5 +1,4 @@
 import chaingear from '/imports/api/server/chaingear'
-import crc from '/imports/constants/return_codes'
 import {CurrentData} from '/imports/api/collections' //todo: decouple
 const _source = 'cmc2017'
 const sampleData =require('/imports/sampleData/cmc.json')

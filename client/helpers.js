@@ -216,9 +216,6 @@ var helpers = {
   coinsCount: function(){
     return Counts.get("coinsCount");
   },
-  coinsCount2: function(){
-    return Counts.get("coinsCount2");
-  },
 
   _system_type_: function(key){
     var types = {

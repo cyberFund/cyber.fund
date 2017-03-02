@@ -139,7 +139,7 @@ Meteor.publish('projectsList', function() {
  */
 Meteor.publish("usersCount", function() {
   Counts.publish(this, "usersCount", Meteor.users.find());
-});
+})
 
 /*
   needed to know are there systems left, or we subscribed with limit >=
@@ -150,10 +150,8 @@ Meteor.publish("coinsCount", function() {
     "metrics.cap.btc": {
       $gt: 0
     }
-  }));
-  Counts.publish(this, "coinsCount2", CurrentData.find({
-  }));
-});
+  }))
+})
 
 /*
   provide enough details to render dependent coins at system page
@@ -166,8 +164,8 @@ Meteor.publish("dependentCoins", function(system) {
       "aliases": 1,
       "token": 1
     }
-  });
-});
+  })
+})
 
 /*
   provides data to draw daily chart
@@ -181,8 +179,8 @@ Meteor.publish("fastData", function(systemName) {
   _id = _id._id;
   return FastData.find({
     systemId: _id
-  });
-});
+  })
+})
 
 /*
  provides details on coins   that current coin depends on . accepts
@@ -196,8 +194,8 @@ Meteor.publish("dependencies", function(deps) {
       "aliases": 1,
       "token": 1
     }
-  });
-});
+  })
+})
 
 /*
   provides means for autocomplete to work
@@ -235,8 +233,8 @@ Meteor.publish("search-sys", function(selector, options, collname) {
     "metrics.cap.btc": -1
   };
   Autocomplete.publishCursor(collection.find(selector, options), this);
-  this.ready();
-});
+  this.ready()
+})
 
 Meteor.publish("avatars", function(uidArray) {
   if (!_.isArray(uidArray)) return this.ready();
@@ -250,8 +248,8 @@ Meteor.publish("avatars", function(uidArray) {
       "avatar": 1,
       "username": 1
     }
-  });
-});
+  })
+})
 
 /*
   user profile by username or id
@@ -314,8 +312,8 @@ Meteor.publish("assetsSystems", function(tokens) {
       metrics: 1,
       calculatable: 1
     }
-  });
-});
+  })
+})
 
 /*
   loads systems data for portfolio

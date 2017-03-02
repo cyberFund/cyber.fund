@@ -1,7 +1,6 @@
 import {CurrentData, MarketData} from '/imports/api/collections'
 chartdata = function(systemId) {
-  if (!systemId) return null;
-
+  if (!systemId) return null
   return MarketData.find({
     systemId: systemId
   }, {
@@ -14,33 +13,31 @@ chartdata = function(systemId) {
 _timestampino = function(timestamp) {
   return moment(timestamp).format(Meteor.settings.public &&
     Meteor.settings.public.manyData ?
-    "ddd D-MM HH:" : "ddd D-MM");
+    "ddd D-MM HH:" : "ddd D-MM")
 };
 
 Template["quickchart"].helpers({
-  __ready: function() {
-    return Template.instance().subscriptionsReady()
-  }
+
 });
 
 var grab = {
   t: function(fruit) {
-    return fruit && fruit.timestamp;
+    return fruit && fruit.timestamp
   },
   sp: function(fruit) {
-    return fruit && fruit.price_usd;
+    return fruit && fruit.price_usd
   },
   bp: function(fruit) {
-    return fruit && fruit.price_btc;
+    return fruit && fruit.price_btc
   },
   sc: function(fruit) {
-    return fruit && fruit.cap_usd;
+    return fruit && fruit.cap_usd
   },
   bc: function(fruit) {
-    return fruit && fruit.cap_btc;
+    return fruit && fruit.cap_btc
   },
   bvd: function(fruit) {
-    return fruit && fruit.volume24_btc;
+    return fruit && fruit.volume24_btc
   }
 };
 
@@ -49,33 +46,33 @@ Template["quickchart"].onCreated(function(){
   this._ready = new ReactiveVar();
 });
 
-var renderCount = 0;
+var renderCount = 0
 function myGraph(el, system, instance) {
-  el.selectAll("*").remove();
-  this.selectedNode = null;
-  var graph = this;
+  el.selectAll("*").remove()
+  this.selectedNode = null
+  var graph = this
 
-  var data = chartdata(system).fetch();
+  var data = chartdata(system).fetch()
   data = data.sort(function(a, b) {
-    return a.timestamp - b.timestamp;
-  });
+    return a.timestamp - b.timestamp
+  })
 
-  var lastData = CurrentData.findOne({_id:system});
-  if (lastData && lastData.metrics && lastData.metrics.price && lastData.metrics.price.usd)                data.push({timestamp: new Date(), price_usd: lastData.metrics.price.usd});
+  var lastData = CurrentData.findOne({_id:system})
+  if (lastData && lastData.metrics && lastData.metrics.price && lastData.metrics.price.usd)                data.push({timestamp: new Date(), price_usd: lastData.metrics.price.usd})
 
-  var wf = 140;
-  var w = 140;
-  var hf = 50;
-  var mTop = 10;
-  var h = hf - mTop;
+  var wf = 140
+  var w = 140
+  var hf = 50
+  var mTop = 10
+  var h = hf - mTop
   var x = d3.time.scale()
     .domain([d3.min(data, grab.t), d3.max(data, grab.t)])
-    .range([0 + 2, w - 2]);
+    .range([0 + 2, w - 2])
   var y = d3.scale.linear()
     .domain([d3.min(data, grab.sp), d3.max(data, grab.sp)])
-    .range([hf - 1, mTop + 1]);
-  var xAxis = d3.svg.axis().scale(x).orient("bottom");
-  var yAxis = d3.svg.axis().scale(y).orient("left");
+    .range([hf - 1, mTop + 1])
+  var xAxis = d3.svg.axis().scale(x).orient("bottom")
+  var yAxis = d3.svg.axis().scale(y).orient("left")
 
   var svg = el
     .append("svg:svg")
@@ -85,32 +82,32 @@ function myGraph(el, system, instance) {
     .attr("pointer-events", "all")
     .attr("viewBox", "0 0 " + wf + " " + hf)
     .attr("class", "chart")
-    .attr("preserveAspectRatio", "xMinYMid");
+    .attr("preserveAspectRatio", "xMinYMid")
 
   var priceLine = d3.svg.line()
     .x(function(d) {
-      return x(grab.t(d));
+      return x(grab.t(d))
     })
     .y(function(d) {
-      return y(grab.sp(d));
-    });
+      return y(grab.sp(d))
+    })
 
   var drawing = svg.append("path")
     .attr("d", priceLine(data))
-    .attr("class", "qc-line-1");
+    .attr("class", "qc-line-1")
 
   // FOCUS DOMAIN
   var bisectDate = d3.bisector(function(d) {
-    return d.timestamp;
-  }).left;
+    return d.timestamp
+  }).left
 
   var formatValue = d3.format(",.4f");
   var formatCurrency = function(d) {
-    return "$" + formatValue(d);
-  };
+    return "$" + formatValue(d)
+  }
 
   var ficus = svg.append("g")
-    .attr("class", "ficus");
+    .attr("class", "ficus")
 
   ficus.append("text")
     .attr("class", "price")
@@ -118,34 +115,34 @@ function myGraph(el, system, instance) {
     .attr("text-anchor", "middle")
     .attr("x", 70)
     .attr("y", "0")
-    .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "");
+    .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "")
 
   var focus = svg.append("g")
     .attr("class", "focus")
-    .style("display", "none");
+    .style("display", "none")
 
   focus.append("line")
     .attr("class", "focus-horiz")
     .attr("x1", 0).attr("x2", w)
-    .attr("y1", 1).attr("y2", 1);
+    .attr("y1", 1).attr("y2", 1)
 
   focus.append("line")
     .attr("class", "focus-vert")
     .attr("x1", 1).attr("x2", 1)
-    .attr("y1", mTop).attr("y2", hf);
+    .attr("y1", mTop).attr("y2", hf)
 
   focus.append("text")
     .attr("class", "price")
     .attr("dominant-baseline", "hanging")
     .attr("x", 1)
-    .attr("y", "2");
+    .attr("y", "2")
 
   focus.append("text")
     .attr("class", "date")
     .attr("x", 138)
     .attr("dominant-baseline", "hanging")
     .attr("text-anchor", "end")
-    .attr("y", "2");
+    .attr("y", "2")
 
   function mousemove() {
     var x0 = x.invert(d3.mouse(this)[0]);
@@ -166,37 +163,36 @@ function myGraph(el, system, instance) {
       .attr("x2", xv);
 
     focus.select("text.price")
-      .text(formatCurrency(grab.sp(d)));
+      .text(formatCurrency(grab.sp(d)))
 
     focus.select("text.date")
-      .text(_timestampino(grab.t(d)));
+      .text(_timestampino(grab.t(d)))
   }
 
   svg
     .on("mouseover", function() {
-      focus.style("display", null);
-      ficus.style("display", "none");
+      focus.style("display", null)
+      ficus.style("display", "none")
     })
     .on("mouseout", function() {
-      focus.style("display", "none");
-      ficus.style("display", null);
+      focus.style("display", "none")
+      ficus.style("display", null)
     })
-    .on("mousemove", mousemove);
+    .on("mousemove", mousemove)
 }
 
+Template["quickchart"].onCreated(function() {
+  var instance = this
+
+})
+
 Template["quickchart"].onRendered(function() {
-  var instance = this;
   instance.autorun(function(c) {
-    if (instance.subscriptionsReady()) instance._ready.set(true);
-  });
-
-  instance.autorun(function(c) {
-    if (!instance._ready.get()) return;
-
+    if (!instance.subscriptionsReady()) return
     if (instance._system != Template.currentData().system) {
-      instance._system = Template.currentData().system;
+      instance._system = Template.currentData().system
       new myGraph(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(instance._system)),
-        instance._system, instance);
+        instance._system, instance)
     }
-  });
-});
+  })
+})

@@ -53,6 +53,7 @@ Meteor.startup(function() {
   Tracker.autorun(function(c) {
     var user = Meteor.user();
     if (!user) {
+      Meteor.call("Who are you, Stranger?")
       return;
     }
 
@@ -72,7 +73,7 @@ Meteor.startup(function() {
       }
     }
     analytics.identify(user._id, identity);
-
+    Meteor.call("Arrival! new Arrival!")
     c.stop();
   });
 });

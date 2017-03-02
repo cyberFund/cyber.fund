@@ -2,9 +2,6 @@ import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
 import {quantumCheck} from '/imports/api/cf/account/accounts'
 // recalculate raised amount crutch
-Meteor.startup(function(){
-  console.log(Meteor.settings);
-})
 
 function updateCrowdsales() {
   var activeCrowdsales = CurrentData.find({
@@ -38,15 +35,15 @@ function updateCrowdsales() {
           if (_.isArray(addr)) {
             var raised = {};
             _.each(addr, function(address) {
+              if (!address) return;
               var balances = quantumCheck(address);
-              console.log('---')
-              console.log(balances)
-              console.log(address)
-              console.log('...')
-              console.log('')
+              console.log(`---`)
+              console.log(`${balances}`)
+              console.log(`${address}`)
+              console.log(`...`)
                //TODO: use imports here.
               if (!balances || balances[0] == 'error') {
-                console.log("error")
+                console.log(`error`)
                 console.log(`address + quantumCheck(${address})`)
                 console.log("results in ")
                 console.log(`${balances}`)

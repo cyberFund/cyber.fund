@@ -9,6 +9,7 @@
   "dependencies": {
     "babel-runtime": "^6.9.0",
     "d3": "^4.7.0",
+    "elasticsearch": "^10.1.2",
     "eslint-plugin-import": "^1.6.1",
     "eslint-plugin-jsx-a11y": "^1.0.4",
     "imports": "^1.0.0",
@@ -28,7 +29,6 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
     "babel-preset-meteor": "^6.12.0"
   },
   "scripts": {

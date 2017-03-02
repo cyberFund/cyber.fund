@@ -1,14 +1,12 @@
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
-const ROWS_SHORT = 20
-const markets = require("/imports/api/vwap/marketsList").xchangeMarkets
-const fiats = require("/imports/api/vwap/marketsList").fiats
-const flatten = require("/imports/api/elastic/traverseAggregations").flatten
-const collections = require("/imports/api/vwap/collections")
-const selectors = require("/imports/api/vwap/selectors")
+
+import {fiats, xchangeMarkets as markets} from '/imports/api/vwap/marketsList'
+import collections from '/imports/api/vwap/collections'
+import selectors from '/imports/api/vwap/selectors'
 const feedsCurrent = collections.feedsCurrent
 const feedsVwapCurrent = collections.feedsVwapCurrent
-
+const ROWS_SHORT = 20
 
 import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
 

@@ -2,7 +2,7 @@
 
 import {CurrentData, Acounts} from '/imports/api/collections'
 import {findOneByUsername} from '/imports/api/utils/user'
-var url = Meteor.npmRequire('url');
+import url from 'url'
 var debug = false;
 
 /////////////////////  vending machine domain
@@ -234,7 +234,7 @@ Picker.route('/api03', function(params, req, res, next) {
 import fs from 'fs';
 import path from 'path';
 import {exec} from 'child_process';
-console.log(process.env.CF_SCRIPTS_PATH);
+console.log('scriptspath', process.env.CF_SCRIPTS_PATH);
 
 Picker.route('/webhooks/github/01', function(params, req, res, next) {
     if (req.method == 'POST') {

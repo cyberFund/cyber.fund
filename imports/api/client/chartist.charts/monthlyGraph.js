@@ -2,7 +2,6 @@ Template['monthlyGraph'].rendered = function () {
   var ticks = [];
   var self = this;
   Tracker.autorun(function (comp) {
-    console.log(self)
     if (!self.data || !self.data.dailyData) return;
     //comp.stop();
     console.log(self.data);

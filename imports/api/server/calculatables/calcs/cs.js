@@ -36,11 +36,7 @@ var calcCS = function (system) {
     throw(e)
   }
 
-  var basic = "stub";
-  var extended = "stub"; // see https://docs.google.com/spreadsheets/d/1YkrIitYD6FS2a4IEmBlfwAuCMgMwIKgU5JMHQzsfg-k/edit#gid=755429566&vpid=A1
-
   var keys = params.CSkeys;
-
   var v = {};
 
   if (type && state) {
