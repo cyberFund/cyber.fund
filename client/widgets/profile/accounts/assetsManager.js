@@ -1,5 +1,5 @@
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
-import {findByRefId, findById, accountNameIsValid, privateToString} from '/imports/api/cf/account/utils'
+import {findByRefId, findById, accountNameIsValid, privateToString} from '/imports/api/cf/accounts/utils'
 import {addressExists} from '/imports/api/client/utils/accounts'
 import {currentUid} from '/imports/api/cf/profile'
 import {getAccountPrivacyType, getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'

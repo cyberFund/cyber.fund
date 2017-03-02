@@ -1,7 +1,7 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
 import {findOneByUsername} from '/imports/api/utils/user'
-import {findByRefId} from '/imports/api/cf/account/utils'
+import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {currentUid, currentUsername} from '/imports/api/cf/profile'
 import uaGraph from '/imports/api/cf/userAssets/graph'
 
@@ -51,7 +51,7 @@ Template['profile'].helpers({
   },
   isOwnProfile: function() {
     if (!Meteor.userId()) return false;
-    return (currentUsername() == CF.User.username());
+    return (currentUsername() == Meteor.user().username );
   },
   user: function() {
     return _user();

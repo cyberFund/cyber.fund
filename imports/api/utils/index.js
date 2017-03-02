@@ -1,3 +1,4 @@
+import {idByUsername} from '/imports/api/utils/user'
 module.exports = {
   _k: function _k(array) {
     return array.join('.');
@@ -10,7 +11,7 @@ module.exports = {
     }
 
     if (options.username)
-      options.userId = CF.User.idByUsername(options.username)
+      options.userId = idByUsername(options.username)
     if (!options.userId) {
       if (options.uid) {
         console.log("subscriptions:normalizeOptionsPerUser - .uid was passed, please pass .userId instead");

@@ -1,5 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
 import {deltaPercents, formatters, readableNumbers} from '/imports/api/client/utils/base'
+import {listFromIds} from '/imports/api/utils/user'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
  *   to be used for string part before decimal dot
@@ -271,7 +272,7 @@ var helpers = {
     return moment(date).format(format);
   },
   usersListFromIds: function(listFromIds) {
-    return CF.User.listFromIds(listFromIds);
+    return listFromIds(listFromIds);
   },
   userHasPublicAccess: function userHasPublicAccess() {
     return true;
@@ -366,11 +367,6 @@ var helpers = {
 
 
   /////////////// chaingear helpers
-  cgSystemLogoUrl: function (that) {
-    var icon = (that.icon ? that.icon : that._id) || '';
-    icon = icon.toString().toLowerCase();
-    return "https://static.cyber.fund/logos/" + icon + ".png";
-  },
   cgIsActiveCrowdsale: function() {
     return this.crowdsales && this.crowdsales.start_date < new Date() &&
       this.crowdsales.end_date > new Date()

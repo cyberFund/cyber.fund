@@ -1,3 +1,5 @@
+import cfChartist from '/imports/api/client/utils/chartist'
+import {monetaryFormatter} from '/imports/api/client/utils/base'
 Template['dailyGraph'].rendered = function () {
 
   var self = this;
@@ -26,10 +28,10 @@ Template['dailyGraph'].rendered = function () {
       iterate = iterate.add(15, "minutes");
     }
 
-    var data = CF.Chartist.fn.daily.getData(ticks);
+    var data = cfChartist.fn.daily.getData(ticks);
 
     if (self.data.metrics && self.data.metrics.cap && self.data.metrics.price) {
-      var dta = current.format(CF.Chartist.dateformats.daily).replace("&nbsp;", " ");
+      var dta = current.format(cfChartist.dateformats.daily).replace("&nbsp;", " ");
       data.labels.push("");//current.format("D HH"));
 
       data.capB.push(
@@ -54,39 +56,39 @@ Template['dailyGraph'].rendered = function () {
       if (data.trade[i] == null) data.trade[i] = 0;
     }
 
-    CF.Chartist.fn.interpolate([data.capB, data.capU]);
+    cfChartist.fn.interpolate([data.capB, data.capU]);
 
-    self.$(".ct-chart-cap-btc").css("height", CF.Chartist.heights.cap);
+    self.$(".ct-chart-cap-btc").css("height", cfChartist.heights.cap);
     new Chartist.Line('.ct-chart-cap-btc', {labels: data.labels, series: [data.capB]}, {
-      chartPadding: CF.Chartist.options.chartPadding.cap,
-      axisY: CF.Chartist.options.axisY,
+      chartPadding: cfChartist.options.chartPadding.cap,
+      axisY: cfChartist.options.axisY,
       plugins: [
-        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.cap.btc),
-        Chartist.plugins.ctAxisTitle( CF.Chartist.options.plugins.ctAxisTitle.cap.btc)
+        Chartist.plugins.tooltip(cfChartist.options.plugins.tooltip.cap.btc),
+        Chartist.plugins.ctAxisTitle( cfChartist.options.plugins.ctAxisTitle.cap.btc)
       ]
     });
 
-    self.$(".ct-chart-cap-usd").css("height", CF.Chartist.heights.cap);
+    self.$(".ct-chart-cap-usd").css("height", cfChartist.heights.cap);
     new Chartist.Line('.ct-chart-cap-usd',  {labels: data.labels, series: [data.capU]}, {
-      chartPadding: CF.Chartist.options.chartPadding.cap,
+      chartPadding: cfChartist.options.chartPadding.cap,
       axisY: {
         labelInterpolationFnc: function (value) {
-          return CF.Utils.monetaryFormatter(value);
+          return monetaryFormatter(value);
         }
       },
       plugins: [
-        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.cap.usd),
-        Chartist.plugins.ctAxisTitle(CF.Chartist.options.plugins.ctAxisTitle.cap.usd)
+        Chartist.plugins.tooltip(cfChartist.options.plugins.tooltip.cap.usd),
+        Chartist.plugins.ctAxisTitle(cfChartist.options.plugins.ctAxisTitle.cap.usd)
       ]
     });
 
-    self.$(".ct-chart-vol").css("height", CF.Chartist.heights.trade);
+    self.$(".ct-chart-vol").css("height", cfChartist.heights.trade);
     new Chartist.Bar('.ct-chart-vol',  {labels: data.labels, series: [data.trade]}, {
-      chartPadding: CF.Chartist.options.chartPadding.trade,
-      axisY: CF.Chartist.options.axisY,
+      chartPadding: cfChartist.options.chartPadding.trade,
+      axisY: cfChartist.options.axisY,
       plugins: [
-        Chartist.plugins.tooltip(CF.Chartist.options.plugins.tooltip.trade),
-        Chartist.plugins.ctAxisTitle(CF.Chartist.options.plugins.ctAxisTitle.trade)
+        Chartist.plugins.tooltip(cfChartist.options.plugins.tooltip.trade),
+        Chartist.plugins.ctAxisTitle(cfChartist.options.plugins.ctAxisTitle.trade)
       ]
     });
 

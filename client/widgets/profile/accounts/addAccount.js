@@ -1,6 +1,6 @@
 import {CurrentData, Extras, Acounts} from '/imports/api/collections'
 
-import {findByRefId, accountNameIsValid} from '/imports/api/cf/account/utils'
+import {findByRefId, accountNameIsValid} from '/imports/api/cf/accounts/utils'
 import {addressExists} from '/imports/api/client/utils/accounts'
 
 function accountsExist(){

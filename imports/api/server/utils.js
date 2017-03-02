@@ -1,8 +1,9 @@
 // # import {extractFromPromise} from '/imports/api/server/utils'
+import { Future } from 'fibers/future';
 module.exports = {
   /**
    * aimed to return resolved promises from methods. i.e. if method uses promises inside
-   * , we can use `return CF.Utils.extractFromPromise(promise)` to return value from method, not promise.
+   * , we can use `return extractFromPromise(promise)` to return value from method, not promise.
    * @param promise - promise
    * @returns promise {*}
    */

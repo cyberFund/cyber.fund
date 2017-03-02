@@ -25,7 +25,7 @@ module.exports = {
       "username": username
     });
   },
-  idByUsername: function idByUsername(username) {
+  idByUsername: function (username) {
     var r = this.findOneByUsername(username);
     return r ? r._id : null
   },

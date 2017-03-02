@@ -1,6 +1,6 @@
 import {CurrentData, Extras} from '/imports/api/collections'
 import winston from 'winston'
-import {extractFromPromise} from '/imports/api/server/utils'
+import {extractFromPromise, escapeRegExp} from '/imports/api/server/utils'
 import cfEs from '/imports/api/server/cfEs'
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
@@ -24,7 +24,7 @@ function _searchSelector(bucketKey) {
   if (bucketKey.slice(-3) == "...") {
     bucketKey = bucketKey.slice(0, -3);
     bucketKey = {
-      $regex: new RegExp("^" + CF.Utils.escapeRegExp(bucketKey)),
+      $regex: new RegExp("^" + escapeRegExp(bucketKey)),
       $options: "i"
     };
   } else {}

@@ -34,7 +34,7 @@ import winston from 'winston'
 // const flatten = require("..//imports/api/elastic/traverseAggregations").flatten
 //
 // fetchXchangeData = () => {
-//   const data = CF.Utils.extractFromPromise(cfEs.sendQuery ("xchangeData"));
+//   const data = extractFromPromise(cfEs.sendQuery ("xchangeData"));
 //   if (data && data.aggregations)
 //     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
 //   else

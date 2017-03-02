@@ -390,7 +390,7 @@ _timestampino = (fruit) ->
 Template['slowchart'].helpers
   'chartdata': _chartdata
   hasNoData: ->
-    return not (Template.instance()._ready_ or CF.subs.systemData and CF.subs.systemData.ready() and Template.instance().theData.length)
+    return not (Template.instance()._ready_ and Template.instance().theData.length)
 
 getSystemId = ()->
   ret = Blaze._globalHelpers._toSpaces (FlowRouter.getParam('name_'))

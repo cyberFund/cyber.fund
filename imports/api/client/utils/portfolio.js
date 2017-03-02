@@ -12,8 +12,8 @@ function getUserId() {
   return user.userId;
 }
 
-import cfAccounts from '/imports/api/cf/account/utils'
-import {accumulate, extractAssets, findById} from '/imports/api/cf/account/utils'
+import cfAccounts from '/imports/api/cf/accounts/utils'
+import {accumulate, extractAssets, findById} from '/imports/api/cf/accounts/utils'
 
 function filterData(){
   var ret = [];

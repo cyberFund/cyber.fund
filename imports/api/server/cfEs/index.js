@@ -1,5 +1,5 @@
 import esLib from 'elasticsearch'
-
+import {extractFromPromise} from '/imports/api/server/utils'
 const LAST = "price"
 var cfEs = {}
 
@@ -54,8 +54,8 @@ Meteor.methods({
     if (cfEs.isClientQueryAllowed(queryName)) {
       //if (params.transform)
       //  var transform = cfEs.queries.getTransform(params.transform);
-      //return transform(CF.Utils.extractFromPromise(cfEs.sendQuery(queryName, params)))
-      return CF.Utils.extractFromPromise(cfEs.sendQuery(queryName, params))
+      //return transform(extractFromPromise(cfEs.sendQuery(queryName, params)))
+      return extractFromPromise(cfEs.sendQuery(queryName, params))
     } else {
       return {
         error: "query " + queryName + " not allowed"
@@ -573,3 +573,5 @@ _.extend(cfEs, {
     }
   }
 });
+
+module.exports = cfEs

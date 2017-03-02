@@ -32,7 +32,7 @@ function fetchDirect() {
   });
 }
 
-const flatten = require("../elastic/traverseAggregations").flatten
+const flatten = require("/imports/api/elastic/traverseAggregations").flatten
 
 const _fetchXchangeData = () => {
   const data = extractFromPromise(cfEs.sendQuery ("xchangeData"));

@@ -1,6 +1,6 @@
 import {Acounts} from '/imports/api/collections'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
-import {findByRefId} from '/imports/api/cf/account/utils'
+import {findByRefId} from '/imports/api/cf/accounts/utils'
 
 Meteor.methods({
   importAccounts: function(sel) {
@@ -24,7 +24,7 @@ Meteor.methods({
 
   // autoupdate balances for user
   cfAssetsUpdateBalances: function(options) {
-    options = CF.Utils.normalizeOptionsPerUser(options);
+    options = normalizeOptionsPerUser(options);
 
     // print("cfAssetsUpdateBalances was called with options", options, true);
     options.refId = options.userId || this.userId;

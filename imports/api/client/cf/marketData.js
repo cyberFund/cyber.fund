@@ -26,7 +26,7 @@ var cfMarketData = {
     }
     return ret.replace("&nbsp;", " ");
   },
-  tooltipFncS: (meta, value) {
+  tooltipFncS: function (meta, value) {
     var ret = "===========$ ============" + value;
     if (meta) {
       meta = meta.split("|"); // point date to be passed there, too

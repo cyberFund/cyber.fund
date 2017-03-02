@@ -4,7 +4,7 @@
  * @returns {number} assets value in bitcoins
  */
 
-import {findByRefId} from '/imports/api/cf/account/utils'
+import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {currentUid} from '/imports/api/cf/profile'
 
 Template['portfolioWidget'].helpers({

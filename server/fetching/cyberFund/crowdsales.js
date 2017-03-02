@@ -1,6 +1,6 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
-import {quantumCheck} from '/imports/api/cf/account/accounts'
+import {quantumCheck} from '/imports/api/cf/accounts/accounts'
 // recalculate raised amount crutch
 
 function updateCrowdsales() {

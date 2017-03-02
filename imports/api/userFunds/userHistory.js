@@ -1,5 +1,5 @@
 import {AcountsHistory, Acounts} from '/imports/api/collections'
-import {accumulate, extractAssets, findById} from '/imports/api/cf/account/utils'
+import {accumulate, extractAssets, findById} from '/imports/api/cf/accounts/utils'
 const HOUR = 1000 * 60 * 60;
 const historyInterval = 24 * HOUR;
 const accountActual = historyInterval / 2;

@@ -1,4 +1,5 @@
 import calculatables from '/imports/api/server/calculatables'
+import {linksOfUpdate, linksWithType} from '/imports/api/currentData/cyberfund-currentdata'
 var tags = { // NB: mongo query: db.CurrentData.distinct("links.tags")
   "0" : "Main",
   "1" : "News",
@@ -69,8 +70,8 @@ calculatables.addCalculatable('nLinksWithType', function(system) {
 
   if (!links || !links.length) return undefined;
   _.each(types, function(type) {
-    ret[type] = CF.CurrentData.linksWithType(links, type).length;
+    ret[type] = linksWithType(links, type).length;
   });
-  ret['_update_'] = CF.CurrentData.linksOfUpdate(links).length;
+  ret['_update_'] = linksOfUpdate(links).length;
   return ret;
 });

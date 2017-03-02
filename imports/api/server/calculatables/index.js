@@ -1,7 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
 
 const calculatables = {
-  ns: "CF.CurrentData.calculatables",
+  ns: "CF_CurrentData_calculatables",
   fields: { "calculatable": 1 },
   fieldsExclude: {'calculatable': 0},
   fieldName: "calculatable",

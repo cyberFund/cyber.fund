@@ -1,7 +1,7 @@
 import {cfIsAccountHidden} from '/imports/api/client/cf/account'
 import cfCDs from '/imports/api/currentData/selectors'
 import {portfolioTableData, userProfileData} from '/imports/api/client/utils/portfolio'
-import {extractAssets, findById, findByRefId} from '/imports/api/cf/account/utils'
+import {extractAssets, findById, findByRefId} from '/imports/api/cf/accounts/utils'
 
 import {currentUid} from '/imports/api/cf/profile'
 

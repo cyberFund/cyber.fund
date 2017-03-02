@@ -1,4 +1,4 @@
-import {findById} from '/imports/api/cf/account/utils'
+import {findById} from '/imports/api/cf/accounts/utils'
 var cfUserAssets = {};
 
 /**

@@ -1,7 +1,7 @@
 import {normalizeOptionsPerUser} from '/imports/api/utils'
 import {CurrentData, FastData, Metrics, Extras, Acounts, AcountsHistory, MarketData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
-import {findByRefId} from '/imports/api/cf/account/utils'
+import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 
 /**

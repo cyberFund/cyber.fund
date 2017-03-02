@@ -11,12 +11,12 @@ Template["trackingWidget"].onCreated(function () {
     var selector = {"flags.rating_do_not_display": {$ne: true}};
     if (_.keys(_session.get("coinSorter")).length )
       selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
-    var handle = CF.SubsMan.subscribe("currentDataRP", {
+    instance.subscribe("currentDataRP", {
       /*limit: 150,//Session.get('ratingPageLimit'),
       sort: _session.get('coinSorter'),*/
       selector: selector
     });
-    instance.ready.set(instance.ready.get() || handle.ready());
+    instance.ready.set(instance.ready.get() || instance.subscriptionsRady());
   });
 
 });

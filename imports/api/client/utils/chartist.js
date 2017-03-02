@@ -1,4 +1,4 @@
-
+import cfMarketData from '/imports/api/client/cf/marketData'
 
 var cfChartist = {
   labelOffset: {
@@ -113,16 +113,16 @@ _.extend(cfChartist, {
         cap: {
           usd: {
             labelOffset: cfChartist.labelOffset,
-            tooltipFnc: CF.MarketData.tooltipFncS
+            tooltipFnc: cfMarketData.tooltipFncS
           },
           btc: {
             labelOffset: cfChartist.labelOffset,
-            tooltipFnc: CF.MarketData.tooltipFncB
+            tooltipFnc: cfMarketData.tooltipFncB
           }
         },
         trade: {
           labelOffset: cfChartist.labelOffset,
-          tooltipFnc: CF.MarketData.tooltipFncT
+          tooltipFnc: cfMarketData.tooltipFncT
         }
       },
       ctAxisTitle: {

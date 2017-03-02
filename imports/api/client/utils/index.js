@@ -20,5 +20,4 @@ module.exports = {
   cfCurrentAsset: cfCurrentAsset,
   cfCurrentAddress: cfCurrentAddress,
   cfCurrentId: cfCurrentId,
-  subsManager: "CF.SubsMan"
 }

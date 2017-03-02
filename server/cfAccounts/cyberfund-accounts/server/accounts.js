@@ -1,4 +1,4 @@
-import {accountNameIsValid, findById} from '/imports/api/cf/account/utils'
+import {accountNameIsValid, findById} from '/imports/api/cf/accounts/utils'
 
 Meteor.methods({
   cfAssetsAddAccount: function(obj) {
