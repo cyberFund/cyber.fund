@@ -1,9 +1,12 @@
-import {CurrentData, Extras, Acounts} from '/imports/api/collections'
+import {CurrentData, Extras} from '/imports/api/collections'
+import Acounts from '/imports/api/collections/Acounts'
 function _cap() {
   return Extras.findOne({
     _id: "total_cap"
   });
 }
+
+function _accounts(){return Acounts.find({refId: Meteor.userId()}).fetch()}
 
 Template["main"].helpers({
   cap: function(){ return _cap();},
@@ -30,7 +33,8 @@ Template["main"].helpers({
   sumBtc: function(){
     var ret = 0;
     if (!Meteor.userId()) return ret;
-    Acounts.find({refId: Meteor.userId()}).fetch().forEach(function (acc){
+    let accounts = _accounts();
+    accounts.forEach(function (acc){
       ret += acc.vBtc || 0;
     });
     return ret;

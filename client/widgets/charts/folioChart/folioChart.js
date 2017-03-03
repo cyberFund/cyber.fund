@@ -1,7 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import uaGraph from '/imports/api/cf/userAssets/graph'
-import {getPrice} from '/imports/api/currentData/cyberfund-currentdata'
+import {getPrice} from '/imports/api/currentData'
 jqHide = function(jQ) {
   if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
     jQ.addClass("hidden");

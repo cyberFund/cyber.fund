@@ -75,6 +75,8 @@
       {{> cgLinkToSystemCardCrowdsale this }}
     {{/each}}
 </template>
+
+
 <template name="main">
     <style>
       @media only screen and (max-width: 600px) {
@@ -134,7 +136,7 @@
             <h5>My Portfolio</h5>
             <br />
             {{#if currentUser}}
-              <h4><a href="/profile">~{{readableN2 sumBtc}} bitcoins</a></h4>
+              <h4><a href="/profile">~{{readableN2 sumBtc }} bitcoins</a></h4>
             {{else}}
               <h4><a href="/welcome" style="text-decoration: none"> 0 bitcoins </a></h4>
               <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/welcome"><p>Join Us</p></a>

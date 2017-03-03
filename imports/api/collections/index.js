@@ -1,16 +1,18 @@
+import { Meteor } from 'meteor/meteor'
+
 var CurrentData = new Meteor.Collection("CurrentData", {
   transform: function(doc){
     return doc;
   }
 });
-
 var FastData = new Meteor.Collection("fast_market_data");
-var Feeds = require("/imports/api/vwap/collections").feeds;
-var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
-var Metrics = require('./Metrics')
+//var Feeds = require("/imports/api/vwap/collections").feeds;
+//var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
+var Metrics = new Meteor.Collection('Metrics')
 var Extras = new Meteor.Collection("extras");
 var MarketData = new Meteor.Collection("MarketData");
 var AcountsHistory = new Meteor.Collection("accountsHistory")
+
 if (Meteor.isServer) {
   AcountsHistory._ensureIndex({
     timestamp: -1
@@ -36,7 +38,6 @@ AcountsHistory.allow({
     return false;
   }
 });
-import {Acounts} from './Acounts'
 
 
 
@@ -44,8 +45,8 @@ import {Acounts} from './Acounts'
 module.exports = {
   CurrentData: CurrentData,
   FastData: FastData,
-  Feeds: Feeds,
-  FeedsVwap: FeedsVwap,
+  //Feeds: Feeds,
+  //FeedsVwap: FeedsVwap,
   Metrics: Metrics,
   Extras: Extras,
   AcountsHistory: AcountsHistory,

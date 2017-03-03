@@ -1,4 +1,5 @@
-import {normalizeOptionsPerUser} from '/imports/api/utils'
+import {normalizeOptionsPerUser} from '/imports/api/utils/index'
+import {Meteor} from 'meteor/meteor'
 module.exports = {
   username: function() {
     var user = Meteor.user();
@@ -20,7 +21,7 @@ module.exports = {
       }
     });
   },
-  findOneByUsername: function findOneByUsername(username) {
+  findByUsername: function findByUsername(username) {
     return Meteor.users.findOne({
       "username": username
     });

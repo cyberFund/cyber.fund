@@ -1,6 +1,7 @@
-import {AccountsHistory, Acounts} from '/imports/api/collections'
+import {AccountsHistory} from '/imports/api/collections'
+import Acounts from '/imports/api/collections/Acounts'
 import {_k} from '/imports/api/utils'
-import {getPricesById} from '/imports/api/currentData/cyberfund-currentdata'
+import {getPricesById} from '/imports/api/currentData'
 var cfAccountsUtils = {}
 
 //import {findById, extractAssets} from '/imports/api/cf/accounts/utils'

@@ -1,4 +1,4 @@
-import {findByUsername} from '/imports/api/utils'
+import {findByUsername} from '/imports/api/utils/user'
 var cfProfile = {}
 
 cfProfile.currentUsername = function(){

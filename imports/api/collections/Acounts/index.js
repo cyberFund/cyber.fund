@@ -1,5 +1,13 @@
-import {Mongo} from 'meteor/mongo'
-var Acounts = new Mongo.Collection("accounts", {
+// mutates asset
+import {getPricesById} from '/imports/api/currentData'
+function setValues(asset, assetId) {
+  var prices = getPricesById(assetId) || {};
+
+  asset.vUsd = (prices.usd || 0) * (asset.quantity || 0);
+  asset.vBtc = (prices.btc || 0) * (asset.quantity || 0);
+}
+
+var Acounts = new Meteor.Collection("accounts", {
 
   transform: function(doc) {
     if (doc.addresses) {
@@ -31,25 +39,4 @@ var Acounts = new Mongo.Collection("accounts", {
   }
 
 });
-
-Acounts.allow({
-  insert: function(userId, doc) {
-    return userId && (doc.refId == userId);
-  },
-  update: function(userId, doc, fieldNames, modifier) {
-    if (fieldNames["refId"] || fieldNames["value"] || fieldNames["createdAt"]) return false;
-    if (doc.refId != userId) return false;
-    return true;
-  },
-  remove: function(userId, doc) {
-    return doc.refId == userId;
-  }
-});
-if (Meteor.isServer) {
-  Acounts._ensureIndex({
-    refId: 1
-  })
-}
-module.exports = {
-  Acounts: Acounts,
-}
+module.exports = Acounts

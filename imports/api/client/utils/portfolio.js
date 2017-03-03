@@ -1,7 +1,6 @@
 //////////////////////////// hide domain
 import {cfIsAccountHidden} from '/imports/api/client/cf/account'
-
-import {Acounts} from '/imports/api/collections'
+import Acounts from '/imports/api/collections/Acounts'
 function gimmeData (refId){
   return Acounts.find({refId: refId});
 }

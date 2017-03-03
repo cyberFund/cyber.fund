@@ -1,4 +1,4 @@
-import {Acounts} from '/imports/api/collections'
+import Acounts from '/imports/api/collections/Acounts'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 

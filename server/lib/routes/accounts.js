@@ -1,6 +1,7 @@
 // todo: dispose of
 
-import {CurrentData, Acounts} from '/imports/api/collections'
+import {CurrentData} from '/imports/api/collections'
+import Acounts from '/imports/api/collections/Acounts'
 import {findOneByUsername} from '/imports/api/utils/user'
 import url from 'url'
 var debug = false;

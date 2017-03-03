@@ -1,3 +1,4 @@
+import Acounts from '/imports/api/collections/Acounts'
 Template.navbar.onCreated(function(){
   this.subscribe("usersCount");
   this.subscribe("coinsCount");
