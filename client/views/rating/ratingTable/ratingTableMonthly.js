@@ -43,7 +43,7 @@ Template["ratingTableMonthly"].onCreated(function() {
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
-    instance.ready.set(instance.ready.get() || instance.SubscriptionsReady());
+    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
   });
 });
 

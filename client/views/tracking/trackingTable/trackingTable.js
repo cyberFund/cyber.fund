@@ -16,7 +16,7 @@ Template["trackingWidget"].onCreated(function () {
       sort: _session.get('coinSorter'),*/
       selector: selector
     });
-    instance.ready.set(instance.ready.get() || instance.subscriptionsRady());
+    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
   });
 
 });
