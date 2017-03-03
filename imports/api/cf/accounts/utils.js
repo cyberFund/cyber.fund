@@ -2,7 +2,7 @@ import {AccountsHistory} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {_k} from '/imports/api/utils'
 import {getPricesById} from '/imports/api/currentData'
-import {quantumCheck} from '/imports/api/cf/accounts/accounts'
+import {quantumCheck} from '/imports/api/cf/accounts/quantumCheck'
 
 var cfAccountsUtils = {}
 
