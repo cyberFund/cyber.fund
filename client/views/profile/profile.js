@@ -1,6 +1,6 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
-import {findOneByUsername} from '/imports/api/utils/user'
+import {findByUsername} from '/imports/api/utils/user'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {currentUid, currentUsername} from '/imports/api/cf/profile'
 import uaGraph from '/imports/api/cf/userAssets/graph'
@@ -25,7 +25,7 @@ Template['profile'].onCreated(function() {
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
-    var user = findOneByUsername(username)
+    var user = findByUsername(username)
     var name = user && user.profile && user.profile.name || username;
     document.title = name + ' - ' + 'cyber•Fund';
   });
@@ -36,7 +36,7 @@ Template['profile'].onRendered(function(){
 })
 
 var _user = function(){
-  return findOneByUsername(FlowRouter.getParam('username'));
+  return findByUsername(FlowRouter.getParam('username'));
 }
 
 Template['profile'].helpers({

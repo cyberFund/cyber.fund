@@ -2,7 +2,7 @@
 
 import {CurrentData} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
-import {findOneByUsername} from '/imports/api/utils/user'
+import {findByUsername} from '/imports/api/utils/user'
 import url from 'url'
 var debug = false;
 
@@ -103,7 +103,7 @@ var getAccountById = function(_id, options) {
 // 2
 var getAccountIdsByUsername = function(username, options) {
     //only allow publics until auth/security for apis are not established.
-    var user = findOneByUsername(username);
+    var user = findByUsername(username);
     if (!user) return [];
 
     return Acounts.find({
@@ -118,7 +118,7 @@ var getAccountIdsByUsername = function(username, options) {
 
 var getAccountsByUsername = function(username, options) {
     //only allow publics until auth/security for apis are not established.
-    var user = findOneByUsername(username);
+    var user = findByUsername(username);
     if (!user) return [];
 
     return Acounts.find({

@@ -1,4 +1,4 @@
-import {idByUsername} from '/imports/api/utils/user'
+import {findByUsername, idByUsername} from '/imports/api/utils/user'
 module.exports = {
   _k: function _k(array) {
     return array.join('.');
@@ -11,7 +11,7 @@ module.exports = {
     }
 
     if (options.username)
-      options.userId = idByUsername(options.username)
+      options.userId = findByUsername(options.username) ? findByUsername(options.username)._id : options.username
     if (!options.userId) {
       if (options.uid) {
         console.log("subscriptions:normalizeOptionsPerUser - .uid was passed, please pass .userId instead");

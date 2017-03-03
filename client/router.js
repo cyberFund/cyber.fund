@@ -139,7 +139,7 @@ FlowRouter.route("/@:username", {
 
     function setTitle(context, redirect) {
       var username = context.params.username;
-      var user = userUtils.findOneByUsername(username);
+      var user = userUtils.findByUsername(username);
       var name = user && user.profile && user.profile.name || username;
       document.title = name + " at " + "cyber•Fund";
     },
