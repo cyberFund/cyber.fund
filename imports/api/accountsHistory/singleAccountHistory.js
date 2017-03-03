@@ -1,9 +1,9 @@
 import {AcountsHistory} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
-import {_updateBalanceAccount} from '/imports/api/cf/accounts/utils'
+import {updateBalanceAccount} from '/imports/api/utils/accounts'
 if (Meteor.isServer) {
   exports.putPoint = function(accountIn){
-    var accountState = Acounts.findOne({_id: _updateBalanceAccount(accountIn, {private:true}) });
+    var accountState = Acounts.findOne({_id: updateBalanceAccount(accountIn, {private:true}) });
     if (!accountState) return null;
     const accountId = accountState._id;
     delete accountState._id;

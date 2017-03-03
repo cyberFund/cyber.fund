@@ -1,7 +1,7 @@
 import {CurrentData, Extras} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {findByRefId, accountNameIsValid} from '/imports/api/cf/accounts/utils'
-import {addressExists} from '/imports/api/client/utils/accounts'
+import {addressExists} from '/imports/api/utils/accounts'
 
 function accountsExist(){
   var userId = Meteor.userId();

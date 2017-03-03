@@ -1,7 +1,7 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {CurrentData} from '/imports/api/collections'
-import {username} from '/imports/api/utils/user'
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
+import {username} from '/imports/api/utils/user'
 import {currentUsername} from '/imports/api/cf/profile'
 
 var isOwnAssets = function(){

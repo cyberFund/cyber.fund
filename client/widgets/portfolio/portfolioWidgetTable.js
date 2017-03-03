@@ -4,6 +4,7 @@ import {portfolioTableData, userProfileData} from '/imports/api/client/utils/por
 import {_session} from '/imports/api/client/utils/base'
 import {getSystemsFromAccountsObject, getQuantitiesFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 import {getPricesByDoc, getPrice} from '/imports/api/currentData'
+import {isOwnAssets} from '/imports/api/client/utils/profile'
 
 var tableData = portfolioTableData;
 
@@ -23,7 +24,7 @@ Template["portfolioWidgetTable"].helpers({
     //Template.instance().data && Template.instance().data.accountsData;
     var systems = getSystemsFromAccountsObject(accounts);
 
-    if (Blaze._globalHelpers.isOwnAssets()) {
+    if (isOwnAssets()) {
       var user = Meteor.user();
       var stars = user.profile.starredSystems;
       if (stars && stars.length) {

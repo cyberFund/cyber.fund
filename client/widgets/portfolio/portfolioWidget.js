@@ -5,6 +5,7 @@
  */
 
 import {findByRefId} from '/imports/api/cf/accounts/utils'
+import {isOwnAssets} from '/imports/api/client/utils/profile'
 import {currentUid} from '/imports/api/cf/profile'
 
 Template['portfolioWidget'].helpers({
@@ -18,7 +19,5 @@ Template['portfolioWidget'].helpers({
         return !(findByRefId(user._id).count())
     } else return false
   },
-  isOwnAssets: function(){
-    return currentUid() == Meteor.userId();
-  }
+  isOwnAssets: isOwnAssets
 })

@@ -2,6 +2,8 @@ import {AccountsHistory} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {_k} from '/imports/api/utils'
 import {getPricesById} from '/imports/api/currentData'
+import {quantumCheck} from '/imports/api/cf/accounts/accounts'
+
 var cfAccountsUtils = {}
 
 //import {findById, extractAssets} from '/imports/api/cf/accounts/utils'
@@ -31,62 +33,6 @@ cfAccountsUtils.findByRefId = function(userId, options) {
   return Acounts.find(selector);
 };
 
-// is version of _updateBalanceAddress, aims to operate at account level (less writes to db)
-cfAccountsUtils._updateBalanceAccount = function(accountIn, options) {
-
-  var modify = {
-    $set: {},
-    $unset: {}
-  };
-  var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
-
-  if (!account || !account.addresses) {
-  //  print("no account or addresses on it", account, true);
-  }
-
-  if (!options.private) {
-    var lastUpdate = account.updatedAt;
-    if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
-      return account._id;
-    }
-  }
-  _.each(account.addresses, function(addressObj, address) {
-    var balances = cfClientAccountUtils.quantumCheck(address);
-    var key = _k(["addresses", address, "assets"]);
-
-    // if balance checker is ok
-    if (balances[0] !== "error") {
-      _.each(addressObj.assets, function(asset, assetKey) {
-        if (asset.update === "auto") {
-          modify.$unset[_k([key, assetKey])] = true;
-        }
-      });
-      _.each(balances, function(balance) {
-        if (!balance.asset) return;
-
-        var k = _k([key, balance.asset]);
-        modify.$set[k] = {
-          update: "auto",
-          quantity: balance.quantity
-        };
-        delete modify.$unset[k];
-        modify.$set[_k(["addresses", address, "updatedAt"])] = new Date();
-      });
-    }
-  });
-
-
-  if (_.isEmpty(modify.$unset)) delete(modify.$unset);
-  if (_.isEmpty(modify.$set)) delete(modify.$set);
-
-  if (!_.isEmpty(modify)) {
-    modify.$set[_k(["updatedAt"])] = new Date();
-    Acounts.update({
-      _id: account._id
-    }, modify);
-  }
-  return account._id;
-};
 
 cfAccountsUtils.findById = function(_id, options) {
   if (!_id) return {};

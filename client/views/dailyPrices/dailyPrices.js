@@ -1,6 +1,7 @@
 import dailyPrices from '/imports/api/vetalPrices/collection'
 Template.dailyPrices.onCreated(function() {
-  this.subscribe("dailyPrices");
+  var instance = this;
+  instance.subscribe("dailyPrices");
 });
 
 Template.dailyPrices.helpers({

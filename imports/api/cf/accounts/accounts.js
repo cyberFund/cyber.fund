@@ -1,6 +1,8 @@
 import Acounts from '/imports/api/collections/Acounts'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
-import {findByRefId} from '/imports/api/cf/accounts/utils'
+import {findByRefId} from '/imports/api/utils/accounts'
+import {updateBalances} from '/imports/api/utils/accounts'
+import {updateBalanceAccount} from '/imports/api/cf/accounts/utils'
 
 Meteor.methods({
   importAccounts: function(sel) {
@@ -23,7 +25,7 @@ Meteor.methods({
   },
 
   // autoupdate balances for user
-  cfAssetsUpdateBalances: function(options) {
+  cfAssetsUpdateBalances: function(options) { //TODO: BUILD CORRECT!
     options = normalizeOptionsPerUser(options);
 
     // print("cfAssetsUpdateBalances was called with options", options, true);
@@ -33,10 +35,7 @@ Meteor.methods({
       error: "neither userId nor accountKey passed"
     };
       //this.unblock(); //? not sure this is what needed
-    Meteor.defer(function() {
-      return cfClientAccountUtils._updateBalances(options);
-    });
-    return true;
+    return updateBalances(options);
   },
   checkBalance: function(address) {
     return cfClientAccountUtils.quantumCheck(address.toString());
@@ -64,7 +63,7 @@ Meteor.methods({
     };
 
     Acounts.update(sel, modify);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
+    updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   },
@@ -78,7 +77,7 @@ Meteor.methods({
     };
     unset.$unset[key] = true;
     Acounts.update(sel, unset);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
+    updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   },
@@ -94,14 +93,14 @@ Meteor.methods({
     var key = _k(["addresses", address, "assets", asset]);
     modify.$unset[key] = true;
     Acounts.update(sel, modify);
-    cfClientAccountUtils._updateBalanceAccount(Acounts.findOne(sel), {
+    updateBalanceAccount(Acounts.findOne(sel), {
       private: true
     });
   }
 });
 
 module.exports = {
-  quantumCheck: function quantumCheck(address) {
+  quantumCheck: function (address) {
     function transform(data) {
       _.each(data, function(asset) {
         if (typeof asset.quantity == "string")

@@ -1,9 +1,10 @@
 import Acounts from '/imports/api/collections/Acounts'
 Template.navbar.onCreated(function(){
-  this.subscribe("usersCount");
-  this.subscribe("coinsCount");
-  this.subscribe("allSystems");
-  this.subscribe("ownAssets");
+  var instance = this;
+  instance.subscribe("usersCount");
+  instance.subscribe("coinsCount");
+  instance.subscribe("allSystems");
+  instance.subscribe("ownAssets");
 })
 
 Template['navbar'].rendered = function () {

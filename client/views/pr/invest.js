@@ -19,7 +19,8 @@ Meteor.startup(function() {
 });
 
 Template['invest'].onCreated(function() {
-  this.subscribe('investData');
+  var instance = this;
+  instance.subscribe('investData');
 });
 
 Template['invest'].rendered = function() {

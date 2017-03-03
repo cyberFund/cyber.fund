@@ -1,4 +1,3 @@
-import {normalizeOptionsPerUser} from '/imports/api/utils/index'
 import {Meteor} from 'meteor/meteor'
 
 var exp = {
@@ -6,10 +5,6 @@ var exp = {
     var user = Meteor.user();
     if (!user) return '';
     return (user.username) || '';
-  },
-  isSelf: function(options) {
-    options = normalizeOptionsPerUser(options);
-    return options.userId == this.userId;
   },
   linkToOwnProfile:  function() {
     var username = this.username();

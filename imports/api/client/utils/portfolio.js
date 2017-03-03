@@ -4,7 +4,8 @@ import Acounts from '/imports/api/collections/Acounts'
 function gimmeData (refId){
   return Acounts.find({refId: refId});
 }
-import {normalizeOptionsPerUser} from '/imports/api/utils'
+
+import {normalizeOptionsPerUser} from '/imports/api/utils/index'
 function getUserId() {
   var username = FlowRouter.getParam("username");
   var user = normalizeOptionsPerUser({username:username});

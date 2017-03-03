@@ -1,16 +1,34 @@
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
 import {findByRefId, findById, accountNameIsValid, privateToString} from '/imports/api/cf/accounts/utils'
-import {addressExists} from '/imports/api/client/utils/accounts'
+import {addressExists} from '/imports/api/utils/accounts'
 import {currentUid} from '/imports/api/cf/profile'
 import {getAccountPrivacyType, getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
+import {username} from '/imports/api/utils/user'
+import {currentUsername} from '/imports/api/cf/profile'
+
+var isOwnAssets = function(){
+  return currentUsername() == username();
+}
+
+Template["assetsManager"].onCreated(function() {
+  var instance = this;
+
+  Tracker.autorun(function() {
+    var user = Meteor.user();
+    if (user && (user.username == FlowRouter.getParam("username"))) {
+      var accounts = findByRefId(Meteor.userId());
+      systems = getSystemsFromAccountsObject(accounts);
+      Meteor.subscribe("assetsSystems", systems);
+    }
+  });
+});
+
 Template["assetsManager"].onRendered (function() {
   this.$renameAccountInput = this.$("#rename-account-in");
   this.$renameAccountErrorLabel = this.$("#account-rename-exists");
   this.$addAssetInput = this.$("#add-address-input");
   this.$addAssetErrorLabel = this.$("#add-address-error");
 });
-
-var isOwnAssets = Blaze._globalHelpers.isOwnAssets;
 
 Template["assetsManager"].helpers({
   assetsOwnerId: function() {
@@ -62,19 +80,6 @@ Template["assetsManager"].helpers({
     if (!account) return "";
     return privateToString(!account.isPrivate);
   }
-});
-
-Template["assetsManager"].onCreated(function() {
-  var instance = this;
-
-  Tracker.autorun(function() {
-    var user = Meteor.user();
-    if (user && (user.username == FlowRouter.getParam("username"))) {
-      var accounts = findByRefId(Meteor.userId());
-      systems = getSystemsFromAccountsObject(accounts);
-      Meteor.subscribe("assetsSystems", systems);
-    }
-  });
 });
 
 Template["assetsManager"].events({
