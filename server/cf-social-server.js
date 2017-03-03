@@ -1,4 +1,5 @@
 import {normalizeOptionsPerUser} from '/imports/api/utils'
+import { Meteor } from 'meteor/meteor'
 Meteor.methods({
   followUser: function(targetId, options){
     options = options || {};

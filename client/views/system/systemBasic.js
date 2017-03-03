@@ -4,6 +4,7 @@ import {CurrentData} from '/imports/api/collections'
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
 }
+import {linksWithTag} from '/imports/api/currentData'
 
 function curData() {
   return CurrentData.findOne({
@@ -18,7 +19,7 @@ Template["systemBasic"].onCreated(function() {
     instance.subscribe("systemData", {
       name: systemName()
     });
-    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
+    instance.ready.set(/*instance.ready.get() ||*/ instance.subscriptionsReady());
     instance.subscribe("dependentCoins", systemName());
 
     var data = curData();
@@ -51,6 +52,7 @@ Template["systemBasic"].onRendered(function() {
 
 
 Template["systemBasic"].helpers({
+  linksWithTag: linksWithTag,
   getMarketsBy: function(_id){
     if (_id == 'SteemPower') return 'Steem'
     return _id

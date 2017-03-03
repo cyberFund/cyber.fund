@@ -1,9 +1,10 @@
 import {findByUsername, idByUsername} from '/imports/api/utils/user'
-module.exports = {
+
+var exp = {
   _k: function _k(array) {
     return array.join('.');
   },
-  normalizeOptionsPerUser: function normalizeOptionsPerUser(options) {
+  normalizeOptionsPerUser: function (options) {
     options = options || {}
     if (typeof options == 'string') //suppose it s username
       options = {
@@ -60,3 +61,5 @@ module.exports = {
     return result;
   }
 }
+
+module.exports = exp;

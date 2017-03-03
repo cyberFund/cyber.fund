@@ -38,7 +38,7 @@ Template['testMarkets'].helpers({
 
     let ret = feedsCurrent.find(selector, {
       sort: {"volume.btc": -1},
-      limit: Template.instance().showAll.get() ? 1000 : ROWS_SHORT
+      limit: ROWS_SHORT
     })
     return ret;
   },

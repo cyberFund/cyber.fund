@@ -1,3 +1,4 @@
+import {MarketData, FastData} from '/imports/api/collections'
 var day = 1000 * 60 * 60 * 24;
 Meteor.methods({
   fetchMarketData1: function(systemId){

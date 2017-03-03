@@ -17,22 +17,14 @@
     vertical-align: middle;
     min-height: 60px;
     max-height: 100px;
-    /*padding: 10px 0;
-    margin: 2px 0;*/
 }
 .cglinkcard-icon {
     height: 40px;
     margin: auto;
     margin-right: 0;
     margin-left: 10px;
-/*    margin-right: -4px;
-    margin-left: 10px;
-
-
-    vertical-align: middle */
 }
 .cglinkcard-text {
     vertical-align: middle;
     margin: auto 1em;
-    /*margin-left: -10px;*/
 }

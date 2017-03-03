@@ -1,6 +1,17 @@
 import {CurrentData} from '/imports/api/collections'
+var r = {}                // helpers related to collection CurrentData
+r.getPricesById = function (docId) {
+  var doc = CurrentData.findOne({
+    _id: docId
+  }, {
+    fields: {
+      "metrics.price": 1
+    }
+  });
+  return r.getPricesByDoc(doc);
+}
 
-var r = {                // helpers related to collection CurrentData
+_.extend (r, {
   selectors: {       // selectors to return elements of CurrentData collection
     system_symbol: function (name, symbol) {   // by system ChG name and token
       return {
@@ -60,30 +71,19 @@ var r = {                // helpers related to collection CurrentData
     return _.filter(links, function (link) {
       return (_.contains (types, link.type) && link.rss )
     })
-  }
-};
-
-r.getPricesByDoc = function getPricesByDoc(doc) {
-  var ret = doc && doc.metrics && doc.metrics.price && doc.metrics.price;
-  if (ret && ret.eth && !ret.btc){
-    var priceEth = r.getPricesById('Ethereum');
-    if (priceEth) {
-      ret.btc = ret.eth * priceEth.btc || 0;
-      ret.usd = ret.eth * priceEth.usd || 0;
+  },
+  getPricesByDoc: function getPricesByDoc(doc) {
+    var ret = doc && doc.metrics && doc.metrics.price && doc.metrics.price;
+    if (ret && ret.eth && !ret.btc){
+      var priceEth = r.getPricesById('Ethereum');
+      if (priceEth) {
+        ret.btc = ret.eth * priceEth.btc || 0;
+        ret.usd = ret.eth * priceEth.usd || 0;
+      }
     }
+    return ret;
   }
-  return ret;
-}
+});
 
-r.getPricesById = function getPricesById(docId) {
-  var doc = CurrentData.findOne({
-    _id: docId
-  }, {
-    fields: {
-      "metrics.price": 1
-    }
-  });
-  return r.getPricesByDoc(doc);
-}
 
 module.exports = r
