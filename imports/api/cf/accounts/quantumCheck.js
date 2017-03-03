@@ -1,10 +1,3 @@
-import Acounts from '/imports/api/collections/Acounts'
-import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
-import {findByRefId} from '/imports/api/utils/accounts'
-import {updateBalances} from '/imports/api/utils/accounts'
-import {updateBalanceAccount} from '/imports/api/cf/accounts/utils'
-import {Meteor} from 'meteor/meteor'
-
 var quantumCheck = function (address) {
   function transform(data) {
     _.each(data, function(asset) {
@@ -33,8 +26,4 @@ var quantumCheck = function (address) {
   }
 }
 
-
-
-module.exports = {
-  quantumCheck: quantumCheck
-}
+module.exports = quantumCheck

@@ -1,5 +1,5 @@
 import {Meteor} from 'meteor/meteor'
-import {quantumCheck} from '/imports/api/cf/accounts/quantumCheck'
+import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
 import {findByUsername} from '/imports/api/utils/user'
 import {updateBalances} from '/imports/api/utils/accounts'
 function normalizeOptionsPerUser(options) {

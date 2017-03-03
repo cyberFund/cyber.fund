@@ -1,7 +1,7 @@
 import Acounts from '/imports/api/collections/Acounts'
 import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
-import {quantumCheck} from '/imports/api/cf/accounts/quantumCheck'
+import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
 var exp = {}
 
 exp.addressExists = function (address, refId) {
@@ -114,7 +114,7 @@ exp.updateBalanceAccount = function(accountIn, options) {
   var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
 
   if (!account || !account.addresses) {
-  //  print("no account or addresses on it", account, true);
+    return
   }
 
   if (!options.private) {
