@@ -42,7 +42,6 @@ var grab = {
 };
 
 Template["quickchart"].onCreated(function(){
-  console.log(this)
   this._ready = new ReactiveVar();
 });
 
@@ -187,6 +186,7 @@ Template["quickchart"].onCreated(function() {
 })
 
 Template["quickchart"].onRendered(function() {
+  let instance = this;
   instance.autorun(function(c) {
     if (!instance.subscriptionsReady()) return
     if (instance._system != Template.currentData().system) {

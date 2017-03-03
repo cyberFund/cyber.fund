@@ -78,7 +78,7 @@ FlowRouter.route("/tracking", {
   name: "Tracking",
   triggersEnter: [
     function initPageLimit(context, redirect) {
-      Session.set("ratingPageLimit", cfRatinglimit1);
+      Session.set("ratingPageLimit", cfRating.limit1);
     }
   ],
   triggersExit: [

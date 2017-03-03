@@ -118,7 +118,7 @@ Template["ratingTable"].helpers({
 
 Template["ratingTable"].events({
   "click .show-more": function(e, t) {
-    var step = cfRatingstep;
+    var step = cfRating.step;
     var limit = Session.get("ratingPageLimit");
     limit += step;
     analytics.track("Viewed Crap", {
