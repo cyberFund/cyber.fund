@@ -3,7 +3,6 @@ import feeds from '/imports/api/server/feeds'
   feeds.fetch()
 })*/
 
-console.log(feeds)
 SyncedCron.add({
   name: "xchange feed",
   schedule: function(parser) {

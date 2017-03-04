@@ -37,8 +37,6 @@ Template["tooltipContainer"].helpers({
   getData: function() {
     var ret = _.clone(this.data);
     _.extend(ret, {_period: this._period}); //dirty.
-    console.log(ret);
-    console.log(this);
     return ret;
   }
 });

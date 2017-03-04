@@ -77,7 +77,6 @@ Template["displayAccount"].events({
   "click .submit-remove-address": function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", cfCurrentId.get(),
     cfCurrentAddress.get(), function (err, ret) {
-      console.log(err, ret)
       if (!err) {
         cfCurrentAddress.set(null);
         t.$("#modal-delete-address").closeModal();
@@ -99,8 +98,6 @@ Template["displayAccount"].events({
     $("button[type=submit]", "#delete-address-form").focus();
   },
   "click .req-add-asset-to-address": function(e, t){
-    console.log('req-add-asset-to-address')
-    console.log($("#modal-add-asset").openModal)
     cfCurrentAsset.set(null);
     $("#modal-add-asset").openModal();
   },

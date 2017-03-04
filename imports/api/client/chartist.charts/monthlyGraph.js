@@ -1,12 +1,11 @@
 import cfChartist from '/imports/api/client/utils/chartist'
 import {monetaryFormatter} from '/imports/api/client/utils/base'
-Template['monthlyGraph'].rendered = function () {
+Template['monthlyGraph'].onRendered( function () {
   var ticks = [];
   var self = this;
   Tracker.autorun(function (comp) {
     if (!self.data || !self.data.dailyData) return;
     //comp.stop();
-    console.log(self.data);
     var current = moment.utc();
     for (var i = 30; i > 0; i--) {
       var iterate = moment.utc().subtract(i, "days");
@@ -100,7 +99,7 @@ Template['monthlyGraph'].rendered = function () {
       ]
     });
   });
-};
+});
 
 Template['monthlyGraph'].helpers({
   'foo': function () {

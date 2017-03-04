@@ -7,7 +7,6 @@ import {username} from '/imports/api/utils/user'
 import {currentUsername} from '/imports/api/cf/profile'
 import {Meteor} from 'meteor/meteor'
 var isOwnAssets = function(){
-  console.log(currentUsername() == username())
   return currentUsername() == username();
 }
 function privateToString(private){ return private ? 'private': 'public'};
@@ -283,13 +282,10 @@ Template["assetsManager"].events({
     }
   },
   "submit #edit-asset-form": function(e, t) {
-    console.log(1)
     if (!isOwnAssets()) return false;
-    console.log(2)
     var $form = $(e.currentTarget);
     var $target = $form.find("#asset-quantity-edit");
     var key = cfCurrentAsset.get();
-    console.log(key)
     if (key) {
       key = key._id;
     }

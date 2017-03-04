@@ -422,15 +422,12 @@ _.extend(cfEs, {
     xchangeVwapBySystem: { //only for tests here..
       clientAllowed: true,
       getQueryObj: function(params) { //not "latest" anymore
-        console.log(params)
-        console.log(1111)
         params = params || {}
         if (!params.from || !params.to) {
           params.from = "now-10m";
           params.to = "now";
         }
         if (!params.system) {
-          console.log(222)
           throw {error: "no system passed"};
         }
 

@@ -93,10 +93,9 @@ Template['addAccount'].events({
     t.uiAddressExists(t.$address.val());
   },
   'submit #add-account-form': function (e, t) {
-    console.log('here')
+    consolelog('here')
     var isNew = t.$newAccountCheckbox.is(':checked');
     var address = t.$address.val().trim();
-    console.log(isNew, address)
     if (!address) {
       Materialize.toast("please enter address", 4000);
       return false;
@@ -123,20 +122,17 @@ Template['addAccount'].events({
         accountName: name,
         address: address
       });
-      console.log('before call')
       Meteor.call("cfAssetsAddAccount", {
         isPublic: isPublic,
         name: name,
         address: address
       }, function(err, ret){
-        console.log(err, ret)
         t.$address.val("");
         $("#modal-add-account").closeModal();
         t.$(e.currentTarget).removeClass('submitted');
       });
       return false;
     } else { // add to existing account
-      console.log('in existing account add address')
       var accountId = t.$selectAccount.val().trim();
       if (!accountId) {
         Materialize.toast("Please select account to add to", 4000);
@@ -148,9 +144,7 @@ Template['addAccount'].events({
         accountName: name,
         address: address
       });
-      console.log('before call cfAssetsAddAddress')
       Meteor.call("cfAssetsAddAddress", accountId, address, function (err, ret) {
-        console.log(err, ret)
         t.$("#modal-add-account").closeModal();
         t.$newAccountName.val("");
         t.$address.val("");

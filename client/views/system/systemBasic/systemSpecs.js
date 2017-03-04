@@ -4,7 +4,7 @@ Template["systemSpecsFirstPrice"].helpers({
 
 Template["systemSpecsCrowdsalesTable"].helpers({
 
-  formatDate: function (str){ console.log(typeof str, 417);
+  formatDate: function (str){ 
     return new Date(str).toISOString().split( 'T' );
   }
 })

@@ -46,7 +46,6 @@ Meteor.methods({
         _id: 1
       }
     }).forEach(function(user) {
-      console.log(user._id);
       importFromUser(user._id);
     });
   },
