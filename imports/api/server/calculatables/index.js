@@ -1,5 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
-
+import calcs from './calcs'
 const calculatables = {
   ns: "CF_CurrentData_calculatables",
   fields: { "calculatable": 1 },
@@ -70,7 +70,7 @@ const calculatables = {
   lib: require('./calcs'),
   helpers: require('./helpers'),
   params: require('./params'),
-  calcs: {}
+  calcs: calcs
 }
 
 module.exports = calculatables;

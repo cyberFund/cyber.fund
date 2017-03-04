@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 segmentIoPublicKey = function() {
   try {
     return Meteor.settings.public.analyticsSettings["Segment.io"].apiKey;

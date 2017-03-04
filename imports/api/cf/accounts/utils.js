@@ -1,9 +1,9 @@
 import {AccountsHistory} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
-import {_k} from '/imports/api/utils'
+
 import {getPricesById} from '/imports/api/currentData'
 import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
-
+import {Meteor} from 'meteor/meteor'
 var cfAccountsUtils = {}
 
 //import {findById, extractAssets} from '/imports/api/cf/accounts/utils'
@@ -45,7 +45,7 @@ cfAccountsUtils.findById = function(_id, options) {
   return Acounts.findOne(selector);
 };
 
-var checkAllowed = function(accountKey, userId) { // TODO move to collection rules
+cfAccountsUtils.checkAllowed = function(accountKey, userId) { // TODO move to collection rules
   if (!userId) return false;
   var account = Acounts.findOne({
     _id: accountKey,

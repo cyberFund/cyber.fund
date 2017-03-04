@@ -1,3 +1,6 @@
+import _ from 'lodash'
+import { HTTP } from 'meteor/http'
+
 var quantumCheck = function (address) {
   function transform(data) {
     _.each(data, function(asset) {

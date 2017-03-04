@@ -4,6 +4,7 @@ import {findByUsername} from '/imports/api/utils/user'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {currentUid, currentUsername} from '/imports/api/cf/profile'
 import uaGraph from '/imports/api/cf/userAssets/graph'
+import {Meteor} from 'meteor/meteor'
 
 Template['profile'].onCreated(function() {
   var instance = this;

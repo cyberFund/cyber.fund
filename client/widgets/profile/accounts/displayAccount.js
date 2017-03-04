@@ -3,6 +3,7 @@ import {CurrentData} from '/imports/api/collections'
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
 import {username} from '/imports/api/utils/user'
 import {currentUsername} from '/imports/api/cf/profile'
+import {Meteor} from 'meteor/meteor'
 
 var isOwnAssets = function(){
   return currentUsername() == username();
@@ -76,6 +77,7 @@ Template["displayAccount"].events({
   "click .submit-remove-address": function (e, t) {
     Meteor.call("cfAssetsRemoveAddress", cfCurrentId.get(),
     cfCurrentAddress.get(), function (err, ret) {
+      console.log(err, ret)
       if (!err) {
         cfCurrentAddress.set(null);
         t.$("#modal-delete-address").closeModal();
@@ -97,6 +99,8 @@ Template["displayAccount"].events({
     $("button[type=submit]", "#delete-address-form").focus();
   },
   "click .req-add-asset-to-address": function(e, t){
+    console.log('req-add-asset-to-address')
+    console.log($("#modal-add-asset").openModal)
     cfCurrentAsset.set(null);
     $("#modal-add-asset").openModal();
   },

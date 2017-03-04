@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 var helpers = {
   userFollowedByCount: function (user) {
     return user && user.profile && user.profile.followedBy &&
@@ -56,5 +57,5 @@ Template.funds.helpers({
       sort: {publicFunds: -1}
     });
   },
-  
+
 });

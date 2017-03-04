@@ -1,5 +1,9 @@
+import {Meteor} from 'meteor/meteor'
+function _toSpaces(str) {
+  return !!str ? str.replace(/_/g, " ") : "";
+}
 function systemName() {
-  return Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'));
+  return _toSpaces(FlowRouter.getParam('name_'));
 }
 /*
 Template['peekPrices'].onCreated(function(){

@@ -1,6 +1,10 @@
 import cfCDs from '/imports/api/currentData/selectors'
 import {deltaPercents} from '/imports/api/client/utils/base'
 import {CurrentData} from '/imports/api/collections'
+import {Meteor} from 'meteor/meteor'
+function _toSpaces(str) {
+  return !!str ? str.replace(/_/g, " ") : "";
+}
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
 }

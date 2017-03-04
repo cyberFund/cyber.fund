@@ -1,4 +1,5 @@
-cfFetching = {};
+import { HTTP } from 'meteor/http'
+var cfFetching = {};
 
 
 cfFetching.get = function (url, options, callback) {
@@ -25,3 +26,5 @@ cfFetching.get = function (url, options, callback) {
     }
   });
 };
+
+module.exports = cfFetching

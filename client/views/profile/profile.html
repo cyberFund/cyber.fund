@@ -20,8 +20,11 @@
             </div>
         </div>
 
-        {{#if isOwnAssets}}
+        {{#if isOwnProfile}}
+            {{log 'meow'}}
             {{> addAccount}}
+        {{else}}
+            {{log 'bow'}}
         {{/if}}
       </div>
       <div itemscope itemtype="http://schema.org/Person" class="col l3 s12 m12" style="float: left">

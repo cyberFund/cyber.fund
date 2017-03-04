@@ -1,7 +1,7 @@
 import {findByUsername, idByUsername} from '/imports/api/utils/user'
 
 var exp = {
-  _k: function _k(array) {
+  _k: function (array) {
     return array.join('.');
   },
   normalizeOptionsPerUser: function (options) {

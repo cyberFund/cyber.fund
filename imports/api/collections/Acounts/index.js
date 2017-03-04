@@ -1,4 +1,5 @@
 // mutates asset
+import {Meteor} from 'meteor/meteor'
 import {getPricesById} from '/imports/api/currentData'
 function setValues(asset, assetId) {
   var prices = getPricesById(assetId) || {};

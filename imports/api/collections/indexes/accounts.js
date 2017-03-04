@@ -1,5 +1,5 @@
 import Acounts from '/imports/api/collections/Acounts'
-
+import {Meteor} from 'meteor/meteor'
 
 Acounts.allow({
   insert: function(userId, doc) {

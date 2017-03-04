@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 var keenflag = new ReactiveVar();
 
 Meteor.startup(function() {

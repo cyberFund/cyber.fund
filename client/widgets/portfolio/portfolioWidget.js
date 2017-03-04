@@ -7,6 +7,7 @@
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {isOwnAssets} from '/imports/api/client/utils/profile'
 import {currentUid} from '/imports/api/cf/profile'
+import {Meteor} from 'meteor/meteor'
 
 Template['portfolioWidget'].helpers({
   showAccountsAdvertise: function() {

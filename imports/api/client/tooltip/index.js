@@ -1,4 +1,5 @@
-tooltip = {}
+import {Meteor} from 'meteor/meteor'
+var tooltip = {}
 
 tooltip.fire = function (action) {
   action();

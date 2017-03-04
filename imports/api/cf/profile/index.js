@@ -1,4 +1,5 @@
 import {findByUsername} from '/imports/api/utils/user'
+import {Meteor} from 'meteor/meteor'
 var cfProfile = {}
 
 cfProfile.currentUsername = function(){

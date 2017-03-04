@@ -1,3 +1,4 @@
+import { Session } from 'meteor/session'
 var SessionVariable = function(key) {
   if (!key) throw ("no key provided for SessionVariable constructor");
   var me = this;

@@ -1,7 +1,12 @@
+# todo get rid coffeescript
+# import {Meteor} from 'meteor/meteor'
 _chartdata = (systemId) ->
   if !systemId
     return null
   MarketData.find { systemId: systemId }, sort: timestamp: -1
+
+ _toSpaces = (str) ->
+  if not not str then return str.replace(/_/g, " ") else return ""
 
 day = 1000 * 60 * 60 * 24
 

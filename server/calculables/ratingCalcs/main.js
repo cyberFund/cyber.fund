@@ -1,9 +1,10 @@
 import {helpers, params, calcs} from '/imports/api/server/calculatables'
 import calculatables from '/imports/api/server/calculatables'
-
+//const calcs = calculatables.calcs
+console.log(calculatables)
 calculatables.addCalculatable('RATING', function(system) {
-  var state = helpers._getState(system);
-  var type = helpers._getType(system);
+  var state = helpers.getState(system);
+  var type = helpers.getType(system);
 
   var keys = ['CS', 'LV', 'WL', 'BR', 'AM', 'GR']
 

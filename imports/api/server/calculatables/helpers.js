@@ -38,7 +38,7 @@ var helpers = {
     });
     return ret;
   },
-  _getState: function(system) {
+  getState: function(system) {
     states = ["Pre-Public", "Private", "Project", "Public", "Running"];
     var state, states;
     state = system.descriptions && system.descriptions.state;
@@ -47,7 +47,7 @@ var helpers = {
     }
     return state;
   },
-  _getType: function(system) {
+  getType: function(system) {
     var types;
     // todo: throw if type not in types?
     types = ["cryptocurrentcy", "cryptoasset", "cryptoservice", "cryptoproject", "fiat"];

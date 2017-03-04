@@ -1,5 +1,6 @@
 import esLib from 'elasticsearch'
 import {extractFromPromise} from '/imports/api/server/utils'
+import {Meteor} from 'meteor/meteor'
 const LAST = "price"
 var cfEs = {}
 

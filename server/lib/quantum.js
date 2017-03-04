@@ -1,7 +1,12 @@
 import {Meteor} from 'meteor/meteor'
 import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
 import {findByUsername} from '/imports/api/utils/user'
-import {updateBalances} from '/imports/api/utils/accounts'
+import {updateBalances, importFromUser} from '/imports/api/utils/accounts'
+import {checkAllowed} from '/imports/api/cf/accounts/utils'
+import Acounts from '/imports/api/collections/Acounts'
+import {updateBalanceAccount} from '/imports/api/utils/accounts'
+import {_k} from '/imports/api/utils'
+
 function normalizeOptionsPerUser(options) {
   options = options || {}
   if (typeof options == 'string') //suppose it s username
@@ -26,6 +31,8 @@ function normalizeOptionsPerUser(options) {
 
 Meteor.methods({
   importAccounts: function(sel) {
+      if (Meteor.isSimulation) return;
+      console.log("in importAccounts")
     var user = Meteor.user();
     if (!user) return;
     if (!user.hasSuperPowers) sel = {
@@ -40,12 +47,13 @@ Meteor.methods({
       }
     }).forEach(function(user) {
       console.log(user._id);
-      cfClientAccountUtils._importFromUser(user._id);
+      importFromUser(user._id);
     });
   },
 
   // autoupdate balances for user
   cfAssetsUpdateBalances: function(options) { //TODO: BUILD CORRECT!
+
     if (Meteor.isSimulation) return;
     options = normalizeOptionsPerUser(options);
 console.log("in cf update balances")
@@ -58,11 +66,17 @@ console.log("in cf update balances")
       //this.unblock(); //? not sure this is what needed
     return updateBalances(options);
   },
+
   checkBalance: function(address) {
+      if (Meteor.isSimulation) return;
+console.log("in checkBalance")
     return quantumCheck(address.toString());
   },
+
   // manual set
   cfAssetsAddAsset: function(accountKey, address, asset, q) {
+      if (Meteor.isSimulation) return;
+      console.log("in cfAssetsAddAsset")
     if (typeof q == "string") try {
       q = parseFloat(q);
     } catch (e) {
@@ -86,9 +100,12 @@ console.log("in cf update balances")
     Acounts.update(sel, modify);
     updateBalanceAccount(Acounts.findOne(sel), {
       private: true
-    });
+    })
   },
+
+
   cfAssetsRemoveAddress: function(accountKey, asset) {
+      if (Meteor.isSimulation) return;
     if (!checkAllowed(accountKey, this.userId)) return;
     if (!asset) return;
     var sel = { _id: accountKey };
@@ -104,6 +121,7 @@ console.log("in cf update balances")
   },
 
   cfAssetsDeleteAsset: function(accountKey, address, asset) {
+      if (Meteor.isSimulation) return;
     if (!checkAllowed(accountKey, this.userId)) return;
     var sel = {
       _id: accountKey

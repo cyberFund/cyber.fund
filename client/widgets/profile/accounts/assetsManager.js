@@ -1,15 +1,16 @@
 import {cfCurrentAsset, cfCurrentAddress, cfCurrentId} from '/imports/api/client/utils'
-import {findByRefId, findById, accountNameIsValid, privateToString} from '/imports/api/cf/accounts/utils'
+import {findByRefId, findById, accountNameIsValid} from '/imports/api/cf/accounts/utils'
 import {addressExists} from '/imports/api/utils/accounts'
 import {currentUid} from '/imports/api/cf/profile'
 import {getAccountPrivacyType, getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 import {username} from '/imports/api/utils/user'
 import {currentUsername} from '/imports/api/cf/profile'
-
+import {Meteor} from 'meteor/meteor'
 var isOwnAssets = function(){
+  console.log(currentUsername() == username())
   return currentUsername() == username();
 }
-
+function privateToString(private){ return private ? 'private': 'public'};
 Template["assetsManager"].onCreated(function() {
   var instance = this;
 
@@ -31,10 +32,10 @@ Template["assetsManager"].onRendered (function() {
 });
 
 Template["assetsManager"].helpers({
+  isOwnAssets: isOwnAssets,
   assetsOwnerId: function() {
     return currentUid();
   },
-
   _accounts: function() { //todo - pass as parameter.
     return findByRefId(currentUid()).fetch();
   },
@@ -282,10 +283,13 @@ Template["assetsManager"].events({
     }
   },
   "submit #edit-asset-form": function(e, t) {
+    console.log(1)
     if (!isOwnAssets()) return false;
+    console.log(2)
     var $form = $(e.currentTarget);
     var $target = $form.find("#asset-quantity-edit");
     var key = cfCurrentAsset.get();
+    console.log(key)
     if (key) {
       key = key._id;
     }

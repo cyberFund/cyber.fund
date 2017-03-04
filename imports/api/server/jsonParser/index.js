@@ -2,7 +2,7 @@ import crc from '/imports/constants/return_codes'
 import wrappedParse from './json_wrapper'
 import {FastData} from '/imports/api/collections'
 
-module.exports = {
+var exp = {
   parseOrThrow: function(str){
     if (typeof(str) !== 'str') return crc.ERROR
     let ret = wrappedParse(str)
@@ -20,3 +20,4 @@ module.exports = {
     return ret
   }
 }
+module.exports = exp

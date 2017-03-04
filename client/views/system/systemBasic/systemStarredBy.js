@@ -2,13 +2,16 @@ import {CurrentData} from '/imports/api/collections'
 function key(){
   return 'showStarredBy';
 }
+function _toSpaces(str) {
+  return !!str ? str.replace(/_/g, " ") : "";
+}
 
 Template['systemStarredBy'].onCreated(function() {
   var instance = this;
   var flag;
   instance.autorun(function() {
     if (Session.get(key()) || flag) {
-      var data = CurrentData.findOne({_id: Blaze._globalHelpers._toSpaces(FlowRouter.getParam('name_'))})
+      var data = CurrentData.findOne({_id: _toSpaces(FlowRouter.getParam('name_'))})
       if (data && Session.get('showStarredBy')) {
         instance.subscribe('avatars', data._usersStarred);
       }

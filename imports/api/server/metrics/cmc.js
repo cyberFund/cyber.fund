@@ -1,6 +1,7 @@
 import chaingear from '/imports/api/server/chaingear'
-import {CurrentData} from '/imports/api/collections' //todo: decouple
+import {CurrentData} from '/imports/api/collections'
 import winston from 'winston'
+import { HTTP } from 'meteor/http'
 const _source = 'cmc2017'
 const sampleData =require('/imports/sampleData/cmc.json')
 

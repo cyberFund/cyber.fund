@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 var disableButton = function disableButton(t){
   t.$(".query-balance").addClass("disabled");
 }

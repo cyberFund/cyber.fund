@@ -1,7 +1,11 @@
-import {accountNameIsValid, findById} from '/imports/api/cf/accounts/utils'
+import {accountNameIsValid, findById, checkAllowed} from '/imports/api/cf/accounts/utils'
+import {Meteor} from 'meteor/meteor'
 import Acounts from '/imports/api/collections/Acounts'
+import {_k} from '/imports/api/utils'
+
 Meteor.methods({
   cfAssetsAddAccount: function(obj) {
+    console.log(1111)
     if (!this.userId) return {
       err: "no userid"
     };
@@ -84,6 +88,8 @@ Meteor.methods({
   },
 
   cfAssetsAddAddress: function(accountKey, address) {
+    console.log('here..........')
+    console.log(checkAllowed(accountKey, this.userId))
     if (!checkAllowed(accountKey, this.userId)) return;
 
     var key = _k(["addresses", address]);

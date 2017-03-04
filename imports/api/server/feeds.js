@@ -4,6 +4,7 @@ import weightedPriceNative from '/imports/api/vwap/weightedPriceNative'
 import cfEs from '/imports/api/server/cfEs'
 import winston from 'winston'
 const feedUrl = 'http://kong.cyber.fund/xcm'
+import { HTTP } from 'meteor/http'
 
 xchangeCurrent._ensureIndex({
   source: 1, market: 1, base: 1, quote: 1

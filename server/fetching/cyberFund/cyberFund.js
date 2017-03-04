@@ -1,10 +1,11 @@
 import {CurrentData, Extras} from '/imports/api/collections'
 import {flatten} from '/imports/api/utils'
+import { HTTP } from 'meteor/http'
 // this file describes fetching of data from chaingear
 
 var sourceUrl = "https://static.cyber.fund/chaingear/full.json"; //"https://raw.githubusercontent.com/cyberFund/chaingear/gh-pages/chaingear.json";
 var fetchTimeout = 15 * 1000;
-
+var cfFetching = {}
 cfFetching.cyberFund = {};
 
 cfFetching.cyberFund.processData = function(data, callback) {

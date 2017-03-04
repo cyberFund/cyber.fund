@@ -1,6 +1,7 @@
 import winston from 'winston'
 import {parseOrFail} from '../jsonParser'
 import crc from '/imports/constants/return_codes'
+import { HTTP } from 'meteor/http'
 
 var chaingearData = {status: 'noinit'}
 function fetch(callback) {

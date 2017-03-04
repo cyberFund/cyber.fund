@@ -1,8 +1,9 @@
-import {helpers, params} from '../'
-
+import helpers from '../helpers'
+import params from '../params'
+console.log(helpers, params)
 var calcCS = function (system) {
-  var state = helpers._getState(system);
-  var type = helpers._getType(system);
+  var state = helpers.getState(system);
+  var type = helpers.getType(system);
   // convert from links to 1/0
   var withTag = system.calculatable.nLinksWithTag;
   var withType = system.calculatable.nLinksWithType;

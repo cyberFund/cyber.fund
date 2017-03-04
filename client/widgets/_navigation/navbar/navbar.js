@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 import Acounts from '/imports/api/collections/Acounts'
 Template.navbar.onCreated(function(){
   var instance = this;

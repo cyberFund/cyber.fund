@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 //FlowRouter.triggers.enter([cb1, cb2]);
 //FlowRouter.triggers.exit([cb1, cb2]);
 

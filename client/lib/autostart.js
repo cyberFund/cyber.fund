@@ -1,3 +1,4 @@
+import {Meteor} from 'meteor/meteor'
 BlazeLayout.setRoot("body");
 
 Tracker.autorun(function () {
