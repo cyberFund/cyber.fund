@@ -4,8 +4,8 @@ import {_session} from '/imports/api/client/utils/base'
 import {fiats, xchangeMarkets as markets} from '/imports/api/vwap/marketsList'
 import collections from '/imports/api/vwap/collections'
 import selectors from '/imports/api/vwap/selectors'
-const feedsCurrent = collections.feedsCurrent
-const feedsVwapCurrent = collections.feedsVwapCurrent
+const xchangeCurrent = collections.xchangeCurrent
+const xchangeVwapCurrent = collections.xchangeVwapCurrent
 const ROWS_SHORT = 20
 
 import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
@@ -34,9 +34,9 @@ Template['testMarkets'].helpers({
   rows: function(){
     const system = this.system;
     const selector = selectors.pairsById
-    const count = feedsCurrent.find(selector).count();
+    const count = xchangeCurrent.find(selector).count();
 
-    let ret = feedsCurrent.find(selector, {
+    let ret = xchangeCurrent.find(selector, {
       sort: {"volume.btc": -1},
       limit: ROWS_SHORT
     })

@@ -1,8 +1,9 @@
-const feeds = require("/imports/api/vwap/server");
+import feeds from '/imports/api/server/feeds'
 /*Meteor.startup(function(){
   feeds.fetch()
 })*/
 
+console.log(feeds)
 SyncedCron.add({
   name: "xchange feed",
   schedule: function(parser) {

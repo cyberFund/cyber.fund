@@ -6,8 +6,7 @@ var CurrentData = new Meteor.Collection("CurrentData", {
   }
 });
 var FastData = new Meteor.Collection("fast_market_data");
-//var Feeds = require("/imports/api/vwap/collections").feeds;
-//var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
+var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
 var Metrics = new Meteor.Collection('Metrics')
 var Extras = new Meteor.Collection("extras");
 var MarketData = new Meteor.Collection("MarketData");
@@ -45,8 +44,6 @@ AcountsHistory.allow({
 module.exports = {
   CurrentData: CurrentData,
   FastData: FastData,
-  //Feeds: Feeds,
-  //FeedsVwap: FeedsVwap,
   Metrics: Metrics,
   Extras: Extras,
   AcountsHistory: AcountsHistory,

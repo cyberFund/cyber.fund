@@ -1,16 +1,16 @@
 const collections = require("./collections")
 const selectors = require("./selectors")
-const feedsCurrent = collections.feedsCurrent
-const feedsVwapCurrent = collections.feedsVwapCurrent
+const xchangeCurrent = collections.xchangeCurrent
+const xchangeVwapCurrent = collections.xchangeVwapCurrent
 // get weighted native price, given that there can exist both direct and
 // reverted market pairs.
 export default function weightedPriceNative (base, quote){
   if (base === quote) return 1;
   //1. get both direct and revert price
   // note: for non-weighted pairs - there d be find().fetch(), and also weighting/getting reverse price would involve extra mapreduce step
-  const direct = feedsVwapCurrent.findOne(
+  const direct = xchangeVwapCurrent.findOne(
     selectors.pairsByTwoIdsOrdered(base, quote));
-  const reverted = feedsVwapCurrent.findOne(
+  const reverted = xchangeVwapCurrent.findOne(
     selectors.pairsByTwoIdsOrdered(quote, base));
 
   let revertedPrice, revertedVolume;

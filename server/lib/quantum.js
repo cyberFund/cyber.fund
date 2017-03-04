@@ -48,7 +48,7 @@ Meteor.methods({
   cfAssetsUpdateBalances: function(options) { //TODO: BUILD CORRECT!
     if (Meteor.isSimulation) return;
     options = normalizeOptionsPerUser(options);
-
+console.log("in cf update balances")
     // print("cfAssetsUpdateBalances was called with options", options, true);
     options.refId = options.userId || this.userId;
     options.private = options.userId == this.userId;

@@ -1,15 +1,14 @@
-const xchangeCurrent = require("./collections").feedsCurrent;
-const xchangeVwap = require("./collections").feedsVwapCurrent; //TODO: use same names
-const feedUrl = 'http://kong.cyber.fund/xcm'
+import {xchangeVwapCurrent, xchangeCurrent} from '/imports/api/vwap/collections'
 import {extractFromPromise} from '/imports/api/server/utils'
-import {default as weightedPriceNative} from './weightedPriceNative'
+import weightedPriceNative from '/imports/api/vwap/weightedPriceNative'
 import cfEs from '/imports/api/server/cfEs'
+const feedUrl = 'http://kong.cyber.fund/xcm'
 
 xchangeCurrent._ensureIndex({
   source: 1, market: 1, base: 1, quote: 1
 }, {unique: true, dropDups: true});
 
-xchangeVwap._ensureIndex({
+xchangeVwapCurrent._ensureIndex({
   source: 1, base: 1, quote: 1
 }, {unique: true, dropDups: true});
 
@@ -58,8 +57,10 @@ function priceBtc(point){
   return point.last.native / weightedPriceNative(point.base, "Bitcoin")
 }
 
-exports.fetchDirect = fetchDirect
-exports.fetchXchangeData = () => {
+var exp = {}
+
+exp.fetchDirect = fetchDirect
+exp.fetchXchangeData = () => {
   const ret = _fetchXchangeData();
   _.each(ret, function(item) {
     const it = _.omit(item._source, ['price', 'volume']);
@@ -77,7 +78,7 @@ exports.fetchXchangeData = () => {
   });
 }
 
-exports.fetchXchangeVwapData = () => {
+exp.fetchXchangeVwapData = () => {
   const ret = _fetchXchangeVwapData();
   _.each(ret, function(item) {
     const it = _.omit(item._source, ['price', 'volume_daily']);
@@ -88,8 +89,10 @@ exports.fetchXchangeVwapData = () => {
     it.volume.btc = volumeBtc(it)
     it.last.btc = priceBtc(it);
 
-    xchangeVwap.upsert({
+    xchangeVwapCurrent.upsert({
       _id: _id, quote: it.quote, base: it.base
     }, {$set: it})
   });
 }
+
+module.exports = exp

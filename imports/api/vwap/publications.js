@@ -7,34 +7,34 @@
 Meteor.publish("fiatPair", function(fiatName){
   // if "" is passed, return nothing and (on client) use BTC as a base unit
   if (!fiatName) return this.ready();
-  const collection = require("./collections").feedsVwapCurrent
+  const collection = require("./collections").xchangeVwapCurrent
   const selector = require("./selectors").pairsById
   return collection.find(selector(fiatName))
 });
 
 Meteor.publish("systemPairsWeighted", function(systemId){
   if (!systemId) return this.ready();
-  const collection = require("./collections").feedsVwapCurrent;
+  const collection = require("./collections").xchangeVwapCurrent;
   const selector = require("./selectors").pairsById;
   return collection.find(selector(systemId));
 });
 
 Meteor.publish("systemPairs", function(systemId){
   if (!systemId) return this.ready();
-  const collection = require("./collections").feedsCurrent;
+  const collection = require("./collections").xchangeCurrent;
   const selector = require("./selectors").pairsById;
   return collection.find(selector(systemId));
 });
 
 Meteor.publish("systemPairsToBitcoinWeighted", function(systemId){
   if (!systemId) return this.ready();
-  const collection = require("./collections").feedsVwapCurrent;
+  const collection = require("./collections").xchangeVwapCurrent;
   const selector = require("./selectors").pairsByTwoIds;
   return collection.find(selector(systemId));
 });
 
 Meteor.publish("pairsToBitcoinWeighted", function(){
-  const collection = require("./collections").feedsVwapCurrent;
+  const collection = require("./collections").xchangeVwapCurrent;
   const selector = require("./selectors").pairsById;
   return collection.find(selector("Bitcoin"));
 });
@@ -42,7 +42,7 @@ Meteor.publish("pairsToBitcoinWeighted", function(){
 
 Meteor.publish("marketPairs", function(marketUrl){
   if (!marketUrl) return this.ready();
-  const collection = require("./collections").feedsCurrent;
+  const collection = require("./collections").xchangeCurrent;
   const selector = require("./selectors").pairsByMarket;
   return collection.find(selector(marketUrl));
 });
