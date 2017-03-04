@@ -2,6 +2,7 @@ import {xchangeVwapCurrent, xchangeCurrent} from '/imports/api/vwap/collections'
 import {extractFromPromise} from '/imports/api/server/utils'
 import weightedPriceNative from '/imports/api/vwap/weightedPriceNative'
 import cfEs from '/imports/api/server/cfEs'
+import winston from 'winston'
 const feedUrl = 'http://kong.cyber.fund/xcm'
 
 xchangeCurrent._ensureIndex({
@@ -33,7 +34,7 @@ function fetchDirect() {
 
 const flatten = require("/imports/api/elastic/traverseAggregations").flatten
 
-const _fetchXchangeData = () => {
+function _fetchXchangeData() {
   const data = extractFromPromise(cfEs.sendQuery ("xchangeData"));
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'by_market', 'latest']);
@@ -41,8 +42,9 @@ const _fetchXchangeData = () => {
     return []
 }
 
-const _fetchXchangeVwapData = () => {
+function _fetchXchangeVwapData() {
   const data = extractFromPromise(cfEs.sendQuery ("xchangeVwapData"));
+  console.log(data)
   if (data && data.aggregations)
     return flatten(data, ['by_quote', 'by_base', 'latest']);
   else
@@ -80,6 +82,7 @@ exp.fetchXchangeData = () => {
 
 exp.fetchXchangeVwapData = () => {
   const ret = _fetchXchangeVwapData();
+  console.log(`fetchXchangeVwapData. ret.length = ${ret.length}`)
   _.each(ret, function(item) {
     const it = _.omit(item._source, ['price', 'volume_daily']);
     const _id = [it.quote, it.base].join('_')

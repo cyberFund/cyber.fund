@@ -24,3 +24,8 @@ SyncedCron.add({
     feeds.fetchXchangeVwapData();
   }
 })
+
+Meteor.startup(function(){
+  feeds.fetchXchangeVwapData();
+  feeds.fetchXchangeData();
+})

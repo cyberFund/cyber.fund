@@ -1,5 +1,6 @@
 import chaingear from '/imports/api/server/chaingear'
 import {CurrentData} from '/imports/api/collections' //todo: decouple
+import winston from 'winston'
 const _source = 'cmc2017'
 const sampleData =require('/imports/sampleData/cmc.json')
 
@@ -7,7 +8,7 @@ function fetch(callback) {
   HTTP.get('http://api.coinmarketcap.com/v1/ticker', {
     timeout: 10000
   }, function(err, res) {
-    if (err) winston.err(`Coukd not fetch ${'http://api.cyber.fund/cg'}`, err, true)
+    if (err) winston.log(`Coukd not fetch ${'http://api.cyber.fund/cg'}`, err, true)
     else {
       if (res.data) {
         return callback(res.data)
