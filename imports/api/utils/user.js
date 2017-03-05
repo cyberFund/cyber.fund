@@ -10,10 +10,10 @@ var exp = {
     var username = this.username();
     return username ? '/@' + username : '/welcome'
   },
-  listFromIds: function (listFromIds) {
+  listFromIds: function (list) {
     return Meteor.users.find({
       _id: {
-        $in: listFromIds
+        $in: list
       }
     });
   },

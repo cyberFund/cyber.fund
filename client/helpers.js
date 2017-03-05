@@ -1,7 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {deltaPercents, formatters, readableNumbers} from '/imports/api/client/utils/base'
-import {listFromIds} from '/imports/api/utils/user'
 import {Meteor} from 'meteor/meteor'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
@@ -273,8 +272,12 @@ var helpers = {
   dateFormat: function(date, format){
     return moment(date).format(format);
   },
-  usersListFromIds: function(listFromIds) {
-    return listFromIds(listFromIds);
+  usersListFromIds: function(list) {
+    return Meteor.users.find({
+       _id: {
+         $in: list
+       }
+     })
   },
   userHasPublicAccess: function userHasPublicAccess() {
     return true;
