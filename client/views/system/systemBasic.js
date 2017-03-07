@@ -2,13 +2,15 @@ import cfCDs from '/imports/api/currentData/selectors'
 import {deltaPercents} from '/imports/api/client/utils/base'
 import {CurrentData} from '/imports/api/collections'
 import {Meteor} from 'meteor/meteor'
+import {linksWithTag} from '/imports/api/currentData'
+
 function _toSpaces(str) {
   return !!str ? str.replace(/_/g, " ") : "";
 }
 function systemName() {
   return Blaze._globalHelpers._toSpaces(FlowRouter.getParam("name_"));
 }
-import {linksWithTag} from '/imports/api/currentData'
+
 
 function curData() {
   return CurrentData.findOne({
@@ -38,17 +40,14 @@ Template["systemBasic"].onCreated(function() {
   });
 });
 
-Template["systemBasic"].rendered =function() {
-  this.autorun(function(c){
-    if (curData()) $('ul.tabs').tabs();
-  })
-};
-
 Template["systemBasic"].onRendered(function() {
+
   $(".scrollspy").scrollSpy();
 
   var curDataDoc = curData();
-
+  this.autorun(function(c){
+    if (curData()) $('ul.tabs').tabs();
+  })
   /*  if (curDataDoc && !curDataDoc.initializedAverages && curDataDoc._id) {
       Meteor.call("initAverageValues", curDataDoc._id);
     } */

@@ -1,11 +1,11 @@
 <!-- originally created for cyber.fund project-->
 <template name="cgLinkCard">
-    <a href="{{url}}" target="_blank">
-        <div class="card">
+    <a href="{{data.url}}" target="_blank">
+        <div class="card {{card_class}}">
             <div class="cglinkcard">
                 {{> hitryImage img_url=iconUrl class="cglinkcard-icon"}}
                 <div class="enlarge center cglinkcard-text">
-                    {{name}}
+                    {{data.name}}
                 </div>
             </div>
         </div>

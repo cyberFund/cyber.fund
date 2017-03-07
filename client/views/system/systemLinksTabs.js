@@ -1,7 +1,8 @@
-Template['systemLinksTabs'].rendered = function () {
+import {linksWithTag} from '/imports/api/currentData'
+Template['systemLinksTabs'].onRendered (function () {
   var system = FlowRouter.getParam('name_');
   $('ul.tabs').tabs();
-};
+})
 
 Template['systemLinksTabs'].helpers ({
   existLinksWith: function (links, tag) {
@@ -22,5 +23,6 @@ Template['systemLinksTabs'].helpers ({
 
     return ret;
     });
-  }
+  },
+  linksWithTag: linksWithTag
 });

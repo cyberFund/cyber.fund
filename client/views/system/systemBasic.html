@@ -156,7 +156,7 @@
       <h3 class="center">News</h3>
       <div id="news" class="section scrollspy cglinxbox">
         {{#each linksWithTag links "News"}}
-          {{> cgLinkCard this}}
+          {{> cgLinkCard data=this card_class="hover-shadow"}}
         {{/each}}
       </div>
       {{/if}}
@@ -169,7 +169,7 @@
               {{> systemLinksTabs links=this system=../_id}}
           {{else}}
             <div class="cglinxbox">
-              {{#each this}} {{> cgLinkCard this}} {{/each}}
+              {{#each this}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
             </div>
           {{/if}} {{/with}}
       </div>
@@ -180,7 +180,8 @@
       <h3 class="center">Internal Economy</h3>
       <div class="cglinxbox">
         {{#each dependents}}
-          {{> cgLinkToSystemCardSimple}}
+          {{! > cgLinkCard data=this card_class='hover-shadow'}}
+          {{> cgLinkToSystemCard}}
         {{/each}}
       </div>
       </div>

@@ -1,0 +1,26 @@
+<template name="cgLinkToSystemCardExtended">
+  <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+      <div class="card hover-shadow">
+          <div class="cglinkcard">
+              {{> cgSystemLogo system=this class="cglinkcard-icon"}}
+              <div class="enlarge center cglinkcard-text">
+                    {{_id}}
+              </div>
+
+          </div>
+          <div class="card-content lighten-5 black-text">
+              {{#if isEmpty metrics.currently_raised_full}}
+              {{else}}
+              <h6> Currently Raised </h6>
+              {{#each keyValue metrics.currently_raised_full}}
+              <small> {{key}}: {{readableN0 value}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>
+              {{/each}}
+              {{/if}}
+              {{#if crowdsales.end_date}}
+              <h6>Crowdsale ends at: </h6>
+              <small>{{dateFormat crowdsales.end_date "llll"}}</small>
+              {{/if}}
+          </div>
+      </div>
+  </a>
+</template>

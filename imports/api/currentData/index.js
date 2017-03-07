@@ -1,5 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
 var r = {}                // helpers related to collection CurrentData
+import {extend} from 'lodash'
 r.getPricesById = function (docId) {
   var doc = CurrentData.findOne({
     _id: docId
@@ -11,7 +12,7 @@ r.getPricesById = function (docId) {
   return r.getPricesByDoc(doc);
 }
 
-_.extend (r, {
+extend (r, {
   selectors: {       // selectors to return elements of CurrentData collection
     system_symbol: function (name, symbol) {   // by system ChG name and token
       return {
@@ -84,6 +85,5 @@ _.extend (r, {
     return ret;
   }
 });
-
 
 module.exports = r

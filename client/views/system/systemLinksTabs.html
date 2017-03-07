@@ -27,14 +27,14 @@
 
     {{#if existLinksWith this "Wallet"}}
     <div id="tag-wallet" class="cglinxbox">
-        {{#each linksWithTag this "Wallet"}} {{> cgLinkCard this}} {{/each}}
+        {{#each linksWithTag this "Wallet"}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
     </div>
     {{/if}} {{/with}}
 
     {{#if existLinksWith links "Exchange"}}
     <div id="tag-exchange">
       <div  class="cglinxbox">
-          {{#each linksWithTag links "Exchange"}} {{> cgLinkCard this}} {{/each}}
+          {{#each linksWithTag links "Exchange"}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
       </div>
     </div>
 
@@ -43,15 +43,15 @@
     {{#with links}}
     {{#if existLinksWith this "Analytics"}}
     <div id="tag-analytics" class="cglinxbox">
-        {{#each linksWithTag this "Analytics"}} {{> cgLinkCard this}} {{/each}}
+        {{#each linksWithTag this "Analytics"}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
     </div>
     {{/if}} {{#if existLinksWith this "Magic"}}
     <div id="tag-magic" class="cglinxbox">
-        {{#each linksWithTag this "Magic"}} {{> cgLinkCard this}} {{/each}}
+        {{#each linksWithTag this "Magic"}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
     </div>
     {{/if}}
     <div id="tag-other" class="cglinxbox">
-        {{#each linksWithoutTags this mainTags}} {{> cgLinkCard this}} {{/each}}
+        {{#each linksWithoutTags this mainTags}} {{> cgLinkCard data=this card_class="hover-shadow"}} {{/each}}
     </div>
     {{/with}}
 </template>
