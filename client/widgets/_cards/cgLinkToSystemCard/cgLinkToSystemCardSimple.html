@@ -1,0 +1,12 @@
+<template name="cgLinkToSystemCardSimple">
+  <a href="{{pathFor '/system/:name_' name_=(_toUnderscores _id)}}">
+      <div class="card hover-shadow">
+          <div class="cglinkcard">
+              {{> cgSystemLogo system=this class="cglinkcard-icon"}}
+              <div class="enlarge center cglinkcard-text">
+                    {{_id}}
+              </div>
+          </div>
+      </div>
+  </a>
+</template>
