@@ -1,0 +1,12 @@
+<template name="systemBasicBlock">
+  <div class="center valign" style="padding:4px 8px">
+    <div class="{{card_class}}">
+      {{#if largeTitle}}
+      <h3>{{title}}</h3>
+      {{else}}
+      <h5>{{title}}</h5>
+      {{/if}}
+      {{> UI.contentBlock}}
+    </div>
+  </div>
+</template>

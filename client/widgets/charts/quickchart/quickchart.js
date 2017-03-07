@@ -113,8 +113,9 @@ function myGraph(el, system, instance) {
     .attr("class", "price")
     .attr("dominant-baseline", "hanging")
     .attr("text-anchor", "middle")
+    .attr("font-size", "18px")
     .attr("x", 70)
-    .attr("y", "0")
+    .attr("y", 16)
     .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "")
 
   var focus = svg.append("g")
@@ -134,6 +135,7 @@ function myGraph(el, system, instance) {
   focus.append("text")
     .attr("class", "price")
     .attr("dominant-baseline", "hanging")
+    .attr("font-size", "12px")
     .attr("x", 1)
     .attr("y", "2")
 
@@ -141,11 +143,26 @@ function myGraph(el, system, instance) {
     .attr("class", "date")
     .attr("x", 138)
     .attr("dominant-baseline", "hanging")
+    .attr("font-size", "12px")
     .attr("text-anchor", "end")
-    .attr("y", "2")
+    .attr("y", 42)
+
+  /*focus.append("text")
+    .attr("class", "price-reper")
+    .attr("dominant-baseline", "hanging")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "14px")
+    .attr("x", 65)
+    .attr("y", 40)
+    .text(data.length ? formatCurrency(grab.sp( data[data.length-1] )) : "")
+    */
 
   function mousemove() {
+    console.log(d3.mouse(this))
     var x0 = x.invert(d3.mouse(this)[0]);
+    var y0 = d3.mouse(this)[1];
+    var val = (y.invert(y0))
+    console.log(y0)
     var i = bisectDate(data, x0, 1);
 
     var d0 = data[i - 1];
@@ -155,8 +172,8 @@ function myGraph(el, system, instance) {
     var yv = y(grab.sp(d));
     var xv = x(grab.t(d));
     focus.select(".focus-horiz")
-      .attr("y1", yv)
-      .attr("y2", yv);
+      .attr("y1", y0)
+      .attr("y2", y0);
 
     focus.select(".focus-vert")
       .attr("x1", xv)
@@ -167,6 +184,9 @@ function myGraph(el, system, instance) {
 
     focus.select("text.date")
       .text(_timestampino(grab.t(d)))
+
+    /*focus.select("text.price-reper")
+      .text(formatCurrency(val))*/
   }
 
   svg

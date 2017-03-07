@@ -1,8 +1,24 @@
+/* cloned from .cglinkbox */
+.markt-card-row {
+  width: 100%;
+  display: inline-flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .card.markt {
-  height: 14em;
+  height: 13em;
+  display: flex;
+  mix-width: 220px;
+  justify-content: center;
 }
 
 .card.markt h5{
   margin-bottom: 1.2em;
   text-transform: capitalize;
+}
+
+.card.generic {
+  padding: 1.61rem;
 }

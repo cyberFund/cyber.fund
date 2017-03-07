@@ -317,7 +317,7 @@ var helpers = {
     if (Math.abs(volumeDaily / absolute) < 0.001) return needDigit ? 0.2 : "Low";
     if (Math.abs(volumeDaily / absolute) < 0.005) return needDigit ? 0.3 : "Normal";
     if (Math.abs(volumeDaily / absolute) < 0.02) return needDigit ? 0.4 : "High";
-    return needDigit ? 0.5 : "Very High";
+    return needDigit ? 0.5 : "High +";
   },
   greenRedNumber: function (value) {
     return (value < 0) ? "red-text" : "green-text";
@@ -386,6 +386,7 @@ var helpers = {
     return tags.indexOf(tag) > -1;
   },
 
+  // currentData
   cdTurnover: function turnover () {
     var metrics = this.metrics;
       if (metrics.cap && metrics.cap.btc) {

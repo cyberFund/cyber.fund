@@ -5,6 +5,7 @@
     <span class="th-sys">&nbsp;&nbsp;System</span>
   </th>
 
+  <th class="center hide-on-small-and-down">Price</th>
   {{#if eq _period "month"}}
     {{#thSortable class="center hide-on-small-and-down" o=__sorter
     s="metrics.supplyChangePercents.month"}}Token{{/ thSortable}}
@@ -14,8 +15,10 @@
   {{/if}}
 
   {{#thSortable class="center hide-on-small-and-down" o=__sorter
-    s="metrics.turnover"}}Trade{{/ thSortable}}
+    s="metrics.turnover"}}Turnover{{/ thSortable}}
 
+  {{#thSortable class="center hide-on-small-and-down" o=__sorter
+    s="metrics.tradeVolume"}}Trade Volume{{/ thSortable}}
 
   {{# thSortable o=__sorter class="center hide-on-med-and-down sorter"
   s="calculatable.RATING.vector.GR.monthlyGrowthD"}}
@@ -55,7 +58,7 @@
   {{#thSortable class="right-align" o=__sorter
   s="metrics.cap.usd"}}Cap in ${{/ thSortable}}
 
-  <th class="center hide-on-small-and-down">Price</th>
+
   {{#if eq _period "month"}}
     {{#thSortable class="right-align" o=__sorter
     s="metrics.capChangePercents.month.usd"}}1m&nbsp;Change{{/ thSortable}}

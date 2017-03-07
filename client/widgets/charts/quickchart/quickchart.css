@@ -15,13 +15,13 @@
 
 .focus-horiz {
   stroke-width: 0.9;
-  stroke: yellow;
+  stroke: grey;
   fill: none
 }
 
 .focus-vert {
   stroke-width: 0.9;
-  stroke: yellow;
+  stroke: grey;
   fill: none
 }
 

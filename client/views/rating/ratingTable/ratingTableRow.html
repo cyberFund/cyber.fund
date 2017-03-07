@@ -16,6 +16,13 @@
          </span></span>
        </a>
     </td>
+
+    <td class="hide-on-small-and-down" style="width: 140px;">
+      <div>
+        {{> quickchart system=_id}}
+      </div>
+    </td>
+
     <td class="center-align hide-on-small-and-down"> {{! inflation}}
       {{# withTooltip data=this ttName="t001Tooltip" _period=../../_period}}
         <span>
@@ -28,11 +35,23 @@
        {{/withTooltip}}
     </td>
 
-    <td class="center-align hide-on-small-and-down"> {{! trade}}
+    <td class="center-align hide-on-small-and-down"> {{! turnover}}
       {{#if tradeVolumeOk metrics.tradeVolume}} {{#withTooltip ttName="tradeTooltip" data=this  _period=../../_period}}
-      <span>{{dailyTradeVolumeToText metrics.tradeVolume metrics.cap.btc false}}</span>
+        {{readableN2 (cdTurnover)}}%
       {{/withTooltip}} {{else}}
       <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
+      {{/if}}
+    </td>
+
+    <td class="center-align hide-on-small-and-down"> {{! volume}}
+      {{#if tradeVolumeOk metrics.tradeVolume}}
+        {{#withTooltip ttName="tradeTooltip" data=this  _period=../../_period}}
+
+          <div><b>{{readableN2 metrics.tradeVolume}}</b>BTC
+          </div>
+        {{/withTooltip}}
+      {{else}}
+        <span>{{#withTooltip}} Illiquid {{/withTooltip}}</span>
       {{/if}}
     </td>
 
@@ -50,12 +69,6 @@
     <td class="right-align">{{# withTooltip ttName="usdPricePerUnitTooltip" data=this}}
       <span class="enlarge">$&nbsp;{{readableN0 metrics.cap.usd}}</span>
       {{/withTooltip}}
-    </td>
-
-    <td class="hide-on-small-and-down" style="width: 140px;">
-      <div>
-        {{> quickchart system=_id}}
-      </div>
     </td>
 
     <td class="right-align">{{#withTooltip}}
