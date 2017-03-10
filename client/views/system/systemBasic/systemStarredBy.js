@@ -1,7 +1,10 @@
 import {CurrentData} from '/imports/api/collections'
+import {listFromIds} from '/imports/api/utils/user'
+console.log(listFromIds)
 function key(){
   return 'showStarredBy';
 }
+
 function _toSpaces(str) {
   return !!str ? str.replace(/_/g, " ") : "";
 }
@@ -21,5 +24,8 @@ Template['systemStarredBy'].onCreated(function() {
 });
 
 Template['systemStarredBy'].helpers({
-  key: key
+  key: key,
+  usersListFromIds: function(idsList) {
+    return listFromIds(idsList);
+  }
 })

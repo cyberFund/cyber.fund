@@ -2,7 +2,6 @@
 
 // current/last states. taken from es currently
 var xchangeCurrent = new Mongo.Collection("xchangeCurrent");
-
 // volume weighted - current/last states. taken from es currently
 var xchangeVwapCurrent = new Mongo.Collection("xchangeVwapCurrent");
 

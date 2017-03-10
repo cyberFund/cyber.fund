@@ -145,7 +145,7 @@ function myGraph(el, system, instance) {
     .attr("dominant-baseline", "hanging")
     .attr("font-size", "12px")
     .attr("text-anchor", "end")
-    .attr("y", 42)
+    .attr("y", 38)
 
   /*focus.append("text")
     .attr("class", "price-reper")
