@@ -8,9 +8,11 @@ var CurrentData = new Meteor.Collection("CurrentData", {
 var FastData = new Meteor.Collection("fast_market_data");
 var FeedsVwap = require("/imports/api/vwap/collections").feedsVwap;
 var Metrics = new Meteor.Collection('Metrics')
-var Extras = new Meteor.Collection("extras");
-var MarketData = new Meteor.Collection("MarketData");
+var Extras = new Meteor.Collection("extras")
+var MarketData = new Meteor.Collection("MarketData")
 var AcountsHistory = new Meteor.Collection("accountsHistory")
+var AddressesLists = new Meteor.Collection("AdressesLists")
+var Addresses = new Meteor.Collection("Addresses")
 
 if (Meteor.isServer) {
   AcountsHistory._ensureIndex({
@@ -47,5 +49,7 @@ module.exports = {
   Metrics: Metrics,
   Extras: Extras,
   AcountsHistory: AcountsHistory,
-  MarketData: MarketData
+  MarketData: MarketData,
+  AddressesLists: AddressesLists,
+  Addresses: Addresses
 }

@@ -1,7 +1,6 @@
 import {helpers, params, calcs} from '/imports/api/server/calculatables'
 import calculatables from '/imports/api/server/calculatables'
 //const calcs = calculatables.calcs
-console.log(calculatables)
 calculatables.addCalculatable('RATING', function(system) {
   var state = helpers.getState(system);
   var type = helpers.getType(system);

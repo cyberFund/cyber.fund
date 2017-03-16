@@ -80,17 +80,20 @@ var cmc = {
     return ret
   },
   applyMetrics: function(metrics){
+
     let currentData = CurrentData.findOne({_id: metrics.systemId}, {
       fields: {flags: 1, metrics: 1}
     })
+
     let btc = CurrentData.findOne({_id: 'Bitcoin'}, {
       fields: {metrics: 1}
     })
-
+    //  ==
     let $set = {
     }
 
     let supply = currentData.metrics && currentData.metrics.supply;
+	
     if (currentData.flags && currentData.flags.supply_from_here){
       console.log(`system ${metrics.systemId}: flag supply_from_here is set`)
     } else {

@@ -3,7 +3,7 @@ import {extractFromPromise} from '/imports/api/server/utils'
 import weightedPriceNative from '/imports/api/vwap/weightedPriceNative'
 import cfEs from '/imports/api/server/cfEs'
 import winston from 'winston'
-const feedUrl = 'http://kong.cyber.fund/xcm'
+const feedUrl = 'http://api.cyber.fund/xcm'
 import { HTTP } from 'meteor/http'
 
 xchangeCurrent._ensureIndex({
