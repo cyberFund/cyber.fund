@@ -49,6 +49,7 @@ var cmc = {
         store[data.id] = match.system
       }
     })
+	store['melon'] = 'Melonport'
     this.data.cmcids = store;
   },
   systemIdFromCmcId: function(cmcid){
@@ -93,7 +94,7 @@ var cmc = {
     }
 
     let supply = currentData.metrics && currentData.metrics.supply;
-	
+
     if (currentData.flags && currentData.flags.supply_from_here){
       console.log(`system ${metrics.systemId}: flag supply_from_here is set`)
     } else {

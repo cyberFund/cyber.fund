@@ -1,6 +1,5 @@
 private/
 node_modules/
-imports/sampleData/
 dist
 .eslintrc.js
 .tmp
