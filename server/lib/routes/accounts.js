@@ -235,23 +235,24 @@ Picker.route('/api03', function(params, req, res, next) {
 import fs from 'fs';
 import path from 'path';
 import {exec} from 'child_process';
+import {Extras} from '/imports/api/collections'
 console.log('scriptspath', process.env.CF_SCRIPTS_PATH);
 
 Picker.route('/webhooks/github/01', function(params, req, res, next) {
     if (req.method == 'POST') {
         console.log("new push to chaingear repo detected. ");
         var scriptToRun = path.join(process.env.CF_SCRIPTS_PATH, 'chg-update.sh');
-        fs.exists(scriptToRun, function(exists) {
+        fs.exists(scriptToRun, Meteor.bindEnvironment(function(exists) {
             if (exists) {
                 exec(scriptToRun, function(error, stdout, stderr) {
                     console.log(stdout, stderr, error)
                 });
-                Extras.remove({ _id: 'chaingearEtag'});
+                //Extras.remove({ _id: 'chaingearEtag'});
             }
             else {
                 console.error("NO SCRIPT TO HANDLE CHAINGEAR PUSH EXISTS");
             }
-        });
+        }));
     }
     res.end("ok")
 });
