@@ -48,7 +48,6 @@ function cmcCallback5mHistory(data, cb) {
     let system = cmc.matchItemToCG(item);
     let systemId = system && system._id;
     if (systemId) {
-			console.log(1)
       let metrics = cmc.extractMetrics(item, systemId)
       let md = cmc.getMarketDataInserter(metrics, system)
       if (md)try {MarketData.insert(md)} catch(e){
@@ -60,7 +59,7 @@ function cmcCallback5mHistory(data, cb) {
   if (cb) cb()
 }
 
-const datapath = '/Users/angelo/data/cmc'
+const datapath = '/home/meteor/dump/cmc/cmc'
 
 import dir from 'node-dir'
 // read dir, use node-dir module
