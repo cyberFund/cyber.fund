@@ -48,15 +48,19 @@ function cmcCallback5mHistory(data, cb) {
     let system = cmc.matchItemToCG(item);
     let systemId = system && system._id;
     if (systemId) {
+			console.log(1)
       let metrics = cmc.extractMetrics(item, systemId)
       let md = cmc.getMarketDataInserter(metrics, system)
+      if (md)try {MarketData.insert(md)} catch(e){
 
-      if (md) MarketData.insert(md)
+			}
     }
   })
-  cb()
+	console.log(new Date()); console.log('..')
+  if (cb) cb()
 }
 
+const datapath = '/Users/angelo/data/cmc'
 
 import dir from 'node-dir'
 // read dir, use node-dir module
@@ -70,33 +74,64 @@ const PARSED = 'parsed'
 const PROCESSING = 'processing'
 const DONE = 'done'
 import fs from 'fs'
-/*
+
 dir.files(datapath, Meteor.bindEnvironment(function (err, files) {
   if (err) return
   // take files per one.
-  handleArrayWithInterval(files, 500, function (filename, cbFunc) {
+	var flag = false
+	var index = 0
+	var len = files.length
+
+	function handleSingleFile (filename) {
     let ts32 = filename.split('/')
       .pop()
       .split('.')[0]
 
     let extraDoc = Extras.findOne({_id: extraIdFromTs32(ts32)})
 		if (extraDoc) {
-			if (extraDoc.status == FAILED || extraDoc.status = DONE) return;
+			if (extraDoc.status == FAILED || extraDoc.status == DONE) {
+				console.log('file ' + filename + ' already handled, status is ' + extraDoc.status)
+				flag = false
+				return;
+			}
 		}
+		console.log(new Date())
+		let data
 		extraDoc = {_id: extraIdFromTs32(ts32)}
 		try {
-			data = require(filepath)
+			let contents = fs.readFileSync(filename, 'utf8');
+			data = JSON.parse(contents)
 		} catch(e) {
 			extraDoc.status = FAILED
-			//Extras.insert
-			cbFunc()
+			Extras.insert(extraDoc)
+			console.log('failed parsing file ' + filename)
+			flag = false
 			return
 		}
+		cmcCallback5mHistory(data, function(){
+			extraDoc.status = DONE
+			Extras.insert(extraDoc)
+			flag = false
+		})
+  }
 
-  })
+	var interval = Meteor.setInterval (function(){
+		if (!flag) {
+			if (index>=len-1) {
+				Meteor.clearInterval(interval)
+				return;
+			}
+			flag = true;
+			filename = files[index];
+			handleSingleFile(filename)
+			if (index<files.length-1) index++
+		} else {
+			return
+		}
+	}, 300)
 }))
 
-*/
+
 
 // check if record exists. if exists - check status is 'saved' or 'failed'
 // if none -

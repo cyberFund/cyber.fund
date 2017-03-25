@@ -35,11 +35,25 @@ function getLastBtcPrice(){
 	return btc.metrics.price.usd
 }
 
+var cmcids = {
+
+}
+var flag = false
+function init(){
+	CurrentData.find().fetch().forEach(function(item){
+		if (item.aliases && item.aliases.coinmarketcap) cmcids[item.aliases.coinmarketcap] = item._id;
+	})
+	cmcids['Bytecoin'] = 'Bytecoin'
+	flag = true;
+}
+
 var cmc = {
   matchItemToCG: function(item){
+		if (!flag) init()
+		id = cmcids[item.name]
+		if (!id) return null
 		let fields = {_id:1, metrics: 1, flags: 1, aliases: 1}
-		if (item.name=="Bytecoin") return CurrentData.findOne({_id: item.name}, {fields: fields})
-		return CurrentData.findOne({"aliases.coinmarketcap": item.name}, {fields: fields})
+		return CurrentData.findOne({"_id": id}, {fields: fields})
 	},
   extractMetrics: function (item, systemId) { // item as in /api.cmc.com/v1/ticker
     let ret = {
