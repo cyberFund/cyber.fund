@@ -39,14 +39,13 @@ exp.updateBalanceAddress = function(accountIn, address) {
     $unset: {}
   };
 
-  if (!account || !addressObj) {
-  //  print("no account or address object; account", account, true);
-  //  print("address", address);
-    return;
-  }
+  if (!account || !addressObj) return;
 
   var balances = quantumCheck(address);
-  if (balances[0] == "error") return;
+  if (balances[0] == "error") {
+		console.log("in updateBalanceAddress, got error  ")
+		return;
+	}
 
   var key = _k(["addresses", address, "assets"]);
 
@@ -116,22 +115,23 @@ exp.updateBalanceAccount = function(accountIn, options) {
   };
   var account = typeof accountIn === "string" ? Acounts.findOne({_id: accountIn}) : accountIn;
 
-  if (!account || !account.addresses) {
-    return
-  }
+  if (!account || !account.addresses) return
 
   if (!options.private) {
     var lastUpdate = account.updatedAt;
-    if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
-      return account._id;
-    }
+    //if (lastUpdate && (new Date().valueOf() - lastUpdate.valueOf()) < 300000) { //5 minutes
+    //  return account._id;
+    //}
   }
+
   _.each(account.addresses, function(addressObj, address) {
     var balances = quantumCheck(address);
     var key = _k(["addresses", address, "assets"]);
 
     // if balance checker is ok
-    if (balances[0] !== "error") {
+    if (balances[0] == "error") {
+			console.log("in updateBalanceAccount, got error balance on " + address )
+		} else {
       _.each(addressObj.assets, function(asset, assetKey) {
         if (asset.update === "auto") {
           modify.$unset[_k([key, assetKey])] = true;

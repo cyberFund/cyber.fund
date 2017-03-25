@@ -8,7 +8,7 @@ function fetch(callback) {
   HTTP.get('http://api.cyber.fund/cg', {
     timeout: 10000
   }, function(err, res) {
-    if (err) winston.log(`Coukd not fetch ${'http://api.cyber.fund/cg'}`, err, true)
+    if (err) winston.log(`Could not fetch ${'http://api.cyber.fund/cg'}`, err, true)
     else {
       if (res.data) {
         return callback(res.data)
@@ -41,6 +41,6 @@ module.exports = {
     }
   },
   data: function(){
-    return chaingearData.data
+    return chaingearData.status=='fetched'? chaingearData.data: null
   }
 }

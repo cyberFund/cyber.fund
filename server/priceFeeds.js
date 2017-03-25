@@ -1,8 +1,8 @@
-import feeds from '/imports/api/server/feeds'
+//import feeds from '/imports/api/server/feeds'
 /*Meteor.startup(function(){
   feeds.fetch()
 })*/
-
+/*
 SyncedCron.add({
   name: "xchange feed",
   schedule: function(parser) {
@@ -23,8 +23,9 @@ SyncedCron.add({
     feeds.fetchXchangeVwapData();
   }
 })
-
+*//*
 Meteor.startup(function(){
   feeds.fetchXchangeVwapData();
   feeds.fetchXchangeData();
 })
+*/

@@ -1,6 +1,5 @@
 import helpers from '../helpers'
 import params from '../params'
-console.log(helpers, params)
 var calcCS = function (system) {
   var state = helpers.getState(system);
   var type = helpers.getType(system);

@@ -37,16 +37,12 @@ function updateCrowdsales() {
             _.each(addr, function(address) {
               if (!address) return;
               var balances = quantumCheck(address);
-              console.log(`---`)
-              console.log(`${balances}`)
-              console.log(`${address}`)
-              console.log(`...`)
                //TODO: use imports here.
               if (!balances || balances[0] == 'error') {
                 console.log(`error`)
                 console.log(`address + quantumCheck(${address})`)
                 console.log("results in ")
-                console.log(`${balances}`)
+                console.log(balances)
                 return;
               }
               _.each(balances, function(b) {
@@ -57,7 +53,6 @@ function updateCrowdsales() {
                 }
               })
             });
-            console.log('---', raised, '...');
             var sum = 0;
             var date = new Date();
             _.each(raised, function(v, k) {
@@ -89,7 +84,7 @@ function updateCrowdsales() {
     } else {
       Meteor.clearInterval(interval);
     }
-  }, 20 * 1000); // 120 seconds per query
+  }, 120 * 1000); // 120 seconds per query
 }
 
 Meteor.startup(function() {

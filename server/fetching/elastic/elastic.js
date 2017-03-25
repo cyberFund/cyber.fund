@@ -632,7 +632,7 @@ Meteor.methods({
     }
   }
 });
-
+/* removed due to elasticsearch fail.
 SyncedCron.add({
   name: "fetch latest elasticsearch data",
   schedule: function(parser) {
@@ -669,7 +669,7 @@ SyncedCron.add({
     }
   }
 });
-
+*/
 
 var saveTotalCap = function() {
   var btcMetrics = CurrentData.findOne({

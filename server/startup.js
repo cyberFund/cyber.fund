@@ -1,5 +1,6 @@
 import startupDailies from '/imports/api/vetalPrices/syncedCronJob'
-import startupMetrics from   '/imports/api/server/startup/metrics'
+
+import startupMetrics2 from '/imports/api/server/metrics/price_cmc'
 import chaingear from '/imports/api/server/chaingear'
 import cmc from '/imports/api/server/metrics/cmc'
 import crc from '/imports/constants/return_codes'
@@ -12,21 +13,39 @@ SyncedCron.add({
     return parser.cron("1/5 * * * *", false);
   },
   job: function () {
-    cmc.fetch(function(data){
-      if (!data) return
-      data.forEach(function(data){
-        let systemId = cmc.systemIdFromCmcId(data.id);
-        if ( systemId ) {
-          //console.log(`systemId: ${cmc.systemIdFromCmcId(data.id)}; cmcId: ${data.id}`)
-          let metrics = cmc.applyMetrics(cmc.extractMetrics(data))
-          CurrentData.update({_id: systemId}, {$set: metrics})
-        }
-      })
-    })
+		cmc.fetch(cmcCallback5m)
   }
 })
+
+function cmcCallback5m(data){
+	if (!data) return
+	data.forEach(function(item){
+		let system = cmc.matchItemToCG(item);
+		let systemId = system && system._id;
+		console.log(systemId)
+		if ( systemId ) {
+			if (item.name != systemId) {
+				console.log(item.name + " name")
+				console.log(systemId + " systemId")
+			} else {
+				console.log (systemId + " system Name")
+			}
+			let metrics = cmc.extractMetrics(item, systemId)
+			console.log(metrics)
+			console.log("<--")
+			let cd_metrics = cmc.getCurrentDataUpdater(metrics, system)
+			if (cd_metrics)
+			CurrentData.update({_id: systemId}, {$set: cd_metrics})
+			let md = cmc.getMarketDataInserter(metrics, system)
+			if (md) MarketData.insert(md)
+			console.log("-->")
+		}
+	})
+}
+
 Meteor.startup(() => {
   chaingear.reinit()
   startupDailies()
-  startupMetrics()
+
+	cmc.fetch(cmcCallback5m)
 })
