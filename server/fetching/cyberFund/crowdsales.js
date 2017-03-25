@@ -88,7 +88,7 @@ function updateCrowdsales() {
 }
 
 Meteor.startup(function() {
-  updateCrowdsales()
+  // updateCrowdsales()
 })
 
 if (Meteor.settings.qcCrowdsales) SyncedCron.add({
