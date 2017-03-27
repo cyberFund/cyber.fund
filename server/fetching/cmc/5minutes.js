@@ -22,7 +22,7 @@ function cmcCallback5m(data) {
       }, {
         $set: cd_metrics
       })
-      if (md) MarketData.insert(md)
+      if (md) try {MarketData.insert(md)} catch(e) {}
     }
   })
 }
@@ -75,7 +75,7 @@ const DONE = 'done'
 import fs from 'fs'
 
 dir.files(datapath, Meteor.bindEnvironment(function (err, files) {
-	return; 
+	return;
   if (err) return
   // take files per one.
 	var flag = false
