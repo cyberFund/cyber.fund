@@ -28,7 +28,7 @@ exports.handleArrayWithInterval = function handleArrayWithInterval(array, delay,
       } else {
         Meteor.clearInterval(interval);
         if (handlerAfter) handlerAfter(array, function(){
-          //print("done pushing items to handler, handled items", current)
+          
         });
       }
     }, delay);

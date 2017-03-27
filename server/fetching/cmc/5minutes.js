@@ -75,6 +75,7 @@ const DONE = 'done'
 import fs from 'fs'
 
 dir.files(datapath, Meteor.bindEnvironment(function (err, files) {
+	return; 
   if (err) return
   // take files per one.
 	var flag = false

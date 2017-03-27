@@ -121,23 +121,23 @@ var cmc = {
 		let btcPriceUsd
 
 		if (metrics.price && metrics.price.usd && metrics.price.btc) {
-			btcPriceUsd = metrics.price.usd / metrics.price.btc
+			btcPriceUsd = +metrics.price.usd / metrics.price.btc
 		} else {
 			btcPriceUsd = getLastBtcPrice()
 		}
 
     if (metrics.price && metrics.price.usd) {
-      $set["metrics.price.usd"] = metrics.price.usd
+      $set["metrics.price.usd"] = +metrics.price.usd
       $set["metrics.tradeVolume"] = (metrics.trade_volume.volume24_usd || 0) / btcPriceUsd
-      $set['metrics.cap.usd'] = metrics.price.usd * supply
+      $set['metrics.cap.usd'] = +metrics.price.usd * supply
     }
 
     if (metrics.price && metrics.price.btc) {
-      $set["metrics.price.btc"] = metrics.price.btc
+      $set["metrics.price.btc"] = +metrics.price.btc
       $set['metrics.cap.btc'] = metrics.price.btc * supply
     }
     try {
-      let ts = parseInt(metrics.last_updated) * 1000
+      let ts = +metrics.last_updated * 1000
       $set['metrics.updatedAt'] = new Date(ts)
     } catch (e) {
 
