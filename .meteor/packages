@@ -5,18 +5,17 @@
 # but you can also edit it by hand.
 
 mquandalle:bower
-http
+http@1.2.12
 momentjs:moment
 
-reactive-var
-ddp-client
+reactive-var@1.0.11
+ddp-client@1.3.3
 amplify
 
-accounts-twitter
+accounts-twitter@1.2.1
 
 gwendall:body-events
-service-configuration
-twitter
+service-configuration@1.0.11
 mfpierre:chartist-js
 
 tmeasday:publish-counts
@@ -28,19 +27,19 @@ gadicohen:sitemaps
 kadira:flow-router
 kadira:blaze-layout
 
-meteor-base
-mobile-experience
-mongo
+meteor-base@1.0.4
+mobile-experience@1.0.4
+mongo@1.1.16
 blaze-html-templates
-session
-jquery
-tracker
-logging
-reload
-random
-ejson
+session@1.1.7
+jquery@1.11.10
+tracker@1.1.2
+logging@1.1.17
+reload@1.1.11
+random@1.0.10
+ejson@1.0.13
 spacebars
-check
+check@1.2.5
 useraccounts:flow-routing
 useraccounts:materialize
 arillo:flow-router-helpers
@@ -49,17 +48,22 @@ materialize:materialize@=0.97.0
 
 d3js:d3
 coffeescript
-standard-minifier-css
-standard-minifier-js
+standard-minifier-css@1.3.4
+standard-minifier-js@1.2.3
 
-email
+email@1.1.18
 
 # accounts-password
 jparker:gravatar
 aldeed:template-extension
 meteorhacks:subs-manager
 meteorhacks:picker
-ecmascript
+ecmascript@0.6.3
 gadicc:babel-compiler-babelrc
-es5-shim
+es5-shim@4.6.15
 gadicohen:reactive-window
+shell-server
+twitter-config-ui
+twitter-oauth
+gadicc:blaze-react-component
+react-template-helper

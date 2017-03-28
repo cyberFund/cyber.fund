@@ -1,6 +1,5 @@
 import {CurrentData} from '/imports/api/collections'
 import {listFromIds} from '/imports/api/utils/user'
-console.log(listFromIds)
 function key(){
   return 'showStarredBy';
 }
