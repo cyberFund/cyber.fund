@@ -21,7 +21,7 @@ SyncedCron.add({
 	}
 })
 
-
+/* to remove soon.
 Meteor.startup(function(){ //only to be run once.
 	const timestamp_min = 1488026402 * 1000
 	const hour = 3600 * 1000
@@ -37,3 +37,4 @@ Meteor.startup(function(){ //only to be run once.
 		}
 	}, 3*60000)
 })
+*/
