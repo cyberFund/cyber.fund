@@ -21,20 +21,18 @@ SyncedCron.add({
 	}
 })
 
-/* to remove soon.
+
 Meteor.startup(function(){ //only to be run once.
 	const timestamp_min = 1488026402 * 1000
-	const hour = 3600 * 1000
-	let date_iterator = new Date().valueOf() - hour
-	hourly.writeHourlyDataFrom5mData(new Date(date_iterator))
+	const day = 24 * 3600 * 1000
+	let date_iterator = new Date().valueOf() - day
 	let interval = Meteor.setInterval(function(){
-		date_iterator -= hour;
+		date_iterator -= day;
 		if (date_iterator > timestamp_min)
-			hourly.writeHourlyDataFrom5mData(new Date(date_iterator))
+			daily.writeDailyDataFromHourlyData(new Date(date_iterator))
 		else {
 			Meteor.clearInterval(interval)
-			console.log("DONE WITH HOURLIES")
+			console.log("DONE WITH DAILIES")
 		}
-	}, 3*60000)
+	}, 4*60000)
 })
-*/
