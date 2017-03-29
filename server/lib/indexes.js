@@ -13,7 +13,7 @@ Meteor.startup(function() {
 		unique: true,
 		dropDups: true,
 	});
-
+  	MarketData._ensureIndex({  "interval": 1, "systemId": 1, "timestamp": 1})
 	//CurrentData._ensureIndex({ name: 1, symbol: 1 });
 
 	CurrentData._ensureIndex({
@@ -29,6 +29,7 @@ Meteor.startup(function() {
 	Meteor.users._ensureIndex({
 		"username": 1
 	}, {unique: 1} )
+
 
 	FastData._ensureIndex({"timestamp": 1}, {expireAfterSeconds: 86400});
 	FastData._ensureIndex({"systemId": 1});

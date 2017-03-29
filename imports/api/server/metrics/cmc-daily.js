@@ -53,8 +53,13 @@ function writeDailyDataFromHourlyData(date){
 		fields_to_med.forEach(fieldName => {
 			resultPoint[fieldName] = medianPoint[fieldName]
 		})
-		if (+medianPoint['price_btc'] > 0)
-			resultPoint['supply'] = Math.round(medianPoint['cap_btc']/medianPoint['price_btc'])
+    // supply
+    if (medianPoint['supply']) {
+      resultPoint['supply'] = medianPoint.supply
+    } else {
+  		if (+medianPoint['price_btc'] > 0)
+  			resultPoint['supply'] = Math.round(medianPoint['cap_btc']/medianPoint['price_btc'])
+    }
 		resultPoint['interval'] = 'daily'
 		return resultPoint
 	}
