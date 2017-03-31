@@ -1,14 +1,12 @@
 import chaingear from '/imports/api/server/chaingear'
-import {
-  CurrentData
-} from '/imports/api/collections'
+import { CurrentData } from '/imports/api/collections'
 import winston from 'winston'
-import {
-  HTTP
-} from 'meteor/http'
+import { HTTP } from 'meteor/http'
+import {getLatestBeforeDate} from '/imports/api/MarketData'
 
 const _source = 'cmc2017'
 const sampleData = require('/imports/sampleData/cmc.json')
+const DAY = 24*3600*1000
 
 function fetchLastCmc(callback) {
   HTTP.get('http://api.coinmarketcap.com/v1/ticker', {
@@ -35,9 +33,14 @@ function getLastBtcPrice(){
 	return btc.metrics.price.usd
 }
 
+function isNil(it){
+  return (it == undefined || it == null)
+}
+
 var cmcids = {
 
 }
+
 var flag = false
 function init(){
 	CurrentData.find().fetch().forEach(function(item){
@@ -58,7 +61,7 @@ var cmc = {
   extractMetrics: function (item, systemId) { // item as in /api.cmc.com/v1/ticker
     let ret = {
       systemId: systemId,
-      source: 'cmc2017',
+      source: _source,
       price: {
         usd: item.price_usd,
         btc: item.price_btc
@@ -68,10 +71,11 @@ var cmc = {
         available_supply: item.available_supply
       },
       trade_volume: {
-        volume24_usd: item['24h_volume_usd']
+        volume24_usd: item['24h_volume_usd'],
       },
       last_updated: item.last_updated
     }
+    if (item.price_btc) ret.trade_volume.volume24_btc = item['24h_volume_usd']/+item.price_btc
     return ret
   },
 	getMarketDataInserter: function(metrics, system) {
@@ -89,7 +93,7 @@ var cmc = {
       }
     }
 		let doc = {
-			source: 'cmc2017',
+			source: _source,
 			interval: '5m',
 			systemId: metrics.systemId,
 			price_btc: price_btc,
@@ -104,47 +108,154 @@ var cmc = {
 		return doc
 	},
   getCurrentDataUpdater: function (metrics, system) {
+    function getSupplyFromDataPoint(point){
+      return point.supply ? point.supply : (point.price_btc ? point.cap_btc/point.price_btc : undefined)
+    }
+    function getChange(now, before){
+      if (isNil(now) || isNil(before)) return undefined
+      return now - before
+    }
+    function getChangePercents(now, before) {
+      if (isNil(now) || isNil(before)) return undefined
+      return (now > 0) ? (100.0 * (now - before) / now) : (0)
+    }
+
 		if (!metrics || !metrics.systemId) return
     let lastData = system
-    let $set = {}
+    let sel = {systemId: metrics.systemId, source: _source}
+    let dayAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - DAY))
+    let weekAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - 7 * DAY))
+    let monthAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - 30 * DAY))
+    console.log(monthAgoMetrics.timestamp, weekAgoMetrics.timestamp, dayAgoMetrics.timestamp)
+    let dayAgoSupply = getSupplyFromDataPoint(dayAgoMetrics)
+    let weekAgoSupply = getSupplyFromDataPoint(weekAgoMetrics)
+    let monthAgoSupply = getSupplyFromDataPoint(monthAgoMetrics)
+    /*
+    {
+    "_id" : "PQbLYxbvGYwxxb7NG",
+    "cap_usd" : 749733.251754167,
+    "cap_btc" : 1825.01965154583,
+    "volume24_btc" : 19.2001083333333,
+    "price_usd" : 0.0233973583333333,
+    "volume24_usd" : 0,
+    "price_btc" : 5.69544416666667e-05,
+    "interval" : "hourly",
+    "timestamp" : ISODate("2016-03-12T19:00:00.000Z"),
+    "systemId" : "Megacoin",
+    "source" : "2015"
+}*/
+    let set = {}
     let supply;
-
-    if (lastData.flags && lastData.flags.supply_from_here) {
+    let condition = {
+      supplyFromDb: lastData.flags && lastData.flags.supply_from_here,
+      btcPrice: metrics.price && metrics.price.btc,
+      usdPrice: metrics.price && metrics.price.usd,
+      usdBtcPrice: metrics.price && metrics.price.usd && metrics.price.btc,
+    }
+    console.log(metrics)
+    if (condition.supplyFromDb) {
       console.log(`system ${metrics.systemId}: flag supply_from_here is set`)
 			supply = lastData.metrics && lastData.metrics.supply;
     } else {
       if (metrics.supply.available_supply || metrics.supply.total_supply) {
         supply = metrics.supply.available_supply || metrics.supply.total_supply
-        $set['metrics.supply'] = supply
+        set['metrics.supply'] = supply
       }
     }
 		let btcPriceUsd
 
-		if (metrics.price && metrics.price.usd && metrics.price.btc) {
+		if (condition.usdBtcPrice) {
 			btcPriceUsd = +metrics.price.usd / metrics.price.btc
 		} else {
 			btcPriceUsd = getLastBtcPrice()
 		}
 
-    if (metrics.price && metrics.price.usd) {
-      $set["metrics.price.usd"] = +metrics.price.usd
-      $set["metrics.tradeVolume"] = (metrics.trade_volume.volume24_usd || 0) / btcPriceUsd
-      $set['metrics.cap.usd'] = +metrics.price.usd * supply
+    if (condition.usdPrice) {
+      set["metrics.price.usd"] = +metrics.price.usd
+      set["metrics.tradeVolume"] = (metrics.trade_volume.volume24_usd || 0) / btcPriceUsd
+      set['metrics.cap.usd'] = +metrics.price.usd * supply
     }
 
-    if (metrics.price && metrics.price.btc) {
-      $set["metrics.price.btc"] = +metrics.price.btc
-      $set['metrics.cap.btc'] = metrics.price.btc * supply
+    if (condition.btcPrice) {
+      set["metrics.price.btc"] = +metrics.price.btc
+      set['metrics.cap.btc'] = metrics.price.btc * supply
     }
     try {
       let ts = +metrics.last_updated * 1000
-      $set['metrics.updatedAt'] = new Date(ts)
-    } catch (e) {
+      set['metrics.updatedAt'] = new Date(ts)
+    } catch (e) {}
+    set['metrics.updateSource'] = 'cmc2017'
 
+    if (dayAgoMetrics) {
+      set["metrics.priceChange.day.usd"] = getChange( +set["metrics.price.usd"], +dayAgoMetrics.price_usd);
+      set["metrics.priceChangePercents.day.usd"] = getChangePercents( +set["metrics.price.usd"], +dayAgoMetrics.price_usd)
+
+      set["metrics.priceChange.day.btc"] = getChange( +set["metrics.price.btc"], +dayAgoMetrics.price_btc);
+      set["metrics.priceChangePercents.day.btc"] = getChangePercents( +set["metrics.price.btc"], +dayAgoMetrics.price_btc)
+
+      set["metrics.capChangePercents.day.btc"] = getChangePercents( +set['metrics.cap.btc'], +dayAgoMetrics.cap_btc)
+      set["metrics.capChange.day.btc"] = getChange( +set["metrics.cap.btc"], +dayAgoMetrics.cap_btc);
+
+      set["metrics.capChangePercents.day.usd"] = getChangePercents( +set['metrics.cap.usd'], +dayAgoMetrics.cap_usd)
+      set["metrics.capChange.day.usd"] = getChange( +set["metrics.cap.usd"], +dayAgoMetrics.cap_usd);
+
+      if (condition.supplyFromDb) {
+        set["metrics.supplyChange.day"] = 0
+        set["metrics.supplyChangePercents.day"] = 0
+      } else {
+        set["metrics.supplyChangePercents.day"] = getChangePercents(supply, dayAgoSupply);
+        set["metrics.supplyChange.day"] = getChange(supply, dayAgoSupply);
+      }
+      set["metrics.tradeVolumePrevious.day"] = dayAgoMetrics.volume24_btc
     }
-    $set['metrics.updateSource'] = 'cmc2017'
+
+    if (weekAgoMetrics) {
+      set["metrics.priceChange.week.usd"] = getChange( set["metrics.price.usd"], weekAgoMetrics.price_usd);
+      set["metrics.priceChangePercents.week.usd"] = getChangePercents( set["metrics.price.usd"], weekAgoMetrics.price_usd)
+
+      set["metrics.priceChange.week.btc"] = getChange( set["metrics.price.btc"], weekAgoMetrics.price_btc);
+      set["metrics.priceChangePercents.week.btc"] = getChangePercents( set["metrics.price.btc"], weekAgoMetrics.price_btc)
+
+      set["metrics.capChangePercents.week.btc"] = getChangePercents( set['metrics.cap.btc'], weekAgoMetrics.cap_btc)
+      set["metrics.capChange.week.btc"] = getChange( set["metrics.cap.btc"], weekAgoMetrics.cap_btc);
+
+      set["metrics.capChangePercents.week.usd"] = getChangePercents( set['metrics.cap.usd'], weekAgoMetrics.cap_usd)
+      set["metrics.capChange.week.usd"] = getChange( set["metrics.cap.usd"], weekAgoMetrics.cap_usd);
+
+      if (condition.supplyFromDb) {
+        set["metrics.supplyChange.week"] = 0
+        set["metrics.supplyChangePercents.week"] = 0
+      } else {
+        set["metrics.supplyChangePercents.week"] = getChangePercents(supply, weekAgoSupply);
+        set["metrics.supplyChange.week"] = getChange(supply, weekAgoSupply);
+      }
+      set["metrics.tradeVolumePrevious.week"] = weekAgoMetrics.volume24_btc
+    }
+
+    if (monthAgoMetrics) {
+      set["metrics.priceChange.month.usd"] = getChange( set["metrics.price.usd"], monthAgoMetrics.price_usd);
+      set["metrics.priceChangePercents.month.usd"] = getChangePercents( set["metrics.price.usd"], monthAgoMetrics.price_usd)
+
+      set["metrics.priceChange.month.btc"] = getChange( set["metrics.price.btc"], monthAgoMetrics.price_btc);
+      set["metrics.priceChangePercents.month.btc"] = getChangePercents( set["metrics.price.btc"], monthAgoMetrics.price_btc)
+
+      set["metrics.capChangePercents.month.btc"] = getChangePercents( set['metrics.cap.btc'], monthAgoMetrics.cap_btc)
+      set["metrics.capChange.month.btc"] = getChange( set["metrics.cap.btc"], monthAgoMetrics.cap_btc);
+
+      set["metrics.capChangePercents.month.usd"] = getChangePercents( set['metrics.cap.usd'], monthAgoMetrics.cap_usd)
+      set["metrics.capChange.month.usd"] = getChange( set["metrics.cap.usd"], monthAgoMetrics.cap_usd);
+
+      if (condition.supplyFromDb) {
+        set["metrics.supplyChange.month"] = 0
+        set["metrics.supplyChangePercents.month"] = 0
+      } else {
+        set["metrics.supplyChangePercents.month"] = getChangePercents(supply, monthAgoSupply);
+        set["metrics.supplyChange.month"] = getChange(supply, monthAgoSupply);
+      }
+      set["metrics.tradeVolumePrevious.month"] = monthAgoMetrics.volume24_btc
+    }
     //todo: use chaingear, not CurrentData everywhere
-    return $set
+    return set
   },
   fetch: fetchLastCmc
 }
