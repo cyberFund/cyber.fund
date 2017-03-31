@@ -126,7 +126,6 @@ var cmc = {
     let dayAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - DAY))
     let weekAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - 7 * DAY))
     let monthAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - 30 * DAY))
-    console.log(monthAgoMetrics.timestamp, weekAgoMetrics.timestamp, dayAgoMetrics.timestamp)
     let dayAgoSupply = getSupplyFromDataPoint(dayAgoMetrics)
     let weekAgoSupply = getSupplyFromDataPoint(weekAgoMetrics)
     let monthAgoSupply = getSupplyFromDataPoint(monthAgoMetrics)
