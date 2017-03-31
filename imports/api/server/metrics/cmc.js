@@ -151,9 +151,7 @@ var cmc = {
       usdPrice: metrics.price && metrics.price.usd,
       usdBtcPrice: metrics.price && metrics.price.usd && metrics.price.btc,
     }
-    console.log(metrics)
     if (condition.supplyFromDb) {
-      console.log(`system ${metrics.systemId}: flag supply_from_here is set`)
 			supply = lastData.metrics && lastData.metrics.supply;
     } else {
       if (metrics.supply.available_supply || metrics.supply.total_supply) {
