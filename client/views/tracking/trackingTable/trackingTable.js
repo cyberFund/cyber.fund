@@ -6,15 +6,17 @@ var initialLimit = cfRating.limit0;
 Template["trackingWidget"].onCreated(function () {
   var instance = this;
   instance.subscribe("maxLove");
-  instance.ready = new ReactiveVar();
+  var sort = (FlowRouter.getParam("sort") || "whales");
+  if (sort) {
+    _session.set ("coinSorter", getSorterByKey(sort));
+  }
   instance.autorun(function () {
     var selector = {"flags.rating_do_not_display": {$ne: true}};
     if (_.keys(_session.get("coinSorter")).length )
       selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
     instance.subscribe("currentDataRP", {
-      selector: selector
+      selector: selector, sort: _session.get ("coinSorter")
     });
-    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
   });
 
 });
