@@ -77,6 +77,7 @@ const PROCESSING = 'processing'
 const DONE = 'done'
 import fs from 'fs'
 
+/*
 dir.files(datapath, Meteor.bindEnvironment(function (err, files) {
 	return;
   if (err) return
@@ -133,7 +134,7 @@ dir.files(datapath, Meteor.bindEnvironment(function (err, files) {
 		}
 	}, 300)
 }))
-
+*/
 
 
 // check if record exists. if exists - check status is 'saved' or 'failed'
