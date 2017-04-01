@@ -1,5 +1,6 @@
-import {normalizeOptionsPerUser} from '/imports/api/utils/index'
+import {normalizeOptionsPerUser} from '/imports/api/utils'
 import { Meteor } from 'meteor/meteor'
+
 Meteor.methods({
   followUser: function(targetId, options){
     options = options || {};
@@ -18,16 +19,15 @@ Meteor.methods({
 })
 
 Meteor.publish("friendlyUsers", function(options){
-  options = normalizeOptionsPerUser(options)
-  var userId = options.userId;
+  let username = options.username
 
-  if (!userId) return this.ready();
-  var user = Meteor.users.findOne({_id: userId});
+  if (!username) return this.ready();
+  var user = Meteor.users.findOne({username: username});
   if (!user) {
-    console.log("no user by id: " + userId);
+    console.log("no user by username: " + username);
     return this.ready();
   }
-  if (!user.profile) return this.ready;
+  if (!user.profile) return this.ready();
   var uids = _.union(user.profile["followedBy"] || [], user.profile["followingUsers"] || []);
   return Meteor.users.find({_id: {$in: uids}}, {fields: {
     "profile.name": 1,

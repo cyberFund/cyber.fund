@@ -1,4 +1,4 @@
-import {normalizeOptionsPerUser} from '/imports/api/utils/index'
+import {normalizeOptionsPerUser} from '/imports/api/utils'
 import {CurrentData, FastData, Metrics, Extras, AcountsHistory, MarketData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
@@ -115,18 +115,6 @@ Meteor.publish("crowdsalesActive", function() {
       }
     });
 });
-
-/* obsolete
-Meteor.publish('projectsList', function() {
-  var sel = cfCDs.projects();
-  return CurrentData.find(sel, {
-    fields: {
-      dailyData: 0,
-      hourlyData: 0
-    }
-  });
-})*/
-
 
 /*
   only needed to display users count on profile page
@@ -250,7 +238,7 @@ Meteor.publish("avatars", function(uidArray) {
  */
 Meteor.publish("userProfile", function(options){
   options = normalizeOptionsPerUser(options);
-  var uid = options.userId;
+  var userId = options.userId;
 
   var fields = {
     profile: 1,
@@ -262,8 +250,8 @@ Meteor.publish("userProfile", function(options){
     "services.twitter.screenName": 1
   };
   var ret = [];
-  ret.push (Meteor.users.find({_id: uid}, {fields: fields}));
-  ret.push (Acounts.find({refId:uid, isPrivate: {$ne: true}}) );
+  ret.push (Meteor.users.find({_id: userId}, {fields: fields}));
+  ret.push (Acounts.find({refId:userId, isPrivate: {$ne: true}}) );
   return ret; // for own accounts  - already subscribed at 'userDetails' ;
 });
 
@@ -278,7 +266,6 @@ Meteor.publish('accountsHistoryIndexForUser', function(options){
   if (!private) fields.full = 0
   return AcountsHistory.find(selector, {fields: fields})
 });
-
 
 Meteor.publish('accountsHistoryDetailsForUser', function(options){
   if (!options.userId) return this.ready();

@@ -84,10 +84,7 @@ Template["assetsManager"].helpers({
 
 Template["assetsManager"].events({
   "click .req-update-balance.per-address": function(e, t) { //todo: add checker per account/ per user
-    //if (!isOwnAssets()) return;
-
     var $t = t.$(e.currentTarget);
-    var uid = $t.closest(".assets-manager").attr("owner");
     $t.addClass("disabled");
 
     Meteor.call("cfAssetsUpdateBalances", {
@@ -99,30 +96,19 @@ Template["assetsManager"].events({
     });
   },
   "click .per-account": function(e, t) {
-    //if (!isOwnAssets()) return;
     var accountKey = t.$(e.currentTarget).closest(".account-item").attr("account-id");
     cfCurrentId.set(accountKey.toString());
   },
 
   "click .req-update-balance.per-account": function(e, t) {
-    //todo: add checker per account/ per user
-    //if (!isOwnAssets()) return;
-
     var $t = t.$(e.currentTarget);
-
-    var uid = $t.closest(".assets-manager").attr("owner");
     $t.addClass("disabled");
-    //$(".req-update-balance.per-address", $t.closest(".account-item"))
-    //.addClass("disabled");
 
     Meteor.call("cfAssetsUpdateBalances", {
-      userId: Meteor.userId(),
+      username: Meteor.user() && Meteor.user().username,
       accountKey: cfCurrentId.get()
-        //  address: cfCurrentAddress.get()
     }, function(er, re) {
       $t.removeClass("disabled");
-      //$ (".req-update-balance.per-address", $t.closest(".account-item"))
-      //.removeClass("disabled");
     });
   },
 

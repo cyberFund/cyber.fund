@@ -1,34 +1,35 @@
 //////////////////////////// hide domain
 import {cfIsAccountHidden} from '/imports/api/client/cf/account'
 import Acounts from '/imports/api/collections/Acounts'
-function gimmeData (refId){
+import {normalizeOptionsPerUser} from '/imports/api/utils'
+
+function gimmeData(refId) {
   return Acounts.find({refId: refId});
 }
 
-import {normalizeOptionsPerUser} from '/imports/api/utils/index'
 function getUserId() {
   var username = FlowRouter.getParam("username");
-  var user = normalizeOptionsPerUser({username:username});
-  return user.userId;
+  var options = normalizeOptionsPerUser({username: username});
+  return options.userId;
 }
 
 import cfAccounts from '/imports/api/cf/accounts/utils'
 import {accumulate, extractAssets, findById} from '/imports/api/cf/accounts/utils'
 
-function filterData(){
+function filterData() {
   var ret = [];
   var userId = getUserId();
 
-  gimmeData(userId).forEach(function (account, accountKey){
+  gimmeData(userId).forEach(function(account, accountKey) {
     let keys = Object.keys(account.addresses);
-    _.each(account.addresses, function(addressObject, addressKey){
+    _.each(account.addresses, function(addressObject, addressKey) {
       let assets = addressObject.assets
       account[accountKey]
-      _.each(assets, function(assetObject, assetName){
-        if (!assetName) return
+      _.each(assets, function(assetObject, assetName) {
+        if (!assetName)
+          return
         if (assetObject) {
-          if (assetObject.quantity > 0) {
-          } else {
+          if (assetObject.quantity > 0) {} else {
             if (assetObject.update === "auto") {
               delete account.addresses[addressKey].assets[assetName]
             }
@@ -37,15 +38,16 @@ function filterData(){
       })
     })
 
-    if (!cfIsAccountHidden(account._id)) ret.push(account);
-  });
+    if (!cfIsAccountHidden(account._id))
+      ret.push(account);
+    }
+  );
   return ret;
 }
 
-var userProfileData = function(){
+var userProfileData = function() {
   return filterData();
 };
-
 
 ////////////////////////////// accounting domain
 
@@ -55,16 +57,12 @@ var userProfileData = function(){
 * @returns accumulator
 */
 
-
 //
 function tableData() {
-  return  accumulate(userProfileData().map(function(it) {
+  return accumulate(userProfileData().map(function(it) {
     return extractAssets(it);
   }));
 }
-
-
-
 
 module.exports = {
   portfolioTableData: tableData,

@@ -5,6 +5,7 @@ var exp = {
     return array.join('.');
   },
   normalizeOptionsPerUser: function (options) {
+
     options = options || {}
     if (typeof options == 'string') //suppose it s username
       options = {
@@ -14,12 +15,7 @@ var exp = {
     if (options.username)
       options.userId = findByUsername(options.username) ? findByUsername(options.username)._id : options.username
     if (!options.userId) {
-      if (options.uid) {
-        console.log("subscriptions:normalizeOptionsPerUser - .uid was passed, please pass .userId instead");
-        options.userId = options.uid
-      }
       if (options._id) {
-        console.log("subscriptions:normalizeOptionsPerUser - ._id was passed, please pass .userId instead");
         options.userId = options._id
       }
     }

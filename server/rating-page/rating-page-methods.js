@@ -4,9 +4,9 @@ import calculatables from '/imports/api/server/calculatables'
 Meteor.methods({
   // handles clicking on 'star'
   toggleStarSys: function (sys) {
-    var uid = this.userId;
-    if (!uid) return;
-    var sel = {_id: uid};
+    var userId = this.userId;
+    if (!userId) return;
+    var sel = {_id: userId};
     var user = Meteor.users.findOne(sel);
 
     if (!user.profile.starredSystems ||
@@ -14,21 +14,21 @@ Meteor.methods({
       Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
 
         CurrentData.update({_id: sys},
-          {$push: {'_usersStarred': uid}});
+          {$push: {'_usersStarred': userId}});
 
     } else {
       Meteor.users.update(sel, {$pull: {'profile.starredSystems': sys}});
       CurrentData.update({_id: sys},
-        {$pull: {'_usersStarred': uid}});
+        {$pull: {'_usersStarred': userId}});
     }
     calculatables.triggerCalc ('RATING', sys);
   },
 
   // is used internally. to star a system when user adds its balance
   starSysBySys: function (sys) {
-    var uid = this.userId;
-    if (!uid) return;
-    var sel = {_id: uid};
+    var userId = this.userId;
+    if (!userId) return;
+    var sel = {_id: userId};
     if (sys) {
       var user = Meteor.users.findOne(sel);
   //PRIVACY
@@ -38,7 +38,7 @@ Meteor.methods({
           Meteor.users.update(sel, {$push: {'profile.starredSystems': sys}});
 
             CurrentData.update({_id: sys},
-              {$push: {'_usersStarred': uid}});
+              {$push: {'_usersStarred': userId}});
 
         }
       }

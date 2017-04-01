@@ -1,5 +1,5 @@
 import Acounts from '/imports/api/collections/Acounts'
-import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
+import {_k} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
 import {Meteor} from 'meteor/meteor'

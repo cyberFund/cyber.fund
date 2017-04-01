@@ -17,11 +17,13 @@ Template['profile'].onCreated(function() {
         series: []
       })
     }
-    if (username)
-      Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
-    instance.subscribe('friendlyUsers', {username: username});
-    instance.subscribe('portfolioSystems', {username: username});
-    instance.subscribe('userProfile', {username: username});
+    if (username) Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
+
+    instance.subscribe('userProfile', {username: username}, {onReady: function(){
+      instance.subscribe('portfolioSystems', {username: username}, {onReady: function(){
+        instance.subscribe('friendlyUsers', {username: username});
+      }});
+    }});
   });
 
   instance.autorun(function() {
