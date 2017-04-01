@@ -49,8 +49,6 @@ Template["displayAccount"].helpers({
     return this.key;
   },
   noShowAsset: function(asset){
-    console.log("NO SHOW ASSET", asset)
-    console.log(" NO SHOW ASSET THIS", this)
     return true || !!(this.quantity || this.update == 'auto')
   }
 });

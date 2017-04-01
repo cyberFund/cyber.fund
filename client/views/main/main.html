@@ -100,12 +100,9 @@
     <div class="row center-align" id="top5-links">
     </div>
     <br>
+
     <div class="row center-align _flexbox">
-        <div class="col s12 m6 l4 center valign" style="padding:10px">
-            <h5>Daily Widget</h5>
-            <br>
-            <div class="card markt">
-                <h5>Cybernomics Cap</h5>
+        {{#cardMarkt title="Cybernomics Cap" card_class="col s6 m6 l4"}}
                 {{#if capUsd }}
                 <p>
                     <span class="enlarge">$&nbsp;{{readableN0 capUsd}}</span>
@@ -121,18 +118,10 @@
                     <span class="{{greenRedNumber capBtcDailyChange}}">
             {{percentsToTextUpDown capBtcDailyChange 4}}</span> {{else}}&nbsp; {{/if}}
                 </p>
+                <p class="small">24h changes</p>
                 {{/if}}
-            </div>
-            {{! > balanceChecker1}}
-            <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/funds">Funds</a>
-            <div>
-              {{! > fiatSelector}}
-            </div>
-        </div>
+        {{/cardMarkt}}
         <div class="col s6 m6 l4 center valign" style="padding:10px">
-            {{> mainPageCrowdasalesWidget}}
-        </div>
-        <div class="col s6 m12 l4 center valign" style="padding:10px">
             <h5>My Portfolio</h5>
             <br />
             {{#if currentUser}}
@@ -141,7 +130,12 @@
               <h4><a href="/welcome" style="text-decoration: none"> 0 bitcoins </a></h4>
               <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/welcome"><p>Join Us</p></a>
             {{/if}}
-{{> balanceChecker1}}
         </div>
+        <div class="col s12 m12 l4 center valign" style="padding:10px">
+            {{> mainPageCrowdasalesWidget}}
+        </div>
+
+        {{> balanceChecker1}}
     </div>
+
 </template>

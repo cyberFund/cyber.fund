@@ -158,11 +158,9 @@ function myGraph(el, system, instance) {
     */
 
   function mousemove() {
-    console.log(d3.mouse(this))
     var x0 = x.invert(d3.mouse(this)[0]);
     var y0 = d3.mouse(this)[1];
     var val = (y.invert(y0))
-    console.log(y0)
     var i = bisectDate(data, x0, 1);
 
     var d0 = data[i - 1];

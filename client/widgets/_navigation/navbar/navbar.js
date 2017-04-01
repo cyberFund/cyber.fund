@@ -2,15 +2,15 @@ import {Meteor} from 'meteor/meteor'
 import Acounts from '/imports/api/collections/Acounts'
 Template.navbar.onCreated(function(){
   var instance = this;
-  instance.subscribe("usersCount");
   instance.subscribe("coinsCount");
-  instance.subscribe("allSystems");
   instance.subscribe("ownAssets");
 })
 
-Template['navbar'].rendered = function () {
+Template['navbar'].onRendered(function () {
+  var instance = this;
   $('.button-collapse').sideNav();
-};
+  instance.subscribe("systemsLookup");
+});
 
 
 Tracker.autorun(function(c){

@@ -1,4 +1,4 @@
-import {readableNumbers} from '/imports/api/client/utils/base'
+import {readableN} from '/imports/api/client/utils/base'
 import {CurrentData} from '/imports/api/collections'
 function _btcPrice (){
   var btc = CurrentData.findOne({_id: "Bitcoin"});
@@ -12,7 +12,7 @@ function _btcPrice (){
 Template['btcPriceSimple'].helpers({
   price: function(){
     var btcPrice = _btcPrice()
-    if (btcPrice) return readableNumbers( btcPrice );
+    if (btcPrice) return readableN0( btcPrice, 0 );
     return ''
   }
 });

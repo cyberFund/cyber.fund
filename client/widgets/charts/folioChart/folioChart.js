@@ -8,7 +8,6 @@ jqHide = function(jQ) {
   //  jQ.attr("visibility", "hidden");
     return jQ;
   }
-  console.log("condition failure");
 };
 
 jqShow = function(jQ) {
@@ -17,7 +16,6 @@ jqShow = function(jQ) {
     jQ.attr("visibility", "inherit");
     return jQ;
   }
-  console.log("condition failure");
 };
 Template["folioChart"].onRendered(function() {
   var instance = this;

@@ -31,8 +31,7 @@ Meteor.publish("currentDataRP", function(options) {
 Meteor.publish("marketDataRP", function(options) {
   options = options || {};
   var selector = options.selector;
-
-  var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
+  var list = _.map(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
 
   function intervalSelector(){
     return Meteor.settings.public && Meteor.settings.public.manyData ?
@@ -347,11 +346,9 @@ Meteor.publish("portfolioSystems", function(options) {
   });
 });
 
-Meteor.publish("allSystems", function(){
+Meteor.publish("systemsLookup", function(){
   return CurrentData.find({}, {
     fields: {
-      "aliases": 1,
-      "metrics": 1,
       "token": 1,
       "icon": 1,
       "system": 1

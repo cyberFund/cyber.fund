@@ -43,13 +43,11 @@ Template["main"].helpers({
 });
 
 Template["main"].onCreated(function(){
-  i = this;
-  i.subscribe("investData");
-  i.subscribe("currentDataRP", {selector: {
-  }, sort:{"calculatable.RATING.sum": -1}, limit: 5} );
-
-  i.subscribe("crowdsalesAndProjectsList");
-
+  let instance = this;
+  instance.subscribe("investData");
+  instance.subscribe("currentDataRP", {selector: {}, sort:{"calculatable.RATING.sum": -1}, limit: 5} );
+  instance.subscribe("usersCount");
+  instance.subscribe("crowdsalesActive");
 });
 
 Template["mainPageSystemsWidget"].helpers({

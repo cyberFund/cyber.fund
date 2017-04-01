@@ -12,8 +12,6 @@ Template["trackingWidget"].onCreated(function () {
     if (_.keys(_session.get("coinSorter")).length )
       selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
     instance.subscribe("currentDataRP", {
-      /*limit: 150,//Session.get('ratingPageLimit'),
-      sort: _session.get('coinSorter'),*/
       selector: selector
     });
     instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
