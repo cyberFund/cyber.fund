@@ -145,7 +145,7 @@ var fetch = function() {
       console.log("chaingear not changed..");
     }
   } catch (e) {
-    console.log("probably no connection while trying to fetch cynberfund");
+    console.log("probably no connection while trying to fetch cyberfund");
   }
 };
 

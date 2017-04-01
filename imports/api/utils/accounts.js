@@ -130,24 +130,28 @@ exp.updateBalanceAccount = function(accountIn, options) {
     // if balance checker is ok
     if (balances[0] == "error") {
 			console.log("in updateBalanceAccount, got error balance on " + address )
-		} else {
-      _.each(addressObj.assets, function(asset, assetKey) {
-        if (asset.update === "auto") {
-          modify.$unset[_k([key, assetKey])] = true;
-        }
-      });
-      _.each(balances, function(balance) {
-        if (!balance.asset) return;
+      return;
+		}
+    _.each(balances, function(balance) {
+      if (!balance.asset) {
+        console.log("...")
+        console.log("in updateBalanceAccount, got balance without asset")
+        console.log(balance)
+        console.log("---")
+        return;
+      }
 
-        var k = _k([key, balance.asset]);
+      let k = _k([key, balance.asset]);
+      if (balance.quantity == 0) {
+        modify.$unset[k] = true
+      } else {
         modify.$set[k] = {
           update: "auto",
           quantity: balance.quantity
         };
-        delete modify.$unset[k];
-        modify.$set[_k(["addresses", address, "updatedAt"])] = new Date();
-      });
-    }
+      }
+      modify.$set[_k(["addresses", address, "updatedAt"])] = new Date();
+    });
   });
 
 
