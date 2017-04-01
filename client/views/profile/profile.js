@@ -11,19 +11,21 @@ Template['profile'].onCreated(function() {
 
   instance.autorun(function() {
     var username = FlowRouter.getParam('username');
+
     if (uaGraph && uaGraph.folioPie){ //crutch
       uaGraph.folioPie.update({
         labels: [],
         series: []
       })
     }
-    if (username) Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
 
+    instance.subscribe('portfolioSystems', {username: username});
     instance.subscribe('userProfile', {username: username}, {onReady: function(){
-      instance.subscribe('portfolioSystems', {username: username}, {onReady: function(){
-        instance.subscribe('friendlyUsers', {username: username});
+      instance.subscribe('friendlyUsers', {username: username}, {onReady: function(){
+        if (username) Meteor.call("cfAssetsUpdateBalances", {username: username}, function(err, ret){});
       }});
     }});
+
   });
 
   instance.autorun(function() {
