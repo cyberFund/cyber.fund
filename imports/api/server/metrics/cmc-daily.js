@@ -1,5 +1,4 @@
 import {CurrentData, MarketData} from '/imports/api/collections'
-import {extend, map} from 'lodash'
 import {handleArrayWithInterval} from '/imports/api/handleArray'
 
 function startOfDay(date){
@@ -24,7 +23,7 @@ function writeDailyDataFromHourlyData(date){
 	const fields_to_med = ['volume24_usd', 'volume24_btc', 'cap_usd', 'cap_btc', 'timestamp', 'source', 'systemId']
 	let [from, to, median] = getFromToMedian(date)
 
-	let systems = map(getIdsList(), '_id')
+	let systems = _.pluck(getIdsList(), '_id')
 	let _selector = {
 		timestamp: {$gte: from, $lt: to},
 		interval: 'hourly'
