@@ -22,22 +22,23 @@ var getKeyBySorter = cfRating.getKeyBySorter;
 
 Template["ratingTable"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
+
   if (sort) {
     _session.set ("coinSorter", getSorterByKey(sort));
   }
+  let instance = this
 
   Session.set("ratingPageLimit", initialLimit);
-
-  var instance = this;
-  instance.ready = new ReactiveVar();
-
+  Session.set("qcMarketDataReady", false)
+  instance.subscribe("currentDataRP", {
+    selector: tableSelector(), sort: getSorterByKey(sort)
+  }, {onReady: function(){
     instance.subscribe("marketDataRP", {
       selector: tableSelector()
-    });
-
-    instance.subscribe("currentDataRP", {
-      selector: tableSelector()
-    });
+    }, {onReady: function(){
+      Session.set("qcMarketDataReady", true)
+    }});
+  }});
 
 
   instance.autorun(function() {
@@ -45,7 +46,6 @@ Template["ratingTable"].onCreated(function() {
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
-    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
   });
 });
 

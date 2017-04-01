@@ -5,12 +5,12 @@ const selectorSatoshiPie = require("/imports/api/userFunds").selectorSatoshiPie;
 
 function dealWithPopulars(){
   console.log("starting hourly funds recalculation (for lucky funds)", true)
-  handleArrayWithInterval( _.map( Meteor.users.find(selectorService, {fields: {_id: 1}}).fetch(), '_id'), 20000, updateUserFunds)
+  handleArrayWithInterval( _.pluck( Meteor.users.find(selectorService, {fields: {_id: 1}}).fetch(), '_id'), 20000, updateUserFunds)
 }
 
 function dealWithAll(){
   console.log("starting daily/3 funds recalculation (for all funds)", true)
-  handleArrayWithInterval( _.map( Meteor.users.find({}, {fields: {_id: 1}}).fetch(), '_id'), 50000, updateUserFunds)
+  handleArrayWithInterval( _.pluck( Meteor.users.find({}, {fields: {_id: 1}}).fetch(), '_id'), 50000, updateUserFunds)
 }
 
 SyncedCron.add({

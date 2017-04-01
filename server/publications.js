@@ -10,7 +10,7 @@ import Acounts from '/imports/api/collections/Acounts'
 Meteor.publish("currentDataRP", function(options) {
   options = options || {};
   var selector = options.selector;
-
+  var sort = options.sort
   // if sorting, fetch only those having defined value for sorted column
   options.fields = {
     "aliases": 1,
@@ -24,6 +24,7 @@ Meteor.publish("currentDataRP", function(options) {
     "consensus": 1,
     "first_price": 1
   };
+  if (sort) options.sort = sort
 
   return CurrentData.find(selector, options);
 });
@@ -31,7 +32,7 @@ Meteor.publish("currentDataRP", function(options) {
 Meteor.publish("marketDataRP", function(options) {
   options = options || {};
   var selector = options.selector;
-  var list = _.map(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
+  var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
 
   function intervalSelector(){
     return Meteor.settings.public && Meteor.settings.public.manyData ?

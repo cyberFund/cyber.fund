@@ -1,6 +1,6 @@
 import {Meteor} from 'meteor/meteor'
 import {CurrentData, MarketData} from '/imports/api/collections'
-chartdata = function(systemId) {
+var chartdata = function(systemId) {
   if (!systemId) return null
   return MarketData.find({
     systemId: systemId
@@ -11,11 +11,17 @@ chartdata = function(systemId) {
   });
 };
 
-_timestampino = function(timestamp) {
+var _timestampino = function(timestamp) {
   return moment(timestamp).format(Meteor.settings.public &&
     Meteor.settings.public.manyData ?
     "ddd D-MM HH:" : "ddd D-MM")
 };
+
+var formatValue = d3.format(",.4f");
+var formatCurrency = function(d) {
+  return "$" + formatValue(d)
+}
+
 
 Template["quickchart"].helpers({
 
@@ -43,10 +49,40 @@ var grab = {
 };
 
 Template["quickchart"].onCreated(function(){
-  this._ready = new ReactiveVar();
 });
 
-var renderCount = 0
+function myGraphOnlyPrice(el, system, instance) { // temporary. now going to react + d3.
+  el.selectAll("*").remove()
+  this.selectedNode = null
+  var graph = this
+  var lastData = CurrentData.findOne({_id:system})
+  var wf = 140
+  var w = 140
+  var hf = 50
+  var mTop = 10
+  var h = hf - mTop
+  var svg = el
+    .append("svg:svg")
+    .attr("width", wf)
+    .attr("height", hf)
+    .attr("id", "svg-" + Blaze._globalHelpers._toAttr(system))
+    .attr("pointer-events", "all")
+    .attr("viewBox", "0 0 " + wf + " " + hf)
+    .attr("class", "chart")
+    .attr("preserveAspectRatio", "xMinYMid")
+  var ficus = svg.append("g")
+    .attr("class", "ficus")
+
+  ficus.append("text")
+    .attr("class", "price")
+    .attr("dominant-baseline", "hanging")
+    .attr("text-anchor", "middle")
+    .attr("font-size", "18px")
+    .attr("x", 70)
+    .attr("y", 16)
+    .text(formatCurrency(lastData.metrics.price.usd))
+}
+
 function myGraph(el, system, instance) {
   el.selectAll("*").remove()
   this.selectedNode = null
@@ -100,11 +136,6 @@ function myGraph(el, system, instance) {
   var bisectDate = d3.bisector(function(d) {
     return d.timestamp
   }).left
-
-  var formatValue = d3.format(",.4f");
-  var formatCurrency = function(d) {
-    return "$" + formatValue(d)
-  }
 
   var ficus = svg.append("g")
     .attr("class", "ficus")
@@ -203,15 +234,17 @@ Template["quickchart"].onCreated(function() {
   var instance = this
 
 })
-
+function isDataReady(){
+  return Session.get("qcMarketDataReady")
+}
 Template["quickchart"].onRendered(function() {
   let instance = this;
   instance.autorun(function(c) {
-    if (!instance.subscriptionsReady()) return
+    let renderFn = Session.get("qcMarketDataReady") ? myGraph : myGraphOnlyPrice
     if (instance._system != Template.currentData().system) {
       instance._system = Template.currentData().system
-      new myGraph(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(instance._system)),
-        instance._system, instance)
     }
+    new renderFn(d3.select("#quickchart-" + Blaze._globalHelpers._toAttr(instance._system)),
+      instance._system, instance)
   })
 })

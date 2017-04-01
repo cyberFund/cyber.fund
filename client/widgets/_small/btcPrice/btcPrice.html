@@ -1,7 +1,7 @@
 <template name="btcPriceSimple">
     <div class="right btc-price-widget {{class}}">
       {{#if price}}
-        ${{price}} per&nbsp;Ƀ
+        ${{readableN price 0}} per&nbsp;Ƀ
       {{else}}
         {{> Template.dynamic template=loadingWidget}}
       {{/if}}</div>
