@@ -3,15 +3,14 @@ import {CurrentData, FastData, Metrics, Extras, AcountsHistory, MarketData} from
 import cfCDs from '/imports/api/currentData/selectors'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
+
 import Acounts from '/imports/api/collections/Acounts'
 /**
  * currentData, just fields enough to draw rating table..
  */
-Meteor.publish("currentDataRP", function(options) {
-  options = options || {};
-  var selector = options.selector;
-  var sort = options.sort
-  // if sorting, fetch only those having defined value for sorted column
+Meteor.publish("currentDataRP", function({selector={}, sort}) {
+  var options = {}
+  if (sort) options.sort = sort
   options.fields = {
     "aliases": 1,
     "metrics": 1,
@@ -24,8 +23,8 @@ Meteor.publish("currentDataRP", function(options) {
     "consensus": 1,
     "first_price": 1
   };
-  if (sort) options.sort = sort
 
+  console.log(options)
   return CurrentData.find(selector, options);
 });
 
@@ -60,7 +59,7 @@ Meteor.publish("userDetails", function() {
       "firstLogin": 1,
       "profile": 1
     }
-  }) ;
+  });
 });
 
 Meteor.publish("ownAssets", function(){

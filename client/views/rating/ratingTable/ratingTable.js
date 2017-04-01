@@ -1,5 +1,4 @@
-
-import cfRating from '/imports/api/cf/rating'
+import {getSorterByKey, getKeyBySorter} from '/imports/api/cf/rating'
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
 var initialLimit = cfRating.limit0;
@@ -17,9 +16,6 @@ function tableSelector() {
   };
 }
 
-var getSorterByKey = cfRating.getSorterByKey;
-var getKeyBySorter = cfRating.getKeyBySorter;
-
 Template["ratingTable"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
 
@@ -30,6 +26,7 @@ Template["ratingTable"].onCreated(function() {
 
   Session.set("ratingPageLimit", initialLimit);
   Session.set("qcMarketDataReady", false)
+
   instance.subscribe("currentDataRP", {
     selector: tableSelector(), sort: getSorterByKey(sort)
   }, {onReady: function(){

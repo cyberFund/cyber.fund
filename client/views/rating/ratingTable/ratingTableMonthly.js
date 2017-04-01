@@ -1,6 +1,6 @@
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
-import cfRating from '/imports/api/cf/rating'
+import {getSorterByKey, getKeyBySorter} from '/imports/api/cf/rating'
 var initialLimit = cfRating.limit0;
 
 function tableSelector() {
@@ -17,25 +17,26 @@ function tableSelector() {
   };
 }
 
-var getSorterByKey = cfRating.getSorterByKey;
-var getKeyBySorter = cfRating.getKeyBySorter;
-
 Template["ratingTableMonthly"].onCreated(function() {
   var sort = (FlowRouter.getParam("sort") || "whales");
+
   if (sort) {
     _session.set ("coinSorter", getSorterByKey(sort));
   }
+  let instance = this
 
   Session.set("ratingPageLimit", initialLimit);
+  Session.set("qcMarketDataReady", false)
 
-  var instance = this;
-  instance.ready = new ReactiveVar();
-  instance.autorun(function(){
+  instance.subscribe("currentDataRP", {
+    selector: tableSelector(), sort: getSorterByKey(sort)
+  }, {onReady: function(){
     instance.subscribe("marketDataRP", {
       selector: tableSelector()
-    });
-  })
-
+    }, {onReady: function(){
+      Session.set("qcMarketDataReady", true)
+    }});
+  }});
 
 
   instance.autorun(function() {
@@ -43,7 +44,6 @@ Template["ratingTableMonthly"].onCreated(function() {
     FlowRouter.withReplaceState(function() {
       FlowRouter.setParams({sort: key});
     });
-    instance.ready.set(instance.ready.get() || instance.subscriptionsReady());
   });
 });
 

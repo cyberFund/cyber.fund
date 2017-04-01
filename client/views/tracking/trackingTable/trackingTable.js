@@ -1,24 +1,42 @@
 import {CurrentData, Extras} from '/imports/api/collections'
-import cfRating from '/imports/api/cf/rating'
+import {getSorterByKey, getKeyBySorter} from '/imports/api/cf/rating'
 import {readableNumbers, _session} from '/imports/api/client/utils/base'
 var initialLimit = cfRating.limit0;
+function tableSelector() {
+  return {
+    "flags.rating_do_not_display": {
+      $ne: true
+    }
+  };
+}
 
 Template["trackingWidget"].onCreated(function () {
   var instance = this;
+  var selector = tableSelector();
+
   instance.subscribe("maxLove");
   var sort = (FlowRouter.getParam("sort") || "whales");
   if (sort) {
     _session.set ("coinSorter", getSorterByKey(sort));
   }
-  instance.autorun(function () {
-    var selector = {"flags.rating_do_not_display": {$ne: true}};
-    if (_.keys(_session.get("coinSorter")).length )
-      selector[ _.keys(_session.get("coinSorter"))[0] ] = {$exists: true};
-    instance.subscribe("currentDataRP", {
-      selector: selector, sort: _session.get ("coinSorter")
+  console.log('0000')
+  instance.subscribe("currentDataRP", {
+    selector: tableSelector(), sort: getSorterByKey(sort)
+  }, {onReady: function(){
+    console.log(1111)
+    instance.subscribe("marketDataRP", {
+      selector: tableSelector()
+    }, {onReady: function(){
+      Session.set("qcMarketDataReady", true)
+    }});
+  }});
+
+  instance.autorun(function() {
+    var key = getKeyBySorter(_session.get("coinSorter"));
+    FlowRouter.withReplaceState(function() {
+      FlowRouter.setParams({sort: key});
     });
   });
-
 });
 
 Template["trackingWidget"].onRendered ( function () {
