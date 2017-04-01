@@ -361,4 +361,8 @@ Meteor.publish("dailyPrices", function(options) {
    return dailyPrices.find()
 })
 
+Meteor.publish("bitcoinPrice", function(){
+  return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics.price": 1}});
+})
+
 require("/imports/api/vwap/publications")

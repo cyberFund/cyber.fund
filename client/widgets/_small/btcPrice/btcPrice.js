@@ -9,6 +9,10 @@ function _btcPrice (){
   }
 }
 
+Meteor.startup(function(){
+  Meteor.subscribe("bitcoinPrice")
+})
+
 Template['btcPriceSimple'].helpers({
   price: function(){ return _btcPrice() }
 });
