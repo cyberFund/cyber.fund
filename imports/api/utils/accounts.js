@@ -3,7 +3,6 @@ import {_k, normalizeOptionsPerUser} from '/imports/api/utils'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import quantumCheck from '/imports/api/cf/accounts/quantumCheck'
 import {Meteor} from 'meteor/meteor'
-import _ from 'lodash'
 
 var exp = {}
 
