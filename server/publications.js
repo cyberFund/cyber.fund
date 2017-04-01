@@ -23,14 +23,10 @@ Meteor.publish("currentDataRP", function({selector={}, sort}) {
     "consensus": 1,
     "first_price": 1
   };
-
-  console.log(options)
   return CurrentData.find(selector, options);
 });
 
-Meteor.publish("marketDataRP", function(options) {
-  options = options || {};
-  var selector = options.selector;
+Meteor.publish("marketDataRP", function({selector = {}}) {
   var list = _.pluck(CurrentData.find(selector, {fields: {_id: 1}}).fetch(), "_id");
 
   function intervalSelector(){
@@ -70,9 +66,7 @@ Meteor.publish("ownAssets", function(){
 /**
  * fetch full currentData document
  */
-Meteor.publish("systemData", function(options) {
-  options = options || {};
-  var name =  (typeof options === "string") ? options : options.name;
+Meteor.publish("systemData", function({name}) {
   console.log ("requested system "+ name);
   if (name) {
     return CurrentData.find(cfCDs.system(name));
