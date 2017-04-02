@@ -20,136 +20,121 @@ cfFetching.cyberFund.processData = function(data, callback) {
   callback(null, processedData);
 };
 
-
-
 var fetch = function() {
   console.log("Fetching data from cyberFund - chaingear");
   try {
-    var res = HTTP.call("HEAD", sourceUrl, {
-      timeout: fetchTimeout
-    });
+    var res = HTTP.call("HEAD", sourceUrl, {timeout: fetchTimeout});
 
-    var previous = Extras.findOne({
-      _id: "chaingearEtag"
-    });
+    var previous = Extras.findOne({_id: "chaingearEtag"});
 
-    if (!res || !res.headers || !res.headers.etag) return;
+    if (!res || !res.headers || !res.headers.etag)
+      return;
     var debug = false;
     if (!previous || (previous.etag != res.headers.etag) || debug) {
       console.log("new etag for chaingear - " + res.headers.etag + "; fetching chaingear");
 
-      cfFetching.get(sourceUrl, {
-        timeout: fetchTimeout
-      },
-        function(error, getResult) {
-          if (error) {
-            console.log("Error while fetching cyberfund:", error);
-            return;
+      let result = HTTP.call("GET", sourceUrl, {timeout: fetchTimeout})
+
+      if (!result.data || !result.data.length) throw new Error('received empty result for chaingear')
+
+      var crowdsalesList = [];
+      var projectsList = [];
+      _.each(result.data, function(system) {
+        system._id = system._id || system.system;
+        if (!system.token) {
+          console.log("no .token for system '" + system._id + "'");
+          return;
+        }
+
+        if (system.crowdsales) { // format crowdsales dates
+          if (_.isString(system.crowdsales.start_date)) {
+            system.crowdsales.start_date = new Date(system.crowdsales.start_date);
           }
 
-          var crowdsalesList = [];
-          var projectsList = [];
-          _.each(getResult, function(system) {
-            system._id = system._id || system.system;
+          if (_.isString(system.crowdsales.end_date)) {
+            system.crowdsales.end_date = new Date(system.crowdsales.end_date);
+          }
 
-            if (!system.token) {
-              console.log("no .token for system '" + system._id + "'");
-              return;
+          crowdsalesList.push(system._id);
+        }
+
+        if (system.descriptions && system.descriptions.state == "Project")
+          projectsList.push(system._id);
+
+        if (system.specs) { // push supply & caps from chaingear to metrics
+
+          system.metrics = system.metrics || {};
+          if (system.specs.supply) {
+            system.metrics.supply = system.specs.supply;
+          }
+          if (system.specs.cap) {
+            system.metrics.cap = system.specs.cap;
+          }
+          if (system.specs.price) {
+            system.metrics.price = system.specs.price;
+          }
+        }
+
+        var doc = CurrentData.findOne({_id: system._id});
+
+        if (!doc) {
+          console.log("no doc for system '" + system._id + "'");
+          console.log("inserting system " + system._id);
+          CurrentData.insert(system);
+        } else {
+          var set = flatten(system);
+          //_.omit(system, ['system']); //system:
+
+          if (system.specs) {
+            if (system.specs.cap && system.specs.supply) {
+              set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
+              set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
             }
+          }
 
-            if (system.crowdsales) { // format crowdsales dates
+          var modifier = {
+            $set: set
+          };
 
-              if (_.isString(system.crowdsales.start_date)) {
-                system.crowdsales.start_date = new Date(system.crowdsales.start_date);
-              }
+          CurrentData.upsert({
+            _id: system._id
+          }, modifier);
+        }
+      });
+      console.log(19)
+      // store lists of projects and crowdsales
+      Extras.upsert({
+        _id: "radarList"
+      }, {
+        crowdsales: crowdsalesList,
+        projects: projectsList,
+        meta: {
+          domain: "chaingear",
+          type: "cache"
+        }
+      });
 
-              if (_.isString(system.crowdsales.end_date)) {
-                system.crowdsales.end_date = new Date(system.crowdsales.end_date);
-              }
+      // mark current version so we won't download it again. todo: use github webhook instead
+      Extras.upsert({
+        _id: "chaingearEtag"
+      }, {
+        etag: res.headers.etag,
+        meta: {
+          type: "synchronization",
+          domain: "chaingear"
+        }
+      });
 
-              crowdsalesList.push(system._id);
-            }
-
-            if (system.descriptions && system.descriptions.state == "Project")
-              projectsList.push(system._id);
-
-            if (system.specs) { // push supply & caps from chaingear to metrics
-
-              system.metrics = system.metrics || {};
-              if (system.specs.supply) {
-                system.metrics.supply = system.specs.supply;
-              }
-              if (system.specs.cap) {
-                system.metrics.cap = system.specs.cap;
-              }
-              if (system.specs.price) {
-                system.metrics.price = system.specs.price;
-              }
-            }
-
-            var doc = CurrentData.findOne({
-              _id: system._id
-            });
-
-            if (!doc) {
-              console.log("no doc for system '" + system._id + "'");
-              console.log("inserting system " + system._id);
-              CurrentData.insert(system);
-            } else {
-              var set = flatten(system);
-              //_.omit(system, ['system']); //system:
-
-              if (system.specs) {
-                if (system.specs.cap && system.specs.supply) {
-                  set["metrics.price.usd"] = system.specs.cap.usd / system.specs.supply;
-
-                  set["metrics.price.btc"] = system.specs.cap.btc / system.specs.supply;
-                }
-              }
-
-              var modifier = {
-                $set: set
-              };
-
-              CurrentData.upsert({
-                _id: system._id
-              }, modifier);
-            }
-          });
-
-          // store lists of projects and crowdsales
-          Extras.upsert({
-            _id: "radarList"
-          }, {
-            crowdsales: crowdsalesList,
-            projects: projectsList,
-            meta: {
-              domain: "chaingear",
-              type: "cache"
-            }
-          });
-
-          // mark current version so we won't download it again. todo: use github webhook instead
-          Extras.upsert({
-            _id: "chaingearEtag"
-          }, {
-            etag: res.headers.etag,
-            meta: {
-              type: "synchronization",
-              domain: "chaingear"
-            }
-          });
-
-        });
     } else {
       console.log("chaingear not changed..");
     }
   } catch (e) {
-    console.log("probably no connection while trying to fetch cyberfund");
+    console.log("some error while fetching chaingear");
+    console.warn(e)
   }
 };
 
-Meteor.startup(function(){
+Meteor.startup(function() {
   fetch();
 });
 

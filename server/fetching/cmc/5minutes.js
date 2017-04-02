@@ -38,10 +38,6 @@ SyncedCron.add({
   }
 })
 
-Meteor.startup(function(){
-  cmc.fetch(cmcCallback5m)
-})
-
 const timestamp_min = 1488026402
 const timestamp_max = 1490449203
 

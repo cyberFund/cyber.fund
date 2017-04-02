@@ -93,7 +93,6 @@ Template['addAccount'].events({
     t.uiAddressExists(t.$address.val());
   },
   'submit #add-account-form': function (e, t) {
-    consolelog('here')
     var isNew = t.$newAccountCheckbox.is(':checked');
     var address = t.$address.val().trim();
     if (!address) {

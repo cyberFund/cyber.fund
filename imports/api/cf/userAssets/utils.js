@@ -10,7 +10,6 @@ var cfUserAssets = {};
 // obsolete
 cfUserAssets.getSystemsFromAccountsObject = function(accounts) {
   if (!accounts) return [];
-  //  console.log(accounts);
 
   var systems = _.flatten(accounts.map(function(account) {
     return _.values(account.addresses)

@@ -2,22 +2,23 @@ import {Meteor} from 'meteor/meteor'
 import {AcountsHistory} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {accumulate, extractAssets, findById} from '/imports/api/cf/accounts/utils'
+import {putPoint} from '/imports/api/accountsHistory/singleAccountHistory'
+import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 const HOUR = 1000 * 60 * 60;
 const historyInterval = 24 * HOUR;
 const accountActual = historyInterval / 2;
-
-const putPoint = require('../accountsHistory/singleAccountHistory').putPoint
-
 // only work for user collection.
 if (Meteor.isServer) {
   exports.updateUserFunds = function(userId) {
     const updatedAt = new Date()
-    let sum = 0,
-      sumUsd = 0,
-      sumFull = 0
-    sumFullUsd = 0;
-    let historyPointsIndex = [],
-      historyPoints = []
+    let sum = 0
+    let sumUsd = 0
+    let sumFull = 0
+    let sumFullUsd = 0
+    let historyPointsIndex = []
+    let historyPoints = []
+    let systemsList = []
+    let systemsListPrivate = []
 
     var accounts = Acounts.find({
       refId: userId
@@ -30,6 +31,9 @@ if (Meteor.isServer) {
 
     accounts.forEach(function(item) {
       var result = putPoint(item._id);
+
+      let listOfSystemsFromThisAccount = getSystemsFromAccountsObject([result && result.state]))
+
       if (result) {
         historyPointsIndex.push({
           isPrivate: item.isPrivate,
