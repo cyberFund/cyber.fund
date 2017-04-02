@@ -55,6 +55,7 @@
                     <span itemprop="price" content="{{metrics.price.usd}}">
                         {{#if gte metrics.price.usd 0.1}}{{readableN2 metrics.price.usd}} {{else}}{{satoshi_decimals metrics.price.usd 6}}{{/if}}</span>
                 </span>
+                {{log metrics}}
                 <br> {{#if metrics.priceChangePercents.day.usd}}
                 <span class="{{greenRedNumber metrics.priceChangePercents.day.usd}}">
                     {{percentsToTextUpDown metrics.priceChangePercents.day.usd 2}}</span>

@@ -308,7 +308,7 @@ Meteor.publish("portfolioSystems", function(options) {
   var user = Meteor.users.findOne({_id: userId});
 
   var accounts = findByRefId(userId, {private: private});
-  var systems = getSystemsFromAccountsObject(accounts);
+  var systems = getSystemsFromAccountsObject(accounts); //TODO: store this, no complex manipulations in subscriptions.
 
   if (private) {
     if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
@@ -362,7 +362,7 @@ Meteor.publish("dailyPrices", function(options) {
 })
 
 Meteor.publish("bitcoinPrice", function(){
-  return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics.price": 1}});
+  return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics": 1}});
 })
 
 require("/imports/api/vwap/publications")
