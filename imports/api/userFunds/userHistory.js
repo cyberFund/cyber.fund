@@ -32,7 +32,7 @@ if (Meteor.isServer) {
     accounts.forEach(function(item) {
       var result = putPoint(item._id);
 
-      let listOfSystemsFromThisAccount = getSystemsFromAccountsObject([result && result.state]))
+      let listOfSystemsFromThisAccount = getSystemsFromAccountsObject([result && result.state])
 
       if (result) {
         historyPointsIndex.push({
