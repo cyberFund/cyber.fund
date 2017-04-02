@@ -53,7 +53,9 @@ Meteor.publish("userDetails", function() {
       "avatar": 1,
       "largeAvatar": 1,
       "firstLogin": 1,
-      "profile": 1
+      "profile": 1,
+      "systemsPortfolio": 1,
+      "systemsPortfolioPrivate": 1,
     }
   });
 });
@@ -308,10 +310,11 @@ Meteor.publish("portfolioSystems", function(options) {
   var user = Meteor.users.findOne({_id: userId});
 
   var accounts = findByRefId(userId, {private: private});
-  var systems = getSystemsFromAccountsObject(accounts); //TODO: store this, no complex manipulations in subscriptions.
+  //var systems = getSystemsFromAccountsObject(accounts); //TODO: store this, no complex manipulations in subscriptions.
+  var systems = private ? _.union(user.systemsPortfolio, systemsPortfolioPrivate) : user.systemsPortfolio
 
   if (private) {
-    if (user.profile && user.profile.starredSystems && user.profile.starredSystems.length) {
+    if (user.profile && user.profile.starredSystems) {
       systems = _.union(systems, user.profile.starredSystems);
     }
   }

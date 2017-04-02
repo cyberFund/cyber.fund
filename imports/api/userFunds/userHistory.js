@@ -17,8 +17,8 @@ if (Meteor.isServer) {
     let sumFullUsd = 0
     let historyPointsIndex = []
     let historyPoints = []
-    let systemsList = []
-    let systemsListPrivate = []
+    let systemsPortfolio = []
+    let systemsPortfolioPrivate = []
 
     var accounts = Acounts.find({
       refId: userId
@@ -32,7 +32,13 @@ if (Meteor.isServer) {
     accounts.forEach(function(item) {
       var result = putPoint(item._id);
 
+      // maintain this on other account updates. so relevant system data is loaded immediately
       let listOfSystemsFromThisAccount = getSystemsFromAccountsObject([result && result.state])
+      if (item.isPrivate) {
+        systemsPortfolioPrivate = _.union(systemsPortfolioPrivate, listOfSystemsFromThisAccount)
+      } else {
+        systemsPortfolio = _.union(systemsPortfolio, listOfSystemsFromThisAccount)
+      }
 
       if (result) {
         historyPointsIndex.push({
@@ -55,7 +61,9 @@ if (Meteor.isServer) {
       $set: {
         publicFunds: sum,
         publicFundsUsd: sumUsd,
-        publicFundsUpdatedAt: updatedAt
+        publicFundsUpdatedAt: updatedAt,
+        systemsPortfolio: systemsPortfolio,
+        systemsPortfolioPrivate: systemsPortfolioPrivate
       }
     });
 
