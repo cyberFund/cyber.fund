@@ -1,5 +1,8 @@
 import {CurrentData, Extras} from '/imports/api/collections'
-function isAutonomous(item) { //chaingear artifact
+
+
+// meta: vocabulary context: currentData
+function isIndependent(item) { //chaingear artifact
   return !item.dependencies || item.dependencies == "independent" || item.dependencies.indexOf("independent") >= 0;
 }
 
@@ -15,21 +18,20 @@ function calcTotalCap() {
   }).forEach(function(sys) {
     if (sys.metrics && sys.metrics.cap && sys.metrics.cap.btc) {
       cap += +sys.metrics.cap.btc;
-      if (isAutonomous(sys)) {
+      if (isIndependent(sys)) {
         autonomous++;
       } else {
         dependent++;
       }
 
       if (sys.metrics.capChange && sys.metrics.capChange.day && sys.metrics.capChange.day.btc ) {
-        capDayAgo += sys.metrics.cap.btc - sys.metrics.capChange.day.btc;
+        capDayAgo += +sys.metrics.cap.btc - sys.metrics.capChange.day.btc;
       }
     }
 
   });
 
   console.log(cap)
-  
   return {
     btc: cap,
     btcDayAgo: capDayAgo,
