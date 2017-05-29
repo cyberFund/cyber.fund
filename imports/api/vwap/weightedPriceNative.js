@@ -2,7 +2,6 @@ import {xchangeCurrent, xchangeVwapCurrent} from '/imports/api/collections'
 import { byTwoIdsOrdered } from './selectors/tradePairs'
 
 const selectors = require("./selectors")
-console.log(selectors)
 
 // get weighted native price, given that there can exist both direct and
 // reverted market pairs.
