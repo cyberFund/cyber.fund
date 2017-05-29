@@ -315,10 +315,20 @@ FlowRouter.route("/dailyPrices", {
 })
 
 FlowRouter.route("/test", {
-  name: "DailyPrices",
+  name: "DailyPrices_test",
   action: function(params, queryParams) {
     BlazeLayout.render("layoutMain", {
       main: "testPage"
+    });
+  }
+})
+
+FlowRouter.route("/debug", {
+  name: "Debug",
+  action: function(params, queryParams) {
+    BlazeLayout.render("layoutDebug", {
+      main: "debugPage",
+      widgets: ["search"]
     });
   }
 })

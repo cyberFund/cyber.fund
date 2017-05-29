@@ -1,25 +1,18 @@
 import {CurrentData} from '/imports/api/collections'
 import {_session} from '/imports/api/client/utils/base'
-
+import { fiat, fiatToken } from '/imports/api/selectors'
 import {fiats, xchangeMarkets as markets} from '/imports/api/vwap/marketsList'
-import collections from '/imports/api/vwap/collections'
+import {xchangeCurrent, xchangeVwapCurrent} from '/imports/api/collections'
 import selectors from '/imports/api/vwap/selectors'
-const xchangeCurrent = collections.xchangeCurrent
-const xchangeVwapCurrent = collections.xchangeVwapCurrent
 const ROWS_SHORT = 20
 
 import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
 
 
 
-// return name of currently picked fiat. as it s given by xchange
-// todo: move to imports
-function _fiat(){
-  const fiat = _session.get('fiat');
-  if (fiat==='') return 'Bitcoin';
-  return fiat;
-}
 
+
+// TODO: move to /imports/api/selectors
 // return token of currently picked fiat. see `fiatSelector` template
 // todo: move to imports
 function _fiatToken(){
