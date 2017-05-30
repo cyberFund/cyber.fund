@@ -670,7 +670,7 @@ SyncedCron.add({
   }
 });
 */
-
+/*
 var saveTotalCap = function() {
   var btcMetrics = CurrentData.findOne({
     _id: "Bitcoin"
@@ -732,7 +732,8 @@ var saveTotalCap = function() {
     }));
   }
 };
-
+*/
+/*
 Meteor.startup(function(){
   saveTotalCap();
 });
@@ -751,7 +752,7 @@ SyncedCron.add({
     }
   }
 });
-
+*/
 function gatherSymSys(selector) {
   var ret = [];
   CurrentData.find(selector).forEach(function(item) {
