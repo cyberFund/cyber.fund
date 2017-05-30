@@ -1,5 +1,5 @@
 import cfCDs from '/imports/api/currentData/selectors'
-import {deltaPercents} from '/imports/api/client/utils/base'
+import {deltaPercents} from '/imports/api/utils/formatters'
 import {CurrentData} from '/imports/api/collections'
 import {Meteor} from 'meteor/meteor'
 import {linksWithTag} from '/imports/api/currentData'

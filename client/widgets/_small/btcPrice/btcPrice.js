@@ -1,4 +1,4 @@
-import {readableN} from '/imports/api/client/utils/base'
+import {readableN} from '/imports/api/utils/formatters'
 import {CurrentData} from '/imports/api/collections'
 function _btcPrice (){
   var btc = CurrentData.findOne({_id: "Bitcoin"});
