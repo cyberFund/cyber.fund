@@ -1,5 +1,6 @@
 import { Meteor } from 'meteor/meteor'
 import { Mongo } from 'meteor/mongo'
+import { feedsVwap } from '/imports/api/collections'
 
 // currently, actual state only. history is stored in outer (non meteor) db
 
@@ -23,23 +24,19 @@ xchangeVwapCurrent.allow({
 
 
 var CurrentData = new Meteor.Collection("CurrentData", {
-  transform: function(doc){
-    doc._metrics
-    return doc;
-  }
+
 });
 
-var FastData = new Meteor.Collection("fast_market_data");
-var FeedsVwap = require("/imports/api/collections").feedsVwap;
-var Metrics = new Meteor.Collection('Metrics')
-var Extras = new Meteor.Collection("extras")
-var MarketData = new Meteor.Collection("MarketData")
+const FastData = new Mongo.Collection("fast_market_data");
+const FeedsVwap = feedsVwap;
+const Metrics = new Mongo.Collection('Metrics')
+const Extras = new Mongo.Collection("extras")
+const MarketData = new Mongo.Collection("MarketData")
 
-var AddressesLists = new Meteor.Collection("AdressesLists")
-var Addresses = new Meteor.Collection("Addresses")
+const AddressesLists = new Mongo.Collection("AdressesLists")
+var Addresses = new Mongo.Collection("Addresses")
 
-
-var AcountsHistory = new Meteor.Collection("accountsHistory")
+var AcountsHistory = new Mongo.Collection("accountsHistory")
 if (Meteor.isServer) {
   AcountsHistory._ensureIndex({
     timestamp: -1
@@ -57,20 +54,17 @@ AcountsHistory.allow({
   remove: function(userId, doc) {    return false;  }
 });
 
+export {
+  xchangeCurrent,
+  xchangeVwapCurrent,
 
+  CurrentData,
+  FastData,
+  Metrics,
+  Extras,
+  MarketData,
+  AddressesLists,
+  Addresses,
 
-
-module.exports = {
-  xchangeCurrent: xchangeCurrent,
-  xchangeVwapCurrent: xchangeVwapCurrent,
-
-  CurrentData: CurrentData,
-  FastData: FastData,
-  Metrics: Metrics,
-  Extras: Extras,
-  MarketData: MarketData,
-  AddressesLists: AddressesLists,
-  Addresses: Addresses,
-
-  AcountsHistory: AcountsHistory
+  AcountsHistory
 }
