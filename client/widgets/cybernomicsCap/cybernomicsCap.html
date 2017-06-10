@@ -1,22 +1,21 @@
 <template name="cybernomicsCap">
-    {{#cardMarkt title="Cybernomics Cap and Cat" card_class="col s6 m6 l4"}}
+    {{#cardMarkt title="Cybernomics Cap" card_class="col s6 m6 l4 h15em"}}
             {{#if capUsd }}
             <p>
                 <span class="enlarge">$&nbsp;{{readableN0 capUsd}}</span>
                 <br> {{#if capUsdDailyChange}}
 
                 <span class="{{greenRedNumber capUsdDailyChange}}">
-        {{percentsToTextUpDown capUsdDailyChange 4}}</span> {{else}} &nbsp; {{/if}}
+        {{percentsToTextUpDown capUsdDailyChange 2}}</span> {{else}} &nbsp; {{/if}}
             </p>
             {{/if}}{{#if capBtc}}
             <p>
                 <span class="enlarge">Ƀ&nbsp;{{readableN0 capBtc}}</span>
                 <br> {{#if capBtcDailyChange}}
                 <span class="{{greenRedNumber capBtcDailyChange}}">
-        {{percentsToTextUpDown capBtcDailyChange 4}}</span> {{else}}&nbsp; {{/if}}
+        {{percentsToTextUpDown capBtcDailyChange 2}}</span> {{else}}&nbsp; {{/if}}
             </p>
             <p class="small">24h changes</p>
             {{/if}}
-        cvb
     {{/cardMarkt}}
 </template>

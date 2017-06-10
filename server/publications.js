@@ -312,7 +312,8 @@ Meteor.publish("portfolioSystems", function(options) {
 
   var accounts = findByRefId(userId, {private: private});
   //var systems = getSystemsFromAccountsObject(accounts); //TODO: store this, no complex manipulations in subscriptions.
-  var systems = private ? _.union(user.systemsPortfolio || [], user.systemsPortfolioPrivate || []) : user.systemsPortfolio
+
+  var systems = private ? _.union(user.systemsPortfolio || [], user.systemsPortfolioPrivate || []) : (user.systemsPortfolio || [])
 
   if (private) {
     if (user.profile && user.profile.starredSystems) {
