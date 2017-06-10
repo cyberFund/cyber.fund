@@ -1,3 +1,7 @@
+.card {
+    min-height: 3em;
+}
+
 /* cloned from .cglinkbox */
 .markt-card-row {
   width: 100%;
@@ -7,18 +11,18 @@
   justify-content: space-between;
 }
 
-.card.markt {
-  height: 13em;
+.markt {
   display: flex;
   mix-width: 220px;
   justify-content: center;
 }
 
-.card.markt h5{
+
+.markt h5{
   margin-bottom: 1.2em;
   text-transform: capitalize;
 }
 
-.card.generic {
-  padding: 1.61rem;
+.generic {
+  padding: 1.61rem
 }
