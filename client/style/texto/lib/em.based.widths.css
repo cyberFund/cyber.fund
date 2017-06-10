@@ -1,22 +1,8 @@
-.w5em {
- width: 5em;
-}
-.w9em {
-  width: 9em;
-}
-.w12em {
-  width: 12em;
-}
-.w33em {
-  width: 33em;
-}
-.w55em {
-  width: 55em;
-}
-.w42em {
-  width: 42em;
-}
-
-.lh12em {
-  line-height: 1.2em;
-}
+.w5em {width: 5em}
+.w9em {width: 9em}
+.w12em {width: 12em}
+.w18em {width: 18em}
+.w33em {width: 33em}
+.w55em {width: 55em}
+.w42em {width: 42em}
+.lh12em {line-height: 1.2em}
