@@ -68,11 +68,17 @@
       </table>
     </div>
 </template>
+
+
 <template name="mainPageCrowdasalesWidget">
     <h5><a href="/radar">Active Crowdsales</a></h5>
     <br />
     {{#each activeCrowdsales}}
-      {{> cgLinkToSystemCardCrowdsale this }}
+    <div style="display: inline-block; min-height: 11em; width: 22em; min-width: 18em">
+        <div style="width: 90%; margin: 0 auto">
+              {{> cgLinkToSystemCardCrowdsale this }}
+          </div>
+      </div>
     {{/each}}
 </template>
 
@@ -135,7 +141,7 @@
             {{> mainPageCrowdasalesWidget}}
         </div>
 
-        {{> balanceChecker1}}
+        {{! > balanceChecker1}}
     </div>
 
 </template>
