@@ -1,5 +1,5 @@
 import cfChartist from '/imports/api/client/utils/chartist'
-import {monetaryFormatter} from '/imports/api/client/utils/base'
+import {monetaryFormatter} from '/imports/api/utils/formatters'
 Template['weeklyGraph'].rendered = function () {
   var ticks = [];
   var self = this;
