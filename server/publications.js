@@ -308,10 +308,12 @@ Meteor.publish("portfolioSystems", function(options) {
   var private = this.userId == userId;
   if (!userId) return this.ready();
   var user = Meteor.users.findOne({_id: userId});
+  if (!userId) return this.ready();
 
   var accounts = findByRefId(userId, {private: private});
   //var systems = getSystemsFromAccountsObject(accounts); //TODO: store this, no complex manipulations in subscriptions.
-  var systems = private ? _.union(user.systemsPortfolio, user.systemsPortfolioPrivate) : user.systemsPortfolio
+
+  var systems = private ? _.union(user.systemsPortfolio || [], user.systemsPortfolioPrivate || []) : (user.systemsPortfolio || [])
 
   if (private) {
     if (user.profile && user.profile.starredSystems) {
@@ -367,5 +369,5 @@ Meteor.publish("dailyPrices", function(options) {
 Meteor.publish("bitcoinPrice", function(){
   return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics": 1}});
 })
-
+require("/imports/api/server/extras/publications")
 require("/imports/api/vwap/publications")

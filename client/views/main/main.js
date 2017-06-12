@@ -10,27 +10,6 @@ function _cap() {
 function _accounts(){return Acounts.find({refId: Meteor.userId()}).fetch()}
 
 Template["main"].helpers({
-  cap: function(){ return _cap();},
-  capBtc: function() {
-    var cap = _cap();
-    return cap ? cap.btc : undefined;
-  },
-  capUsd: function() {
-    var cap = _cap();
-    return cap ? cap.usd : undefined;
-  },
-  capUsdYesterday: function() {
-    var cap = _cap();
-    return cap ? cap.usdDayAgo : undefined;
-  },
-  capBtcDailyChange: function () {
-    var cap = _cap();
-    return (cap && cap.btc) ? (cap.btc - cap.btcDayAgo)/cap.btc * 100 : undefined;
-  },
-  capUsdDailyChange: function () {
-    var cap = _cap();
-    return (cap && cap.usd) ? (cap.usd - cap.usdDayAgo)/cap.usd * 100 : undefined;
-  },
   sumBtc: function(){
     var ret = 0;
     if (!Meteor.userId()) return ret;

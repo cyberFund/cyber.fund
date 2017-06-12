@@ -1,6 +1,7 @@
 import {CurrentData} from '/imports/api/collections'
+import {escapeNaN} from '/imports/api/utils/formatters'
 import Acounts from '/imports/api/collections/Acounts'
-import {deltaPercents, formatters, readableNumbers} from '/imports/api/client/utils/base'
+import {deltaPercents, formatters, readableNumbers} from '/imports/api/utils/formatters'
 import {Meteor} from 'meteor/meteor'
 /**
  * repressent string (of digits) splitting it in groups of 3, from begin
@@ -28,12 +29,6 @@ function group3decimal(input, sep) {
     input = input.toString().replace(/(\d{3})(\d+)/, "$1" + (sep || ",") + "$2");
   }
   return input;
-}
-
-function escapeNaN(formatter){
-  return function(value){
-    return isNaN(value) ? "_#_" : formatter(value);
-  };
 }
 
 var helpers = {
@@ -287,14 +282,6 @@ var helpers = {
     return tags.indexOf(tag) > -1;
   },
 
-  cdTurnover: function turnover () {
-    var metrics = this.metrics;
-      if (metrics.cap && metrics.cap.btc) {
-          return 100.0 * metrics.turnover;
-      }
-    return 0;
-  },
-
   cdSymbol: function symbol () {
     if (this.token && this.token.symbol) {
       return this.token.symbol
@@ -381,16 +368,7 @@ var helpers = {
   tagMatchesTags: function (tag, tags) {
     return tags.indexOf(tag) > -1;
   },
-
-  // currentData
-  cdTurnover: function turnover () {
-    var metrics = this.metrics;
-      if (metrics.cap && metrics.cap.btc) {
-          return 100.0 * metrics.turnover;
-      }
-    return 0;
-  },
-
+  
   cdSymbol: function symbol () {
     if (this.token && this.token.symbol) {
       return this.token.symbol

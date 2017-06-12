@@ -1,4 +1,4 @@
-import {xchangeVwapCurrent, xchangeCurrent} from '/imports/api/vwap/collections'
+import {xchangeVwapCurrent, xchangeCurrent} from '/imports/api/collections'
 import {extractFromPromise} from '/imports/api/server/utils'
 import weightedPriceNative from '/imports/api/vwap/weightedPriceNative'
 import cfEs from '/imports/api/server/cfEs'

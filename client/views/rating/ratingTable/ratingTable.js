@@ -63,13 +63,19 @@ Template["ratingTable"].onRendered (function() {
   var t = _.throttle(function() {
     var $w = $(window);
     var scrolltop = $w.scrollTop();
+    var scrollleft = $W.scrollLeft();
+
+
     if (scrolltop > 55 && scrolltop < ($("#rating-table").height() - $w.height())) {
+      // show fixed header
       if (!$thead.hasClass("show")) {
-        //$thead.css("height", $thead0.height()+"px");
+        $thead.css("width", $thead0.width()+"px");
         recalcWidths();
         $thead.addClass("show");
       }
+
     } else {
+      // hide fixed header
       $thead.removeClass("show");
       $thead.css("width", "");
       $thead.find("th").each(function() {

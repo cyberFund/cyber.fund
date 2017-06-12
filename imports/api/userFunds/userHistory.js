@@ -18,7 +18,7 @@ if (Meteor.isServer) {
     let historyPointsIndex = []
     let historyPoints = []
     let systemsPortfolio = []
-    let systemsPortfolioPrivate = []
+    var systemsPortfolioPrivate = []
 
     var accounts = Acounts.find({
       refId: userId

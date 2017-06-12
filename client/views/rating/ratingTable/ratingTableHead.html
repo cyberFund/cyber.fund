@@ -1,11 +1,11 @@
 <template name="ratingTableHead">
-  <th class="center hide-on-small-and-down">Rank</th>
+  <th class="center -hide-on-small-and-down">Rank</th>
 
   <th class="left-align">
     <span class="th-sys">&nbsp;&nbsp;System</span>
   </th>
 
-  <th class="center hide-on-small-and-down">Price</th>
+  <th class="center -hide-on-small-and-down">Price</th>
   {{#if eq _period "month"}}
     {{#thSortable class="center hide-on-small-and-down" o=__sorter
     s="metrics.supplyChangePercents.month"}}Token{{/ thSortable}}
