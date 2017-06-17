@@ -40,7 +40,7 @@ function calcTotalCap() {
 };
 
 var saveTotalCap = function() {
-  var btcMetrics = CurrentData.findOne({
+  let btcMetrics = CurrentData.findOne({
     _id: "Bitcoin"
   }, {
     fields: {
@@ -50,11 +50,11 @@ var saveTotalCap = function() {
   btcMetrics = btcMetrics && btcMetrics.metrics;
   if (!btcMetrics) return;
 
-  var btcPrice = btcMetrics.price && btcMetrics.price.usd;
-  var btcPriceDayAgo = btcPrice - (btcMetrics.priceChange && btcMetrics.priceChange.day &&
+  let btcPrice = btcMetrics.price && btcMetrics.price.usd;
+  let btcPriceDayAgo = btcPrice - (btcMetrics.priceChange && btcMetrics.priceChange.day &&
     btcMetrics.priceChange.day.usd || 0);
 
-  var cap = calcTotalCap();
+  let cap = calcTotalCap();
   if (cap) {
 
     Extras.upsert({
