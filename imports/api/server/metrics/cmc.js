@@ -129,26 +129,19 @@ var cmc = {
     let dayAgoSupply = dayAgoMetrics && getSupplyFromDataPoint(dayAgoMetrics)
     let weekAgoSupply = weekAgoMetrics && getSupplyFromDataPoint(weekAgoMetrics)
     let monthAgoSupply = monthAgoMetrics && getSupplyFromDataPoint(monthAgoMetrics)
-    /*
-    {
-    "_id" : "PQbLYxbvGYwxxb7NG",
-    "cap_usd" : 749733.251754167,
-    "cap_btc" : 1825.01965154583,
-    "volume24_btc" : 19.2001083333333,
-    "price_usd" : 0.0233973583333333,
-    "volume24_usd" : 0,
-    "price_btc" : 5.69544416666667e-05,
-    "interval" : "hourly",
-    "timestamp" : ISODate("2016-03-12T19:00:00.000Z"),
-    "systemId" : "Megacoin",
-    "source" : "2015"
-}*/
+
     let set = {}
     let supply;
+    if (system == 'Iota') {
+      if (metrics.price) {
+        metrics.price.btc = metrics.price.btc/1000000
+        metrics.price.usd = metrics.price.usd/1000000
+      }
+    }
     let condition = {
       supplyFromDb: lastData.flags && lastData.flags.supply_from_here,
-      btcPrice: metrics.price && metrics.price.btc,
-      usdPrice: metrics.price && metrics.price.usd,
+      btcPrice: metrics.price && +metrics.price.btc,
+      usdPrice: metrics.price && +metrics.price.usd,
       usdBtcPrice: metrics.price && metrics.price.usd && metrics.price.btc,
     }
     if (condition.supplyFromDb) {
