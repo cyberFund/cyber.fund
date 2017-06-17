@@ -1,5 +1,7 @@
 import {Extras} from '/imports/api/collections'
 import {Meteor} from 'meteor/meteor'
+import {totalCapDoc} from '/imports/api/currentData/totalCap'
+
 Meteor.startup(function() {
   Meteor.setInterval(function() {
     var sT = moment().diff(moment("2016-01-01 00:00:00"), "seconds");
@@ -53,18 +55,13 @@ function _invest() {
   })
 }
 
-function _cap() {
-  return Extras.findOne({
-    _id: "total_cap"
-  })
-}
 const loading = '...loading...'
 Template['invest'].helpers({
   invest: function() {
     return _invest();
   },
   cap: function() {
-    return _cap()
+    return totalCapDoc()
   },
   raised: function() {
     var invest = _invest();
@@ -79,20 +76,20 @@ Template['invest'].helpers({
     return invest ? 100 / 3 * _raised(invest) : loading
   },
   cap_btc_mln: function() {
-    var cap = _cap();
+    var cap = totalCapDoc();
     return cap ? cap.btc / 1000000 : loading
   },
   cap_usd_bln: function() {
-    var cap = _cap();
+    var cap = totalCapDoc();
     return cap ? cap.usd / 1000000000 : loading
   },
   cap_btc_div_200k: function() {
-    var cap = _cap();
+    var cap = totalCapDoc();
     return cap ? cap.btc / 200000 : loading
   },
   nicheShare: function() {
     var invest = _invest(),
-      cap = _cap();
+      cap = totalCapDoc();
     var share = (invest && cap) ? (100 / 3 * _raised(invest) / (cap.btc / 200)) : loading;
     if (_.isString(share)) return loading;
     if (share == 0) return 0;

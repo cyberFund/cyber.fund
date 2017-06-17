@@ -1,13 +1,8 @@
 import {CurrentData, Extras} from '/imports/api/collections'
 import Acounts from '/imports/api/collections/Acounts'
 import {Meteor} from 'meteor/meteor'
-function _cap() {
-  return Extras.findOne({
-    _id: "total_cap"
-  });
-}
 
-function _accounts(){return Acounts.find({refId: Meteor.userId()}).fetch()}
+function _accounts() {return Acounts.find({refId: Meteor.userId()}).fetch()}
 
 Template["main"].helpers({
   sumBtc: function(){

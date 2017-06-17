@@ -7,11 +7,10 @@ function isIndependent(item) { //chaingear artifact
 }
 
 function calcTotalCap() {
-
-  var cap = 0;
-  var capDayAgo = 0;
-  var autonomous = 0;
-  var dependent = 0;
+  let cap = 0;
+  let capDayAgo = 0;
+  let autonomous = 0;
+  let dependent = 0;
   CurrentData.find({}, {
     "metrics.cap": 1,
     "dependencies": 1
@@ -69,6 +68,12 @@ var saveTotalCap = function() {
   }
 };
 
+function totalCapDoc() {
+  return Extras.findOne({
+    _id: "total_cap"
+  });
+}
+
 export {
-  saveTotalCap
+  saveTotalCap, totalCapDoc
 }
