@@ -132,7 +132,7 @@ var cmc = {
 
     let set = {}
     let supply;
-    if (system == 'Iota') {
+    if (system._id == 'Iota') {
       if (metrics.price) {
         metrics.price.btc = metrics.price.btc/1000000
         metrics.price.usd = metrics.price.usd/1000000
