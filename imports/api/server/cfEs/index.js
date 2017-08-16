@@ -3,8 +3,9 @@ import {extractFromPromise} from '/imports/api/server/utils'
 import {Meteor} from 'meteor/meteor'
 const LAST = "price"
 var cfEs = {}
-
+/*
 Meteor.startup(function() {
+  return;
   if (!cfEs._client) cfEs._client = cfEs._getClient();
 })
 
@@ -571,5 +572,5 @@ _.extend(cfEs, {
     }
   }
 });
-
+*/
 module.exports = cfEs

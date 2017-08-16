@@ -3,9 +3,7 @@
     <div class="row">
       <table class="col s12 m6 offset-m3 l4 offset-l4">
           <thead class="">
-            <th data-field="name" class="">
-                System
-            </th>
+            <th data-field="name" class="logo">System</th>
             <th data-field="CMGR" class="center">
                 {{# withTooltip}} CMGR[$]
                 {{#tooltip class="tooltip-table-head right0"}}
@@ -120,12 +118,14 @@
               <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/welcome"><p>Join Us</p></a>
             {{/if}}
         </div>
-        {{! > balanceChecker1}}
+      
     </div>
     <div class="row">
         <div class="col m12 center valign" style="padding:10px">
             {{> mainPageCrowdasalesWidget}}
         </div>
     </div>
-
+    <div>
+        {{ > balanceChecker1}}
+    </div>
 </template>

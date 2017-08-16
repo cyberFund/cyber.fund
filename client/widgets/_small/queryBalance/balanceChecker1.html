@@ -13,30 +13,35 @@
               <label>input address</label>
             </div>
           </div>
+
             <a href="#" class="btn query-balance">Query Balance</a>
+          
             {{#if lastAddress}}
-              <h6>{{lastAddress}} </h6>
-
+              <h6>{{lastAddress}}</h6>
                 {{#if lastStatus}}
-                <div class="row">
-                  {{#if eq lastStatus 400}} wrong address {{else}} unknown error {{/if}}
-                </div>
+                  <div class="row">
+                    {{#if eq lastStatus 400}} wrong address {{else}} unknown error {{/if}}
+                  </div>
                 {{else}}
-
+                {{log lastData}}
                   {{#each lastData}}
-                    <div class="row no-bottom-margin">{{> cgSystemLogo class="logo-portfolio" system=asset}}{{displaySystemName (systemFromId asset)}}:{{quantity}}
-                      {{#if or vUsd vBtc}}(
-                        {{#if vBtc}}Ƀ{{readableN4 vBtc}}{{/if}}
-                        {{#if and vUsd vBtc}}/{{/if}}
-                        {{#if vUsd}}${{readableN2 vUsd}}{{/if}}
-                      ){{/if}}</div>
+
+                    <div class="row no-bottom-margin">
+                    {{! > cgSystemLogo class="logo-portfolio" system=asset}}
+                    {{displaySystemName asset}}:{{quantity}}
+                    {{#if or vUsd vBtc}}(
+                      {{#if vBtc}}Ƀ{{readableN4 vBtc}}{{/if}}
+                      {{#if and vUsd vBtc}}/{{/if}}
+                      {{#if vUsd}}${{readableN2 vUsd}}{{/if}}
+                    ){{/if}}</div>
                   {{/each}}
                 {{/if}}
-
             {{/if}}
+
             {{#if queryingAddress}}
               <p>Querying address: {{queryingAddress}}</p>
             {{/if }}
+
         </div>
 
     </div>
