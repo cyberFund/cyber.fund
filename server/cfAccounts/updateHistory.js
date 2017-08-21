@@ -1,7 +1,6 @@
 import {selectorService} from '/imports/api/userFunds'
 import {updateUserFunds} from '/imports/api/userFunds/userHistory'
 import {handleArrayWithInterval} from '/imports/api/handleArray'
-//import {selectorSatoshiPie} from '/imports/api/userFunds'
 
 function dealWithPopulars(){
   console.log("starting hourly funds recalculation (for lucky funds)", true)

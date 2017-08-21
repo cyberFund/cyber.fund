@@ -1,5 +1,4 @@
-import startupDailies from '/imports/api/vetalPrices/syncedCronJob'
+import startupDailies from '/imports/api/dailyPrices/syncedCronJob'
 Meteor.startup(() => {
   startupDailies()
-
 })

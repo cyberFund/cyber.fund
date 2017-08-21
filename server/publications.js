@@ -4,7 +4,9 @@ import cfCDs from '/imports/api/currentData/selectors'
 import {findByRefId} from '/imports/api/cf/accounts/utils'
 import {getSystemsFromAccountsObject} from '/imports/api/cf/userAssets/utils'
 
+
 import Acounts from '/imports/api/collections/Acounts'
+
 /**
  * currentData, just fields enough to draw rating table..
  */
@@ -360,7 +362,7 @@ Meteor.publish("usersWithFunds", function(){
   });
 });
 
-import dailyPrices from '/imports/api/vetalPrices/collection'
+import dailyPrices from '/imports/api/dailyPrices/collection'
 
 Meteor.publish("dailyPrices", function(options) {
    return dailyPrices.find()
@@ -369,5 +371,9 @@ Meteor.publish("dailyPrices", function(options) {
 Meteor.publish("bitcoinPrice", function(){
   return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics": 1}});
 })
+Meteor.publish("bitcoinPrice", function(){
+  return CurrentData.find({_id: "Bitcoin"}, {fields: {"metrics": 1}});
+})
+
 require("/imports/api/server/extras/publications")
 require("/imports/api/vwap/publications")

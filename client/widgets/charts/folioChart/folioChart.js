@@ -2,7 +2,7 @@ import {CurrentData} from '/imports/api/collections'
 import cfCDs from '/imports/api/currentData/selectors'
 import uaGraph from '/imports/api/cf/userAssets/graph'
 import {getPrice} from '/imports/api/currentData'
-jqHide = function(jQ) {
+function jqHide(jQ) {
   if (jQ && jQ.addClass && typeof jQ.addClass == "function") {
     jQ.addClass("hidden");
   //  jQ.attr("visibility", "hidden");
@@ -10,14 +10,17 @@ jqHide = function(jQ) {
   }
 };
 
-jqShow = function(jQ) {
+function jqShow(jQ) {
   if (jQ && jQ.removeClass && typeof jQ.removeClass == "function") {
     jQ.removeClass("hidden");
     jQ.attr("visibility", "inherit");
     return jQ;
   }
 };
+
 Template["folioChart"].onRendered(function() {
+  console.log('meow meow')
+  /*
   var instance = this;
   instance._selector = ".folio-pie";
   instance.options = {
@@ -147,4 +150,5 @@ Template["folioChart"].onRendered(function() {
       instance.hideView();
     }
   });
+  */
 });

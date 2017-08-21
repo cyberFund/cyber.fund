@@ -87,10 +87,6 @@ function updateCrowdsales() {
   }, 120 * 1000); // 120 seconds per query
 }
 
-Meteor.startup(function() {
-  // updateCrowdsales()
-})
-
 if (Meteor.settings.qcCrowdsales) SyncedCron.add({
   name: 'update active crowdsales',
   schedule: function(parser) {

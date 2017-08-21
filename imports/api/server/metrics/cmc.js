@@ -120,9 +120,6 @@ var cmc = {
       return (now > 0) ? (100.0 * (now - before) / now) : (0)
     }
 
-
-// TODO: REFACTOR METRICS. 
-
 		if (!metrics || !metrics.systemId) return
     let lastData = system
     let sel = {systemId: metrics.systemId, source: _source}
@@ -136,8 +133,7 @@ var cmc = {
     let set = {}
     let supply;
 
-    //coinmarketcap gives price per million iota tokens
-    if (system._id == 'Iota') { 
+    if (system._id == 'Iota') {
       if (metrics.price) {
         metrics.price.btc = metrics.price.btc/1000000
         metrics.price.usd = metrics.price.usd/1000000

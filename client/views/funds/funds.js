@@ -1,4 +1,6 @@
 import {Meteor} from 'meteor/meteor'
+import {selector as _selector} from "/imports/api/userFunds/"
+
 var helpers = {
   userFollowedByCount: function (user) {
     return user && user.profile && user.profile.followedBy &&
@@ -28,7 +30,6 @@ function fundsIFollow(){
   return iFollow
 }
 
-import {selector as _selector} from "/imports/api/userFunds/"
 
 Template.funds.helpers({
   rows: function(){

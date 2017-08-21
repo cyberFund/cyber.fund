@@ -1,5 +1,5 @@
 
 <template name="navbarItem">
   <li class="waves-effect {{isActivePath path=path}}"><a
-      href="{{path}}" target="{{#if goBlank}}_blank{{/if}}">{{text}}</a></li>
+      href="{{path}}" {{#if goBlank}}target="_blank"{{/if}}>{{text}}</a></li>
 </template>
