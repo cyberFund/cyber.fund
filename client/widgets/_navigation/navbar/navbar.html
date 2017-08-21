@@ -9,9 +9,11 @@
           {{> navbarItem path="/radar" text="Crowdsales"}}
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/funds" text="Funds"}}
-          <li class="waves-effect">
-            <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a>
-          </li>
+          
+          {{> navbarItem path="https://steemit.com/created/cyberfund" text="Blog" goBlank=true}}
+          {{> navbarItem path="http://company.cyber.fund/" text="About us" goBlank=true}}
+          {{> navbarItem path="http://company.cyber.fund/#newsletter" text="Newsletter" goBlank=true}}
+
         </ul>
         <ul class="right hide-on-med-and-down">
             <li class="search-wrap" style="height: 64px; display: inline">
@@ -40,8 +42,10 @@
           {{> navbarItem path="/radar" text="Crowdsales"}}
           {{> navbarItem path="/rating" text="Assets"}}
           {{> navbarItem path="/funds" text="Funds"}}
-          <li>
-            <a href="https://steemit.com/created/cyberfund" target="_blank">Blog</a></li>
+
+          {{> navbarItem path="https://steemit.com/created/cyberfund" text="Blog" goBlank=true}}
+          {{> navbarItem path="http://company.cyber.fund/" text="About us" goBlank=true}}
+          {{> navbarItem path="http://company.cyber.fund/#newsletter" text="Newsletter" goBlank=true}}
         </ul>
         <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu">
         </i></a>
