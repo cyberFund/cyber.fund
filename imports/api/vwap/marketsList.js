@@ -89,6 +89,7 @@ const fiats = [
   ["Japanese Yen", "JPY"],
   ["US Dollar", "USD"]
 ]
+
 module.exports = {
   xchangeMarkets: xchangeMarkets,
   fiats: fiats

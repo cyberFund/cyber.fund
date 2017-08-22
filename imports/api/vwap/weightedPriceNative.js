@@ -1,11 +1,9 @@
 import {xchangeCurrent, xchangeVwapCurrent} from '/imports/api/collections'
 import { byTwoIdsOrdered } from './selectors/tradePairs'
 
-const selectors = require("./selectors")
-
 // get weighted native price, given that there can exist both direct and
 // reverted market pairs.
-export default function weightedPriceNative (base, quote){
+function weightedPriceNative (base, quote){
   if (base === quote) return 1;
   //1. get both direct and revert price
   // note: for non-weighted pairs - there d be find().fetch(), and also weighting/getting reverse price would involve extra mapreduce step
@@ -32,3 +30,5 @@ export default function weightedPriceNative (base, quote){
     return (direct.last.native*direct.volume.native + revertedPrice*revertedVolume) / (revertedVolume + direct.volume.native)
   }
 }
+
+export  {weightedPriceNative}

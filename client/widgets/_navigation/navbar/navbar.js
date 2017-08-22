@@ -12,10 +12,10 @@ function subscribeList(instance, arr){
 
 function collapseSideNav(instance){
   try {
-    return instance && instance.$ 
-    && instance.$('.button-collapse').sideNav()
-    && instance 
-  } catch {
+    return instance && instance.$
+    && instance.$('.button-collapse').sideNav() && instance
+  } catch (e) {
+    console.log(e); console.log("777")
     return instance
   }
 }
@@ -30,7 +30,7 @@ function isActiveOwnProfile(){
 
 Template.navbar.onCreated(function(){
   var instance = this
-  subscribeList( instance, 
+  subscribeList( instance,
     ["coinsCount", "ownAssets", "systemsLookup"]
   )
 })

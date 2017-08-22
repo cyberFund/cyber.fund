@@ -25,21 +25,15 @@ Meteor.publish("systemPairs", function(systemId){
 
 Meteor.publish("systemPairsToBitcoinWeighted", function(systemId){
   if (!systemId) return this.ready();
-  const collection = require("./collections").xchangeVwapCurrent;
-  const selector = require("./selectors").pairsByTwoIds;
-  return xchangeVwapCurrent.find(selector(systemId));
+  return xchangeVwapCurrent.find(byId(systemId));
 });
 
 Meteor.publish("pairsToBitcoinWeighted", function(){
-  const collection = require("./collections").xchangeVwapCurrent;
-  const selector = require("./selectors").pairsById;
-  return collection.find(pairsById("Bitcoin"));
+  return xchangeVwapCurrent.find(byId("Bitcoin"));
 });
 
 
 Meteor.publish("marketPairs", function(marketUrl){
   if (!marketUrl) return this.ready();
-  const collection = require("./collections").xchangeCurrent;
-  const selector = require("./selectors").pairsByMarket;
-  return collection.find(selector(marketUrl));
+  return xchangeCurrent.find(byMarket(marketUrl));
 });

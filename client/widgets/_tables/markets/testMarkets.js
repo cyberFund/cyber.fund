@@ -6,7 +6,7 @@ import {xchangeCurrent, xchangeVwapCurrent} from '/imports/api/collections'
 import selectors from '/imports/api/vwap/selectors'
 const ROWS_SHORT = 20
 
-import {default as weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
+import {weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
 
 
 

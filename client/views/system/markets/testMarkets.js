@@ -1,29 +1,14 @@
 const ROWS_SHORT = 20
-const markets = require("/imports/vwap/marketsList").xchangeMarkets
-const fiats = require("/imports/vwap/marketsList").fiats
-const flatten = require("/imports/elastic/traverseAggregations").flatten
-const collections = require("/imports/vwap/collections")
-const selectors = require("/imports/vwap/selectors")
-const feedsCurrent = collections.feedsCurrent
-const feedsVwapCurrent = collections.feedsVwapCurrent
-
-
-CF.test = CF.test || {}
-CF.test.printPairs = function(){
-  console.log(feedsCurrent.find().fetch())
-}
-CF.test.printPairsWeighted = function(){
-  console.log(feedsVwapCurrent.find().fetch())
-}
-
-import {default as weightedPriceNative} from '/imports/vwap/weightedPriceNative'
-
-
+import { xchangeMarkets as markets, fiats } from '/imports/api/vwap/marketsList'
+import { xchangeCurrent } from '/imports/api/collections'
+import selectors from '/imports/api/vwap/selectors'
+import {weightedPriceNative} from '/imports/api/vwap/weightedPriceNative'
+import {_session} from '/imports/api/client/utils/base'
 
 // return name of currently picked fiat. as it s given by xchange
 // todo: move to imports
 function _fiat(){
-  const fiat = CF.Utils._session.get('fiat');
+  const fiat = _session.get('fiat');
   if (fiat==='') return 'Bitcoin';
   return fiat;
 }
@@ -31,7 +16,7 @@ function _fiat(){
 // return token of currently picked fiat. see `fiatSelector` template
 // todo: move to imports
 function _fiatToken(){
-  const fiat = CF.Utils._session.get('fiat');
+  const fiat = _session.get('fiat');
   if (fiat==="") return `BTC`;
   //todo exploit chg
   if (fiat==="Euro") return 'EUR';
@@ -39,7 +24,6 @@ function _fiatToken(){
 }
 
 
-CF.test.gwp = weightedPriceNative;
 Template["testMarkets"].onCreated(function(){
   const system = Template.currentData().system;
 
@@ -57,9 +41,9 @@ Template['testMarkets'].helpers({
   rows: function(){
     const system = this.system;
     const selector = selectors.pairsById
-    const count = feedsCurrent.find(selector).count();
+    const count = xchangeCurrent.find(selector).count();
 
-    let ret = feedsCurrent.find(selector, {
+    let ret = xchangeCurrent.find(selector, {
       sort: {"volume.btc": -1},
       limit: Template.instance().showAll.get() ? 1000 : ROWS_SHORT
     })

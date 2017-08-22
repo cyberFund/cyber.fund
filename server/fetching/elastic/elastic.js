@@ -2,6 +2,8 @@ import {CurrentData, Extras} from '/imports/api/collections'
 import winston from 'winston'
 import {extractFromPromise, escapeRegExp} from '/imports/api/server/utils'
 import cfEs from '/imports/api/server/cfEs'
+import { handleArrayWithInterval} from '/imports/api/handleArray'
+
 // this file describes fetching data from our elasticsearch servers
 // (currently, it s coinmarketcap data)
 
@@ -35,9 +37,6 @@ function _searchSelector(bucketKey) {
   selector["token.symbol"] = symbol;
   return selector;
 }
-
-const handleArrayWithInterval = require(
-  "/imports/api/handleArray").handleArrayWithInterval;
 
 JSON.unflatten = function(data) {
   "use strict";

@@ -1,5 +1,9 @@
 import {CurrentData} from '/imports/api/collections'
 import calcs from './calcs'
+import lib from './calcs'
+import helpers from './helpers'
+import params from './params'
+
 const calculatables = {
   ns: "CF_CurrentData_calculatables",
   fields: { "calculatable": 1 },
@@ -67,9 +71,10 @@ const calculatables = {
       return true;
     });
   },
-  lib: require('./calcs'),
-  helpers: require('./helpers'),
-  params: require('./params'),
+
+  helpers: helpers,
+  params: params,
+  lib: lib, //lib duplicates calcs.
   calcs: calcs
 }
 

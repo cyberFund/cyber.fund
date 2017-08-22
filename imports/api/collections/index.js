@@ -5,10 +5,9 @@ import { feedsVwap } from '/imports/api/collections'
 // currently, actual state only. history is stored in outer (non meteor) db
 
 // current/last states. taken from es currently
-var xchangeCurrent = new Mongo.Collection("xchangeCurrent");
+const xchangeCurrent = new Mongo.Collection("xchangeCurrent");
 // volume weighted - current/last states. taken from es currently
-var xchangeVwapCurrent = new Mongo.Collection("xchangeVwapCurrent");
-
+const xchangeVwapCurrent = new Mongo.Collection("xchangeVwapCurrent");
 // those are readonly for clients
 xchangeCurrent.allow({
   insert: function(){return false;},
@@ -23,20 +22,16 @@ xchangeVwapCurrent.allow({
 });
 
 
-var CurrentData = new Meteor.Collection("CurrentData", {
-
-});
-
+const CurrentData = new Meteor.Collection("CurrentData", {});
 const FastData = new Mongo.Collection("fast_market_data");
 const FeedsVwap = feedsVwap;
 const Metrics = new Mongo.Collection('Metrics')
 const Extras = new Mongo.Collection("extras")
 const MarketData = new Mongo.Collection("MarketData")
-
 const AddressesLists = new Mongo.Collection("AdressesLists")
-var Addresses = new Mongo.Collection("Addresses")
+const Addresses = new Mongo.Collection("Addresses")
+const AcountsHistory = new Mongo.Collection("accountsHistory")
 
-var AcountsHistory = new Mongo.Collection("accountsHistory")
 if (Meteor.isServer) {
   AcountsHistory._ensureIndex({
     timestamp: -1
@@ -57,7 +52,6 @@ AcountsHistory.allow({
 export {
   xchangeCurrent,
   xchangeVwapCurrent,
-
   CurrentData,
   FastData,
   Metrics,
@@ -65,6 +59,5 @@ export {
   MarketData,
   AddressesLists,
   Addresses,
-
   AcountsHistory
 }
