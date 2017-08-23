@@ -70,6 +70,23 @@
 
 <template name="mainPageCrowdasalesWidget">
     <h5><a href="/radar">Active Crowdsales</a></h5>
+    <script type="javascript/meteor">
+    Template["mainPageCrowdasalesWidget"].helpers({
+      activeCrowdsales: function(){
+        return CurrentData.find({
+          $and: [{crowdsales: {$exists: true}}, {
+            "crowdsales.end_date": {
+              $gt: new Date()
+            }
+          }, {
+            "crowdsales.start_date": {
+              $lt: new Date()
+            }
+          }]
+        }, {sort: {"crowdsales.end_date": 1}}).fetch();
+      }
+    });
+    </script>
     <br />
     {{#each activeCrowdsales}}
     <div style="display: inline-block; min-height: 11em; width: 22em; min-width: 18em">
@@ -118,7 +135,7 @@
               <a class="waves-effect waves-teal btn-flat blue-text text-darken-2" href="/welcome"><p>Join Us</p></a>
             {{/if}}
         </div>
-      
+
     </div>
     <div class="row">
         <div class="col m12 center valign" style="padding:10px">

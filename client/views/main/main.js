@@ -42,6 +42,6 @@ Template["mainPageCrowdasalesWidget"].helpers({
           $lt: new Date()
         }
       }]
-    }, {sort: {"metrics.currently_raised": -1}}).fetch();
+    }, {sort: {"crowdsales.end_date": 1}}).fetch();
   }
 });

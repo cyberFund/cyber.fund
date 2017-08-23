@@ -63,7 +63,7 @@ Template["ratingTable"].onRendered (function() {
   var t = _.throttle(function() {
     var $w = $(window);
     var scrolltop = $w.scrollTop();
-    var scrollleft = $W.scrollLeft();
+    var scrollleft = $w.scrollLeft();
 
 
     if (scrolltop > 55 && scrolltop < ($("#rating-table").height() - $w.height())) {

@@ -2,10 +2,11 @@ import chaingear from '/imports/api/server/chaingear'
 import { CurrentData } from '/imports/api/collections'
 import winston from 'winston'
 import { HTTP } from 'meteor/http'
-import {getLatestBeforeDate} from '/imports/api/MarketData'
+import { getLatestBeforeDate } from '/imports/api/MarketData'
+import { lastBtcPrice } from '/imports/api/prices'
 
 const _source = 'cmc2017'
-const sampleData = require('/imports/sampleData/cmc.json')
+//const sampleData = require('/imports/sampleData/cmc.json')
 const DAY = 24*3600*1000
 
 function fetchLastCmc(callback) {
@@ -78,6 +79,7 @@ var cmc = {
     if (item.price_btc) ret.trade_volume.volume24_btc = item['24h_volume_usd']/+item.price_btc
     return ret
   },
+
 	getMarketDataInserter: function(metrics, system) {
 		let lastData = system;
 		let supply;
@@ -120,7 +122,7 @@ var cmc = {
       return (now > 0) ? (100.0 * (now - before) / now) : (0)
     }
 
-		if (!metrics || !metrics.systemId) return
+		if (!metrics || !metrics.systemId) return "...if (!metrics || !metrics.systemId) return '...'"
     let lastData = system
     let sel = {systemId: metrics.systemId, source: _source}
     let dayAgoMetrics = getLatestBeforeDate(sel, new Date(metrics.last_updated * 1000 - DAY))
@@ -133,6 +135,7 @@ var cmc = {
     let set = {}
     let supply;
 
+    // cmc gives that Iota price per milion tokens. supply is given however in tokens.
     if (system._id == 'Iota') {
       if (metrics.price) {
         metrics.price.btc = metrics.price.btc/1000000
@@ -159,7 +162,7 @@ var cmc = {
 		if (condition.usdBtcPrice) {
 			btcPriceUsd = +metrics.price.usd / metrics.price.btc
 		} else {
-			btcPriceUsd = getLastBtcPrice()
+			btcPriceUsd = lastBtcPrice()
 		}
 
     if (condition.usdPrice) {
