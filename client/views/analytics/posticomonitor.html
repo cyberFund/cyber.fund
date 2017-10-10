@@ -1,0 +1,1402 @@
+<template name="posticomonitor">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans|Open+Sans" rel="stylesheet">
+<style>
+  article#Post-ICO-Monitor {
+    font-family: 'Open Sans', 'Arial', sans-serif;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #333;
+  }
+
+  article#Post-ICO-Monitor h2 { font-family: 'Fira Sans', sans-serif; font-size: 4em; line-height: 1em; color: #2095f4; margin: .5em 0 0; }
+  article#Post-ICO-Monitor h3 { font-family: 'Fira Sans', sans-serif; font-size: 2.5em; line-height: 1em; margin: 3em 0 1em; color: #2095f4; }
+  article#Post-ICO-Monitor h4 { font-family: 'Fira Sans', sans-serif; font-size: 1.5em; line-height: 1.25em; margin: 1.5em 0 .5em; }
+  article#Post-ICO-Monitor h5 { font-family: 'Fira Sans', sans-serif; font-size: 1.25em; }
+  article#Post-ICO-Monitor h6 { font-family: 'Fira Sans', sans-serif; font-size: 1em; margin-bottom: 0; }
+  article#Post-ICO-Monitor p { margin: 0 0 1.0em; text-align: justify; }
+  article#Post-ICO-Monitor .table { margin-bottom: 3em; }
+  article#Post-ICO-Monitor table { margin: .5em 0 1em; font-size: .8em; }
+  article#Post-ICO-Monitor table thead { background-color: #eee; }
+  article#Post-ICO-Monitor table thead th { border-bottom: #ccc solid 0px; }
+  article#Post-ICO-Monitor table .shade { background-color: #f3f3f3; }
+  article#Post-ICO-Monitor strong { font-weight: bold; }
+
+  article#Post-ICO-Monitor table thead.shade-tr { background-color: #ccc; }
+  article#Post-ICO-Monitor table thead.shade-tr th { border-bottom: #999 solid 2px; }
+  article#Post-ICO-Monitor table .shade1 { background-color: #ddd; }
+  article#Post-ICO-Monitor table .shade2 { background-color: #eee; }
+  article#Post-ICO-Monitor table .border td { border-bottom: #ccc solid 1px; }
+  article#Post-ICO-Monitor table tr.last td { border-bottom: #ccc solid 1px; }
+  article#Post-ICO-Monitor table th, article#Post-ICO-Monitor table td { padding: .25em 1em; }
+  article#Post-ICO-Monitor .notes { font-size: .8em; line-height: 1.2em; color: #999; }
+  article#Post-ICO-Monitor .notes ol { padding-left: 1em; }
+  article#Post-ICO-Monitor li { margin: 0 0 0.5em; }
+  section#s5 .findings ul { padding: 0px 0px 0px 30px; }
+  section#s5 .findings ul li { list-style-type: disc; }
+  section#s5 .findings ol li { list-style-type: circle; }
+
+  article#Post-ICO-Monitor date { font-style: italic; color: #999; }
+  article#Post-ICO-Monitor .definition p, article#Post-ICO-Monitor .definition li, article#Post-ICO-Monitor .definition ol { margin: 0; }
+  article#Post-ICO-Monitor .definition p.margin-left { margin-left: 2em; }
+  article#Post-ICO-Monitor .not-bold { font-weight: normal; }
+  article#Post-ICO-Monitor footer { margin: 5em 0 2em; border-top: #999 solid 1px; padding-top: 1em; color: #999; }
+  article#Post-ICO-Monitor img { display: block; max-width: 100%; height: auto; }
+
+  article#Post-ICO-Monitor navICO { margin: -1em 0 0; }
+  article#Post-ICO-Monitor navICO a { text-decoration: none; }
+  article#Post-ICO-Monitor navICO ul { list-style: none; padding-left: 40px;}
+
+  article#Post-ICO-Monitor sup a { text-decoration: none; }
+
+  article#Post-ICO-Monitor a { color: #2095f4; }
+  article#Post-ICO-Monitor a:visited { color: #2095f4; }
+  article#Post-ICO-Monitor a:hover { color: #f63f39; }
+  article#Post-ICO-Monitor a:active { color: #f63f39; }
+</style>
+
+<div class="row">
+  <div class="col s12 m12 l8">
+    <article id="Post-ICO-Monitor">
+
+      <header>
+        <a href="https://cyber.fund/?utm_source=Report&utm_medium=logo&utm_campaign=post-ico" title="cyber&#8226;Fund" target="_blank"><img src="/images/posticomonitor/CyberLogo.png" alt="cyber&#8226;Fund" style="max-width: 120px; margin: 5em 0 3em;"></a>
+        <h2>Post-ICO Monitor</h2>
+        <h2 style="margin: .5em 0 1em; font-size: 2.25em; font-weight: normal;">1st Issue</h2>
+        <date>October 2017</date>
+      </header>
+
+      <navICO>
+        <h3 style="color: #333;">Table of contents</h3>
+        <ul>
+          <li><a href="#s1">Abstract</a></li>
+          <li><a href="#s2">About</a></li>
+          <li><a href="#s3">1. Methodology</a></li>
+            <ul>
+              <li><a href="#s3-sub1">Description of selection criteria</a></li>
+              <li><a href="#s3-sub2">Justification for selection criteria used and design limitations</a></li>
+              <li><a href="#s3-sub3">Projects by availability of a verifiable ICO address</a></li>
+            </ul>
+          <li><a href="#s4">2. Analysis</a></li>
+            <ul>
+              <li><a href="#s4-sub1">Part 1: Post-ICO snapshot</a></li>
+              <li><a href="#s4-sub2">Part 2: Development progress and CMGR</a></li>
+            </ul>
+          <li><a href="#s5">3. Main findings</a></li>
+          <li><a href="#s6">4. Recommendations for ICO projects</a></li>
+          <li><a href="#s7">Appendices</a></li>
+            <ul>
+              <li><a href="#s7-sub1">Appendix A. Successful ICOs by amount raised: auditable amounts only</a></li>
+              <li><a href="#s7-sub2">Appendix B. Variables used for analysis</a></li>
+                <ul>
+                  <li><a href="#s7-sub2-1">I. Post-ICO snapshot variables</a></li>
+                  <li><a href="#s7-sub2-2">II. Current development status and market-related variables</a></li>
+                </ul>
+              <li><a href="#s7-sub3">Appendix C. Projects by CMGR</a></li>
+            </ul>
+        </ul>
+      </navICO>
+
+      <div id="s1">
+        <h3>Abstract</h3>
+        <p>The report presents an overview of 39 largest ICOs of all times in terms of their market cap as of end July 2017. Out of the initial sample of 69 projects, only 39 ICOs could be considered transparent enough: all or some of their ICO address(es) and corresponding balances could be found and verified on the blockchains. As expected, ICOs held in 2017 break the record both in terms of the number of ICOs held and amounts of funds raised, and the projects that issued their token on Ethereum score the highest than the rest. As of 15 August, 2017, 12 projects out of the sample had no testable MVP of the product delivered after ICO and for which ICO funds were raised, including SingularDTV, DigixDAO and Komodo that raised funds in 2016. Five projects had no source code or at least parts of it released to the public. Veritaseum, Basic Attention Token and vDice score the highest in terms of their Compound Monthly Growth Rate as of 7 August, 2017. The Ethereum-based projects from the sample turned out to have a higher average CMGR than ones that used other blockchains to issue their token (61% against 40%), although this needs further exploration as this result does not reflect the differences in a number of months passed since the token initial price was formed. Our top four recommendations to ICO projects include: use open and verifiable ICO address and contract code, choose a better token distribution model, deploy open source code,  and make regular disclosure of factual use of ICO funds.</p>
+      </div>
+
+      <section id="s2">
+        <h3>About</h3>
+        <p>This report presents an analytical overview of openly available ICO and post-ICO data for a sample of 39 large projects on blockchain that finished their ICO at different time starting from  2013<sup id="fn-source-1"><a href="#footnote-1">1</a></sup>. The focus of the current report lies on a post-ICO stage, and key ICO results will be compared with the current progress achieved by the projects both in terms of profitability and the current product development status. What ICO patterns become visible over time? How well do projects raising lots of funds score later in terms of economic growth and product delivery? This report is the first step to find answers to these questions based on openly available <em>and</em> verifiable data to the extent possible. The report is the first in a series of post-ICO reports that <a href="https://cyber.fund/?utm_source=Report&utm_medium=logo&utm_campaign=post-ico" title="cyber&#8226;Fund" target="_blank">cyber&#8226;Fund</a> is launching.</p>
+        <p>Why is this topic important? More and more people participate in ICOs investing in blockchain-based projects. Not all investors have a sufficient understanding of what exactly they participate in and what the corresponding risks are. The mission of cyber&#8226;Fund is to provide the broad public deep insight into blockchain universe. cyber&#8226;Fund has a bulk of first-hand ICO-related data which are collected &#8212; where possible &#8212; from the blockchains themselves, and this work is constantly ongoing. By this series, we would like to share those data piece by piece with the public and provide the reference point for potential ICO investors and anyone interested in the blockchain-based projects.</p>
+        <p>Next to this, cyber&#8226;Fund believes that most ICOs still lack the minimal transparency and accountability in spite of the fact that they raise lots of funds with in fact no guarantees to investors. That is why another goal that this report aims to achieve is to contribute to raising the standards of transparency and accountability across the community of ICO projects. In the current series, this determined two decisions on a research design. Firstly, we believe that an <em>address</em> where the ICO funds are collected must be openly available and must ideally be verifiable via a blockchain explorer. This is a minimal requirement only, as we also believe that the <em>amount collected</em> must be verifiable via a blockchain using an address. This is why we only included ICO projects in the sample if their ICO addresses were available in open sources and could be verified via a corresponding blockchain explorer. Secondly, in order to evaluate how the teams have disposed of money they raised from ICO investors, the current analysis will compare ICO results with a few indicators of the projects&#8217; current development progress. In later reports, we plan to elaborate on this and evaluate the transparency of how the funds raised during ICO were spent.</p>
+        <p>The report consists of two chapters followed by the summary of the main findings, the recommendations to ICO projects and appendices. In <a href="#s3" title="Methodology">Chapter 1</a>, a methodology is explored in more detail. <a href="#s4" title="Analysis">Chapter II</a> forms a core of the report and presents the analysis done. First, ICOs are explored in terms of key post-ICO data. Then the projects&#8217; current development progress and economic growth are set against the projects&#8217; ICO results. Appendices supplement this chapter by additional data.</p>
+      </section>
+
+      <section id="s3">
+        <h3>1. Methodology</h3>
+
+        <section id="s3-sub1">
+          <h4>Description of selection criteria</h4>
+          <p>The sample is formed based on a population containing over 400 projects on blockchain that issued their own token. These are the projects aggregated in the cyber&#8226;Fund database. This long list includes all types of blockchain-based projects with a token: those that raised funds via ICOs and those that have not, pure blockchain projects (decentralized systems with open source code policy and built-in economic incentives) and traditional businesses issuing their own tokens. As the database is constantly being filled with new projects, the list used for this report was fixed on July 31, 2017. From this list a sample was formed based on the following three selection criteria:</p>
+            <ol>
+              <li>The project&#8217;s <strong>current market capitalization</strong> equals $10M USD as of July 31, 2017.</li>
+              <li>The project&#8217;s tokens were offered for sale during ICO and <strong>the ICO is finished as of July 31, 2017</strong>. If no ICO was held or if all tokens were sold out during pre-ICO, the project was not included in the sample.</li>
+              <li><strong>A verifiable ICO address</strong> was available in the open sources. This is the key criterion that distinguishes the current report from all other similar analyses of the state of the ICO market. <em>ICO address</em> stands for an address where the funds raised during ICO were collected. We considered an address <em>verifiable</em> if it could be tracked down via a blockchain explorer with a reasonable effort made by a researcher. The list of projects that were excluded based on <em>criterion (3)</em> can be found in <a href="#t1">Table 1</a> at the end of this chapter. This list is important for a correct interpretation of the results of this analysis.</li>
+            </ol>
+          <p>As a result of the three-step selection, <strong>thirty nine (39) ICO projects were included in the sample</strong> and will be analysed in the report below. Among those projects that we did not include in this report are <em>Tezos</em>, <em>Cosmos</em>, <em>Aeternity</em>, <em>Qtum</em>, <em>Iconomi</em>, <em>FirstBlood</em>, <em>Counterparty</em>, <em>Mysterium</em> and quite a few other. Further in Methodology Chapter we clarify reasons for non-inclusion per each ICO. Note that this sample is by no means representational for all ICO projects, and any hypotheses or conclusions made further apply to this specific ICO segment. As we collect and process more data and receive contributions from the ICO projects mentioned in this report, we will be gradually increasing the sample and the scope of analysis. The full list of projects with main values including auditable amounts raised during ICO can be found in <a href="#s7-sub1">Appendix A</a>. The methodological description for the variables used in the report can be found in <a href="#s7-sub2">Appendix B</a>.</p>
+        </section>
+
+        <section id="s3-sub2">
+          <h4>Justification for selection criteria used and design limitations</h4>
+          <p><strong>Criterion (1)</strong> was chosen as a formal measure aiming to reduce an initially larger sample in order to find a balance between the quantity of projects and the quality of data collected per project. In later reports we will aim at lowering the $10M USD threshold to include more projects from the entire ICO history. According to this criterion and in order to maintain the consistency of the analysis, even some large ICOs for which no current market data were available, such as <em>Tezos</em>, <em>Cosmos</em> and <em>Aeternity</em>, were left out of the sample.</p>
+          <p><strong>Criteria (2)</strong> aims to filter out projects that issued tokens without holding an ICO as for the purpose of these series of reports we are interested in an ICO phenomenon only.</p>
+          <p><strong>Criteria (3)</strong> is based on a minimal transparency standard that cyber&#8226;Fund believes any project should follow. An address where ICO investors&#8217; money are collected should be openly available and ideally easily verified via a blockchain used to issue a token. It is a minimal, yet not sufficient, step to ensure that the teams account for the money they have collected. In practice, however, only for tokens issued on the Ethereum blockchain an address and &#8212; often &#8212; a required historic balance per address can easily be found. For other blockchains, the search often gives no result. Also, the more time has passed since the project&#8217;s ICO, the less is a chance  to find the ICO address in the open sources. We believe that except for blockchain no other sources can be considered reliable as they can be easily manipulated. As a consequence, the sample has two biases:</p>
+          <ol>
+            <li>Projects with tokens issued on the Ethereum blockchain are more likely to be included in a sample than projects with other types of tokens.</li>
+            <li>As to the projects with non-Ethereum tokens, the less time has passed since their ICO, the more likely they are to be included in the sample.</li>
+          </ol>
+        </section>
+
+        <section id="s3-sub3">
+          <h4>Projects by availability of a verifiable ICO address</h4>
+          <p>Please note that in case of any disagreement with the results below,  we encourage the projects included in the list contact us and provide the data you think are missing. If you could provide us an ICO address and a link to a proof of it on a blockchain, we will be happy to re-evaluate your case and make the necessary updates in the subsequent publications. You can submit the data to <a href="mailto:analytics@cyberfund.io?subject=Post-ICO Monitor I">analytics@cyberfund.io</a>, subject: <em>Post-ICO Monitor I</em></p>
+
+          <div id="t1" class="table">
+            <h6><span class="not-bold">Table 1: </span>Projects by availability of a verifiable ICO address</h6>
+
+            <table cellpadding=0 cellspacing=0>
+              <thead>
+                <tr>
+                  <th align="left">Projects with<br>no verifiable ICO address</th>
+                  <th align="left">Projects with<br>verifiable ICO address(es)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Ecobit</td>
+                  <td>Bancor Network</td>
+                </tr>
+                <tr class="shade">
+                  <td>MCAP</td>
+                  <td>Status</td>
+                </tr>
+                <tr>
+                  <td>MobileGO</td>
+                  <td>Sonm</td>
+                </tr>
+                <tr class="shade">
+                  <td>Stratis</td>
+                  <td>Basic Attention Token</td>
+                </tr>
+                <tr>
+                  <td>BitConnect</td>
+                  <td>Civic</td>
+                </tr>
+                <tr class="shade">
+                  <td>Qtum</td>
+                  <td>Aragon</td>
+                </tr>
+                <tr>
+                  <td>Iconomi</td>
+                  <td>Storj <em>(ICO of 2017)</em></td>
+                </tr>
+                <tr class="shade">
+                  <td>Lisk</td>
+                  <td>Waves</td>
+                </tr>
+                <tr>
+                  <td>Metal</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade">
+                  <td>Lykke</td>
+                  <td>Santiment</td>
+                </tr>
+                <tr>
+                  <td>FirstBlood</td>
+                  <td>TokenCard</td>
+                </tr>
+                <tr class="shade">
+                  <td>WeiFund</td>
+                  <td>Gnosis</td>
+                </tr>
+                <tr>
+                  <td>Gilgam</td>
+                  <td>iExec</td>
+                </tr>
+                <tr class="shade">
+                  <td>SysCoin</td>
+                  <td>Blockchain Capital</td>
+                </tr>
+                <tr>
+                  <td>Ark</td>
+                  <td>Golem</td>
+                </tr>
+                <tr class="shade">
+                  <td>Blocknet</td>
+                  <td>SingularDTV</td>
+                </tr>
+                <tr>
+                  <td>ReddCoin</td>
+                  <td>Veritaseum</td>
+                </tr>
+                <tr class="shade">
+                  <td>Edgeless Casino</td>
+                  <td>Matchpool</td>
+                </tr>
+                <tr>
+                  <td>Pillar</td>
+                  <td>DigixDAO</td>
+                </tr>
+                <tr class="shade">
+                  <td>Counterparty</td>
+                  <td>Augur</td>
+                </tr>
+                <tr>
+                  <td>BitBay</td>
+                  <td>Decent</td>
+                </tr>
+                <tr class="shade">
+                  <td>Polybius Bank</td>
+                  <td>Chronobank</td>
+                </tr>
+                <tr>
+                  <td>Elastic</td>
+                  <td>WeTrust</td>
+                </tr>
+                <tr class="shade">
+                  <td>Quantum Resistant</td>
+                  <td>SAFE Network</td>
+                </tr>
+                <tr>
+                  <td>TaaS</td>
+                  <td>NEM <em>(former AntShares)</em></td>
+                </tr>
+                <tr class="shade">
+                  <td>Wagerr</td>
+                  <td>BitShares</td>
+                </tr>
+                <tr>
+                  <td>Muse</td>
+                  <td>HumanIQ</td>
+                </tr>
+                <tr class="shade">
+                  <td>Agoras</td>
+                  <td>Melonport</td>
+                </tr>
+                <tr>
+                  <td>Storj <em>(ICO of 2014)</em></td>
+                  <td>Peerplays</td>
+                </tr>
+                <tr class="shade">
+                  <td>Mysterium</td>
+                  <td>Komodo</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Wings</td>
+                </tr>
+                <tr class="shade">
+                  <td></td>
+                  <td>vDice</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Omni <em>(former Mastercoin)</em></td>
+                </tr>
+                <tr class="shade">
+                  <td></td>
+                  <td>Factom</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Golos</td>
+                </tr>
+                <tr class="shade">
+                  <td></td>
+                  <td>Plutus</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td>Synereo</td>
+                </tr>
+                <tr class="shade">
+                  <td></td>
+                  <td>Nxt</td>
+                </tr>
+                <tr class="last">
+                  <td></td>
+                  <td>EOS <em>(Phase I, first 5 days)</em></td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="notes">
+              <p>Notes:</p>
+              <ol>
+                <li>Here and further in the text we considered the first five days of EOS ICO as a finished Phase I of EOS ICO because after the first five days the EOS tokens were available on the market and most key ICO characteristics could be calculated. The second phase of EOS ICO is ongoing and therefore not included in the current analysis.</li>
+                <li>Blockchain Capital, unlike other projects in the sample, is not a blockchain project, but a traditional business that raised funds via ICO in exchange for a token.</li>
+                <li>SAFE Network is also known by the company&#8217;s name MaidSafe.</li>
+                <li>Some ICO projects from the sample (right-hand column) used multiple instruments for raising funds during ICO and their verifiable ICO address(es) could prove only some part of the total amount raised. In subsequent reports, we shall explore  these half-transparent ICOs in more detail.</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <section id="s4">
+        <h3>2. Analysis</h3>
+
+        <section id="s4-sub1">
+          <h4>Part 1: Post-ICO snapshot</h4>
+          <p>No secret that the ICO market has been continuously on the rise. More and more crowdfunding campaigns are launched each year, regularly breaking the existing records of total funds raised. Back in 2013 when the first ICOs took place NXT and Mastercoin (currently &#8212; Omni) managed to secure less than one million USD together. Next year we saw a massive success of Ethereum, a platform for decentralized applications, which alone raised millions of dollars in a crowdsale held from July to September of 2014. The ICO market only went uphill from there as the community realized the potential of ICO as a new form of funding and involving prospective users. The year of 2017 truly became the year of ICOs. Even when looking at the 39 ICO projects from the sample alone, the number of ICO campaigns has <strong>more than doubled</strong> since last year and they brought in a total of <strong>more than $697 million USD</strong> since January 2017.</p>
+
+          <img id="d01" src="/images/posticomonitor/cf-charts_d01.png" alt="Number of successful ICOs by year and blockchain type">
+          <img id="d02" src="/images/posticomonitor/cf-charts_d02.png" alt="Total amount of funds raised by year">
+
+          <p><a href="#d01">Diagrams 1</a> and <a href="#d02">2</a> illustrate well how the number of ICOs increases each year along with the total amount of funds raised for the projects out of the sample. Since its inception in 2015, <strong>the popularity of the Ethereum blockchain as a platform for issuing ERC-20 compliant tokens has been growing continuously</strong>, from 1 ICO out of the sample held by <a href="https://augur.net/" title="Augur is a decentralized prediction market built on the Ethereum blockchain. It allows you to forecast events and be rewarded for predicting them correctly." target="_blank">Augur</a> in 2015 to 5 ICOs in 2016 to 20 ICOs in the first half of 2017 as illustrated by <a href="#d01">Diagram 1</a>. Ethereum-based projects are also the only group in the sample that has shown a stable growth over time in terms of annual amounts raised (see <a href="#d03">Diagram 3</a>).</p>
+
+          <img id="d03" src="/images/posticomonitor/cf-charts_d03.png" alt="Total amount of funds raised by blockchain type and year">
+
+          <p>For the 39 projects analysed here, just like for the entire ICO market, the year 2017 is marked by a boost in terms of a number of ICOs held and amounts raised. For the sample the total amount raised (valuated in USD) from January throughout July 2017 is <strong>14 times higher</strong> than the total for all 2016 ICOs. The most record-breaking ICOs that started in 2017 and were finished before August 2017 are the following (only verifiable amounts are included):</p>
+          <ul>
+            <li>Basic Attention Token raised $34.9 million USD in 30 seconds;</li>
+            <li>Gnosis raised $12 million USD in about 12 minutes;</li>
+            <li>Aragon raised over $27.7 million USD in about 20 minutes;</li>
+            <li>Bancor raised $153 million USD in a few hours; </li>
+            <li>Status raised $111 million USD;</li>
+            <li>EOS raised $187.6 million USD during the first stage (days 1 to 5) of its ICO.</li>
+          </ul>
+          <p>When looking at the average amount raised by a project, the year 2017 again breaks the previous records: <strong>over $22.5 million US dollars raised on average by one ICO in 2017 against a little over $4.6 million in 2016 and a little over $4 million in 2013-2015</strong> as illustrated by <a href="#d04">Diagram 4</a>. Here again tokens issued on the Ethereum blockchain stand out: <strong>almost $28.9 million USD raised by one Ethereum-based project on average against a little over $4.5 million raised on average by an independent blockchain</strong> and somewhat over $1.9 million raised on average by projects using a blockchain other than Ethereum (see <a href="#d05">Diagram 5</a>).</p>
+
+          <img id="d04" src="/images/posticomonitor/cf-charts_d04.png" alt="Average amount of funds raised per one ICO by year">
+          <img id="d05" src="/images/posticomonitor/cf-charts_d05.png" alt="Average amount of funds raised per one ICO by blockchain type">
+
+          <p><em>Diagrams 6</em> and <em>7</em> below demonstrate how many tokens on average are offered to investors for sale by an individual ICO out of all tokens issued in the course of ICO. The share of tokens sold out of all tokens issued via ICO shows which share of tokens will be held by the community, by casual users. It is an indicator of how decentralized the token distribution model of the project is: the larger the share of ICO investors, the more decentralized the model.</p>
+          <p>As illustrated by <a href="#d06">Diagram 6</a>, <strong>the average share of tokens sold</strong> by the projects in the sample <strong>decreases from 72% in 2013-2015 to 64% in 2016 to 58% in 2017</strong>. It will be an object of later reports with larger samples to track the same yearly dynamics in order to check whether we could speak of a trend to centralization in terms of how the tokens are distributed.</p>
+
+          <img id="d06" src="/images/posticomonitor/cf-charts_d06.png" alt="Average share of tokens sold out of all tokens issued during ICO by year">
+
+          <p><a href="#d07">Diagram 7</a> demonstrates the average share of tokens sold per ICO by blockchain type. The averages on the diagram give meaningful results for the following two groups: the 9 projects that used their own (Independent)  blockchain to issue a token and the 24 projects that issued their tokens on Ethereum (as these averages are based on large enough samples). The blockchain type does not seem to have any association with the share sold to ICO investors: it constitutes 62% and 63% for the Independent and Ethereum groups respectively.</p>
+
+          <img id="d07" src="/images/posticomonitor/cf-charts_d07.png" alt="Average share of tokens sold out of all tokens issued during ICO by blockchain type">
+
+        </section>
+
+        <section id="s4-sub2">
+          <h4>Part 2: Development progress and CMGR</h4>
+          <p>For the purpose of this analysis we also collected some data showing the current development progress of the projects from the sample all of which have already held a successful ICO.  Two parameters were evaluated: the availability of the source code (or at least parts of it) on Github and the availability of the projects&#8217; MVP (for ICOs of 2016 and 2017 &#8212; of at least a minimum functional and testable Alpha version with a clear reference to its release), as of 15 August, 2017. When evaluating the availability of an MVP, for the extent possible, we paid attention at the date of releases using the team&#8217;s blog posts etc. as in this report we are interested not in whether any MVP is available at all, but in the teams&#8217; <em>post-ICO</em> progress, in what the teams have delivered so far using the funding raised via ICO.</p>
+          <p>The results illustrated by <a href="#t2">Table 2</a> and <a href="#d08">Diagram 8</a> below confirm an intuitive expectation: older projects out of the sample score better &#8212; presumably because they have had a longer time to write the code and deliver the product. All projects in the sample that finished their ICO in 2013&#8211;2015 are now having a minimum working product and code openly available. Among those that finished their ICO in 2016, eight out of 11 projects had at least a testable and working Alpha version delivered after ICO and ready as of 15 August, 2017.  For ICOs closed in the first half of 2017, eleven projects out of 20 have already released a version of their product.</p>
+          <p>The projects&#8217; scores for code availability show a similar pattern, but the overall score is better: 10 out of 11 projects of 2016 could demonstrate the source code at least partially as of end July, 2017. For the projects that finished their ICO in 2017, 16 projects out of 20 have already released at least parts of the source code. However, note that we did not take into account the projects&#8217; policy towards the source code disclosure, meaning that the absence of openly available source code does not necessarily mean that the code is not written. The code might be written, but not disclosed. We encourage all blockchain startups to launch as open source projects.</p>
+          <p>The total number of code available is higher than the total number of product available: <strong>33 projects with code against 26 projects having a working version of their product</strong> from the total of 39. There are <strong>12 projects with no minimal working product delivered after ICO and available as of 15 August</strong>, 2017, and <strong>5 projects with no code available</strong>, all with ICOs held in 2016 or 2017. Especially the product status of <em>SingularDTV</em>, <em>DigixDAO</em> and <em>Komodo</em> raises concerns as these projects finished their ICO in 2016 which is a while ago.</p>
+
+          <div id="t2" class="table">
+            <h6><span class="not-bold">Table 2: </span>ICOs with no code and/or MVP available as of 15 August, 2017</h6>
+
+            <table cellpadding=0 cellspacing=0>
+              <thead>
+                <tr>
+                  <th align="left">Product availability<br><span class="not-bold">as of 15.08.2017</span></th>
+                  <th align="left">Code availability<br><span class="not-bold">as of 15.08.2017</span></th>
+                  <th align="left">Project</th>
+                  <th>ICO end year</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="12" style="border-bottom: #ccc solid 1px; vertical-align: top;">No</td>
+                  <td rowspan="3" style="border-bottom: #ccc solid 1px; border-left: #ccc solid 1px; vertical-align: top;">No</td>
+                  <td class="shade" style="border-left: #ccc solid 1px;">SingularDTV</td>
+                  <td class="shade">2016</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">TokenCard</td>
+                  <td>2017</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: #ccc solid 1px; border-left: #ccc solid 1px;">Veritaseum</td>
+                  <td style="border-bottom: #ccc solid 1px;">2017</td>
+                </tr>
+                <tr>
+                  <td rowspan="9" style="border-bottom: #ccc solid 1px; border-left: #ccc solid 1px; vertical-align: top;">Yes</td>
+                  <td style="border-left: #ccc solid 1px;">Basic Attention Token</td>
+                  <td>2017</td>
+                </tr>
+                <tr class="shade">
+                  <td style="border-left: #ccc solid 1px;">DigixDAO</td>
+                  <td>2016</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">EOS</td>
+                  <td>2017</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">Gnosis</td>
+                  <td>2017</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">HumanIQ</td>
+                  <td>2017</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">iExec</td>
+                  <td>2017</td>
+                </tr>
+                <tr class="shade">
+                  <td style="border-left: #ccc solid 1px;">Komodo</td>
+                  <td>2016</td>
+                </tr>
+                <tr>
+                  <td style="border-left: #ccc solid 1px;">Santiment</td>
+                  <td>2017</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: #ccc solid 1px; border-left: #ccc solid 1px;">WeTrust</td>
+                  <td style="border-bottom: #ccc solid 1px;">2017</td>
+                </tr>
+                <tr>
+                  <td rowspan="2" style="border-bottom: #ccc solid 1px; vertical-align: top;">Yes</td>
+                  <td rowspan="2" style="border-bottom: #ccc solid 1px; border-left: #ccc solid 1px; vertical-align: top;">No</td>
+                  <td style="border-left: #ccc solid 1px;">Civic</td>
+                  <td>2017</td>
+                </tr>
+                <tr class="last">
+                  <td style="border-left: #ccc solid 1px;">Matchpool</td>
+                  <td>2017</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="notes">
+              <p>Notes:</p>
+              <ol>
+                <li>Basic Attention Token had one of the project&#8217;s two components, the Brave browser, already operational before their ICO. However, for the purpose of this report we are interested in post-ICO progress, that is what the teams have delivered so far using the funding they raised via ICO. For this reason, the availability of the Brave browser prior to ICO could not be taken into account and value &#8220;0&#8221; for product availability was assigned.</li>
+                <li>Wings is assigned value 1 for code availability as they <a href="https://github.com/WingsDao/contracts" title="WingsDao/contracts: This is the repository for WingsDAO smart contracts templates" target="_blank">have released</a> the templates for WingsDAO smart contracts on Github, and therefore suit this group better than the group with no code at all.</li>
+                <li>Blockchain Capital is excluded from the sample here as the categories of a platform source code and a testable MVP are not applicable to it.</li>
+              </ol>
+            </div>
+          </div>
+
+          <img id="d08" src="/images/posticomonitor/cf-charts_d08.png" alt="Code and product availability as of 15.08.2017 by ICO end year">
+
+          <p>An average ICO from our sample raises $20,159,949 USD. The 12 projects from our sample that still have not delivered any MVP <strong>raised 1.4 times more on average per one ICO</strong> than the 26 projects that already have at least a working Alpha: $25,148,953 USD versus $17,857,333 USD. For the code availability, it is vice versa. The 5 projects from our sample with no source code available yet <strong>raised on average 1.6  times less per ICO</strong> than the 33 projects with already parts of the source code openly available: $13,249,260 USD versus $21,296,747 USD.</p>
+          <p>As we have seen, the ICO end year matters for how the projects from the sample score at present in terms of development progress. For this reason, we designed <a href="#d09">Diagrams 9</a> and <a href="#d10">10</a> in order to visualize the projects&#8217; scores depending on the amounts raised and ICO end year. The sample was divided into 5 groups by the amount raised per one ICO:</p>
+          <ul>
+            <li><em>Group 1:</em> less than $2 million USD raised (9 projects)</li>
+            <li><em>Group 2:</em> between $2 million and $5 million USD raised (10 projects)</li>
+            <li><em>Group 3:</em> between $5 million and $15 million USD raised (10 projects)</li>
+            <li><em>Group 4:</em> between $15 million and $55 million USD raised (6 projects)</li>
+            <li><em>Group 5:</em> more than $55 million USD raised (3 projects)</li>
+          </ul>
+
+          <img id="d09" src="/images/posticomonitor/cf-charts_d09.png" alt="Amount raised and availability of working product as of 15.08.2017">
+          <img id="d10" src="/images/posticomonitor/cf-charts_d10.png" alt="Amount raised and availability of code as of 15.08.2017">
+
+          <p>Finally, for all projects in the sample, the <em>Compound Monthly Growth Rate (CMGR)</em> was calculated as of 7 August, 2017, in order to monitor the economic performance of each token. Below are the top ten projects of the sample with the highest CMGR.</p>
+
+          <div id="t3" class="table">
+            <h6><span class="not-bold">Table 3: </span>Top ten projects by CMGR as of August 7, 2017</h6>
+
+            <table cellpadding=0 cellspacing=0>
+              <thead>
+                <tr>
+                  <th align="left">Rank in CMGR<br>top ten</th>
+                  <th align="left">Project</th>
+                  <th align="left"># of<br>months</th>
+                  <th align="right">CMGR<br><span class="not-bold">as of 07.08.2017</span></th>
+                  <th>Dependency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Veritaseum</td>
+                  <td>2</td>
+                  <td align="right">573%</td>
+                  <td>Bitshares</td>
+                </tr>
+                <tr class="shade">
+                  <td>2</td>
+                  <td>Basic Attention Token</td>
+                  <td>2</td>
+                  <td align="right">124%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>vDice</td>
+                  <td>7</td>
+                  <td align="right">121%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade">
+                  <td>4</td>
+                  <td>Status</td>
+                  <td>1</td>
+                  <td align="right">120%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Peerplays</td>
+                  <td>2</td>
+                  <td align="right">104%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade">
+                  <td>6</td>
+                  <td>Civic</td>
+                  <td>1</td>
+                  <td align="right">103%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>EOS</td>
+                  <td>1</td>
+                  <td align="right">98%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade">
+                  <td>8</td>
+                  <td>Gnosis</td>
+                  <td>3</td>
+                  <td align="right">90%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Synereo</td>
+                  <td>9</td>
+                  <td align="right">77%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="last shade">
+                  <td>10</td>
+                  <td>Melonport</td>
+                  <td>5</td>
+                  <td align="right">75%</td>
+                  <td>Ethereum</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <p>The projects in the sample that issued their tokens on the Ethereum blockchain mostly have a higher CMGR than the projects having its own (independent) blockchain. The difference between the average CMGR of the two groups is about 30%. The average CMGR for the sample is 53% with the median value equal to 29%. Note that this comparison does not take into account the differences between the projects in terms of a number of months passed since the initial token price was formed. Please check <a href="#s7-sub3">Appendix C</a> where all projects are broken down in groups by a number of months used to calculate CMGR.</p>
+
+          <img id="d11" src="/images/posticomonitor/cf-charts_d11.png" alt="Average CMGR by blockchain type">
+
+        </section>
+
+      </section>
+
+      <section id="s5" style="text-align:justify;">
+        <div class="findings">
+          <h3>3. Main findings</h3>
+          <ul>
+            <li><strong>30 out of 69 ICO projects</strong> with the market cap over $10M USD as of 7 July, 2017, <strong>did not have a public ICO address that could be verified</strong> via the corresponding blockchains. The full list of non-transparent ICOs is available in the Methodology section, <a href="#t1">Table 1</a></li>
+
+            <li><strong>As expected, ICOs from the sample held in 2017 break the record both in terms of a number of ICOs held and amounts of funds raised.</strong> In 2017 over $22.5M USD were raised on average by one ICO against a little over $4.6M in 2016 and a little over $4M in 2013-2015</li>
+
+            <li><strong>The projects from our sample that issued their token on Ethereum score the highest across multiple nominations:</strong></li>
+              <ol>
+                <li>Unlike the projects that chose for other blockchain options, the number of Ethereum-based ICOs and the total annual amount they raise have grown steadily over the observed period</li>
+                <li>One Ethereum-based project from the sample raised around $28.9M USD on average via ICO against a little over $4.5M raised on average by an independent blockchain and $1.9M raised on average by projects choosing other blockchain options</li>
+              </ol>
+
+            <li><strong>The average share of tokens sold</strong> by the team to ICO investors <strong>out of all tokens issued</strong> during ICO &#8212; an indicator of how decentralized the project will be &#8212; <strong>has decreased over time from 72% in 2013-2015 to 64% in 2016 to 58% in 2017</strong> for the projects in the sample, although no conclusions can be made without a deeper analysis using more data. There are no signs of any association between a blockchain type and a share of tokens being sold to ICO investors</li>
+
+            <li>As of 15 August, 2017, <strong>12 projects out of sample had no testable working version of the product</strong> delivered after ICO and for which ICO funds were raised:</li>
+              <ol>
+                <li>2016 ICOs &#8212; <em>SingularDTV</em>, <em>DigixDAO</em>, <em>Komodo</em></li>
+                <li>2017 ICOs &#8212; <em>TokenCard</em>, <em>Veritaseum</em>, <em>Basic Attention Token</em>, <em>Gnosis</em>, <em>HumanIQ</em>, <em>iExec</em>, <em>Santiment</em>, <em>WeTrust</em>, and <em>EOS</em> (Phase I, the first five days of ICO)</li>
+              </ol>
+            <li>As of 15 August, 2017, <strong>5 projects out of sample had no source code or at least parts of it released</strong> to the public:</li>
+              <ol>
+                <li>2016 ICOs &#8212; <em>SingularDTV</em></li>
+                <li>2017 ICOs &#8212; <em>TokenCard</em>, <em>Veritaseum</em>, <em>Civic</em>, <em>Matchpool</em></li>
+              </ol>
+            <li><strong>Top three tokens</strong> out of sample <strong>by their Compound Monthly Growth Rate</strong> as of 7 August, 2017, are:</li>
+              <ol>
+                <li><em>Veritaseum</em> (2 months, 573%)</li>
+                <li><em>Basic Attention Token</em> (2 months, 124%)</li>
+                <li><em>vDice</em> (7 months, 121%) followed closely by <em>Status</em> (1 month, 120%)</li>
+              </ol>
+            <li>The projects in the sample that issued their token <strong>on the Ethereum blockchain have a higher average CMGR than the other projects (61% against 40%)</strong>. However, this result needs further exploration as it does not take into account the differences in a number of months passed since the token initial price was formed</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="s6">
+        <h3>4. Recommendations for ICO projects</h3>
+
+        <h4>Make the source code of your project open</h4>
+        <p>Otherwise you are not transparent, so how can investors be sure that you are really capable of implementing your concept and that you are really making progress over time? The released code is the best public proof of your work and your competence that you can present on initial stages already. Releasing the source code also means sharing your work with the community. You may get loads of helpful feedback in return, as well as contribute to others&#8217; work. In spite of what some sceptics say, sharing the source code poses no risk: while others can copy your code, the network effect which is a key to success cannot be copied and reproduced by others.</p>
+
+        <h4>Disclose ICO address and ICO contract code prior to ICO</h4>
+        <p>A thoughtful investor is unlikely to send his/her money to an unauditable destination.</p>
+
+        <h4>Disclose planned and factual use of proceeds regularly</h4>
+        <p>We have not included this parameter in the current report, but we will for sure in the next one. Till then, the general observation is that while most projects do announce prior to ICO how they plan to use the funds raised, only few of them report later how exactly the funds were disposed of. It means the team can in fact do whatever they want with investors&#8217; money. This is why we believe that this culture of non-disclosure must change and the teams need to account for their spending as long as investors&#8217; money are involved.</p>
+
+        <h4>Decentralize your project through token distribution</h4>
+        <p>A solid basis for the network effect is that no less than 70% of funds go to pre-ICO and ICO investors. If you really want to have an inclusive and broad network of supporters for your project, make sure that ICO investors have a larger allocation of tokens than those who contributed during pre-ICO.</p>
+
+      </section>
+
+      <section id="s7">
+        <h3>Appendices</h3>
+
+        <section id="s7-sub1">
+          <h4>Appendix A. Successful ICOs by amount raised: auditable amounts only</h4>
+
+          <div id="t4" class="table">
+            <h6><span class="not-bold">Table 4: </span>Successful ICOs by amount raised: auditable amounts only</h6>
+            <p>Please refer to <a href="#s7-sub2">Appendix B</a> for the methodological description of each variable displayed in the table below.</p>
+
+            <table cellpadding=0 cellspacing=0>
+              <thead>
+                <tr>
+                  <th align="left">Project</th>
+                  <th align="right">Raised funds valuation, USD<br><span class="not-bold">(auditable amounts only)</span></th>
+                  <th>End year</th>
+                  <th>Dependency</th>
+                  <th>Code availability<br><span class="not-bold">as of 15.08.2017</span></th>
+                  <th>Product status<br><span class="not-bold">as of 15.08.2017</span></th>
+                  <th align="right">Current market cap in USD<br><span class="not-bold" style="margin-right: -0.5em;">as of 07.08.2017<a href="#t4-fn1" id="t4-fn1-source" style="text-decoration: none;">*</a></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>EOS</td>
+                  <td align="right">187,613,788</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">1,790,000,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Bancor Network</td>
+                  <td align="right">153,245,073</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">189,048,657</td>
+                </tr>
+                <tr>
+                  <td>Status</td>
+                  <td align="right">111,206,819</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">480,342,176</td>
+                </tr>
+                <tr class="shade">
+                  <td>Sonm</td>
+                  <td align="right">42,080,8237</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">20,237,520</td>
+                </tr>
+                <tr>
+                  <td>Basic Attention Token</td>
+                  <td align="right">34,922,546</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">263,449,500</td>
+                </tr>
+                <tr class="shade">
+                  <td>Civic</td>
+                  <td align="right">32,999,965</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">202,825,000</td>
+                </tr>
+                <tr>
+                  <td>Aragon</td>
+                  <td align="right">27,783,439</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">80,803,429</td>
+                </tr>
+                <tr class="shade">
+                  <td>Storj</td>
+                  <td align="right">16,973,900</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">157,898,974</td>
+                </tr>
+                <tr>
+                  <td>Waves</td>
+                  <td align="right">15,821,302</td>
+                  <td>2016</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">561,000,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Ethereum</td>
+                  <td align="right">14,996,232</td>
+                  <td>2014</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">25,081,468,133</td>
+                </tr>
+                <tr>
+                  <td>Santiment</td>
+                  <td align="right">12,798,650</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">22,660,080</td>
+                </tr>
+                <tr class="shade">
+                  <td>TokenCard</td>
+                  <td align="right">12,673,314</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">36,974,614</td>
+                </tr>
+                <tr>
+                  <td>Gnosis</td>
+                  <td align="right">12,347,412</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">2,036,300,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>iExec</td>
+                  <td align="right">12,090,400</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">41,644,709</td>
+                </tr>
+                <tr>
+                  <td>Blockchain Capital</td>
+                  <td align="right">10,000,000</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">10,500,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Golem</td>
+                  <td align="right">8,500,050</td>
+                  <td>2016</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">308,817,000</td>
+                </tr>
+                <tr>
+                  <td>SingularDTV</td>
+                  <td align="right">7,688,391</td>
+                  <td>2016</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">140,874,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Veritaseum</td>
+                  <td align="right">7,057,719</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">15,941,000,000</td>
+                </tr>
+                <tr>
+                  <td>Matchpool</td>
+                  <td align="right">5,826,909</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">13,009,535</td>
+                </tr>
+                <tr class="shade">
+                  <td>DigixDAO</td>
+                  <td align="right">5,795,633</td>
+                  <td>2016</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">142,378,744</td>
+                </tr>
+                <tr>
+                  <td>Augur</td>
+                  <td align="right">4,473,316</td>
+                  <td>2015</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">208,010,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Decent</td>
+                  <td align="right">4,130,076</td>
+                  <td>2016</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">80,517,553</td>
+                </tr>
+                <tr>
+                  <td>Chronobank</td>
+                  <td align="right">4,072,096</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">16,467,497</td>
+                </tr>
+                <tr class="shade">
+                  <td>WeTrust</td>
+                  <td align="right">3,883,235</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">18,966,700</td>
+                </tr>
+                <tr>
+                  <td>SAFE Network</td>
+                  <td align="right">3,876,326</td>
+                  <td>2014</td>
+                  <td>Omni</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right"><span style="margin-right:-1.15em;">162,395,265<a href="#t4-fn2" id="t4-fn2-source" style="text-decoration: none;">**</a></span></td>
+                </tr>
+                <tr class="shade">
+                  <td>NEM <em>(former AntShares)</em></td>
+                  <td align="right">3,737,124</td>
+                  <td>2016</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">1,830,000,000</td>
+                </tr>
+                <tr>
+                  <td>BitShares</td>
+                  <td align="right">3,525,519</td>
+                  <td>2014</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">396,497,074</td>
+                </tr>
+                <tr class="shade">
+                  <td>HumanIQ</td>
+                  <td align="right">2,932,951</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">28,670,721</td>
+                </tr>
+                <tr>
+                  <td>Melonport</td>
+                  <td align="right">2,913,121</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">47,264,658</td>
+                </tr>
+                <tr class="shade">
+                  <td>Peerplays</td>
+                  <td align="right">2,680,191</td>
+                  <td>2017</td>
+                  <td>Bitshares</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">64,201,117</td>
+                </tr>
+                <tr>
+                  <td>Komodo</td>
+                  <td align="right">1,983,392</td>
+                  <td>2016</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #ee413c; font-weight: bold;">&#10005;</td>
+                  <td align="right">104,000,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Wings</td>
+                  <td align="right">1,782,779</td>
+                  <td>2017</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">63,975,500</td>
+                </tr>
+                <tr>
+                  <td>vDice</td>
+                  <td align="right">1,509,057</td>
+                  <td>2016</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">390,219,207</td>
+                </tr>
+                <tr class="shade">
+                  <td>Omni <em>(former Mastercoin)</em></td>
+                  <td align="right">663,106</td>
+                  <td>2013</td>
+                  <td>Bitcoin</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">19,559,332</td>
+                </tr>
+                <tr>
+                  <td>Factom</td>
+                  <td align="right">540,690</td>
+                  <td>2015</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">172,834,188</td>
+                </tr>
+                <tr class="shade">
+                  <td>Golos</td>
+                  <td align="right">463,078</td>
+                  <td>2016</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">15,862,449</td>
+                </tr>
+                <tr>
+                  <td>Plutus</td>
+                  <td align="right">259,184</td>
+                  <td>2016</td>
+                  <td>Ethereum</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">297,000,000</td>
+                </tr>
+                <tr class="shade">
+                  <td>Synereo</td>
+                  <td align="right">215,624</td>
+                  <td>2016</td>
+                  <td>Omni</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">280,101,618</td>
+                </tr>
+                <tr class="last">
+                  <td>Nxt</td>
+                  <td align="right">14,846</td>
+                  <td>2013</td>
+                  <td>Independent</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="center" style="color: #b7c033;">&#10003;</td>
+                  <td align="right">137,196,000</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="notes">
+              <p id="t4-fn1">* Current market capitalization is calculated as Token market price in USD multiplied by Current total supply of tokens, both values taken as of 7 August, 2017 <sup><a href="#t4-fn1-source">Back</a></sup></p>
+              <p id="t4-fn2">** The amount is based on the circulating token supply as no total token supply was found. The actual market cap should be higher. <sup><a href="#t4-fn2-source">Back</a></sup></p>
+            </div>
+          </div>
+          <p>Values for <em>Raised Funds Valuation in USD</em> may differ significantly from those announced by the team or the media. The amounts in the table above reflect verifiable amounts only, that is, those historic balances that correspond to a specific address that is verifiable in a blockchain. If the sum raised was known from the team&#8217;s openly available resources, but the corresponding address was not known or could not be found using the blockchain explorer, the sum was considered unverifiable and was not included. Also, if the address was known and could be found in a blockchain, but there was no reliable information about the sum raised on this specific address, this address and the corresponding sum were not included either. For these reasons, only a part of the total amount raised could be verified for such ICOs as <em>Chronobank</em>, <em>Plutus</em>, <em>WeTrust</em>, <em>TokenCard</em>, <em>HumanIQ</em>, and <em>Storj</em> ICO of 2017.  Finally, it should be taken into account that we used other USD exchange rates than the team or media. In this report, the exchange rates of ICO end dates were used. However, some teams may have valuated the amount raised applying different exchange rates to contributions made on different days.</p>
+          <p><a href="#s7-sub2">Appendix B</a> describes in more detail how each of the variables in the table are defined and where the corresponding values were derived from. <strong>We encourage all projects included in the list above contact us in case of any disagreement.</strong> If you provide us with the data backed by a proof of it, we will be happy to reconsider our evaluation and make the necessary updates in subsequent publications. In case of the amounts raised, we would request you to provide <strong>a balance per each address used to raise ICO funds and the link to a proof of it on a blockchain</strong>. Feel free to submit the data to <a href="mailto:analytics@cyberfund.io?subject=Post-ICO Monitor I">analytics@cyberfund.io</a>, subject: <em>Post-ICO Monitor I</em></p>
+        </section>
+
+        <section id="s7-sub2">
+          <h4>Appendix B. Variables used for analysis</h4>
+
+          <section id="s7-sub2-1">
+            <h5>I. Post-ICO snapshot variables</h5>
+
+            <h6>Dependency</h6>
+            <div class="definition">
+              <p><em>Description:</em> Blockchain used to issue the token. Value &#8220;<strong>Ethereum</strong>&#8221; refers to the projects that issued their token on the Ethereum blockchain (ERC20 compatible tokens). Value &#8220;<strong>Other</strong>&#8221; &#8212;  to the projects that issued their token on an already existing blockchain other than Ethereum such as Bitcoin, Bitshares or Omni (former Mastercoin). Value &#8220;<strong>Independent</strong>&#8221; refers to the projects like <em>Ethereum</em>, <em>Golos</em>, <em>Factom</em>, <em>Nxt</em>, etc. that issued their token on their own blockchain.</p>
+            </div>
+
+            <h6>Address</h6>
+            <div class="definition">
+              <p><em>Description:</em> Address where funds raised during ICO have been collected.</p>
+              <p><em>Sources</em> as prioritised:</p>
+              <ol>
+                <li>Blockchain explorer</li>
+                <li>If 1 is not available &#8212; the team&#8217;s public official channels. Otherwise excluded from the sample due to selection criterion 3 (verifiable address only)</li>
+              </ol>
+            </div>
+
+            <h6>Balance on address</h6>
+            <div class="definition">
+              <p><em>Description:</em> Balance on an address at the ICO end date that reflects the amount contributed via ICO to this address. In case a zero balance is found at the ICO end date, a balance for the following days was checked.</p>
+              <p><em>Sources</em> as prioritised:</p>
+              <ol>
+                <li>Blockchain explorer</li>
+                <li>Own database based on blockchain explorer data.</li>
+                <li>If 1 and 2 are not available &#8212; the team&#8217;s public official channels</li>
+              </ol>
+            </div>
+
+            <h6>Raised funds (valuation) in BTC</h6>
+            <div class="definition">
+              <p><em>Description:</em> Sum of ICO balances found on each of the ICO addresses at or around the ICO end date, in BTC. Balances in other currencies than BTC were converted to BTC using the historical exchange rates.</p>
+            </div>
+
+            <h6>Raised funds (valuation) in ETH</h6>
+            <div class="definition">
+              <p><em>Description:</em> Sum of ICO balances found on each of the addresses at or around the ICO end date, in ETH. For balances in other currencies than ETH, the value was calculated as: Raised funds Valuation, BTC / Price of 1 BTC in ETH at the end of ICO.</p>
+            </div>
+
+            <h6>Raised funds valuation in USD</h6>
+            <div class="definition">
+              <p><em>Description:</em> Raised funds (valuation) in BTC * Price of 1 BTC in USD at the end of ICO</p>
+            </div>
+
+            <h6>Amount of tokens sold via ICO</h6>
+            <div class="definition">
+              <p><em>Sources:</em> Team&#8217;s public official channels</p>
+            </div>
+
+            <h6>Total amount of tokens issued via ICO</h6>
+            <div class="definition">
+              <p><em>Sources:</em> Team&#8217;s public official channels</p>
+            </div>
+
+            <h6>Share of tokens sold, %</h6>
+            <div class="definition">
+              <p><em>Description:</em> Amount of tokens sold via ICO / Total amount of tokens issued via ICO</p>
+            </div>
+
+            <h6>Token initial price in BTC</h6>
+            <div class="definition">
+              <p><em>Description:</em> Raised funds (valuation) in BTC / Amount of tokens sold via ICO</p>
+            </div>
+
+            <h6>Token initial price in ETH</h6>
+            <div class="definition">
+              <p><em>Description:</em> Raised funds (valuation) in ETH / Amount of tokens sold via ICO</p>
+            </div>
+
+            <h6>Token initial price in USD</h6>
+            <div class="definition">
+              <p><em>Description:</em> Token initial price in BTC  * Price of 1 BTC in USD at the end of ICO</p>
+            </div>
+
+          </section>
+
+          <section id="s7-sub2-2">
+            <h5>II. Current development status and market-related variables</h5>
+
+            <h6>Code availability as of 15.08.2017</h6>
+            <div class="definition">
+              <p><em>Description:</em> Whether the code of the project is delivered <em>and</em> openly available on Github</p>
+              <p class="margin-left"><em>0</em> &#8212; source code not available and/or only forked repositories available and/or ICO contract code only available</p>
+              <p class="margin-left"><em>1</em> &#8212; the project&#8217;s code is at least partially available on Github. The <em>NXT</em> project did not meet this criterion formally, but was assigned value &#8220;1&#8221; as its code was released on <a href="https://bitbucket.org/JeanLucPicard/nxt/src" title="JeanLucPicard / nxt / source  / &mdash; Bitbucket" target="_blank">BitBucket.org</a></p>
+            </div>
+
+            <h6>Product status as of 15.08.2017</h6>
+            <div class="definition">
+              <p><em>Description:</em> Whether a working and testable Minimum Viable Product of the project has been delivered after ICO</p>
+              <p class="margin-left"><em>0</em> &#8212; no testable MVP available</p>
+              <p class="margin-left"><em>1</em> &#8212; a testable working product is available, it can be easily found and interacted with / proven by transactions in blockchain explorer. For the extent possible, the dates of the MVP releases were taken into account to make sure that the MVP was delivered <em>after</em> ICO as for the purpose of this report we are interested in the teams&#8217; <em>post-ICO</em> progress, that is in what the teams have delivered so far using the ICO funding.</p>
+              <p class="margin-left">For projects that finished their crowdsale in 2016 in 2017, value &#8220;1&#8221; was assigned when at least an Alpha with minimum functionality was available and could be tested, with a clear reference to it on the project&#8217;s website (e.g. <em>Golem</em>, <em>Synereo</em>, <em>Aragon</em>, <em>Melonport</em>, <em>Sonm</em>, <em>Status</em>). By testable we mean a product version that can be tested by the broad public. E.g. in the case of <em>HumanIQ</em> the team is known to have launched an app in Ghana, but the app could be tested by a limited and closed group of users only. Therefore, we could not verify whether it was working or not and value &#8220;0&#8221; was assigned.</p>
+            </div>
+
+            <h6>Token market price in USD <span class="not-bold">as of 07.08.2017</span></h6>
+            <div class="definition">
+              <p><em>Sources:</em> <a href="https://coinmarketcap.com/" title="Cryptocurrency Market Capitalizations | CoinMarketCap" target="_blank">Coinmarketcap</a></p>
+            </div>
+
+            <h6>Current total supply of tokens <span class="not-bold">as of 07.08.2017</span></h6>
+            <div class="definition">
+              <p><em>Sources</em> as prioritised:</p>
+              <ol>
+                <li>Blockchain explorer</li>
+                <li>If 1 not available &#8212; total supply value from <a href="https://coinmarketcap.com/" title="Cryptocurrency Market Capitalizations | CoinMarketCap" target="_blank">Coinmarketcap</a></li>
+                <li>In case of SAFE Network, when 1 and 2 were not available, circulating supply from <a href="https://coinmarketcap.com/" title="Cryptocurrency Market Capitalizations | CoinMarketCap" target="_blank">Coinmarketcap</a> was used by way of exception</li>
+              </ol>
+            </div>
+
+            <h6>Current market capitalization of the project&#8217;s token in USD <span class="not-bold">as of 07.08.2017</span></h6>
+            <div class="definition">
+              <p><em>Description:</em> Token market price in USD as of 07.08.2017 * Current total supply of tokens as of 07.08.2017</p>
+            </div>
+
+            <h6>Compound monthly growth rate (CMGR) of token <span class="not-bold">as of 07.08.2017</span></h6>
+            <div class="definition">
+              <p><em>Description:</em> ((Token market price in USD as of 07.08.2017 / Token initial price in USD)^(1/number of months between ICO end date and 07.08.2017)) - 1</p>
+            </div>
+
+          </section>
+
+        </section>
+
+        <section id="s7-sub3">
+          <h4>Appendix C. Projects by CMGR</h4>
+          <p>All projects are divided in groups by amount of months passed since the token initial price was available. The first group (from <em>NEM</em> down to <em>DigixDAO</em>) is composed of the projects with a period of 10 months or more passed since the token initial price appeared. Within each group the projects are sorted in descending order from highest CMGR to lowest.</p>
+
+          <div id="t5" class="table">
+            <h6><span class="not-bold">Table 5: </span>Projects by CMGR as of 7 August, 2017</h6>
+            <p>Please refer to <a href="#s7-sub2">Appendix B</a> for the methodological description of each variable displayed in the table below</p>
+
+            <table cellpadding=0 cellspacing=0>
+              <thead class="shade-tr">
+                <tr>
+                  <th align="left">Project</th>
+                  <th align="left"># of<br>months</th>
+                  <th align="right">CMGR<br><span class="not-bold">as of 07.08.2017</span></th>
+                  <th align="left">Dependency</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="shade1">
+                  <td>NEM <em>(former AntShares)</em></td>
+                  <td>11</td>
+                  <td align="right">51.7%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Waves</td>
+                  <td>14</td>
+                  <td align="right">27.5%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>SingularDTV</td>
+                  <td>10</td>
+                  <td align="right">24.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Factom</td>
+                  <td>27</td>
+                  <td align="right">23.8%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Nxt</td>
+                  <td>45</td>
+                  <td align="right">22.8%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Ethereum</td>
+                  <td>35</td>
+                  <td align="right">22.1%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Plutus</td>
+                  <td>13</td>
+                  <td align="right">21.5%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Augur</td>
+                  <td>22</td>
+                  <td align="right">17.0%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>BitShares</td>
+                  <td>37</td>
+                  <td align="right">12.7%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>SAFE Network</td>
+                  <td>40</td>
+                  <td align="right">8.4%</td>
+                  <td>Omni</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Omni <em>(former Mastercoin)</em></td>
+                  <td>47</td>
+                  <td align="right">7.4%</td>
+                  <td>Bitcoin</td>
+                </tr>
+                <tr class="shade1 border">
+                  <td>DigixDAO</td>
+                  <td>16</td>
+                  <td align="right">-2.9%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2">
+                  <td>Synereo</td>
+                  <td>9</td>
+                  <td align="right">77.3%</td>
+                  <td>Omni</td>
+                </tr>
+                <tr class="shade2 border">
+                  <td>Decent</td>
+                  <td>9</td>
+                  <td align="right">33.7%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Komodo</td>
+                  <td>8</td>
+                  <td align="right">61.9%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Golem</td>
+                  <td>8</td>
+                  <td align="right">52.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1 border">
+                  <td>Golos</td>
+                  <td>8</td>
+                  <td align="right">28.7%</td>
+                  <td>Independent</td>
+                </tr>
+                <tr class="shade2">
+                  <td>vDice</td>
+                  <td>7</td>
+                  <td align="right">121.3%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2 border">
+                  <td>Wings</td>
+                  <td>7</td>
+                  <td align="right">60.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Melonport</td>
+                  <td>5</td>
+                  <td align="right">74.6%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1 border">
+                  <td>Chronobank</td>
+                  <td>5</td>
+                  <td align="right">28.9%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2 border">
+                  <td>Matchpool</td>
+                  <td>4</td>
+                  <td align="right">7.9%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Gnosis</td>
+                  <td>3</td>
+                  <td align="right">90.2%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>iExec</td>
+                  <td>3</td>
+                  <td align="right">33.4%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>TokenCard</td>
+                  <td>3</td>
+                  <td align="right">20.5%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>WeTrust</td>
+                  <td>3</td>
+                  <td align="right">10.5%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Blockchain Capital</td>
+                  <td>3</td>
+                  <td align="right">1.6%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1 border">
+                  <td>HumanIQ</td>
+                  <td>3</td>
+                  <td align="right">-14.5%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2">
+                  <td>Veritaseum</td>
+                  <td>2</td>
+                  <td align="right">573.2%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2">
+                  <td>Basic Attention Token</td>
+                  <td>2</td>
+                  <td align="right">124.3%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade2">
+                  <td>Peerplays</td>
+                  <td>2</td>
+                  <td align="right">103.9%</td>
+                  <td>Bitshares</td>
+                </tr>
+                <tr class="shade2 border">
+                  <td>Aragon</td>
+                  <td>2</td>
+                  <td align="right">51.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Status</td>
+                  <td>1</td>
+                  <td align="right">120.2%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Civic</td>
+                  <td>1</td>
+                  <td align="right">102.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>EOS</td>
+                  <td>1</td>
+                  <td align="right">98.0%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Bancor Network</td>
+                  <td>1</td>
+                  <td align="right">41.5%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="shade1">
+                  <td>Sonm</td>
+                  <td>1</td>
+                  <td align="right">-64.1%</td>
+                  <td>Ethereum</td>
+                </tr>
+                <tr class="last shade1">
+                  <td>Santiment</td>
+                  <td>1</td>
+                  <td align="right">-72.8%</td>
+                  <td>Ethereum</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="notes">
+              <p>Note: Values for Storj ICO of 2017 are not included because the amount of tokens sold during ICO needed to calculate the token initial price (and therefore CMGR) is not known.</p>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <footer>
+        <ol>
+          <li id="footnote-1">By ICO, or crowdsale, we refer to <em>Initial Coin Offering</em> &#8212; a way of crowdfunding a project and selling the project&#8217;s tokens to investors and prospective users that gained huge popularity among projects that issue own cryptocurrencies (tokens). For many startups it has become an alternative to traditional VC funding. <sup><a href="#fn-source-1">Back</a></sup></li>
+        </ol>
+      </footer>
+
+    </article>
+  </div>
+</div>
+</template>

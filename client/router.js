@@ -223,6 +223,15 @@ FlowRouter.route("/decisions", {
   }
 });
 
+FlowRouter.route("/posticomonitor", {
+  name: "PostICOMonitor",
+  action: function(params, queryParams) {
+    BlazeLayout.render("layoutMain", {
+      main: "posticomonitor"
+    });
+  }
+});
+
 FlowRouter.route("/invest", {
   name: "Invest",
   action: function(params, queryParams) {
