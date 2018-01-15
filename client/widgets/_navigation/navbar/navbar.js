@@ -15,7 +15,7 @@ function collapseSideNav(instance){
     return instance && instance.$ 
     && instance.$('.button-collapse').sideNav()
     && instance 
-  } catch {
+  } catch(e) {
     return instance
   }
 }

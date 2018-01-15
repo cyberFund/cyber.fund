@@ -102,7 +102,7 @@ FlowRouter.route("/system/:name_", {
     function setTitle(context, redirect) {
       //var routeName = context.route.name;
       var name = context.params.name_.replace(/_/g, " ");
-      document.title = name + " - " + "cyber•Fund";
+      document.title = name + " - " + "cyber • Fund";
     }
   ],
   action: function(params, queryParams) {
@@ -119,7 +119,7 @@ FlowRouter.route("/system/:name_/:extra", {
     function setTitle(context, redirect) {
       //var routeName = context.route.name;
       var name = context.params.name_.replace(/_/g, " ");
-      document.title = name + " - " + context.params.extra + "(cyber•Fund)";
+      document.title = name + " - " + context.params.extra + "(cyber • Fund)";
     }
   ],
   action: function(params, queryParams) {
@@ -142,7 +142,7 @@ FlowRouter.route("/@:username", {
       var username = context.params.username;
       var user = userUtils.findByUsername(username);
       var name = user && user.profile && user.profile.name || username;
-      document.title = name + " at " + "cyber•Fund";
+      document.title = name + " at " + "cyber • Fund";
     },
 
     function setCurrentUserSessions(context, redirect) {

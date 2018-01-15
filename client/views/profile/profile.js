@@ -32,7 +32,7 @@ Template['profile'].onCreated(function() {
     var username = FlowRouter.getParam('username');
     var user = findByUsername(username)
     var name = user && user.profile && user.profile.name || username;
-    document.title = name + ' - ' + 'cyber•Fund';
+    document.title = name + ' - ' + 'cyber • Fund';
   });
 });
 
