@@ -56,7 +56,7 @@ FlowRouter.triggers.enter([
   },
   function setTitle(context, redirect) {
     var routeName = context.route.name;
-    document.title = routeName ? routeName + " - " + "cyber•Fund" : "cyber•Fund";
+    document.title = routeName ? routeName + " - " + "cyber • Fund" : "cyber • Fund";
   },
   function analyticsReport(context, redirect) {
     var options = {
