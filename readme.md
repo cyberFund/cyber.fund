@@ -15,14 +15,5 @@ Feel free to join and ask in English even if chat sometime in Russian :-)
 
 # Where to see it in action ?
 
-See live dev version at http://dev.cyber.fund/ . Sometimes it doesn't work, another dev version is at http://galaxy.cyber.fund - this one connects to production database, so PleasE do not use private portfolios until https :)
+The spin-off of cyber.fund could be found here https://github.com/cybercongress/. 
 
-See beta at https://cyber.fund .
-
-# How to launch the app ?
-
-$`meteor`
-
-# Is there API ?
-
-soon. docs will go [there](https://market.mashape.com/21xhipster/cyberfund)
